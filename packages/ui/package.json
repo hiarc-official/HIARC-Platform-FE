@@ -1,0 +1,9 @@
+{
+  "name": "@hiarc/ui",
+  "version": "0.1.0",
+  "main": "./src/index.ts",
+  "dependencies": {
+    "react": "^18.x",
+    "tailwind-variants": "^0.x"
+  }
+}
