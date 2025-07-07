@@ -1,0 +1,23 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "./src", // 핵심: src 기준으로 절대경로 설정
+    "paths": {
+      "@/*": ["./*"],
+      "@core/*": ["../../../packages/core/src/*"],
+      "@ui/*": ["../../../packages/ui/src/*"],
+      "@utils/*": ["../../../packages/utils/src/*"]
+    },
+    "jsx": "preserve"
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "../../packages/core/src/exceptions/ServerExceptions.ts",
+    "../../packages/core/src/exceptions/BaseAxiosRepository.ts",
+    "../../packages/core/src/exceptions/BaseException.ts"
+  ],
+  "exclude": ["node_modules"]
+}

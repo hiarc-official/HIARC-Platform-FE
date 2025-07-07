@@ -18,9 +18,13 @@
         "name": "next"
       }
     ],
+    "baseUrl": ".", // 프로젝트 루트 기준으로 절대경로 설정
     "paths": {
-      "/public/*": ["./public/*"],
-      "@/*": ["./src/*"]
+      "@ui/*": ["./packages/ui/src/*"],
+      "@utils/*": ["./packages/utils/src/*"],
+      "@core/*": ["./packages/core/src/*"],
+      "@intra/*": ["./apps/intra/*"],
+      "@admin/*": ["./apps/admin/*"]
     },
     "experimentalDecorators": true, // 데코레이터 문법 허용
     "emitDecoratorMetadata": true // 런타임에 타입 메타데이터를 생성 (tsyringe가 필요)

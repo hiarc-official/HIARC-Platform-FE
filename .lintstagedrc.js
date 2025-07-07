@@ -4,32 +4,32 @@ const path = require('path');
 const buildEslintCommand = (filenames) => {
   const filesByApp = filenames.reduce(
     (acc, file) => {
-      if (file.startsWith('apps/hiarc/')) {
-        acc.hiarc.push(file);
-      } else if (file.startsWith('apps/manage/')) {
-        acc.manage.push(file);
+      if (file.startsWith('apps/intra/')) {
+        acc.intra.push(file);
+      } else if (file.startsWith('apps/admin/')) {
+        acc.admin.push(file);
       } else {
         acc.root.push(file);
       }
       return acc;
     },
-    { hiarc: [], manage: [], root: [] }
+    { intra: [], admin: [], root: [] }
   );
 
   const commands = [];
 
-  if (filesByApp.hiarc.length) {
+  if (filesByApp.intra.length) {
     commands.push(
-      `cd apps/hiarc && eslint --fix ${filesByApp.hiarc
-        .map((f) => path.relative('apps/hiarc', f))
+      `cd apps/intra && eslint --fix ${filesByApp.intra
+        .map((f) => path.relative('apps/intra', f))
         .join(' ')}`
     );
   }
 
-  if (filesByApp.manage.length) {
+  if (filesByApp.admin.length) {
     commands.push(
-      `cd apps/manage && eslint --fix ${filesByApp.manage
-        .map((f) => path.relative('apps/manage', f))
+      `cd apps/admin && eslint --fix ${filesByApp.admin
+        .map((f) => path.relative('apps/admin', f))
         .join(' ')}`
     );
   }
