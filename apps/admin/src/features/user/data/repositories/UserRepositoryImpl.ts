@@ -24,7 +24,7 @@ export class UserRepositoryImpl extends BaseAxiosRepository implements IUserRepo
     const result = await this.parseData<UserModel>(
       this.axios.get(`/api/users/${id}`),
       (json) => {
-        const data = json as unknown;
+        const data = json as { id: string; email: string; name: string };
         return UserModel.create({
           id: data.id,
           email: data.email,
