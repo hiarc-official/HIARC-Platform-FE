@@ -1,16 +1,16 @@
-import {useEffect, useState} from "react";
-import {Navigate} from "react-router-dom";
-import apiClient from "../api/ApiClient";
+import { PropsWithChildren, useEffect, useState } from 'react';
+import { Navigate } from 'react-router-dom';
+import apiClient from '../api/ApiClient';
 
-export const AdminGuard = ({children}: {children: JSX.Element}) => {
+export const AdminGuard = ({ children }: PropsWithChildren) => {
   const [authorized, setAuthorized] = useState(false);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     const checkAdmin = async () => {
       try {
-        await apiClient.get("/admin/auth-check", {
+        await apiClient.get('/admin/auth-check', {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           },
         });
         setAuthorized(true);
