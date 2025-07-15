@@ -12,11 +12,11 @@
   "dependencies": {
     "next": "15.3.5",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "@ui/components": "file:../../packages/ui"
   },
   "devDependencies": {
     "@types/react": "^19",
-    "@types/node": "^20.19.8",
-    "typescript": "^5"
+    "@types/node": "^20"
   }
 }
