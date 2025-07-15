@@ -9,6 +9,66 @@
       "import": "./src/index.ts",
       "require": "./src/index.ts",
       "types": "./src/index.ts"
+    },
+    "./Button": {
+      "import": "./src/components/button.tsx",
+      "require": "./src/components/button.tsx",
+      "types": "./src/components/button.tsx"
+    },
+    "./Card": {
+      "import": "./src/components/card.tsx",
+      "require": "./src/components/card.tsx",
+      "types": "./src/components/card.tsx"
+    },
+    "./Input": {
+      "import": "./src/components/input.tsx",
+      "require": "./src/components/input.tsx",
+      "types": "./src/components/input.tsx"
+    },
+    "./Label": {
+      "import": "./src/components/label.tsx",
+      "require": "./src/components/label.tsx",
+      "types": "./src/components/label.tsx"
+    },
+    "./Dialog": {
+      "import": "./src/components/dialog.tsx",
+      "require": "./src/components/dialog.tsx",
+      "types": "./src/components/dialog.tsx"
+    },
+    "./Avatar": {
+      "import": "./src/components/avatar.tsx",
+      "require": "./src/components/avatar.tsx",
+      "types": "./src/components/avatar.tsx"
+    },
+    "./Badge": {
+      "import": "./src/components/badge.tsx",
+      "require": "./src/components/badge.tsx",
+      "types": "./src/components/badge.tsx"
+    },
+    "./Checkbox": {
+      "import": "./src/components/checkbox.tsx",
+      "require": "./src/components/checkbox.tsx",
+      "types": "./src/components/checkbox.tsx"
+    },
+    "./Select": {
+      "import": "./src/components/select.tsx",
+      "require": "./src/components/select.tsx",
+      "types": "./src/components/select.tsx"
+    },
+    "./Separator": {
+      "import": "./src/components/separator.tsx",
+      "require": "./src/components/separator.tsx",
+      "types": "./src/components/separator.tsx"
+    },
+    "./Textarea": {
+      "import": "./src/components/textarea.tsx",
+      "require": "./src/components/textarea.tsx",
+      "types": "./src/components/textarea.tsx"
+    },
+    "./Toggle": {
+      "import": "./src/components/toggle.tsx",
+      "require": "./src/components/toggle.tsx",
+      "types": "./src/components/toggle.tsx"
     }
   },
   "dependencies": {
