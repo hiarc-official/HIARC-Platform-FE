@@ -1,7 +1,5 @@
 {
   "rewrites": [{"source": "/(.*)", "destination": "/index.html"}],
   "buildCommand": "pnpm build",
-  "installCommand": "pnpm install",
-  "framework": "vite",
-  "rootDirectory": "apps/intro"
+  "installCommand": "pnpm install"
 }
