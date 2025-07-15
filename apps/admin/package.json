@@ -9,13 +9,13 @@
     "test": "jest"
   },
   "dependencies": {
-    "@ui/components": "*",
-    "next": "14.x",
-    "react": "18.x",
-    "react-dom": "18.x"
+    "next": "15.3.5",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "@ui/components": "workspace:*"
   },
   "devDependencies": {
-    "@types/react": "^18.x",
-    "@types/node": "^20.x"
+    "@types/react": "^19",
+    "@types/node": "^20"
   }
 }
