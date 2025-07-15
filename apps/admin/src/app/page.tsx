@@ -1,9 +1,14 @@
+'use client';
+
 import { Button } from '@ui/components/Button';
 
 export default function Home() {
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-     <Button variant='default'>admin</Button>
+      <div className="text-2xl font-bold">Welcome to the Admin Page!!</div>
+      <Button onClick= {() => {
+        console.log('Button clicked!')
+      }} variant='default' >admin</Button>
     </div>
   );
 }

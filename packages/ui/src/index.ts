@@ -1,3 +1,5 @@
+// import './globals.css';
+
 export * from './components/alert-dialog';
 export * from './components/aspect-ratio';
 export * from './components/avatar';
