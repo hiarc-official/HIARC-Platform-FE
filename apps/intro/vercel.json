@@ -1,6 +1,5 @@
 {
-  "rewrites": [{"source": "/(.*)", "destination": "/index.html"}],
+  "installCommand": "pnpm install",
   "buildCommand": "pnpm build",
-  "installCommand": "pnpm install --ignore-workspace --prefer-offline",
-  "framework": "vite"
+  "rewrites": [{"source": "/(.*)", "destination": "/index.html"}]
 }

@@ -158,7 +158,7 @@ importers:
   apps/admin:
     dependencies:
       '@ui/components':
-        specifier: workspace:*
+        specifier: file:../../packages/ui
         version: link:../../packages/ui
       next:
         specifier: 15.3.5
