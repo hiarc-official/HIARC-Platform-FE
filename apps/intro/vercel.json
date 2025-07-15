@@ -1,5 +1,7 @@
 {
   "rewrites": [{"source": "/(.*)", "destination": "/index.html"}],
-  "buildCommand": "pnpm build",
-  "installCommand": "pnpm install"
+  "buildCommand": "cd apps/intro && pnpm build",
+  "installCommand": "cd apps/intro && pnpm install --no-frozen-lockfile",
+  "framework": "vite",
+  "outputDirectory": "apps/intro/dist"
 }
