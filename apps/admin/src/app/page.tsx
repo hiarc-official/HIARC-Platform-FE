@@ -1,13 +1,14 @@
 'use client';
 
+import React from 'react';
 import { Button } from '@ui/components/Button';
 
-export default function Home() {
+export default function Home(): React.ReactElement {
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <div className="text-2xl font-bold">Welcome to the Admin Page!!</div>
-      <Button onClick= {() => {
-        console.log('Button clicked!')
+      <Button onClick={() => {
+        console.log('Button clicked!');
       }} variant='default' >admin</Button>
     </div>
   );
