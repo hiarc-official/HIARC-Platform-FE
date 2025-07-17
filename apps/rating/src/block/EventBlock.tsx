@@ -1,8 +1,8 @@
-import styled from "styled-components";
-import {useAtom} from "jotai";
-import EventButton from "../components/EventButton";
-import EventEntity from "../atoms/EventEntity";
-import {hitingDataAtom} from "../store/Atom";
+import styled from 'styled-components';
+import { useAtom } from 'jotai';
+import EventButton from '../components/EventButton';
+import EventEntity from '../atoms/EventEntity';
+import { hitingDataAtom } from '../store/Atom';
 
 const Wrapper = styled.div`
   width: 255px;

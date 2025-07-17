@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import Img from "../assets/eventImg.png";
+import styled from 'styled-components';
+import Img from '../assets/eventImg.png';
 
 const Button = styled.div`
   width: 194px;
@@ -31,7 +31,7 @@ const EventButton = () => {
     <Button>
       <Left>Event</Left>
       <Right>
-        {" "}
+        {' '}
         <img src={Img} alt="이벤트이미지" />
       </Right>
     </Button>

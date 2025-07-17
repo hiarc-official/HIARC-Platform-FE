@@ -1,7 +1,7 @@
-import React from "react";
-import styled from "styled-components";
-import FontStyle from "../../ui/FontStyle";
-import Color from "../../ui/Color";
+import React from 'react';
+import styled from 'styled-components';
+import FontStyle from '../../ui/FontStyle';
+import Color from '../../ui/Color';
 
 interface RoundedRectangleContainerProps {
   backgroundColor: string;
@@ -41,11 +41,7 @@ const RoundedRectangleContainer: React.FC<RoundedRectangleContainerProps> = ({
   text,
 }) => {
   return (
-    <RoundedRectangleContainerStyle
-      backgroundColor={backgroundColor}
-      width={width}
-      height={height}
-    >
+    <RoundedRectangleContainerStyle backgroundColor={backgroundColor} width={width} height={height}>
       <TextStyle height={height} contentColor={contentColor}>
         {text}
       </TextStyle>

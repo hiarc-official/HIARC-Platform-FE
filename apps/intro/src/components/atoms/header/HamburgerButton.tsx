@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import HamburgerMenuIcon from "@/assets/icon/hamburger_menu.svg?react";
-import Colors from "@/constants/ui/Colors";
-import FontStyles from "@/constants/ui/FontStyles";
+import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import HamburgerMenuIcon from '@/assets/icon/hamburger_menu.svg?react';
+import Colors from '@/constants/ui/Colors';
+import FontStyles from '@/constants/ui/FontStyles';
 
 const Container = styled.div`
   position: relative;
@@ -38,8 +38,8 @@ const DropdownMenu = styled.div<{ $isOpen: boolean }>`
     0 4px 6px -2px rgba(0, 0, 0, 0.05);
   z-index: 50;
   transition: opacity 300ms ease-in-out;
-  opacity: ${(props) => (props.$isOpen ? "1" : "0")};
-  pointer-events: ${(props) => (props.$isOpen ? "auto" : "none")};
+  opacity: ${(props) => (props.$isOpen ? '1' : '0')};
+  pointer-events: ${(props) => (props.$isOpen ? 'auto' : 'none')};
 `;
 
 const MenuList = styled.ul`
@@ -73,11 +73,11 @@ const StyledHamburgerIcon = styled(HamburgerMenuIcon)`
 const HamburgerButton: React.FC = () => {
   const navigate = useNavigate();
   const menuItems = [
-    { label: "홈", onClick: () => navigate("/") },
-    { label: "학회소개", onClick: () => navigate("/introduce_hiarc") },
-    { label: "학회 활동", onClick: () => navigate("/activity") },
-    { label: "스터디", onClick: () => navigate("/study") },
-    { label: "수상경력", onClick: () => navigate("/award") },
+    { label: '홈', onClick: () => navigate('/') },
+    { label: '학회소개', onClick: () => navigate('/introduce_hiarc') },
+    { label: '학회 활동', onClick: () => navigate('/activity') },
+    { label: '스터디', onClick: () => navigate('/study') },
+    { label: '수상경력', onClick: () => navigate('/award') },
   ];
 
   const [menuOpen, setMenuOpen] = useState(false);
@@ -88,21 +88,18 @@ const HamburgerButton: React.FC = () => {
   // Close menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setMenuOpen(false);
       }
     };
 
     if (menuOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener('mousedown', handleClickOutside);
     } else {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     }
 
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [menuOpen]);
 
   return (

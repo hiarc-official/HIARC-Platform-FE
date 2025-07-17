@@ -1,8 +1,8 @@
-import {useState, useEffect} from "react";
-import styled from "styled-components";
-import RankingContainerExplainBar from "../components/RankingContainerExplainBar";
-import RankingEntity from "../components/RankingEntity";
-import {fetchRankingData} from "../api/RanikingApi";
+import { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import RankingContainerExplainBar from '../components/RankingContainerExplainBar';
+import RankingEntity from '../components/RankingEntity';
+import { fetchRankingData } from '../api/RanikingApi';
 
 const Wrapper = styled.div`
   width: 673px;
@@ -13,7 +13,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const RankingContiner = ({selected}: {selected: number}) => {
+const RankingContiner = ({ selected }: { selected: number }) => {
   const [rankingData, setRankingData] = useState<
     {
       num: number;
@@ -33,7 +33,7 @@ const RankingContiner = ({selected}: {selected: number}) => {
         const data = await fetchRankingData(selected);
         setRankingData(data);
       } catch (err) {
-        setError(err instanceof Error ? err.message : "알 수 없는 오류 발생");
+        setError(err instanceof Error ? err.message : '알 수 없는 오류 발생');
       }
     };
 
@@ -45,7 +45,7 @@ const RankingContiner = ({selected}: {selected: number}) => {
   return (
     <Wrapper>
       <RankingContainerExplainBar />
-      {rankingData.map(({num, handle, tier, today, total, event}) => (
+      {rankingData.map(({ num, handle, tier, today, total, event }) => (
         <RankingEntity
           key={num}
           ranking={num}

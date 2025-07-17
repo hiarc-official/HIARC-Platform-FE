@@ -1,9 +1,9 @@
-import {useState, useEffect} from "react";
-import styled from "styled-components";
-import Color from "../ui/Color";
-import HeaderInput from "../atoms/HeaderInput";
-import {useNavigate} from "react-router-dom";
-import Home from "../assets/Home.svg";
+import { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import Color from '../ui/Color';
+import HeaderInput from '../atoms/HeaderInput';
+import { useNavigate } from 'react-router-dom';
+import Home from '../assets/Home.svg';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -81,8 +81,8 @@ const Header = () => {
       setIsMobile(window.innerWidth <= 480);
     };
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   return (
@@ -92,7 +92,7 @@ const Header = () => {
       {isMobile && (
         <MobileHeaderWrapper>
           <HIARC href="https://hiarchomepage.web.app/">HI-ARC</HIARC>
-          <HitingWrapper onClick={() => navigate("/")}>
+          <HitingWrapper onClick={() => navigate('/')}>
             <img src={Home} alt="home" />
           </HitingWrapper>
         </MobileHeaderWrapper>
@@ -104,7 +104,7 @@ const Header = () => {
         </InputWrapper>
 
         {!isMobile && (
-          <HitingWrapper onClick={() => navigate("/")}>
+          <HitingWrapper onClick={() => navigate('/')}>
             <img src={Home} alt="home" />
           </HitingWrapper>
         )}

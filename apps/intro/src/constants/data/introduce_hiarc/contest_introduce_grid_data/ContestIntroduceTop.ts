@@ -1,7 +1,7 @@
 // src/constants/data/main_title/ContestIntroduceTop.ts
-import Color from "@/components/ui/Color";
-import CellType from "@/enum/CellType";
-import TopLayerGridItemData from "@/types/TopLayerGridItemData";
+import Color from '@/components/ui/Color';
+import CellType from '@/enum/CellType';
+import TopLayerGridItemData from '@/types/TopLayerGridItemData';
 
 const ContestIntroduceTop: TopLayerGridItemData[] = [
   {
@@ -9,7 +9,7 @@ const ContestIntroduceTop: TopLayerGridItemData[] = [
     type: CellType.HORIZONTAL_RECTANGLE,
     backgroundColor: Color.primary,
     contentColor: Color.white,
-    text: "대회 주최",
+    text: '대회 주최',
   },
   {
     position: [3, 1],

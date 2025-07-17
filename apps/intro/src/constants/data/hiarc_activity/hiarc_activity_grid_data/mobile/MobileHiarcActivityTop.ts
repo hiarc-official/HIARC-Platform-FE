@@ -1,10 +1,10 @@
-import Color from "@/components/ui/Color";
-import CellType from "@/enum/CellType";
-import TopLayerGridItemData from "@/types/TopLayerGridItemData";
-import HiarcLogo from "@/assets/image/hiarc_logo.png";
-import HiConnectImage1 from "@/assets/image/hi_connect_1.png";
-import HiConnectImage2 from "@/assets/image/hi_connect_2.png";
-import IcpcImage from "@/assets/image/icpc.png";
+import Color from '@/components/ui/Color';
+import CellType from '@/enum/CellType';
+import TopLayerGridItemData from '@/types/TopLayerGridItemData';
+import HiarcLogo from '@/assets/image/hiarc_logo.png';
+import HiConnectImage1 from '@/assets/image/hi_connect_1.png';
+import HiConnectImage2 from '@/assets/image/hi_connect_2.png';
+import IcpcImage from '@/assets/image/icpc.png';
 
 const MobileHiarcActivityTop: TopLayerGridItemData[] = [
   {
@@ -19,7 +19,7 @@ const MobileHiarcActivityTop: TopLayerGridItemData[] = [
     type: CellType.LONG_HORIZONTAL_RECTANGLE,
     backgroundColor: Color.yellow,
     contentColor: Color.primary,
-    text: "학회 활동",
+    text: '학회 활동',
   },
   {
     position: [5, 1],
@@ -37,7 +37,7 @@ const MobileHiarcActivityTop: TopLayerGridItemData[] = [
     type: CellType.LONG_HORIZONTAL_RECTANGLE,
     backgroundColor: Color.primary,
     contentColor: Color.white,
-    text: "HI-CONNECT",
+    text: 'HI-CONNECT',
   },
   {
     position: [4, 2],
@@ -55,7 +55,7 @@ const MobileHiarcActivityTop: TopLayerGridItemData[] = [
     backgroundColor: Color.primary,
     contentColor: Color.white,
     image: HiConnectImage1,
-    caption: "@제 3회 HI-CONNECT",
+    caption: '@제 3회 HI-CONNECT',
   },
 
   {
@@ -83,14 +83,14 @@ const MobileHiarcActivityTop: TopLayerGridItemData[] = [
     type: CellType.HORIZONTAL_RECTANGLE,
     backgroundColor: Color.primary,
     contentColor: Color.white,
-    text: "ICPC",
+    text: 'ICPC',
   },
   {
     position: [4, 5],
     type: CellType.HORIZONTAL_RECTANGLE,
     backgroundColor: Color.primary,
     contentColor: Color.white,
-    text: "하이팅",
+    text: '하이팅',
   },
   {
     position: [6, 5],
@@ -128,8 +128,8 @@ const MobileHiarcActivityTop: TopLayerGridItemData[] = [
     type: CellType.BUTTON_WITH_ICON,
     backgroundColor: Color.primary,
     contentColor: Color.white,
-    buttonText: "스터디",
-    url: "/study",
+    buttonText: '스터디',
+    url: '/study',
   },
   {
     position: [1, 9],
@@ -153,14 +153,14 @@ const MobileHiarcActivityTop: TopLayerGridItemData[] = [
     backgroundColor: Color.primary,
     contentColor: Color.white,
     image: IcpcImage,
-    caption: "@2024 ICPC예선",
+    caption: '@2024 ICPC예선',
   },
   {
     position: [3, 9],
     type: CellType.IMAGE,
     backgroundColor: Color.primary,
     image: HiConnectImage2,
-    caption: "@제 2회 HI-CONNECT",
+    caption: '@제 2회 HI-CONNECT',
   },
 ];
 

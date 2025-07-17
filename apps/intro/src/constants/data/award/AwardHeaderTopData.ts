@@ -1,6 +1,6 @@
-import Color from "@/components/ui/Color";
-import CellType from "@/enum/CellType";
-import TopLayerGridItemData from "@/types/TopLayerGridItemData";
+import Color from '@/components/ui/Color';
+import CellType from '@/enum/CellType';
+import TopLayerGridItemData from '@/types/TopLayerGridItemData';
 
 const AwardHeaderTopData: TopLayerGridItemData[] = [
   {
@@ -8,7 +8,7 @@ const AwardHeaderTopData: TopLayerGridItemData[] = [
     type: CellType.HORIZONTAL_RECTANGLE,
     backgroundColor: Color.yellow,
     contentColor: Color.primary,
-    text: "수상경력",
+    text: '수상경력',
   },
 ];
 

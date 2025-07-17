@@ -1,8 +1,8 @@
-import {useState} from "react";
-import LayOut from "../ui/Layout";
-import styled from "styled-components";
-import {sendAdminLogin} from "../api/AdminLogin";
-import {useNavigate} from "react-router-dom";
+import { useState } from 'react';
+import LayOut from '../ui/Layout';
+import styled from 'styled-components';
+import { sendAdminLogin } from '../api/AdminLogin';
+import { useNavigate } from 'react-router-dom';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -36,15 +36,15 @@ const Wrapper = styled.div`
 
 export const AdminLoginPage = () => {
   const navigate = useNavigate();
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState('');
   const [capsLockOn, setCapsLockOn] = useState(false);
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    setCapsLockOn(e.getModifierState("CapsLock"));
+    setCapsLockOn(e.getModifierState('CapsLock'));
   };
 
   const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    setCapsLockOn(e.getModifierState("CapsLock"));
-    if (e.key === "Enter") {
+    setCapsLockOn(e.getModifierState('CapsLock'));
+    if (e.key === 'Enter') {
       handleLogin();
     }
   };
@@ -52,12 +52,12 @@ export const AdminLoginPage = () => {
   const handleLogin = async () => {
     try {
       const token = await sendAdminLogin(password);
-      localStorage.setItem("accessToken", token);
-      alert("로그인 성공");
-      navigate("/admin");
+      localStorage.setItem('accessToken', token);
+      alert('로그인 성공');
+      navigate('/admin');
     } catch (error) {
-      alert("로그인 실패");
-      console.log("오류내용: ", error);
+      alert('로그인 실패');
+      console.log('오류내용: ', error);
     }
   };
 
@@ -78,9 +78,7 @@ export const AdminLoginPage = () => {
             입력하기
           </button>
         </div>
-        {capsLockOn && (
-          <div style={{color: "red"}}>CapsLock이 켜져 있습니다!</div>
-        )}
+        {capsLockOn && <div style={{ color: 'red' }}>CapsLock이 켜져 있습니다!</div>}
       </Wrapper>
     </LayOut>
   );

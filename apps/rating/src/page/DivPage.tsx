@@ -1,12 +1,12 @@
-import {useState, useEffect} from "react";
-import styled, {keyframes} from "styled-components";
-import LayOut from "../ui/Layout";
-import DivToggleBar from "../components/DivToggleBar";
-import RankingContainer from "../block/RankingContainer";
-import {useSearchParams} from "react-router-dom";
-import DonutChart from "../atoms/DounutChart";
-import {fetchGraphData} from "../api/RanikingApi";
-import Color from "../ui/Color";
+import { useState, useEffect } from 'react';
+import styled, { keyframes } from 'styled-components';
+import LayOut from '../ui/Layout';
+import DivToggleBar from '../components/DivToggleBar';
+import RankingContainer from '../block/RankingContainer';
+import { useSearchParams } from 'react-router-dom';
+import DonutChart from '../atoms/DounutChart';
+import { fetchGraphData } from '../api/RanikingApi';
+import Color from '../ui/Color';
 
 const fadeIn = keyframes`
   from {
@@ -19,10 +19,10 @@ const fadeIn = keyframes`
   }
 `;
 
-const AnimatedContainer = styled.div<{$animate: boolean; $duration?: string}>`
+const AnimatedContainer = styled.div<{ $animate: boolean; $duration?: string }>`
   opacity: 0;
-  animation: ${({$animate}) => ($animate ? fadeIn : "none")}
-    ${({$duration}) => $duration || "0s"} ease-in-out forwards;
+  animation: ${({ $animate }) => ($animate ? fadeIn : 'none')}
+    ${({ $duration }) => $duration || '0s'} ease-in-out forwards;
 `;
 const HeadWrapper = styled.div`
   font-size: 35px;
@@ -71,7 +71,7 @@ const DivPage = () => {
   const [streakRatio, setStreakRatio] = useState<number | null>(null);
 
   useEffect(() => {
-    const numParam = searchParams.get("num");
+    const numParam = searchParams.get('num');
     if (numParam) {
       setSelected(Number(numParam));
     }
@@ -81,7 +81,7 @@ const DivPage = () => {
     const fetchData = async () => {
       const graphData = await fetchGraphData(selected);
       if (isNaN(graphData)) {
-        console.log("경고: NaN 값이 반환되었습니다.", graphData);
+        console.log('경고: NaN 값이 반환되었습니다.', graphData);
         setStreakRatio(0);
       } else {
         setStreakRatio(graphData);

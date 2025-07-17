@@ -1,9 +1,9 @@
-import React from "react";
-import styled from "styled-components";
-import winnerData from "@/constants/table_data/WinnerData";
-import Winner from "../atoms/competition/Winner";
-import Color from "../ui/Color";
-import FontStyle from "../ui/FontStyle";
+import React from 'react';
+import styled from 'styled-components';
+import winnerData from '@/constants/table_data/WinnerData';
+import Winner from '../atoms/competition/Winner';
+import Color from '../ui/Color';
+import FontStyle from '../ui/FontStyle';
 
 const Wrapper = styled.div`
   display: flex;
@@ -37,9 +37,7 @@ interface CompetitionTableProps {
 
 type WinnerTuple = [number, string, string];
 
-const CompetitionTable: React.FC<CompetitionTableProps> = ({
-  competitionName,
-}) => {
+const CompetitionTable: React.FC<CompetitionTableProps> = ({ competitionName }) => {
   const competitionWinner: WinnerTuple[] =
     (winnerData as { [key: string]: WinnerTuple[] })[competitionName] || [];
 
@@ -52,9 +50,7 @@ const CompetitionTable: React.FC<CompetitionTableProps> = ({
             key={index}
             result={result}
             winnerName={name}
-            color={
-              winnerIndex % 2 === 1 ? Color.toggleColor : Color.transparent
-            }
+            color={winnerIndex % 2 === 1 ? Color.toggleColor : Color.transparent}
           />
         ))}
       </WinnerWrapper>

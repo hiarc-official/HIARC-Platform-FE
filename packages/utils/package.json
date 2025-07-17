@@ -1,9 +1,0 @@
-{
-  "name": "@hiarc/utils",
-  "version": "0.1.0",
-  "main": "./src/index.ts",
-  "dependencies": {
-    "clsx": "^2.1.1",
-    "tailwind-merge": "^3.3.1"
-  }
-}

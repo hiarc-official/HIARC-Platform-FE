@@ -1,11 +1,11 @@
-import React, { ReactNode } from "react";
-import styled from "styled-components";
-import Header from "@/components/organisms/Header";
-import Footer from "@/components/organisms/Footer";
+import React, { ReactNode } from 'react';
+import styled from 'styled-components';
+import Header from '@/components/organisms/Header';
+import Footer from '@/components/organisms/Footer';
 
 interface PageTemplateProps {
   children: ReactNode;
-  align?: "center" | "top";
+  align?: 'center' | 'top';
 }
 
 const Container = styled.div`
@@ -22,7 +22,7 @@ const HeaderContainer = styled.div`
   margin-bottom: 20px;
 `;
 
-const MainContent = styled.main<{ align: "center" | "top" }>`
+const MainContent = styled.main<{ align: 'center' | 'top' }>`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -31,7 +31,7 @@ const MainContent = styled.main<{ align: "center" | "top" }>`
   max-width: 800px;
   padding: 0 1rem;
   ${(props) =>
-    props.align === "center"
+    props.align === 'center'
       ? `
     align-items: center;
     justify-content: center;
@@ -49,10 +49,7 @@ const FooterContainer = styled.div`
   margin-top: 20px;
 `;
 
-const PageTemplate: React.FC<PageTemplateProps> = ({
-  children,
-  align = "center",
-}) => {
+const PageTemplate: React.FC<PageTemplateProps> = ({ children, align = 'center' }) => {
   return (
     <Container>
       <HeaderContainer>

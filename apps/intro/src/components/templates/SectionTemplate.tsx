@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import ToggleIcon from "@/assets/icon/toggle_icon.svg?react";
-import ColoredGridView from "../organisms/ColoredGridView";
-import FontStyle from "../ui/FontStyle";
-import Color from "../ui/Color";
-import ContentText from "../atoms/text/ContentText";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import ToggleIcon from '@/assets/icon/toggle_icon.svg?react';
+import ColoredGridView from '../organisms/ColoredGridView';
+import FontStyle from '../ui/FontStyle';
+import Color from '../ui/Color';
+import ContentText from '../atoms/text/ContentText';
 
 interface SectionTemplateProps {
   colCount: number;
@@ -14,25 +14,24 @@ interface SectionTemplateProps {
   contentText: string;
   toggleText?: string;
   showToggle?: boolean;
-  align?: "left" | "right";
+  align?: 'left' | 'right';
   paddingBottom?: string;
   children?: React.ReactNode;
 }
 
 const SectionContainer = styled.section<{
-  align: "left" | "right";
+  align: 'left' | 'right';
   paddingBottom?: string;
 }>`
   display: flex;
   width: 100%;
   gap: 24px;
-  padding-bottom: ${({ paddingBottom }) => paddingBottom || "54px"};
+  padding-bottom: ${({ paddingBottom }) => paddingBottom || '54px'};
   flex-direction: column;
   align-items: center;
 
   @media (min-width: 640px) {
-    flex-direction: ${({ align }) =>
-      align === "right" ? "row-reverse" : "row"};
+    flex-direction: ${({ align }) => (align === 'right' ? 'row-reverse' : 'row')};
     align-items: flex-start;
   }
 `;
@@ -53,7 +52,7 @@ const ToggleButton = styled.button`
 
 const ToggleIconStyled = styled(ToggleIcon)<{ isOpen: boolean }>`
   transition: transform 0.3s;
-  transform: ${({ isOpen }) => (isOpen ? "rotate(-90deg)" : "rotate(0deg)")};
+  transform: ${({ isOpen }) => (isOpen ? 'rotate(-90deg)' : 'rotate(0deg)')};
   width: clamp(12px, 5vw, 24px);
   height: clamp(12px, 5vw, 24px);
 `;
@@ -70,8 +69,8 @@ const ToggleContent = styled.div<{ isOpen: boolean }>`
     max-height 0.3s,
     opacity 0.3s;
   overflow: hidden;
-  max-height: ${({ isOpen }) => (isOpen ? "1000px" : "0")};
-  opacity: ${({ isOpen }) => (isOpen ? "1" : "0")};
+  max-height: ${({ isOpen }) => (isOpen ? '1000px' : '0')};
+  opacity: ${({ isOpen }) => (isOpen ? '1' : '0')};
 
   text-align: left;
   line-height: 1.5;
@@ -85,7 +84,7 @@ const SectionTemplate: React.FC<SectionTemplateProps> = ({
   contentText,
   toggleText,
   showToggle = false,
-  align = "left",
+  align = 'left',
   paddingBottom,
   children,
 }) => {
@@ -93,7 +92,7 @@ const SectionTemplate: React.FC<SectionTemplateProps> = ({
 
   return (
     <SectionContainer align={align} paddingBottom={paddingBottom}>
-      <div style={{ display: "flex" }}>
+      <div style={{ display: 'flex' }}>
         <ColoredGridView
           maxWidth={250}
           minWidth={150}
@@ -106,10 +105,7 @@ const SectionTemplate: React.FC<SectionTemplateProps> = ({
       <ContentContainer>
         <ContentText text={contentText}></ContentText>
         {showToggle && (
-          <ToggleButton
-            onClick={() => setIsOpen(!isOpen)}
-            aria-expanded={isOpen}
-          >
+          <ToggleButton onClick={() => setIsOpen(!isOpen)} aria-expanded={isOpen}>
             <ToggleIconStyled isOpen={isOpen} />
             <ToggleText>{toggleText}</ToggleText>
           </ToggleButton>

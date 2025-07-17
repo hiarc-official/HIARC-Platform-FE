@@ -1,8 +1,8 @@
-import styled from "styled-components";
-import Color from "../ui/Color";
-import TierImg from "../ui/TierImg";
-import EventImg from "../assets/eventImg.png";
-import {useNavigate} from "react-router-dom";
+import styled from 'styled-components';
+import Color from '../ui/Color';
+import TierImg from '../ui/TierImg';
+import EventImg from '../assets/eventImg.png';
+import { useNavigate } from 'react-router-dom';
 const Wrapper = styled.div`
   height: 40px;
   width: 100%;

@@ -1,7 +1,7 @@
-import React from "react";
-import styled, { keyframes, css } from "styled-components";
-import Color from "../../ui/Color";
-import FontStyle from "@/components/ui/FontStyle";
+import React from 'react';
+import styled, { keyframes, css } from 'styled-components';
+import Color from '../../ui/Color';
+import FontStyle from '@/components/ui/FontStyle';
 
 interface CircleContainerProps {
   color: string;

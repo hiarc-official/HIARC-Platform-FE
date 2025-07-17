@@ -1,6 +1,6 @@
-import {useState, useEffect} from "react";
-import styled from "styled-components";
-import Color from "../ui/Color"; // 기본 색상 관리 파일
+import { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import Color from '../ui/Color'; // 기본 색상 관리 파일
 
 // 스타일 지정
 const ChartWrapper = styled.div`
@@ -43,7 +43,7 @@ const DonutChart: React.FC<DonutChartProps> = ({
   value,
   maxValue = 100,
   strokeColor = Color.primary,
-  backgroundColor = "#eee",
+  backgroundColor = '#eee',
   div,
 }) => {
   const [animatedValue, setAnimatedValue] = useState(0);
@@ -92,13 +92,12 @@ const DonutChart: React.FC<DonutChartProps> = ({
             y="50%"
             style={{
               fontWeight: 700,
-              fill: "black",
-              textAnchor: "middle",
-              dominantBaseline: "middle",
+              fill: 'black',
+              textAnchor: 'middle',
+              dominantBaseline: 'middle',
             }}
           >
-            <tspan fontSize="45px">{animatedValue}</tspan>{" "}
-            {/* 애니메이션 적용된 숫자 */}
+            <tspan fontSize="45px">{animatedValue}</tspan> {/* 애니메이션 적용된 숫자 */}
             <tspan fontSize="12px" dx="0px" dy="7px">
               %
             </tspan>

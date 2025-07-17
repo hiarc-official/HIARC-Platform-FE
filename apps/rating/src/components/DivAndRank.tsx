@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import Color from "../ui/Color";
+import styled from 'styled-components';
+import Color from '../ui/Color';
 const Button = styled.div`
   background-color: ${Color.primary};
   width: 62px;
@@ -16,7 +16,7 @@ const Divider = styled.div`
   padding-right: 9px;
 `;
 
-const DivAndRank = ({divNum, rank}: {divNum: number; rank: number}) => {
+const DivAndRank = ({ divNum, rank }: { divNum: number; rank: number }) => {
   return (
     <Button>
       div{divNum}

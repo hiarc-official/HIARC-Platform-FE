@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import {useNavigate} from "react-router-dom";
-import TierImg from "../ui/TierImg";
-import Color from "../ui/Color";
+import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import TierImg from '../ui/TierImg';
+import Color from '../ui/Color';
 
 const Wrapper = styled.div`
   padding-left: 5px;

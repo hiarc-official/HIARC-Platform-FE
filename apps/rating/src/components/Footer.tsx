@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import reallogo from "./../assets/hiarc-reallogo.png";
-import FontStyle from "../ui/FontStyle";
-import ContactInfo from "../atoms/MediaListCell";
+import styled from 'styled-components';
+import reallogo from './../assets/hiarc-reallogo.png';
+import FontStyle from '../ui/FontStyle';
+import ContactInfo from '../atoms/MediaListCell';
 
 const Wrapper = styled.div`
   display: flex;

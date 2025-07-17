@@ -1,4 +1,4 @@
-import {atom} from "jotai";
+import { atom } from 'jotai';
 
 export interface DivData {
   handle: string;
@@ -39,4 +39,4 @@ export const hitingDataAtom = atom<HitingDataState>({
   eventList: [],
 });
 
-export const handleAtom = atom<string>("");
+export const handleAtom = atom<string>('');

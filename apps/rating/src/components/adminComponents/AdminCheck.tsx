@@ -1,8 +1,8 @@
-import styled from "styled-components";
-import {checkAdminName} from "../../ui/CheckAdminName";
-import {checkAdminApi} from "../../api/AdminApi";
-import {useState} from "react";
-import {Modal} from "../Modal";
+import styled from 'styled-components';
+import { checkAdminName } from '../../ui/CheckAdminName';
+import { checkAdminApi } from '../../api/AdminApi';
+import { useState } from 'react';
+import { Modal } from '../Modal';
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -25,21 +25,17 @@ const Button = styled.button`
   }
 `;
 
-export const AdminCheck = ({
-  name,
-}: {
-  name: "recent-season" | "recent-event" | "date";
-}) => {
+export const AdminCheck = ({ name }: { name: 'recent-season' | 'recent-event' | 'date' }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalContent, setModalContent] = useState("");
+  const [modalContent, setModalContent] = useState('');
   const buttonClick = async () => {
     try {
       const response = await checkAdminApi(name);
       setModalContent(JSON.stringify(response.data.data, null, 2));
       setIsModalOpen(true);
     } catch (error) {
-      console.error("오류...", error);
-      setModalContent("오류 개발팀 문의" + String(error));
+      console.error('오류...', error);
+      setModalContent('오류 개발팀 문의' + String(error));
       setIsModalOpen(true);
     }
   };
@@ -49,9 +45,7 @@ export const AdminCheck = ({
         {checkAdminName[name]}
         <Button onClick={buttonClick}>확인하기</Button>
       </Wrapper>
-      {isModalOpen && (
-        <Modal content={modalContent} onClose={() => setIsModalOpen(false)} />
-      )}
+      {isModalOpen && <Modal content={modalContent} onClose={() => setIsModalOpen(false)} />}
     </>
   );
 };

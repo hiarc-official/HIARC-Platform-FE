@@ -1,12 +1,12 @@
-import LayOut from "../ui/Layout";
-import DivBlock from "../block/DivBlock";
-import StreakBox from "../block/StreakBox";
-import EventBlock from "../block/EventBlock";
-import styled, {keyframes} from "styled-components";
-import {useEffect} from "react";
-import {useAtom} from "jotai";
-import {fetchHitingData} from "../api/MainPageApi";
-import {loadingAtom, hitingDataAtom} from "../store/Atom";
+import LayOut from '../ui/Layout';
+import DivBlock from '../block/DivBlock';
+import StreakBox from '../block/StreakBox';
+import EventBlock from '../block/EventBlock';
+import styled, { keyframes } from 'styled-components';
+import { useEffect } from 'react';
+import { useAtom } from 'jotai';
+import { fetchHitingData } from '../api/MainPageApi';
+import { loadingAtom, hitingDataAtom } from '../store/Atom';
 
 const fadeIn = keyframes`
   from {
@@ -19,10 +19,10 @@ const fadeIn = keyframes`
   }
 `;
 
-const AnimatedContainer = styled.div<{$delay?: string}>`
+const AnimatedContainer = styled.div<{ $delay?: string }>`
   opacity: 0;
   animation: ${fadeIn} 1s ease-in-out forwards;
-  animation-delay: ${(props) => props.$delay || "0s"};
+  animation-delay: ${(props) => props.$delay || '0s'};
 `;
 
 const Wrapper = styled.div`

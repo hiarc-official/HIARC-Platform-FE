@@ -1,9 +1,9 @@
-import styled from "styled-components";
-import Color from "../../ui/Color";
-import {useState} from "react";
-import {getAdminHandleStats} from "../../api/AdminApi";
-import {blockNameToCode} from "../../ui/CheckAdminName";
-import {Modal} from "../Modal";
+import styled from 'styled-components';
+import Color from '../../ui/Color';
+import { useState } from 'react';
+import { getAdminHandleStats } from '../../api/AdminApi';
+import { blockNameToCode } from '../../ui/CheckAdminName';
+import { Modal } from '../Modal';
 const Wrapper = styled.div`
   overflow: visible;
 `;
@@ -40,10 +40,10 @@ const Button = styled.button`
   }
 `;
 
-export const AdminInputBox = ({blockName}: {blockName: string}) => {
+export const AdminInputBox = ({ blockName }: { blockName: string }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalContent, setModalContent] = useState("");
-  const [handle, setHandle] = useState("");
+  const [modalContent, setModalContent] = useState('');
+  const [handle, setHandle] = useState('');
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setHandle(e.target.value);
   };
@@ -51,18 +51,18 @@ export const AdminInputBox = ({blockName}: {blockName: string}) => {
     try {
       console.log(handle);
       const response = await getAdminHandleStats(
-        blockNameToCode[blockName] as "solved-level" | "hiting",
+        blockNameToCode[blockName] as 'solved-level' | 'hiting',
         handle
       );
       if (response) {
         setModalContent(JSON.stringify(response.data));
         setIsModalOpen(true);
       } else {
-        setModalContent("핸들 다시 입력하셈 ㅇㅇ");
+        setModalContent('핸들 다시 입력하셈 ㅇㅇ');
         setIsModalOpen(true);
       }
     } catch (err) {
-      setModalContent("error 개발팀 문의");
+      setModalContent('error 개발팀 문의');
       setIsModalOpen(true);
       console.log(err);
     }
@@ -70,18 +70,10 @@ export const AdminInputBox = ({blockName}: {blockName: string}) => {
   return (
     <Wrapper>
       <InputBox>
-        <Input
-          placeholder="핸들을 입력하세요"
-          value={handle}
-          onChange={handleInputChange}
-        />
+        <Input placeholder="핸들을 입력하세요" value={handle} onChange={handleInputChange} />
         <Button onClick={onClick}>입력하기</Button>
       </InputBox>
-      {isModalOpen ? (
-        <Modal content={modalContent} onClose={() => setIsModalOpen(false)} />
-      ) : (
-        ""
-      )}
+      {isModalOpen ? <Modal content={modalContent} onClose={() => setIsModalOpen(false)} /> : ''}
     </Wrapper>
   );
 };

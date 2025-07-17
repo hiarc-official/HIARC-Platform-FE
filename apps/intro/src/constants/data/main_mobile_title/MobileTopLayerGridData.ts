@@ -1,7 +1,7 @@
 // src/constants/data/main_title/MobileTopLayerGridData.ts
-import Color from "@/components/ui/Color";
-import CellType from "@/enum/CellType";
-import TopLayerGridItemData from "@/types/TopLayerGridItemData";
+import Color from '@/components/ui/Color';
+import CellType from '@/enum/CellType';
+import TopLayerGridItemData from '@/types/TopLayerGridItemData';
 
 const MobileTopLayerGridData: TopLayerGridItemData[] = [
   { position: [1, 1], type: CellType.CIRCLE, backgroundColor: Color.pink },
@@ -31,7 +31,7 @@ const MobileTopLayerGridData: TopLayerGridItemData[] = [
     position: [1, 4],
     type: CellType.LONG_HORIZONTAL_RECTANGLE,
     backgroundColor: Color.yellow,
-    text: "Solve with",
+    text: 'Solve with',
   },
   { position: [4, 4], type: CellType.CIRCLE, backgroundColor: Color.orange },
   { position: [5, 4], type: CellType.CIRCLE, backgroundColor: Color.gray },
@@ -44,7 +44,7 @@ const MobileTopLayerGridData: TopLayerGridItemData[] = [
     position: [4, 5],
     type: CellType.CIRCLE_WITH_TEXT,
     backgroundColor: Color.yellow,
-    text: "us",
+    text: 'us',
   },
 
   { position: [1, 6], type: CellType.CIRCLE, backgroundColor: Color.gray },
@@ -63,7 +63,7 @@ const MobileTopLayerGridData: TopLayerGridItemData[] = [
     position: [1, 8],
     type: CellType.TEXT,
     backgroundColor: Color.primary,
-    text: "HI-ARC",
+    text: 'HI-ARC',
   },
   { position: [4, 8], type: CellType.CIRCLE, backgroundColor: Color.gray },
   { position: [5, 8], type: CellType.CIRCLE, backgroundColor: Color.orange },
@@ -89,33 +89,33 @@ const MobileTopLayerGridData: TopLayerGridItemData[] = [
     position: [4, 7],
     type: CellType.BUTTON,
     backgroundColor: Color.primary,
-    buttonText: "학회 소개",
+    buttonText: '학회 소개',
     index: 0,
-    url: "introduce_hiarc",
+    url: 'introduce_hiarc',
   },
   {
     position: [4, 2],
     type: CellType.BUTTON,
     backgroundColor: Color.primary,
-    buttonText: "스터디",
+    buttonText: '스터디',
     index: 1,
-    url: "study",
+    url: 'study',
   },
   {
     position: [1, 3],
     type: CellType.BUTTON,
     backgroundColor: Color.primary,
-    buttonText: "학회 활동",
+    buttonText: '학회 활동',
     index: 2,
-    url: "activity",
+    url: 'activity',
   },
   {
     position: [5, 5],
     type: CellType.BUTTON,
     backgroundColor: Color.primary,
-    buttonText: "수상 경력",
+    buttonText: '수상 경력',
     index: 3,
-    url: "award",
+    url: 'award',
   },
 ];
 

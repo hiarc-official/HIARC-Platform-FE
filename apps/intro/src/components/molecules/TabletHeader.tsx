@@ -1,8 +1,8 @@
-import { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import HamburgerButton from "@/components/atoms/header/HamburgerButton";
-import HeaderMenuButton from "@/components/atoms/header/HeaderMenuButton";
-import styled from "styled-components";
+import { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import HamburgerButton from '@/components/atoms/header/HamburgerButton';
+import HeaderMenuButton from '@/components/atoms/header/HeaderMenuButton';
+import styled from 'styled-components';
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -31,34 +31,29 @@ const TabletHeader: React.FC = () => {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setMenuOpen(false);
       }
     };
 
     if (menuOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener('mousedown', handleClickOutside);
     } else {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     }
 
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [menuOpen]);
 
   return (
     <HeaderContainer ref={dropdownRef}>
       <LeftContainer>
-        <HeaderMenuButton text="HI-ARC" onClick={() => navigate("/")} />
+        <HeaderMenuButton text="HI-ARC" onClick={() => navigate('/')} />
       </LeftContainer>
       <RightContainer>
         <HeaderMenuButton
           text="하이팅"
-          onClick={() =>
-            (window.location.href = "https://www.hi-rating.com")
-          }
+          onClick={() => (window.location.href = 'https://www.hi-rating.com')}
         />
         <HamburgerButton />
       </RightContainer>

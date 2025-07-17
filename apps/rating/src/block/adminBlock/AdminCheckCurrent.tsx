@@ -1,6 +1,6 @@
-import {AdminCheckExplain} from "../../components/adminComponents/AdminCheckExplain";
-import styled from "styled-components";
-import {AdminInputBox} from "../../components/adminComponents/AdminInputBox";
+import { AdminCheckExplain } from '../../components/adminComponents/AdminCheckExplain';
+import styled from 'styled-components';
+import { AdminInputBox } from '../../components/adminComponents/AdminInputBox';
 
 const Wrapper = styled.div`
   margin-top: 33px;
@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   gap: 150px;
 `;
 
-export const AdminCheckCurrent = ({blockName}: {blockName: string}) => {
+export const AdminCheckCurrent = ({ blockName }: { blockName: string }) => {
   return (
     <Wrapper>
       <AdminCheckExplain blockName={blockName} />

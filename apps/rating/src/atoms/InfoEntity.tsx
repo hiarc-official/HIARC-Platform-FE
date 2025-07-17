@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import Color from "../ui/Color";
-import TierImg from "../ui/TierImg";
+import styled from 'styled-components';
+import Color from '../ui/Color';
+import TierImg from '../ui/TierImg';
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
@@ -26,16 +26,8 @@ const Tier = styled.div`
   margin-right: 22px;
   margin-top: 5px;
 `;
-const InfoEntity = ({
-  handle,
-  div,
-  tier,
-}: {
-  handle: string;
-  div: number;
-  tier: number;
-}) => {
-  const displayId = handle.length > 7 ? handle.slice(0, 8) + "..." : handle;
+const InfoEntity = ({ handle, div, tier }: { handle: string; div: number; tier: number }) => {
+  const displayId = handle.length > 7 ? handle.slice(0, 8) + '...' : handle;
   return (
     <Wrapper>
       <IdWrapper>{displayId}</IdWrapper>

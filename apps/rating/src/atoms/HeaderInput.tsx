@@ -1,10 +1,10 @@
-import styled from "styled-components";
-import {useState} from "react";
-import {useAtom} from "jotai";
-import {useNavigate} from "react-router-dom";
-import {handleAtom} from "../store/Atom";
-import Img from "./../assets/InputImg.png";
-import Color from "../ui/Color";
+import styled from 'styled-components';
+import { useState } from 'react';
+import { useAtom } from 'jotai';
+import { useNavigate } from 'react-router-dom';
+import { handleAtom } from '../store/Atom';
+import Img from './../assets/InputImg.png';
+import Color from '../ui/Color';
 
 const Wrapper = styled.div`
   width: 339px;
@@ -32,7 +32,7 @@ const Wrapper = styled.div`
 
 const HeaderInput = () => {
   const [, setHandle] = useAtom(handleAtom);
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState('');
   const navigate = useNavigate();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,9 +40,9 @@ const HeaderInput = () => {
   };
 
   const handleSearch = () => {
-    if (inputValue.trim() !== "") {
+    if (inputValue.trim() !== '') {
       setHandle(inputValue);
-      console.log("🔍 검색 실행:", inputValue);
+      console.log('🔍 검색 실행:', inputValue);
       navigate(`/search?handle=${inputValue}`);
     }
   };
@@ -56,7 +56,7 @@ const HeaderInput = () => {
         className="Input"
         value={inputValue}
         onChange={handleInputChange}
-        onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+        onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
       />
     </Wrapper>
   );

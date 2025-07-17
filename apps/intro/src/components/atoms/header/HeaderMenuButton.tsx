@@ -1,7 +1,7 @@
-import Colors from "@/constants/ui/Colors";
-import FontStyles from "@/constants/ui/FontStyles";
-import React from "react";
-import styled from "styled-components";
+import Colors from '@/constants/ui/Colors';
+import FontStyles from '@/constants/ui/FontStyles';
+import React from 'react';
+import styled from 'styled-components';
 
 interface HeaderMenuButtonProps {
   text: string;
@@ -26,10 +26,7 @@ const StyledButton = styled.button`
   }
 `;
 
-const HeaderMenuButton: React.FC<HeaderMenuButtonProps> = ({
-  text,
-  onClick,
-}) => {
+const HeaderMenuButton: React.FC<HeaderMenuButtonProps> = ({ text, onClick }) => {
   return <StyledButton onClick={onClick}>{text}</StyledButton>;
 };
 

@@ -1,5 +1,5 @@
-import {AdminExplain} from "../../ui/AdminExplain";
-import styled from "styled-components";
+import { AdminExplain } from '../../ui/AdminExplain';
+import styled from 'styled-components';
 
 const Wrapper = styled.div`
   display: flex;
@@ -17,7 +17,7 @@ const Explain = styled.div`
   font-weight: 700;
 `;
 
-export const AdminCheckExplain = ({blockName}: {blockName: string}) => {
+export const AdminCheckExplain = ({ blockName }: { blockName: string }) => {
   return (
     <Wrapper>
       <Header>{blockName}</Header>

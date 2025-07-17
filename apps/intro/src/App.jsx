@@ -1,10 +1,10 @@
-import { Routes, Route } from "react-router-dom";
-import ActivityPage from "./components/pages/ActivityPage";
-import IntroduceHiarcPage from "./components/pages/IntroduceHiarcPage";
-import StudyPage from "./components/pages/StudyPage";
-import AwardPage from "./components/pages/AwardPage";
-import Notfound from "./components/pages/NotfoundPage";
-import HomePage from "./components/pages/HomePage";
+import { Routes, Route } from 'react-router-dom';
+import ActivityPage from './components/pages/ActivityPage';
+import IntroduceHiarcPage from './components/pages/IntroduceHiarcPage';
+import StudyPage from './components/pages/StudyPage';
+import AwardPage from './components/pages/AwardPage';
+import Notfound from './components/pages/NotfoundPage';
+import HomePage from './components/pages/HomePage';
 
 function App() {
   return (

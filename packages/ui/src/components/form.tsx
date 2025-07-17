@@ -14,8 +14,8 @@ import {
   type FieldValues,
 } from 'react-hook-form';
 
-import { cn } from '../../../utils/src/lib/utils';
 import { Label } from './label';
+import { cn } from '../lib/utils';
 
 const Form = FormProvider;
 
@@ -127,7 +127,7 @@ function FormDescription({ className, ...props }: React.ComponentProps<'p'>): Re
     <p
       data-slot="form-description"
       id={formDescriptionId}
-      className={cn('text-muted-foreground text-sm', className)}
+      className={cn('text-sm text-muted-foreground', className)}
       {...props}
     />
   );
@@ -148,7 +148,7 @@ function FormMessage({
     <p
       data-slot="form-message"
       id={formMessageId}
-      className={cn('text-destructive text-sm', className)}
+      className={cn('text-sm text-destructive', className)}
       {...props}
     >
       {body}

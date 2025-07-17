@@ -1,4 +1,4 @@
-import Color from "./Color";
+import Color from './Color';
 export const NumberToStreakColor = (tier: number) => {
   if (tier === 0) return Color.graySub3;
   if (tier >= 1 && tier <= 5) return Color.bronze;

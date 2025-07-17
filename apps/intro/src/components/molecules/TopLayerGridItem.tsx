@@ -1,17 +1,17 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import CellType from "@/enum/CellType";
-import CircleContainer from "../atoms/colored_grid_view/CircleContainer";
-import RoundedRectangleContainer from "@/components/atoms/colored_grid_view/RoundedRectangleContainer";
-import MenuButton from "../atoms/colored_grid_view/MenuButton";
-import NavigateArrow from "@/assets/icon/navigate_arrow.svg?react";
-import TopLayerGridItemData from "@/types/TopLayerGridItemData";
-import FontStyles from "@/constants/ui/FontStyles";
-import ArrowButton from "@/components/atoms/colored_grid_view/ArrowButton";
-import AssetImage from "@/components/atoms/image/AssetImage";
-import BorderedRectangleContainer from "@/components/atoms/colored_grid_view/BorderedRectangleContainer";
-import Color from "../ui/Color";
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import CellType from '@/enum/CellType';
+import CircleContainer from '../atoms/colored_grid_view/CircleContainer';
+import RoundedRectangleContainer from '@/components/atoms/colored_grid_view/RoundedRectangleContainer';
+import MenuButton from '../atoms/colored_grid_view/MenuButton';
+import NavigateArrow from '@/assets/icon/navigate_arrow.svg?react';
+import TopLayerGridItemData from '@/types/TopLayerGridItemData';
+import FontStyles from '@/constants/ui/FontStyles';
+import ArrowButton from '@/components/atoms/colored_grid_view/ArrowButton';
+import AssetImage from '@/components/atoms/image/AssetImage';
+import BorderedRectangleContainer from '@/components/atoms/colored_grid_view/BorderedRectangleContainer';
+import Color from '../ui/Color';
 
 interface TopLayerGridItemProps {
   data: TopLayerGridItemData;
@@ -60,8 +60,8 @@ const TopLayerGridItem: React.FC<TopLayerGridItemProps> = ({
   const gridStyle: React.CSSProperties = {
     gridColumn: data.position[0],
     gridRow: data.position[1],
-    gridColumnEnd: "span 1",
-    gridRowEnd: "span 1",
+    gridColumnEnd: 'span 1',
+    gridRowEnd: 'span 1',
   };
 
   return (
@@ -94,7 +94,7 @@ const TopLayerGridItem: React.FC<TopLayerGridItemProps> = ({
           contentColor={data.contentColor}
           height={circleSize}
           width={circleSize2X}
-          text={data.text ?? ""}
+          text={data.text ?? ''}
         />
       )}
 
@@ -131,38 +131,38 @@ const TopLayerGridItem: React.FC<TopLayerGridItemProps> = ({
           backgroundColor={data.backgroundColor}
           height={circleSize2X}
           width={circleSize}
-          text={""}
+          text={''}
         />
       )}
 
       {data.type === CellType.BUTTON && (
         <MenuButton
-          buttonText={data.buttonText || ""}
+          buttonText={data.buttonText || ''}
           backgroundColor={data.backgroundColor}
           contentColor={data.contentColor}
           height={circleSize}
           width={circleSize2X}
           onMouseEnter={() => handleMouseEnter(data.index!)}
           onMouseLeave={() => handleMouseLeave(data.index!)}
-          onClick={() => navigate(data.url || "")}
+          onClick={() => navigate(data.url || '')}
         />
       )}
 
       {data.type === CellType.BUTTON_WITH_ICON && (
         <ArrowButton
-          buttonText={data.buttonText || ""}
+          buttonText={data.buttonText || ''}
           backgroundColor={data.backgroundColor}
           contentColor={data.contentColor}
           height={circleSize}
           width={circleSize2X}
           arrowSize={circleSize * 0.6}
-          onClick={() => navigate(data.url || "")}
+          onClick={() => navigate(data.url || '')}
         />
       )}
 
       {data.type === CellType.LONG_BUTTON_WITH_ICON && (
         <ArrowButton
-          buttonText={data.buttonText || ""}
+          buttonText={data.buttonText || ''}
           backgroundColor={data.backgroundColor}
           contentColor={data.contentColor}
           height={circleSize}
@@ -171,7 +171,7 @@ const TopLayerGridItem: React.FC<TopLayerGridItemProps> = ({
           onClick={
             data.websiteUrl !== undefined
               ? () => (window.location.href = data.websiteUrl!)
-              : () => navigate(data.url || "")
+              : () => navigate(data.url || '')
           }
         />
       )}
@@ -190,9 +190,7 @@ const TopLayerGridItem: React.FC<TopLayerGridItemProps> = ({
         />
       )}
 
-      {data.type === CellType.TEXT && (
-        <StyledText size={circleSize}>HI- ARC</StyledText>
-      )}
+      {data.type === CellType.TEXT && <StyledText size={circleSize}>HI- ARC</StyledText>}
     </GridItemContainer>
   );
 };

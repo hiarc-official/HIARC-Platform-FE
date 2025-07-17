@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const Button = styled.button`
   background-color: #81c147;
@@ -9,9 +9,9 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const SolvedButton = ({handle}: {handle: string}) => {
+const SolvedButton = ({ handle }: { handle: string }) => {
   const onClick = () => {
-    window.open(`https://solved.ac/profile/${handle}`, "_blank");
+    window.open(`https://solved.ac/profile/${handle}`, '_blank');
   };
   return <Button onClick={onClick}>solved.ac</Button>;
 };

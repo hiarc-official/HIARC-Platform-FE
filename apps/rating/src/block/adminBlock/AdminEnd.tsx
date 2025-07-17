@@ -1,8 +1,8 @@
-import styled from "styled-components";
-import {AdminExplain} from "../../ui/AdminExplain";
+import styled from 'styled-components';
+import { AdminExplain } from '../../ui/AdminExplain';
 
-import Color from "../../ui/Color";
-import {resetAdminData} from "../../api/AdminApi";
+import Color from '../../ui/Color';
+import { resetAdminData } from '../../api/AdminApi';
 const Wrapper = styled.div`
   border-bottom: 1px solid black;
 `;
@@ -30,14 +30,14 @@ const Button = styled.button`
   }
 `;
 
-const AdminEnd = ({endName}: {endName: string}) => {
+const AdminEnd = ({ endName }: { endName: string }) => {
   const handleButtonClick = async () => {
     try {
-      const type = endName === "시즌 끝내기 (점수 초기화)" ? "season" : "event";
+      const type = endName === '시즌 끝내기 (점수 초기화)' ? 'season' : 'event';
       resetAdminData(type);
-      alert("초기화에 성공하였습니다.");
+      alert('초기화에 성공하였습니다.');
     } catch (error) {
-      alert("실패!!!!!!");
+      alert('실패!!!!!!');
     }
   };
   return (

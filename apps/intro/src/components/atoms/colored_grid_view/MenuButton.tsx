@@ -1,7 +1,7 @@
-import React from "react";
-import styled from "styled-components";
-import FontStyle from "../../ui/FontStyle";
-import Color from "@/components/ui/Color";
+import React from 'react';
+import styled from 'styled-components';
+import FontStyle from '../../ui/FontStyle';
+import Color from '@/components/ui/Color';
 
 interface MenuButtonProps {
   backgroundColor?: string;

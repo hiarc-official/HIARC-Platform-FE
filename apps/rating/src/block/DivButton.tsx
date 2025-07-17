@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import Color from "../ui/Color";
+import styled from 'styled-components';
+import Color from '../ui/Color';
 
-const Wrapper = styled.button<{$isSelected: boolean}>`
+const Wrapper = styled.button<{ $isSelected: boolean }>`
   font-size: 11px;
   font-weight: 700;
   width: 58px;
@@ -10,11 +10,12 @@ const Wrapper = styled.button<{$isSelected: boolean}>`
   border: none;
   padding: 6px 14px;
   white-space: nowrap;
-  color: ${({$isSelected}) => ($isSelected ? Color.primary : "white")};
-  background-color: ${({$isSelected}) =>
-    $isSelected ? "white" : Color.primary};
+  color: ${({ $isSelected }) => ($isSelected ? Color.primary : 'white')};
+  background-color: ${({ $isSelected }) => ($isSelected ? 'white' : Color.primary)};
   cursor: pointer;
-  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  transition:
+    background-color 0.3s ease-in-out,
+    color 0.3s ease-in-out;
 `;
 
 const DivButton = ({

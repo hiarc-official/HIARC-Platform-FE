@@ -1,8 +1,8 @@
-import React from "react";
-import styled from "styled-components";
-import Color from "../ui/Color";
-import FontStyle from "../ui/FontStyle";
-import ContentText from "../atoms/text/ContentText";
+import React from 'react';
+import styled from 'styled-components';
+import Color from '../ui/Color';
+import FontStyle from '../ui/FontStyle';
+import ContentText from '../atoms/text/ContentText';
 
 // 스타일 컴포넌트 정의
 const TableContainer = styled.div`

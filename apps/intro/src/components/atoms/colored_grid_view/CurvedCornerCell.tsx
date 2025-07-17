@@ -1,7 +1,7 @@
-import React from "react";
-import styled from "styled-components";
-import CurvedCornerType from "../../../enum/CurevedCornerType";
-import Color from "../../ui/Color";
+import React from 'react';
+import styled from 'styled-components';
+import CurvedCornerType from '../../../enum/CurevedCornerType';
+import Color from '../../ui/Color';
 
 interface CurvedCornerCellProps {
   backgroundColor: string;
@@ -20,10 +20,10 @@ const BackgroundRectangleStyle = styled.div<{
   delay: boolean;
   sequence?: number;
 }>`
-  background-color: ${(props) => props.backgroundColor || "white"};
+  background-color: ${(props) => props.backgroundColor || 'white'};
   border-radius: 10%;
-  width: ${(props) => (props.$isHovered ? "97%" : "0%")};
-  height: ${(props) => (props.$isHovered ? "97%" : "0%")};
+  width: ${(props) => (props.$isHovered ? '97%' : '0%')};
+  height: ${(props) => (props.$isHovered ? '97%' : '0%')};
   position: absolute;
   bottom: 1px;
   left: 1px;
@@ -34,9 +34,9 @@ const BackgroundRectangleStyle = styled.div<{
     height 0.5s ease;
   transition-delay: ${(props) => {
     if (props.$isHovered) {
-      return props.sequence === 1 ? "0ms" : props.delay ? "500ms" : "0ms";
+      return props.sequence === 1 ? '0ms' : props.delay ? '500ms' : '0ms';
     } else {
-      return props.sequence === 1 ? "500ms" : "0ms";
+      return props.sequence === 1 ? '500ms' : '0ms';
     }
   }};
   z-index: -1;
@@ -47,7 +47,7 @@ const CellBackgroundStyle = styled.div<{
   color: string;
   rotate: number;
 }>`
-  background-color: ${(props) => props.color || "lightgray"};
+  background-color: ${(props) => props.color || 'lightgray'};
   width: ${(props) => props.size}px;
   height: ${(props) => props.size}px;
   position: relative;
@@ -68,12 +68,12 @@ const CurvedCornerStyle = styled.div<{
   position: absolute;
   width: ${(props) => props.size}px;
   height: ${(props) => props.size}px;
-  background-color: ${(props) => props.color || "transparent"};
+  background-color: ${(props) => props.color || 'transparent'};
   transform: rotate(180deg);
   z-index: 1;
 
   ${(props) =>
-    props.position === "topLeft" &&
+    props.position === 'topLeft' &&
     `
     top: 0;
     left: 0;
@@ -82,7 +82,7 @@ const CurvedCornerStyle = styled.div<{
   `}
 
   ${(props) =>
-    props.position === "bottomRight" &&
+    props.position === 'bottomRight' &&
     `
     bottom: 0;
     right: 0;
@@ -119,11 +119,7 @@ const CurvedCornerCell: React.FC<CurvedCornerCellProps> = ({
   const rotation = getRotation(type);
 
   return (
-    <CellBackgroundStyle
-      size={cellSize}
-      color={Color.transparent}
-      rotate={rotation}
-    >
+    <CellBackgroundStyle size={cellSize} color={Color.transparent} rotate={rotation}>
       <BackgroundRectangleStyle
         backgroundColor={backgroundColor}
         $isHovered={isHovered}
@@ -131,11 +127,7 @@ const CurvedCornerCell: React.FC<CurvedCornerCellProps> = ({
         sequence={sequence}
       />
       <CurvedCornerStyle size={curveSize} color={color} position="topLeft" />
-      <CurvedCornerStyle
-        size={curveSize}
-        color={color}
-        position="bottomRight"
-      />
+      <CurvedCornerStyle size={curveSize} color={color} position="bottomRight" />
     </CellBackgroundStyle>
   );
 };

@@ -1,6 +1,6 @@
-import Color from "@/components/ui/Color";
-import CellType from "@/enum/CellType";
-import TopLayerGridItemData from "@/types/TopLayerGridItemData";
+import Color from '@/components/ui/Color';
+import CellType from '@/enum/CellType';
+import TopLayerGridItemData from '@/types/TopLayerGridItemData';
 
 const Study2024HeaderTopData2: TopLayerGridItemData[] = [
   {
@@ -8,7 +8,7 @@ const Study2024HeaderTopData2: TopLayerGridItemData[] = [
     type: CellType.BORDERED_LONG_HORIZONTAL_RECTANGLE,
     backgroundColor: Color.transparent,
     contentColor: Color.orange,
-    text: "PS 사용설명서",
+    text: 'PS 사용설명서',
   },
 ];
 

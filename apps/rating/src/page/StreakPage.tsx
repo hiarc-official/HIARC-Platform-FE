@@ -1,9 +1,9 @@
-import {useEffect, useState} from "react";
-import LayOut from "../ui/Layout";
-import styled, {keyframes} from "styled-components";
-import StreakEntity from "../components/StreakEntity";
-import {fetchStreakData, StreakData} from "../api/StreakApi";
-import Color from "../ui/Color";
+import { useEffect, useState } from 'react';
+import LayOut from '../ui/Layout';
+import styled, { keyframes } from 'styled-components';
+import StreakEntity from '../components/StreakEntity';
+import { fetchStreakData, StreakData } from '../api/StreakApi';
+import Color from '../ui/Color';
 
 const fadeIn = keyframes`
   from {
@@ -16,10 +16,10 @@ const fadeIn = keyframes`
   }
 `;
 
-const AnimatedContainer = styled.div<{$delay?: string}>`
+const AnimatedContainer = styled.div<{ $delay?: string }>`
   opacity: 0;
   animation: ${fadeIn} 1s ease-in-out forwards;
-  animation-delay: ${(props) => props.$delay || "0s"};
+  animation-delay: ${(props) => props.$delay || '0s'};
 `;
 
 const HeadWrapper = styled.div`
@@ -90,7 +90,7 @@ const StreakPage = () => {
         setStreakData(data.streakList);
         setSeasonTotal(data.seasonTotal);
       } else {
-        setError("데이터를 불러오는 데 실패했습니다.");
+        setError('데이터를 불러오는 데 실패했습니다.');
       }
       setLoading(false);
     };

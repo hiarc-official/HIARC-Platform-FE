@@ -1,9 +1,9 @@
-import InfoEntity from "../atoms/InfoEntity";
-import styled from "styled-components";
-import CircularProgress from "../atoms/CircularProgress";
-import Color from "../ui/Color";
-import {NumberToStreakColor} from "../ui/NumberToStreakColor";
-import {useNavigate} from "react-router-dom";
+import InfoEntity from '../atoms/InfoEntity';
+import styled from 'styled-components';
+import CircularProgress from '../atoms/CircularProgress';
+import Color from '../ui/Color';
+import { NumberToStreakColor } from '../ui/NumberToStreakColor';
+import { useNavigate } from 'react-router-dom';
 
 const Wrapper = styled.div`
   width: 460px;
@@ -32,7 +32,7 @@ const RightDown = styled.div`
   gap: 22px;
 `;
 
-const Border = styled.div<{$borderColor: string}>`
+const Border = styled.div<{ $borderColor: string }>`
   font-size: 10px;
   border: 0.5px solid ${(props) => props.$borderColor};
   border-radius: 12px;
@@ -128,19 +128,12 @@ const StreakEntity = ({
       <DownWrapper>
         <Left>
           <Border $borderColor={Color.graySub3}>이번 시즌</Border>
-          <CircularProgress
-            value={seasonStreak}
-            maxValue={seasonTotal}
-            width={60}
-            height={60}
-          />
+          <CircularProgress value={seasonStreak} maxValue={seasonTotal} width={60} height={60} />
         </Left>
         <Right>
           <Borders>
             <Border $borderColor={Color.graySub3}>누적</Border>
-            {startDate && (
-              <Border $borderColor={Color.primary}>{startDate} 부터</Border>
-            )}
+            {startDate && <Border $borderColor={Color.primary}>{startDate} 부터</Border>}
           </Borders>
           <RightDown>
             <Days>
@@ -148,11 +141,8 @@ const StreakEntity = ({
               <div className="small">일</div>
             </Days>
             <StreakGrid>
-              {Array.from({length: totalStreak}, (_, i) => (
-                <StreakBox
-                  key={i}
-                  style={{backgroundColor: NumberToStreakColor(tier)}}
-                />
+              {Array.from({ length: totalStreak }, (_, i) => (
+                <StreakBox key={i} style={{ backgroundColor: NumberToStreakColor(tier) }} />
               ))}
             </StreakGrid>
           </RightDown>

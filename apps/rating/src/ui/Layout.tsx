@@ -1,8 +1,8 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import {ReactNode, FC} from "react";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
+import { ReactNode, FC } from 'react';
+import Footer from '../components/Footer';
+import Header from '../components/Header';
 
 const LayoutWrapper = styled.div`
   display: flex;
@@ -23,7 +23,7 @@ const ContentWrapper = styled.div`
   width: 100%; /* ✅ 전체 너비 사용 */
 `;
 
-const LayOut: FC<{children: ReactNode}> = ({children}) => {
+const LayOut: FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <LayoutWrapper>
       <Header />

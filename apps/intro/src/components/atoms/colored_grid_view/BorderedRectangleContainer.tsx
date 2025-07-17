@@ -1,7 +1,7 @@
-import React from "react";
-import styled from "styled-components";
-import FontStyle from "../../ui/FontStyle";
-import Color from "../../ui/Color";
+import React from 'react';
+import styled from 'styled-components';
+import FontStyle from '../../ui/FontStyle';
+import Color from '../../ui/Color';
 
 interface BorderedRectangleContainerProps {
   contentColor?: string;
@@ -40,11 +40,7 @@ const BorderedRectangleContainer: React.FC<BorderedRectangleContainerProps> = ({
   text,
 }) => {
   return (
-    <BorderedRectangleContainerStyle
-      width={width}
-      height={height}
-      borderColor={contentColor}
-    >
+    <BorderedRectangleContainerStyle width={width} height={height} borderColor={contentColor}>
       <TextStyle height={height} contentColor={contentColor}>
         {text}
       </TextStyle>

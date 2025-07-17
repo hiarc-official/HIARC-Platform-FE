@@ -1,6 +1,6 @@
-import { useNavigate } from "react-router-dom";
-import HeaderMenuButton from "@/components/atoms/header/HeaderMenuButton";
-import styled from "styled-components";
+import { useNavigate } from 'react-router-dom';
+import HeaderMenuButton from '@/components/atoms/header/HeaderMenuButton';
+import styled from 'styled-components';
 
 const DesktopHeaderContainer = styled.div`
   display: none;
@@ -33,26 +33,15 @@ const DesktopHeader: React.FC = () => {
   return (
     <DesktopHeaderContainer>
       <HeaderContent>
-        <HeaderMenuButton text="HI-ARC" onClick={() => navigate("/")} />
+        <HeaderMenuButton text="HI-ARC" onClick={() => navigate('/')} />
         <Navigation>
-          <HeaderMenuButton
-            text="학회소개"
-            onClick={() => navigate("/introduce_hiarc")}
-          />
-          <HeaderMenuButton
-            text="학회 활동"
-            onClick={() => navigate("/activity")}
-          />
-          <HeaderMenuButton text="스터디" onClick={() => navigate("/study")} />
-          <HeaderMenuButton
-            text="수상경력"
-            onClick={() => navigate("/award")}
-          />
+          <HeaderMenuButton text="학회소개" onClick={() => navigate('/introduce_hiarc')} />
+          <HeaderMenuButton text="학회 활동" onClick={() => navigate('/activity')} />
+          <HeaderMenuButton text="스터디" onClick={() => navigate('/study')} />
+          <HeaderMenuButton text="수상경력" onClick={() => navigate('/award')} />
           <HeaderMenuButton
             text="하이팅"
-            onClick={() =>
-              (window.location.href = "https://www.hi-rating.com")
-            }
+            onClick={() => (window.location.href = 'https://www.hi-rating.com')}
           />
         </Navigation>
       </HeaderContent>

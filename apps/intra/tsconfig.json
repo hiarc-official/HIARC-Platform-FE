@@ -1,23 +1,28 @@
 {
-  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": "./src", // 핵심: src 기준으로 절대경로 설정
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "es6"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"],
-      "@core/*": ["../../../packages/core/src/*"],
-      "@ui/*": ["../../../packages/ui/src/*"],
-      "@utils/*": ["../../../packages/utils/src/*"]
-    },
-    "jsx": "preserve"
+      "@/*": ["./src/*"]
+    }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    "../../packages/core/src/exceptions/ServerExceptions.ts",
-    "../../packages/core/src/exceptions/BaseAxiosRepository.ts",
-    "../../packages/core/src/exceptions/BaseException.ts"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }

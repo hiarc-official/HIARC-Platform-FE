@@ -1,16 +1,16 @@
-import FontStyle from "@/components/ui/FontStyle";
-import React from "react";
-import styled from "styled-components";
+import FontStyle from '@/components/ui/FontStyle';
+import React from 'react';
+import styled from 'styled-components';
 
 interface ContentTextProps {
   text: string;
   normalStyle?: React.CSSProperties;
   boldStyle?: React.CSSProperties;
-  textAlign?: "left" | "center" | "right";
+  textAlign?: 'left' | 'center' | 'right';
 }
 
 const ContentTextContainer = styled.p<{
-  textAlign: "left" | "center" | "right";
+  textAlign: 'left' | 'center' | 'right';
 }>`
   line-height: 1.8;
   margin: 0;
@@ -35,7 +35,7 @@ const ContentText: React.FC<ContentTextProps> = ({
   text,
   normalStyle,
   boldStyle,
-  textAlign = "left",
+  textAlign = 'left',
 }) => {
   const regex = /-(.*?)-/g;
   const parts: React.ReactNode[] = [];
@@ -68,9 +68,7 @@ const ContentText: React.FC<ContentTextProps> = ({
     );
   }
 
-  return (
-    <ContentTextContainer textAlign={textAlign}>{parts}</ContentTextContainer>
-  );
+  return <ContentTextContainer textAlign={textAlign}>{parts}</ContentTextContainer>;
 };
 
 export default ContentText;

@@ -1,7 +1,7 @@
-import Color from "@/components/ui/Color";
-import CellType from "@/enum/CellType";
-import CurvedCornerType from "@/enum/CurevedCornerType";
-import BottomLayerGridItemData from "@/types/BottomLayerGridItemData";
+import Color from '@/components/ui/Color';
+import CellType from '@/enum/CellType';
+import CurvedCornerType from '@/enum/CurevedCornerType';
+import BottomLayerGridItemData from '@/types/BottomLayerGridItemData';
 
 const Study2025HeaderBottomData: BottomLayerGridItemData[] = [
   {

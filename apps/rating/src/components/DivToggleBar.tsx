@@ -1,8 +1,8 @@
-import {useNavigate} from "react-router-dom";
-import styled from "styled-components";
-import DivButton from "../block/DivButton";
-import Color from "../ui/Color";
-import {Dispatch, SetStateAction} from "react";
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import DivButton from '../block/DivButton';
+import Color from '../ui/Color';
+import { Dispatch, SetStateAction } from 'react';
 
 const Wrapper = styled.div`
   display: flex;
@@ -30,21 +30,9 @@ const DivToggleBar = ({
 
   return (
     <Wrapper>
-      <DivButton
-        div={1}
-        onClick={() => handleClick(1)}
-        isSelected={selected === 1}
-      />
-      <DivButton
-        div={2}
-        onClick={() => handleClick(2)}
-        isSelected={selected === 2}
-      />
-      <DivButton
-        div={3}
-        onClick={() => handleClick(3)}
-        isSelected={selected === 3}
-      />
+      <DivButton div={1} onClick={() => handleClick(1)} isSelected={selected === 1} />
+      <DivButton div={2} onClick={() => handleClick(2)} isSelected={selected === 2} />
+      <DivButton div={3} onClick={() => handleClick(3)} isSelected={selected === 3} />
     </Wrapper>
   );
 };

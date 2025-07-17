@@ -1,9 +1,9 @@
-import React from "react";
-import styled from "styled-components";
-import Tag from "../atoms/common/Tag";
-import FontStyle from "../ui/FontStyle";
-import Color from "../ui/Color";
-import ContentText from "../atoms/text/ContentText";
+import React from 'react';
+import styled from 'styled-components';
+import Tag from '../atoms/common/Tag';
+import FontStyle from '../ui/FontStyle';
+import Color from '../ui/Color';
+import ContentText from '../atoms/text/ContentText';
 
 interface ActivitySectionProps {
   tagList: string[];
@@ -31,11 +31,7 @@ const TitleStyle = styled.div`
   color: ${Color.primary};
 `;
 
-const ActivitySection: React.FC<ActivitySectionProps> = ({
-  tagList,
-  title,
-  content,
-}) => (
+const ActivitySection: React.FC<ActivitySectionProps> = ({ tagList, title, content }) => (
   <ActivitySectionStyle>
     <TitleSection>
       <TitleStyle>{title}</TitleStyle>

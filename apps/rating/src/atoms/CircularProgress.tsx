@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import Color from "../ui/Color";
+import styled from 'styled-components';
+import Color from '../ui/Color';
 
 const ProgressWrapper = styled.div`
   display: flex;
@@ -13,9 +13,9 @@ const CircleBackground = styled.circle`
   stroke: #edf8fd;
 `;
 
-const CircleProgress = styled.circle<{strokeColor?: string}>`
+const CircleProgress = styled.circle<{ strokeColor?: string }>`
   fill: none;
-  stroke: ${({strokeColor}) => strokeColor || Color.primary};
+  stroke: ${({ strokeColor }) => strokeColor || Color.primary};
   stroke-linecap: round;
   transition: stroke-dashoffset 0.5s ease-in-out;
   transform: rotate(-90deg);
@@ -51,15 +51,10 @@ const CircularProgress: React.FC<CircularProgressProps> = ({
   const dashOffset = circumference - (percent / 100) * circumference;
 
   return (
-    <ProgressWrapper style={{width: size, height: size}}>
+    <ProgressWrapper style={{ width: size, height: size }}>
       <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
         {/* 배경 원 */}
-        <CircleBackground
-          cx={size / 2}
-          cy={size / 2}
-          r={radius}
-          strokeWidth={strokeWidth}
-        />
+        <CircleBackground cx={size / 2} cy={size / 2} r={radius} strokeWidth={strokeWidth} />
         {/*  진행 원 */}
         <CircleProgress
           cx={size / 2}

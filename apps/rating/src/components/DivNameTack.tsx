@@ -1,13 +1,12 @@
-import styled from "styled-components";
-import {useNavigate} from "react-router-dom";
-import TierImg from "../ui/TierImg";
-import Color from "../ui/Color";
+import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import TierImg from '../ui/TierImg';
+import Color from '../ui/Color';
 
-const Wrapper = styled.div<{$isUnderlined: boolean}>`
+const Wrapper = styled.div<{ $isUnderlined: boolean }>`
   padding-left: 5px;
   width: 280px;
-  border-bottom: ${(props) =>
-    props.$isUnderlined ? `1px solid ${Color.primary}` : "none"};
+  border-bottom: ${(props) => (props.$isUnderlined ? `1px solid ${Color.primary}` : 'none')};
   min-height: 40px;
   display: flex;
   justify-content: space-between;

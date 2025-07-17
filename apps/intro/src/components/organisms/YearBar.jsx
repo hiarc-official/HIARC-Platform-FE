@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import Color from "../ui/Color";
-import FontStyle from "../ui/FontStyle";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import Color from '../ui/Color';
+import FontStyle from '../ui/FontStyle';
 
 const YearBarList = styled.div`
   display: flex;
@@ -36,15 +36,13 @@ const CircleButton = styled.button`
   border-radius: 50%;
   border: none;
   padding: 0;
-  background-color: ${(props) =>
-    props.selected ? Color.toggledButtonColor : Color.primary};
+  background-color: ${(props) => (props.selected ? Color.toggledButtonColor : Color.primary)};
   z-index: 1; /* 🎯 원들이 선보다 앞으로 오도록 배치 */
 `;
 
 const YearText = styled.div`
   ${FontStyle.subhead2Bold}
-  color: ${(props) =>
-    props.selected ? Color.toggledButtonColor : Color.primary};
+  color: ${(props) => (props.selected ? Color.toggledButtonColor : Color.primary)};
 
   font-size: clamp(8px, 2vw, 16px);
 `;
@@ -69,10 +67,7 @@ const YearBar = ({ startYear, endYear, onYearSelect }) => {
       <Line /> {/* 🎯 원들 뒤에 배치되는 선 */}
       {years.map((year) => (
         <YearBarItemWrapper key={year}>
-          <CircleButton
-            selected={selectedYear === year}
-            onClick={() => handleYearClick(year)}
-          />
+          <CircleButton selected={selectedYear === year} onClick={() => handleYearClick(year)} />
           <YearText selected={selectedYear === year}>{year}</YearText>
         </YearBarItemWrapper>
       ))}

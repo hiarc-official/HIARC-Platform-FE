@@ -1,8 +1,8 @@
-import React from "react";
-import styled from "styled-components";
-import Color from "../../ui/Color";
-import NavigateArrow from "@/assets/icon/navigate_arrow.svg?react";
-import FontStyle from "@/components/ui/FontStyle";
+import React from 'react';
+import styled from 'styled-components';
+import Color from '../../ui/Color';
+import NavigateArrow from '@/assets/icon/navigate_arrow.svg?react';
+import FontStyle from '@/components/ui/FontStyle';
 
 interface ArrowButtonProps {
   backgroundColor?: string;

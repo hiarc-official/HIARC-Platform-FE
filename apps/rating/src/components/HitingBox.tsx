@@ -1,9 +1,9 @@
-import {useAtom} from "jotai";
-import styled from "styled-components";
-import {DivData, hitingDataAtom} from "../store/Atom";
-import Color from "../ui/Color";
-import ArrowButton from "../atoms/ArrowButton";
-import DivNameTack from "./DivNameTack";
+import { useAtom } from 'jotai';
+import styled from 'styled-components';
+import { DivData, hitingDataAtom } from '../store/Atom';
+import Color from '../ui/Color';
+import ArrowButton from '../atoms/ArrowButton';
+import DivNameTack from './DivNameTack';
 
 const Wrapper = styled.div`
   display: flex;
@@ -31,15 +31,15 @@ const TackContainer = styled.div`
   padding-top: 20px;
 `;
 
-const HitingBox = ({divNum}: {divNum: number}) => {
+const HitingBox = ({ divNum }: { divNum: number }) => {
   const [hitingData] = useAtom(hitingDataAtom);
 
   const divList: DivData[] =
     divNum === 1
       ? hitingData.div1List
       : divNum === 2
-      ? hitingData.div2List
-      : hitingData.div3List || [];
+        ? hitingData.div2List
+        : hitingData.div3List || [];
 
   return (
     <Wrapper>

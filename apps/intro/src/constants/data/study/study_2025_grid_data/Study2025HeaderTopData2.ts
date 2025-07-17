@@ -1,6 +1,6 @@
-import Color from "@/components/ui/Color";
-import CellType from "@/enum/CellType";
-import TopLayerGridItemData from "@/types/TopLayerGridItemData";
+import Color from '@/components/ui/Color';
+import CellType from '@/enum/CellType';
+import TopLayerGridItemData from '@/types/TopLayerGridItemData';
 
 const Study2025HeaderTopData2: TopLayerGridItemData[] = [
   {
@@ -8,7 +8,7 @@ const Study2025HeaderTopData2: TopLayerGridItemData[] = [
     type: CellType.BORDERED_LONG_HORIZONTAL_RECTANGLE,
     backgroundColor: Color.transparent,
     contentColor: Color.orange,
-    text: "중급 스터디",
+    text: '중급 스터디',
   },
 ];
 

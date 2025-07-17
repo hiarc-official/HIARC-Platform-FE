@@ -1,7 +1,7 @@
-import React from "react";
-import styled from "styled-components";
-import Colors from "@/constants/ui/Colors";
-import FontStyle from "@/components/ui/FontStyle";
+import React from 'react';
+import styled from 'styled-components';
+import Colors from '@/constants/ui/Colors';
+import FontStyle from '@/components/ui/FontStyle';
 
 interface FooterContactTextProps {
   text: string;

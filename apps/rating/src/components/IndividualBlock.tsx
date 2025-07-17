@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import Color from "../ui/Color";
-import TierImg from "../ui/TierImg";
-import {useNavigate} from "react-router-dom";
+import styled from 'styled-components';
+import Color from '../ui/Color';
+import TierImg from '../ui/TierImg';
+import { useNavigate } from 'react-router-dom';
 
 const Wrapper = styled.div`
   width: 224px;
@@ -38,7 +38,7 @@ const Down = styled.div`
   align-items: center;
 `;
 
-const Border = styled.div<{$borderColor: string}>`
+const Border = styled.div<{ $borderColor: string }>`
   font-size: 12px;
   border: 0.5px solid ${(props) => props.$borderColor};
   border-radius: 10px;
@@ -94,7 +94,7 @@ const IndividualBlock = ({
   const handleClick = () => {
     navigate(`/search?handle=${handle}`);
   };
-  const handleDisplay = handle.length > 8 ? handle.slice(0, 8) + "..." : handle;
+  const handleDisplay = handle.length > 8 ? handle.slice(0, 8) + '...' : handle;
 
   return (
     <Wrapper onClick={handleClick}>
@@ -107,9 +107,7 @@ const IndividualBlock = ({
       <Down>
         <Borders>
           <Border $borderColor={Color.graySub3}>누적</Border>
-          {startDate && (
-            <Border $borderColor={Color.primary}>{startDate} 부터</Border>
-          )}
+          {startDate && <Border $borderColor={Color.primary}>{startDate} 부터</Border>}
         </Borders>
         <Days>
           <div className="big">{totalStreak}</div>

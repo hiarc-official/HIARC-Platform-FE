@@ -1,9 +1,9 @@
-import HiarcLogo from "../../../assets/image/hiarc_logo.png";
-import AssetImage from "../image/AssetImage";
-import React from "react";
-import styled from "styled-components";
-import Colors from "@/constants/ui/Colors";
-import FontStyle from "@/components/ui/FontStyle";
+import HiarcLogo from '../../../assets/image/hiarc_logo.png';
+import AssetImage from '../image/AssetImage';
+import React from 'react';
+import styled from 'styled-components';
+import Colors from '@/constants/ui/Colors';
+import FontStyle from '@/components/ui/FontStyle';
 
 const FooterLogoContainer = styled.div`
   display: flex;

@@ -1,8 +1,8 @@
-import React from "react";
-import CurvedCornerCell from "../atoms/colored_grid_view/CurvedCornerCell";
-import CellType from "@/enum/CellType";
-import Color from "@/components/ui/Color";
-import BottomLayerGridItemData from "@/types/BottomLayerGridItemData";
+import React from 'react';
+import CurvedCornerCell from '../atoms/colored_grid_view/CurvedCornerCell';
+import CellType from '@/enum/CellType';
+import Color from '@/components/ui/Color';
+import BottomLayerGridItemData from '@/types/BottomLayerGridItemData';
 
 export type CellTypeValue = (typeof CellType)[keyof typeof CellType];
 
@@ -34,7 +34,7 @@ const BottomLayerGridItem: React.FC<BottomLayerGridItemProps> = ({
   return (
     <div
       style={gridStyle}
-      className="transition-opacity duration-500 ease-in-out pointer-events-auto"
+      className="pointer-events-auto transition-opacity duration-500 ease-in-out"
     >
       {data.type === CellType.CURVE && (
         <CurvedCornerCell

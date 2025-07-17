@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 type ModalProps = {
   content: string;
   onClose: () => void;
@@ -42,8 +42,8 @@ const CloseButton = styled.button`
   height: 40px;
 `;
 
-export const Modal = ({content, onClose}: ModalProps) => {
-  const lines = content.split(",");
+export const Modal = ({ content, onClose }: ModalProps) => {
+  const lines = content.split(',');
   return (
     <Overlay onClick={onClose}>
       <ModalWrapper onClick={(e) => e.stopPropagation()}>

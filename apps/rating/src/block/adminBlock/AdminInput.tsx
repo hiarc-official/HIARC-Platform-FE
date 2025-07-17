@@ -1,9 +1,9 @@
-import styled from "styled-components";
-import {AdminExplain} from "../../ui/AdminExplain";
-import {Ex} from "../../ui/AdminExplain";
-import Color from "../../ui/Color";
-import {useState} from "react";
-import {sendAdminInput} from "../../api/AdminApi";
+import styled from 'styled-components';
+import { AdminExplain } from '../../ui/AdminExplain';
+import { Ex } from '../../ui/AdminExplain';
+import Color from '../../ui/Color';
+import { useState } from 'react';
+import { sendAdminInput } from '../../api/AdminApi';
 
 const Wrapper = styled.div`
   overflow: visible;
@@ -62,8 +62,8 @@ const BottomWrapper = styled.div`
   justify-content: flex-end;
   align-items: flex-end;
 `;
-const AdminInput = ({BlockName}: {BlockName: string}) => {
-  const [inputValue, setInputValue] = useState("");
+const AdminInput = ({ BlockName }: { BlockName: string }) => {
+  const [inputValue, setInputValue] = useState('');
   const [loading, setLoading] = useState(false);
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputValue(e.target.value);
@@ -73,11 +73,11 @@ const AdminInput = ({BlockName}: {BlockName: string}) => {
       setLoading(true);
       const response = await sendAdminInput(BlockName, inputValue);
       if (response) {
-        setInputValue("");
+        setInputValue('');
       }
     } catch (error) {
-      alert("전송 실패");
-      console.log("실패", error);
+      alert('전송 실패');
+      console.log('실패', error);
     } finally {
       setLoading(false);
     }
@@ -85,14 +85,12 @@ const AdminInput = ({BlockName}: {BlockName: string}) => {
   return (
     <Wrapper>
       <Header>{BlockName}</Header>
-      <Explain>{AdminExplain[BlockName] || "잠시오류"}</Explain>
+      <Explain>{AdminExplain[BlockName] || '잠시오류'}</Explain>
       <EX>{Ex[BlockName]}</EX>
       <InputBox>
         <Input value={inputValue} onChange={handleInputChange} />
         <BottomWrapper>
-          <Button onClick={handleSubmit}>
-            {loading ? "전송중..." : "입력하기"}
-          </Button>
+          <Button onClick={handleSubmit}>{loading ? '전송중...' : '입력하기'}</Button>
         </BottomWrapper>
       </InputBox>
     </Wrapper>

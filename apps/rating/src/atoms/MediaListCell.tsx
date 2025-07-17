@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import Color from "../ui/Color";
+import styled from 'styled-components';
+import Color from '../ui/Color';
 
 const ContactContainer = styled.div`
   display: flex;
@@ -43,7 +43,7 @@ const ContactType = styled.span`
 const Divider = styled.span`
   text-align: center;
   width: 10px;
-  color: ${Color?.primary || "#42a5f5"};
+  color: ${Color?.primary || '#42a5f5'};
 `;
 
 const ContactValue = styled.span`

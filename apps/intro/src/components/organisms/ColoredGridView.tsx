@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import BottomLayerGridItem from "../molecules/BottomLayerGridItem";
-import TopLayerGridItem from "../molecules/TopLayerGridItem";
-import BottomLayerGridItemData from "@/types/BottomLayerGridItemData";
-import TopLayerGridItemData from "@/types/TopLayerGridItemData";
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import BottomLayerGridItem from '../molecules/BottomLayerGridItem';
+import TopLayerGridItem from '../molecules/TopLayerGridItem';
+import BottomLayerGridItemData from '@/types/BottomLayerGridItemData';
+import TopLayerGridItemData from '@/types/TopLayerGridItemData';
 
 const LayeredContainer = styled.div<{ width: number; height: number }>`
   display: flex;
@@ -21,13 +21,11 @@ const GridContainer = styled.div<{
 }>`
   position: absolute;
   display: grid;
-  grid-template-columns: ${({ colCount, size }) =>
-    `repeat(${colCount - 1}, ${size}px)`};
-  grid-template-rows: ${({ rowCount, size }) =>
-    `repeat(${rowCount - 1}, ${size}px)`};
+  grid-template-columns: ${({ colCount, size }) => `repeat(${colCount - 1}, ${size}px)`};
+  grid-template-rows: ${({ rowCount, size }) => `repeat(${rowCount - 1}, ${size}px)`};
   top: ${({ padding }) => padding}px;
   left: ${({ padding }) => padding}px;
-  gap: ${({ gap }) => (gap ? `${gap}px` : "0")};
+  gap: ${({ gap }) => (gap ? `${gap}px` : '0')};
   width: 100%;
   height: 100%;
 `;
@@ -59,21 +57,11 @@ const ColoredGridView: React.FC<ColoredGridViewProps> = ({
     const maxWidthValue = maxWidth !== undefined ? maxWidth! : 800;
     const minWidthValue = minWidth !== undefined ? minWidth! : 200;
 
-    if (
-      maxWidth !== undefined &&
-      minWidth !== undefined &&
-      window.innerWidth < 800
-    ) {
-      return (
-        minWidthValue +
-        (maxWidthValue - minWidthValue) * (window.innerWidth / 800)
-      );
+    if (maxWidth !== undefined && minWidth !== undefined && window.innerWidth < 800) {
+      return minWidthValue + (maxWidthValue - minWidthValue) * (window.innerWidth / 800);
     }
 
-    return Math.min(
-      maxWidthValue,
-      Math.max(minWidthValue, window.innerWidth - remValue)
-    );
+    return Math.min(maxWidthValue, Math.max(minWidthValue, window.innerWidth - remValue));
   };
 
   const [dynamicWidth, setDynamicWidth] = useState<number>(getDynamicWidth());
@@ -83,13 +71,12 @@ const ColoredGridView: React.FC<ColoredGridViewProps> = ({
     const handleResize = () => {
       setDynamicWidth(getDynamicWidth());
     };
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
     handleResize();
-    return () => window.removeEventListener("resize", handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, [width]);
 
-  const finalWidth =
-    width !== null && width !== undefined ? width : dynamicWidth;
+  const finalWidth = width !== null && width !== undefined ? width : dynamicWidth;
 
   const ratioOffset = (colCount - 1) * 28 + colCount * 100;
   const circleRadius = (50 / ratioOffset) * finalWidth;
@@ -101,8 +88,7 @@ const ColoredGridView: React.FC<ColoredGridViewProps> = ({
   const circleSize3X = circleSize * 3 + gapSize * 2;
   const circleSize4X = circleSize * 4 + gapSize * 3;
   const paddingSize = circleRadius;
-  const containerHeight =
-    rowCount * circleRadius * 2 + (rowCount - 1) * gapSize;
+  const containerHeight = rowCount * circleRadius * 2 + (rowCount - 1) * gapSize;
 
   const [visibleItems, setVisibleItems] = useState<number[]>([]);
   const [isHovered, setIsHovered] = useState<boolean[]>(Array(4).fill(false));
@@ -137,12 +123,7 @@ const ColoredGridView: React.FC<ColoredGridViewProps> = ({
 
   return (
     <LayeredContainer width={finalWidth} height={containerHeight}>
-      <GridContainer
-        padding={paddingSize}
-        size={itemSize}
-        rowCount={rowCount}
-        colCount={colCount}
-      >
+      <GridContainer padding={paddingSize} size={itemSize} rowCount={rowCount} colCount={colCount}>
         {bottomLayerGridData.map((data, index) => (
           <BottomLayerGridItem
             key={index}
@@ -153,12 +134,7 @@ const ColoredGridView: React.FC<ColoredGridViewProps> = ({
           />
         ))}
       </GridContainer>
-      <GridContainer
-        size={circleSize}
-        gap={gapSize}
-        rowCount={rowCount}
-        colCount={colCount}
-      >
+      <GridContainer size={circleSize} gap={gapSize} rowCount={rowCount} colCount={colCount}>
         {topLayerGridData.map((data, index) => (
           <TopLayerGridItem
             key={index}

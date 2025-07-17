@@ -1,7 +1,7 @@
-import React from "react";
-import styled from "styled-components";
-import FooterLogo from "@/components/atoms/footer/FooterLogo";
-import FooterContactInfo from "@/components/molecules/FooterContactInfo";
+import React from 'react';
+import styled from 'styled-components';
+import FooterLogo from '@/components/atoms/footer/FooterLogo';
+import FooterContactInfo from '@/components/molecules/FooterContactInfo';
 
 const OuterContainer = styled.div`
   display: flex;

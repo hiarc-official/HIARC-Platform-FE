@@ -1,4 +1,4 @@
-import apiClient from "./ApiClient";
+import apiClient from './ApiClient';
 
 export interface StreakData {
   handle: string;
@@ -22,12 +22,12 @@ export const fetchStreakData = async (): Promise<{
   streakList: StreakData[];
 }> => {
   try {
-    const response = await apiClient.get<ApiResponse>("/streak");
+    const response = await apiClient.get<ApiResponse>('/streak');
 
-    console.log("API 응답 데이터:", response.data);
+    console.log('API 응답 데이터:', response.data);
     return response.data.data;
   } catch (error) {
-    console.error("Streak 데이터 가져오기 실패:", error);
-    return {seasonTotal: 0, streakList: []};
+    console.error('Streak 데이터 가져오기 실패:', error);
+    return { seasonTotal: 0, streakList: [] };
   }
 };

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import DesktopHeader from "@/components/molecules/DesktopHeader";
-import TabletHeader from "@/components/molecules/TabletHeader";
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import DesktopHeader from '@/components/molecules/DesktopHeader';
+import TabletHeader from '@/components/molecules/TabletHeader';
 
 const HeaderContainer = styled.header`
   width: 100%;
@@ -18,15 +18,11 @@ const Header: React.FC = () => {
       setIsDesktop(window.innerWidth > 768);
     };
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  return (
-    <HeaderContainer>
-      {isDesktop ? <DesktopHeader /> : <TabletHeader />}
-    </HeaderContainer>
-  );
+  return <HeaderContainer>{isDesktop ? <DesktopHeader /> : <TabletHeader />}</HeaderContainer>;
 };
 
 export default Header;

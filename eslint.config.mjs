@@ -1,6 +1,11 @@
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { FlatCompat } from '@eslint/eslintrc';
+import js from '@eslint/js';
+import globals from 'globals';
+import reactHooks from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
+import tseslint from 'typescript-eslint';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -10,9 +15,50 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
+  // Base JavaScript and TypeScript rules
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
+  
+  // Next.js specific rules for apps that use Next.js
   ...compat.config({
     extends: ['next/core-web-vitals', 'next/typescript', 'prettier'],
+    env: {
+      browser: true,
+      es2020: true,
+      node: true,
+    },
+  }),
+  
+  // React and Vite specific configuration
+  {
+    files: ['**/*.{js,jsx,ts,tsx}'],
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+      },
+      parserOptions: {
+        ecmaVersion: 'latest',
+        ecmaFeatures: { jsx: true },
+        sourceType: 'module',
+      },
+    },
+    plugins: {
+      'react-hooks': reactHooks,
+      'react-refresh': reactRefresh,
+    },
     rules: {
+      ...reactHooks.configs.recommended.rules,
+      'react-refresh/only-export-components': [
+        'warn',
+        { allowConstantExport: true },
+      ],
+      'react/prop-types': 'off',
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
+      
+      // Common rules for all projects
       'no-var': 'error',
       'prefer-const': 'error',
       'one-var': ['error', 'never'],
@@ -86,7 +132,6 @@ const eslintConfig = [
       semi: ['error', 'always'],
       'no-extend-native': 'error',
       'no-global-assign': 'error',
-
       'id-length': ['warn', { min: 2, exceptions: ['i', 'j', 'k', 'x', 'y', '_'] }],
       '@typescript-eslint/explicit-function-return-type': [
         'warn',
@@ -118,7 +163,12 @@ const eslintConfig = [
       ],
       'react/jsx-no-useless-fragment': 'warn',
     },
-  }),
+  },
+  
+  // Global ignores
+  {
+    ignores: ['**/dist/**', '**/build/**', '**/.next/**', '**/node_modules/**'],
+  },
 ];
 
 export default eslintConfig;

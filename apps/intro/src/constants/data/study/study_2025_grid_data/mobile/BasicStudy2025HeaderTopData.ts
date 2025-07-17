@@ -1,8 +1,8 @@
-import Color from "@/components/ui/Color";
-import CellType from "@/enum/CellType";
-import TopLayerGridItemData from "@/types/TopLayerGridItemData";
-import HiarcLogo from "@/assets/image/hiarc_logo.png";
-import PythonIcon from "@/assets/image/python_icon.png";
+import Color from '@/components/ui/Color';
+import CellType from '@/enum/CellType';
+import TopLayerGridItemData from '@/types/TopLayerGridItemData';
+import HiarcLogo from '@/assets/image/hiarc_logo.png';
+import PythonIcon from '@/assets/image/python_icon.png';
 
 const BasicStudy2025HeaderTopData: TopLayerGridItemData[] = [
   {
@@ -17,7 +17,7 @@ const BasicStudy2025HeaderTopData: TopLayerGridItemData[] = [
     type: CellType.LONG_HORIZONTAL_RECTANGLE,
     backgroundColor: Color.yellow,
     contentColor: Color.primary,
-    text: "학회 스터디",
+    text: '학회 스터디',
   },
   {
     position: [5, 1],
@@ -39,21 +39,21 @@ const BasicStudy2025HeaderTopData: TopLayerGridItemData[] = [
     type: CellType.HORIZONTAL_RECTANGLE,
     backgroundColor: Color.orange,
     contentColor: Color.white,
-    text: "2025",
+    text: '2025',
   },
   {
     position: [3, 2],
     type: CellType.HORIZONTAL_RECTANGLE,
     backgroundColor: Color.orange,
     contentColor: Color.white,
-    text: "1학기",
+    text: '1학기',
   },
   {
     position: [5, 2],
     type: CellType.BORDERED_LONG_HORIZONTAL_RECTANGLE,
     backgroundColor: Color.transparent,
     contentColor: Color.orange,
-    text: "기초 스터디",
+    text: '기초 스터디',
   },
   {
     position: [8, 2],

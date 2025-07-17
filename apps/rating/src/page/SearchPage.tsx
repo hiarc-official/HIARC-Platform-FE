@@ -1,15 +1,15 @@
-import {useEffect, useState} from "react";
-import {useAtom} from "jotai";
-import {useSearchParams} from "react-router-dom";
-import {handleAtom} from "../store/Atom";
-import LayOut from "../ui/Layout";
-import styled from "styled-components";
-import SearchedStreakEntity from "../components/SearchedStreakEnity";
-import SearchedHitingEntity from "../components/SearchedHitingEntity";
-import TierButton from "../components/TierButton";
-import DivAndRank from "../components/DivAndRank";
-import {fetchSearchData, SearchData} from "../api/SearchApi";
-import SolvedButton from "../components/SolvedButton";
+import { useEffect, useState } from 'react';
+import { useAtom } from 'jotai';
+import { useSearchParams } from 'react-router-dom';
+import { handleAtom } from '../store/Atom';
+import LayOut from '../ui/Layout';
+import styled from 'styled-components';
+import SearchedStreakEntity from '../components/SearchedStreakEnity';
+import SearchedHitingEntity from '../components/SearchedHitingEntity';
+import TierButton from '../components/TierButton';
+import DivAndRank from '../components/DivAndRank';
+import { fetchSearchData, SearchData } from '../api/SearchApi';
+import SolvedButton from '../components/SolvedButton';
 
 const HandleWrapper = styled.div`
   font-size: 35px;
@@ -47,7 +47,7 @@ const SearchPage = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const queryHandle = searchParams.get("handle");
+    const queryHandle = searchParams.get('handle');
     if (queryHandle) {
       setHandle(queryHandle);
       loadSearchData(queryHandle);
@@ -64,18 +64,18 @@ const SearchPage = () => {
       if (result) {
         setData(result);
       } else {
-        setError("해당 핸들의 정보를 찾을 수 없습니다.");
+        setError('해당 핸들의 정보를 찾을 수 없습니다.');
       }
     } catch (err) {
-      setError(" 데이터 불러오는 중 오류 발생.");
-      console.error("데이터 불러오는 중 오류 발생:", err);
+      setError(' 데이터 불러오는 중 오류 발생.');
+      console.error('데이터 불러오는 중 오류 발생:', err);
     } finally {
       setLoading(false);
     }
   };
 
   const onClick = () => {
-    window.open(`https://solved.ac/profile/${handle}`, "_blank");
+    window.open(`https://solved.ac/profile/${handle}`, '_blank');
   };
 
   return (

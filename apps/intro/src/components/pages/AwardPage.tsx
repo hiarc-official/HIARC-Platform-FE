@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import styled, { keyframes } from "styled-components";
-import Color from "../ui/Color";
-import FontStyle from "../ui/FontStyle";
-import YearBar from "../organisms/YearBar";
-import Layout from "../templates/PageTemplate";
-import competitionData from "@/constants/table_data/CompetitionData";
-import Competition from "../organisms/CompetitionTable";
-import ColoredGridView from "../organisms/ColoredGridView";
-import AwardHeaderTopData from "@/constants/data/award/AwardHeaderTopData";
-import AnimatedContainer from "../atoms/common/AnimatedContainer";
-import CellType from "@/enum/CellType";
+import React, { useState } from 'react';
+import styled, { keyframes } from 'styled-components';
+import Color from '../ui/Color';
+import FontStyle from '../ui/FontStyle';
+import YearBar from '../organisms/YearBar';
+import Layout from '../templates/PageTemplate';
+import competitionData from '@/constants/table_data/CompetitionData';
+import Competition from '../organisms/CompetitionTable';
+import ColoredGridView from '../organisms/ColoredGridView';
+import AwardHeaderTopData from '@/constants/data/award/AwardHeaderTopData';
+import AnimatedContainer from '../atoms/common/AnimatedContainer';
+import CellType from '@/enum/CellType';
 
 const ResponsiveWrapper = styled.div`
   display: flex;
@@ -64,11 +64,7 @@ const AwardPage: React.FC = () => {
         bottomLayerGridData={[]}
       />
       <Wrapper>
-        <YearBar
-          startYear={2017}
-          endYear={2025}
-          onYearSelect={handleYearSelect}
-        />
+        <YearBar startYear={2017} endYear={2025} onYearSelect={handleYearSelect} />
         {selectedYear && (
           <ColoredGridView
             minWidth={400}

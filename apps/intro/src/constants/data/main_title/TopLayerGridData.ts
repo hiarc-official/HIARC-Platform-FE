@@ -1,7 +1,7 @@
 // src/constants/data/main_title/TopLayerGridData.ts
-import Color from "@/components/ui/Color";
-import CellType from "@/enum/CellType";
-import TopLayerGridItemData from "@/types/TopLayerGridItemData";
+import Color from '@/components/ui/Color';
+import CellType from '@/enum/CellType';
+import TopLayerGridItemData from '@/types/TopLayerGridItemData';
 
 const TopLayerGridData: TopLayerGridItemData[] = [
   { position: [2, 1], type: CellType.CIRCLE, backgroundColor: Color.orange },
@@ -101,21 +101,21 @@ const TopLayerGridData: TopLayerGridItemData[] = [
     position: [8, 5],
     type: CellType.CIRCLE_WITH_TEXT,
     backgroundColor: Color.yellow,
-    text: "us",
+    text: 'us',
   },
   {
     position: [5, 4],
     type: CellType.LONG_HORIZONTAL_RECTANGLE,
     backgroundColor: Color.yellow,
-    text: "solve with",
+    text: 'solve with',
   },
   {
     position: [2, 2],
     type: CellType.BUTTON,
     backgroundColor: Color.primary,
-    buttonText: "학회 소개",
+    buttonText: '학회 소개',
     index: 0,
-    url: "introduce_hiarc",
+    url: 'introduce_hiarc',
   },
   {
     position: [4, 1],
@@ -127,9 +127,9 @@ const TopLayerGridData: TopLayerGridItemData[] = [
     position: [8, 2],
     type: CellType.BUTTON,
     backgroundColor: Color.primary,
-    buttonText: "스터디",
+    buttonText: '스터디',
     index: 1,
-    url: "study",
+    url: 'study',
   },
   {
     position: [10, 3],
@@ -141,9 +141,9 @@ const TopLayerGridData: TopLayerGridItemData[] = [
     position: [5, 3],
     type: CellType.BUTTON,
     backgroundColor: Color.primary,
-    buttonText: "학회 활동",
+    buttonText: '학회 활동',
     index: 2,
-    url: "activity",
+    url: 'activity',
   },
   {
     position: [4, 4],
@@ -161,9 +161,9 @@ const TopLayerGridData: TopLayerGridItemData[] = [
     position: [9, 5],
     type: CellType.BUTTON,
     backgroundColor: Color.primary,
-    buttonText: "수상 경력",
+    buttonText: '수상 경력',
     index: 3,
-    url: "award",
+    url: 'award',
   },
 ];
 

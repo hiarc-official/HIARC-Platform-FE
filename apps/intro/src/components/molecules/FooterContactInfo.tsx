@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import FooterContactText from "@/components/atoms/footer/FooterContactText";
+import React from 'react';
+import styled from 'styled-components';
+import FooterContactText from '@/components/atoms/footer/FooterContactText';
 
 const OuterContainer = styled.div`
   display: flex;
