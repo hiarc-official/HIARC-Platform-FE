@@ -1,5 +1,5 @@
 {
-  "installCommand": "rm -rf node_modules && pnpm install --no-frozen-lockfile",
-  "buildCommand": "pnpm build",
+  "installCommand": "npm install",
+  "buildCommand": "npm run build",
   "rewrites": [{"source": "/(.*)", "destination": "/index.html"}]
 }
