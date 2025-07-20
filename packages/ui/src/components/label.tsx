@@ -7,7 +7,7 @@ import { cn } from '../lib/utils';
 
 const labelVariants = cva(
   cn(
-    'flex items-center gap-2 font-medium leading-none',
+    'flex items-center gap-2 leading-none',
     'peer-disabled:cursor-not-allowed peer-disabled:opacity-50',
     'group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50'
   ),
@@ -16,7 +16,7 @@ const labelVariants = cva(
       size: {
         xs: 'text-xs',
         sm: 'text-sm',
-        md: 'text-base',
+        md: 'text-md',
         lg: 'text-lg',
       },
       weight: {
