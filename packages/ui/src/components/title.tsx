@@ -17,6 +17,12 @@ const titleVariants = cva(
         sm: 'text-2xl',
         lg: 'text-5xl',
       },
+      weight: {
+        regular: 'font-normal',
+        medium: 'font-medium',
+        semibold: 'font-semibold',
+        bold: 'font-bold',
+      },
     },
     defaultVariants: {
       size: 'sm',
@@ -29,11 +35,21 @@ type TitleProps = React.ComponentProps<typeof LabelPrimitive.Root> &
     selectable?: boolean;
   };
 
-function Title({ className, size, selectable = true, ...props }: TitleProps): React.ReactElement {
+function Title({
+  className,
+  size,
+  weight,
+  selectable = true,
+  ...props
+}: TitleProps): React.ReactElement {
   return (
     <LabelPrimitive.Root
       data-slot="label"
-      className={cn(titleVariants({ size }), selectable ? 'select-text' : 'select-none', className)}
+      className={cn(
+        titleVariants({ size, weight }),
+        selectable ? 'select-text' : 'select-none',
+        className
+      )}
       {...props}
     />
   );
