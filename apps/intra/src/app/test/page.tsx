@@ -4,6 +4,7 @@ import { CategoryChip } from '@hiarc-platform/ui/src/components/category-chip';
 import CommonTableBody from '@hiarc-platform/ui/src/components/common-table-body';
 import CommonThead from '@hiarc-platform/ui/src/components/common-table-head';
 import { Label } from '@hiarc-platform/ui/src/components/label';
+import TablePagination from '@hiarc-platform/ui/src/components/pagination';
 import { useTable } from '@hiarc-platform/util';
 import { ColumnDef, Row } from '@tanstack/react-table';
 import { useMemo, useState } from 'react';
@@ -170,6 +171,7 @@ export default function Test(): React.ReactElement {
             }}
           />
         </table>
+        <TablePagination table={table}></TablePagination>
       </div>
     </main>
   );
