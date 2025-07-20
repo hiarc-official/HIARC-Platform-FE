@@ -32,7 +32,8 @@ module.exports = {
         category: {
           rating: '#00AAFF',
           study: '#FFAE2C',
-          etc: '#E7E700',
+          etc: '#ADAD00',
+          etc_background: '#E7E700',
           general: '#44D215',
           external: '#332AE8',
         },
