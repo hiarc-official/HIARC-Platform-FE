@@ -6,7 +6,9 @@ import { cn } from '../lib/utils';
 const buttonVariants = cva(
   cn(
     'inline-flex items-center justify-center gap-2 whitespace-nowrap',
-    'rounded-lg text-sm font-medium transition-colors',
+    'rounded-md text-sm font-medium transition-colors',
+    'transition-transform duration-150',
+    'hover:-translate-y-[2px] hover:shadow-md',
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
     'disabled:pointer-events-none'
   ),
@@ -14,8 +16,8 @@ const buttonVariants = cva(
     variants: {
       variant: {
         fill: cn(
-          'bg-primary text-gray-100',
-          'hover:bg-primary/80',
+          'bg-primary-300 text-white',
+          'hover:bg-primary-300/80',
           'disabled:bg-gray-100 disabled:text-gray-300'
         ),
         fill_light: cn(
@@ -29,8 +31,8 @@ const buttonVariants = cva(
           'disabled:bg-gray-100 disabled:text-gray-300'
         ),
         line: cn(
-          'border border-primary bg-background text-gray-900',
-          'hover:bg-gray-100 hover:border-primary/50',
+          'border border-primary-300 bg-background text-gray-900',
+          'hover:bg-gray-100 hover:border-primary-300/50',
           'disabled:border-gray-200 disabled:text-gray-300'
         ),
         line_secondary: cn(
