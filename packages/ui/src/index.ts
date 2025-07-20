@@ -5,5 +5,6 @@ export * from './components/common-table-body';
 export * from './components/common-table-head';
 export * from './components/input';
 export * from './components/label';
+export * from './components/tabs';
 export * from './components/title';
 export * from './lib/utils';
