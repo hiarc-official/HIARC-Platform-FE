@@ -1,122 +1,63 @@
-import * as React from 'react';
-import { ChevronLeftIcon, ChevronRightIcon, MoreHorizontalIcon } from 'lucide-react';
-import { Button, buttonVariants } from './button';
-import { cn } from '../lib/utils';
+import { usePagination } from '@hiarc-platform/util';
+import { Table } from '@tanstack/react-table';
+import { ReactElement } from 'react';
+import { Button } from './button';
 
-function Pagination({ className, ...props }: React.ComponentProps<'nav'>): React.ReactElement {
+const TablePagination = <T,>({ table }: { table: Table<T> }): ReactElement => {
+  const pageCount = table.getPageCount();
+  const currentPage = table.getState().pagination.pageIndex + 1;
+
+  const paginationRange = usePagination({
+    totalPageCount: pageCount,
+    currentPage,
+    siblingCount: 1,
+  });
+
   return (
-    <nav
-      role="navigation"
-      aria-label="pagination"
-      data-slot="pagination"
-      className={cn('mx-auto flex w-full justify-center', className)}
-      {...props}
-    />
+    <div className="flex flex-row items-center justify-center gap-2 py-4">
+      <Button
+        variant="line_secondary"
+        size="xs"
+        className="h-8 w-8 px-2"
+        onClick={() => table.previousPage()}
+        disabled={!table.getCanPreviousPage()}
+      >
+        {'<'}
+      </Button>
+      <ul className="m-0 flex list-none flex-row items-center justify-center gap-2 p-0">
+        {paginationRange.map((page, index) => {
+          if (page === 'DOTS') {
+            return (
+              <li key={`dots-${index}`} className="select-none px-2 text-gray-400">
+                ...
+              </li>
+            );
+          }
+          return (
+            <li key={page as number}>
+              <Button
+                variant="line_secondary"
+                size="xs"
+                className="h-8 min-w-8 px-2"
+                onClick={() => table.setPageIndex((page as number) - 1)}
+              >
+                {page}
+              </Button>
+            </li>
+          );
+        })}
+      </ul>
+      <Button
+        variant="line_secondary"
+        size="xs"
+        className="h-8 w-8 px-2"
+        onClick={() => table.nextPage()}
+        disabled={!table.getCanNextPage()}
+      >
+        {'>'}
+      </Button>
+    </div>
   );
-}
-
-function PaginationContent({
-  className,
-  ...props
-}: React.ComponentProps<'ul'>): React.ReactElement {
-  return (
-    <ul
-      data-slot="pagination-content"
-      className={cn('flex flex-row items-center gap-1', className)}
-      {...props}
-    />
-  );
-}
-
-function PaginationItem({ ...props }: React.ComponentProps<'li'>): React.ReactElement {
-  return <li data-slot="pagination-item" {...props} />;
-}
-
-type PaginationLinkProps = {
-  isActive?: boolean;
-} & Pick<React.ComponentProps<typeof Button>, 'size'> &
-  React.ComponentProps<'a'>;
-
-function PaginationLink({
-  className,
-  isActive,
-  size = 'icon',
-  ...props
-}: PaginationLinkProps): React.ReactElement {
-  return (
-    <a
-      aria-current={isActive ? 'page' : undefined}
-      data-slot="pagination-link"
-      data-active={isActive}
-      className={cn(
-        buttonVariants({
-          variant: isActive ? 'outline' : 'ghost',
-          size,
-        }),
-        className
-      )}
-      {...props}
-    />
-  );
-}
-
-function PaginationPrevious({
-  className,
-  ...props
-}: React.ComponentProps<typeof PaginationLink>): React.ReactElement {
-  return (
-    <PaginationLink
-      aria-label="Go to previous page"
-      size="default"
-      className={cn('gap-1 px-2.5 sm:pl-2.5', className)}
-      {...props}
-    >
-      <ChevronLeftIcon />
-      <span className="hidden sm:block">Previous</span>
-    </PaginationLink>
-  );
-}
-
-function PaginationNext({
-  className,
-  ...props
-}: React.ComponentProps<typeof PaginationLink>): React.ReactElement {
-  return (
-    <PaginationLink
-      aria-label="Go to next page"
-      size="default"
-      className={cn('gap-1 px-2.5 sm:pr-2.5', className)}
-      {...props}
-    >
-      <span className="hidden sm:block">Next</span>
-      <ChevronRightIcon />
-    </PaginationLink>
-  );
-}
-
-function PaginationEllipsis({
-  className,
-  ...props
-}: React.ComponentProps<'span'>): React.ReactElement {
-  return (
-    <span
-      aria-hidden
-      data-slot="pagination-ellipsis"
-      className={cn('flex size-9 items-center justify-center', className)}
-      {...props}
-    >
-      <MoreHorizontalIcon className="size-4" />
-      <span className="sr-only">More pages</span>
-    </span>
-  );
-}
-
-export {
-  Pagination,
-  PaginationContent,
-  PaginationLink,
-  PaginationItem,
-  PaginationPrevious,
-  PaginationNext,
-  PaginationEllipsis,
 };
+
+export default TablePagination;
