@@ -13,11 +13,11 @@ const categoryChipVariants = cva(
   {
     variants: {
       category: {
-        rating: 'bg-yellow-100 text-yellow-700',
-        study: 'bg-blue-100 text-blue-700',
-        etc: 'bg-gray-100 text-gray-700',
-        general: 'bg-green-100 text-green-700',
-        external: 'bg-purple-100 text-purple-700',
+        rating: 'bg-category-rating/20 text-category-rating',
+        study: 'bg-category-study/20 text-category-study',
+        etc: 'bg-category-etc_background/20 text-category-etc',
+        general: 'bg-category-general/20 text-category-general',
+        external: 'bg-category-external/20 text-category-external',
       },
     },
     defaultVariants: {
