@@ -7,14 +7,14 @@ import { cn } from '../lib/utils';
 
 const titleVariants = cva(
   cn(
-    'flex items-center gap-2 font-medium leading-none',
+    'flex items-center gap-2 leading-none',
     'peer-disabled:cursor-not-allowed peer-disabled:opacity-50',
     'group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50'
   ),
   {
     variants: {
       size: {
-        sm: 'text-3xl',
+        sm: 'text-2xl',
         lg: 'text-5xl',
       },
     },
