@@ -7,41 +7,36 @@ const buttonVariants = cva(
   cn(
     'inline-flex items-center justify-center gap-2 whitespace-nowrap',
     'rounded-md text-sm font-medium transition-all duration-150',
-    'hover:-translate-y-[2px] hover:shadow-md',
+    'hover:-translate-y-[1px] hover:shadow-md hover:opacity-90',
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
     'disabled:pointer-events-none'
   ),
   {
     variants: {
       variant: {
-        fill: cn(
-          'bg-primary-300 text-white',
-          'hover:bg-primary-300/80',
+        fill: cn('bg-primary-300 text-white', 'disabled:bg-gray-100 disabled:text-gray-500'),
+        secondary: cn(
+          'bg-gray-100 border border-gray-200 text-gray-900',
           'disabled:bg-gray-100 disabled:text-gray-300'
+        ),
+        line: cn(
+          'border border-primary-300 bg-white text-gray-900',
+          'disabled:border-gray-200 disabled:text-gray-500'
         ),
         fill_light: cn(
           'bg-primary-100 text-gray-100',
-          'hover:bg-primary-100/80',
           'disabled:bg-gray-100 disabled:text-gray-300'
         ),
         fill_secondary: cn(
           'bg-gray-200 text-gray-900',
-          'hover:bg-gray-200/50',
           'disabled:bg-gray-100 disabled:text-gray-300'
-        ),
-        line: cn(
-          'border border-primary-300 bg-background text-gray-900',
-          'hover:bg-gray-100 hover:border-primary-300/50',
-          'disabled:border-gray-200 disabled:text-gray-300'
         ),
         line_secondary: cn(
           'border border-gray-300 bg-background text-gray-900',
-          'hover:bg-gray-100 hover:border-gray-300/50',
-          'disabled:border-gray-200 disabled:text-gray-300'
+          'disabled:border-gray-100 disabled:text-gray-300'
         ),
         social_login: cn(
           'border border-gray-200 bg-background',
-          'hover:bg-gray-100 hover:border-gray-200/50',
           'disabled:border-gray-200 disabled:text-gray-300'
         ),
       },

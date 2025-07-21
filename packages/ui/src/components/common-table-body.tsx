@@ -70,4 +70,4 @@ const CommonTableBody = <T,>({ emptyMessage, table, onClick }: TbodyProps<T>): R
   );
 };
 
-export default CommonTableBody;
+export { CommonTableBody };
