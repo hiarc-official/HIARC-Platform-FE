@@ -1,6 +1,6 @@
 'use client';
 
-import { Label } from '../label';
+import { Label } from '../label/label';
 import {
   Select,
   SelectContent,
@@ -37,13 +37,13 @@ function LabeledSelector({
   return (
     <div className="flex w-full flex-col">
       {showLabel && (
-        <div className="mb-1 flex items-center">
-          <Label>{label}</Label>
+        <div className="mb-2 flex items-center">
+          <Label weight="medium">{label}</Label>
           {required && <span className="relative -top-[2px] ml-0.5 text-red">*</span>}
         </div>
       )}
       <Select value={value} onValueChange={onChange}>
-        <SelectTrigger className="h-11 w-full data-[placeholder]:text-gray-500">
+        <SelectTrigger className="w-full data-[placeholder]:text-gray-500">
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
         <SelectContent>

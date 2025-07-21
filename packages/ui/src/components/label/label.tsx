@@ -3,19 +3,21 @@
 import * as LabelPrimitive from '@radix-ui/react-label';
 import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
-import { cn } from '../lib/utils';
+import { cn } from '../../lib/utils';
 
-const titleVariants = cva(
+const labelVariants = cva(
   cn(
-    'flex items-center gap-2 leading-none',
+    'items-center gap-2 leading-none',
     'peer-disabled:cursor-not-allowed peer-disabled:opacity-50',
     'group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50'
   ),
   {
     variants: {
       size: {
-        sm: 'text-2xl',
-        lg: 'text-5xl',
+        xs: 'text-xs',
+        sm: 'text-sm',
+        md: 'text-md',
+        lg: 'text-lg',
       },
       weight: {
         regular: 'font-normal',
@@ -26,27 +28,28 @@ const titleVariants = cva(
     },
     defaultVariants: {
       size: 'sm',
+      weight: 'regular',
     },
   }
 );
 
-type TitleProps = React.ComponentProps<typeof LabelPrimitive.Root> &
-  VariantProps<typeof titleVariants> & {
+type LabelProps = React.ComponentProps<typeof LabelPrimitive.Root> &
+  VariantProps<typeof labelVariants> & {
     selectable?: boolean;
   };
 
-function Title({
+function Label({
   className,
   size,
   weight,
   selectable = true,
   ...props
-}: TitleProps): React.ReactElement {
+}: LabelProps): React.ReactElement {
   return (
     <LabelPrimitive.Root
       data-slot="label"
       className={cn(
-        titleVariants({ size, weight }),
+        labelVariants({ size, weight }),
         selectable ? 'select-text' : 'select-none',
         className
       )}
@@ -55,4 +58,4 @@ function Title({
   );
 }
 
-export { Title };
+export { Label };
