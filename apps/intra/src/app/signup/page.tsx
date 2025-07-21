@@ -1,6 +1,6 @@
 'use client';
 
-import ToggleSelector from '@/ui/ToggleSelector';
+import ToggleSelector from '@/ui/LabeledSelector';
 
 export default function SignUpPage(): React.ReactElement {
   return (
