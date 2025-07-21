@@ -1,6 +1,6 @@
 import { Fragment, ReactElement } from 'react';
 import { cn } from '../lib/utils';
-import { Title } from './title';
+import { Title } from './label/title';
 
 interface TabItem {
   label: string;

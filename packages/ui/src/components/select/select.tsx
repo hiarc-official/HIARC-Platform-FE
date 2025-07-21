@@ -39,7 +39,7 @@ function SelectTrigger({
         'shadow-xs  flex w-fit items-center justify-between gap-2 whitespace-nowrap rounded-md border bg-transparent px-3 py-2 text-sm outline-0 transition-[color,box-shadow]  ',
         '*:data-[slot=select-value]:items-center',
         '*:data-[slot=select-value]:gap-2',
-        'data-[size=default]:h-9',
+        'data-[size=default]:h-11',
         'data-[size=sm]:h-8',
         '*:data-[slot=select-value]:line-clamp-1',
         '*:data-[slot=select-value]:flex',

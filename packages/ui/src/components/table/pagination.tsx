@@ -1,7 +1,7 @@
 import { usePagination } from '@hiarc-platform/util';
 import { Table } from '@tanstack/react-table';
 import { ReactElement } from 'react';
-import { Button } from './button';
+import { Button } from '../button';
 
 const TablePagination = <T,>({ table }: { table: Table<T> }): ReactElement => {
   const pageCount = table.getPageCount();

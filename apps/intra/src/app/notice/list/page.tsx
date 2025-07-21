@@ -1,12 +1,16 @@
 'use client';
 
-import { Button, Input, Tabs } from '@hiarc-platform/ui';
-import { CategoryChip } from '@hiarc-platform/ui/src/components/category-chip';
-import { CommonTableBody } from '@hiarc-platform/ui/src/components/common-table-body';
-import { CommonTableHead } from '@hiarc-platform/ui/src/components/common-table-head';
-import { Label } from '@hiarc-platform/ui/src/components/label';
-import { TablePagination } from '@hiarc-platform/ui/src/components/pagination';
-import { LabeledSelector } from '@hiarc-platform/ui/src/components/select/labeled-selector';
+import {
+  Button,
+  CategoryChip,
+  CommonTableBody,
+  CommonTableHead,
+  Label,
+  LabeledInput,
+  LabeledSelector,
+  TablePagination,
+  Tabs,
+} from '@hiarc-platform/ui';
 import { useTable } from '@hiarc-platform/util';
 import { ColumnDef, Row } from '@tanstack/react-table';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -276,7 +280,7 @@ export default function NoticeList(): React.ReactElement {
     <main className="flex min-h-screen flex-col items-center justify-between py-8">
       <div className="z-10 flex w-full max-w-[1200px] flex-col items-center gap-8">
         <Tabs tabs={tabItems} activeTab={tab} onTabClick={setTab} className="self-start" />
-        <div className="flex w-full items-center justify-between gap-4 rounded-md border border-gray-100 p-6">
+        <div className="flex w-full items-end justify-between gap-4 rounded-md border border-gray-100 p-6 ">
           <LabeledSelector
             placeholder={'123'}
             required={false}
@@ -297,12 +301,12 @@ export default function NoticeList(): React.ReactElement {
               console.log(value);
             }}
           />
-          <Input></Input>
+          <LabeledInput label={'123'}></LabeledInput>
           <div className="flex w-full items-center gap-2">
-            <Button variant="secondary" size="sm" className="w-full">
+            <Button variant="secondary" size="md" className="w-full">
               초기화
             </Button>
-            <Button variant="fill" size="sm" className="w-full bg-primary-200">
+            <Button variant="fill" size="md" className="w-full bg-primary-200">
               검색
             </Button>
           </div>
