@@ -1,5 +1,3 @@
-import { Form } from 'react-hook-form';
-
 export * from './components/button';
 export * from './components/card';
 export * from './components/category-chip';
@@ -7,7 +5,8 @@ export * from './components/common-table-body';
 export * from './components/common-table-head';
 export * from './components/input';
 export * from './components/label';
+export * from './components/select/labeled-selector';
+export * from './components/select/select';
 export * from './components/tabs';
 export * from './components/title';
 export * from './lib/utils';
-export * from './components/select';

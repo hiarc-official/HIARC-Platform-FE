@@ -2,10 +2,11 @@
 
 import { Button, Input, Tabs } from '@hiarc-platform/ui';
 import { CategoryChip } from '@hiarc-platform/ui/src/components/category-chip';
-import CommonTableBody from '@hiarc-platform/ui/src/components/common-table-body';
-import CommonThead from '@hiarc-platform/ui/src/components/common-table-head';
+import { CommonTableBody } from '@hiarc-platform/ui/src/components/common-table-body';
+import { CommonTableHead } from '@hiarc-platform/ui/src/components/common-table-head';
 import { Label } from '@hiarc-platform/ui/src/components/label';
-import TablePagination from '@hiarc-platform/ui/src/components/pagination';
+import { TablePagination } from '@hiarc-platform/ui/src/components/pagination';
+import { LabeledSelector } from '@hiarc-platform/ui/src/components/select/labeled-selector';
 import { useTable } from '@hiarc-platform/util';
 import { ColumnDef, Row } from '@tanstack/react-table';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -272,18 +273,36 @@ export default function NoticeList(): React.ReactElement {
   });
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex min-h-screen flex-col items-center justify-between py-8">
       <div className="z-10 flex w-full max-w-[1200px] flex-col items-center gap-8">
         <Tabs tabs={tabItems} activeTab={tab} onTabClick={setTab} className="self-start" />
-        <div className="flex w-full items-center justify-between gap-4">
-          <Input></Input>
-          <Input></Input>
+        <div className="flex w-full items-center justify-between gap-4 rounded-md border border-gray-100 p-6">
+          <LabeledSelector
+            placeholder={'123'}
+            required={false}
+            label={'카테고리'}
+            options={[]}
+            value="123"
+            onChange={(value: unknown) => {
+              console.log(value);
+            }}
+          />
+          <LabeledSelector
+            placeholder={'123'}
+            required={false}
+            label={'학기'}
+            options={[]}
+            value="123"
+            onChange={(value: unknown) => {
+              console.log(value);
+            }}
+          />
           <Input></Input>
           <div className="flex w-full items-center gap-2">
-            <Button variant="line" className="w-full">
+            <Button variant="secondary" size="sm" className="w-full">
               초기화
             </Button>
-            <Button variant="fill_secondary" className="w-full">
+            <Button variant="fill" size="sm" className="w-full bg-primary-200">
               검색
             </Button>
           </div>
@@ -299,7 +318,7 @@ export default function NoticeList(): React.ReactElement {
             className="w-full"
           >
             <table className="w-full table-fixed">
-              <CommonThead table={table} />
+              <CommonTableHead table={table} />
               <CommonTableBody
                 table={table}
                 onClick={function (row: Row<Notice>): void {

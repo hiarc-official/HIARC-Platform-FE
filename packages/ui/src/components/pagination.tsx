@@ -60,4 +60,4 @@ const TablePagination = <T,>({ table }: { table: Table<T> }): ReactElement => {
   );
 };
 
-export default TablePagination;
+export { TablePagination };

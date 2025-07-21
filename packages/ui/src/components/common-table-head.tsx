@@ -99,4 +99,4 @@ const CommonTableHead = <T,>({
   </thead>
 );
 
-export default CommonTableHead;
+export { CommonTableHead };
