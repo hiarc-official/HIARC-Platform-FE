@@ -38,7 +38,7 @@ function LabeledSelectButton({
             key={option}
             variant={selected === option ? 'line' : 'unselected'}
             onClick={() => setSelected(option)}
-            className="w-full"
+            className="h-[44px] w-full"
           >
             {option}
           </Button>
