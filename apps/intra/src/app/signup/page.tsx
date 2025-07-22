@@ -2,6 +2,7 @@
 
 import { Button, LabeledInput, LabeledSelector, Title } from '@hiarc-platform/ui';
 import { selectOption } from 'constants/selectOption';
+import { LabeledSelectButton } from '@hiarc-platform/ui';
 
 export default function SignUpPage(): React.ReactElement {
   return (
@@ -14,17 +15,29 @@ export default function SignUpPage(): React.ReactElement {
         <LabeledInput label="전화번호" required={true} placeholder="-없이 숫자만 입력해주세요" />
         <LabeledInput label="학번" required={true} placeholder="학번을 입력해주세요" />
         <LabeledSelector
-          required={true}
-          label="학년"
-          placeholder="학년을 입력해주세요"
-          options={selectOption['학년']}
-        />
-        <LabeledSelector
           label="학과"
           placeholder="학과을 입력해주세요"
           required={true}
           options={selectOption['학과']}
         />
+        <LabeledSelectButton
+          label="복수전공 여부"
+          required={true}
+          options={['복수전공 미진행', '복수전공 진행']}
+        />
+        <LabeledSelector
+          required={true}
+          label="학년"
+          placeholder="학년을 입력해주세요"
+          options={selectOption['학년']}
+        />
+
+        <LabeledSelectButton
+          label="재학여부"
+          required={true}
+          options={['재학 중', '휴학 중', '졸업']}
+        />
+
         <div className="flex w-full items-end gap-2">
           <LabeledInput label="BOJ" required={true} placeholder="백준 핸들을 입력해주세요" />
           <Button variant="fill" size="md">
