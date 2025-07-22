@@ -14,7 +14,7 @@ export default function Home() {
               <CardTitle>Admin Stats</CardTitle>
             </CardHeader>
             <CardContent>
-              <Button variant="outline" size={'sm'} className="mt-4">
+              <Button variant="line" size={'sm'} className="mt-4">
                 Manage Users
               </Button>
             </CardContent>

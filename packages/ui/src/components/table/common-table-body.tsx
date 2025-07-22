@@ -1,5 +1,6 @@
 import { flexRender, Row, Table } from '@tanstack/react-table';
 import { ReactElement } from 'react';
+import '../../types/table.d.ts';
 
 interface TbodyProps<T> {
   table: Table<T>;
@@ -33,6 +34,7 @@ const CommonTableBody = <T,>({ emptyMessage, table, onClick }: TbodyProps<T>): R
           onClick={() => onClick(row)}
         >
           {row.getVisibleCells().map((cell) => {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const bodyAlign = cell.column.columnDef.meta?.bodyAlign || 'center';
             const bodyAlignmentClass =
               bodyAlign === 'left'
