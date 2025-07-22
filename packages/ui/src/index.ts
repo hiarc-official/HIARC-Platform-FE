@@ -7,6 +7,7 @@ export * from './components/label/label';
 export * from './components/label/title';
 export * from './components/select/labeled-selector';
 export * from './components/select/select';
+export * from './components/select/labeled-select-button';
 export * from './components/table/common-table-body';
 export * from './components/table/common-table-head';
 export * from './components/table/pagination';

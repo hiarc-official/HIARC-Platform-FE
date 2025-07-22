@@ -24,7 +24,9 @@ function LabeledInput({
     <div className="flex w-full flex-col">
       {showLabel && (
         <div className="mb-2 flex items-center">
-          <Label weight="medium">{label}</Label>
+          <Label weight="medium" size="md">
+            {label}
+          </Label>
           {required && <span className="relative -top-[2px] ml-0.5 text-red">*</span>}
         </div>
       )}

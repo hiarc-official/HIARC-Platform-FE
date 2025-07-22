@@ -4,15 +4,17 @@ import { cn } from '../../lib/utils';
 
 const inputVariants = cva(
   cn(
-    'shadow-xs border-input file:text-foreground flex h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base outline-none transition-[color,box-shadow] selection:bg-primary file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
+    'flex h-9 w-full min-w-0 px-3 py-1',
+    'shadow-xs border-input rounded-md border bg-transparent text-base outline-none transition-[color,box-shadow] md:text-md',
     'focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]',
-    'aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive',
+    'file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-md file:font-medium',
+    'disabled:cursor-not-allowed disabled:opacity-50 disabled:pointer-events-none',
     'placeholder-gray-500'
   ),
   {
     variants: {
       variant: {
-        search: cn('w-60 rounded-md bg-gray-100 px-3 py-2 pl-10 text-sm'),
+        search: cn('w-60 rounded-md bg-gray-100 px-3 py-2 pl-10 text-sm font-pretendard'),
         default: '',
       },
     },
