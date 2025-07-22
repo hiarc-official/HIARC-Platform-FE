@@ -1,5 +1,6 @@
 'use client';
 
+import { cn } from '../../lib/utils';
 import { Label } from '../label/label';
 import {
   Select,
@@ -23,6 +24,7 @@ interface LabeledSelectorProps {
   options: Option[];
   value?: string;
   onChange?(value: string): void;
+  className?: string;
 }
 
 function LabeledSelector({
@@ -33,12 +35,15 @@ function LabeledSelector({
   options,
   value,
   onChange,
+  className = '',
 }: LabeledSelectorProps): React.ReactElement {
   return (
-    <div className="flex w-full flex-col">
+    <div className={cn('flex w-full flex-col', className)}>
       {showLabel && (
         <div className="mb-2 flex items-center">
-          <Label weight="medium">{label}</Label>
+          <Label weight="medium" size="md">
+            {label}
+          </Label>
           {required && <span className="relative -top-[2px] ml-0.5 text-red">*</span>}
         </div>
       )}
