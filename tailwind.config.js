@@ -74,6 +74,38 @@ module.exports = {
         fadeOut: {
           to: { opacity: '0' },
         },
+        'fade-in-0': {
+          from: { opacity: '0' },
+          to: { opacity: '1' },
+        },
+        'fade-out-0': {
+          from: { opacity: '1' },
+          to: { opacity: '0' },
+        },
+        'zoom-in-95': {
+          from: { opacity: '0', transform: 'scale(0.95)' },
+          to: { opacity: '1', transform: 'scale(1)' },
+        },
+        'zoom-out-95': {
+          from: { opacity: '1', transform: 'scale(1)' },
+          to: { opacity: '0', transform: 'scale(0.95)' },
+        },
+        'slide-in-from-top-2': {
+          from: { transform: 'translateY(-0.5rem)' },
+          to: { transform: 'translateY(0)' },
+        },
+        'slide-in-from-bottom-2': {
+          from: { transform: 'translateY(0.5rem)' },
+          to: { transform: 'translateY(0)' },
+        },
+        'slide-in-from-left-2': {
+          from: { transform: 'translateX(-0.5rem)' },
+          to: { transform: 'translateX(0)' },
+        },
+        'slide-in-from-right-2': {
+          from: { transform: 'translateX(0.5rem)' },
+          to: { transform: 'translateX(0)' },
+        },
         glow: {
           '0%': { boxShadow: '0 0 2px rgba(255, 0, 0, 0.7)' },
           '100%': { boxShadow: '0 0 4px rgba(255, 0, 0, 1)' },
@@ -86,6 +118,16 @@ module.exports = {
       animation: {
         'fade-in': 'fadeIn 0.3s ease-out forwards',
         'fade-out': 'fadeOut 0.2s ease-in forwards',
+        'in': 'fade-in-0 0.15s ease-out',
+        'out': 'fade-out-0 0.1s ease-in',
+        'fade-in-0': 'fade-in-0 0.15s ease-out',
+        'fade-out-0': 'fade-out-0 0.1s ease-in',
+        'zoom-in-95': 'zoom-in-95 0.15s ease-out',
+        'zoom-out-95': 'zoom-out-95 0.1s ease-in',
+        'slide-in-from-top-2': 'slide-in-from-top-2 0.15s ease-out',
+        'slide-in-from-bottom-2': 'slide-in-from-bottom-2 0.15s ease-out',
+        'slide-in-from-left-2': 'slide-in-from-left-2 0.15s ease-out',
+        'slide-in-from-right-2': 'slide-in-from-right-2 0.15s ease-out',
         glow: 'glow 1.5s infinite alternate',
         'marquee-forward': 'marquee 10s linear infinite',
         'marquee-reverse': 'marquee 12s linear infinite reverse',
@@ -102,6 +144,12 @@ module.exports = {
         '.fade-out': {
           opacity: '1',
           animation: 'fadeOut 0.2s ease-in forwards',
+        },
+        '.animate-in': {
+          animation: 'fade-in-0 0.15s ease-out',
+        },
+        '.animate-out': {
+          animation: 'fade-out-0 0.1s ease-in',
         },
         '.animate-glow': {
           animation: 'glow 1.5s infinite alternate',
