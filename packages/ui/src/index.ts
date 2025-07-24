@@ -3,6 +3,8 @@ export * from './components/card';
 export * from './components/category-chip';
 export * from './components/dialog/alert-dialog';
 export * from './components/dialog/dialog';
+export * from './components/icon-button';
+export * from './components/image';
 export * from './components/input/input';
 export * from './components/input/labeled-input';
 export * from './components/label/label';
