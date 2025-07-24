@@ -1,7 +1,5 @@
-import { NextImageAdapter } from '@/shared/provider/next-image-adapter';
 import Footer from '@/ui/Footer';
 import Header from '@/ui/Header';
-import { ImageProvider } from '@hiarc-platform/ui';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
@@ -21,11 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ImageProvider imageComponent={NextImageAdapter}>
-          <Header />
-          {children}
-          <Footer />
-        </ImageProvider>
+        <Header />
+        {children}
+        <Footer />
       </body>
     </html>
   );

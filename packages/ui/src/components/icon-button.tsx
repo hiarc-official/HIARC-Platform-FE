@@ -1,10 +1,15 @@
 import { cva } from 'class-variance-authority';
+import Image from 'next/image';
 import React from 'react';
 import { cn } from '../lib/utils';
-import { Image } from './image';
 
 const buttonVariants = cva(
-  'flex items-center justify-center text-gray-500 hover:bg-gray-100 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-300',
+  cn(
+    'flex items-center justify-center text-gray-500',
+    'hover:bg-gray-100 hover:text-gray-700',
+    'focus:outline-none',
+    'transition-colors duration-200'
+  ),
   {
     variants: {
       size: {
@@ -62,11 +67,11 @@ function IconButton({
   const getIconPixelSize = (size: 'sm' | 'md' | 'lg'): number => {
     switch (size) {
       case 'sm':
-        return 12; // w-3 h-3
+        return 12;
       case 'md':
-        return 16; // w-4 h-4
+        return 16;
       case 'lg':
-        return 20; // w-5 h-5
+        return 20;
       default:
         return 16;
     }

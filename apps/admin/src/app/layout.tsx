@@ -1,8 +1,6 @@
-import { ImageProvider } from '@hiarc-platform/ui';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import { NextImageAdapter } from './shared/provider/next-image-adapter';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -14,9 +12,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <ImageProvider imageComponent={NextImageAdapter}>
-        <body className={inter.className}>{children}</body>
-      </ImageProvider>
+      <body className={inter.className}>{children}</body>
     </html>
   );
 }
