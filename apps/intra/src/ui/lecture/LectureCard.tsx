@@ -29,11 +29,11 @@ export default function LectureCard({
       <div className="mr-4 flex">
         <div className="flex items-center  gap-2">
           <Button
-            size="sm"
+            size="xs"
             onClick={onClick}
             disabled={complete}
             variant="fill_light"
-            className="w-[81px]"
+            className="w-[81px] "
           >
             {complete ? '출석완료' : '출석체크'}
           </Button>

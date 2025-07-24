@@ -36,6 +36,8 @@ module.exports = {
           etc_background: '#E7E700',
           general: '#44D215',
           external: '#332AE8',
+          participating: '#01B5C9',
+          recruiting: '#F52121',
         },
       },
       // Typography from typography.css
@@ -118,8 +120,8 @@ module.exports = {
       animation: {
         'fade-in': 'fadeIn 0.3s ease-out forwards',
         'fade-out': 'fadeOut 0.2s ease-in forwards',
-        'in': 'fade-in-0 0.15s ease-out',
-        'out': 'fade-out-0 0.1s ease-in',
+        in: 'fade-in-0 0.15s ease-out',
+        out: 'fade-out-0 0.1s ease-in',
         'fade-in-0': 'fade-in-0 0.15s ease-out',
         'fade-out-0': 'fade-out-0 0.1s ease-in',
         'zoom-in-95': 'zoom-in-95 0.15s ease-out',

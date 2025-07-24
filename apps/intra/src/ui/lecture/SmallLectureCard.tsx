@@ -29,7 +29,7 @@ export default function SmallLectureCard({
             disabled={complete}
             variant="fill_light"
             className="w-[81px]"
-            size="sm"
+            size="xs"
           >
             {complete ? '출석완료' : '출석체크'}
           </Button>
