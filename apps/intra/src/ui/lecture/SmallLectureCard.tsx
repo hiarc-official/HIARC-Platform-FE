@@ -1,5 +1,5 @@
 'use client';
-import WeekSteaker from './WeekSteaker';
+import WeekChip from './WeekChip';
 import { useState } from 'react';
 import { Button } from '@hiarc-platform/ui';
 export default function SmallLectureCard({
@@ -21,14 +21,15 @@ export default function SmallLectureCard({
     <div className=" flex h-[88px] w-[335px] flex-col gap-2 border border-gray-200 px-4 py-3">
       {/*위*/}
       <div className=" flex items-center justify-between ">
-        <WeekSteaker week={week} />
+        <WeekChip week={week} />
         <div className="flex items-center gap-2">
           <div className="w-[80px] text-right text-[14px] text-gray-700 ">{classRoom}</div>
           <Button
             onClick={onClick}
             disabled={complete}
             variant="fill_light"
-            className="h-8 w-[81px] rounded-sm"
+            className="w-[81px]"
+            size="sm"
           >
             {complete ? '출석완료' : '출석체크'}
           </Button>
