@@ -1,5 +1,6 @@
 import LectureCard from '@/ui/lecture/LectureCard';
 import SmallLectureCard from '@/ui/lecture/SmallLectureCard';
+import { CategoryChip } from '@hiarc-platform/ui';
 export default function StudyPage(): React.ReactElement {
   return (
     <div className="flex h-[700px] w-full flex-col items-center justify-center gap-9">
@@ -9,6 +10,8 @@ export default function StudyPage(): React.ReactElement {
         <LectureCard week={3} study={'그리디 알고리즘'} classRoom="T702" />
       </div>
       <SmallLectureCard week={1} study={'그래프 이론'} classRoom="T503" />
+      <CategoryChip category="participating" />
+      <CategoryChip category="recruiting" />
     </div>
   );
 }
