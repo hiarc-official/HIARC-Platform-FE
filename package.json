@@ -33,6 +33,7 @@
   "dependencies": {
     "@anthropic-ai/claude-code": "^1.0.53",
     "@tanstack/react-table": "^8.20.5",
+    "date-fns": "^4.1.0",
     "tw-animate-css": "^1.3.5"
   }
 }
