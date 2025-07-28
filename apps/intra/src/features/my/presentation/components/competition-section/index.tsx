@@ -33,11 +33,11 @@ export function CompetitionSection(): React.ReactElement {
           <DialogTrigger asChild>
             <IconButton type="button" iconSrc="/Edit.svg" />
           </DialogTrigger>
-          <DialogContent className="w-[540px]">
+          <DialogContent className="!w-[540px] !max-w-[540px]">
             <DialogHeader>
               <DialogTitle>참여한 대회 기록하기</DialogTitle>
             </DialogHeader>
-            <DialogDescription className="w-[540px]">
+            <DialogDescription>
               <div className="flex w-full flex-col gap-4">
                 <ol className="list-disc pl-5 text-gray-700">
                   <li>허위 정보로 판단될 경우, 운영진에 의해 삭제될 수 있습니다. </li>
