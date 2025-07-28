@@ -35,13 +35,53 @@ type TitleProps = React.ComponentProps<typeof LabelPrimitive.Root> &
     selectable?: boolean;
   };
 
+function isNumeric(value: React.ReactNode): boolean {
+  return typeof value === 'number' || (typeof value === 'string' && /^\d+$/.test(value));
+}
+
+function useCountUp(target: number, duration = 1000): number {
+  const [value, setValue] = React.useState(0);
+
+  React.useEffect(() => {
+    let start: number | null = null;
+    let animationFrame: number;
+
+    const animate = (timestamp: number): void => {
+      if (!start) {
+        start = timestamp;
+      }
+      const progress = timestamp - start;
+      const progressRatio = Math.min(progress / duration, 1);
+      const currentValue = Math.floor(progressRatio * target);
+      setValue(currentValue);
+
+      if (progress < duration) {
+        animationFrame = requestAnimationFrame(animate);
+      } else {
+        setValue(target);
+      }
+    };
+
+    animationFrame = requestAnimationFrame(animate);
+
+    return () => cancelAnimationFrame(animationFrame);
+  }, [target, duration]);
+
+  return value;
+}
+
 function Title({
   className,
   size,
   weight,
   selectable = true,
+  children,
   ...props
 }: TitleProps): React.ReactElement {
+  const shouldAnimate = isNumeric(children);
+  const targetValue = shouldAnimate ? Number(children) : null;
+  const animatedValue = useCountUp(targetValue ?? 0);
+
   return (
     <LabelPrimitive.Root
       data-slot="label"
@@ -51,7 +91,9 @@ function Title({
         className
       )}
       {...props}
-    />
+    >
+      {shouldAnimate ? animatedValue.toLocaleString() : children}
+    </LabelPrimitive.Root>
   );
 }
 
