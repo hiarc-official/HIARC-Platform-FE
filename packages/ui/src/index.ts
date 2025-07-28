@@ -9,6 +9,8 @@ export * from './components/input/input';
 export * from './components/input/labeled-input';
 export * from './components/label/label';
 export * from './components/label/title';
+export * from './components/menubar';
+export * from './components/popover';
 export * from './components/select/labeled-select-button';
 export * from './components/select/labeled-selector';
 export * from './components/select/select';
