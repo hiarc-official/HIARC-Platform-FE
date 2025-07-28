@@ -6,6 +6,7 @@ import { MyInfoSection } from '@/features/my/presentation/components/my-info-sec
 import { StreakSection } from '@/features/my/presentation/components/streak-section';
 import { StudySection } from '@/features/my/presentation/components/study-section';
 import { Divider, Label } from '@hiarc-platform/ui';
+import router from 'next/router';
 
 export default function MyPage(): React.ReactElement {
   const attendance = [true, true, true, true, true, true, true, true];
@@ -16,7 +17,7 @@ export default function MyPage(): React.ReactElement {
       <div className="mx-auto flex w-full min-w-[600px] max-w-[1200px] flex-col items-center justify-between">
         <button
           className="flex cursor-pointer items-center self-start rounded-md p-2 transition-colors hover:bg-gray-50"
-          onClick={() => window.history.back()}
+          onClick={() => router.back()}
         >
           <Label size="md" className="cursor-pointer text-gray-700">
             ← 뒤로가기
