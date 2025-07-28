@@ -20,6 +20,9 @@ const categoryChipVariants = cva(
         external: 'bg-category-external/20 text-category-external',
         participating: 'bg-category-participating/20 text-category-participating',
         recruiting: 'bg-category-recruiting/20 text-category-recruiting',
+        div1: 'bg-category-rating/20 text-category-rating',
+        div2: 'bg-category-rating/20 text-category-rating',
+        div3: 'bg-category-rating/20 text-category-rating',
       },
     },
     defaultVariants: {
@@ -39,6 +42,9 @@ const categoryText: Record<
   external: '외부',
   participating: '참여중',
   recruiting: '모집중',
+  div1: 'Div1',
+  div2: 'Div2',
+  div3: 'Div3',
 };
 
 type CategoryChipProps = React.HTMLAttributes<HTMLSpanElement> &

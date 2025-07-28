@@ -2,6 +2,7 @@
 module.exports = {
   content: ['./apps/*/src/**/*.{js,ts,jsx,tsx,mdx}', './packages/ui/src/**/*.{js,ts,jsx,tsx,mdx}'],
   darkMode: ['class', '.dark'],
+  safelist: [{ pattern: /.*/ }],
   theme: {
     extend: {
       colors: {
@@ -175,6 +176,7 @@ module.exports = {
       };
       addUtilities(newUtilities);
     },
+
     function ({ addBase }) {
       addBase({
         '*': {

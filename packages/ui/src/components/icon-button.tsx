@@ -37,7 +37,7 @@ const iconVariants = cva('', {
   },
 });
 
-type IconButtonProps = React.ComponentPropsWithoutRef<'button'> & {
+type IconButtonProps = React.ComponentPropsWithRef<'button'> & {
   // SVG 아이콘 지원
   iconPath?: string;
   iconProps?: React.SVGProps<SVGSVGElement>;
@@ -48,60 +48,59 @@ type IconButtonProps = React.ComponentPropsWithoutRef<'button'> & {
   iconSize?: 'sm' | 'md' | 'lg';
 };
 
-function IconButton({
-  iconPath,
-  iconProps,
-  iconSrc,
-  iconAlt = 'icon',
-  size = 'md',
-  iconSize,
-  className,
-  ...props
-}: IconButtonProps): React.ReactElement {
-  const resolvedIconSize = iconSize || size;
+const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
+  (
+    { iconPath, iconProps, iconSrc, iconAlt = 'icon', size = 'md', iconSize, className, ...props },
+    ref
+  ) => {
+    const resolvedIconSize = iconSize || size;
+    const useImage = iconSrc && (!iconPath || iconSrc);
 
-  // 이미지와 SVG 둘 다 제공되었을 때는 이미지를 우선 사용
-  const useImage = iconSrc && (!iconPath || iconSrc);
+    const getIconPixelSize = (size: 'sm' | 'md' | 'lg'): number => {
+      switch (size) {
+        case 'sm':
+          return 12;
+        case 'md':
+          return 16;
+        case 'lg':
+          return 20;
+        default:
+          return 16;
+      }
+    };
 
-  // 아이콘 크기를 픽셀로 변환
-  const getIconPixelSize = (size: 'sm' | 'md' | 'lg'): number => {
-    switch (size) {
-      case 'sm':
-        return 12;
-      case 'md':
-        return 16;
-      case 'lg':
-        return 20;
-      default:
-        return 16;
-    }
-  };
+    const iconPixelSize = getIconPixelSize(resolvedIconSize);
 
-  const iconPixelSize = getIconPixelSize(resolvedIconSize);
+    return (
+      <button
+        type="button"
+        className={cn(buttonVariants({ size }), className)}
+        ref={ref}
+        {...props}
+      >
+        {useImage ? (
+          <Image
+            src={iconSrc!}
+            alt={iconAlt}
+            width={iconPixelSize}
+            height={iconPixelSize}
+            className={cn(iconVariants({ size: resolvedIconSize }))}
+          />
+        ) : iconPath ? (
+          <svg
+            className={cn(iconVariants({ size: resolvedIconSize }), iconProps?.className)}
+            fill="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            {...iconProps}
+          >
+            <path d={iconPath} />
+          </svg>
+        ) : null}
+      </button>
+    );
+  }
+);
 
-  return (
-    <button type="button" className={cn(buttonVariants({ size }), className)} {...props}>
-      {useImage ? (
-        <Image
-          src={iconSrc!}
-          alt={iconAlt}
-          width={iconPixelSize}
-          height={iconPixelSize}
-          className={cn(iconVariants({ size: resolvedIconSize }))}
-        />
-      ) : iconPath ? (
-        <svg
-          className={cn(iconVariants({ size: resolvedIconSize }), iconProps?.className)}
-          fill="currentColor"
-          viewBox="0 0 24 24"
-          aria-hidden="true"
-          {...iconProps}
-        >
-          <path d={iconPath} />
-        </svg>
-      ) : null}
-    </button>
-  );
-}
-
+IconButton.displayName = 'IconButton';
 export default IconButton;
