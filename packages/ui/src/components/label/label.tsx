@@ -27,7 +27,7 @@ const labelVariants = cva(
       },
     },
     defaultVariants: {
-      size: 'sm',
+      size: 'md',
       weight: 'regular',
     },
   }
