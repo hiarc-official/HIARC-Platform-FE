@@ -1,8 +1,74 @@
-/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./apps/*/src/**/*.{js,ts,jsx,tsx,mdx}', './packages/ui/src/**/*.{js,ts,jsx,tsx,mdx}'],
   darkMode: ['class', '.dark'],
-  safelist: [{ pattern: /.*/ }],
+  safelist: [
+    // 특수한 클래스들 (패턴으로 매칭하기 어려운것들)
+    'bg-white',
+    'text-center',
+    'self-start',
+    'mx-auto',
+    'min-w-0',
+    'flex-1',
+    'border-transparent',
+    'border-b',
+    'border-r',
+    'table-fixed',
+    'border-separate',
+    'border-spacing-0',
+    'overflow-hidden',
+    'overflow-x-auto',
+    'overflow-y-auto',
+    'min-w-max',
+    'max-w-[390px]',
+    'min-w-[600px]',
+    'max-w-[1200px]',
+    'h-[46.5px]',
+    'gap-[3px]',
+    'accent-primary-100',
+    'sm:px-10',
+    'hover:bg-gray-50',
+    // 카테고리 색상들
+    'bg-category-rating',
+    'bg-category-study',
+    'bg-category-general',
+    'bg-category-etc',
+    'bg-category-external',
+    'bg-category-participating',
+    'bg-category-recruiting',
+    'bg-category-etc_background',
+    // 패턴으로 매칭
+    { pattern: /^(h|w)-[0-9]+(\.5)?$/ }, // 크기: h-2, w-4, h-1.5 등
+    { pattern: /^text-(xs|sm|md|lg|xl|2xl|3xl|4xl)$/ }, // 텍스트 크기
+    { pattern: /^font-(normal|medium|semibold|bold)$/ }, // 폰트 굵기
+    { pattern: /^(flex|grid|inline-flex)$/ }, // 디스플레이
+    { pattern: /^flex-(col|row)$/ }, // flex 방향
+    { pattern: /^grid-cols-[1-9]|grid-cols-1[0-2]$/ }, // grid 컬럼: 1-12
+    { pattern: /^items-(center|start|end)$/ }, // align-items
+    { pattern: /^justify-(center|start|end|between)$/ }, // justify-content
+    { pattern: /^(relative|absolute)$/ }, // position
+    { pattern: /^(p|px|py|pt|pb|pl|pr)-[0-9]+(\.5)?$/ }, // padding
+    { pattern: /^(m|mx|my|mt|mb|ml|mr)-[0-9]+(\.5)?$/ }, // margin
+    { pattern: /^gap-[0-9]+(\.5)?$/ }, // gap
+    { pattern: /^w-(full|1\/2|24)$/ }, // 특수 너비
+    { pattern: /^h-(full|7)$/ }, // 특수 높이
+    { pattern: /^rounded(-md|-full)?$/ }, // border-radius
+    { pattern: /^border(-primary-300)?$/ }, // border
+    { pattern: /^cursor-pointer$/ }, // cursor
+    { pattern: /^transition(-colors|-all)?$/ }, // transition
+    { pattern: /^bg-gradient-to-(r|l|t|b|tr|tl|br|bl)$/ }, // gradient 방향
+    { pattern: /^(from|to)-(primary|gray)-(100|200|300)$/ }, // gradient 색상
+    {
+      pattern:
+        /^text-(gray|primary|green|red|blue|yellow)-(50|100|200|300|400|500|600|700|800|900)$/,
+    }, // 텍스트 색상
+    {
+      pattern: /^bg-(gray|primary|green|red|blue|yellow)-(50|100|200|300|400|500|600|700|800|900)$/,
+    }, // 배경색
+    {
+      pattern:
+        /^border-(gray|primary|green|red|blue|yellow)-(50|100|200|300|400|500|600|700|800|900)$/,
+    }, // 테두리 색상
+  ],
   theme: {
     extend: {
       colors: {
