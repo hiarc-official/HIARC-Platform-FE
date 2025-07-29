@@ -1,3 +1,4 @@
+export * from './components/back-button';
 export * from './components/button';
 export * from './components/card';
 export * from './components/category-chip';
