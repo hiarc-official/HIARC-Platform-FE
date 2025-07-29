@@ -1,8 +1,6 @@
+import { CategoryChip, Label } from '@hiarc-platform/ui';
+import { KoreanLevel, Level } from 'constants/level';
 import StudyGrayChip from './StudyGrayChip';
-import { Level, LevelIcon, KoreanLevel } from 'constants/level';
-import Image from 'next/image';
-import { CategoryChip } from '@hiarc-platform/ui';
-import { Label } from '@hiarc-platform/ui';
 
 interface StudyCardProps {
   time: string;
@@ -12,7 +10,7 @@ interface StudyCardProps {
   hostName: string;
   startDate: string;
   endDate: string;
-  studyDiscription: string;
+  studyDescription: string;
   state: 'participating' | 'recruiting';
 }
 
@@ -24,7 +22,7 @@ export default function SmallStudyCard({
   hostName,
   startDate,
   endDate,
-  studyDiscription,
+  studyDescription,
   state,
 }: StudyCardProps): React.ReactElement {
   return (
@@ -45,7 +43,7 @@ export default function SmallStudyCard({
         <CategoryChip category={state} className="ml-auto h-[26px]" />
       </div>
       <Label size="md" weight="regular" className="mt-1 line-clamp-2 overflow-hidden text-ellipsis">
-        {studyDiscription}
+        {studyDescription}
       </Label>
     </div>
   );

@@ -1,8 +1,8 @@
 import LectureCard from '@/ui/lecture/LectureCard';
 import SmallLectureCard from '@/ui/lecture/SmallLectureCard';
-import { CategoryChip } from '@hiarc-platform/ui';
-import StudyCard from '@/ui/studyCard/StudyCard';
 import SmallStudyCard from '@/ui/studyCard/SmallStudyCard';
+import StudyCard from '@/ui/studyCard/StudyCard';
+import { CategoryChip } from '@hiarc-platform/ui';
 import { Level } from 'constants/level';
 
 export default function StudyPage(): React.ReactElement {
@@ -24,7 +24,7 @@ export default function StudyPage(): React.ReactElement {
         hostName="이가은"
         startDate="2025.03.25"
         endDate="2025.06.20"
-        studyDiscription="스터디 설명"
+        studyDescription="스터디 설명"
         state="participating"
       />
       <StudyCard
@@ -35,7 +35,7 @@ export default function StudyPage(): React.ReactElement {
         hostName="이태경"
         startDate="2025.03.25"
         endDate="2025.06.20"
-        studyDiscription="스터디 설명"
+        studyDescription="스터디 설명"
         state="recruiting"
       />
       <StudyCard
@@ -46,7 +46,7 @@ export default function StudyPage(): React.ReactElement {
         hostName="송한서"
         startDate="2025.03.25"
         endDate="2025.06.20"
-        studyDiscription="스터디 설명"
+        studyDescription="스터디 설명"
         state="participating"
       />
 
@@ -58,7 +58,7 @@ export default function StudyPage(): React.ReactElement {
         hostName="이가은"
         startDate="2025.03.25"
         endDate="2025.06.20"
-        studyDiscription="스터디 설명"
+        studyDescription="스터디 설명"
         state="participating"
       />
       <SmallStudyCard
@@ -69,7 +69,7 @@ export default function StudyPage(): React.ReactElement {
         hostName="이태경"
         startDate="2025.03.25"
         endDate="2025.06.20"
-        studyDiscription="스터디 설명"
+        studyDescription="스터디 설명"
         state="recruiting"
       />
       <SmallStudyCard
@@ -80,7 +80,7 @@ export default function StudyPage(): React.ReactElement {
         hostName="송한서"
         startDate="2025.03.25"
         endDate="2025.06.20"
-        studyDiscription="스터디 설명"
+        studyDescription="스터디 설명"
         state="participating"
       />
     </div>
