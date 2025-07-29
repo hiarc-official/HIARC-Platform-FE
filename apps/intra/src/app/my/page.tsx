@@ -6,11 +6,12 @@ import { MyInfoSection } from '@/features/my/presentation/components/my-info-sec
 import { StreakSection } from '@/features/my/presentation/components/streak-section';
 import { StudySection } from '@/features/my/presentation/components/study-section';
 import { Divider, Label } from '@hiarc-platform/ui';
-import router from 'next/router';
+import { useRouter } from 'next/navigation';
 
 export default function MyPage(): React.ReactElement {
   const attendance = [true, true, true, true, true, true, true, true];
   const assignment = [true, true, false, true, true, true, true, true];
+  const router = useRouter();
 
   return (
     <div className="flex w-full items-center justify-between border-b border-gray-200  py-4 sm:px-10">

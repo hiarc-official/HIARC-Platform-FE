@@ -1,8 +1,8 @@
 'use client';
-import { cn } from '../../lib/utils';
-import { Label } from '../label/label';
-import { Button } from '../button';
 import { useState } from 'react';
+import { cn } from '../../lib/utils';
+import { Button } from '../button';
+import { Label } from '../label/label';
 interface LabeledSelectButtonProps {
   label: string;
   showLabel?: boolean;
@@ -16,9 +16,8 @@ function LabeledSelectButton({
   showLabel = true,
   required = false,
   options,
-
   className = '',
-}: LabeledSelectButtonProps) {
+}: LabeledSelectButtonProps): React.ReactElement {
   const [selected, setSelected] = useState<string>('');
 
   return (
@@ -28,7 +27,7 @@ function LabeledSelectButton({
           <Label weight="medium" size="md">
             {label}
           </Label>
-          {required && <span className="relative -top-[2px] ml-0.5 text-red">*</span>}
+          {required && <span className="relative-top-[2px] ml-0.5 text-red">*</span>}
         </div>
       )}
 
