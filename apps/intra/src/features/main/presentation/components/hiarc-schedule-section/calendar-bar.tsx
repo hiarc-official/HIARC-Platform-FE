@@ -98,10 +98,10 @@ export default function CalendarBar({ data, daysToShow, className }: Props): Rea
                   {cats.map((cat, idx) => (
                     <span
                       key={cat + idx}
-                      className={[
+                      className={cn(
                         'h-1.5 w-1.5 rounded-full',
-                        CATEGORY_COLORS[cat] || 'bg-gray-300',
-                      ].join(' ')}
+                        CATEGORY_COLORS[cat] || 'bg-gray-300'
+                      )}
                     />
                   ))}
                 </div>

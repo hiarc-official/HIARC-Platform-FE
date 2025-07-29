@@ -18,7 +18,7 @@ export function StudyListSection(): React.ReactElement {
             hostName="이가은"
             startDate="2025.03.25"
             endDate="2025.06.20"
-            studyDiscription="스터디 설명"
+            studyDescription="스터디 설명"
             state="participating"
           />
           <StudyCard
@@ -29,7 +29,7 @@ export function StudyListSection(): React.ReactElement {
             hostName="이태경"
             startDate="2025.03.25"
             endDate="2025.06.20"
-            studyDiscription="스터디 설명"
+            studyDescription="스터디 설명"
             state="recruiting"
           />
           <StudyCard
@@ -40,7 +40,7 @@ export function StudyListSection(): React.ReactElement {
             hostName="송한서"
             startDate="2025.03.25"
             endDate="2025.06.20"
-            studyDiscription="스터디 설명"
+            studyDescription="스터디 설명"
             state="participating"
           />
         </div>

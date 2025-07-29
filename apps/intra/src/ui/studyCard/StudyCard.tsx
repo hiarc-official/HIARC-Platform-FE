@@ -11,7 +11,7 @@ interface StudyCardProps {
   hostName: string;
   startDate: string;
   endDate: string;
-  studyDiscription: string;
+  studyDescription: string;
   state: 'participating' | 'recruiting';
 }
 
@@ -23,7 +23,7 @@ export default function StudyCard({
   hostName,
   startDate,
   endDate,
-  studyDiscription,
+  studyDescription,
   state,
 }: StudyCardProps): React.ReactElement {
   return (
@@ -57,7 +57,7 @@ export default function StudyCard({
         <CategoryChip category={state} className="ml-auto" />
       </div>
       <Label size="md" weight="regular" className="mt-1 line-clamp-2 overflow-hidden text-ellipsis">
-        {studyDiscription}
+        {studyDescription}
       </Label>
     </div>
   );
