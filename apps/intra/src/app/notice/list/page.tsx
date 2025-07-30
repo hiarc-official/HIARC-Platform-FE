@@ -322,7 +322,10 @@ export default function NoticeList(): React.ReactElement {
             className="w-full"
           >
             <table className="w-full table-fixed">
-              <CommonTableHead table={table} />
+              <CommonTableHead
+                table={table}
+                className="border-b border-t border-b-gray-200 border-t-gray-900 bg-white"
+              />
               <CommonTableBody
                 table={table}
                 onClick={function (row: Row<Notice>): void {
