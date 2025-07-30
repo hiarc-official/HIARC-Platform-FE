@@ -9,6 +9,7 @@ interface TheadProps<T> {
   sortColumns?: string[];
   sort?: string;
   setSort?(fn: (prevSort: string) => string): void;
+  className?: string;
 }
 
 const CommonTableHead = <T,>({
@@ -16,8 +17,9 @@ const CommonTableHead = <T,>({
   sortColumns,
   sort,
   setSort,
+  className,
 }: TheadProps<T>): ReactElement => (
-  <thead className="border-b border-t border-b-gray-200 border-t-gray-900 bg-white">
+  <thead className={className}>
     {table.getHeaderGroups().map((headerGroup) => (
       <tr key={headerGroup.id} className="h-12">
         {headerGroup.headers.map((header, idx, arr) => {
