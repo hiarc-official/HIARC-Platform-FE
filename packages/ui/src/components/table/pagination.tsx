@@ -1,9 +1,15 @@
 import { usePagination } from '@hiarc-platform/util';
 import { Table } from '@tanstack/react-table';
 import { ReactElement } from 'react';
+import { cn } from '../../lib/utils';
 import { Button } from '../button';
 
-const TablePagination = <T,>({ table }: { table: Table<T> }): ReactElement => {
+interface TablePaginationProps<T> {
+  table: Table<T>;
+  className?: string;
+}
+
+const TablePagination = <T,>({ table, className }: TablePaginationProps<T>): ReactElement => {
   const pageCount = table.getPageCount();
   const currentPage = table.getState().pagination.pageIndex + 1;
 
@@ -14,7 +20,7 @@ const TablePagination = <T,>({ table }: { table: Table<T> }): ReactElement => {
   });
 
   return (
-    <div className="flex flex-row items-center justify-center gap-2 py-4">
+    <div className={cn('flex flex-row items-center justify-center gap-2', className)}>
       <Button
         variant="line_secondary"
         size="xs"
