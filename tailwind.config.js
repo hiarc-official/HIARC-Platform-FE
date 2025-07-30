@@ -24,10 +24,15 @@ module.exports = {
     'min-w-[600px]',
     'max-w-[1200px]',
     'h-[46.5px]',
+    'h-15',
     'gap-[3px]',
     'accent-primary-100',
     'sm:px-10',
     'hover:bg-gray-50',
+    'md:grid-cols-1',
+    'md:grid-rows-6',
+    'md:grid-cols-3',
+    'md:grid-rows-2',
     // 카테고리 색상들
     'bg-category-rating',
     'bg-category-study',
@@ -44,6 +49,7 @@ module.exports = {
     { pattern: /^(flex|grid|inline-flex)$/ }, // 디스플레이
     { pattern: /^flex-(col|row)$/ }, // flex 방향
     { pattern: /^grid-cols-[1-9]|grid-cols-1[0-2]$/ }, // grid 컬럼: 1-12
+    { pattern: /^grid-rows-[1-9]|grid-rows-1[0-2]$/ }, // grid 행: 1-12
     { pattern: /^items-(center|start|end)$/ }, // align-items
     { pattern: /^justify-(center|start|end|between)$/ }, // justify-content
     { pattern: /^(relative|absolute)$/ }, // position
