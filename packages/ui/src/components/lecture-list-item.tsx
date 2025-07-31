@@ -24,10 +24,9 @@ function WeekChip({ week }: { week: number }): React.ReactElement {
 }
 
 function CreateCodeButton({ onComplete }: { onComplete(): void }): React.ReactElement {
-  // 예시: 출석 번호 입력 다이얼로그
   const [open, setOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
-  // 번호 입력 및 검증 로직 추가 가능
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -130,7 +129,14 @@ function InputCodeButton({ onComplete }: { onComplete(): void }): React.ReactEle
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="fill_light" size="xs" onClick={() => setOpen(true)}>
+        <Button
+          variant="fill_light"
+          size="xs"
+          onClick={() => {
+            setOpen(true);
+            setInputValue('');
+          }}
+        >
           출석 번호 입력
         </Button>
       </DialogTrigger>
@@ -156,7 +162,15 @@ function InputCodeButton({ onComplete }: { onComplete(): void }): React.ReactEle
           }}
         />
         <div className="flex w-full gap-2 pt-6">
-          <Button variant="secondary" size="sm" onClick={() => setOpen(false)} className="w-full">
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={() => {
+              setOpen(false);
+              setInputValue('');
+            }}
+            className="w-full"
+          >
             취소
           </Button>
           <Button
