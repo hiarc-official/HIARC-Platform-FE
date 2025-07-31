@@ -1,6 +1,6 @@
 import { cn, Label, LabeledSelector, Tabs } from '@hiarc-platform/ui';
+import { AttendanceTable } from '@hiarc-platform/ui/src/components/table/attendance-table';
 import { useState } from 'react';
-import { AttendanceTable } from './attendance-table';
 
 interface StudySectionProps {
   attendance: boolean[];

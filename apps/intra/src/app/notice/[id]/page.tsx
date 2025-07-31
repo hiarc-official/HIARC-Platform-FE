@@ -1,19 +1,15 @@
 'use client';
 
-import { Button, Label, Title } from '@hiarc-platform/ui';
+import { BackButton, Button, Divider, Label, Title } from '@hiarc-platform/ui';
+import { useRouter } from 'next/navigation';
 
 export default function NoticeDetail(): React.ReactElement {
+  const router = useRouter();
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 flex w-full max-w-[1200px] flex-col items-center gap-8">
-        <button
-          className="flex cursor-pointer items-center self-start rounded-md p-2 transition-colors hover:bg-gray-50"
-          onClick={() => window.history.back()}
-        >
-          <Label size="md" className="cursor-pointer text-gray-700">
-            ← 뒤로가기
-          </Label>
-        </button>
+        <BackButton onClick={() => router.back()} />
         <div className="flex w-full items-center justify-between">
           <Title size="sm" weight="bold">
             스터디 시작 안내 공지
@@ -22,11 +18,10 @@ export default function NoticeDetail(): React.ReactElement {
             <Label size="md" className="text-orange">
               카테고리
             </Label>
-            <div className="h-[10px] w-px bg-gray-500"></div>
             <Label size="md" className="text-gray-700">
               작성자
             </Label>
-            <div className="h-[10px] w-px bg-gray-500"></div>
+            <Divider variant="vertical" size="10px" />
             <Label size="md" className="text-gray-700">
               2025.06.12
             </Label>

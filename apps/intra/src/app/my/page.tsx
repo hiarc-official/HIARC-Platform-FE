@@ -5,7 +5,7 @@ import { HitingSection } from '@/features/my/presentation/components/hiting-sect
 import { MyInfoSection } from '@/features/my/presentation/components/my-info-section';
 import { StreakSection } from '@/features/my/presentation/components/streak-section';
 import { StudySection } from '@/features/my/presentation/components/study-section';
-import { Divider, Label } from '@hiarc-platform/ui';
+import { BackButton, Divider } from '@hiarc-platform/ui';
 import { useRouter } from 'next/navigation';
 
 export default function MyPage(): React.ReactElement {
@@ -16,14 +16,7 @@ export default function MyPage(): React.ReactElement {
   return (
     <div className="flex w-full items-center justify-between border-b border-gray-200  py-4 sm:px-10">
       <div className="mx-auto flex w-full min-w-[600px] max-w-[1200px] flex-col items-center justify-between">
-        <button
-          className="flex cursor-pointer items-center self-start rounded-md p-2 transition-colors hover:bg-gray-50"
-          onClick={() => router.back()}
-        >
-          <Label size="md" className="cursor-pointer text-gray-700">
-            ← 뒤로가기
-          </Label>
-        </button>
+        <BackButton onClick={() => router.back()} />
         <MyInfoSection className="mt-5" />
         <Divider variant="horizontal" size="full" className="mt-4 bg-gray-900" />
         <div className="flex w-full gap-4 pt-8">

@@ -66,9 +66,10 @@ function DialogContent({
           'data-[state=open]:fade-in-0',
           'data-[state=closed]:zoom-out-95',
           'data-[state=open]:zoom-in-95 bg-white',
-          'fixed left-[50%] top-[50%] z-50 grid w-full max-w-[calc(100%-2rem)]',
-          'translate-x-[-50%] translate-y-[-50%]',
-          'gap-6 rounded-md border p-7 shadow-lg duration-200 sm:max-w-lg',
+          // 모바일(기본): 바텀시트
+          'fixed bottom-0 left-0 right-0 top-auto z-50 max-h-[90dvh] w-full overflow-auto rounded-t-xl border p-7 shadow-lg duration-200',
+          // 데스크탑(sm 이상): 중앙 팝업
+          'sm:bottom-auto sm:left-[50%] sm:right-auto sm:top-[50%] sm:max-h-[90vh] sm:max-w-lg sm:translate-x-[-50%] sm:translate-y-[-50%] sm:rounded-md sm:p-7',
           'focus:outline-none focus-visible:outline-none',
           className
         )}
