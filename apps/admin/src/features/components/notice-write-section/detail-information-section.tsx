@@ -1,6 +1,7 @@
 import { LabeledInput, LabeledTextarea } from '@hiarc-platform/ui';
 import { Button } from '@hiarc-platform/ui';
 import Image from 'next/image';
+import LabeledImageInput from '@/ui/components/labeled-image-input';
 
 export default function DetailInformationSection(): React.ReactElement {
   return (
@@ -31,6 +32,7 @@ export default function DetailInformationSection(): React.ReactElement {
           URL 추가
         </Button>
       </div>
+      <LabeledImageInput label="이미지" />
     </div>
   );
 }
