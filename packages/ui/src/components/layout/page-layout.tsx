@@ -45,7 +45,7 @@ export function PageLayout({
           <div className="w-full">{desktopChildren}</div>
         ) : (
           // 아무것도 없으면 children
-          <div className={cn('w-full', className)}>{children}</div>
+          <div className="w-full">{children}</div>
         )}
       </div>
       {stickyBottom && (
