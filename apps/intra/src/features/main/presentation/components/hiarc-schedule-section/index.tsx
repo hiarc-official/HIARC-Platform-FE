@@ -1,8 +1,16 @@
-import { Divider, Title } from '@hiarc-platform/ui';
+import { cn, Divider, Title } from '@hiarc-platform/ui';
 import CalendarBar from './calendar-bar';
 import { ScheduleListItem } from './schedule-list-item';
 
-export function HiarcScheduleSection(): React.ReactElement {
+interface HiarcScheduleSectionProps {
+  daysToShow?: number;
+  className?: string;
+}
+
+export function HiarcScheduleSection({
+  daysToShow = 7,
+  className,
+}: HiarcScheduleSectionProps): React.ReactElement {
   const calendarData = [
     {
       date: '2025-07-28',
@@ -15,12 +23,12 @@ export function HiarcScheduleSection(): React.ReactElement {
   ];
 
   return (
-    <section className="w-full">
+    <section className={cn('w-full', className)}>
       <Title size="sm" weight="bold" className="mb-2">
         학회일정
       </Title>
       <Divider variant="horizontal" size="full" className="mt-4" />
-      <CalendarBar data={calendarData} daysToShow={7} className="mb-7 mt-4" />
+      <CalendarBar data={calendarData} daysToShow={daysToShow} className="mb-7 mt-4" />
       <div className="flex flex-col gap-2">
         <ScheduleListItem title={'하이팅 : 2배 이벤트'} category={'rating'} />
         <ScheduleListItem title={'[초급] 스터디 제목 : 5회차 T502 16-18  '} category={'study'} />
