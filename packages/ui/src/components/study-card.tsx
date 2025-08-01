@@ -67,7 +67,7 @@ function MobileStudyCard({
   return (
     <div
       className={cn(
-        'flex w-full flex-col gap-2 rounded-lg border border-gray-200  px-5 py-5',
+        'flex w-full flex-col gap-2 rounded-lg border border-gray-200 px-5 py-5',
         'hover:bg-gray-50',
         'transition-colors duration-200'
       )}
