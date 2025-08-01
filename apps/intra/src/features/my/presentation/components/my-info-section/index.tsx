@@ -8,11 +8,11 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  IconButton,
   Label,
   LabeledInput,
   Title,
 } from '@hiarc-platform/ui';
-import IconButton from '@hiarc-platform/ui/src/components/icon-button';
 import React from 'react';
 
 interface MyInfoSectionProps {

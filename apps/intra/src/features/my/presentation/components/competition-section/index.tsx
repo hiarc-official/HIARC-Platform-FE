@@ -1,21 +1,26 @@
 import {
   Button,
+  cn,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  IconButton,
   Label,
   LabeledInput,
   LabeledSelectButton,
   Title,
 } from '@hiarc-platform/ui';
-import IconButton from '@hiarc-platform/ui/src/components/icon-button';
 import React from 'react';
 import { CompetitionListItem } from './competition-list-item';
 
-export function CompetitionSection(): React.ReactElement {
+interface CompetitionSectionProps {
+  className?: string;
+}
+
+export function CompetitionSection({ className }: CompetitionSectionProps): React.ReactElement {
   const [open, setOpen] = React.useState(false);
 
   async function handleSave(): Promise<void> {
@@ -24,7 +29,7 @@ export function CompetitionSection(): React.ReactElement {
   }
 
   return (
-    <div className="flex w-full flex-col">
+    <div className={cn('flex w-full flex-col', className)}>
       <div className="flex items-center justify-between">
         <Title size="sm" weight="bold">
           참여한 대회
