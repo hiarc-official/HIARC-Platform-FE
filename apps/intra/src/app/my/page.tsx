@@ -5,7 +5,7 @@ import { HitingSection } from '@/features/my/presentation/components/hiting-sect
 import { MyInfoSection } from '@/features/my/presentation/components/my-info-section';
 import { StreakSection } from '@/features/my/presentation/components/streak-section';
 import { StudySection } from '@/features/my/presentation/components/study-section';
-import { BackButton, Divider } from '@hiarc-platform/ui';
+import { BackButton, Divider, PageLayout, TwoColumnLayout } from '@hiarc-platform/ui';
 import { useRouter } from 'next/navigation';
 
 export default function MyPage(): React.ReactElement {
@@ -14,23 +14,37 @@ export default function MyPage(): React.ReactElement {
   const router = useRouter();
 
   return (
-    <div className="flex w-full items-center justify-between border-b border-gray-200  py-4 sm:px-10">
-      <div className="mx-auto flex w-full min-w-[600px] max-w-[1200px] flex-col items-center justify-between">
-        <BackButton onClick={() => router.back()} />
-        <MyInfoSection className="mt-5" />
-        <Divider variant="horizontal" size="full" className="mt-4 bg-gray-900" />
-        <div className="flex w-full gap-4 pt-8">
-          <div className="flex w-1/2 flex-col gap-4">
-            <HitingSection season={6} total={10000} today={6} />
-            <StreakSection />
-          </div>
-          <div className="flex w-1/2 flex-col gap-4">
-            <CompetitionSection />
-          </div>
-        </div>
-        <Divider variant="horizontal" size="full" className="mt-8 bg-gray-900" />
-        <StudySection attendance={attendance} assignment={assignment} className="mt-8" />
-      </div>
-    </div>
+    <PageLayout
+      desktopChildren={
+        <>
+          <BackButton onClick={() => router.back()} />
+          <MyInfoSection className="mt-5" />
+          <Divider variant="horizontal" size="full" className="mt-4 bg-gray-900" />
+          <TwoColumnLayout
+            className="mt-8"
+            left={
+              <>
+                <HitingSection season={6} total={10000} today={6} />
+                <StreakSection />
+              </>
+            }
+            right={<CompetitionSection />}
+          />
+          <Divider variant="horizontal" size="full" className="mt-8 bg-gray-900" />
+          <StudySection attendance={attendance} assignment={assignment} className="mt-8" />
+        </>
+      }
+      mobileChildren={
+        <>
+          <MyInfoSection className="mt-5" />
+          <Divider variant="horizontal" size="full" className="mt-4 bg-gray-900" />
+          <HitingSection className="mt-8" season={6} total={10000} today={6} />
+          <StreakSection className="mt-6" />
+          <CompetitionSection className="mt-6" />
+          <Divider variant="horizontal" size="full" className="mt-8 bg-gray-900" />
+          <StudySection attendance={attendance} assignment={assignment} className="mt-8" />
+        </>
+      }
+    />
   );
 }
