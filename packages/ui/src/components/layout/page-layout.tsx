@@ -20,7 +20,8 @@ export function PageLayout({
   containerClassName,
   stickyBottomClassName,
 }: PageLayoutProps): React.ReactElement {
-  const hasMobileDesktopSplit = mobileChildren || desktopChildren;
+  const hasMobile = Boolean(mobileChildren);
+  const hasDesktop = Boolean(desktopChildren);
 
   return (
     <div className={cn('relative flex w-full flex-col items-center', className)}>
@@ -31,13 +32,20 @@ export function PageLayout({
           containerClassName
         )}
       >
-        {hasMobileDesktopSplit ? (
+        {hasMobile && hasDesktop ? (
           <>
-            {mobileChildren && <div className="block w-full md:hidden">{mobileChildren}</div>}
-            {desktopChildren && <div className="hidden w-full md:block">{desktopChildren}</div>}
+            <div className="block w-full md:hidden">{mobileChildren}</div>
+            <div className="hidden w-full md:block">{desktopChildren}</div>
           </>
+        ) : hasMobile ? (
+          // mobileChildren만 있는 경우: 모바일/데스크탑 모두 보임
+          <div className="w-full">{mobileChildren}</div>
+        ) : hasDesktop ? (
+          // desktopChildren만 있는 경우: 모바일/데스크탑 모두 보임
+          <div className="w-full">{desktopChildren}</div>
         ) : (
-          <div className="w-full">{children}</div>
+          // 아무것도 없으면 children
+          <div className={cn('w-full', className)}>{children}</div>
         )}
       </div>
       {stickyBottom && (
