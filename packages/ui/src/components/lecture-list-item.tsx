@@ -11,7 +11,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from './dialog/dialog';
-import IconButton from './icon-button';
+import { IconButton } from './icon-button';
 import { NumberInput } from './input/number-input';
 import { Label } from './label/label';
 
@@ -141,7 +141,7 @@ function InputCodeButton({ onComplete }: { onComplete(): void }): React.ReactEle
         </Button>
       </DialogTrigger>
 
-      <DialogContent>
+      <DialogContent fullscreen>
         <DialogHeader>
           <DialogTitle>출석 번호 입력</DialogTitle>
         </DialogHeader>
