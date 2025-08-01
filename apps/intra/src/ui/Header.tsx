@@ -33,8 +33,10 @@ export default function Header(): React.ReactElement {
           </div>
 
           <div
-            className={`flex w-full items-center justify-between md:hidden ${isMobileSearchOpen ? 'hidden' : 'flex'}`}
-          >
+            className={cn(
+              'flex w-full items-center justify-between md:hidden',
+              isMobileSearchOpen ? 'hidden' : 'flex'
+            )}
             <Link href="/">
               <Image src="/Logo.svg" alt="HiarcLogo" width={120} height={30} />
             </Link>
