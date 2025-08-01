@@ -1,5 +1,6 @@
 import { LabeledInput, LabeledTextarea } from '@hiarc-platform/ui';
 import { Button } from '@hiarc-platform/ui';
+import Image from 'next/image';
 
 export default function DetailInformationSection(): React.ReactElement {
   return (
@@ -16,7 +17,16 @@ export default function DetailInformationSection(): React.ReactElement {
         className=" aspect-[2/1] text-lg"
       />
       <div className="flex flex-col gap-2">
-        <LabeledInput label="첨부파일 URL" placeholder="첨부파일 URL" />
+        <div className="flex items-end gap-2 ">
+          <LabeledInput label="첨부파일 URL" placeholder="첨부파일 URL" />
+          <Image
+            src="/DeleteButton.svg"
+            alt="삭제이미지"
+            width={24}
+            height={24}
+            className="mb-2.5"
+          />
+        </div>
         <Button size="md" className="w-[112px]" variant="fill_secondary">
           URL 추가
         </Button>
