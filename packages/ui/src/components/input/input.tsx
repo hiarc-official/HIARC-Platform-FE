@@ -14,7 +14,7 @@ const inputVariants = cva(
   {
     variants: {
       variant: {
-        search: cn('w-60 rounded-md bg-gray-100 px-3 py-2 pl-10 text-sm font-pretendard'),
+        search: cn('rounded-md h-11 bg-gray-100 px-3 py-2 pl-10 text-md font-pretendard'),
         default: '',
       },
     },

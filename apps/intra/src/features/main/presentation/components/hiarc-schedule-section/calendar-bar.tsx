@@ -1,7 +1,6 @@
 'use client';
 
-import { cn, Label } from '@hiarc-platform/ui';
-import IconButton from '@hiarc-platform/ui/src/components/icon-button';
+import { cn, IconButton, Label } from '@hiarc-platform/ui';
 import { addDays, format, startOfWeek } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import { useMemo, useState } from 'react';

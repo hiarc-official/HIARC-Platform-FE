@@ -54,7 +54,9 @@ export const NumberInput: React.FC<NumberInputProps> = ({
       {Array.from({ length }).map((_, idx) => (
         <input
           key={idx}
-          ref={(el) => (inputsRef.current[idx] = el)}
+          ref={(el) => {
+            inputsRef.current[idx] = el;
+          }}
           type="text"
           inputMode="numeric"
           maxLength={1}

@@ -1,5 +1,12 @@
-import { cn, Divider, Label, Popover, PopoverContent, PopoverTrigger } from '@hiarc-platform/ui';
-import IconButton from '@hiarc-platform/ui/src/components/icon-button';
+import {
+  cn,
+  Divider,
+  IconButton,
+  Label,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@hiarc-platform/ui';
 
 interface CompetitionListItemProps {
   institution?: string;
