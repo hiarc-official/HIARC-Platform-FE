@@ -13,6 +13,7 @@ interface Notice {
   category: 'rating' | 'study' | 'etc' | 'general' | 'external';
   title: string;
   date: string;
+  isPublic?: boolean;
 }
 
 const OFFICER_LIST_COLUMN: Array<ColumnDef<Notice>> = [
