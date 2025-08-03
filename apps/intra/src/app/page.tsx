@@ -18,8 +18,8 @@ export default function Home(): React.ReactElement {
         <ContentSection>
           <SingleColumnLayout>
             <HiarcScheduleSection daysToShow={3} />
-            <NoticeListSection />
-            <StudyListSection />
+            <NoticeListSection className="mt-6" />
+            <StudyListSection className="mt-6" />
           </SingleColumnLayout>
         </ContentSection>
       }
@@ -28,7 +28,7 @@ export default function Home(): React.ReactElement {
           <TwoColumnLayout
             left={<HiarcScheduleSection daysToShow={7} />}
             right={<NoticeListSection />}
-            bottom={<StudyListSection />}
+            bottom={<StudyListSection className="mt-6" />}
           />
         </ContentSection>
       }

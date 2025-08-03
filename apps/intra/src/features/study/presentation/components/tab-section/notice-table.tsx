@@ -177,7 +177,7 @@ export function NoticeTable({ className }: NoticeTableProps): React.ReactElement
             if (!id) {
               return;
             }
-            router.push(`/study/notice/${id}`);
+            router.push(`/notice/${id}`);
           }}
         />
       </table>

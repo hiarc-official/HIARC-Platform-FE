@@ -1,0 +1,45 @@
+'use client';
+
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactNode, useEffect, useState } from 'react';
+import { ErrorBoundary } from '../components/error-boundary';
+import { ErrorDialog } from '../components/error-dialog';
+import { createQueryErrorHandler, setupGlobalErrorHandler } from '../hooks/use-error-handler';
+import { AuthProvider } from './auth-provider';
+
+interface ProvidersProps {
+  children: ReactNode;
+}
+
+export function Providers({ children }: ProvidersProps): React.ReactElement {
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            staleTime: 60 * 1000,
+            gcTime: 5 * 60 * 1000,
+          },
+          mutations: {
+            onError: createQueryErrorHandler(),
+          },
+        },
+      })
+  );
+
+  useEffect(() => {
+    // 글로벌 에러 핸들러 설정
+    setupGlobalErrorHandler();
+  }, []);
+
+  return (
+    <ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          {children}
+          <ErrorDialog />
+        </AuthProvider>
+      </QueryClientProvider>
+    </ErrorBoundary>
+  );
+}
