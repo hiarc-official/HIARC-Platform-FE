@@ -195,12 +195,16 @@ export default function NoticePage(): React.ReactElement {
         </div>
         <SelectButtonSection />
         <div className="z-10 mt-6  flex-col items-center justify-between font-mono text-sm lg:flex">
-          <table className="w-full table-fixed">
+          <table className="w-full table-fixed [&>tbody>tr]:cursor-pointer">
             <CommonTableHead table={table} />
             <CommonTableBody
               table={table}
               onClick={function (row: Row<Notice>): void {
                 console.log('Row clicked:', row.original);
+                const noticeNumber = row.original.number;
+                if (noticeNumber !== undefined) {
+                  router.push(`/notice/${noticeNumber}`);
+                }
               }}
             />
           </table>
