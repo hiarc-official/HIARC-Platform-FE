@@ -1,10 +1,14 @@
 'use client';
 
-import { Divider, Tabs } from '@hiarc-platform/ui';
+import { cn, Divider, Tabs } from '@hiarc-platform/ui';
 import { useState } from 'react';
 import { NoticeListItem } from './notice-list-item';
 
-export function NoticeListSection(): React.ReactElement {
+interface NoticeListSectionProps {
+  className?: string;
+}
+
+export function NoticeListSection({ className }: NoticeListSectionProps): React.ReactElement {
   const tabItems = [
     { label: '공지사항', value: 'notice' },
     { label: '알고리즘 소식', value: 'algorithm-news' },
@@ -12,7 +16,7 @@ export function NoticeListSection(): React.ReactElement {
   const [tab, setTab] = useState('notice');
 
   return (
-    <div className="w-full">
+    <div className={cn('w-full', className)}>
       <Tabs tabs={tabItems} activeTab={tab} onTabClick={setTab} />
       <Divider variant="horizontal" size="full" className="mt-4" />
       <div>

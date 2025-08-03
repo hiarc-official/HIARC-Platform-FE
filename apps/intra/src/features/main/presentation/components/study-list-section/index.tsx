@@ -1,8 +1,12 @@
-import { StudyCard, Title } from '@hiarc-platform/ui';
+import { cn, StudyCard, Title } from '@hiarc-platform/ui';
 
-export function StudyListSection(): React.ReactElement {
+interface StudyListSectionProps {
+  className?: string;
+}
+
+export function StudyListSection({ className }: StudyListSectionProps): React.ReactElement {
   return (
-    <div className="flex w-full flex-col gap-8 pt-8">
+    <div className={cn('flex w-full flex-col gap-8', className)}>
       <section className="">
         <Title size="sm" weight="bold" className="mb-2">
           스터디목록

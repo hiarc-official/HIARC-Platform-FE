@@ -3,15 +3,33 @@
 import { Button, cn, IconButton, Input } from '@hiarc-platform/ui';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { useLogout } from '../../hooks/use-auth';
+import { useAuthStore } from '../../store/auth-store';
 
 export default function Header(): React.ReactElement {
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
+  const router = useRouter();
+  const { isAuthenticated } = useAuthStore();
+  const logoutMutation = useLogout();
+
+  const handleLogin = (): void => {
+    router.push('/login');
+  };
+
+  const handleMyPage = (): void => {
+    router.push('/my');
+  };
+
+  const handleLogout = (): void => {
+    logoutMutation.mutate();
+  };
 
   return (
     <>
       <header className="flex w-full items-center justify-between border-b border-gray-200">
-        <div className="mx-auto flex w-full max-w-[1200px] items-center justify-between px-10 py-4">
+        <div className="mx-auto flex w-full max-w-[1200px] items-center justify-between px-5 py-4">
           <div
             className={cn(
               'flex w-full items-center justify-between md:hidden',
@@ -47,9 +65,18 @@ export default function Header(): React.ReactElement {
                 aria-label="검색"
                 onClick={() => setIsMobileSearchOpen(true)}
               />
-              <Button variant="secondary" size="sm">
-                로그인
-              </Button>
+              {isAuthenticated ? (
+                <div className="flex items-center gap-2">
+                  <Button variant="secondary" size="sm" onClick={handleMyPage}>
+                    마이페이지
+                  </Button>
+                  <IconButton iconSrc="/User.svg" aria-label="프로필" onClick={handleLogout} />
+                </div>
+              ) : (
+                <Button variant="secondary" size="sm" onClick={handleLogin}>
+                  로그인
+                </Button>
+              )}
             </div>
           </div>
 
@@ -64,9 +91,18 @@ export default function Header(): React.ReactElement {
                 placeholder="Placeholder"
                 className="h-[44px] w-[328px]"
               />
-              <Button variant="secondary" size="sm">
-                로그인
-              </Button>
+              {isAuthenticated ? (
+                <div className="flex items-center gap-2">
+                  <Button variant="secondary" size="sm" onClick={handleMyPage}>
+                    마이페이지
+                  </Button>
+                  <IconButton iconSrc="/User.svg" aria-label="프로필" onClick={handleLogout} />
+                </div>
+              ) : (
+                <Button variant="secondary" size="sm" onClick={handleLogin}>
+                  로그인
+                </Button>
+              )}
             </div>
           </div>
         </div>

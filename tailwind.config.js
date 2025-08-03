@@ -30,11 +30,24 @@ module.exports = {
     'accent-primary-100',
     'sm:px-10',
     'hover:bg-gray-50',
+    'animation-delay-0',
+    'animation-delay-150',
+    'animation-delay-300',
+    'animate-bounce-up',
+    'hidden',
+    'block',
+    'flex',
+    'md:hidden',
+    'md:flex',
+    'md:block',
+    'md:flex-row',
+    'md:inline-block',
     'md:grid-cols-1',
     'md:grid-cols-2',
     'md:grid-rows-6',
     'md:grid-cols-3',
     'md:grid-rows-2',
+    'sm:pt-20',
     'data-[state=closed]:slide-out-to-bottom-2',
     'data-[state=open]:slide-in-from-bottom-2',
     'sm:data-[state=closed]:zoom-out-95',
@@ -202,6 +215,16 @@ module.exports = {
           from: { transform: 'translateX(0)' },
           to: { transform: 'translateX(-50%)' },
         },
+        'bounce-up': {
+          '0%, 60%, 100%': {
+            transform: 'translateY(0)',
+            'animation-timing-function': 'cubic-bezier(0.215, 0.61, 0.355, 1)',
+          },
+          '30%': {
+            transform: 'translateY(-15px)',
+            'animation-timing-function': 'cubic-bezier(0.755, 0.05, 0.855, 0.06)',
+          },
+        },
       },
       animation: {
         'fade-in': 'fadeIn 0.3s ease-out forwards',
@@ -219,6 +242,7 @@ module.exports = {
         glow: 'glow 1.5s infinite alternate',
         'marquee-forward': 'marquee 10s linear infinite',
         'marquee-reverse': 'marquee 12s linear infinite reverse',
+        'bounce-up': 'bounce-up 1.4s ease-in-out infinite',
       },
     },
   },
@@ -260,6 +284,20 @@ module.exports = {
         },
       };
       addUtilities(newUtilities);
+
+      // Animation delay utilities
+      const delayUtilities = {
+        '.animation-delay-0': {
+          'animation-delay': '0ms',
+        },
+        '.animation-delay-150': {
+          'animation-delay': '150ms',
+        },
+        '.animation-delay-300': {
+          'animation-delay': '300ms',
+        },
+      };
+      addUtilities(delayUtilities);
     },
 
     function ({ addBase }) {

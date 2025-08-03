@@ -38,12 +38,12 @@ export function CompetitionSection({ className }: CompetitionSectionProps): Reac
           <DialogTrigger asChild>
             <IconButton type="button" iconSrc="/Edit.svg" />
           </DialogTrigger>
-          <DialogContent className="!w-[540px] !max-w-[540px]">
+          <DialogContent fullscreen className="!w-[540px] !max-w-[540px]">
             <DialogHeader>
               <DialogTitle>참여한 대회 기록하기</DialogTitle>
             </DialogHeader>
             <DialogDescription>
-              <div className="flex w-full flex-col gap-4">
+              <div className="mt-6 flex w-full flex-col gap-4">
                 <ol className="list-disc pl-5 text-gray-700">
                   <li>허위 정보로 판단될 경우, 운영진에 의해 삭제될 수 있습니다. </li>
                   <li>
@@ -68,7 +68,7 @@ export function CompetitionSection({ className }: CompetitionSectionProps): Reac
                 />
               </div>
             </DialogDescription>
-            <div className="flex w-full gap-2">
+            <div className="mt-6 flex w-full gap-2">
               <Button
                 variant="secondary"
                 className="w-full"

@@ -1,7 +1,8 @@
-import Footer from '@/ui/Footer';
-import Header from '@/ui/Header';
+import Footer from '@/shared/components/ui/Footer';
+import Header from '@/shared/components/ui/Header';
 import type { Metadata } from 'next';
 
+import { Providers } from '../shared/providers/providers';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -17,9 +18,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="flex min-h-screen flex-col">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <Providers>
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

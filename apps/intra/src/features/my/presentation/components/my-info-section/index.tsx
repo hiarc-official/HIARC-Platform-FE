@@ -49,10 +49,10 @@ export function MyInfoSection({ className }: MyInfoSectionProps): React.ReactEle
               <DialogHeader>
                 <DialogTitle className="w-full">자기소개 한줄 작성하기</DialogTitle>
               </DialogHeader>
-              <DialogDescription className="w-[540px]">
+              <DialogDescription className="mt-6 w-[540px]">
                 <LabeledInput label={''} placeholder="예) 좋은 아침입니다! 줄여서 좋아!" />
               </DialogDescription>
-              <div className="flex w-full gap-2">
+              <div className="mt-6 flex w-full gap-2">
                 <Button
                   variant="secondary"
                   className="w-full"
