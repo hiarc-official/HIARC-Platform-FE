@@ -2,10 +2,13 @@
 
 import { CommonTableBody, CommonTableHead, Label, TablePagination } from '@hiarc-platform/ui';
 import { CategoryChip } from '@hiarc-platform/ui/src/components/category-chip';
-
+import { Title } from '@hiarc-platform/ui';
 import { useTable } from '@hiarc-platform/util';
 import { ColumnDef, Row } from '@tanstack/react-table';
 import { useMemo, useState } from 'react';
+import { Button } from '@hiarc-platform/ui';
+import SelectButtonSection from '@/features/components/notice-section/select-button-section';
+import { useRouter } from 'next/navigation';
 
 interface Notice {
   number?: number;
@@ -167,9 +170,9 @@ const officersData: Notice[] = [
   },
 ];
 
-export default function Home(): React.ReactElement {
+export default function NoticePage(): React.ReactElement {
   const columns = useMemo(() => OFFICER_LIST_COLUMN, []);
-
+  const router = useRouter();
   const [globalFilter, setGlobalFilter] = useState('');
   const table = useTable({
     columns,
@@ -180,18 +183,29 @@ export default function Home(): React.ReactElement {
   });
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl flex-col items-center justify-between font-mono text-sm lg:flex">
-        <table className="w-full table-fixed">
-          <CommonTableHead table={table} />
-          <CommonTableBody
-            table={table}
-            onClick={function (row: Row<Notice>): void {
-              console.log('Row clicked:', row.original);
-            }}
-          />
-        </table>
-        <TablePagination table={table}></TablePagination>
+    <main className="flex w-full  justify-center ">
+      <div className="mt-7 flex max-w-[1200px] flex-col ">
+        <div className="mb-7  flex justify-between">
+          <Title size="sm" weight="bold">
+            공지사항
+          </Title>
+          <Button size="md" onClick={() => router.push('/notice/write')}>
+            작성하기
+          </Button>
+        </div>
+        <SelectButtonSection />
+        <div className="z-10 mt-6  flex-col items-center justify-between font-mono text-sm lg:flex">
+          <table className="w-full table-fixed">
+            <CommonTableHead table={table} />
+            <CommonTableBody
+              table={table}
+              onClick={function (row: Row<Notice>): void {
+                console.log('Row clicked:', row.original);
+              }}
+            />
+          </table>
+          <TablePagination table={table}></TablePagination>
+        </div>
       </div>
     </main>
   );
