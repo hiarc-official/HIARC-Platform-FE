@@ -23,6 +23,8 @@ const categoryChipVariants = cva(
         div1: 'bg-category-rating/20 text-category-rating',
         div2: 'bg-category-rating/20 text-category-rating',
         div3: 'bg-category-rating/20 text-category-rating',
+        onGoing: 'bg-category-participating/20 text-category-participating',
+        finished: 'bg-gray-200 text-primary-300 ',
       },
     },
     defaultVariants: {
@@ -45,6 +47,8 @@ const categoryText: Record<
   div1: 'Div1',
   div2: 'Div2',
   div3: 'Div3',
+  onGoing: '진행중',
+  finished: '종료',
 };
 
 type CategoryChipProps = React.HTMLAttributes<HTMLSpanElement> &
