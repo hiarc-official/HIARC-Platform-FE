@@ -1,6 +1,6 @@
-import { apiClient } from './client';
 import type { LoginResponse } from '../types/auth/login-response';
 import type { UserProfile } from '../types/auth/user-profile';
+import { apiClient } from './client';
 
 // 인증 관련 API
 export const authApi = {
@@ -14,7 +14,7 @@ export const authApi = {
 
   // 사용자 정보 조회
   getMe: async (): Promise<UserProfile> => {
-    const response = await apiClient.get('/members/me');
+    const response = await apiClient.get('/auth/me');
     return response.data;
   },
 

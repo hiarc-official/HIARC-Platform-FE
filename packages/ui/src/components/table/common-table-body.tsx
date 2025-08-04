@@ -1,75 +1,76 @@
+'use client';
+
 import { flexRender, Row, Table } from '@tanstack/react-table';
 import { ReactElement } from 'react';
+import { cn } from '../../lib/utils';
 import '../../types/table.d.ts';
 
 interface TbodyProps<T> {
   table: Table<T>;
   onClick(row: Row<T>): void;
   emptyMessage?: string;
+  gapPx?: number; // 셀 간 간격(헤더와 맞춤). 기본 16px
 }
 
-const CommonTableBody = <T,>({ emptyMessage, table, onClick }: TbodyProps<T>): ReactElement => {
+export function CommonTableBody<T>({
+  table,
+  onClick,
+  emptyMessage,
+  gapPx = 16,
+}: TbodyProps<T>): ReactElement {
   const rows = table.getRowModel().rows;
-  const headerLength =
-    table.getHeaderGroups().map((headerGroup) => headerGroup.headers.length)[0] ?? 1;
 
   if (rows.length === 0) {
     return (
-      <tbody>
-        <tr>
-          <td colSpan={headerLength} className="h-13 relative text-center">
-            {emptyMessage ? emptyMessage : '검색 결과가 없습니다.'}
-          </td>
-        </tr>
-      </tbody>
+      <div className="py-6 text-center text-sm text-gray-500">
+        {emptyMessage ?? '검색 결과가 없습니다.'}
+      </div>
     );
   }
 
   return (
-    <tbody>
+    <>
       {rows.map((row) => (
-        <tr
+        <div
           key={row.id}
-          className="cursor-pointer border-b border-gray-200 transition-colors hover:rounded-sm hover:bg-gray-100"
+          className="flex cursor-pointer items-center border-b border-gray-200 transition-colors hover:bg-gray-100"
           onClick={() => onClick(row)}
         >
-          {row.getVisibleCells().map((cell) => {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            const bodyAlign = cell.column.columnDef.meta?.bodyAlign || 'center';
-            const bodyAlignmentClass =
+          {row.getVisibleCells().map((cell, idx, arr) => {
+            // 정렬
+            const bodyAlign = cell.column.columnDef.meta?.bodyAlign ?? 'center';
+            const alignCls =
               bodyAlign === 'left'
                 ? 'text-left'
                 : bodyAlign === 'right'
                   ? 'text-right'
                   : 'text-center';
 
+            // 고정 폭 or 유동 폭
+            const size = cell.column.columnDef.size as number | undefined;
+            const widthStyle: React.CSSProperties | undefined = size
+              ? { width: `${size}px`, minWidth: `${size}px`, maxWidth: `${size}px` }
+              : undefined;
+
+            // 간격(gap). 마지막 셀은 마진 없음
+            const gapStyle = idx < arr.length - 1 ? { marginRight: `${gapPx}px` } : undefined;
+
             return (
-              <td
+              <div
                 key={cell.id}
-                style={{
-                  width: cell.column.columnDef.size ? `${cell.column.columnDef.size}px` : 'auto',
-                  minWidth: cell.column.columnDef.minSize
-                    ? `${cell.column.columnDef.minSize}px`
-                    : undefined,
-                  maxWidth: cell.column.columnDef.maxSize
-                    ? `${cell.column.columnDef.maxSize}px`
-                    : undefined,
-                  boxSizing: 'border-box',
-                  overflow: 'hidden',
-                  whiteSpace: 'nowrap',
-                  textOverflow: 'ellipsis',
-                  padding: '0',
-                }}
-                className={`items-center ${bodyAlignmentClass} h-12`}
+                style={{ ...widthStyle, ...gapStyle }}
+                className={cn(
+                  size ? 'shrink-0 grow-0' : 'min-w-0 flex-1',
+                  'truncate px-2 py-3',
+                  alignCls
+                )}
               >
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
-              </td>
+              </div>
             );
           })}
-        </tr>
+        </div>
       ))}
-    </tbody>
+    </>
   );
-};
-
-export { CommonTableBody };
+}

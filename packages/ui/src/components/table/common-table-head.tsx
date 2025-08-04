@@ -10,95 +10,85 @@ interface TheadProps<T> {
   sort?: string;
   setSort?(fn: (prevSort: string) => string): void;
   className?: string;
+  gapPx?: number;
 }
 
-const CommonTableHead = <T,>({
+export function CommonTableHead<T>({
   table,
   sortColumns,
   sort,
   setSort,
   className,
-}: TheadProps<T>): ReactElement => (
-  <thead className={className}>
-    {table.getHeaderGroups().map((headerGroup) => (
-      <tr key={headerGroup.id} className="h-12">
-        {headerGroup.headers.map((header, idx, arr) => {
-          const colId = header.column.id;
-          const isSortable = sortColumns?.includes(colId);
-          const currentSortDirection = sort?.endsWith('desc')
-            ? 'desc'
-            : sort?.endsWith('asc')
-              ? 'asc'
-              : null;
+  gapPx = 16,
+}: TheadProps<T>): ReactElement {
+  return (
+    <div className={cn('w-full', className)}>
+      {table.getHeaderGroups().map((headerGroup) => (
+        // headerGroup.id 는 보통 1개뿐이지만 그대로 루프
+        <div key={headerGroup.id} className="flex items-center border-b border-gray-200">
+          {headerGroup.headers.map((header, idx, arr) => {
+            const colId = header.column.id;
+            const isSortable = sortColumns?.includes(colId);
+            const currentSortDir = sort?.endsWith('desc')
+              ? 'desc'
+              : sort?.endsWith('asc')
+                ? 'asc'
+                : null;
 
-          const isAsc = isSortable && currentSortDirection === 'asc';
-          const isDesc = isSortable && currentSortDirection === 'desc';
+            const isAsc = isSortable && currentSortDir === 'asc';
+            const isDesc = isSortable && currentSortDir === 'desc';
 
-          const headAlign = header.column.columnDef.meta?.headAlign || 'center';
-          const headAlignmentClass =
-            headAlign === 'left'
-              ? 'text-left'
-              : headAlign === 'right'
-                ? 'text-right'
-                : 'text-center';
+            const headAlign = header.column.columnDef.meta?.headAlign ?? 'center';
+            const alignCls =
+              headAlign === 'left'
+                ? 'text-left'
+                : headAlign === 'right'
+                  ? 'text-right'
+                  : 'text-center';
 
-          const marginRightClass = idx < arr.length - 1 ? 'mr-4' : '';
+            const gapStyle = idx < arr.length - 1 ? { marginRight: `${gapPx}px` } : undefined;
 
-          return (
-            <th
-              key={header.id}
-              colSpan={header.colSpan}
-              style={{
-                width: header.column.columnDef.size
-                  ? `${header.column.columnDef.size}px`
-                  : undefined,
-                minWidth: header.column.columnDef.minSize
-                  ? `${header.column.columnDef.minSize}px`
-                  : undefined,
-                maxWidth: header.column.columnDef.maxSize
-                  ? `${header.column.columnDef.maxSize}px`
-                  : undefined,
-                overflow: 'hidden',
-                whiteSpace: 'nowrap',
-                textOverflow: 'ellipsis',
-                padding: 0,
-              }}
-              className={cn(
-                headAlignmentClass,
-                isSortable ? 'cursor-pointer select-none' : 'cursor-default',
-                marginRightClass,
-                'px-2'
-              )}
-            >
+            const size = header.column.columnDef.size as number | undefined;
+            const widthStyle: React.CSSProperties | undefined = size
+              ? { width: `${size}px`, minWidth: `${size}px`, maxWidth: `${size}px` }
+              : undefined;
+
+            return (
               <div
-                className="w-full overflow-hidden text-ellipsis whitespace-normal"
+                key={header.id}
+                // colspan 은 table 에만 해당 → div 구조에선 무시
+                style={{ ...widthStyle, ...gapStyle }}
+                className={cn(
+                  alignCls,
+                  'px-2 py-3 text-xs font-semibold text-gray-600',
+                  size ? 'shrink-0 grow-0' : 'min-w-0 flex-1',
+                  isSortable ? 'cursor-pointer select-none' : 'cursor-default'
+                )}
                 onClick={() => {
-                  if (!sortColumns) {
+                  if (!isSortable || !setSort) {
                     return;
                   }
-                  if (isSortable && setSort) {
-                    setSort((prevSort: string) => {
-                      if (prevSort === '') {
-                        return `${colId},asc`;
-                      }
-                      if (prevSort === `${colId},asc`) {
-                        return `${colId},desc`;
-                      }
-                      return '';
-                    });
-                  }
+                  setSort((prev) => {
+                    if (prev === '') {
+                      return `${colId},asc`;
+                    }
+                    if (prev === `${colId},asc`) {
+                      return `${colId},desc`;
+                    }
+                    return '';
+                  });
                 }}
               >
-                {flexRender(header.column.columnDef.header, header.getContext())}
-                {isAsc && ' 🔼'}
-                {isDesc && ' 🔽'}
+                <span className="truncate">
+                  {flexRender(header.column.columnDef.header, header.getContext())}
+                </span>
+                {isAsc && <span className="ml-1">🔼</span>}
+                {isDesc && <span className="ml-1">🔽</span>}
               </div>
-            </th>
-          );
-        })}
-      </tr>
-    ))}
-  </thead>
-);
-
-export { CommonTableHead };
+            );
+          })}
+        </div>
+      ))}
+    </div>
+  );
+}

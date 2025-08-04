@@ -25,9 +25,7 @@ const OFFICER_LIST_COLUMN: Array<ColumnDef<Notice>> = [
     id: 'name',
     accessorKey: 'name',
     enableSorting: false,
-    size: 15,
-    minSize: 15,
-    maxSize: 15,
+    size: 60,
     meta: {
       headAlign: 'center',
       bodyAlign: 'center',
@@ -47,9 +45,7 @@ const OFFICER_LIST_COLUMN: Array<ColumnDef<Notice>> = [
   {
     id: 'category',
     accessorKey: 'category',
-    size: 20,
-    minSize: 20,
-    maxSize: 20,
+    size: 100,
     meta: {
       headAlign: 'center',
       bodyAlign: 'center',
@@ -67,6 +63,7 @@ const OFFICER_LIST_COLUMN: Array<ColumnDef<Notice>> = [
   {
     id: 'title',
     accessorKey: 'title',
+    size: 0,
     meta: {
       headAlign: 'center',
       bodyAlign: 'left',
@@ -86,9 +83,7 @@ const OFFICER_LIST_COLUMN: Array<ColumnDef<Notice>> = [
   {
     id: 'author',
     accessorKey: 'name',
-    size: 20,
-    minSize: 20,
-    maxSize: 20,
+    size: 64,
     meta: {
       headAlign: 'center',
       bodyAlign: 'center',
@@ -108,9 +103,7 @@ const OFFICER_LIST_COLUMN: Array<ColumnDef<Notice>> = [
   {
     id: 'date',
     accessorKey: 'date',
-    size: 20,
-    minSize: 20,
-    maxSize: 20,
+    size: 96,
     meta: {
       headAlign: 'center',
       bodyAlign: 'center',
@@ -159,22 +152,20 @@ export function NoticeTableSection({
           transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
           className="w-full"
         >
-          <table className="w-full table-fixed">
-            <CommonTableHead
-              table={table}
-              className="border-b border-t border-b-gray-200 border-t-gray-900 bg-white"
-            />
-            <CommonTableBody
-              table={table}
-              onClick={function (row: Row<Notice>): void {
-                const id = row.original.number;
-                if (!id) {
-                  return;
-                }
-                router.push(`/notice/${id}`);
-              }}
-            />
-          </table>
+          <CommonTableHead
+            table={table}
+            className="border-b border-t border-b-gray-200 border-t-gray-900 bg-white"
+          />
+          <CommonTableBody
+            table={table}
+            onClick={function (row: Row<Notice>): void {
+              const id = row.original.number;
+              if (!id) {
+                return;
+              }
+              router.push(`/notice/${id}`);
+            }}
+          />
         </motion.div>
       </AnimatePresence>
       <TablePagination className="mt-8" table={table} />

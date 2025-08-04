@@ -67,6 +67,10 @@ module.exports = {
     'bg-category-participating',
     'bg-category-recruiting',
     'bg-category-etc_background',
+    // 동적 너비 클래스들 (테이블 컬럼용)
+    ...Array.from({ length: 1000 }, (_, i) => `w-[${i + 1}px]`).slice(0, 500), // w-[1px] ~ w-[500px]
+    ...Array.from({ length: 1000 }, (_, i) => `min-w-[${i + 1}px]`).slice(0, 500), // min-w-[1px] ~ min-w-[500px]
+    ...Array.from({ length: 1000 }, (_, i) => `max-w-[${i + 1}px]`).slice(0, 500), // max-w-[1px] ~ max-w-[500px]
     // 패턴으로 매칭
     { pattern: /^(h|w)-[0-9]+(\.5)?$/ }, // 크기: h-2, w-4, h-1.5 등
     { pattern: /^text-(xs|sm|md|lg|xl|2xl|3xl|4xl)$/ }, // 텍스트 크기
