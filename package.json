@@ -35,6 +35,7 @@
     "@tanstack/react-table": "^8.20.5",
     "date-fns": "^4.1.0",
     "react-datepicker": "^8.4.0",
+    "table": "github:tanstack/react-table",
     "tw-animate-css": "^1.3.5"
   }
 }

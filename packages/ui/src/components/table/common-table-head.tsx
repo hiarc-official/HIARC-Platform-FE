@@ -25,7 +25,7 @@ export function CommonTableHead<T>({
     <div className={cn('w-full', className)}>
       {table.getHeaderGroups().map((headerGroup) => (
         // headerGroup.id 는 보통 1개뿐이지만 그대로 루프
-        <div key={headerGroup.id} className="flex items-center border-b border-gray-200">
+        <div key={headerGroup.id} className="flex items-center">
           {headerGroup.headers.map((header, idx, arr) => {
             const colId = header.column.id;
             const isSortable = sortColumns?.includes(colId);
@@ -60,7 +60,7 @@ export function CommonTableHead<T>({
                 style={{ ...widthStyle, ...gapStyle }}
                 className={cn(
                   alignCls,
-                  'px-2 py-3 text-xs font-semibold text-gray-600',
+                  'px-2 py-3 text-xs font-semibold',
                   size ? 'shrink-0 grow-0' : 'min-w-0 flex-1',
                   isSortable ? 'cursor-pointer select-none' : 'cursor-default'
                 )}

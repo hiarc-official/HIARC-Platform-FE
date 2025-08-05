@@ -1,13 +1,12 @@
 'use client';
-
 import { Title } from '@hiarc-platform/ui';
 import { Button } from '@hiarc-platform/ui';
-import SelectButtonSection from '@/features/components/notice-section/select-button-section';
 import { useRouter } from 'next/navigation';
-import { NoticeTable } from '@/features/notice/components/notice-table';
-import { Notice } from '@/features/notice/components/notice-table/notice-list-column';
+import { PageLayout } from '@hiarc-platform/ui';
+import { CompetitionTable } from '@/features/competition/components/competition-table';
+import { Competition } from '@/features/competition/components/competition-table/competition-list-column';
 
-const noticeData: Notice[] = [
+const competitionData: Competition[] = [
   { name: 'John', title: '첫 번째 공지사항', date: '2025.10.01', number: 1, category: 'general' },
   { name: 'Jane', title: '두 번째 공지사항', date: '2025.10.02', number: 2, category: 'study' },
   { name: 'Alice', title: '세 번째 공지사항', date: '2025.10.03', number: 3, category: 'rating' },
@@ -49,23 +48,20 @@ const noticeData: Notice[] = [
   },
 ];
 
-export default function NoticePage(): React.ReactElement {
+export default function CompetitonListPage(): React.ReactElement {
   const router = useRouter();
-
   return (
-    <main className="flex w-full  justify-center ">
-      <div className="mt-7 flex max-w-[1200px] flex-col ">
-        <div className="mb-7  flex justify-between">
-          <Title size="sm" weight="bold">
-            공지사항
-          </Title>
-          <Button size="md" onClick={() => router.push('/notice/write')}>
-            작성하기
-          </Button>
-        </div>
-        <SelectButtonSection />
-        <NoticeTable className="mt-6" data={noticeData} />
+    <PageLayout>
+      <div className="flex justify-between">
+        <Title size="sm" weight="bold">
+          대회
+        </Title>
+        <Button size="md" className="w-[100px]" onClick={() => router.push('/study/information')}>
+          개설하기
+        </Button>
       </div>
-    </main>
+
+      <CompetitionTable className="mt-6" data={competitionData} />
+    </PageLayout>
   );
 }

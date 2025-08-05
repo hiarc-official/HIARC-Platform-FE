@@ -4,8 +4,8 @@ import { Title } from '@hiarc-platform/ui';
 import { Button } from '@hiarc-platform/ui';
 import SelectButtonSection from '@/features/components/notice-section/select-button-section';
 import { useRouter } from 'next/navigation';
-import { NoticeTable } from '@/features/notice/components/notice-table';
 import { Notice } from '@/features/notice/components/notice-table/notice-list-column';
+import { StudentTable } from '@/features/student/components/student-table';
 
 const noticeData: Notice[] = [
   { name: 'John', title: '첫 번째 공지사항', date: '2025.10.01', number: 1, category: 'general' },
@@ -49,7 +49,7 @@ const noticeData: Notice[] = [
   },
 ];
 
-export default function NoticePage(): React.ReactElement {
+export default function StudentPage(): React.ReactElement {
   const router = useRouter();
 
   return (
@@ -57,14 +57,14 @@ export default function NoticePage(): React.ReactElement {
       <div className="mt-7 flex max-w-[1200px] flex-col ">
         <div className="mb-7  flex justify-between">
           <Title size="sm" weight="bold">
-            공지사항
+            이번 학기 명단
           </Title>
           <Button size="md" onClick={() => router.push('/notice/write')}>
             작성하기
           </Button>
         </div>
         <SelectButtonSection />
-        <NoticeTable className="mt-6" data={noticeData} />
+        <StudentTable className="mt-6" data={noticeData} />
       </div>
     </main>
   );
