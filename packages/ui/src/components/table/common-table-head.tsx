@@ -60,7 +60,7 @@ export function CommonTableHead<T>({
                 style={{ ...widthStyle, ...gapStyle }}
                 className={cn(
                   alignCls,
-                  'px-2 py-3 text-xs font-semibold text-gray-600',
+                  'px-2 py-3 text-xs font-semibold',
                   size ? 'shrink-0 grow-0' : 'min-w-0 flex-1',
                   isSortable ? 'cursor-pointer select-none' : 'cursor-default'
                 )}
