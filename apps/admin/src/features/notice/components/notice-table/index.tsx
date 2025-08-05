@@ -3,7 +3,7 @@ import { useTable } from '@hiarc-platform/util';
 import { Row } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
-import { ADMIN_NOTICE_LIST_COLUMN, Notice } from './admin-list-column';
+import { ADMIN_NOTICE_LIST_COLUMN, Notice } from './notice-list-column';
 import { AnimatePresence, motion } from 'framer-motion';
 
 interface AdminNoticeTableProps {
@@ -11,7 +11,7 @@ interface AdminNoticeTableProps {
   className?: string;
 }
 
-export function AdminNoticeTable({ data, className }: AdminNoticeTableProps): React.ReactElement {
+export function NoticeTable({ data, className }: AdminNoticeTableProps): React.ReactElement {
   const columns = useMemo(() => ADMIN_NOTICE_LIST_COLUMN, []);
   const router = useRouter();
   const [globalFilter, setGlobalFilter] = useState('');
