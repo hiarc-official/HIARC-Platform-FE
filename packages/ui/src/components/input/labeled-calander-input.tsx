@@ -10,9 +10,10 @@ interface LabeledInputProps {
   label: string;
   showLabel?: boolean;
   required?: boolean;
-  value: Date | null;
-  onChange(value: Date | null): void;
+  value: Date | null | [Date | null, Date | null];
+  onChange(value: Date | null | [Date | null, Date | null]): void;
   placeholder?: string;
+  rangeMode?: boolean;
 }
 
 function LabeledCalanderInput({
@@ -22,7 +23,10 @@ function LabeledCalanderInput({
   required = false,
   value,
   onChange,
+  rangeMode = false,
 }: LabeledInputProps): React.ReactElement {
+  const [startDate, endDate] = Array.isArray(value) ? value : [value, null];
+
   return (
     <div className="flex w-full flex-col">
       {showLabel && (
@@ -35,24 +39,41 @@ function LabeledCalanderInput({
       )}
       <div className="relative w-full">
         <img
-          src="/Calander.svg"
+          src="/Schedule.svg"
           alt="캘린더 아이콘"
           className=" absolute left-3 top-1/2 z-10 h-4 w-4 -translate-y-1/2"
           width={16}
           height={16}
         />
 
-        <DatePicker
-          selected={value}
-          onChange={onChange}
-          placeholderText={placeholder}
-          className=" h-11 pl-10"
-          dateFormat="yyyy-MM-dd"
-          popperPlacement="bottom-start"
-          wrapperClassName="w-full"
-          locale={ko}
-          customInput={<Input className="border-gray-200" />}
-        />
+        {rangeMode ? (
+          <DatePicker
+            selected={startDate}
+            onChange={(date: [Date | null, Date | null]) => onChange(date)}
+            selectsRange
+            startDate={startDate}
+            endDate={endDate}
+            placeholderText={placeholder}
+            className="h-11 pl-10"
+            dateFormat="yyyy-MM-dd"
+            popperPlacement="bottom-start"
+            wrapperClassName="w-full"
+            locale={ko}
+            customInput={<Input className="border-gray-200" />}
+          />
+        ) : (
+          <DatePicker
+            selected={startDate}
+            onChange={(date: Date | null) => onChange(date)}
+            placeholderText={placeholder}
+            className="h-11 pl-10"
+            dateFormat="yyyy-MM-dd"
+            popperPlacement="bottom-start"
+            wrapperClassName="w-full"
+            locale={ko}
+            customInput={<Input className="border-gray-200" />}
+          />
+        )}
       </div>
     </div>
   );

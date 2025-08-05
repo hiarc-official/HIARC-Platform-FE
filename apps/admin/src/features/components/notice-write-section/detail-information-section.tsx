@@ -1,15 +1,26 @@
+'use client';
 import { LabeledInput, LabeledTextarea } from '@hiarc-platform/ui';
 import { Button } from '@hiarc-platform/ui';
 import Image from 'next/image';
 import LabeledImageInput from '@/ui/components/labeled-image-input';
+import { LabeledCalanderInput } from '@hiarc-platform/ui';
+import { useState } from 'react';
 
 export default function DetailInformationSection(): React.ReactElement {
+  const [date, setDate] = useState<Date | null>(null);
   return (
     <div className="flex w-full flex-col gap-4">
       <LabeledInput label="제목" placeholder="제목을 입력해주세요" required={true} />
       <div className="flex gap-4">
         <LabeledInput label="장소" placeholder="장소를 입력해주세요" />
-        <LabeledInput label="일시" placeholder="일시를 선택해주세요" />
+        <LabeledCalanderInput
+          placeholder="일시를 선택해주세요"
+          label="일시"
+          value={date}
+          onChange={(val) => {
+            if (!Array.isArray(val)) setDate(val);
+          }}
+        />
       </div>
       <LabeledTextarea
         label="본문"

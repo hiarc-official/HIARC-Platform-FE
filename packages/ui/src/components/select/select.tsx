@@ -142,7 +142,10 @@ function SelectContent({
     <SelectPrimitive.Portal>
       <SelectPrimitive.Content
         data-slot="select-content"
+        side="bottom"
         className={cn(
+          'relative z-10 min-w-[8rem] overflow-y-auto overflow-x-hidden rounded-md border border-gray-200 bg-white shadow-md',
+          'max-h-48',
           'data-[state=open]:animate-in',
           'data-[state=closed]:animate-out',
           'data-[state=closed]:fade-out-0',
