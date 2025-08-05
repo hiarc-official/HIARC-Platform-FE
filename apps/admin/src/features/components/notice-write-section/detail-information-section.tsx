@@ -18,7 +18,9 @@ export default function DetailInformationSection(): React.ReactElement {
           label="일시"
           value={date}
           onChange={(val) => {
-            if (!Array.isArray(val)) setDate(val);
+            if (!Array.isArray(val)) {
+              setDate(val);
+            }
           }}
         />
       </div>
