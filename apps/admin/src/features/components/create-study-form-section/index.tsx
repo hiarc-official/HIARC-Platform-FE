@@ -47,7 +47,11 @@ export function CreateStudyFrom(): React.ReactElement {
           label="고정 요일"
           options={['월', '화', '수', '목', '금', '토', '일']}
         />
-        <LabeledInput label="시작 시간" placeholder="24시 기준으로 숫자를 입력해주세요." />
+        <LabeledSelector
+          label="시작시간"
+          placeholder="24시 기준으로 숫자를 입력해주세요."
+          options={selectOption['시작시간']}
+        />
       </div>
 
       <div className="flex w-full items-end  gap-2">

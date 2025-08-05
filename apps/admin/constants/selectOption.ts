@@ -42,4 +42,10 @@ export const selectOption: Record<string, SelectData[]> = {
     const n = (i + 1).toString();
     return { value: n, label: `${n}회차` };
   }),
+  시작시간: Array.from({ length: 16 }, (_, i) => {
+    const hour = 4 + Math.floor(i / 2);
+    const half = i % 2 === 1;
+    const label = `오후 ${hour}시${half ? '반' : ''}`;
+    return { value: label, label };
+  }),
 };
