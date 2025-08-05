@@ -25,9 +25,7 @@ const STUDY_LIST_COLUMN: Array<ColumnDef<Study>> = [
   {
     id: 'category',
     accessorKey: 'category',
-    size: 50,
-    minSize: 50,
-    maxSize: 50,
+    size: 100,
     meta: {
       headAlign: 'center',
       bodyAlign: 'center',
@@ -45,9 +43,7 @@ const STUDY_LIST_COLUMN: Array<ColumnDef<Study>> = [
   {
     id: 'semester',
     accessorKey: 'semester',
-    size: 50,
-    minSize: 50,
-    maxSize: 50,
+    size: 150,
     meta: {
       headAlign: 'left',
       bodyAlign: 'left',
@@ -67,6 +63,7 @@ const STUDY_LIST_COLUMN: Array<ColumnDef<Study>> = [
   {
     id: 'studyName',
     accessorKey: 'studyName',
+    size: 0,
     meta: {
       headAlign: 'left',
       bodyAlign: 'left',
@@ -86,16 +83,14 @@ const STUDY_LIST_COLUMN: Array<ColumnDef<Study>> = [
   {
     id: 'studyHead',
     accessorKey: 'studyHead',
-    size: 50,
-    minSize: 50,
-    maxSize: 50,
+    size: 300,
     meta: {
       headAlign: 'left',
       bodyAlign: 'left',
     },
     header: () => (
       <Label size="md" weight="bold">
-        스터디장
+        스터디장 이름(핸들명)
       </Label>
     ),
     cell: ({ row }: { row: { original: Study } }) => (
@@ -112,10 +107,7 @@ interface StudyTableSectionProps {
   className?: string;
 }
 
-export function StudyTableSection({
-  studyData,
-  className,
-}: StudyTableSectionProps): React.ReactElement {
+export function StudyTable({ studyData, className }: StudyTableSectionProps): React.ReactElement {
   const router = useRouter();
   const columns = useMemo(() => STUDY_LIST_COLUMN, []);
   const [globalFilter, setGlobalFilter] = useState('');
@@ -129,7 +121,7 @@ export function StudyTableSection({
   });
 
   return (
-    <div className={cn('flex w-full flex-col gap-4', className)}>
+    <div className={cn('w-full flex-col items-center', className)}>
       <AnimatePresence mode="wait">
         <motion.div
           key="table"
@@ -139,19 +131,17 @@ export function StudyTableSection({
           transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
           className="w-full"
         >
-          <table className="w-full table-fixed">
-            <CommonTableHead table={table} className="bg-gray-100" />
-            <CommonTableBody
-              table={table}
-              onClick={function (row: Row<Study>): void {
-                const id = row.original.number;
-                if (!id) {
-                  return;
-                }
-                router.push(`/study/${id}`);
-              }}
-            />
-          </table>
+          <CommonTableHead table={table} className="bg-gray-100" />
+          <CommonTableBody
+            table={table}
+            onClick={function (row: Row<Study>): void {
+              const id = row.original.number;
+              if (!id) {
+                return;
+              }
+              router.push(`/study/${id}`);
+            }}
+          />
         </motion.div>
       </AnimatePresence>
       <TablePagination className="pt-8" table={table} />

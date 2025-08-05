@@ -3,7 +3,7 @@ import { Title } from '@hiarc-platform/ui';
 import { Button } from '@hiarc-platform/ui';
 import { useRouter } from 'next/navigation';
 import { PageLayout } from '@hiarc-platform/ui';
-import { Study, StudyTableSection } from '@/features/study/components/study-table-section';
+import { Study, StudyTable } from '@/features/study/components/study-table';
 
 const studyData: Study[] = [
   {
@@ -53,7 +53,7 @@ export default function StudyPage(): React.ReactElement {
         </Button>
       </div>
 
-      <StudyTableSection className="mt-6" studyData={studyData} />
+      <StudyTable className="mt-6" studyData={studyData} />
     </PageLayout>
   );
 }
