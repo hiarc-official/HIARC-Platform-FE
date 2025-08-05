@@ -25,7 +25,7 @@ export function CommonTableHead<T>({
     <div className={cn('w-full', className)}>
       {table.getHeaderGroups().map((headerGroup) => (
         // headerGroup.id 는 보통 1개뿐이지만 그대로 루프
-        <div key={headerGroup.id} className="flex items-center border-b border-gray-200">
+        <div key={headerGroup.id} className="flex items-center">
           {headerGroup.headers.map((header, idx, arr) => {
             const colId = header.column.id;
             const isSortable = sortColumns?.includes(colId);
