@@ -38,4 +38,8 @@ export const selectOption: Record<string, SelectData[]> = {
     { value: '초급스터디', label: '초급스터디' },
     { value: '중급스터디', label: '중급스터디' },
   ],
+  회차: Array.from({ length: 30 }, (_, i) => {
+    const n = (i + 1).toString();
+    return { value: n, label: `${n}회차` };
+  }),
 };

@@ -31,6 +31,14 @@ export default function BasicInformaionSection(): React.ReactElement {
           required={true}
           options={['신청 유형', '신청 없음']}
         />
+        {category === '스터디' && (
+          <LabeledSelector
+            placeholder="회차"
+            options={selectOption['회차']}
+            label="회차 선택"
+            required={true}
+          />
+        )}
         <LabeledSelectButton label="공개 여부" required={true} options={['공개', '비공개']} />
       </div>
       <Button className="w-full" size="lg">

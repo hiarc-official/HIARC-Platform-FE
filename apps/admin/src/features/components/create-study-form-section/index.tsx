@@ -1,3 +1,4 @@
+'use client';
 import { Label, LabeledInput, LabeledSelectButton } from '@hiarc-platform/ui';
 import { Button } from '@hiarc-platform/ui';
 import { LabeledSelector } from '@hiarc-platform/ui';
@@ -5,8 +6,11 @@ import { selectOption } from 'constants/selectOption';
 import { LabeledMultiSelect } from './labeled-multi-select';
 import { InformaionSection } from './information-section';
 import { LabeledTextarea } from '@hiarc-platform/ui';
-
+import { LabeledCalanderInput } from '@hiarc-platform/ui';
+import { useState } from 'react';
 export function CreateStudyFrom(): React.ReactElement {
+  const [studyPeriod, setStudyPeriod] = useState<[Date | null, Date | null]>([null, null]);
+  const [cruitPeriod, setCruitPeriod] = useState<[Date | null, Date | null]>([null, null]);
   return (
     <div className="mt-8 flex min-h-screen w-full max-w-[1200px] flex-col items-start gap-4">
       <Label size="lg" weight="bold">
@@ -25,7 +29,17 @@ export function CreateStudyFrom(): React.ReactElement {
           placeholder="학기를 선택해주세요"
           options={selectOption['학기']}
         />
-        <LabeledInput label="진행시간" placeholder="일시를 선택해주세요" />
+        <LabeledCalanderInput
+          label="진행기간"
+          rangeMode={true}
+          value={studyPeriod}
+          placeholder="일시를 선택해주세요"
+          onChange={(value) => {
+            if (Array.isArray(value)) {
+              setStudyPeriod(value);
+            }
+          }}
+        />
       </div>
 
       <div className="flex w-full items-end  gap-2">
@@ -41,7 +55,7 @@ export function CreateStudyFrom(): React.ReactElement {
         <LabeledInput label="언어" placeholder="진행 언어를 입력해주세요." />
       </div>
       <LabeledInput label="스터디 한줄 소개" placeholder="스터디를 한줄 소개해주세요" />
-      <InformaionSection />
+      <InformaionSection cruitPeriod={cruitPeriod} setCruitPeriod={setCruitPeriod} />
       <div className="mt-2 w-full">
         <LabeledTextarea
           label="스터디 신청시 유의사항"
