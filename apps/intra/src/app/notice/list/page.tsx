@@ -1,7 +1,7 @@
 'use client';
 
 import { NoticeSearchSection } from '@/features/notice/components/notice-search-section';
-import { Notice, NoticeTableSection } from '@/features/notice/components/notice-table-section';
+import { Notice, NoticeTable } from '@/features/notice/components/notice-table';
 import { PageLayout, Title } from '@hiarc-platform/ui';
 
 const noticeData: Notice[] = [
@@ -60,7 +60,7 @@ export default function NoticeList(): React.ReactElement {
         공지사항
       </Title>
       <NoticeSearchSection className="mt-6" />
-      <NoticeTableSection className="mt-8" data={noticeData} />
+      <NoticeTable className="mt-8" data={noticeData} />
     </PageLayout>
   );
 }
