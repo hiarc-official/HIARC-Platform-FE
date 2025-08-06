@@ -133,12 +133,14 @@ export function NoticeTableSection({
 }: NoticeTableSectionProps): React.ReactElement {
   const columns = useMemo(() => OFFICER_LIST_COLUMN, []);
   const [globalFilter, setGlobalFilter] = useState('');
+  const [page, setPage] = useState(0);
   const router = useRouter();
+  
   const table = useTable({
     columns,
     data,
-    pageState: [0, () => {}],
-    totalPages: 10,
+    pageState: [page, setPage],
+    totalPages: Math.ceil(data.length / 10),
     globalFilterState: [globalFilter, setGlobalFilter],
   });
 

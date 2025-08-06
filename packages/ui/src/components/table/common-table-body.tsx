@@ -9,7 +9,7 @@ interface TbodyProps<T> {
   table: Table<T>;
   onClick(row: Row<T>): void;
   emptyMessage?: string;
-  gapPx?: number; // 셀 간 간격(헤더와 맞춤). 기본 16px
+  gapPx?: number;
 }
 
 export function CommonTableBody<T>({
