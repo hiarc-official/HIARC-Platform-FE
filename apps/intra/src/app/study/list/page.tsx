@@ -1,7 +1,7 @@
 'use client';
 
 import { StudySearchSection } from '@/features/study/components/study-search-section';
-import { Study, StudyTableSection } from '@/features/study/components/study-table-section';
+import { Study, StudyTable } from '@/features/study/components/study-table';
 import { PageLayout, Title } from '@hiarc-platform/ui';
 
 const studyData: Study[] = [
@@ -46,7 +46,7 @@ export default function StudyListPage(): React.ReactElement {
         스터디
       </Title>
       <StudySearchSection className="mt-6" />
-      <StudyTableSection className="mt-6" studyData={studyData} />
+      <StudyTable className="mt-6" studyData={studyData} />
     </PageLayout>
   );
 }
