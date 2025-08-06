@@ -5,7 +5,6 @@ import { ReactNode, useEffect, useState } from 'react';
 import { ErrorBoundary } from '../components/error-boundary';
 import { ErrorDialog } from '../components/error-dialog';
 import { createQueryErrorHandler, setupGlobalErrorHandler } from '../hooks/use-error-handler';
-import { AuthProvider } from './auth-provider';
 
 interface ProvidersProps {
   children: ReactNode;
@@ -35,10 +34,8 @@ export function Providers({ children }: ProvidersProps): React.ReactElement {
   return (
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
-        <AuthProvider>
-          {children}
-          <ErrorDialog />
-        </AuthProvider>
+        {children}
+        <ErrorDialog />
       </QueryClientProvider>
     </ErrorBoundary>
   );

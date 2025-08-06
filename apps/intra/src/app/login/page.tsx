@@ -5,31 +5,23 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
 import { useAuthStore } from '../../shared/store/auth-store';
+import useGoogleLogin from '../../features/auth/hooks/use-google-login';
 
 export default function LoginPage(): React.ReactElement {
-  const { user, isLoading, initialize, isInitialized } = useAuthStore();
+  const { user, isLoading, logout } = useAuthStore();
   const router = useRouter();
-
-  useEffect(() => {
-    if (!isInitialized) {
-      initialize();
-    }
-  }, [isInitialized, initialize]);
+  const { googleLogin, isLoading: isGoogleLoginLoading } = useGoogleLogin();
 
   useEffect(() => {
     if (user) {
-      router.push('/');
+      logout();
+      console.log('이미 로그인된 사용자입니다:', user);
+      // router.push('/');
     }
   }, [user, router]);
 
   const handleGoogleLogin = (): void => {
-    try {
-      // 백엔드 서버의 OAuth 엔드포인트로 리다이렉트
-      const redirectUrl = `${process.env.NEXT_PUBLIC_API_URL}/oauth2/authorization/google`;
-      window.location.href = redirectUrl;
-    } catch (error) {
-      console.error('로그인 에러:', error);
-    }
+    googleLogin();
   };
 
   if (isLoading) {
@@ -54,9 +46,15 @@ export default function LoginPage(): React.ReactElement {
       <Title className="mt-11" size="sm" weight="bold">
         로그인
       </Title>
-      <Button className="mt-7 w-full" variant="social_login" size="xl" onClick={handleGoogleLogin}>
+      <Button
+        className="mt-7 w-full"
+        variant="social_login"
+        size="xl"
+        onClick={handleGoogleLogin}
+        disabled={isGoogleLoginLoading}
+      >
         <Image src={'/shared-assets/Google.svg'} width={20} height={20} alt="Google" />
-        <Label size="lg">구글 계정으로 로그인</Label>
+        <Label size="lg">{isGoogleLoginLoading ? '로그인 중...' : '구글 계정으로 로그인'}</Label>
       </Button>
     </div>
   );

@@ -12,20 +12,20 @@ import {
 export function BojGuideButton(): React.ReactElement {
   return (
     <div>
-      <Label size="sm" className="text-gray-500">
+      <Label size="sm" weight="regular" className="text-gray-500">
         혹시 백준이 처음이실까요?
       </Label>
       <Dialog>
         <DialogTrigger asChild>
-          <Label size="sm" className="cursor-pointer text-gray-500 underline">
+          <button className="ml-2 h-auto p-0 font-pretendard text-xs text-gray-900 underline">
             자세히 보기
-          </Label>
+          </button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[380px]">
           <DialogHeader>
             <DialogTitle>백준 가이드</DialogTitle>
           </DialogHeader>
-          <DialogDescription>
+          <DialogDescription asChild>
             <ol className="mt-2 list-decimal space-y-4 pl-5">
               <li>백준(BOJ)과 solved.ac에 관해 알아보기</li>
               <li>
@@ -37,7 +37,7 @@ export function BojGuideButton(): React.ReactElement {
             </ol>
           </DialogDescription>
           <DialogTrigger asChild>
-            <Button size="lg">확인</Button>
+            <Button className="mt-4 w-full">확인</Button>
           </DialogTrigger>
         </DialogContent>
       </Dialog>
