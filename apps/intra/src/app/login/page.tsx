@@ -25,7 +25,8 @@ export default function LoginPage(): React.ReactElement {
   const handleGoogleLogin = (): void => {
     try {
       // 백엔드 서버의 OAuth 엔드포인트로 리다이렉트
-      window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/oauth2/authorization/google`;
+      const redirectUrl = `${process.env.NEXT_PUBLIC_API_URL}/oauth2/authorization/google`;
+      window.location.href = redirectUrl;
     } catch (error) {
       console.error('로그인 에러:', error);
     }

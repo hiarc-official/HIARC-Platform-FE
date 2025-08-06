@@ -1,10 +1,14 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import Header from '@/ui/shared/Header';
 import Footer from '@/ui/shared/Footer';
-import './globals.css';
 
-const inter = Inter({ subsets: ['latin'] });
+// 로컬 폰트 import
+import '@fontsource/pretendard/400.css';
+import '@fontsource/pretendard/500.css';
+import '@fontsource/pretendard/600.css';
+import '@fontsource/pretendard/700.css';
+
+import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Admin App',
@@ -14,7 +18,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body>
         <Header />
         {children}
         <Footer />
