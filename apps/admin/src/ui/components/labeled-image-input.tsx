@@ -45,7 +45,7 @@ export default function LabeledImageInput({
       )}
       <div className="flex items-center gap-2">
         <label className="flex h-[72px] w-[72px] cursor-pointer flex-col items-center justify-center rounded-lg border border-dashed border-gray-200 bg-white hover:bg-gray-100">
-          <Image src="/Camera.svg" alt="카메라 아이콘" width={24} height={24} />
+          <Image src="/shared-assets/Camera.svg" alt="카메라 아이콘" width={24} height={24} />
           <span className=" text-sm text-gray-500">{`${images.length} / 5`}</span>
           <input
             type="file"

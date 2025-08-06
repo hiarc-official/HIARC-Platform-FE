@@ -1,7 +1,7 @@
 'use client';
 
-import { StudyInfoSection } from '@/features/study/presentation/components/study-info-section';
-import { TabSection } from '@/features/study/presentation/components/tab-section';
+import { StudyInfoSection } from '@/features/study/components/study-info-section';
+import { TabSection } from '@/features/study/components/tab-section';
 import { BackButton, Button, PageLayout, SingleColumnLayout } from '@hiarc-platform/ui';
 import { useRouter } from 'next/navigation';
 import React from 'react';

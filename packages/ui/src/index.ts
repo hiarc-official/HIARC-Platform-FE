@@ -28,4 +28,6 @@ export * from './components/table/common-table-body';
 export * from './components/table/common-table-head';
 export * from './components/table/pagination';
 export * from './components/tabs';
+export * from './components/visually-hidden';
+export * from './constants/assets';
 export * from './lib/utils';

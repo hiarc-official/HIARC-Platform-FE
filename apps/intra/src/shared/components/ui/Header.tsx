@@ -57,7 +57,7 @@ export default function Header(): React.ReactElement {
             )}
           >
             <Link href="/">
-              <Image src="/Logo.svg" alt="HiarcLogo" width={120} height={30} />
+              <Image src="/shared-assets/Logo.svg" alt="HiarcLogo" width={120} height={30} />
             </Link>
             <div className="flex items-center gap-2">
               <IconButton
@@ -70,7 +70,11 @@ export default function Header(): React.ReactElement {
                   <Button variant="secondary" size="sm" onClick={handleMyPage}>
                     마이페이지
                   </Button>
-                  <IconButton iconSrc="/User.svg" aria-label="프로필" onClick={handleLogout} />
+                  <IconButton
+                    iconSrc="/shared-assets/User.svg"
+                    aria-label="프로필"
+                    onClick={handleLogout}
+                  />
                 </div>
               ) : (
                 <Button variant="secondary" size="sm" onClick={handleLogin}>
@@ -82,7 +86,7 @@ export default function Header(): React.ReactElement {
 
           <div className="hidden w-full items-center justify-between md:flex">
             <Link href="/">
-              <Image src="/Logo.svg" alt="HiarcLogo" width={120} height={30} />
+              <Image src="/shared-assets/Logo.svg" alt="HiarcLogo" width={120} height={30} />
             </Link>
             <div className="flex items-center gap-2">
               <Input

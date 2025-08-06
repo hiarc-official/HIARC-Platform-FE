@@ -22,7 +22,7 @@ export default function Header(): React.ReactElement {
   return (
     <header className="w-full  items-center justify-between border-b border-gray-200   sm:px-10">
       <div className="mx-auto  flex w-full min-w-[600px] max-w-[1200px] items-center gap-6 ">
-        <Image src="/Logo.svg" alt="HiarcLogo" width={120} height={30} />
+        <Image src="/shared-assets/Logo.svg" alt="HiarcLogo" width={120} height={30} />
 
         <LabeledSelector
           required={false}
@@ -56,7 +56,7 @@ export default function Header(): React.ReactElement {
             placeholder="Placeholder"
             className="w-55 h-[44px]"
           />
-          <Image src="/User.svg" alt="user" width={36} height={36} />
+          <Image src="/shared-assets/User.svg" alt="user" width={36} height={36} />
 
           <Button variant="fill_light" size="sm">
             출석체크

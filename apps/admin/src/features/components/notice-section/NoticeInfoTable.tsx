@@ -21,7 +21,13 @@ export default function NoticeInfoTable(): React.ReactElement {
       <div className=" h-px w-full bg-gray-200"></div>
       <div className="flex gap-[38px] py-6">
         <div className="flex h-[50px] gap-3">
-          <Image src="/Link.svg" alt="Link" width={20} height={20} className="h-[20px] w-[20px]" />
+          <Image
+            src="/shared-assets/Link.svg"
+            alt="Link"
+            width={20}
+            height={20}
+            className="h-[20px] w-[20px]"
+          />
           <Label size="lg" weight="bold">
             관련 URL
           </Label>

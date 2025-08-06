@@ -286,8 +286,8 @@ function MobileLectureListItem({
         </Label>
         {isAdmin && (
           <div className="ml-4 flex gap-4">
-            <IconButton iconSrc="/Edit.svg" />
-            <IconButton iconSrc="/Delete.svg" />
+            <IconButton iconSrc="/shared-assets/Edit.svg" />
+            <IconButton iconSrc="/shared-assets/Delete.svg" />
           </div>
         )}
       </div>
@@ -337,7 +337,7 @@ function DesktopLectureCardListItem(props: LectureCardProps): React.ReactElement
         </div>
         {props.isAdmin && (
           <div className="ml-4 flex gap-4">
-            <IconButton iconSrc="/Edit.svg" />
+            <IconButton iconSrc="/shared-assets/Edit.svg" />
             <DeleteButton onComplete={() => {}} />
           </div>
         )}

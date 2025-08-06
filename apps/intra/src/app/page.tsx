@@ -1,9 +1,9 @@
 'use client';
 
-import { HiarcScheduleSection } from '@/features/main/presentation/components/hiarc-schedule-section';
-import { NoticeListSection } from '@/features/main/presentation/components/notice-list-section';
-import { OnboardingButton } from '@/features/main/presentation/components/onboarding-button';
-import { StudyListSection } from '@/features/main/presentation/components/study-list-section';
+import { HiarcScheduleSection } from '@/features/main/components/hiarc-schedule-section';
+import { NoticeListSection } from '@/features/main/components/notice-list-section';
+import { OnboardingButton } from '@/features/main/components/onboarding-button';
+import { StudyListSection } from '@/features/main/components/study-list-section';
 import {
   ContentSection,
   PageLayout,

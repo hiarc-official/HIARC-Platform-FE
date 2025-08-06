@@ -14,7 +14,7 @@ interface AvatarProps {
 export function Avatar({ className, imageUrl, alt }: AvatarProps): React.ReactElement {
   const [hasError, setHasError] = useState(false);
   const isFallback = !imageUrl || hasError;
-  const imgSrc = isFallback ? '/User.svg' : imageUrl;
+  const imgSrc = isFallback ? '/shared-assets/User.svg' : imageUrl;
 
   return (
     <div className="flex size-10 items-center justify-center overflow-hidden rounded-full bg-gray-300">

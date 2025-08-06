@@ -1,6 +1,6 @@
 'use client';
 
-import { BojGuideButton } from '@/features/signup/presentation/components/boj-guide-button';
+import { BojGuideButton } from '@/features/signup/components/boj-guide-button';
 import {
   Button,
   LabeledInput,

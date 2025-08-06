@@ -19,17 +19,17 @@ export default function Footer({ id }: FooterProps): React.ReactElement {
         </div>
         <div className="flex flex-wrap items-center justify-center gap-3 text-gray-600">
           <div className="flex items-center gap-2">
-            <Image src="/Instagram.svg" alt="Instagram Icon" width={16} height={16} />
+            <Image src="/shared-assets/Instagram.svg" alt="Instagram Icon" width={16} height={16} />
             <Label>@hi-arc.official</Label>
           </div>
           <Divider variant="vertical" size="8px" />
           <div className="flex items-center gap-2">
-            <Image src="/Mail.svg" alt="Mail Icon" width={16} height={16} />
+            <Image src="/shared-assets/Mail.svg" alt="Mail Icon" width={16} height={16} />
             <Label>hiarc.official@gmail.com</Label>
           </div>
           <Divider variant="vertical" size="8px" />
           <div className="flex items-center gap-2">
-            <Image src="/Message.svg" alt="Message Icon" width={16} height={16} />
+            <Image src="/shared-assets/Message.svg" alt="Message Icon" width={16} height={16} />
             <Label>@hi-arc</Label>
           </div>
         </div>

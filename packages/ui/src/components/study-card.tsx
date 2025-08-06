@@ -15,9 +15,9 @@ export default function StudyGrayChip({
     <div className="flex h-[25px] w-fit items-center gap-1 rounded-md bg-gray-100 px-3 text-md text-gray-700">
       <div>
         {type === 'schedule' ? (
-          <Image src="/Schedule.svg" alt="" height={16} width={16} />
+          <Image src="/shared-assets/Schedule.svg" alt="" height={16} width={16} />
         ) : (
-          <Image src="/People.svg" alt="" height={16} width={16} />
+          <Image src="/shared-assets/People.svg" alt="" height={16} width={16} />
         )}
       </div>
       <div>{title}</div>
@@ -30,9 +30,9 @@ type StudyLevel = 'basic' | 'intermediate' | 'expert';
 
 // 2. 유틸 타입 수정
 const LevelIcon: Record<StudyLevel, string> = {
-  basic: '/Basic.svg',
-  intermediate: '/Intermediate.svg',
-  expert: '/Expert.svg',
+  basic: '/shared-assets/Basic.svg',
+  intermediate: '/shared-assets/Intermediate.svg',
+  expert: '/shared-assets/Expert.svg',
 };
 
 const KoreanLevel: Record<StudyLevel, string> = {

@@ -34,7 +34,7 @@ export default function DetailInformationSection(): React.ReactElement {
         <div className="flex items-end gap-2 ">
           <LabeledInput label="첨부파일 URL" placeholder="첨부파일 URL" />
           <Image
-            src="/DeleteButton.svg"
+            src="/shared-assets/DeleteButton.svg"
             alt="삭제이미지"
             width={24}
             height={24}

@@ -6,7 +6,10 @@ import {
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
   Label,
+  VisuallyHidden,
 } from '@hiarc-platform/ui';
 import Image from 'next/image';
 import { useErrorStore } from '../store/error-store';
@@ -29,11 +32,14 @@ export function ErrorDialog(): React.ReactElement | null {
   return (
     <AlertDialog open={isDialogOpen} onOpenChange={handleClose}>
       <AlertDialogContent className="max-w-sm">
+        <VisuallyHidden>
+          <AlertDialogTitle>에러 알림</AlertDialogTitle>
+        </VisuallyHidden>
         {/* 중앙 정렬된 컨텐츠 */}
         <div className="flex flex-col items-center space-y-4 py-2 text-center">
           {/* SVG 아이콘 */}
           <div className="flex justify-center">
-            <Image src="/Error.svg" alt="Error Icon" width={36} height={36} />
+            <Image src="/shared-assets/Error.svg" alt="Error Icon" width={36} height={36} />
           </div>
           <AlertDialogDescription className="mt-6">
             <Label size="lg" weight="medium">
