@@ -69,7 +69,7 @@ export default function CalendarBar({ data, daysToShow, className }: Props): Rea
   return (
     <div className={cn('flex w-full flex-col items-center gap-2', className)}>
       <div className="flex w-full items-center gap-2">
-        <IconButton iconSrc="/Left.svg" onClick={() => move('prev')} />
+        <IconButton iconSrc="/shared-assets/Left.svg" onClick={() => move('prev')} />
         <div className="flex flex-1 overflow-hidden">
           {dates.map((date) => {
             const ymd = format(date, 'yyyy-MM-dd');
@@ -108,7 +108,7 @@ export default function CalendarBar({ data, daysToShow, className }: Props): Rea
             );
           })}
         </div>
-        <IconButton iconSrc="/Right.svg" onClick={() => move('next')} />
+        <IconButton iconSrc="/shared-assets/Right.svg" onClick={() => move('next')} />
       </div>
     </div>
   );

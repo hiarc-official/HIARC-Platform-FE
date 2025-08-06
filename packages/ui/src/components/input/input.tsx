@@ -36,7 +36,7 @@ function Input({
         /* eslint-disable @next/next/no-img-element */
         /*img태그 성능이슈 있음 */
         <img
-          src="/ZoomIn.svg"
+          src="/shared-assets/ZoomIn.svg"
           alt="Search Icon"
           width={16}
           height={16}

@@ -21,7 +21,9 @@ export function HitingStatistics({
           <Title size="sm" weight="bold">
             {value}
           </Title>
-          {increased && <Image src="/ArrowUp.svg" alt="ArrowUp" width={16} height={16} />}
+          {increased && (
+            <Image src="/shared-assets/ArrowUp.svg" alt="ArrowUp" width={16} height={16} />
+          )}
         </div>
       </div>
     </SectionContainer>

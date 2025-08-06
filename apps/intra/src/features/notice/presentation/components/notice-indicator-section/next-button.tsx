@@ -35,7 +35,13 @@ export function NextButton({ onClick, className }: NextButtonProps): React.React
         <Label size="lg" className="cursor-pointer text-gray-900">
           다음글
         </Label>
-        <Image src="/ArrowRight.svg" width={16} height={16} alt="Next" className="inline-block" />
+        <Image
+          src="/shared-assets/ArrowRight.svg"
+          width={16}
+          height={16}
+          alt="Next"
+          className="inline-block"
+        />
       </span>
     </button>
   );

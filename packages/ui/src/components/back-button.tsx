@@ -18,7 +18,7 @@ export function BackButton({ onClick, className }: BackButtonProps): React.React
       )}
       onClick={onClick}
     >
-      <Image src="/ArrowLeft.svg" width={16} height={16} alt="Back" />
+      <Image src="/shared-assets/ArrowLeft.svg" width={16} height={16} alt="Back" />
       <Label size="lg" className="cursor-pointer text-gray-700">
         뒤로가기
       </Label>

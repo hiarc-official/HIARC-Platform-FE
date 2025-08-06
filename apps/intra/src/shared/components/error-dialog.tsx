@@ -33,7 +33,7 @@ export function ErrorDialog(): React.ReactElement | null {
         <div className="flex flex-col items-center space-y-4 py-2 text-center">
           {/* SVG 아이콘 */}
           <div className="flex justify-center">
-            <Image src="/Error.svg" alt="Error Icon" width={36} height={36} />
+            <Image src="/shared-assets/Error.svg" alt="Error Icon" width={36} height={36} />
           </div>
           <AlertDialogDescription className="mt-6">
             <Label size="lg" weight="medium">

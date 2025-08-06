@@ -29,7 +29,7 @@ export function PreviousButton({ onClick, className }: PreviousButtonProps): Rea
       {/* 데스크탑 */}
       <span className="hidden items-center gap-4 md:flex">
         <Image
-          src="/ArrowLeft.svg"
+          src="/shared-assets/ArrowLeft.svg"
           width={16}
           height={16}
           alt="Previous"
