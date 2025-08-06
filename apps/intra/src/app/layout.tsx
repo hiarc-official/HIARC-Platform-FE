@@ -2,6 +2,12 @@ import Footer from '@/shared/components/ui/Footer';
 import Header from '@/shared/components/ui/Header';
 import type { Metadata } from 'next';
 
+// 로컬 폰트 import
+import '@fontsource/pretendard/400.css';
+import '@fontsource/pretendard/500.css';
+import '@fontsource/pretendard/600.css';
+import '@fontsource/pretendard/700.css';
+
 import { Providers } from '../shared/providers/providers';
 import './globals.css';
 

@@ -17,7 +17,7 @@ export async function middleware(req: NextRequest): Promise<NextResponse> {
   }
 
   // 3. 인증 및 권한 검사
-  const authRes = await authMiddleware(req);
+  const authRes = authMiddleware(req);
   if (authRes) {
     return authRes;
   }
