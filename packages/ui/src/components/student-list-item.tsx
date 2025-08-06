@@ -34,7 +34,7 @@ export function StudentListItem({ name, imageUrl }: StudentListItemProps): React
           <IconButton
             className="ml-4"
             size="lg"
-            iconSrc={open ? '/CaretUp.svg' : '/CaretDown.svg'}
+            iconSrc={open ? '/shared-assets/CaretUp.svg' : '/shared-assets/CaretDown.svg'}
             aria-label="토글 상세"
             onClick={() => setOpen((toggle) => !toggle)}
           />
