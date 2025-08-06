@@ -1,10 +1,7 @@
 'use client';
 
-import { StudySearchSection } from '@/features/study/presentation/components/study-search-section';
-import {
-  Study,
-  StudyTableSection,
-} from '@/features/study/presentation/components/study-table-section';
+import { StudySearchSection } from '@/features/study/components/study-search-section';
+import { Study, StudyTableSection } from '@/features/study/components/study-table-section';
 import { PageLayout, Title } from '@hiarc-platform/ui';
 
 const studyData: Study[] = [

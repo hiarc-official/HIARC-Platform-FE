@@ -1,8 +1,8 @@
 'use client';
 
-import { NoticeContentSection } from '@/features/notice/presentation/components/notice-content-section';
-import { NoticeIndicatorSection } from '@/features/notice/presentation/components/notice-indicator-section';
-import { NoticeInfoSection } from '@/features/notice/presentation/components/notice-info-section';
+import { NoticeContentSection } from '@/features/notice/components/notice-content-section';
+import { NoticeIndicatorSection } from '@/features/notice/components/notice-indicator-section';
+import { NoticeInfoSection } from '@/features/notice/components/notice-info-section';
 import { BackButton, Button, PageLayout } from '@hiarc-platform/ui';
 import { useRouter } from 'next/navigation';
 

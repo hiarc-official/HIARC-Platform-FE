@@ -1,10 +1,7 @@
 'use client';
 
-import { NoticeSearchSection } from '@/features/notice/presentation/components/notice-search-section';
-import {
-  Notice,
-  NoticeTableSection,
-} from '@/features/notice/presentation/components/notice-table-section';
+import { NoticeSearchSection } from '@/features/notice/components/notice-search-section';
+import { Notice, NoticeTableSection } from '@/features/notice/components/notice-table-section';
 import { PageLayout, Title } from '@hiarc-platform/ui';
 
 const noticeData: Notice[] = [
