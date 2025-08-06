@@ -2,8 +2,9 @@ import { cn, Tabs } from '@hiarc-platform/ui';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 import { LectureList } from './lecture-list';
-import { NoticeTable } from './notice-table';
+
 import { StudentList } from './student-list';
+import { StudyNoticeTable } from '../study-notice-table';
 
 interface TabSectionProps {
   isAdmin?: boolean;
@@ -45,7 +46,7 @@ export function TabSection({ className, isAdmin }: TabSectionProps): React.React
               transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
               className="w-full"
             >
-              <NoticeTable />
+              <StudyNoticeTable />
             </motion.div>
           )}
           {selectedTab === 'manage_student' && (
