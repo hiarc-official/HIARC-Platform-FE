@@ -39,8 +39,8 @@ export const selectOption: Record<string, SelectData[]> = {
     { value: '중급스터디', label: '중급스터디' },
   ],
   회차: Array.from({ length: 30 }, (_, i) => {
-    const n = (i + 1).toString();
-    return { value: n, label: `${n}회차` };
+    const num = (i + 1).toString();
+    return { value: num, label: `${num}회차` };
   }),
   시작시간: Array.from({ length: 16 }, (_, i) => {
     const hour = 4 + Math.floor(i / 2);
@@ -48,4 +48,8 @@ export const selectOption: Record<string, SelectData[]> = {
     const label = `오후 ${hour}시${half ? '반' : ''}`;
     return { value: label, label };
   }),
+  모집문구관리: [
+    { value: '학회 가입 완료', label: '학회 가입 완료' },
+    { value: '안내 사항', label: '안내 사항' },
+  ],
 };
