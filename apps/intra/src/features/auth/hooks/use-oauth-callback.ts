@@ -31,15 +31,11 @@ export default function useOAuthCallback(): { isProcessing: boolean } {
         } else if (needSignup === 'false') {
           // 로그인 완료된 사용자 - 유저 정보 패칭 후 메인으로 이동
           try {
-            const userInfo = await authApi.GET_ME();
+            const getMeResponse = await authApi.GET_ME();
 
             // Zustand store에 유저 정보만 저장 (토큰은 서버에서 관리)
-            if (userInfo.user) {
-              login(userInfo.user);
-              router.push('/');
-            } else {
-              throw new Error('유저 정보가 불완전합니다.');
-            }
+            login(getMeResponse);
+            router.push('/');
           } catch (error) {
             console.error('유저 정보 패칭 실패:', error);
             clearAuth();

@@ -1,15 +1,12 @@
 import { useMutation, UseMutationResult } from '@tanstack/react-query';
 import Router from 'next/navigation';
-import { authApi } from '../api/auth';
+import { authApi, SignupRequest } from '../api/auth';
+import { User } from '../types/model/user';
 
 export default function useSignUp(): UseMutationResult<
-  unknown,
+  User,
   Error,
-  {
-    email: string;
-    name: string;
-    provider: string;
-  },
+  SignupRequest,
   unknown
 > {
   const navigate = Router.useRouter();
