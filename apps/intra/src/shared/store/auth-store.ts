@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
-import { User } from '../../features/auth/types/user';
+import { User } from '../../features/auth/types/model/user';
 
 interface AuthState {
   // 상태
