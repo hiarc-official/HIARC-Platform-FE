@@ -4,7 +4,7 @@ export abstract class BaseModel<P extends object> {
   protected readonly props: Readonly<P>;
   protected static schema: ZodType<unknown>;
 
-  protected constructor(props: P) {
+  constructor(props: P) {
     const Ctor = this.constructor as typeof BaseModel & { schema: ZodType<P> };
     Ctor.schema.parse(props);
     this.props = Object.freeze(props);
