@@ -18,7 +18,7 @@ export default function LoginPage(): React.ReactElement {
       console.log('이미 로그인된 사용자입니다:', user);
       // router.push('/');
     }
-  }, [user, router]);
+  }, [user, router, logout]);
 
   const handleGoogleLogin = (): void => {
     googleLogin();
