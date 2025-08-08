@@ -1,20 +1,18 @@
+'use client';
 import { LabeledSelector } from '@hiarc-platform/ui';
-import { RecruitSummar } from './recruitment-summary';
+import { RecruitSummary } from './recruit-bar/recruitment-summary';
 import { selectOption } from 'constants/selectOption';
 import { StudentApplyTable } from '@/features/student/components/student-apply-table';
+import { RecruitTextManageButton } from './recruit-bar/recruit-text-manage-button';
+import { useState } from 'react';
+
 export function RecruitManageSection(): React.ReactElement {
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="flex w-full flex-col gap-4">
-      <RecruitSummar />
+      <RecruitSummary />
       <div className="flex justify-end">
-        <LabeledSelector
-          label=""
-          showLabel={false}
-          options={selectOption['모집문구관리']}
-          placeholder="모집 문구 관리"
-          triggerClassName="bg-primary-200 text-white data-[placeholder]:text-white"
-          className="w-[138px]"
-        />
+        <RecruitTextManageButton isOpen={isOpen} setIsOpen={setIsOpen} />
       </div>
       <div className="flex flex-col gap-4">
         <div className="flex items-center justify-center justify-between text-md">

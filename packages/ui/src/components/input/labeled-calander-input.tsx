@@ -39,7 +39,7 @@ function LabeledCalanderInput({
       )}
       <div className="relative w-full">
         <img
-          src="/Schedule.svg"
+          src="/shared-assets/Schedule.svg"
           alt="캘린더 아이콘"
           className=" absolute left-3 top-1/2 z-10 h-4 w-4 -translate-y-1/2"
           width={16}
@@ -59,7 +59,8 @@ function LabeledCalanderInput({
             popperPlacement="bottom-start"
             wrapperClassName="w-full"
             locale={ko}
-            customInput={<Input className="border-gray-200" />}
+            readOnly
+            customInput={<Input className=" border-gray-200" />}
           />
         ) : (
           <DatePicker
@@ -71,7 +72,8 @@ function LabeledCalanderInput({
             popperPlacement="bottom-start"
             wrapperClassName="w-full"
             locale={ko}
-            customInput={<Input className="border-gray-200" />}
+            readOnly
+            customInput={<Input className=" border-gray-200" />}
           />
         )}
       </div>

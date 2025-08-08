@@ -1,7 +1,7 @@
-import Image from 'next/image';
-export function RecruitSummar(): React.ReactElement {
+import { RecruitManageModalTrigger } from '../recruit-modal/recruit-manage-modal-trigger';
+export function RecruitSummary(): React.ReactElement {
   return (
-    <div className="flex justify-between gap-4 border-b border-t border-b-gray-200 border-t-gray-700 py-6 text-lg">
+    <div className="flex justify-between gap-4 border-b border-t border-b-gray-200 border-t-gray-700 py-6 text-lg ">
       <div className="w-full">
         <div className="flex gap-4">
           <div className="text-gray-500">모집시작일</div>
@@ -19,7 +19,7 @@ export function RecruitSummar(): React.ReactElement {
           <div className="text-gray-500">모집학기</div>
           <div>1학기</div>
         </div>
-        <Image src="/shared-assets/Edit.svg" alt="Edit" width={24} height={24} />
+        <RecruitManageModalTrigger />
       </div>
     </div>
   );
