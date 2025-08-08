@@ -59,7 +59,6 @@ function LabeledCalanderInput({
             popperPlacement="bottom-start"
             wrapperClassName="w-full"
             locale={ko}
-            readOnly
             customInput={<Input className=" border-gray-200" />}
           />
         ) : (
@@ -72,7 +71,6 @@ function LabeledCalanderInput({
             popperPlacement="bottom-start"
             wrapperClassName="w-full"
             locale={ko}
-            readOnly
             customInput={<Input className=" border-gray-200" />}
           />
         )}
