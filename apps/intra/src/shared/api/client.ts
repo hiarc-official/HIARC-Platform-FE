@@ -1,9 +1,11 @@
-import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
-import { useErrorStore } from '../store/error-store';
+import axios, { AxiosInstance } from 'axios';
+import { useAuthStore } from '../store/auth-store';
 
-// Axios 인스턴스 생성
-export const apiClient: AxiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+
+// 전역 API 클라이언트
+const apiClient: AxiosInstance = axios.create({
+  baseURL: API_BASE_URL,
   timeout: 10000,
   withCredentials: true,
   headers: {
@@ -13,64 +15,30 @@ export const apiClient: AxiosInstance = axios.create({
 
 // 응답 인터셉터
 apiClient.interceptors.response.use(
-  (response: AxiosResponse) => response,
-  (error: AxiosError) => {
-    // 글로벌 에러 처리
-    const { showError } = useErrorStore.getState();
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config;
 
-    if (error.response) {
-      // 서버 응답 에러
-      const status = error.response.status;
-      let message = '요청 처리 중 오류가 발생했습니다.';
+    // 401 에러 처리 (인증 실패)
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
 
-      switch (status) {
-        case 401:
-          message = '인증이 필요합니다. 다시 로그인해주세요.';
-          break;
-        case 403:
-          message = '접근 권한이 없습니다.';
-          break;
-        case 404:
-          message = '요청한 리소스를 찾을 수 없습니다.';
-          break;
-        case 429:
-          message = '너무 많은 요청입니다. 잠시 후 다시 시도해주세요.';
-          break;
-        case 500:
-          message = '서버 내부 오류가 발생했습니다.';
-          break;
-        case 502:
-        case 503:
-        case 504:
-          message = '서버가 일시적으로 사용할 수 없습니다.';
-          break;
-        default:
-          message = '알 수 없는 오류가 발생했습니다.';
-          break;
-      }
+      const { clearAuth } = useAuthStore.getState();
 
-      showError(new Error(message), {
-        status,
-        url: error.config?.url,
-        method: error.config?.method,
-        data: error.response.data,
-      });
-    } else if (error.request) {
-      // 네트워크 에러
-      showError(new Error('네트워크 연결을 확인해주세요.'), {
-        type: 'network',
-        request: error.request,
-      });
-    } else {
-      // 기타 에러
-      showError(new Error('예상치 못한 오류가 발생했습니다.'), {
-        type: 'unknown',
-        message: error.message,
-      });
+      // 인증 실패 시 모든 인증 정보 삭제 후 메인 화면으로 이동
+      clearAuth();
+
+      // localStorage도 완전히 정리
+      localStorage.removeItem('auth-storage');
+
+      // 메인 화면으로 리다이렉트
+      window.location.href = '/';
+      return Promise.reject(error);
     }
 
     return Promise.reject(error);
   }
 );
 
+export { apiClient };
 export default apiClient;

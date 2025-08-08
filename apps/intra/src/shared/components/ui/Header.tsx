@@ -5,14 +5,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { useLogout } from '../../hooks/use-auth';
 import { useAuthStore } from '../../store/auth-store';
 
 export default function Header(): React.ReactElement {
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
   const router = useRouter();
   const { isAuthenticated } = useAuthStore();
-  const logoutMutation = useLogout();
 
   const handleLogin = (): void => {
     router.push('/login');
@@ -22,9 +20,7 @@ export default function Header(): React.ReactElement {
     router.push('/my');
   };
 
-  const handleLogout = (): void => {
-    logoutMutation.mutate();
-  };
+  const handleLogout = (): void => {};
 
   return (
     <>

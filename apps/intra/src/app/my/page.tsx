@@ -1,10 +1,10 @@
 'use client';
 
-import { CompetitionSection } from '@/features/my/components/competition-section';
-import { HitingSection } from '@/features/my/components/hiting-section';
-import { MyInfoSection } from '@/features/my/components/my-info-section';
-import { StreakSection } from '@/features/my/components/streak-section';
-import { StudySection } from '@/features/my/components/study-section';
+import { CompetitionSection } from '@/features/auth/components/competition-section';
+import { HitingSection } from '@/features/auth/components/hiting-section';
+import { MyInfoSection } from '@/features/auth/components/my-info-section';
+import { StreakSection } from '@/features/auth/components/streak-section';
+import { StudySection } from '@/features/auth/components/study-section';
 import { BackButton, Divider, PageLayout, TwoColumnLayout } from '@hiarc-platform/ui';
 import { useRouter } from 'next/navigation';
 

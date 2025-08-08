@@ -1,64 +1,72 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
-import { authApi } from '../api';
-import type { AuthStore } from '../auth';
-import type { UserProfile } from '../types/auth/user-profile';
+import { persist, createJSONStorage } from 'zustand/middleware';
+import { User } from '../../features/auth/types/model/user';
 
-export const useAuthStore = create<AuthStore>()(
+interface AuthState {
+  // 상태
+  user: User | null;
+  isAuthenticated: boolean;
+  isLoading: boolean;
+
+  // 액션
+  login(user: User): void;
+  logout(): void;
+  setUser(user: User): void;
+  setLoading(loading: boolean): void;
+  clearAuth(): void;
+}
+
+export const useAuthStore = create<AuthState>()(
   persist(
-    (set, get) => ({
-      // State
+    (set) => ({
+      // 초기 상태
       user: null,
+      isAuthenticated: false,
       isLoading: false,
-      isInitialized: false,
 
-      // Actions
-      setUser: (user: UserProfile | null) => set({ user } as Partial<AuthStore>),
-
-      login: (user: UserProfile) =>
+      // 로그인
+      login: (user: User) =>
         set({
           user,
+          isAuthenticated: true,
           isLoading: false,
-        } as Partial<AuthStore>),
+        }),
 
-      logout: () => {
+      // 로그아웃
+      logout: () =>
         set({
           user: null,
+          isAuthenticated: false,
           isLoading: false,
-        } as Partial<AuthStore>);
-      },
+        }),
 
-      setLoading: (isLoading: boolean) => set({ isLoading } as Partial<AuthStore>),
+      // 사용자 정보 업데이트
+      setUser: (user: User) =>
+        set({
+          user,
+          isAuthenticated: true,
+        }),
 
-      // Computed getters
-      get isAuthenticated() {
-        const state = get();
-        return Boolean(state.user);
-      },
+      // 로딩 상태 설정
+      setLoading: (loading: boolean) =>
+        set({
+          isLoading: loading,
+        }),
 
-      initialize: async () => {
-        set({ isLoading: true } as Partial<AuthStore>);
-
-        try {
-          const user = await authApi.getMe();
-          set({ user, isLoading: false, isInitialized: true } as Partial<AuthStore>);
-        } catch (error) {
-          console.error('Failed to initialize user:', error);
-
-          // 네트워크 오류나 서버 오류 시 자동 로그아웃 처리
-          const { logout } = get();
-          logout();
-          set({ isLoading: false, isInitialized: true } as Partial<AuthStore>);
-
-          // 에러는 이미 API 클라이언트에서 처리되므로 추가 에러 처리 불필요
-          // (API 인터셉터에서 글로벌 에러 처리됨)
-        }
-      },
+      // 인증 정보 완전 삭제
+      clearAuth: () =>
+        set({
+          user: null,
+          isAuthenticated: false,
+          isLoading: false,
+        }),
     }),
     {
       name: 'auth-storage',
+      storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({
         user: state.user,
+        isAuthenticated: state.isAuthenticated,
       }),
     }
   )
