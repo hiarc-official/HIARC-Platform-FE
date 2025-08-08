@@ -5,7 +5,7 @@ import { useAuthStore } from '../../../shared/store/auth-store';
 export default function useRefreshToken(): UseMutationResult<
   void,
   Error,
-  string,
+  void,
   unknown
 > {
   const { clearAuth } = useAuthStore();

@@ -1,5 +1,8 @@
 export interface SignupRequest {
-  email: string;
   name: string;
-  provider: string;
+  phone: string;
+  studentId: string;
+  department: string;
+  generation: number;
+  handle?: string;
 }
