@@ -36,6 +36,11 @@ export const studyApi = {
   DELETE_STUDY: async (id: string): Promise<void> => {
     await apiClient.delete(`/studies/${id}`);
   },
+
+  // 스터디 신청하기
+  APPLY_TO_STUDY: async (studyId: string): Promise<void> => {
+    await apiClient.post(`/studies/${studyId}/application`);
+  },
 };
 
 export type { CreateStudyRequest } from '../types/request/create-study-request';
