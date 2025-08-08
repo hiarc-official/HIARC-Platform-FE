@@ -95,7 +95,7 @@ export class GraphqlException extends BaseException {
  */
 export class RestException extends BaseException {
   constructor(
-    msgForDev: string = 'GraphQL error.',
+    msgForDev: string = 'REST error.',
     msgForUser: string = '데이터 처리 중 오류가 발생했습니다.'
   ) {
     super(msgForDev, msgForUser);
