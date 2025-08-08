@@ -40,6 +40,7 @@ const buttonVariants = cva(
           'disabled:border-gray-200 disabled:text-gray-300'
         ),
         unselected: cn('text-gray-300 border border-gray-200'),
+        whitebg: cn('border border-gray-200 bg-white'),
       },
       size: {
         xs: 'h-8 px-4 rounded-sm',

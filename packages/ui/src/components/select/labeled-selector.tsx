@@ -25,6 +25,7 @@ interface LabeledSelectorProps {
   value?: string;
   onChange?(value: string): void;
   className?: string;
+  triggerClassName?: string;
 }
 
 function LabeledSelector({
@@ -36,6 +37,7 @@ function LabeledSelector({
   value,
   onChange,
   className = '',
+  triggerClassName = '',
 }: LabeledSelectorProps): React.ReactElement {
   return (
     <div className={cn('flex w-full flex-col', className)}>
@@ -48,7 +50,12 @@ function LabeledSelector({
         </div>
       )}
       <Select value={value} onValueChange={onChange}>
-        <SelectTrigger className="w-full data-[placeholder]:text-gray-500">
+        <SelectTrigger
+          className={cn(
+            'w-full border border-gray-200 data-[placeholder]:text-gray-500',
+            triggerClassName
+          )}
+        >
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
         <SelectContent>

@@ -31,13 +31,16 @@ function LabeledSelectButton({
         </div>
       )}
 
-      <div className="flex gap-2">
+      <div
+        className="grid w-full gap-2"
+        style={{ gridTemplateColumns: `repeat(${options.length}, minmax(0, 1fr))` }}
+      >
         {options.map((option) => (
           <Button
             key={option}
             variant={selected === option ? 'line' : 'unselected'}
             onClick={() => setSelected(option)}
-            className="h-11 w-full"
+            className="h-11"
           >
             {option}
           </Button>
