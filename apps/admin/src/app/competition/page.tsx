@@ -6,7 +6,7 @@ import { PageLayout } from '@hiarc-platform/ui';
 import { CompetitionTable } from '@/features/competition/components/competition-table';
 import { Competition } from '@/features/competition/components/competition-table/competition-list-column';
 import { CompetitionSearchButtons } from '@/features/competition/components/competition-bar/competition-search-buttons';
-
+import { AddCompetitionModalTrigger } from '@/features/competition/components/add-competition-modal-trigger';
 const competitionData: Competition[] = [
   { name: 'John', title: '첫 번째 공지사항', date: '2025.10.01', number: 1, category: 'general' },
   { name: 'Jane', title: '두 번째 공지사항', date: '2025.10.02', number: 2, category: 'study' },
@@ -58,9 +58,7 @@ export default function CompetitonListPage(): React.ReactElement {
           <Title size="sm" weight="bold">
             대회
           </Title>
-          <Button size="md" className="w-[100px]" onClick={() => router.push('/study/information')}>
-            개설하기
-          </Button>
+          <AddCompetitionModalTrigger />
         </div>
         <CompetitionSearchButtons />
         <CompetitionTable className="mt-6" data={competitionData} />

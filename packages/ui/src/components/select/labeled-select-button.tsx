@@ -9,6 +9,7 @@ interface LabeledSelectButtonProps {
   required?: boolean;
   options: string[];
   className?: string;
+  onChange?(value: string): void;
 }
 
 function LabeledSelectButton({
@@ -17,8 +18,13 @@ function LabeledSelectButton({
   required = false,
   options,
   className = '',
+  onChange,
 }: LabeledSelectButtonProps): React.ReactElement {
   const [selected, setSelected] = useState<string>('');
+  const handleSelect = (option: string): void => {
+    setSelected(option);
+    onChange?.(option);
+  };
 
   return (
     <div className={cn('flex-w-full w-full flex-col', className)}>
@@ -39,7 +45,7 @@ function LabeledSelectButton({
           <Button
             key={option}
             variant={selected === option ? 'line' : 'unselected'}
-            onClick={() => setSelected(option)}
+            onClick={() => handleSelect(option)}
             className="h-11"
           >
             {option}
