@@ -131,9 +131,40 @@ export function setupGlobalErrorHandler(): void {
 export function createQueryErrorHandler() {
   const { showError } = useErrorStore.getState();
 
-  return (error: Error) => {
-    // React Query 에러를 글로벌 에러 핸들러로 전달
-    showError(error, {
+  return (error: any) => {
+    console.log('Query error caught:', error);
+    
+    // ZodError 처리
+    if (error?.name === 'ZodError') {
+      const message = '서버 응답 형식이 올바르지 않습니다';
+      const errorObj = new Error(message);
+      errorObj.name = 'Validation Error';
+      
+      showError(errorObj, {
+        source: 'react-query',
+        zodIssues: error.issues,
+        originalError: error.message,
+      });
+      return;
+    }
+    
+    // AxiosError 처리
+    if (error?.isAxiosError) {
+      const message = error.response?.data?.message || error.message || '요청 중 오류가 발생했습니다';
+      const errorObj = new Error(message);
+      errorObj.name = `HTTP ${error.response?.status || 'Error'}`;
+      
+      showError(errorObj, {
+        source: 'react-query',
+        status: error.response?.status,
+        statusText: error.response?.statusText,
+        data: error.response?.data,
+      });
+      return;
+    }
+    
+    // 일반 Error 처리
+    showError(error instanceof Error ? error : new Error(String(error)), {
       source: 'react-query',
     });
   };

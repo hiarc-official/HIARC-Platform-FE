@@ -1,17 +1,17 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
-import { User } from '../../features/auth/types/model/user';
+import { MyInfo } from '@/features/auth/types/model/my-info';
 
 interface AuthState {
   // 상태
-  user: User | null;
+  user: MyInfo | null;
   isAuthenticated: boolean;
   isLoading: boolean;
 
   // 액션
-  login(user: User): void;
+  login(user: MyInfo): void;
   logout(): void;
-  setUser(user: User): void;
+  setUser(user: MyInfo): void;
   setLoading(loading: boolean): void;
   clearAuth(): void;
 }
@@ -25,7 +25,7 @@ export const useAuthStore = create<AuthState>()(
       isLoading: false,
 
       // 로그인
-      login: (user: User) =>
+      login: (user: MyInfo) =>
         set({
           user,
           isAuthenticated: true,
@@ -41,7 +41,7 @@ export const useAuthStore = create<AuthState>()(
         }),
 
       // 사용자 정보 업데이트
-      setUser: (user: User) =>
+      setUser: (user: MyInfo) =>
         set({
           user,
           isAuthenticated: true,

@@ -1,5 +1,4 @@
 'use client';
-import { useState } from 'react';
 import { cn } from '../../lib/utils';
 import { Button } from '../button';
 import { Label } from '../label/label';
@@ -8,6 +7,8 @@ interface LabeledSelectButtonProps {
   showLabel?: boolean;
   required?: boolean;
   options: string[];
+  value?: string;
+  onChange?(value: string): void;
   className?: string;
 }
 
@@ -16,10 +17,10 @@ function LabeledSelectButton({
   showLabel = true,
   required = false,
   options,
+  value,
+  onChange,
   className = '',
 }: LabeledSelectButtonProps): React.ReactElement {
-  const [selected, setSelected] = useState<string>('');
-
   return (
     <div className={cn('flex-w-full w-full flex-col', className)}>
       {showLabel && (
@@ -35,8 +36,8 @@ function LabeledSelectButton({
         {options.map((option) => (
           <Button
             key={option}
-            variant={selected === option ? 'line' : 'unselected'}
-            onClick={() => setSelected(option)}
+            variant={value === option ? 'line' : 'unselected'}
+            onClick={() => onChange?.(option)}
             className="h-11 w-full"
           >
             {option}

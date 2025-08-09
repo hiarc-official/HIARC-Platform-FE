@@ -13,8 +13,8 @@ export default function useHandleValidation(
   return useQuery({
     queryKey: ['handle-validation', handle],
     queryFn: () => authApi.CHECK_HANDLE_VALIDITY(handle),
-    enabled: enabled && handle.length > 0,
+    enabled: enabled && handle.length > 2, // 최소 3글자 이상일 때만 검증
     retry: false,
-    staleTime: 0,
+    staleTime: 5000, // 5초 캐시
   });
 }
