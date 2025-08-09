@@ -5,7 +5,8 @@ import { useRouter } from 'next/navigation';
 import { PageLayout } from '@hiarc-platform/ui';
 import { CompetitionTable } from '@/features/competition/components/competition-table';
 import { Competition } from '@/features/competition/components/competition-table/competition-list-column';
-
+import { CompetitionSearchButtons } from '@/features/competition/components/competition-bar/competition-search-buttons';
+import { AddCompetitionModalTrigger } from '@/features/competition/components/add-competition-modal-trigger';
 const competitionData: Competition[] = [
   { name: 'John', title: '첫 번째 공지사항', date: '2025.10.01', number: 1, category: 'general' },
   { name: 'Jane', title: '두 번째 공지사항', date: '2025.10.02', number: 2, category: 'study' },
@@ -52,16 +53,16 @@ export default function CompetitonListPage(): React.ReactElement {
   const router = useRouter();
   return (
     <PageLayout>
-      <div className="flex justify-between">
-        <Title size="sm" weight="bold">
-          대회
-        </Title>
-        <Button size="md" className="w-[100px]" onClick={() => router.push('/study/information')}>
-          개설하기
-        </Button>
+      <div className="flex w-full flex-col gap-6 py-3">
+        <div className="flex justify-between">
+          <Title size="sm" weight="bold">
+            대회
+          </Title>
+          <AddCompetitionModalTrigger />
+        </div>
+        <CompetitionSearchButtons />
+        <CompetitionTable className="mt-6" data={competitionData} />
       </div>
-
-      <CompetitionTable className="mt-6" data={competitionData} />
     </PageLayout>
   );
 }
