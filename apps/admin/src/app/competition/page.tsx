@@ -53,7 +53,7 @@ export default function CompetitonListPage(): React.ReactElement {
   const router = useRouter();
   return (
     <PageLayout>
-      <div className="flex w-full flex-col gap-6 py-3">
+      <div className="flex w-full flex-col gap-6 py-4">
         <div className="flex justify-between">
           <Title size="sm" weight="bold">
             대회

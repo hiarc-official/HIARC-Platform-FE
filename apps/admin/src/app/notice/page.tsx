@@ -54,7 +54,7 @@ export default function NoticePage(): React.ReactElement {
 
   return (
     <PageLayout>
-      <div className="mt-7 flex max-w-[1200px] flex-col ">
+      <div className="flex max-w-[1200px] flex-col ">
         <div className="mb-7  flex justify-between">
           <Title size="sm" weight="bold">
             공지사항
