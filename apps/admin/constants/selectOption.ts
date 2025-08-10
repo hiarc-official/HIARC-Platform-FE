@@ -52,4 +52,8 @@ export const selectOption: Record<string, SelectData[]> = {
     { value: '학회 가입 완료', label: '학회 가입 완료' },
     { value: '안내 사항', label: '안내 사항' },
   ],
+  직함: [
+    { value: '운영진', label: '운영진' },
+    { value: '스터디장', label: '스터디장' },
+  ],
 };
