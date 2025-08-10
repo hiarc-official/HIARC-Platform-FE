@@ -43,7 +43,7 @@ export function MyInfoSection({ className }: MyInfoSectionProps): React.ReactEle
           </div>
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-              <IconButton type="button" iconSrc="/Edit.svg" />
+              <IconButton type="button" iconSrc="/shared-assets/Edit.svg" />
             </DialogTrigger>
             <DialogContent className="!w-[540px] !max-w-[540px]">
               <DialogHeader>
