@@ -146,7 +146,7 @@ export const ADMIN_NOTICE_LIST_COLUMN: Array<ColumnDef<Notice>> = [
     cell: ({ row }: { row: { original: Notice } }) => (
       <IconButton
         className="relative z-10 w-full"
-        iconSrc="/Edit.svg"
+        iconSrc="/shared-assets/Edit.svg"
         size="sm"
         onClick={(event) => {
           event.stopPropagation();
