@@ -1,5 +1,8 @@
 import { Button, Label, PageLayout, Title } from '@hiarc-platform/ui';
 import AddStaffTriggerButton from '@/features/staff/components/add-staff-trigger-button';
+import { Staff, StaffTable } from '@/features/staff/components/staff-table';
+import { StudyLeader, StudyLeaderTable } from '@/features/staff/components/study-leader-table';
+import { staffData, studyLeaderData } from 'constants/mock';
 
 export default function StaffPage(): React.ReactElement {
   return (
@@ -14,6 +17,13 @@ export default function StaffPage(): React.ReactElement {
           </Label>
           <AddStaffTriggerButton />
         </div>
+        <StaffTable staffData={staffData} />
+        <div className="flex w-full items-center ">
+          <Label size="lg" weight="bold">
+            스터디장
+          </Label>
+        </div>
+        <StudyLeaderTable studyLeaderData={studyLeaderData} />
       </div>
     </PageLayout>
   );

@@ -1,5 +1,5 @@
 'use client';
-
+import { PageLayout } from '@hiarc-platform/ui';
 import NoticeInfoTable from '@/features/components/notice-section/NoticeInfoTable';
 import { Button, Label } from '@hiarc-platform/ui';
 import { Title } from '@hiarc-platform/ui';
@@ -11,7 +11,7 @@ export default function NoticeDetailPage(): React.ReactElement {
   const router = useRouter();
   const id = Number(params.id);
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-6">
+    <PageLayout>
       <div className="flex w-full max-w-[1200px] flex-col items-center gap-6">
         <button
           className="flex cursor-pointer items-center self-start rounded-md p-2 transition-colors hover:bg-gray-50"
@@ -70,6 +70,6 @@ export default function NoticeDetailPage(): React.ReactElement {
           목록으로
         </Button>
       </div>
-    </main>
+    </PageLayout>
   );
 }
