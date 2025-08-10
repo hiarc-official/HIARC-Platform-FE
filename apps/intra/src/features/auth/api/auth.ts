@@ -2,12 +2,11 @@ import { apiClient } from '../../../shared/api/client';
 import { MyInfo } from '../types/model/my-info';
 import { SignupRequest } from '../types/request/signup-request';
 
-interface AuthMeResponse {
-  id: string;
-  email: string;
-  name: string;
-  provider: 'google' | 'kakao' | 'naver';
-  createdAt: string;
+interface MyInfoResponse {
+  memberId: number;
+  bojHandle: string;
+  memberRole: 'GUEST' | 'ASSOCIATE' | 'REGULAR' | 'ADMIN';
+  adminRole: 'NONE' | 'PRESIDENT' | 'VICE_PRESIDENT' | 'ETC';
 }
 
 interface ValidHandleResponse {
@@ -58,12 +57,9 @@ export const authApi = {
   GET_ME: async (): Promise<MyInfo> => {
     console.log('[AUTH API] GET_ME 요청');
     try {
-      const response = await apiClient.get<AuthMeResponse>('/auth/me');
+      const response = await apiClient.get<MyInfoResponse>('/auth/me');
       console.log('[AUTH API] GET_ME 응답:', response.data);
-      return MyInfo.fromJson({
-        ...response.data,
-        createdAt: response.data.createdAt,
-      });
+      return MyInfo.fromJson(response.data);
     } catch (error) {
       console.error('[AUTH API] GET_ME 에러:', error);
       throw error;

@@ -65,9 +65,21 @@ export const useAuthStore = create<AuthState>()(
       name: 'auth-storage',
       storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({
-        user: state.user,
+        user: state.user?.toJson() || null, // MyInfo 인스턴스를 JSON으로 변환
         isAuthenticated: state.isAuthenticated,
       }),
+      onRehydrateStorage: () => (state) => {
+        // localStorage에서 복원할 때 JSON을 MyInfo 인스턴스로 변환
+        if (state?.user) {
+          try {
+            state.user = MyInfo.fromJson(state.user as any);
+          } catch (error) {
+            console.error('Failed to rehydrate user from localStorage:', error);
+            state.user = null;
+            state.isAuthenticated = false;
+          }
+        }
+      },
     }
   )
 );

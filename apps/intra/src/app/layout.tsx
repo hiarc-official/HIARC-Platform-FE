@@ -1,5 +1,7 @@
 import Footer from '@/shared/components/ui/Footer';
 import Header from '@/shared/components/ui/header';
+import { GlobalDialogContainer } from '@/shared/components/global-dialog-container';
+import '@/shared/utils/global-error-handler'; // 전역 에러 핸들러 초기화
 import type { Metadata } from 'next';
 
 // 로컬 폰트 import
@@ -28,6 +30,7 @@ export default function RootLayout({
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />
+          <GlobalDialogContainer />
         </Providers>
       </body>
     </html>

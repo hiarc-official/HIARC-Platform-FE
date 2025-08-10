@@ -15,4 +15,20 @@ export class MyInfo extends BaseModel<MyInfoProps> {
     memberRole: z.string().min(3).max(20),
     adminRole: z.string().min(3).max(20),
   });
+
+  get memberId(): number {
+    return this.props.memberId;
+  }
+
+  get bojHandle(): string {
+    return this.props.bojHandle;
+  }
+
+  get memberRole(): string {
+    return this.props.memberRole;
+  }
+
+  get adminRole(): string {
+    return this.props.adminRole;
+  }
 }

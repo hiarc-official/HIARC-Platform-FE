@@ -1,8 +1,29 @@
 import { Label, CategoryChip } from '@hiarc-platform/ui';
 import { ColumnDef } from '@tanstack/react-table';
-import { StudySummary } from '../../types/study-summary';
+import type { AnnouncementListItem } from '../../types/announcement';
 
-export const STUDY_LIST_COLUMN: Array<ColumnDef<StudySummary>> = [
+export const ANNOUNCEMENT_LIST_COLUMN: Array<ColumnDef<AnnouncementListItem>> = [
+  {
+    id: 'id',
+    accessorKey: 'id',
+    enableSorting: false,
+    size: 60,
+    meta: {
+      headAlign: 'center',
+      bodyAlign: 'center',
+    },
+    header: () => (
+      <Label size="md" weight="bold">
+        번호
+      </Label>
+    ),
+    cell: ({ row }: { row: { original: AnnouncementListItem } }) => (
+      <Label size="md" weight="regular">
+        {row.original.id ?? '-'}
+      </Label>
+    ),
+    footer: (props) => props.column.id,
+  },
   {
     id: 'category',
     accessorKey: 'category',
@@ -16,28 +37,8 @@ export const STUDY_LIST_COLUMN: Array<ColumnDef<StudySummary>> = [
         카테고리
       </Label>
     ),
-    cell: ({ row }: { row: { original: StudySummary } }) => (
+    cell: ({ row }: { row: { original: AnnouncementListItem } }) => (
       <CategoryChip category={row.original.category}></CategoryChip>
-    ),
-    footer: (props) => props.column.id,
-  },
-  {
-    id: 'status',
-    accessorKey: 'status',
-    size: 150,
-    meta: {
-      headAlign: 'left',
-      bodyAlign: 'left',
-    },
-    header: () => (
-      <Label size="md" weight="bold">
-        상태
-      </Label>
-    ),
-    cell: ({ row }: { row: { original: StudySummary } }) => (
-      <Label size="md" weight="regular">
-        {row.original.status === 'active' ? '진행중' : row.original.status === 'completed' ? '완료' : '취소'}
-      </Label>
     ),
     footer: (props) => props.column.id,
   },
@@ -46,16 +47,16 @@ export const STUDY_LIST_COLUMN: Array<ColumnDef<StudySummary>> = [
     accessorKey: 'title',
     size: 0,
     meta: {
-      headAlign: 'left',
+      headAlign: 'center',
       bodyAlign: 'left',
     },
     header: () => (
       <Label size="md" weight="bold">
-        스터디명
+        제목
       </Label>
     ),
-    cell: ({ row }: { row: { original: StudySummary } }) => (
-      <Label size="sm" weight="regular" className="text-gray-700">
+    cell: ({ row }: { row: { original: AnnouncementListItem } }) => (
+      <Label size="md" weight="regular" className="pl-4">
         {row.original.title ?? '-'}
       </Label>
     ),
@@ -64,17 +65,17 @@ export const STUDY_LIST_COLUMN: Array<ColumnDef<StudySummary>> = [
   {
     id: 'author',
     accessorKey: 'author',
-    size: 200,
+    size: 64,
     meta: {
-      headAlign: 'left',
-      bodyAlign: 'left',
+      headAlign: 'center',
+      bodyAlign: 'center',
     },
     header: () => (
       <Label size="md" weight="bold">
-        스터디장
+        작성자
       </Label>
     ),
-    cell: ({ row }: { row: { original: StudySummary } }) => (
+    cell: ({ row }: { row: { original: AnnouncementListItem } }) => (
       <Label size="sm" weight="regular" className="text-gray-700">
         {row.original.author ?? '-'}
       </Label>
@@ -82,21 +83,21 @@ export const STUDY_LIST_COLUMN: Array<ColumnDef<StudySummary>> = [
     footer: (props) => props.column.id,
   },
   {
-    id: 'participants',
-    accessorKey: 'currentParticipants',
-    size: 150,
+    id: 'createdAt',
+    accessorKey: 'createdAt',
+    size: 96,
     meta: {
       headAlign: 'center',
       bodyAlign: 'center',
     },
     header: () => (
       <Label size="md" weight="bold">
-        참여자
+        작성일
       </Label>
     ),
-    cell: ({ row }: { row: { original: StudySummary } }) => (
+    cell: ({ row }: { row: { original: AnnouncementListItem } }) => (
       <Label size="sm" weight="regular" className="text-gray-700">
-        {row.original.currentParticipants}/{row.original.maxParticipants}
+        {row.original.createdAt ? new Date(row.original.createdAt).toLocaleDateString('ko-KR') : '-'}
       </Label>
     ),
     footer: (props) => props.column.id,

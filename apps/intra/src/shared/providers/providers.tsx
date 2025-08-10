@@ -2,7 +2,6 @@
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactNode, useEffect, useState } from 'react';
-import { ErrorDialog } from '../components/error-dialog';
 import { createQueryErrorHandler, setupGlobalErrorHandler } from '../hooks/use-error-handler';
 
 interface ProvidersProps {
@@ -33,7 +32,6 @@ export function Providers({ children }: ProvidersProps): React.ReactElement {
   return (
     <QueryClientProvider client={queryClient}>
       {children}
-      <ErrorDialog />
     </QueryClientProvider>
   );
 }
