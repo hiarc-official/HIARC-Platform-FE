@@ -50,7 +50,7 @@ export function CompetitionListItem({
       </div>
       <Popover>
         <PopoverTrigger asChild>
-          <IconButton type="button" iconSrc="/More.svg" />
+          <IconButton type="button" iconSrc="/shared-assets/More.svg" />
         </PopoverTrigger>
         <PopoverContent align="end">
           <button className="flex h-10 w-24 items-center rounded-sm transition-colors hover:bg-gray-100">

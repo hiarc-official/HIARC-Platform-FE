@@ -1,10 +1,10 @@
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { authApi } from '../api/auth';
-import { User } from '../types/model/user';
 import { useAuthStore } from '../../../shared/store/auth-store';
+import { MyInfo } from '../types/model/my-info';
 
-export default function useGetMe(): UseQueryResult<User, Error> {
+export default function useGetMe(): UseQueryResult<MyInfo, Error> {
   const { isAuthenticated, clearAuth } = useAuthStore();
 
   const query = useQuery({

@@ -1,5 +1,24 @@
+export enum Grade {
+  FRESHMAN = 'FRESHMAN',
+  SOPHOMORE = 'SOPHOMORE',
+  JUNIOR = 'JUNIOR',
+  SENIOR = 'SENIOR',
+  OVER = 'OVER',
+}
+
+export enum AbsenceStatus {
+  ENROLLED = 'ENROLLED',
+  ON_LEAVE = 'ON_LEAVE',
+  MILITARY_LEAVE = 'MILITARY_LEAVE',
+}
+
 export interface SignupRequest {
-  email: string;
   name: string;
-  provider: string;
+  phoneAddress: string;
+  studentId: string;
+  department: string;
+  isDoubleMajor: boolean;
+  grade: Grade;
+  absenceStatus: AbsenceStatus;
+  bojHandle: string;
 }

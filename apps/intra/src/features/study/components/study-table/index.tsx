@@ -5,18 +5,10 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
 import { STUDY_LIST_COLUMN } from './study-list-column';
-
-export interface Study {
-  number?: number;
-  category: 'rating' | 'study' | 'etc' | 'general' | 'external';
-  semester: string;
-  studyName: string;
-  studyHead: string;
-  date: string;
-}
+import { StudySummary } from '../../types/study-summary';
 
 interface StudyTableProps {
-  studyData: Study[];
+  studyData: StudySummary[];
   className?: string;
 }
 
@@ -47,8 +39,8 @@ export function StudyTable({ studyData, className }: StudyTableProps): React.Rea
           <CommonTableHead table={table} className="bg-gray-100" />
           <CommonTableBody
             table={table}
-            onClick={function (row: Row<Study>): void {
-              const id = row.original.number;
+            onClick={function (row: Row<StudySummary>): void {
+              const id = row.original.id;
               if (!id) {
                 return;
               }

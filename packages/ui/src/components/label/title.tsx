@@ -33,6 +33,7 @@ const titleVariants = cva(
 type TitleProps = React.ComponentProps<typeof LabelPrimitive.Root> &
   VariantProps<typeof titleVariants> & {
     selectable?: boolean;
+    disableAnimation?: boolean;
   };
 
 function isNumeric(value: React.ReactNode): boolean {
@@ -75,10 +76,11 @@ function Title({
   size,
   weight,
   selectable = true,
+  disableAnimation = false,
   children,
   ...props
 }: TitleProps): React.ReactElement {
-  const shouldAnimate = isNumeric(children);
+  const shouldAnimate = !disableAnimation && isNumeric(children);
   const targetValue = shouldAnimate ? Number(children) : null;
   const animatedValue = useCountUp(targetValue ?? 0);
 

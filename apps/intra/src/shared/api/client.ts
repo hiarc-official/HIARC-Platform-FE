@@ -13,10 +13,79 @@ const apiClient: AxiosInstance = axios.create({
   },
 });
 
+// Pretty Logger (dio style)
+const prettyLog = {
+  request: (config: any) => {
+    const timestamp = new Date().toLocaleTimeString();
+    console.group(`🚀 [${timestamp}] ${config.method?.toUpperCase()} ${config.url}`);
+    
+    if (config.params && Object.keys(config.params).length > 0) {
+      console.log('📝 Query Parameters:');
+      console.table(config.params);
+    }
+    
+    if (config.data) {
+      console.log('📦 Request Body:');
+      console.log(JSON.stringify(config.data, null, 2));
+    }
+    
+    console.log('⚙️ Headers:');
+    console.table(config.headers);
+    console.groupEnd();
+  },
+  
+  response: (response: any) => {
+    const timestamp = new Date().toLocaleTimeString();
+    const duration = response.config._requestStartTime ? Date.now() - response.config._requestStartTime : 0;
+    
+    console.group(`✅ [${timestamp}] ${response.status} ${response.config.method?.toUpperCase()} ${response.config.url} (${duration}ms)`);
+    
+    if (response.data) {
+      console.log('📥 Response Data:');
+      console.log(JSON.stringify(response.data, null, 2));
+    }
+    
+    console.log('📊 Response Headers:');
+    console.table(response.headers);
+    console.groupEnd();
+  },
+  
+  error: (error: any) => {
+    const timestamp = new Date().toLocaleTimeString();
+    const config = error.config;
+    const response = error.response;
+    
+    console.group(`❌ [${timestamp}] ${response?.status || 'NETWORK_ERROR'} ${config?.method?.toUpperCase()} ${config?.url}`);
+    
+    if (response?.data) {
+      console.log('💥 Error Response:');
+      console.log(JSON.stringify(response.data, null, 2));
+    }
+    
+    if (error.message) {
+      console.log('📝 Error Message:');
+      console.log(error.message);
+    }
+    
+    console.groupEnd();
+  }
+};
+
+// 요청 인터셉터
+apiClient.interceptors.request.use((config) => {
+  config._requestStartTime = Date.now();
+  prettyLog.request(config);
+  return config;
+});
+
 // 응답 인터셉터
 apiClient.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    prettyLog.response(response);
+    return response;
+  },
   async (error) => {
+    prettyLog.error(error);
     const originalRequest = error.config;
 
     // 401 에러 처리 (인증 실패)

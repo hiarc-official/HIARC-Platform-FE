@@ -1,7 +1,7 @@
 'use client';
 
 import { HiarcScheduleSection } from '@/features/main/components/hiarc-schedule-section';
-import { NoticeListSection } from '@/features/main/components/notice-list-section';
+import { AnnouncementListSection } from '@/features/main/components/announcement-list-section';
 import { OnboardingButton } from '@/features/main/components/onboarding-button';
 import { StudyListSection } from '@/features/main/components/study-list-section';
 import {
@@ -18,7 +18,7 @@ export default function Home(): React.ReactElement {
         <ContentSection>
           <SingleColumnLayout>
             <HiarcScheduleSection daysToShow={3} />
-            <NoticeListSection className="mt-6" />
+            <AnnouncementListSection className="mt-6" />
             <StudyListSection className="mt-6" />
           </SingleColumnLayout>
         </ContentSection>
@@ -27,7 +27,7 @@ export default function Home(): React.ReactElement {
         <ContentSection>
           <TwoColumnLayout
             left={<HiarcScheduleSection daysToShow={7} />}
-            right={<NoticeListSection />}
+            right={<AnnouncementListSection />}
             bottom={<StudyListSection className="mt-6" />}
           />
         </ContentSection>

@@ -1,24 +1,15 @@
 import { useMutation, UseMutationResult } from '@tanstack/react-query';
-import Router from 'next/navigation';
 import { authApi, SignupRequest } from '../api/auth';
-import { User } from '../types/model/user';
 
-export default function useSignUp(): UseMutationResult<
-  User,
-  Error,
-  SignupRequest,
-  unknown
-> {
-  const navigate = Router.useRouter();
-
+export default function useSignUp(): UseMutationResult<void, Error, SignupRequest, unknown> {
   const mutation = useMutation({
     mutationFn: authApi.SIGN_UP,
     onSuccess: () => {
       localStorage.clear();
-      navigate.push('/');
-      location.reload();
+      // Use window.location instead of useRouter to avoid hook issues
+      window.location.href = '/';
     },
-    onError: () => {},
+    // onError 제거 - 전역 핸들러가 처리하도록 함
   });
 
   return mutation;

@@ -8,9 +8,9 @@ interface HitingListItemProps {
 }
 
 const medalSrcMap = {
-  1: '/GoldMedal.svg',
-  2: '/SilverMedal.svg',
-  3: '/BronzeMedal.svg',
+  1: '/shared-assets/GoldMedal.svg',
+  2: '/shared-assets/SilverMedal.svg',
+  3: '/shared-assets/BronzeMedal.svg',
 };
 
 export function HitingListItem({ name, rank, div }: HitingListItemProps): React.ReactElement {
