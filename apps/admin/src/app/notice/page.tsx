@@ -6,7 +6,7 @@ import SelectButtonSection from '@/features/components/notice-section/select-but
 import { useRouter } from 'next/navigation';
 import { NoticeTable } from '@/features/notice/components/notice-table';
 import { Notice } from '@/features/notice/components/notice-table/notice-list-column';
-
+import { PageLayout } from '@hiarc-platform/ui';
 const noticeData: Notice[] = [
   { name: 'John', title: '첫 번째 공지사항', date: '2025.10.01', number: 1, category: 'general' },
   { name: 'Jane', title: '두 번째 공지사항', date: '2025.10.02', number: 2, category: 'study' },
@@ -53,7 +53,7 @@ export default function NoticePage(): React.ReactElement {
   const router = useRouter();
 
   return (
-    <main className="flex w-full  justify-center ">
+    <PageLayout>
       <div className="mt-7 flex max-w-[1200px] flex-col ">
         <div className="mb-7  flex justify-between">
           <Title size="sm" weight="bold">
@@ -66,6 +66,6 @@ export default function NoticePage(): React.ReactElement {
         <SelectButtonSection />
         <NoticeTable className="mt-6" data={noticeData} />
       </div>
-    </main>
+    </PageLayout>
   );
 }

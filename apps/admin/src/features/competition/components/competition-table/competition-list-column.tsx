@@ -152,7 +152,7 @@ export const COMPETITION_LIST_COLUMN: Array<ColumnDef<Competition>> = [
     cell: ({ row }: { row: { original: Competition } }) => (
       <IconButton
         className="relative z-10 w-full"
-        iconSrc="/Edit.svg"
+        iconSrc="/shared-assets/Edit.svg"
         size="sm"
         onClick={(event) => {
           event.stopPropagation();
@@ -178,7 +178,7 @@ export const COMPETITION_LIST_COLUMN: Array<ColumnDef<Competition>> = [
     cell: ({ row }: { row: { original: Competition } }) => (
       <IconButton
         className="relative z-10 w-full"
-        iconSrc="/Delte.svg"
+        iconSrc="/shared-assets/Delete.svg"
         size="sm"
         onClick={(event) => {
           event.stopPropagation();

@@ -10,6 +10,7 @@ interface LabeledSelectButtonProps {
   value?: string;
   onChange?(value: string): void;
   className?: string;
+  onChange?(value: string): void;
 }
 
 function LabeledSelectButton({
@@ -20,6 +21,7 @@ function LabeledSelectButton({
   value,
   onChange,
   className = '',
+  onChange,
 }: LabeledSelectButtonProps): React.ReactElement {
   return (
     <div className={cn('flex-w-full w-full flex-col', className)}>
@@ -32,7 +34,10 @@ function LabeledSelectButton({
         </div>
       )}
 
-      <div className="flex gap-2">
+      <div
+        className="grid w-full gap-2"
+        style={{ gridTemplateColumns: `repeat(${options.length}, minmax(0, 1fr))` }}
+      >
         {options.map((option) => (
           <Button
             key={option}
