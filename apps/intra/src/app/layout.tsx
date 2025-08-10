@@ -1,5 +1,5 @@
 import Footer from '@/shared/components/ui/Footer';
-import Header from '@/shared/components/ui/Header';
+import Header from '@/shared/components/ui/header';
 import type { Metadata } from 'next';
 
 // 로컬 폰트 import
