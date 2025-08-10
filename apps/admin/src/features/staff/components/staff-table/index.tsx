@@ -1,5 +1,5 @@
 'use client';
-import { cn, CommonTableBody, CommonTableHead, Label } from '@hiarc-platform/ui';
+import { cn, CommonTableBody, CommonTableHead, IconButton, Label } from '@hiarc-platform/ui';
 import { useTable } from '@hiarc-platform/util';
 import { ColumnDef, Row } from '@tanstack/react-table';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -18,7 +18,7 @@ const STAFF_LIST_COLUMN: Array<ColumnDef<Staff>> = [
   {
     id: 'role',
     accessorKey: 'role',
-    size: 150,
+    size: 120,
     meta: {
       headAlign: 'left',
       bodyAlign: 'left',
@@ -38,7 +38,7 @@ const STAFF_LIST_COLUMN: Array<ColumnDef<Staff>> = [
   {
     id: 'name',
     accessorKey: 'name',
-    size: 300,
+    size: 260,
     meta: {
       headAlign: 'left',
       bodyAlign: 'left',
@@ -58,7 +58,7 @@ const STAFF_LIST_COLUMN: Array<ColumnDef<Staff>> = [
   {
     id: 'handle',
     accessorKey: 'handle',
-    size: 300,
+    size: 260,
     meta: {
       headAlign: 'left',
       bodyAlign: 'left',
@@ -92,6 +92,58 @@ const STAFF_LIST_COLUMN: Array<ColumnDef<Staff>> = [
       <Label size="sm" weight="regular" className="text-gray-700">
         {row.original.startStaff ?? '-'}
       </Label>
+    ),
+    footer: (props) => props.column.id,
+  },
+  {
+    id: 'date',
+    accessorKey: 'date',
+    size: 64,
+    meta: {
+      headAlign: 'center',
+      bodyAlign: 'center',
+    },
+    header: () => (
+      <Label size="md" weight="bold">
+        수정
+      </Label>
+    ),
+    cell: ({ row }: { row: { original: Staff } }) => (
+      <IconButton
+        className="relative z-10 w-full"
+        iconSrc="/shared-assets/Edit.svg"
+        size="sm"
+        onClick={(event) => {
+          event.stopPropagation();
+          console.log('Edit clicked for:', row.original);
+        }}
+      />
+    ),
+    footer: (props) => props.column.id,
+  },
+  {
+    id: 'date',
+    accessorKey: 'date',
+    size: 64,
+    meta: {
+      headAlign: 'center',
+      bodyAlign: 'center',
+    },
+    header: () => (
+      <Label size="md" weight="bold">
+        삭제
+      </Label>
+    ),
+    cell: ({ row }: { row: { original: Staff } }) => (
+      <IconButton
+        className="relative z-10 w-full"
+        iconSrc="/shared-assets/Delete.svg"
+        size="sm"
+        onClick={(event) => {
+          event.stopPropagation();
+          console.log('Edit clicked for:', row.original);
+        }}
+      />
     ),
     footer: (props) => props.column.id,
   },
