@@ -4,41 +4,7 @@ import { Button } from '@hiarc-platform/ui';
 import { useRouter } from 'next/navigation';
 import { PageLayout } from '@hiarc-platform/ui';
 import { Study, StudyTable } from '@/features/study/components/study-table';
-
-const studyData: Study[] = [
-  {
-    studyName: '알고리즘 스터디',
-    category: 'onGoing',
-    semester: '2025-1',
-    studyHead: '피카츄',
-    date: '2025.10.01',
-    number: 1,
-  },
-  {
-    studyName: '알고리즘 스터디',
-    category: 'onGoing',
-    semester: '2025-1',
-    studyHead: '피카츄',
-    date: '2025.10.01',
-    number: 2,
-  },
-  {
-    studyName: '알고리즘 스터디',
-    category: 'recruiting',
-    semester: '2025-1',
-    studyHead: '피카츄',
-    date: '2025.10.01',
-    number: 3,
-  },
-  {
-    studyName: '알고리즘 스터디',
-    category: 'finished',
-    semester: '2025-1',
-    studyHead: '피카츄',
-    date: '2025.10.01',
-    number: 1,
-  },
-];
+import { studyData } from 'constants/mock';
 
 export default function StudyPage(): React.ReactElement {
   const router = useRouter();

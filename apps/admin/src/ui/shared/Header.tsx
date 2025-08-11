@@ -16,7 +16,7 @@ export default function Header(): React.ReactElement {
     { label: '공지사항', value: 'notice' },
     { label: '스터디', value: 'study' },
     { label: '대회', value: 'competition' },
-    { label: '운영진', value: 'admin' },
+    { label: '운영진', value: 'staff' },
   ];
 
   return (

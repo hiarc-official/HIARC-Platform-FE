@@ -2,7 +2,7 @@
 
 import { CommonTableBody, CommonTableHead, Label, TablePagination } from '@hiarc-platform/ui';
 import { CategoryChip } from '@hiarc-platform/ui/src/components/category-chip';
-
+import { PageLayout } from '@hiarc-platform/ui';
 import { useTable } from '@hiarc-platform/util';
 import { ColumnDef, Row } from '@tanstack/react-table';
 import { useMemo, useState } from 'react';
@@ -180,7 +180,7 @@ export default function Home(): React.ReactElement {
   });
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <PageLayout>
       <div className="z-10 w-full max-w-5xl flex-col items-center justify-between font-mono text-sm lg:flex">
         <table className="w-full table-fixed">
           <CommonTableHead table={table} />
@@ -193,6 +193,6 @@ export default function Home(): React.ReactElement {
         </table>
         <TablePagination table={table}></TablePagination>
       </div>
-    </main>
+    </PageLayout>
   );
 }
