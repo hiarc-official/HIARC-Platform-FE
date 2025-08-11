@@ -4,7 +4,7 @@ import { ColumnDef, Row } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
 
-interface StudyNotice {
+interface StudyAnnouncement {
   number?: number;
   name: string;
   category: 'rating' | 'study' | 'etc' | 'general' | 'external';
@@ -12,7 +12,7 @@ interface StudyNotice {
   date: string;
 }
 
-const STUDY_NOTICE_COLUMN: Array<ColumnDef<StudyNotice>> = [
+const STUDY_ANNOUNCEMENT_COLUMN: Array<ColumnDef<StudyAnnouncement>> = [
   {
     id: 'name',
     accessorKey: 'name',
@@ -29,7 +29,7 @@ const STUDY_NOTICE_COLUMN: Array<ColumnDef<StudyNotice>> = [
         번호
       </Label>
     ),
-    cell: ({ row }: { row: { original: StudyNotice } }) => (
+    cell: ({ row }: { row: { original: StudyAnnouncement } }) => (
       <Label size="md" weight="regular">
         {row.original.number ?? '-'}
       </Label>
@@ -47,7 +47,7 @@ const STUDY_NOTICE_COLUMN: Array<ColumnDef<StudyNotice>> = [
         제목
       </Label>
     ),
-    cell: ({ row }: { row: { original: StudyNotice } }) => (
+    cell: ({ row }: { row: { original: StudyAnnouncement } }) => (
       <Label size="md" weight="regular" className="pl-4">
         {row.original.title ?? '-'}
       </Label>
@@ -68,7 +68,7 @@ const STUDY_NOTICE_COLUMN: Array<ColumnDef<StudyNotice>> = [
         작성일
       </Label>
     ),
-    cell: ({ row }: { row: { original: StudyNotice } }) => (
+    cell: ({ row }: { row: { original: StudyAnnouncement } }) => (
       <Label size="md" weight="regular">
         {row.original.date ?? '-'}
       </Label>
@@ -76,7 +76,7 @@ const STUDY_NOTICE_COLUMN: Array<ColumnDef<StudyNotice>> = [
   },
 ];
 
-const noticeData: StudyNotice[] = [
+const announcementData: StudyAnnouncement[] = [
   {
     name: '피카츄 뉴스',
     title: '첫 번째 뉴스',
@@ -149,18 +149,18 @@ const noticeData: StudyNotice[] = [
   },
 ];
 
-interface NoticeTableProps {
+interface AnnouncementTableProps {
   className?: string;
 }
 
-export function NoticeTable({ className }: NoticeTableProps): React.ReactElement {
-  const columns = useMemo(() => STUDY_NOTICE_COLUMN, []);
+export function AnnouncementTable({ className }: AnnouncementTableProps): React.ReactElement {
+  const columns = useMemo(() => STUDY_ANNOUNCEMENT_COLUMN, []);
   const [globalFilter, setGlobalFilter] = useState('');
   const router = useRouter();
 
   const table = useTable({
     columns,
-    data: noticeData,
+    data: announcementData,
     pageState: [0, () => {}],
     totalPages: 10,
     globalFilterState: [globalFilter, setGlobalFilter],
@@ -172,12 +172,12 @@ export function NoticeTable({ className }: NoticeTableProps): React.ReactElement
         <CommonTableHead table={table} className="border-b border-b-gray-200" />
         <CommonTableBody
           table={table}
-          onClick={function (row: Row<StudyNotice>): void {
+          onClick={function (row: Row<StudyAnnouncement>): void {
             const id = row.original.number;
             if (!id) {
               return;
             }
-            router.push(`/notice/${id}`);
+            router.push(`/announcement/${id}`);
           }}
         />
       </table>

@@ -1,8 +1,8 @@
 'use client';
-import NoticeWrite from '@/features/components/notice-write-section';
+import AnnouncementWrite from '@/features/components/announcement-write-section';
 import { Label } from '@hiarc-platform/ui';
 import { Title } from '@hiarc-platform/ui';
-export default function WriteNoticePage(): React.ReactElement {
+export default function WriteAnnouncementPage(): React.ReactElement {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-6">
       <div className="flex w-full max-w-[1200px] flex-col items-center gap-6">
@@ -21,7 +21,7 @@ export default function WriteNoticePage(): React.ReactElement {
         </div>
         <div className="h-px w-full bg-gray-700"></div>
       </div>
-      <NoticeWrite />
+      <AnnouncementWrite />
     </main>
   );
 }

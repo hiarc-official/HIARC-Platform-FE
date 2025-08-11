@@ -1,7 +1,7 @@
 import { Label, Title } from '@hiarc-platform/ui';
 import Image from 'next/image';
 
-export default function NoticeInfoTable(): React.ReactElement {
+export default function AnnouncementInfoTable(): React.ReactElement {
   return (
     <div className="flex w-full flex-col">
       <div className="flex gap-4 py-6">

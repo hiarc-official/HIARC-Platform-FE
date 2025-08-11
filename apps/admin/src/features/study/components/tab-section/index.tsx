@@ -2,7 +2,7 @@ import { cn, Tabs } from '@hiarc-platform/ui';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 import { LectureList } from './lecture-list';
-import { NoticeTable } from './notice-table';
+import { AnnouncementTable } from './announcement-table';
 import { StudentList } from './student-list';
 
 interface TabSectionProps {
@@ -13,7 +13,7 @@ interface TabSectionProps {
 export function TabSection({ className, isAdmin }: TabSectionProps): React.ReactElement {
   const tabs = [
     { label: '커리큘럼', value: 'curriculum' },
-    { label: '공지사항', value: 'notice' },
+    { label: '공지사항', value: 'announcement' },
     ...(isAdmin ? [{ label: '스터디원 관리', value: 'manage_student' }] : []),
   ];
 
@@ -36,16 +36,16 @@ export function TabSection({ className, isAdmin }: TabSectionProps): React.React
               <LectureList />
             </motion.div>
           )}
-          {selectedTab === 'notice' && (
+          {selectedTab === 'announcement' && (
             <motion.div
-              key="notice"
+              key="announcement"
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -6 }}
               transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
               className="w-full"
             >
-              <NoticeTable />
+              <AnnouncementTable />
             </motion.div>
           )}
           {selectedTab === 'manage_student' && (

@@ -1,12 +1,12 @@
 'use client';
 import { PageLayout } from '@hiarc-platform/ui';
-import NoticeInfoTable from '@/features/components/notice-section/NoticeInfoTable';
+import AnnouncementInfoTable from '@/features/components/announcement-section/AnnouncementInfoTable';
 import { Button, Label } from '@hiarc-platform/ui';
 import { Title } from '@hiarc-platform/ui';
 import { Divider } from '@hiarc-platform/ui';
 import { Textarea } from '@hiarc-platform/ui/src/components/input/textarea';
 import { useParams, useRouter } from 'next/navigation';
-export default function NoticeDetailPage(): React.ReactElement {
+export default function AnnouncementDetailPage(): React.ReactElement {
   const params = useParams();
   const router = useRouter();
   const id = Number(params.id);
@@ -35,7 +35,7 @@ export default function NoticeDetailPage(): React.ReactElement {
         </div>
         <div className="w-full">
           <div className=" h-px w-full bg-gray-700"></div>
-          <NoticeInfoTable />
+          <AnnouncementInfoTable />
           <div className=" h-px w-full bg-gray-200"></div>
         </div>
         <Textarea className="mt-[96px] text-lg text-gray-900" />
@@ -43,7 +43,7 @@ export default function NoticeDetailPage(): React.ReactElement {
           <div className="flex items-center justify-center gap-3 ">
             <button
               className="flex cursor-pointer items-center self-start rounded-md p-2 transition-colors hover:bg-gray-50"
-              onClick={() => router.push(`/notice/${id - 1}`)}
+              onClick={() => router.push(`/announcement/${id - 1}`)}
             >
               <Label size="md" className="cursor-pointer ">
                 ← 이전글
@@ -58,7 +58,7 @@ export default function NoticeDetailPage(): React.ReactElement {
             <Divider variant="vertical" className="h-[10px]" />
             <button
               className="flex cursor-pointer items-center self-start rounded-md p-2 transition-colors hover:bg-gray-50"
-              onClick={() => router.push(`/notice/${id + 1}`)}
+              onClick={() => router.push(`/announcement/${id + 1}`)}
             >
               <Label size="md" className="cursor-pointer text-gray-700">
                 다음글 →
@@ -66,7 +66,7 @@ export default function NoticeDetailPage(): React.ReactElement {
             </button>
           </div>
         </div>
-        <Button className="w-[186px]" variant="line" onClick={() => router.push('/notice')}>
+        <Button className="w-[186px]" variant="line" onClick={() => router.push('/announcement')}>
           목록으로
         </Button>
       </div>

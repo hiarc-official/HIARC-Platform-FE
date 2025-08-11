@@ -3,16 +3,16 @@ import { useTable } from '@hiarc-platform/util';
 import { Row } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
-import { ADMIN_NOTICE_LIST_COLUMN, Notice } from './notice-list-column';
+import { ADMIN_ANNOUNCEMENT_LIST_COLUMN, Announcement } from './announcement-list-column';
 import { AnimatePresence, motion } from 'framer-motion';
 
-interface AdminNoticeTableProps {
-  data?: Notice[];
+interface AdminAnnouncementTableProps {
+  data?: Announcement[];
   className?: string;
 }
 
-export function NoticeTable({ data, className }: AdminNoticeTableProps): React.ReactElement {
-  const columns = useMemo(() => ADMIN_NOTICE_LIST_COLUMN, []);
+export function AnnouncementTable({ data, className }: AdminAnnouncementTableProps): React.ReactElement {
+  const columns = useMemo(() => ADMIN_ANNOUNCEMENT_LIST_COLUMN, []);
   const router = useRouter();
   const [globalFilter, setGlobalFilter] = useState('');
   const table = useTable({
@@ -37,11 +37,11 @@ export function NoticeTable({ data, className }: AdminNoticeTableProps): React.R
           <CommonTableHead className="text-gray-900" table={table} />
           <CommonTableBody
             table={table}
-            onClick={function (row: Row<Notice>): void {
+            onClick={function (row: Row<Announcement>): void {
               console.log('Row clicked:', row.original);
-              const noticeNumber = row.original.number;
-              if (noticeNumber !== undefined) {
-                router.push(`/notice/${noticeNumber}`);
+              const announcementNumber = row.original.number;
+              if (announcementNumber !== undefined) {
+                router.push(`/announcement/${announcementNumber}`);
               }
             }}
           />

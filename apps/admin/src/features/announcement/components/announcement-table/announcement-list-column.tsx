@@ -1,7 +1,7 @@
 import { Label, CategoryChip, IconButton } from '@hiarc-platform/ui';
 import { ColumnDef } from '@tanstack/react-table';
 
-export interface Notice {
+export interface Announcement {
   number?: number;
   name: string;
   category: 'rating' | 'study' | 'etc' | 'general' | 'external';
@@ -10,7 +10,7 @@ export interface Notice {
   isPublic?: boolean;
 }
 
-export const ADMIN_NOTICE_LIST_COLUMN: Array<ColumnDef<Notice>> = [
+export const ADMIN_ANNOUNCEMENT_LIST_COLUMN: Array<ColumnDef<Announcement>> = [
   {
     id: 'name',
     accessorKey: 'name',
@@ -25,7 +25,7 @@ export const ADMIN_NOTICE_LIST_COLUMN: Array<ColumnDef<Notice>> = [
         번호
       </Label>
     ),
-    cell: ({ row }: { row: { original: Notice } }) => (
+    cell: ({ row }: { row: { original: Announcement } }) => (
       <Label size="md" weight="regular">
         {row.original.number ?? '-'}
       </Label>
@@ -45,7 +45,7 @@ export const ADMIN_NOTICE_LIST_COLUMN: Array<ColumnDef<Notice>> = [
         카테고리
       </Label>
     ),
-    cell: ({ row }: { row: { original: Notice } }) => (
+    cell: ({ row }: { row: { original: Announcement } }) => (
       <CategoryChip category={row.original.category} />
     ),
     footer: (props) => props.column.id,
@@ -63,7 +63,7 @@ export const ADMIN_NOTICE_LIST_COLUMN: Array<ColumnDef<Notice>> = [
         제목
       </Label>
     ),
-    cell: ({ row }: { row: { original: Notice } }) => (
+    cell: ({ row }: { row: { original: Announcement } }) => (
       <Label size="md" weight="regular" className="pl-4">
         {row.original.title ?? '-'}
       </Label>
@@ -83,7 +83,7 @@ export const ADMIN_NOTICE_LIST_COLUMN: Array<ColumnDef<Notice>> = [
         작성자
       </Label>
     ),
-    cell: ({ row }: { row: { original: Notice } }) => (
+    cell: ({ row }: { row: { original: Announcement } }) => (
       <Label size="sm" weight="regular" className="text-gray-700">
         {row.original.name ?? '-'}
       </Label>
@@ -103,7 +103,7 @@ export const ADMIN_NOTICE_LIST_COLUMN: Array<ColumnDef<Notice>> = [
         작성일
       </Label>
     ),
-    cell: ({ row }: { row: { original: Notice } }) => (
+    cell: ({ row }: { row: { original: Announcement } }) => (
       <Label size="sm" weight="regular" className="text-gray-700">
         {row.original.date ?? '-'}
       </Label>
@@ -123,7 +123,7 @@ export const ADMIN_NOTICE_LIST_COLUMN: Array<ColumnDef<Notice>> = [
         공개 여부
       </Label>
     ),
-    cell: ({ row }: { row: { original: Notice } }) => (
+    cell: ({ row }: { row: { original: Announcement } }) => (
       <Label size="sm" weight="regular" className="text-gray-700">
         {row.original.isPublic ? '공개' : '비공개'}
       </Label>
@@ -143,7 +143,7 @@ export const ADMIN_NOTICE_LIST_COLUMN: Array<ColumnDef<Notice>> = [
         수정
       </Label>
     ),
-    cell: ({ row }: { row: { original: Notice } }) => (
+    cell: ({ row }: { row: { original: Announcement } }) => (
       <IconButton
         className="relative z-10 w-full"
         iconSrc="/shared-assets/Edit.svg"

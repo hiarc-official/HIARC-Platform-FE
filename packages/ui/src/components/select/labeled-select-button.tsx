@@ -21,7 +21,6 @@ function LabeledSelectButton({
   value,
   onChange,
   className = '',
-  onChange,
 }: LabeledSelectButtonProps): React.ReactElement {
   return (
     <div className={cn('flex-w-full w-full flex-col', className)}>

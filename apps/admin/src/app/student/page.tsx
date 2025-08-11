@@ -2,13 +2,13 @@
 
 import { Title } from '@hiarc-platform/ui';
 import { Button } from '@hiarc-platform/ui';
-import SelectButtonSection from '@/features/components/notice-section/select-button-section';
+import SelectButtonSection from '@/features/components/announcement-section/select-button-section';
 import { useRouter } from 'next/navigation';
-import { Notice } from '@/features/notice/components/notice-table/notice-list-column';
+import { Announcement } from '@/features/announcement/components/announcement-table/announcement-list-column';
 import { StudentTable } from '@/features/student/components/student-table';
 import { PageLayout } from '@hiarc-platform/ui';
 
-const noticeData: Notice[] = [
+const announcementData: Announcement[] = [
   { name: 'John', title: '첫 번째 공지사항', date: '2025.10.01', number: 1, category: 'general' },
   { name: 'Jane', title: '두 번째 공지사항', date: '2025.10.02', number: 2, category: 'study' },
   { name: 'Alice', title: '세 번째 공지사항', date: '2025.10.03', number: 3, category: 'rating' },
@@ -60,12 +60,12 @@ export default function StudentPage(): React.ReactElement {
           <Title size="sm" weight="bold">
             이번 학기 명단
           </Title>
-          <Button size="md" onClick={() => router.push('/notice/write')}>
+          <Button size="md" onClick={() => router.push('/announcement/write')}>
             작성하기
           </Button>
         </div>
         <SelectButtonSection />
-        <StudentTable className="mt-6" data={noticeData} />
+        <StudentTable className="mt-6" data={announcementData} />
       </div>
     </PageLayout>
   );

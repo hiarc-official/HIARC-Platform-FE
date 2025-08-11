@@ -2,14 +2,14 @@
 
 import { Title } from '@hiarc-platform/ui';
 import { Button } from '@hiarc-platform/ui';
-import SelectButtonSection from '@/features/components/notice-section/select-button-section';
+import SelectButtonSection from '@/features/components/announcement-section/select-button-section';
 import { useRouter } from 'next/navigation';
-import { NoticeTable } from '@/features/notice/components/notice-table';
-import { Notice } from '@/features/notice/components/notice-table/notice-list-column';
+import { AnnouncementTable } from '@/features/announcement/components/announcement-table';
+import { Announcement } from '@/features/announcement/components/announcement-table/announcement-list-column';
 import { PageLayout } from '@hiarc-platform/ui';
-import { noticeData } from 'constants/mock';
+import { announcementData } from 'constants/mock';
 
-export default function NoticePage(): React.ReactElement {
+export default function AnnouncementPage(): React.ReactElement {
   const router = useRouter();
 
   return (
@@ -19,12 +19,12 @@ export default function NoticePage(): React.ReactElement {
           <Title size="sm" weight="bold">
             공지사항
           </Title>
-          <Button size="md" onClick={() => router.push('/notice/write')}>
+          <Button size="md" onClick={() => router.push('/announcement/write')}>
             작성하기
           </Button>
         </div>
         <SelectButtonSection />
-        <NoticeTable className="mt-6" data={noticeData} />
+        <AnnouncementTable className="mt-6" data={announcementData} />
       </div>
     </PageLayout>
   );
