@@ -182,15 +182,13 @@ export default function Home(): React.ReactElement {
   return (
     <PageLayout>
       <div className="z-10 w-full max-w-5xl flex-col items-center justify-between font-mono text-sm lg:flex">
-        <table className="w-full table-fixed">
-          <CommonTableHead table={table} />
-          <CommonTableBody
-            table={table}
-            onClick={function (row: Row<Announcement>): void {
-              console.log('Row clicked:', row.original);
-            }}
-          />
-        </table>
+        <CommonTableHead table={table} />
+        <CommonTableBody
+          table={table}
+          onClick={function (row: Row<Announcement>): void {
+            console.log('Row clicked:', row.original);
+          }}
+        />
         <TablePagination table={table}></TablePagination>
       </div>
     </PageLayout>
