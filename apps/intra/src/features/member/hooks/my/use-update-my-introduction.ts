@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient, UseMutationResult } from '@tanstack/react-query';
 import { myApi } from '../../api/my';
 import type { UpdateIntroductionRequest } from '../../types/member';
-import { DialogUtil } from '@/shared/utils/dialog-util';
+import { DialogUtil } from '@hiarc-platform/ui';
 
 export function useUpdateMyIntroduction(): UseMutationResult<
   void,

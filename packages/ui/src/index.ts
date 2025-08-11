@@ -29,5 +29,8 @@ export * from './components/table/common-table-head';
 export * from './components/table/pagination';
 export * from './components/tabs';
 export * from './components/visually-hidden';
+export * from './components/dialogs';
 export * from './constants/assets';
 export * from './lib/utils';
+export * from './store/dialog-store';
+export * from './utils/dialog-util';

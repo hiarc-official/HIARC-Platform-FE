@@ -14,15 +14,15 @@ const nextConfig = {
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data: https:",
               "font-src 'self' data:",
-              "connect-src 'self' https://test.hiarc-official.com https://*.hiarc-official.com http://localhost:* https://localhost:*",
+              "connect-src 'self' http://test.hiarc-official.com https://test.hiarc-official.com https://*.hiarc-official.com http://localhost:* https://localhost:*",
               "frame-ancestors 'none'",
-              "form-action 'self'"
-            ].join('; ')
-          }
-        ]
-      }
+              "form-action 'self'",
+            ].join('; '),
+          },
+        ],
+      },
     ];
-  }
+  },
 };
 
 module.exports = nextConfig;

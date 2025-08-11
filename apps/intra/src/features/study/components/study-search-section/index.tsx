@@ -3,51 +3,30 @@
 import {
   Button,
   cn,
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
+  DialogUtil,
   LabeledInput,
   LabeledSelector,
 } from '@hiarc-platform/ui';
-import React, { useState } from 'react';
+import React from 'react';
+import { StudySearchDialog } from './study-search-dialog';
 
 interface StudySearchSectionProps {
   className?: string;
 }
 
 export function StudySearchSection({ className }: StudySearchSectionProps): React.ReactElement {
-  const [open, setOpen] = useState(false);
-
-  const SearchForm = (): React.ReactElement => (
-    <div className={cn('flex flex-col gap-6')}>
-      <LabeledSelector
-        placeholder={'123'}
-        required={false}
-        label={'진행 학기'}
-        options={[]}
-        value="123"
-        onChange={(value: unknown) => {
-          console.log(value);
+  const handleOpenDialog = (): void => {
+    DialogUtil.showComponent(
+      <StudySearchDialog
+        onSave={async () => {
+          console.log('Study search performed');
+        }}
+        onCancel={() => {
+          console.log('Study search cancelled');
         }}
       />
-      <LabeledInput label={'스터디명'} />
-      <div className="flex w-full items-center gap-2">
-        <Button variant="secondary" size="md" className="w-full">
-          초기화
-        </Button>
-        <Button
-          variant="fill"
-          size="md"
-          className="w-full bg-primary-200"
-          onClick={() => setOpen(false)}
-        >
-          검색
-        </Button>
-      </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <>
@@ -81,21 +60,9 @@ export function StudySearchSection({ className }: StudySearchSectionProps): Reac
 
       {/* Mobile View */}
       <div className={cn('md:hidden', className)}>
-        <Dialog open={open} onOpenChange={setOpen}>
-          <DialogTrigger asChild>
-            <Button variant="line_secondary" size="xs">
-              상세 검색
-            </Button>
-          </DialogTrigger>
-          <DialogContent fullscreen>
-            <DialogHeader>
-              <DialogTitle>스터디 검색</DialogTitle>
-            </DialogHeader>
-            <div className="pt-6">
-              <SearchForm />
-            </div>
-          </DialogContent>
-        </Dialog>
+        <Button variant="line_secondary" size="xs" onClick={handleOpenDialog}>
+          상세 검색
+        </Button>
       </div>
     </>
   );

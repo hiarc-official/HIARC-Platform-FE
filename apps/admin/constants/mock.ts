@@ -1,6 +1,6 @@
 import { Staff } from '@/features/staff/components/staff-table';
 import { StudyLeader } from '@/features/staff/components/study-leader-table';
-import { Notice } from '@/features/notice/components/notice-table/notice-list-column';
+import { Announcement } from '@/features/announcement/components/announcement-table/announcement-list-column';
 import { Competition } from '@/features/competition/components/competition-table/competition-list-column';
 import { Study } from '@/features/study/components/study-table';
 //Staff 데이터
@@ -56,7 +56,7 @@ export const studyLeaderData: StudyLeader[] = [
 
 //공지사항 데이터
 
-export const noticeData: Notice[] = [
+export const announcementData: Announcement[] = [
   { name: 'John', title: '첫 번째 공지사항', date: '2025.10.01', number: 1, category: 'general' },
   { name: 'Jane', title: '두 번째 공지사항', date: '2025.10.02', number: 2, category: 'study' },
   { name: 'Alice', title: '세 번째 공지사항', date: '2025.10.03', number: 3, category: 'rating' },
