@@ -10,13 +10,14 @@ import {
   DialogUtil,
   Label,
   LabeledInput,
-  LabeledSelectButton,
 } from '@hiarc-platform/ui';
 import React from 'react';
+import useCreateAward from '@/features/awards/hooks/use-create-award';
+import { CreateAwardRequest } from '@/features/awards/types/request/create-award-request';
 
 interface CompetitionDialogProps {
-  onSave?: () => void;
-  onCancel?: () => void;
+  onSave?(): void;
+  onCancel?(): void;
 }
 
 export function CompetitionDialog({
@@ -24,19 +25,30 @@ export function CompetitionDialog({
   onCancel,
 }: CompetitionDialogProps): React.ReactElement {
   const [formData, setFormData] = React.useState({
-    organizer: '',
-    name: '',
-    date: '',
-    type: '참여' as '참여' | '수상',
-    award: '',
+    organization: '',
+    awardName: '',
+    awardDate: '',
+    awardDetail: '',
   });
 
+  const createAwardMutation = useCreateAward();
+
   const handleSave = async (): Promise<void> => {
-    // Here you can add form validation and API calls
-    console.log('Competition data:', formData);
-    alert('기록이 추가되었습니다.');
-    onSave?.();
-    DialogUtil.hideAllDialogs();
+    try {
+      const createData: CreateAwardRequest = {
+        organization: formData.organization,
+        awardName: formData.awardName,
+        awardDate: formData.awardDate,
+        awardDetail: formData.awardDetail,
+      };
+
+      await createAwardMutation.mutateAsync(createData);
+      DialogUtil.hideAllDialogs();
+      onSave?.();
+    } catch (error) {
+      console.error('💥 [CREATE AWARD] 생성 실패:', error);
+      throw error;
+    }
   };
 
   const handleCancel = (): void => {
@@ -62,44 +74,46 @@ export function CompetitionDialog({
             <LabeledInput
               label="주최단체명"
               placeholder="예) 현대모비스, 카카오, 홍익대학교"
-              value={formData.organizer}
-              onChange={(value) => setFormData((prev) => ({ ...prev, organizer: value }))}
+              value={formData.organization}
+              onChange={(value) => setFormData((prev) => ({ ...prev, organization: value }))}
             />
             <LabeledInput
               label="대회명"
               placeholder="예) 알고리즘 대회"
-              value={formData.name}
-              onChange={(value) => setFormData((prev) => ({ ...prev, name: value }))}
+              value={formData.awardName}
+              onChange={(value) => setFormData((prev) => ({ ...prev, awardName: value }))}
             />
             <LabeledInput
               label="일시"
-              placeholder="예) 코드 페스티벌, 알고리즘 경진대회"
-              value={formData.date}
-              onChange={(value) => setFormData((prev) => ({ ...prev, date: value }))}
-            />
-            <LabeledSelectButton
-              label="기록 유형"
-              required={false}
-              options={['참여', '수상']}
-              value={formData.type}
-              onChange={(value) =>
-                setFormData((prev) => ({ ...prev, type: value as '참여' | '수상' }))
-              }
+              placeholder="예) 2024-03-15"
+              value={formData.awardDate}
+              onChange={(value) => setFormData((prev) => ({ ...prev, awardDate: value }))}
             />
             <LabeledInput
               label="수상 내역"
               placeholder="예) 본선 진출, 3위, 장려상, 특별상 등"
-              value={formData.award}
-              onChange={(value) => setFormData((prev) => ({ ...prev, award: value }))}
+              value={formData.awardDetail}
+              onChange={(value) => setFormData((prev) => ({ ...prev, awardDetail: value }))}
             />
           </div>
         </DialogDescription>
         <div className="mt-6 flex w-full gap-2">
-          <Button variant="secondary" className="w-full" size="lg" onClick={handleCancel}>
+          <Button
+            variant="secondary"
+            className="w-full"
+            size="lg"
+            onClick={handleCancel}
+            disabled={createAwardMutation.isPending}
+          >
             <Label size="lg">취소</Label>
           </Button>
-          <Button className="w-full" size="lg" onClick={handleSave}>
-            <Label size="lg">기록하기</Label>
+          <Button
+            className="w-full"
+            size="lg"
+            onClick={handleSave}
+            disabled={createAwardMutation.isPending}
+          >
+            <Label size="lg">{createAwardMutation.isPending ? '기록 중...' : '기록하기'}</Label>
           </Button>
         </div>
       </DialogContent>

@@ -1,18 +1,11 @@
-import {
-  CategoryChip,
-  cn,
-  DialogUtil,
-  IconButton,
-  Label,
-  Title,
-} from '@hiarc-platform/ui';
+import { CategoryChip, cn, DialogUtil, IconButton, Label, Title } from '@hiarc-platform/ui';
 import React from 'react';
 import { MyInfoDialog } from './my-info-dialog';
 
 interface MyInfoSectionProps {
   name?: string;
   bojHandle?: string;
-  introduction?: string;
+  introduction?: string | null;
   className?: string;
   onSave?(introduction: string): Promise<void>;
 }

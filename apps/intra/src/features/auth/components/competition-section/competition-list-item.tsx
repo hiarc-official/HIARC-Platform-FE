@@ -24,8 +24,7 @@ export function CompetitionListItem({ award }: CompetitionListItemProps): React.
     DialogUtil.showComponent(
       <EditCompetitionDialog
         award={award}
-        onSave={(updatedAward) => {
-          console.log('✨ [COMPETITION] 대회 수정 완료:', updatedAward);
+        onSave={() => {
           DialogUtil.showSuccess('대회 정보가 성공적으로 수정되었습니다.');
         }}
         onCancel={() => {
@@ -48,7 +47,7 @@ export function CompetitionListItem({ award }: CompetitionListItemProps): React.
     if (confirmed) {
       try {
         console.log('🗑️ [COMPETITION] 대회 삭제 시작:', award.awardId);
-        await deleteAwardMutation.mutateAsync(award.awardId.toString());
+        await deleteAwardMutation.mutateAsync(award.awardId ?? 0);
         console.log('✨ [COMPETITION] 대회 삭제 완료');
         DialogUtil.showSuccess('대회 기록이 성공적으로 삭제되었습니다.');
       } catch (error) {

@@ -7,6 +7,17 @@ import useAnnouncement from '@/features/announcement/hooks/use-announcement';
 import { BackButton, Button, PageLayout } from '@hiarc-platform/ui';
 import { useRouter, useParams } from 'next/navigation';
 
+function mapAnnouncementType(type: string): "rating" | "study" | "etc" | "general" | "external" {
+  switch (type) {
+    case 'RATING': return 'rating';
+    case 'STUDY': return 'study';
+    case 'GENERAL': return 'general';
+    case 'ETC': return 'etc';
+    case 'EXTERNAL': return 'external';
+    default: return 'general';
+  }
+}
+
 export default function AnnouncementDetail(): React.ReactElement {
   const router = useRouter();
   const params = useParams();
@@ -30,8 +41,8 @@ export default function AnnouncementDetail(): React.ReactElement {
           <AnnouncementInfoSection
             className="mt-6"
             announcementTitle={announcement.title}
-            announcementCategory={announcement.category}
-            announcementDate={announcement.createdAt}
+            announcementCategory={mapAnnouncementType(announcement.announcementType)}
+            announcementDate={announcement.createdAt.toISOString()}
           />
           <AnnouncementContentSection className="mt-8" content={announcement.content} />
           <AnnouncementIndicatorSection className="mt-8" />
@@ -49,8 +60,8 @@ export default function AnnouncementDetail(): React.ReactElement {
           <AnnouncementInfoSection
             className="mt-6"
             announcementTitle={announcement.title}
-            announcementCategory={announcement.category}
-            announcementDate={announcement.createdAt}
+            announcementCategory={mapAnnouncementType(announcement.announcementType)}
+            announcementDate={announcement.createdAt.toISOString()}
           />
           <AnnouncementContentSection className="mt-8" content={announcement.content} />
           <AnnouncementIndicatorSection className="mt-8" />

@@ -46,7 +46,7 @@ export function AnnouncementTable({
           <CommonTableBody
             table={table}
             onClick={function (row: Row<AnnouncementListItem>): void {
-              const announcementId = row.original.id;
+              const announcementId = row.original.announcementId;
               if (!announcementId) {
                 return;
               }

@@ -14,7 +14,6 @@ export default function AnnouncementList(): React.ReactElement {
     page: 0,
     size: 10,
     announcementType: 'STUDY',
-    semesterId: 0,
   });
 
   if (isLoading) {

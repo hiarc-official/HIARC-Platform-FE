@@ -10,7 +10,6 @@ import {
   DialogUtil,
   Label,
   LabeledInput,
-  LabeledSelectButton,
 } from '@hiarc-platform/ui';
 import React from 'react';
 import { Award } from '@/features/awards/types/model/award';
@@ -19,8 +18,8 @@ import { UpdateAwardRequest } from '@/features/awards/types/request/update-award
 
 interface EditCompetitionDialogProps {
   award: Award;
-  onSave?: (updatedAward: Award) => void;
-  onCancel?: () => void;
+  onSave?(): void;
+  onCancel?(): void;
   showBackground?: boolean;
 }
 
@@ -32,10 +31,9 @@ export function EditCompetitionDialog({
 }: EditCompetitionDialogProps): React.ReactElement {
   const [formData, setFormData] = React.useState({
     organization: award.organization || '',
-    title: award.awardName || '',
+    awardName: award.awardName || '',
     awardDate: award.awardDate || '',
-    category: award.awardDetail || '참여',
-    rank: award.awardName || '',
+    awardDetail: award.awardDetail || '',
   });
 
   const updateAwardMutation = useUpdateAward();
@@ -43,23 +41,21 @@ export function EditCompetitionDialog({
   const handleSave = async (): Promise<void> => {
     try {
       const updateData: UpdateAwardRequest = {
-        title: formData.title,
         organization: formData.organization,
+        awardName: formData.awardName,
         awardDate: formData.awardDate,
-        category: formData.category,
-        description: formData.category,
+        awardDetail: formData.awardDetail,
       };
 
       console.log('💾 [EDIT AWARD] 수정 시작:', updateData);
-      
-      const updatedAward = await updateAwardMutation.mutateAsync({
-        awardId: award.awardId.toString(),
-        awardData: updateData
+
+      await updateAwardMutation.mutateAsync({
+        awardId: award.awardId ?? 0,
+        awardData: updateData,
       });
-      
-      console.log('✨ [EDIT AWARD] 수정 성공:', updatedAward);
-      onSave?.(updatedAward);
+
       DialogUtil.hideAllDialogs();
+      onSave?.();
     } catch (error) {
       console.error('💥 [EDIT AWARD] 수정 실패:', error);
       throw error;
@@ -95,8 +91,8 @@ export function EditCompetitionDialog({
             <LabeledInput
               label="대회명"
               placeholder="예) 알고리즘 대회"
-              value={formData.title}
-              onChange={(value) => setFormData((prev) => ({ ...prev, title: value }))}
+              value={formData.awardName}
+              onChange={(value) => setFormData((prev) => ({ ...prev, awardName: value }))}
             />
             <LabeledInput
               label="일시"
@@ -104,40 +100,31 @@ export function EditCompetitionDialog({
               value={formData.awardDate}
               onChange={(value) => setFormData((prev) => ({ ...prev, awardDate: value }))}
             />
-            <LabeledSelectButton
-              label="기록 유형"
-              required={false}
-              options={['참여', '수상']}
-              value={formData.category}
-              onChange={(value) => setFormData((prev) => ({ ...prev, category: value }))}
-            />
             <LabeledInput
               label="수상 내역"
               placeholder="예) 본선 진출, 3위, 장려상, 특별상 등"
-              value={formData.rank}
-              onChange={(value) => setFormData((prev) => ({ ...prev, rank: value }))}
+              value={formData.awardDetail}
+              onChange={(value) => setFormData((prev) => ({ ...prev, awardDetail: value }))}
             />
           </div>
         </DialogDescription>
         <div className="mt-6 flex w-full gap-2">
-          <Button 
-            variant="secondary" 
-            className="w-full" 
-            size="lg" 
+          <Button
+            variant="secondary"
+            className="w-full"
+            size="lg"
             onClick={handleCancel}
             disabled={updateAwardMutation.isPending}
           >
             <Label size="lg">취소</Label>
           </Button>
-          <Button 
-            className="w-full" 
-            size="lg" 
+          <Button
+            className="w-full"
+            size="lg"
             onClick={handleSave}
             disabled={updateAwardMutation.isPending}
           >
-            <Label size="lg">
-              {updateAwardMutation.isPending ? '수정 중...' : '수정하기'}
-            </Label>
+            <Label size="lg">{updateAwardMutation.isPending ? '수정 중...' : '수정하기'}</Label>
           </Button>
         </div>
       </DialogContent>

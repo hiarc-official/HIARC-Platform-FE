@@ -6,13 +6,18 @@ import { HitingSection } from '@/features/auth/components/hiting-section';
 import { MyInfoSection } from '@/features/auth/components/my-info-section';
 import { StreakSection } from '@/features/auth/components/streak-section';
 import { StudySection } from '@/features/auth/components/study-section';
-import { useMemberProfile } from '@/features/member/hooks/member/use-member-profile';
-import { useMyCurrentStudies, useMyPastStudies } from '@/features/member/hooks/my/use-my-studies';
 import { useUpdateMyIntroduction } from '@/features/member/hooks/my/use-update-my-introduction';
 import { useAuthStore } from '@/shared/store/auth-store';
-import { BackButton, DialogUtil, Divider, PageLayout, TwoColumnLayout } from '@hiarc-platform/ui';
+import {
+  BackButton,
+  DialogUtil,
+  Divider,
+  PageLayout,
+  TwoColumnLayout,
+  LoadingDots,
+} from '@hiarc-platform/ui';
 import { useRouter } from 'next/navigation';
-import useMyAwards from '@/features/awards/hooks/use-my-awards';
+import { useMyPageData } from '@/features/member/hooks/my/use-my-page-data';
 
 export default function MyPage(): React.ReactElement {
   const attendance = [true, true, true, true, true, true, true, true];
@@ -21,16 +26,12 @@ export default function MyPage(): React.ReactElement {
   const { user } = useAuthStore();
   const [hydrated, setHydrated] = React.useState(false);
 
-  // 모든 hooks를 항상 호출
-  const currentUser = user;
-  const memberId = currentUser?.memberId ?? 0;
-
-  const { data: myAwards, isLoading: myAwardsLoading, error: myAwardsError } = useMyAwards();
   const {
-    data: myProfile,
-    isLoading: myProfileLoading,
-    error: myProfileError,
-  } = useMemberProfile(memberId);
+    data: myPageData,
+    isLoading: myPageDataLoading,
+    error: myPageDataError,
+  } = useMyPageData();
+
   const updateMyIntroduction = useUpdateMyIntroduction();
 
   useEffect(() => {
@@ -46,19 +47,85 @@ export default function MyPage(): React.ReactElement {
 
   // hydration 완료 전에는 로딩 표시 (hooks 호출 이후)
   if (!hydrated) {
-    return <div>Loading...</div>;
+    return (
+      <PageLayout
+        desktopChildren={
+          <div className="flex min-h-[400px] items-center justify-center">
+            <LoadingDots />
+          </div>
+        }
+        mobileChildren={
+          <div className="flex min-h-[400px] items-center justify-center">
+            <LoadingDots />
+          </div>
+        }
+      />
+    );
   }
 
   // 유저 정보가 없으면 로딩 표시
   if (!user) {
-    return <div>Loading...</div>;
+    return (
+      <PageLayout
+        desktopChildren={
+          <div className="flex min-h-[400px] items-center justify-center">
+            <LoadingDots />
+          </div>
+        }
+        mobileChildren={
+          <div className="flex min-h-[400px] items-center justify-center">
+            <LoadingDots />
+          </div>
+        }
+      />
+    );
+  }
+
+  // MyPageData 로딩 중
+  if (myPageDataLoading) {
+    return (
+      <PageLayout
+        desktopChildren={
+          <div className="flex min-h-[400px] items-center justify-center">
+            <LoadingDots />
+          </div>
+        }
+        mobileChildren={
+          <div className="flex min-h-[400px] items-center justify-center">
+            <LoadingDots />
+          </div>
+        }
+      />
+    );
+  }
+
+  // MyPageData 에러 발생
+  if (myPageDataError) {
+    return (
+      <PageLayout
+        desktopChildren={
+          <div className="flex min-h-[400px] items-center justify-center">
+            <div className="text-center">
+              <p className="mb-4 text-lg text-gray-600">문제가 발생했습니다.</p>
+              <BackButton onClick={() => router.back()} />
+            </div>
+          </div>
+        }
+        mobileChildren={
+          <div className="flex min-h-[400px] items-center justify-center">
+            <div className="text-center">
+              <p className="mb-4 text-lg text-gray-600">문제가 발생했습니다.</p>
+              <BackButton onClick={() => router.back()} />
+            </div>
+          </div>
+        }
+      />
+    );
   }
 
   const handleUpdateIntroduction = async (introduction: string): Promise<void> => {
     await updateMyIntroduction.mutateAsync({ introduction });
   };
-
-  console.log('myAwards', myAwards);
 
   return (
     <PageLayout
@@ -67,9 +134,9 @@ export default function MyPage(): React.ReactElement {
           <BackButton onClick={() => router.back()} />
           <MyInfoSection
             className="mt-5"
-            bojHandle={myProfile?.bojHandle}
-            name={myProfile?.name}
-            introduction={myProfile?.introduction}
+            bojHandle={myPageData?.bojHandle}
+            name={myPageData?.name}
+            introduction={myPageData?.introduction}
             onSave={handleUpdateIntroduction}
           />
           <Divider variant="horizontal" size="full" className="mt-4 bg-gray-900" />
@@ -77,11 +144,15 @@ export default function MyPage(): React.ReactElement {
             className="mt-8"
             left={
               <>
-                <HitingSection season={6} total={10000} today={6} />
+                <HitingSection
+                  season={myPageData?.rating?.seasonScore ?? 0}
+                  total={myPageData?.rating?.totalScore ?? 0}
+                  today={myPageData?.rating?.todayScore ?? 0}
+                />
                 <StreakSection className="mt-6" />
               </>
             }
-            right={<CompetitionSection awardList={myAwards} />}
+            right={<CompetitionSection awardList={myPageData?.awards ?? []} />}
           />
           <Divider variant="horizontal" size="full" className="mt-8 bg-gray-900" />
           <StudySection attendance={attendance} assignment={assignment} className="mt-8" />
@@ -91,15 +162,20 @@ export default function MyPage(): React.ReactElement {
         <>
           <MyInfoSection
             className="mt-5"
-            bojHandle={myProfile?.bojHandle}
-            name={myProfile?.name}
-            introduction={myProfile?.introduction}
+            bojHandle={myPageData?.bojHandle}
+            name={myPageData?.name}
+            introduction={myPageData?.introduction}
             onSave={handleUpdateIntroduction}
           />
           <Divider variant="horizontal" size="full" className="mt-4 bg-gray-900" />
-          <HitingSection className="mt-8" season={6} total={10000} today={6} />
+          <HitingSection
+            className="mt-8"
+            season={myPageData?.rating?.seasonScore ?? 0}
+            total={myPageData?.rating?.totalScore ?? 0}
+            today={myPageData?.rating?.todayScore ?? 0}
+          />
           <StreakSection className="mt-6" />
-          <CompetitionSection className="mt-6" awardList={myAwards} />
+          <CompetitionSection className="mt-6" awardList={myPageData?.awards ?? []} />
           <Divider variant="horizontal" size="full" className="mt-8 bg-gray-900" />
           <StudySection attendance={attendance} assignment={assignment} className="mt-8" />
         </>

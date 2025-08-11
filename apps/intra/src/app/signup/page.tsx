@@ -45,11 +45,11 @@ const gradeOptions: SelectData[] = [
   { value: Grade.OVER, label: '5학년 이상' },
 ];
 
-const absenceStatusOptions: SelectData[] = [
-  { value: AbsenceStatus.ENROLLED, label: '재학 중' },
-  { value: AbsenceStatus.ON_LEAVE, label: '휴학 중' },
-  { value: AbsenceStatus.MILITARY_LEAVE, label: '군휴학' },
-];
+// const absenceStatusOptions: SelectData[] = [
+//   { value: AbsenceStatus.ENROLLED, label: '재학 중' },
+//   { value: AbsenceStatus.ON_LEAVE, label: '휴학 중' },
+//   { value: AbsenceStatus.MILITARY_LEAVE, label: '군휴학' },
+// ];
 
 const departmentOptions: SelectData[] = [
   { value: '컴퓨터공학과', label: '컴퓨터공학과' },
@@ -141,11 +141,11 @@ export default function SignUpPage(): React.ReactElement {
     }
   };
 
-  const handleValidateHandle = () => {
+  const handleValidateHandle = (): void => {
     setIsHandleValidated(true);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (): void => {
     const hasErrors = Object.values(errors).some((error) => error);
 
     if (hasErrors) {

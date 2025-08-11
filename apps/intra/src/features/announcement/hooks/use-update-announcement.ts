@@ -1,7 +1,8 @@
 import { useMutation, UseMutationResult, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { announcementApi } from '../api/announcement';
-import type { AnnouncementResponse, UpdateAnnouncementRequest } from '../types/announcement';
+import { Announcement } from '../types/model/announcement';
+import type { UpdateAnnouncementRequest } from '../types/announcement';
 
 interface UpdateAnnouncementParams {
   id: string;
@@ -9,7 +10,7 @@ interface UpdateAnnouncementParams {
 }
 
 export default function useUpdateAnnouncement(): UseMutationResult<
-  AnnouncementResponse,
+  Announcement,
   Error,
   UpdateAnnouncementParams,
   unknown
@@ -18,12 +19,15 @@ export default function useUpdateAnnouncement(): UseMutationResult<
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: ({ id, data }: UpdateAnnouncementParams) => announcementApi.UPDATE_ANNOUNCEMENT(id, data),
+    mutationFn: ({ id, data }: UpdateAnnouncementParams) =>
+      announcementApi.UPDATE_ANNOUNCEMENT(id, data),
     onSuccess: (updatedAnnouncement) => {
-      console.log('[HOOK] useUpdateAnnouncement 성공:', updatedAnnouncement);
       queryClient.invalidateQueries({ queryKey: ['announcements'] });
-      queryClient.setQueryData(['announcement', updatedAnnouncement.id], updatedAnnouncement);
-      router.push(`/announcement/${updatedAnnouncement.id}`);
+      queryClient.setQueryData(
+        ['announcement', updatedAnnouncement.announcementId],
+        updatedAnnouncement
+      );
+      router.push(`/announcement/${updatedAnnouncement.announcementId}`);
     },
     onError: (error) => {
       console.error('[HOOK] useUpdateAnnouncement 에러:', error);

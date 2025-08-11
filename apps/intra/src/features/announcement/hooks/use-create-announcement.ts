@@ -1,10 +1,11 @@
 import { useMutation, UseMutationResult, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { announcementApi } from '../api/announcement';
-import type { AnnouncementResponse, CreateAnnouncementRequest } from '../types/announcement';
+import { Announcement } from '../types/model/announcement';
+import type { CreateAnnouncementRequest } from '../types/announcement';
 
 export default function useCreateAnnouncement(): UseMutationResult<
-  AnnouncementResponse,
+  Announcement,
   Error,
   CreateAnnouncementRequest,
   unknown
@@ -17,7 +18,7 @@ export default function useCreateAnnouncement(): UseMutationResult<
     onSuccess: (newAnnouncement) => {
       console.log('[HOOK] useCreateAnnouncement 성공:', newAnnouncement);
       queryClient.invalidateQueries({ queryKey: ['announcements'] });
-      router.push(`/announcement/${newAnnouncement.id}`);
+      router.push(`/announcement/${newAnnouncement.announcementId}`);
     },
     onError: (error) => {
       console.error('[HOOK] useCreateAnnouncement 에러:', error);

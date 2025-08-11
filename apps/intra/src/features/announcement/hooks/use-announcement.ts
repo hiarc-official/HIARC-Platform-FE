@@ -1,8 +1,8 @@
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
 import { announcementApi } from '../api/announcement';
-import type { AnnouncementResponse } from '../types/announcement';
+import { Announcement } from '../types/model/announcement';
 
-export default function useAnnouncement(id: string): UseQueryResult<AnnouncementResponse, Error> {
+export default function useAnnouncement(id: string): UseQueryResult<Announcement, Error> {
   console.log('[HOOK] useAnnouncement 호출:', id);
 
   const query = useQuery({

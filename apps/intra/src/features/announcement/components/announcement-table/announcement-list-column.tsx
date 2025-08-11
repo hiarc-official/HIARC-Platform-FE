@@ -2,6 +2,17 @@ import { Label, CategoryChip } from '@hiarc-platform/ui';
 import { ColumnDef } from '@tanstack/react-table';
 import type { AnnouncementListItem } from '../../types/announcement';
 
+function mapAnnouncementType(type: string): "rating" | "study" | "etc" | "general" | "external" {
+  switch (type) {
+    case 'RATING': return 'rating';
+    case 'STUDY': return 'study';
+    case 'GENERAL': return 'general';
+    case 'ETC': return 'etc';
+    case 'EXTERNAL': return 'external';
+    default: return 'general';
+  }
+}
+
 export const ANNOUNCEMENT_LIST_COLUMN: Array<ColumnDef<AnnouncementListItem>> = [
   {
     id: 'id',
@@ -19,7 +30,7 @@ export const ANNOUNCEMENT_LIST_COLUMN: Array<ColumnDef<AnnouncementListItem>> = 
     ),
     cell: ({ row }: { row: { original: AnnouncementListItem } }) => (
       <Label size="md" weight="regular">
-        {row.original.id ?? '-'}
+        {row.original.announcementId ?? '-'}
       </Label>
     ),
     footer: (props) => props.column.id,
@@ -38,7 +49,7 @@ export const ANNOUNCEMENT_LIST_COLUMN: Array<ColumnDef<AnnouncementListItem>> = 
       </Label>
     ),
     cell: ({ row }: { row: { original: AnnouncementListItem } }) => (
-      <CategoryChip category={row.original.category}></CategoryChip>
+      <CategoryChip category={mapAnnouncementType(row.original.announcementType)}></CategoryChip>
     ),
     footer: (props) => props.column.id,
   },
@@ -58,26 +69,6 @@ export const ANNOUNCEMENT_LIST_COLUMN: Array<ColumnDef<AnnouncementListItem>> = 
     cell: ({ row }: { row: { original: AnnouncementListItem } }) => (
       <Label size="md" weight="regular" className="pl-4">
         {row.original.title ?? '-'}
-      </Label>
-    ),
-    footer: (props) => props.column.id,
-  },
-  {
-    id: 'author',
-    accessorKey: 'author',
-    size: 64,
-    meta: {
-      headAlign: 'center',
-      bodyAlign: 'center',
-    },
-    header: () => (
-      <Label size="md" weight="bold">
-        작성자
-      </Label>
-    ),
-    cell: ({ row }: { row: { original: AnnouncementListItem } }) => (
-      <Label size="sm" weight="regular" className="text-gray-700">
-        {row.original.author ?? '-'}
       </Label>
     ),
     footer: (props) => props.column.id,

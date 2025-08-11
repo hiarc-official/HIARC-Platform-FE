@@ -2,28 +2,28 @@ import { z } from 'zod';
 import { BaseModel } from '@/shared/base/base-model';
 
 export interface AwardProps {
-  awardId: number;
-  memberId: number;
-  memberName: string;
-  handle: string;
-  organization: string;
-  awardName: string;
-  awardDetail: string;
-  awardDate: string;
-  isOfficial: boolean;
+  awardId?: number;
+  memberId?: number;
+  memberName?: string;
+  handle?: string;
+  organization?: string;
+  awardName?: string | null;
+  awardDetail?: string | null;
+  awardDate?: string;
+  isOfficial?: boolean;
 }
 
 export class Award extends BaseModel<AwardProps> {
   static readonly schema = z.object({
-    awardId: z.number(),
-    memberId: z.number(),
-    memberName: z.string(),
-    handle: z.string(),
-    organization: z.string(),
-    awardName: z.string(),
-    awardDetail: z.string(),
-    awardDate: z.string(),
-    isOfficial: z.boolean().optional().default(false),
+    awardId: z.number().optional(),
+    memberId: z.number().optional(),
+    memberName: z.string().optional(),
+    handle: z.string().optional(),
+    organization: z.string().optional(),
+    awardName: z.string().optional().nullable(),
+    awardDetail: z.string().optional().nullable(),
+    awardDate: z.string().optional(),
+    isOfficial: z.boolean().optional(),
   });
 
   equals(other?: Award): boolean {
@@ -31,34 +31,45 @@ export class Award extends BaseModel<AwardProps> {
   }
 
   compareTo(other: Award): number {
-    return new Date(other.props.awardDate).getTime() - new Date(this.props.awardDate).getTime();
+    return (
+      new Date(other.props.awardDate ?? '').getTime() -
+      new Date(this.props.awardDate ?? '').getTime()
+    );
   }
 
-  get awardId(): number {
+  get awardId(): number | undefined {
     return this.props.awardId;
   }
-  get memberId(): number {
+
+  get memberId(): number | undefined {
     return this.props.memberId;
   }
-  get memberName(): string {
+
+  get memberName(): string | undefined {
     return this.props.memberName;
   }
-  get handle(): string {
+
+  get handle(): string | undefined {
     return this.props.handle;
   }
-  get organization(): string {
+
+  get organization(): string | undefined {
     return this.props.organization;
   }
-  get awardName(): string {
+
+  get awardName(): string | undefined | null {
     return this.props.awardName;
   }
-  get awardDetail(): string {
+
+  get awardDetail(): string | undefined | null {
     return this.props.awardDetail;
   }
-  get awardDate(): string {
+
+  get awardDate(): string | undefined {
     return this.props.awardDate;
   }
-  get isOfficial(): boolean {
-    return this.props.isOfficial ?? false;
+
+  get isOfficial(): boolean | undefined {
+    return this.props.isOfficial;
   }
 }

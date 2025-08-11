@@ -3,10 +3,16 @@ import { SectionContainer } from '../section-container';
 import { ContributionGrid } from './contribution-grid';
 
 interface StreakSectionProps {
+  totalDays?: number;
+  currentSeasonDays?: number;
   className?: string;
 }
 
-export function StreakSection({ className }: StreakSectionProps): React.ReactElement {
+export function StreakSection({
+  totalDays,
+  currentSeasonDays,
+  className,
+}: StreakSectionProps): React.ReactElement {
   return (
     <div className={cn('flex w-full min-w-0 flex-col gap-4', className)}>
       <Title size="sm" weight="bold" className="mb-4">
@@ -27,7 +33,7 @@ export function StreakSection({ className }: StreakSectionProps): React.ReactEle
             </div>
             <div className="flex w-full items-center gap-2">
               <Title size="sm" weight="bold">
-                {192}
+                {totalDays ?? 0}
               </Title>
               <Label size="lg">days</Label>
             </div>
@@ -37,7 +43,7 @@ export function StreakSection({ className }: StreakSectionProps): React.ReactEle
             <Label className="text-gray-700">이번시즌</Label>
             <div className="flex w-full items-center gap-2">
               <Title size="sm" weight="bold">
-                {40}
+                {currentSeasonDays ?? 0}
               </Title>
               <Label size="lg">days</Label>
             </div>
