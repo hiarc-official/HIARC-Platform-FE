@@ -2,7 +2,7 @@
 import { LabeledInput, LabeledTextarea } from '@hiarc-platform/ui';
 import { Button } from '@hiarc-platform/ui';
 import Image from 'next/image';
-import LabeledImageInput from '@/ui/components/labeled-image-input';
+import LabeledImageInput from '@/shared/components/labeled-image-input';
 import { LabeledCalanderInput } from '@hiarc-platform/ui';
 import { useState } from 'react';
 

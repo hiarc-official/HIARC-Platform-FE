@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import Header from '@/ui/shared/Header';
-import Footer from '@/ui/shared/Footer';
+import Header from '@/shared/components/Header';
+import Footer from '@/shared/components/Footer';
 
 // 로컬 폰트 import
 import '@fontsource/pretendard/400.css';
