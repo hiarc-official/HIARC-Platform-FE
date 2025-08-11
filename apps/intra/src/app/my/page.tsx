@@ -12,6 +12,7 @@ import { useUpdateMyIntroduction } from '@/features/member/hooks/my/use-update-m
 import { useAuthStore } from '@/shared/store/auth-store';
 import { BackButton, DialogUtil, Divider, PageLayout, TwoColumnLayout } from '@hiarc-platform/ui';
 import { useRouter } from 'next/navigation';
+import useMyAwards from '@/features/awards/hooks/use-my-awards';
 
 export default function MyPage(): React.ReactElement {
   const attendance = [true, true, true, true, true, true, true, true];
@@ -24,24 +25,14 @@ export default function MyPage(): React.ReactElement {
   const currentUser = user;
   const memberId = currentUser?.memberId ?? 0;
 
+  const { data: myAwards, isLoading: myAwardsLoading, error: myAwardsError } = useMyAwards();
   const {
     data: myProfile,
     isLoading: myProfileLoading,
     error: myProfileError,
   } = useMemberProfile(memberId);
-  const {
-    data: currentStudies,
-    isLoading: currentStudiesLoading,
-    error: currentStudiesError,
-  } = useMyCurrentStudies();
-  const {
-    data: pastStudies,
-    isLoading: pastStudiesLoading,
-    error: pastStudiesError,
-  } = useMyPastStudies();
   const updateMyIntroduction = useUpdateMyIntroduction();
 
-  // Zustand persist hydration 완료 체크
   useEffect(() => {
     setHydrated(true);
   }, []);
@@ -67,6 +58,8 @@ export default function MyPage(): React.ReactElement {
     await updateMyIntroduction.mutateAsync({ introduction });
   };
 
+  console.log('myAwards', myAwards);
+
   return (
     <PageLayout
       desktopChildren={
@@ -85,10 +78,10 @@ export default function MyPage(): React.ReactElement {
             left={
               <>
                 <HitingSection season={6} total={10000} today={6} />
-                <StreakSection />
+                <StreakSection className="mt-6" />
               </>
             }
-            right={<CompetitionSection />}
+            right={<CompetitionSection awardList={myAwards} />}
           />
           <Divider variant="horizontal" size="full" className="mt-8 bg-gray-900" />
           <StudySection attendance={attendance} assignment={assignment} className="mt-8" />
@@ -106,7 +99,7 @@ export default function MyPage(): React.ReactElement {
           <Divider variant="horizontal" size="full" className="mt-4 bg-gray-900" />
           <HitingSection className="mt-8" season={6} total={10000} today={6} />
           <StreakSection className="mt-6" />
-          <CompetitionSection className="mt-6" />
+          <CompetitionSection className="mt-6" awardList={myAwards} />
           <Divider variant="horizontal" size="full" className="mt-8 bg-gray-900" />
           <StudySection attendance={attendance} assignment={assignment} className="mt-8" />
         </>

@@ -7,7 +7,7 @@ export { BaseModel } from './base/base-model';
 
 // Components
 export { ErrorBoundary } from './components/error-boundary';
-export { GlobalDialogContainer } from './components/global-dialog-container';
+export { GlobalDialogContainer } from '@hiarc-platform/ui';
 export { default as SharedFooter } from './components/ui/Footer';
 export { default as SharedHeader } from './components/ui/header';
 
@@ -28,5 +28,5 @@ export { useErrorStore } from './store/error-store';
 export * from './types/pageable-model';
 
 // Utils
-export { DialogUtil } from './utils/dialog-util';
+export { DialogUtil } from '@hiarc-platform/ui';
 export { GlobalErrorHandler } from './utils/global-error-handler';

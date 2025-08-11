@@ -4,7 +4,7 @@ import React from 'react';
 export interface DialogConfig {
   id: string;
   title?: string;
-  content: React.ReactNode;
+  content?: React.ReactNode;
   onConfirm?(): void;
   onCancel?(): void;
   confirmText?: string;

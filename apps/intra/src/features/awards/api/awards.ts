@@ -15,7 +15,7 @@ export const awardsApi = {
   // 내 수상 내역 조회/관리
   GET_MY_AWARDS: async (): Promise<Award[]> => {
     const response = await apiClient.get('/awards/me');
-    return response.data.map((item: any) => new Award(item));
+    return response.data.map((item: any) => Award.fromJson(item));
   },
 
   // 수상 내역 추가
@@ -26,13 +26,13 @@ export const awardsApi = {
 
   // 수상 내역 수정
   UPDATE_AWARD: async (awardId: string, awardData: UpdateAwardRequest): Promise<Award> => {
-    const response = await apiClient.put(`/awards/me/${awardId}`, awardData);
+    const response = await apiClient.patch(`/awards/${awardId}`, awardData);
     return new Award(response.data);
   },
 
   // 수상 내역 삭제
   DELETE_AWARD: async (awardId: string): Promise<void> => {
-    await apiClient.delete(`/awards/me/${awardId}`);
+    await apiClient.delete(`/awards/${awardId}`);
   },
 };
 

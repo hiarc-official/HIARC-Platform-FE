@@ -1,21 +1,22 @@
-import { cn, DialogUtil, IconButton, Title } from '@hiarc-platform/ui';
+import { cn, DialogUtil, IconButton, Label, Title } from '@hiarc-platform/ui';
 import React from 'react';
 import { CompetitionListItem } from './competition-list-item';
 import { CompetitionDialog } from './competition-dialog';
+import { Award } from '@/features/awards/types/model/award';
 
 interface CompetitionSectionProps {
+  awardList?: Award[];
   className?: string;
 }
 
-export function CompetitionSection({ className }: CompetitionSectionProps): React.ReactElement {
+export function CompetitionSection({
+  awardList,
+  className,
+}: CompetitionSectionProps): React.ReactElement {
   const handleOpenDialog = (): void => {
     DialogUtil.showComponent(
       <CompetitionDialog
-        onSave={() => {
-          // Additional logic when competition is saved
-          console.log('Competition saved successfully!');
-          // You can also trigger data refresh, show success message, etc.
-        }}
+        onSave={() => {}}
         onCancel={() => {
           console.log('Competition dialog cancelled');
         }}
@@ -23,6 +24,8 @@ export function CompetitionSection({ className }: CompetitionSectionProps): Reac
       { showBackground: false }
     );
   };
+
+  console.log('Award List:', awardList);
 
   return (
     <div className={cn('flex w-full flex-col', className)}>
@@ -32,30 +35,12 @@ export function CompetitionSection({ className }: CompetitionSectionProps): Reac
         </Title>
         <IconButton type="button" iconSrc="/shared-assets/Edit.svg" onClick={handleOpenDialog} />
       </div>
-      <CompetitionListItem
-        name={'대회 이름'}
-        date={'2023-01-01'}
-        award={'1등'}
-        institution="고라니 대회"
-      />
-      <CompetitionListItem
-        name={'대회 이름'}
-        date={'2023-01-01'}
-        award={'1등'}
-        institution="고라니 대회"
-      />
-      <CompetitionListItem
-        name={'대회 이름'}
-        date={'2023-01-01'}
-        award={'1등'}
-        institution="고라니 대회"
-      />
-      <CompetitionListItem
-        name={'대회 이름'}
-        date={'2023-01-01'}
-        award={'1등'}
-        institution="고라니 대회"
-      />
+
+      {!awardList || awardList.length === 0 ? (
+        <Label className="py-20 text-center">대회 정보가 없어요</Label>
+      ) : (
+        awardList.map((award) => <CompetitionListItem key={award.awardId} award={award} />)
+      )}
     </div>
   );
 }

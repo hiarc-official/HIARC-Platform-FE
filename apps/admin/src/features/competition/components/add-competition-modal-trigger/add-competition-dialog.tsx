@@ -14,7 +14,7 @@ import {
   IconButton,
 } from '@hiarc-platform/ui';
 import React from 'react';
-import { AwardRecordForm } from '../award-record-form';
+import { AwardRecordForm } from './award-record-form';
 
 interface AddCompetitionDialogProps {
   onSave?: () => Promise<void>;
