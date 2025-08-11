@@ -1,4 +1,4 @@
-import { DialogUtil } from './dialog-util';
+import { DialogUtil } from '@hiarc-platform/ui';
 
 interface ErrorInfo {
   title?: string;

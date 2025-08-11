@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
-import { DialogUtil } from '../utils/dialog-util';
+
 import { GlobalErrorHandler } from '../utils/global-error-handler';
+import { DialogUtil } from '@hiarc-platform/ui';
 
 export interface UseErrorHandlerReturn {
   handleError(error: Error, context?: Record<string, unknown>): void;
@@ -12,13 +13,10 @@ export interface UseErrorHandlerReturn {
 }
 
 export function useErrorHandler(): UseErrorHandlerReturn {
-  const handleError = useCallback(
-    (error: Error, context?: Record<string, unknown>) => {
-      console.log('🔥 [USE ERROR HANDLER] Error context:', context);
-      GlobalErrorHandler.handleError(error);
-    },
-    []
-  );
+  const handleError = useCallback((error: Error, context?: Record<string, unknown>) => {
+    console.log('🔥 [USE ERROR HANDLER] Error context:', context);
+    GlobalErrorHandler.handleError(error);
+  }, []);
 
   const handleShowMessage = useCallback(
     (title: string, message: string, type: 'error' | 'warning' | 'info' = 'info') => {
@@ -38,26 +36,17 @@ export function useErrorHandler(): UseErrorHandlerReturn {
     []
   );
 
-  const showSuccess = useCallback(
-    (message: string) => {
-      DialogUtil.showSuccess(message, '성공');
-    },
-    []
-  );
+  const showSuccess = useCallback((message: string) => {
+    DialogUtil.showSuccess(message, '성공');
+  }, []);
 
-  const showWarning = useCallback(
-    (message: string) => {
-      DialogUtil.showWarning(message, '주의');
-    },
-    []
-  );
+  const showWarning = useCallback((message: string) => {
+    DialogUtil.showWarning(message, '주의');
+  }, []);
 
-  const showInfo = useCallback(
-    (message: string) => {
-      DialogUtil.showInfo(message, '알림');
-    },
-    []
-  );
+  const showInfo = useCallback((message: string) => {
+    DialogUtil.showInfo(message, '알림');
+  }, []);
 
   const clearErrors = useCallback(() => {
     DialogUtil.hideAllDialogs();

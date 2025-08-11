@@ -454,6 +454,9 @@ importers:
       vaul:
         specifier: ^0.7.0
         version: 0.7.9(@types/react-dom@18.3.7)(@types/react@18.3.23)(react-dom@18.3.1)(react@18.3.1)
+      zustand:
+        specifier: ^4.4.0
+        version: 4.5.7(@types/react@18.3.23)(react@18.3.1)
     devDependencies:
       '@types/react':
         specifier: ^18.2.0
@@ -5307,7 +5310,7 @@ packages:
       '@nolyfill/is-core-module': 1.0.39
       debug: 4.4.1
       eslint: 8.57.1
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@6.21.0)(eslint-import-resolver-typescript@3.10.1)(eslint@8.57.1)
+      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.39.0)(eslint-import-resolver-typescript@3.10.1)(eslint@8.57.1)
       get-tsconfig: 4.10.1
       is-bun-module: 2.0.0
       stable-hash: 0.0.5
@@ -8814,6 +8817,26 @@ packages:
 
   /zod@4.0.14:
     resolution: {integrity: sha512-nGFJTnJN6cM2v9kXL+SOBq3AtjQby3Mv5ySGFof5UGRHrRioSJ5iG680cYNjE/yWk671nROcpPj4hAS8nyLhSw==}
+    dev: false
+
+  /zustand@4.5.7(@types/react@18.3.23)(react@18.3.1):
+    resolution: {integrity: sha512-CHOUy7mu3lbD6o6LJLfllpjkzhHXSBlX8B9+qPddUsIfeF5S/UZ5q0kmCsnRqT1UHFQZchNFDDzMbQsuesHWlw==}
+    engines: {node: '>=12.7.0'}
+    peerDependencies:
+      '@types/react': '>=16.8'
+      immer: '>=9.0.6'
+      react: '>=16.8'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      immer:
+        optional: true
+      react:
+        optional: true
+    dependencies:
+      '@types/react': 18.3.23
+      react: 18.3.1
+      use-sync-external-store: 1.5.0(react@18.3.1)
     dev: false
 
   /zustand@5.0.7(@types/react@18.3.23)(react@18.3.1):

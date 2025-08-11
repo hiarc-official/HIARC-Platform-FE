@@ -16,48 +16,72 @@ export class DialogUtil {
   /**
    * 정보 다이얼로그를 표시합니다
    */
-  static showInfo(content: React.ReactNode, title?: string, onConfirm?: () => void): string {
+  static showInfo(
+    content: React.ReactNode, 
+    title?: string, 
+    onConfirm?: () => void, 
+    options?: { showBackground?: boolean }
+  ): string {
     return this.showDialog({
       type: 'info',
       title: title || '정보',
       content,
       onConfirm,
+      showBackground: options?.showBackground,
     });
   }
 
   /**
    * 성공 다이얼로그를 표시합니다
    */
-  static showSuccess(content: React.ReactNode, title?: string, onConfirm?: () => void): string {
+  static showSuccess(
+    content: React.ReactNode, 
+    title?: string, 
+    onConfirm?: () => void,
+    options?: { showBackground?: boolean }
+  ): string {
     return this.showDialog({
       type: 'success',
       title: title || '성공',
       content,
       onConfirm,
+      showBackground: options?.showBackground,
     });
   }
 
   /**
    * 경고 다이얼로그를 표시합니다
    */
-  static showWarning(content: React.ReactNode, title?: string, onConfirm?: () => void): string {
+  static showWarning(
+    content: React.ReactNode, 
+    title?: string, 
+    onConfirm?: () => void,
+    options?: { showBackground?: boolean }
+  ): string {
     return this.showDialog({
       type: 'warning',
       title: title || '경고',
       content,
       onConfirm,
+      showBackground: options?.showBackground,
     });
   }
 
   /**
    * 에러 다이얼로그를 표시합니다
    */
-  static showError(content: React.ReactNode, title?: string, onConfirm?: () => void): string {
+  static showError(
+    content: React.ReactNode, 
+    title?: string, 
+    onConfirm?: () => void,
+    options?: { showBackground?: boolean }
+  ): string {
     return this.showDialog({
       type: 'error',
       title: title || '오류',
       content,
       onConfirm,
+      showBackground: options?.showBackground,
     });
   }
 
@@ -72,6 +96,7 @@ export class DialogUtil {
       title?: string;
       confirmText?: string;
       cancelText?: string;
+      showBackground?: boolean;
     }
   ): string {
     return this.showDialog({
@@ -82,6 +107,7 @@ export class DialogUtil {
       onCancel,
       confirmText: options?.confirmText || '확인',
       cancelText: options?.cancelText || '취소',
+      showBackground: options?.showBackground,
     });
   }
 
@@ -190,14 +216,21 @@ export class DialogUtil {
   }
 
   /**
-   * 컴포넌트를 다이얼로그로 표시합니다
+   * Dialog 구조를 가진 컴포넌트를 다이얼로그로 표시합니다
    */
-  static showComponent(component: React.ReactNode): string {
+  static showComponent(
+    component: React.ReactNode, 
+    options?: {
+      closeOnBackdropClick?: boolean;
+      showBackground?: boolean;
+    }
+  ): string {
     return this.showDialog({
-      type: 'custom',
-      content: component,
+      type: 'component',
+      component: component,
       hideButtons: true,
-      closeOnBackdropClick: true,
+      closeOnBackdropClick: options?.closeOnBackdropClick ?? true,
+      showBackground: options?.showBackground ?? true,
     });
   }
 }

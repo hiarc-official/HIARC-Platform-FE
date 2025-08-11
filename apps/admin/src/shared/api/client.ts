@@ -87,6 +87,7 @@ apiClient.interceptors.request.use((config) => {
 });
 
 // 응답 인터셉터
+// 응답 인터셉터
 apiClient.interceptors.response.use(
   (response) => {
     prettyLog.response(response);
@@ -96,20 +97,27 @@ apiClient.interceptors.response.use(
     prettyLog.error(error);
     const originalRequest = error.config;
 
-    // 401 에러 처리 (인증 실패)
+    const { clearAuth } = useAuthStore.getState();
+
+    // 401 (인증 실패) → 메인 화면
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 
-      const { clearAuth } = useAuthStore.getState();
-
-      // 인증 실패 시 모든 인증 정보 삭제 후 메인 화면으로 이동
       clearAuth();
-
-      // localStorage도 완전히 정리
       localStorage.removeItem('auth-storage');
 
-      // 메인 화면으로 리다이렉트
       window.location.href = '/';
+      return Promise.reject(error);
+    }
+
+    // 403 (권한 없음) → Forbidden 페이지
+    if (error.response?.status === 403 && !originalRequest._retry) {
+      originalRequest._retry = true;
+
+      clearAuth();
+      localStorage.removeItem('auth-storage');
+
+      window.location.href = '/forbidden';
       return Promise.reject(error);
     }
 

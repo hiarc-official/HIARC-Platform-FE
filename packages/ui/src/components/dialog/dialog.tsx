@@ -74,7 +74,7 @@ function DialogHeader({
         <>
           <div className="flex flex-col gap-2">{children}</div>
           <DialogPrimitive.Close asChild>
-            <IconButton iconSrc="/Close.svg" aria-label="닫기" className="flex-shrink-0" />
+            <IconButton iconSrc="/shared-assets/Close.svg" aria-label="닫기" />
           </DialogPrimitive.Close>
         </>
       ) : (
@@ -86,12 +86,14 @@ function DialogHeader({
 
 interface DialogContentProps extends React.ComponentProps<typeof DialogPrimitive.Content> {
   fullscreen?: boolean;
+  showBackground?: boolean;
 }
 
 function DialogContent({
   className,
   children,
   fullscreen = false,
+  showBackground = true,
   ...props
 }: DialogContentProps): React.ReactElement {
   // children을 순회하면서 DialogHeader에 fullscreen prop 전달
@@ -106,7 +108,7 @@ function DialogContent({
 
   return (
     <DialogPortal data-slot="dialog-portal">
-      <DialogOverlay />
+      {showBackground && <DialogOverlay />}
       <DialogPrimitive.Content
         data-slot="dialog-content"
         className={cn(

@@ -10,15 +10,7 @@ import { useMemberProfile } from '@/features/member/hooks/member/use-member-prof
 import { useMyCurrentStudies, useMyPastStudies } from '@/features/member/hooks/my/use-my-studies';
 import { useUpdateMyIntroduction } from '@/features/member/hooks/my/use-update-my-introduction';
 import { useAuthStore } from '@/shared/store/auth-store';
-import { DialogUtil } from '@/shared/utils/dialog-util';
-import {
-  BackButton,
-  Dialog,
-  Divider,
-  IconButton,
-  PageLayout,
-  TwoColumnLayout,
-} from '@hiarc-platform/ui';
+import { BackButton, DialogUtil, Divider, PageLayout, TwoColumnLayout } from '@hiarc-platform/ui';
 import { useRouter } from 'next/navigation';
 
 export default function MyPage(): React.ReactElement {
@@ -57,16 +49,7 @@ export default function MyPage(): React.ReactElement {
   // 인증 정보가 없으면 메인으로 리다이렉트
   useEffect(() => {
     if (hydrated && !user) {
-      DialogUtil.showConfirm(
-        '로그인이 필요한 페이지입니다.',
-        () => {
-          router.push('/');
-        },
-        undefined,
-        {
-          title: '알림',
-        }
-      );
+      DialogUtil.showError('로그인이 필요한 페이지입니다.', undefined);
     }
   }, [hydrated, user, router]);
 
@@ -88,11 +71,6 @@ export default function MyPage(): React.ReactElement {
     <PageLayout
       desktopChildren={
         <>
-          <IconButton
-            onClick={() => {
-              DialogUtil.showComponent(<Dialog></Dialog>);
-            }}
-          ></IconButton>
           <BackButton onClick={() => router.back()} />
           <MyInfoSection
             className="mt-5"

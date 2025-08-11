@@ -1,6 +1,5 @@
 import Footer from '@/shared/components/ui/Footer';
 import Header from '@/shared/components/ui/header';
-import { GlobalDialogContainer } from '@/shared/components/global-dialog-container';
 import '@/shared/utils/global-error-handler'; // 전역 에러 핸들러 초기화
 import type { Metadata } from 'next';
 
@@ -12,6 +11,7 @@ import '@fontsource/pretendard/700.css';
 
 import { Providers } from '../shared/providers/providers';
 import './globals.css';
+import { GlobalDialogContainer } from '@hiarc-platform/ui';
 
 export const metadata: Metadata = {
   title: 'Intra App',

@@ -7,7 +7,6 @@ export { BaseModel } from './base/base-model';
 
 // Components
 export { ErrorBoundary } from './components/error-boundary';
-export { ErrorDialog } from './components/error-dialog';
 export { GlobalDialogContainer } from './components/global-dialog-container';
 export { default as SharedFooter } from './components/ui/Footer';
 export { default as SharedHeader } from './components/ui/header';
@@ -23,7 +22,6 @@ export { Providers } from './providers/providers';
 
 // Stores
 export { useAuthStore } from './store/auth-store';
-export { useDialogStore } from './store/dialog-store';
 export { useErrorStore } from './store/error-store';
 
 // Types

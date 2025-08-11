@@ -9,10 +9,12 @@ export interface DialogConfig {
   onCancel?(): void;
   confirmText?: string;
   cancelText?: string;
-  type?: 'info' | 'warning' | 'error' | 'success' | 'confirm' | 'custom';
+  type?: 'info' | 'warning' | 'error' | 'success' | 'confirm' | 'custom' | 'component';
   size?: 'sm' | 'md' | 'lg' | 'xl';
   hideButtons?: boolean; // 커스텀 다이얼로그에서 기본 버튼 숨기기
   closeOnBackdropClick?: boolean; // 백드롭 클릭시 닫기 여부
+  component?: React.ReactNode; // Dialog 구조를 가진 컴포넌트
+  showBackground?: boolean; // 백그라운드 표시 여부
 }
 
 interface DialogState {
@@ -33,6 +35,7 @@ export const useDialogStore = create<DialogState>((set) => ({
       size: 'md',
       confirmText: '확인',
       cancelText: '취소',
+      showBackground: true,
       ...config,
     };
 
