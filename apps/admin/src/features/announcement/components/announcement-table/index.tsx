@@ -3,7 +3,8 @@ import { useTable } from '@hiarc-platform/util';
 import { Row } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
-import { ADMIN_ANNOUNCEMENT_LIST_COLUMN, Announcement } from './announcement-list-column';
+import { ADMIN_ANNOUNCEMENT_LIST_COLUMN } from './announcement-list-column';
+import { Announcement } from '../../types/model/announcement';
 import { AnimatePresence, motion } from 'framer-motion';
 
 interface AdminAnnouncementTableProps {
@@ -39,9 +40,9 @@ export function AnnouncementTable({ data, className }: AdminAnnouncementTablePro
             table={table}
             onClick={function (row: Row<Announcement>): void {
               console.log('Row clicked:', row.original);
-              const announcementNumber = row.original.number;
-              if (announcementNumber !== undefined) {
-                router.push(`/announcement/${announcementNumber}`);
+              const announcementId = row.original.announcementId;
+              if (announcementId !== undefined) {
+                router.push(`/announcement/${announcementId}`);
               }
             }}
           />

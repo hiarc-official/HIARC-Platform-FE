@@ -1,19 +1,11 @@
 import { Label, CategoryChip, IconButton } from '@hiarc-platform/ui';
 import { ColumnDef } from '@tanstack/react-table';
-
-export interface Announcement {
-  number?: number;
-  name: string;
-  category: 'rating' | 'study' | 'etc' | 'general' | 'external';
-  title: string;
-  date: string;
-  isPublic?: boolean;
-}
+import { Announcement } from '../../types/model/announcement';
 
 export const ADMIN_ANNOUNCEMENT_LIST_COLUMN: Array<ColumnDef<Announcement>> = [
   {
-    id: 'name',
-    accessorKey: 'name',
+    id: 'announcementId',
+    accessorKey: 'announcementId',
     enableSorting: false,
     size: 60,
     meta: {
@@ -27,14 +19,14 @@ export const ADMIN_ANNOUNCEMENT_LIST_COLUMN: Array<ColumnDef<Announcement>> = [
     ),
     cell: ({ row }: { row: { original: Announcement } }) => (
       <Label size="md" weight="regular">
-        {row.original.number ?? '-'}
+        {row.original.announcementId ?? '-'}
       </Label>
     ),
     footer: (props) => props.column.id,
   },
   {
-    id: 'category',
-    accessorKey: 'category',
+    id: 'announcementType',
+    accessorKey: 'announcementType',
     size: 100,
     meta: {
       headAlign: 'center',
@@ -46,7 +38,7 @@ export const ADMIN_ANNOUNCEMENT_LIST_COLUMN: Array<ColumnDef<Announcement>> = [
       </Label>
     ),
     cell: ({ row }: { row: { original: Announcement } }) => (
-      <CategoryChip category={row.original.category} />
+      <CategoryChip category={row.original.announcementType?.toLowerCase() as any} />
     ),
     footer: (props) => props.column.id,
   },
@@ -72,7 +64,7 @@ export const ADMIN_ANNOUNCEMENT_LIST_COLUMN: Array<ColumnDef<Announcement>> = [
   },
   {
     id: 'author',
-    accessorKey: 'name',
+    accessorKey: 'authorName',
     size: 64,
     meta: {
       headAlign: 'center',
@@ -85,14 +77,14 @@ export const ADMIN_ANNOUNCEMENT_LIST_COLUMN: Array<ColumnDef<Announcement>> = [
     ),
     cell: ({ row }: { row: { original: Announcement } }) => (
       <Label size="sm" weight="regular" className="text-gray-700">
-        {row.original.name ?? '-'}
+        {row.original.authorName ?? '-'}
       </Label>
     ),
     footer: (props) => props.column.id,
   },
   {
-    id: 'date',
-    accessorKey: 'date',
+    id: 'createdAt',
+    accessorKey: 'createdAt',
     size: 96,
     meta: {
       headAlign: 'center',
@@ -105,14 +97,14 @@ export const ADMIN_ANNOUNCEMENT_LIST_COLUMN: Array<ColumnDef<Announcement>> = [
     ),
     cell: ({ row }: { row: { original: Announcement } }) => (
       <Label size="sm" weight="regular" className="text-gray-700">
-        {row.original.date ?? '-'}
+        {row.original.createdAt ? new Date(row.original.createdAt).toLocaleDateString('ko-KR') : '-'}
       </Label>
     ),
     footer: (props) => props.column.id,
   },
   {
-    id: 'date',
-    accessorKey: 'date',
+    id: 'isPublished',
+    accessorKey: 'isPublished',
     size: 64,
     meta: {
       headAlign: 'center',
@@ -125,14 +117,13 @@ export const ADMIN_ANNOUNCEMENT_LIST_COLUMN: Array<ColumnDef<Announcement>> = [
     ),
     cell: ({ row }: { row: { original: Announcement } }) => (
       <Label size="sm" weight="regular" className="text-gray-700">
-        {row.original.isPublic ? '공개' : '비공개'}
+        {row.original.isPublished ? '공개' : '비공개'}
       </Label>
     ),
     footer: (props) => props.column.id,
   },
   {
-    id: 'date',
-    accessorKey: 'date',
+    id: 'edit',
     size: 64,
     meta: {
       headAlign: 'center',

@@ -4,10 +4,17 @@ import { Title, Button, PageLayout } from '@hiarc-platform/ui';
 import SelectButtonSection from '@/features/components/announcement-section/select-button-section';
 import { useRouter } from 'next/navigation';
 import { AnnouncementTable } from '@/features/announcement/components/announcement-table';
-import { announcementData } from 'constants/mock';
+import { useAdminAnnouncements } from '@/features/announcement/hooks';
 
 export default function AnnouncementPage(): React.ReactElement {
   const router = useRouter();
+  const { data: announcementsData, isLoading, error } = useAdminAnnouncements({
+    page: 0,
+    size: 20,
+    sort: 'createdAt,desc',
+  });
+
+  const announcements = announcementsData?.content || [];
 
   return (
     <PageLayout>
@@ -21,7 +28,15 @@ export default function AnnouncementPage(): React.ReactElement {
           </Button>
         </div>
         <SelectButtonSection />
-        <AnnouncementTable className="mt-6" data={announcementData} />
+        {isLoading ? (
+          <div className="mt-6 text-center">Loading...</div>
+        ) : error ? (
+          <div className="mt-6 text-center text-red-500">
+            공지사항을 불러오는 중 오류가 발생했습니다.
+          </div>
+        ) : (
+          <AnnouncementTable className="mt-6" data={announcements} />
+        )}
       </div>
     </PageLayout>
   );

@@ -1,5 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 import { useAuthStore } from '../store/auth-store';
+import { useDialogStore } from '../store/dialog-store';
 
 // In development, use Next.js API route proxy to avoid CORS issues
 // In production, use direct API calls
@@ -98,15 +99,17 @@ apiClient.interceptors.response.use(
     const originalRequest = error.config;
 
     const { clearAuth } = useAuthStore.getState();
+    const { showUnauthorizedDialog } = useDialogStore.getState();
 
-    // 401 (인증 실패) → 메인 화면
+    // 401 (인증 실패) → 다이얼로그 표시
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 
       clearAuth();
       localStorage.removeItem('auth-storage');
 
-      window.location.href = '/';
+      // 다이얼로그 표시 (홈으로 리다이렉트는 다이얼로그에서 처리)
+      showUnauthorizedDialog();
       return Promise.reject(error);
     }
 

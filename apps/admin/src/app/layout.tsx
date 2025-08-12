@@ -12,6 +12,7 @@ import '@fontsource/pretendard/700.css';
 import { Providers } from '../shared/providers/providers';
 import './globals.css';
 import { GlobalDialogContainer } from '@hiarc-platform/ui';
+import { DialogContainer } from '@/shared/components/dialog-container';
 
 export const metadata: Metadata = {
   title: 'Admin App',
@@ -31,6 +32,7 @@ export default function RootLayout({
           <main className="flex-1">{children}</main>
           <Footer />
           <GlobalDialogContainer />
+          <DialogContainer />
         </Providers>
       </body>
     </html>
