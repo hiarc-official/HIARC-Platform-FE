@@ -1,6 +1,6 @@
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
 import { recruitmentApi } from '../api/recruitment';
-import { PageableModel } from '@/shared/types/pageable-model';
+import { PageableModel } from '@hiarc-platform/shared';
 import { RecruitmentApplication } from '../types/model/recruitment-application';
 
 export default function useRecruitmentApplications(): UseQueryResult<

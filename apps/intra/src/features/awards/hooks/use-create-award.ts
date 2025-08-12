@@ -15,6 +15,7 @@ export default function useCreateAward(): UseMutationResult<
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['awards'] });
       queryClient.invalidateQueries({ queryKey: ['awards', 'me'] });
+      queryClient.invalidateQueries({ queryKey: ['member', 'me'] });
     },
   });
 }

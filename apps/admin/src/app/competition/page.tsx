@@ -1,10 +1,7 @@
 'use client';
-import { Title } from '@hiarc-platform/ui';
-import { Button } from '@hiarc-platform/ui';
+import { Title, PageLayout } from '@hiarc-platform/ui';
 import { useRouter } from 'next/navigation';
-import { PageLayout } from '@hiarc-platform/ui';
 import { CompetitionTable } from '@/features/competition/components/competition-table';
-import { Competition } from '@/features/competition/components/competition-table/competition-list-column';
 import { CompetitionSearchButtons } from '@/features/competition/components/competition-bar/competition-search-buttons';
 import { AddCompetitionModalTrigger } from '@/features/competition/components/add-competition-modal-trigger';
 import { competitionData } from 'constants/mock';

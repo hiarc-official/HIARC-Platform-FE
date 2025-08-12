@@ -14,6 +14,7 @@ export function useUpdateMyIntroduction(): UseMutationResult<
     mutationFn: myApi.UPDATE_MY_INTRODUCTION,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['member', 'profile'] });
+      queryClient.invalidateQueries({ queryKey: ['member', 'me'] });
       DialogUtil.showSuccess('자기소개가 성공적으로 업데이트되었습니다!', '업데이트 완료');
     },
   });

@@ -1,7 +1,6 @@
 'use client';
 import { Button, LabeledInput, LabeledSelectButton } from '@hiarc-platform/ui';
 import { useState } from 'react';
-import { selectOption } from 'constants/selectOption';
 
 interface AwardRecordFormProps {
   onDelete(): void;

@@ -1,5 +1,5 @@
 {
-  "name": "@hiarc-platform/util",
+  "name": "@hiarc-platform/shared",
   "version": "0.0.1",
   "private": true,
   "main": "./dist/index.js",
@@ -12,9 +12,6 @@
     "format": "prettier --write \"src/**/*.{ts,json}\"",
     "format:check": "prettier --check \"src/**/*.{ts,json}\"",
     "type-check": "tsc --noEmit"
-  },
-  "dependencies": {
-    "@hiarc-platform/shared": "workspace:*"
   },
   "devDependencies": {
     "eslint": "^8.56.0",

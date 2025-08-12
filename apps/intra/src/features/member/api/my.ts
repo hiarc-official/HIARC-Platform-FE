@@ -13,6 +13,7 @@ import { StreakData } from '../types/model/streak-data';
 
 // API에서 받는 award 데이터 타입
 interface ApiAwardData {
+  awardId: number;
   date: string;
   organization: string;
   awardName: string;
@@ -31,7 +32,7 @@ interface ApiRatingData {
   }>;
 }
 
-// API에서 받는 streak 데이터 타입  
+// API에서 받는 streak 데이터 타입
 interface ApiStreakData {
   today: string;
   streakData: Array<{
@@ -71,6 +72,7 @@ export const myApi = {
         rawData.award?.map((awardData: ApiAwardData) => {
           console.log('[myApi] Creating Award from:', awardData);
           return new Award({
+            awardId: awardData.awardId,
             organization: awardData.organization,
             awardName: awardData.awardName,
             awardDetail: awardData.awardDetail,
@@ -81,39 +83,45 @@ export const myApi = {
       console.log('[myApi] Created Award instances:', transformedAwards);
 
       // Rating 변환
-      const transformedRating = rawData.rating ? (() => {
-        console.log('[myApi] Creating Rating from:', rawData.rating);
-        const ratingRecords = (rawData.rating as ApiRatingData).records.map(record => 
-          new RatingRecord({
-            description: record.description,
-            division: record.division,
-            ranking: record.ranking,
-          })
-        );
-        return new Rating({
-          seasonScore: (rawData.rating as ApiRatingData).seasonScore,
-          totalScore: (rawData.rating as ApiRatingData).totalScore,
-          todayScore: (rawData.rating as ApiRatingData).todayScore,
-          records: ratingRecords,
-        });
-      })() : null;
+      const transformedRating = rawData.rating
+        ? (() => {
+            console.log('[myApi] Creating Rating from:', rawData.rating);
+            const ratingRecords = (rawData.rating as ApiRatingData).records.map(
+              (record) =>
+                new RatingRecord({
+                  description: record.description,
+                  division: record.division,
+                  ranking: record.ranking,
+                })
+            );
+            return new Rating({
+              seasonScore: (rawData.rating as ApiRatingData).seasonScore,
+              totalScore: (rawData.rating as ApiRatingData).totalScore,
+              todayScore: (rawData.rating as ApiRatingData).todayScore,
+              records: ratingRecords,
+            });
+          })()
+        : null;
 
       console.log('[myApi] Created Rating instance:', transformedRating);
 
       // Streak 변환
-      const transformedStreak = rawData.streak ? (() => {
-        console.log('[myApi] Creating Streak from:', rawData.streak);
-        const streakDataArray = (rawData.streak as ApiStreakData).streakData.map(streakData => 
-          new StreakData({
-            date: streakData.date,
-            value: streakData.value,
-          })
-        );
-        return new Streak({
-          today: (rawData.streak as ApiStreakData).today,
-          streakData: streakDataArray,
-        });
-      })() : null;
+      const transformedStreak = rawData.streak
+        ? (() => {
+            console.log('[myApi] Creating Streak from:', rawData.streak);
+            const streakDataArray = (rawData.streak as ApiStreakData).streakData.map(
+              (streakData) =>
+                new StreakData({
+                  date: streakData.date,
+                  value: streakData.value,
+                })
+            );
+            return new Streak({
+              today: (rawData.streak as ApiStreakData).today,
+              streakData: streakDataArray,
+            });
+          })()
+        : null;
 
       console.log('[myApi] Created Streak instance:', transformedStreak);
 

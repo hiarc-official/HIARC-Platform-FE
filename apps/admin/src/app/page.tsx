@@ -1,8 +1,6 @@
 'use client';
 
-import { CommonTableBody, CommonTableHead, Label, TablePagination } from '@hiarc-platform/ui';
-import { CategoryChip } from '@hiarc-platform/ui/src/components/category-chip';
-import { PageLayout } from '@hiarc-platform/ui';
+import { CommonTableBody, CommonTableHead, Label, TablePagination, CategoryChip, PageLayout } from '@hiarc-platform/ui';
 import { useTable } from '@hiarc-platform/util';
 import { ColumnDef, Row } from '@tanstack/react-table';
 import { useMemo, useState } from 'react';
@@ -186,7 +184,7 @@ export default function Home(): React.ReactElement {
         <CommonTableBody
           table={table}
           onClick={function (row: Row<Announcement>): void {
-            console.log('Row clicked:', row.original);
+            
           }}
         />
         <TablePagination table={table}></TablePagination>

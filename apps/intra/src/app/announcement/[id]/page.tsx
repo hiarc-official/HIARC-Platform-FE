@@ -40,11 +40,11 @@ export default function AnnouncementDetail(): React.ReactElement {
           <BackButton onClick={() => router.back()} />
           <AnnouncementInfoSection
             className="mt-6"
-            announcementTitle={announcement.title}
-            announcementCategory={mapAnnouncementType(announcement.announcementType)}
-            announcementDate={announcement.createdAt.toISOString()}
+            announcementTitle={announcement.title || '제목 없음'}
+            announcementCategory={mapAnnouncementType(announcement.announcementType || 'GENERAL')}
+            announcementDate={announcement.createdAt?.toISOString() || '날짜 없음'}
           />
-          <AnnouncementContentSection className="mt-8" content={announcement.content} />
+          <AnnouncementContentSection className="mt-8" content={announcement.content || ''} />
           <AnnouncementIndicatorSection className="mt-8" />
           <Button
             variant="line"
@@ -59,11 +59,11 @@ export default function AnnouncementDetail(): React.ReactElement {
         <div className="flex flex-col items-center">
           <AnnouncementInfoSection
             className="mt-6"
-            announcementTitle={announcement.title}
-            announcementCategory={mapAnnouncementType(announcement.announcementType)}
-            announcementDate={announcement.createdAt.toISOString()}
+            announcementTitle={announcement.title || '제목 없음'}
+            announcementCategory={mapAnnouncementType(announcement.announcementType || 'GENERAL')}
+            announcementDate={announcement.createdAt?.toISOString() || '날짜 없음'}
           />
-          <AnnouncementContentSection className="mt-8" content={announcement.content} />
+          <AnnouncementContentSection className="mt-8" content={announcement.content || ''} />
           <AnnouncementIndicatorSection className="mt-8" />
           <Button
             variant="line"

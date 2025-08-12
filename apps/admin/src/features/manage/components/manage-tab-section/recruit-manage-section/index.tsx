@@ -3,7 +3,7 @@ import { RecruitSummary } from './recruit-bar/recruitment-summary';
 import { StudentApplyTable } from '@/features/student/components/student-apply-table';
 import { RecruitTextManageButton } from './recruit-bar/recruit-text-manage-button';
 import { useState } from 'react';
-import { Button, Label } from '@hiarc-platform/ui';
+import { Label } from '@hiarc-platform/ui';
 import { RecruitStartModalTrigger } from './recruit-modal/recruit-start-modal-trigger';
 
 export function RecruitManageSection(): React.ReactElement {

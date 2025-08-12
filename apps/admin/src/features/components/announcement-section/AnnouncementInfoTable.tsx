@@ -1,4 +1,4 @@
-import { Label, Title } from '@hiarc-platform/ui';
+import { Label } from '@hiarc-platform/ui';
 import Image from 'next/image';
 
 export default function AnnouncementInfoTable(): React.ReactElement {

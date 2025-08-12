@@ -75,6 +75,9 @@ importers:
 
   apps/admin:
     dependencies:
+      '@hiarc-platform/shared':
+        specifier: workspace:*
+        version: link:../../packages/shared
       '@hiarc-platform/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -142,6 +145,9 @@ importers:
 
   apps/intra:
     dependencies:
+      '@hiarc-platform/shared':
+        specifier: workspace:*
+        version: link:../../packages/shared
       '@hiarc-platform/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -365,8 +371,23 @@ importers:
         specifier: ^6.0.5
         version: 6.3.5(@types/node@22.17.0)
 
+  packages/shared:
+    devDependencies:
+      eslint:
+        specifier: ^8.56.0
+        version: 8.57.1
+      prettier:
+        specifier: ^3.1.0
+        version: 3.6.2
+      typescript:
+        specifier: ^5.0.0
+        version: 5.9.2
+
   packages/ui:
     dependencies:
+      '@hiarc-platform/shared':
+        specifier: workspace:*
+        version: link:../shared
       '@hiarc-platform/util':
         specifier: workspace:*
         version: link:../util
@@ -484,6 +505,10 @@ importers:
         version: 5.9.2
 
   packages/util:
+    dependencies:
+      '@hiarc-platform/shared':
+        specifier: workspace:*
+        version: link:../shared
     devDependencies:
       eslint:
         specifier: ^8.56.0

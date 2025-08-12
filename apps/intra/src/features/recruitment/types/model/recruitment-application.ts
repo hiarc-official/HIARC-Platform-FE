@@ -1,38 +1,62 @@
-import { z } from 'zod';
-import { BaseModel } from '@/shared/base/base-model';
-
 export interface RecruitmentApplicationProps {
-  id: string;
-  applicantName: string;
-  applicantEmail: string;
-  bojHandle: string | undefined;
-  motivation: string;
-  experience: string;
-  status: 'PENDING' | 'APPROVED' | 'REJECTED';
-  submittedAt: Date;
-  reviewedAt: Date | undefined;
-  reviewedBy: string | undefined;
+  id?: string | null;
+  applicantName?: string | null;
+  applicantEmail?: string | null;
+  bojHandle?: string | null;
+  motivation?: string | null;
+  experience?: string | null;
+  status?: 'PENDING' | 'APPROVED' | 'REJECTED' | null;
+  submittedAt?: Date | null;
+  reviewedAt?: Date | null;
+  reviewedBy?: string | null;
 }
 
-export class RecruitmentApplication extends BaseModel<RecruitmentApplicationProps> {
-  static readonly schema = z.object({
-    id: z.string(),
-    applicantName: z.string(),
-    applicantEmail: z.string(),
-    bojHandle: z.string().optional(),
-    motivation: z.string(),
-    experience: z.string(),
-    status: z.enum(['PENDING', 'APPROVED', 'REJECTED']),
-    submittedAt: z.preprocess(
-      (value) => (typeof value === 'string' ? new Date(value) : value),
-      z.date()
-    ),
-    reviewedAt: z.preprocess(
-      (value) => (typeof value === 'string' ? new Date(value) : value),
-      z.date()
-    ).optional(),
-    reviewedBy: z.string().optional(),
-  });
+export class RecruitmentApplication {
+  private readonly props: RecruitmentApplicationProps;
+
+  constructor(props: RecruitmentApplicationProps) {
+    this.props = props;
+  }
+
+  get id(): string | null {
+    return this.props.id ?? null;
+  }
+
+  get applicantName(): string | null {
+    return this.props.applicantName ?? null;
+  }
+
+  get applicantEmail(): string | null {
+    return this.props.applicantEmail ?? null;
+  }
+
+  get bojHandle(): string | null {
+    return this.props.bojHandle ?? null;
+  }
+
+  get motivation(): string | null {
+    return this.props.motivation ?? null;
+  }
+
+  get experience(): string | null {
+    return this.props.experience ?? null;
+  }
+
+  get status(): 'PENDING' | 'APPROVED' | 'REJECTED' | null {
+    return this.props.status ?? null;
+  }
+
+  get submittedAt(): Date | null {
+    return this.props.submittedAt ?? null;
+  }
+
+  get reviewedAt(): Date | null {
+    return this.props.reviewedAt ?? null;
+  }
+
+  get reviewedBy(): string | null {
+    return this.props.reviewedBy ?? null;
+  }
 
   get isPending(): boolean {
     return this.props.status === 'PENDING';
@@ -46,11 +70,50 @@ export class RecruitmentApplication extends BaseModel<RecruitmentApplicationProp
     return this.props.status === 'REJECTED';
   }
 
+  toJson(): any {
+    return {
+      id: this.props.id,
+      applicantName: this.props.applicantName,
+      applicantEmail: this.props.applicantEmail,
+      bojHandle: this.props.bojHandle,
+      motivation: this.props.motivation,
+      experience: this.props.experience,
+      status: this.props.status,
+      submittedAt: this.props.submittedAt,
+      reviewedAt: this.props.reviewedAt,
+      reviewedBy: this.props.reviewedBy,
+    };
+  }
+
+  static fromJson(json: any): RecruitmentApplication {
+    return new RecruitmentApplication({
+      id: json?.id ?? null,
+      applicantName: json?.applicantName ?? null,
+      applicantEmail: json?.applicantEmail ?? null,
+      bojHandle: json?.bojHandle ?? null,
+      motivation: json?.motivation ?? null,
+      experience: json?.experience ?? null,
+      status: json?.status ?? null,
+      submittedAt: json?.submittedAt ? new Date(json.submittedAt) : null,
+      reviewedAt: json?.reviewedAt ? new Date(json.reviewedAt) : null,
+      reviewedBy: json?.reviewedBy ?? null,
+    });
+  }
+
+  copyWith(updates: Partial<RecruitmentApplicationProps>): RecruitmentApplication {
+    return new RecruitmentApplication({
+      ...this.props,
+      ...updates,
+    });
+  }
+
   equals(other?: RecruitmentApplication): boolean {
     return Boolean(other) && this.props.id === other?.props.id;
   }
 
   compareTo(other: RecruitmentApplication): number {
-    return other.props.submittedAt.getTime() - this.props.submittedAt.getTime();
+    const thisSubmitted = this.props.submittedAt ? this.props.submittedAt.getTime() : 0;
+    const otherSubmitted = other.props.submittedAt ? other.props.submittedAt.getTime() : 0;
+    return otherSubmitted - thisSubmitted;
   }
 }

@@ -1,14 +1,12 @@
-import { z } from 'zod';
-import { BaseModel } from '@/shared/base/base-model';
 import { Award } from '@/features/awards/types/model/award';
 import { Rating } from './rating';
 import { Streak } from './streak';
 
-export interface MyPageDataProps extends Record<string, unknown> {
-  bojHandle: string;
-  name: string;
-  division: 'DIV_1' | 'DIV_2' | 'DIV_3' | null;
-  tier:
+export interface MyPageDataProps {
+  bojHandle?: string | null;
+  name?: string | null;
+  division?: 'DIV_1' | 'DIV_2' | 'DIV_3' | null;
+  tier?:
     | 'UNRATED'
     | 'BRONZE'
     | 'SILVER'
@@ -18,42 +16,31 @@ export interface MyPageDataProps extends Record<string, unknown> {
     | 'RUBY'
     | 'MASTER'
     | null;
-  introduction: string | null;
-  rating: Rating | null;
-  streak: Streak | null;
-  award: Award[];
+  introduction?: string | null;
+  rating?: Rating | null;
+  streak?: Streak | null;
+  award?: Award[] | null;
 }
 
-export class MyPageData extends BaseModel<MyPageDataProps> {
+export class MyPageData {
+  private readonly props: MyPageDataProps;
+
   constructor(props: MyPageDataProps) {
     console.log('[MyPageData] Constructor called with props:', props);
-    super(props);
+    this.props = props;
     console.log('[MyPageData] Instance created with awards:', this.props.award);
   }
 
-  static readonly schema = z.object({
-    bojHandle: z.string().min(1),
-    name: z.string().min(1),
-    division: z.enum(['DIV_1', 'DIV_2', 'DIV_3']).nullable(),
-    tier: z
-      .enum(['UNRATED', 'BRONZE', 'SILVER', 'GOLD', 'PLATINUM', 'DIAMOND', 'RUBY', 'MASTER'])
-      .nullable(),
-    introduction: z.string().nullable(),
-    rating: z.instanceof(Rating).nullable(),
-    streak: z.instanceof(Streak).nullable(),
-    award: z.array(z.instanceof(Award)),
-  });
-
-  get bojHandle(): string {
-    return this.props.bojHandle;
+  get bojHandle(): string | null {
+    return this.props.bojHandle ?? null;
   }
 
-  get name(): string {
-    return this.props.name;
+  get name(): string | null {
+    return this.props.name ?? null;
   }
 
   get division(): 'DIV_1' | 'DIV_2' | 'DIV_3' | null {
-    return this.props.division;
+    return this.props.division ?? null;
   }
 
   get tier():
@@ -66,23 +53,56 @@ export class MyPageData extends BaseModel<MyPageDataProps> {
     | 'RUBY'
     | 'MASTER'
     | null {
-    return this.props.tier;
+    return this.props.tier ?? null;
   }
 
   get introduction(): string | null {
-    return this.props.introduction;
+    return this.props.introduction ?? null;
   }
 
   get rating(): Rating | null {
-    return this.props.rating;
+    return this.props.rating ?? null;
   }
 
   get streak(): Streak | null {
-    return this.props.streak;
+    return this.props.streak ?? null;
   }
 
-  get awards(): Award[] {
-    return this.props.award;
+  get awards(): Award[] | null {
+    return this.props.award ?? null;
+  }
+
+  toJson(): any {
+    return {
+      bojHandle: this.props.bojHandle,
+      name: this.props.name,
+      division: this.props.division,
+      tier: this.props.tier,
+      introduction: this.props.introduction,
+      rating: this.props.rating?.toJson() ?? null,
+      streak: this.props.streak?.toJson() ?? null,
+      award: this.props.award?.map(award => award.toJson()) ?? null,
+    };
+  }
+
+  static fromJson(json: any): MyPageData {
+    return new MyPageData({
+      bojHandle: json?.bojHandle ?? null,
+      name: json?.name ?? null,
+      division: json?.division ?? null,
+      tier: json?.tier ?? null,
+      introduction: json?.introduction ?? null,
+      rating: json?.rating ? Rating.fromJson(json.rating) : null,
+      streak: json?.streak ? Streak.fromJson(json.streak) : null,
+      award: json?.award ? json.award.map((award: any) => Award.fromJson(award)) : null,
+    });
+  }
+
+  copyWith(updates: Partial<MyPageDataProps>): MyPageData {
+    return new MyPageData({
+      ...this.props,
+      ...updates,
+    });
   }
 
   equals(other?: MyPageData): boolean {
@@ -90,6 +110,8 @@ export class MyPageData extends BaseModel<MyPageDataProps> {
   }
 
   compareTo(other: MyPageData): number {
-    return this.props.name.localeCompare(other.props.name);
+    const thisName = this.props.name ?? '';
+    const otherName = other.props.name ?? '';
+    return thisName.localeCompare(otherName);
   }
 }

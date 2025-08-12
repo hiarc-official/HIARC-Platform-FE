@@ -1,6 +1,6 @@
 import { apiClient } from '../../../shared/api/client';
 import { Award } from '../types/model/award';
-import { PageableModel } from '@/shared/types/pageable-model';
+import { PageableModel } from '@hiarc-platform/shared';
 import { AwardQueryParams } from '../types/request/award-query-params';
 import { CreateAwardRequest } from '../types/request/create-award-request';
 import { UpdateAwardRequest } from '../types/request/update-award-request';

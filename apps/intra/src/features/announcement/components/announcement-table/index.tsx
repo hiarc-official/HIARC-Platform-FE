@@ -5,11 +5,11 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
 import { ANNOUNCEMENT_LIST_COLUMN } from './announcement-list-column';
-import type { AnnouncementListItem } from '../../types/announcement';
+import type { AnnouncementSummary } from '../../types/model/announcement-summary';
 
 interface AnnouncementTableSectionProps {
   className?: string;
-  data: AnnouncementListItem[];
+  data: AnnouncementSummary[];
 }
 
 export function AnnouncementTable({
@@ -45,7 +45,7 @@ export function AnnouncementTable({
           />
           <CommonTableBody
             table={table}
-            onClick={function (row: Row<AnnouncementListItem>): void {
+            onClick={function (row: Row<AnnouncementSummary>): void {
               const announcementId = row.original.announcementId;
               if (!announcementId) {
                 return;

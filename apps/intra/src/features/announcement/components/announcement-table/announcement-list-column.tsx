@@ -1,6 +1,6 @@
 import { Label, CategoryChip } from '@hiarc-platform/ui';
 import { ColumnDef } from '@tanstack/react-table';
-import type { AnnouncementListItem } from '../../types/announcement';
+import type { AnnouncementSummary } from '../../types/model/announcement-summary';
 
 function mapAnnouncementType(type: string): "rating" | "study" | "etc" | "general" | "external" {
   switch (type) {
@@ -13,7 +13,7 @@ function mapAnnouncementType(type: string): "rating" | "study" | "etc" | "genera
   }
 }
 
-export const ANNOUNCEMENT_LIST_COLUMN: Array<ColumnDef<AnnouncementListItem>> = [
+export const ANNOUNCEMENT_LIST_COLUMN: Array<ColumnDef<AnnouncementSummary>> = [
   {
     id: 'id',
     accessorKey: 'id',
@@ -28,7 +28,7 @@ export const ANNOUNCEMENT_LIST_COLUMN: Array<ColumnDef<AnnouncementListItem>> = 
         번호
       </Label>
     ),
-    cell: ({ row }: { row: { original: AnnouncementListItem } }) => (
+    cell: ({ row }: { row: { original: AnnouncementSummary } }) => (
       <Label size="md" weight="regular">
         {row.original.announcementId ?? '-'}
       </Label>
@@ -48,8 +48,8 @@ export const ANNOUNCEMENT_LIST_COLUMN: Array<ColumnDef<AnnouncementListItem>> = 
         카테고리
       </Label>
     ),
-    cell: ({ row }: { row: { original: AnnouncementListItem } }) => (
-      <CategoryChip category={mapAnnouncementType(row.original.announcementType)}></CategoryChip>
+    cell: ({ row }: { row: { original: AnnouncementSummary } }) => (
+      <CategoryChip category={mapAnnouncementType(row.original.announcementType || 'GENERAL')}></CategoryChip>
     ),
     footer: (props) => props.column.id,
   },
@@ -66,7 +66,7 @@ export const ANNOUNCEMENT_LIST_COLUMN: Array<ColumnDef<AnnouncementListItem>> = 
         제목
       </Label>
     ),
-    cell: ({ row }: { row: { original: AnnouncementListItem } }) => (
+    cell: ({ row }: { row: { original: AnnouncementSummary } }) => (
       <Label size="md" weight="regular" className="pl-4">
         {row.original.title ?? '-'}
       </Label>
@@ -86,7 +86,7 @@ export const ANNOUNCEMENT_LIST_COLUMN: Array<ColumnDef<AnnouncementListItem>> = 
         작성일
       </Label>
     ),
-    cell: ({ row }: { row: { original: AnnouncementListItem } }) => (
+    cell: ({ row }: { row: { original: AnnouncementSummary } }) => (
       <Label size="sm" weight="regular" className="text-gray-700">
         {row.original.createdAt ? new Date(row.original.createdAt).toLocaleDateString('ko-KR') : '-'}
       </Label>

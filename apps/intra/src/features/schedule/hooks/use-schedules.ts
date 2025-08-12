@@ -1,7 +1,7 @@
 import { useQuery, UseQueryResult, keepPreviousData } from '@tanstack/react-query';
 import { scheduleApi } from '../api/schedule';
 import { ScheduleQueryParams } from '../types/request/schedule-query-params';
-import { PageableModel } from '@/shared/types/pageable-model';
+import { PageableModel } from '@hiarc-platform/shared';
 import { Schedule } from '../types/model/schedule';
 
 export default function useSchedules(

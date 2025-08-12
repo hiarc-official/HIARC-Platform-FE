@@ -1,9 +1,7 @@
 'use client';
-import { Title } from '@hiarc-platform/ui';
-import { Button } from '@hiarc-platform/ui';
+import { Title, Button, PageLayout } from '@hiarc-platform/ui';
 import { useRouter } from 'next/navigation';
-import { PageLayout } from '@hiarc-platform/ui';
-import { Study, StudyTable } from '@/features/study/components/study-table';
+import { StudyTable } from '@/features/study/components/study-table';
 import { useStudies } from '@/features/study/hooks';
 
 export default function StudyPage(): React.ReactElement {

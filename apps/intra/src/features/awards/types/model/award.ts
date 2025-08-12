@@ -1,30 +1,57 @@
-import { z } from 'zod';
-import { BaseModel } from '@/shared/base/base-model';
-
 export interface AwardProps {
-  awardId?: number;
-  memberId?: number;
-  memberName?: string;
-  handle?: string;
-  organization?: string;
+  awardId?: number | null;
+  memberId?: number | null;
+  memberName?: string | null;
+  handle?: string | null;
+  organization?: string | null;
   awardName?: string | null;
   awardDetail?: string | null;
-  awardDate?: string;
-  isOfficial?: boolean;
+  awardDate?: string | null;
+  isOfficial?: boolean | null;
 }
 
-export class Award extends BaseModel<AwardProps> {
-  static readonly schema = z.object({
-    awardId: z.number().optional(),
-    memberId: z.number().optional(),
-    memberName: z.string().optional(),
-    handle: z.string().optional(),
-    organization: z.string().optional(),
-    awardName: z.string().optional().nullable(),
-    awardDetail: z.string().optional().nullable(),
-    awardDate: z.string().optional(),
-    isOfficial: z.boolean().optional(),
-  });
+export class Award {
+  private readonly props: AwardProps;
+
+  constructor(props: AwardProps) {
+    this.props = { ...props };
+  }
+
+  get awardId(): number | null | undefined {
+    return this.props.awardId;
+  }
+
+  get memberId(): number | null | undefined {
+    return this.props.memberId;
+  }
+
+  get memberName(): string | null | undefined {
+    return this.props.memberName;
+  }
+
+  get handle(): string | null | undefined {
+    return this.props.handle;
+  }
+
+  get organization(): string | null | undefined {
+    return this.props.organization;
+  }
+
+  get awardName(): string | null | undefined {
+    return this.props.awardName;
+  }
+
+  get awardDetail(): string | null | undefined {
+    return this.props.awardDetail;
+  }
+
+  get awardDate(): string | null | undefined {
+    return this.props.awardDate;
+  }
+
+  get isOfficial(): boolean | null | undefined {
+    return this.props.isOfficial;
+  }
 
   equals(other?: Award): boolean {
     return Boolean(other) && this.props.awardId === other?.props.awardId;
@@ -37,39 +64,30 @@ export class Award extends BaseModel<AwardProps> {
     );
   }
 
-  get awardId(): number | undefined {
-    return this.props.awardId;
+  toJson(): AwardProps {
+    return { ...this.props };
   }
 
-  get memberId(): number | undefined {
-    return this.props.memberId;
+  static fromJson(json: any): Award {
+    const data: AwardProps = {
+      awardId: json.awardId ?? null,
+      memberId: json.memberId ?? null,
+      memberName: json.memberName ?? null,
+      handle: json.handle ?? null,
+      organization: json.organization ?? null,
+      awardName: json.awardName ?? null,
+      awardDetail: json.awardDetail ?? null,
+      awardDate: json.awardDate ?? null,
+      isOfficial: json.isOfficial ?? null,
+    };
+    
+    return new Award(data);
   }
 
-  get memberName(): string | undefined {
-    return this.props.memberName;
-  }
-
-  get handle(): string | undefined {
-    return this.props.handle;
-  }
-
-  get organization(): string | undefined {
-    return this.props.organization;
-  }
-
-  get awardName(): string | undefined | null {
-    return this.props.awardName;
-  }
-
-  get awardDetail(): string | undefined | null {
-    return this.props.awardDetail;
-  }
-
-  get awardDate(): string | undefined {
-    return this.props.awardDate;
-  }
-
-  get isOfficial(): boolean | undefined {
-    return this.props.isOfficial;
+  copyWith(updates: Partial<AwardProps>): Award {
+    return new Award({
+      ...this.props,
+      ...updates,
+    });
   }
 }

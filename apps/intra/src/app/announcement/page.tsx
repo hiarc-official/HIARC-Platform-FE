@@ -3,18 +3,26 @@
 import { AnnouncementSearchSection } from '@/features/announcement/components/announcement-search-section';
 import { AnnouncementTable } from '@/features/announcement/components/announcement-table';
 import useAnnouncements from '@/features/announcement/hooks/use-announcements';
-import { PageLayout, Title } from '@hiarc-platform/ui';
+import { PageLayout, Title, Pagination } from '@hiarc-platform/ui';
+import { useState } from 'react';
 
 export default function AnnouncementList(): React.ReactElement {
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10;
+
   const {
     data: announcements,
     isLoading,
     error,
   } = useAnnouncements({
-    page: 0,
-    size: 10,
+    page: currentPage - 1,
+    size: pageSize,
     announcementType: 'STUDY',
   });
+
+  const handlePageChange = (page: number): void => {
+    setCurrentPage(page);
+  };
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -30,6 +38,11 @@ export default function AnnouncementList(): React.ReactElement {
       </Title>
       <AnnouncementSearchSection className="mt-6" />
       <AnnouncementTable className="mt-8" data={announcements?.content || []} />
+      <Pagination
+        className="mt-6"
+        pageableModel={announcements}
+        onPageChange={handlePageChange}
+      />
     </PageLayout>
   );
 }

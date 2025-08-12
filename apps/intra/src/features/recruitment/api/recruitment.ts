@@ -2,7 +2,7 @@ import { apiClient } from '../../../shared/api/client';
 import { Recruitment } from '../types/model/recruitment';
 import { RecruitmentApplication } from '../types/model/recruitment-application';
 import { RecruitmentApplicationRequest } from '../types/request/recruitment-application-request';
-import { PageableModel } from '@/shared/types/pageable-model';
+import { PageableModel } from '@hiarc-platform/shared';
 
 export const recruitmentApi = {
   // 모집 정보 조회

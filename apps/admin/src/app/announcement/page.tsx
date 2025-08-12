@@ -1,12 +1,9 @@
 'use client';
 
-import { Title } from '@hiarc-platform/ui';
-import { Button } from '@hiarc-platform/ui';
+import { Title, Button, PageLayout } from '@hiarc-platform/ui';
 import SelectButtonSection from '@/features/components/announcement-section/select-button-section';
 import { useRouter } from 'next/navigation';
 import { AnnouncementTable } from '@/features/announcement/components/announcement-table';
-import { Announcement } from '@/features/announcement/components/announcement-table/announcement-list-column';
-import { PageLayout } from '@hiarc-platform/ui';
 import { announcementData } from 'constants/mock';
 
 export default function AnnouncementPage(): React.ReactElement {

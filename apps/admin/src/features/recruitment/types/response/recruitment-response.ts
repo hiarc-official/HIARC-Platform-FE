@@ -1,5 +1,5 @@
 import { Recruitment, RecruitingMember } from '../model/recruitment';
-import { PageableInfo } from '@/shared/types/pageable-model';
+import { PageableInfo } from '@hiarc-platform/shared';
 
 // Recruitment Response Types
 export interface RecruitmentDetailResponse {

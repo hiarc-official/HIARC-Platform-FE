@@ -1,28 +1,25 @@
-import { z } from 'zod';
-import { BaseModel } from '@/shared/base/base-model';
-
-export interface RatingRecordProps extends Record<string, unknown> {
-  description: string;
-  division: 'DIV_1' | 'DIV_2' | 'DIV_3';
-  ranking: number;
+export interface RatingRecordProps {
+  description?: string | null;
+  division?: 'DIV_1' | 'DIV_2' | 'DIV_3' | null;
+  ranking?: number | null;
 }
 
-export class RatingRecord extends BaseModel<RatingRecordProps> {
-  static readonly schema = z.object({
-    description: z.string(),
-    division: z.enum(['DIV_1', 'DIV_2', 'DIV_3']),
-    ranking: z.number(),
-  });
+export class RatingRecord {
+  private readonly props: RatingRecordProps;
 
-  get description(): string {
+  constructor(props: RatingRecordProps) {
+    this.props = { ...props };
+  }
+
+  get description(): string | null | undefined {
     return this.props.description;
   }
 
-  get division(): 'DIV_1' | 'DIV_2' | 'DIV_3' {
+  get division(): 'DIV_1' | 'DIV_2' | 'DIV_3' | null | undefined {
     return this.props.division;
   }
 
-  get ranking(): number {
+  get ranking(): number | null | undefined {
     return this.props.ranking;
   }
 
@@ -34,6 +31,29 @@ export class RatingRecord extends BaseModel<RatingRecordProps> {
   }
 
   compareTo(other: RatingRecord): number {
-    return this.props.ranking - other.props.ranking;
+    const thisRanking = this.props.ranking ?? 0;
+    const otherRanking = other.props.ranking ?? 0;
+    return thisRanking - otherRanking;
+  }
+
+  toJson(): RatingRecordProps {
+    return { ...this.props };
+  }
+
+  static fromJson(json: any): RatingRecord {
+    const data: RatingRecordProps = {
+      description: json.description ?? null,
+      division: json.division ?? null,
+      ranking: json.ranking ?? null,
+    };
+    
+    return new RatingRecord(data);
+  }
+
+  copyWith(updates: Partial<RatingRecordProps>): RatingRecord {
+    return new RatingRecord({
+      ...this.props,
+      ...updates,
+    });
   }
 }

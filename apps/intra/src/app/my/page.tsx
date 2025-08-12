@@ -15,6 +15,7 @@ import {
   PageLayout,
   TwoColumnLayout,
   LoadingDots,
+  FadeIn,
 } from '@hiarc-platform/ui';
 import { useRouter } from 'next/navigation';
 import { useMyPageData } from '@/features/member/hooks/my/use-my-page-data';
@@ -127,10 +128,12 @@ export default function MyPage(): React.ReactElement {
     await updateMyIntroduction.mutateAsync({ introduction });
   };
 
+  const isDataReady = hydrated && user && myPageData && !myPageDataLoading;
+
   return (
     <PageLayout
       desktopChildren={
-        <>
+        <FadeIn isVisible={isDataReady ?? false}>
           <BackButton onClick={() => router.back()} />
           <MyInfoSection
             className="mt-5"
@@ -156,10 +159,10 @@ export default function MyPage(): React.ReactElement {
           />
           <Divider variant="horizontal" size="full" className="mt-8 bg-gray-900" />
           <StudySection attendance={attendance} assignment={assignment} className="mt-8" />
-        </>
+        </FadeIn>
       }
       mobileChildren={
-        <>
+        <FadeIn isVisible={isDataReady ?? false}>
           <MyInfoSection
             className="mt-5"
             bojHandle={myPageData?.bojHandle}
@@ -178,7 +181,7 @@ export default function MyPage(): React.ReactElement {
           <CompetitionSection className="mt-6" awardList={myPageData?.awards ?? []} />
           <Divider variant="horizontal" size="full" className="mt-8 bg-gray-900" />
           <StudySection attendance={attendance} assignment={assignment} className="mt-8" />
-        </>
+        </FadeIn>
       }
     />
   );

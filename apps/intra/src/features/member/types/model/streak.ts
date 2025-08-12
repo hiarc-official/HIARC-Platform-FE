@@ -1,24 +1,44 @@
-import { z } from 'zod';
-import { BaseModel } from '@/shared/base/base-model';
 import { StreakData } from './streak-data';
 
-export interface StreakProps extends Record<string, unknown> {
-  today: string;
-  streakData: StreakData[];
+export interface StreakProps {
+  today?: string | null;
+  streakData?: StreakData[] | null;
 }
 
-export class Streak extends BaseModel<StreakProps> {
-  static readonly schema = z.object({
-    today: z.string(),
-    streakData: z.array(z.instanceof(StreakData)),
-  });
+export class Streak {
+  private readonly props: StreakProps;
 
-  get today(): string {
-    return this.props.today;
+  constructor(props: StreakProps) {
+    this.props = props;
   }
 
-  get streakData(): StreakData[] {
-    return this.props.streakData;
+  get today(): string | null {
+    return this.props.today ?? null;
+  }
+
+  get streakData(): StreakData[] | null {
+    return this.props.streakData ?? null;
+  }
+
+  toJson(): any {
+    return {
+      today: this.props.today,
+      streakData: this.props.streakData?.map(data => data.toJson()) ?? null,
+    };
+  }
+
+  static fromJson(json: any): Streak {
+    return new Streak({
+      today: json?.today ?? null,
+      streakData: json?.streakData ? json.streakData.map((data: any) => StreakData.fromJson(data)) : null,
+    });
+  }
+
+  copyWith(updates: Partial<StreakProps>): Streak {
+    return new Streak({
+      ...this.props,
+      ...updates,
+    });
   }
 
   equals(other?: Streak): boolean {
@@ -26,6 +46,8 @@ export class Streak extends BaseModel<StreakProps> {
   }
 
   compareTo(other: Streak): number {
-    return new Date(this.props.today).getTime() - new Date(other.props.today).getTime();
+    const thisToday = this.props.today ? new Date(this.props.today).getTime() : 0;
+    const otherToday = other.props.today ? new Date(other.props.today).getTime() : 0;
+    return thisToday - otherToday;
   }
 }

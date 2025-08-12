@@ -13,6 +13,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@hiarc-platform/shared": "workspace:*",
     "@hiarc-platform/ui": "workspace:*",
     "@hiarc-platform/util": "workspace:*",
     "@tanstack/react-query": "^5.84.1",

@@ -1,7 +1,7 @@
 import { useQuery, UseQueryResult, keepPreviousData } from '@tanstack/react-query';
 import { awardsApi } from '../api/awards';
 import { AwardQueryParams } from '../types/request/award-query-params';
-import { PageableModel } from '@/shared/types/pageable-model';
+import { PageableModel } from '@hiarc-platform/shared';
 import { Award } from '../types/model/award';
 
 export default function useAwards(

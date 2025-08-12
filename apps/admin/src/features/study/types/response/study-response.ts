@@ -1,5 +1,5 @@
 import { Study, StudyDetail } from '../model/study';
-import { PageableInfo } from '@/shared/types/pageable-model';
+import { PageableInfo } from '@hiarc-platform/shared';
 
 // Study Response Types
 export interface StudyResponse {

@@ -1,4 +1,4 @@
-import { cn, CommonTableBody, CommonTableHead, TablePagination } from '@hiarc-platform/ui';
+import { cn, CommonTableBody, CommonTableHead } from '@hiarc-platform/ui';
 import { useTable } from '@hiarc-platform/util';
 import { Row } from '@tanstack/react-table';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -40,7 +40,7 @@ export function StudyTable({ studyData, className }: StudyTableProps): React.Rea
           <CommonTableBody
             table={table}
             onClick={function (row: Row<StudySummary>): void {
-              const id = row.original.id;
+              const id = row.original.studyId;
               if (!id) {
                 return;
               }
@@ -49,7 +49,6 @@ export function StudyTable({ studyData, className }: StudyTableProps): React.Rea
           />
         </motion.div>
       </AnimatePresence>
-      <TablePagination className="pt-8" table={table} />
     </div>
   );
 }

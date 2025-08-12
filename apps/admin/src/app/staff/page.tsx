@@ -1,7 +1,7 @@
-import { Button, Label, PageLayout, Title } from '@hiarc-platform/ui';
+import { Label, PageLayout, Title } from '@hiarc-platform/ui';
 import AddStaffTriggerButton from '@/features/staff/components/add-staff-trigger-button';
-import { Staff, StaffTable } from '@/features/staff/components/staff-table';
-import { StudyLeader, StudyLeaderTable } from '@/features/staff/components/study-leader-table';
+import { StaffTable } from '@/features/staff/components/staff-table';
+import { StudyLeaderTable } from '@/features/staff/components/study-leader-table';
 import { staffData, studyLeaderData } from 'constants/mock';
 
 export default function StaffPage(): React.ReactElement {

@@ -3,8 +3,8 @@ import React from 'react';
 import { MyInfoDialog } from './my-info-dialog';
 
 interface MyInfoSectionProps {
-  name?: string;
-  bojHandle?: string;
+  name?: string | null;
+  bojHandle?: string | null;
   introduction?: string | null;
   className?: string;
   onSave?(introduction: string): Promise<void>;

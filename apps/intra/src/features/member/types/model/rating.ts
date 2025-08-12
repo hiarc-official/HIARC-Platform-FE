@@ -1,36 +1,58 @@
-import { z } from 'zod';
-import { BaseModel } from '@/shared/base/base-model';
 import { RatingRecord } from './rating-record';
 
-export interface RatingProps extends Record<string, unknown> {
-  seasonScore: number;
-  totalScore: number;
-  todayScore: number;
-  records: RatingRecord[];
+export interface RatingProps {
+  seasonScore?: number | null;
+  totalScore?: number | null;
+  todayScore?: number | null;
+  records?: RatingRecord[] | null;
 }
 
-export class Rating extends BaseModel<RatingProps> {
-  static readonly schema = z.object({
-    seasonScore: z.number(),
-    totalScore: z.number(),
-    todayScore: z.number(),
-    records: z.array(z.instanceof(RatingRecord)),
-  });
+export class Rating {
+  private readonly props: RatingProps;
 
-  get seasonScore(): number {
-    return this.props.seasonScore;
+  constructor(props: RatingProps) {
+    this.props = props;
   }
 
-  get totalScore(): number {
-    return this.props.totalScore;
+  get seasonScore(): number | null {
+    return this.props.seasonScore ?? null;
   }
 
-  get todayScore(): number {
-    return this.props.todayScore;
+  get totalScore(): number | null {
+    return this.props.totalScore ?? null;
   }
 
-  get records(): RatingRecord[] {
-    return this.props.records;
+  get todayScore(): number | null {
+    return this.props.todayScore ?? null;
+  }
+
+  get records(): RatingRecord[] | null {
+    return this.props.records ?? null;
+  }
+
+  toJson(): any {
+    return {
+      seasonScore: this.props.seasonScore,
+      totalScore: this.props.totalScore,
+      todayScore: this.props.todayScore,
+      records: this.props.records?.map(record => record.toJson()) ?? null,
+    };
+  }
+
+  static fromJson(json: any): Rating {
+    return new Rating({
+      seasonScore: json?.seasonScore ?? null,
+      totalScore: json?.totalScore ?? null,
+      todayScore: json?.todayScore ?? null,
+      records: json?.records ? json.records.map((record: any) => RatingRecord.fromJson(record)) : null,
+    });
+  }
+
+  copyWith(updates: Partial<RatingProps>): Rating {
+    return new Rating({
+      ...this.props,
+      ...updates,
+    });
   }
 
   equals(other?: Rating): boolean {
@@ -41,6 +63,8 @@ export class Rating extends BaseModel<RatingProps> {
   }
 
   compareTo(other: Rating): number {
-    return other.props.totalScore - this.props.totalScore; // 높은 점수가 우선
+    const thisTotalScore = this.props.totalScore ?? 0;
+    const otherTotalScore = other.props.totalScore ?? 0;
+    return otherTotalScore - thisTotalScore; // 높은 점수가 우선
   }
 }

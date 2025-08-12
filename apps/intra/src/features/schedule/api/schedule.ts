@@ -3,7 +3,7 @@ import { Schedule } from '../types/model/schedule';
 import { CreateScheduleRequest } from '../types/request/create-schedule-request';
 import { UpdateScheduleRequest } from '../types/request/update-schedule-request';
 import { ScheduleQueryParams } from '../types/request/schedule-query-params';
-import { PageableModel } from '@/shared/types/pageable-model';
+import { PageableModel } from '@hiarc-platform/shared';
 
 export const scheduleApi = {
   // 스케줄 목록 조회

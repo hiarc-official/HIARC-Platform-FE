@@ -90,7 +90,9 @@ interface StudyAnnouncementTableProps {
   className?: string;
 }
 
-export function StudyAnnouncementTable({ className }: StudyAnnouncementTableProps): React.ReactElement {
+export function StudyAnnouncementTable({
+  className,
+}: StudyAnnouncementTableProps): React.ReactElement {
   const columns = useMemo(() => STUDY_ANNOUNCEMENT_LIST_COLUMN, []);
   const [globalFilter, setGlobalFilter] = useState('');
   const router = useRouter();

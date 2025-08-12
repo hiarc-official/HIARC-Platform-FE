@@ -1,5 +1,4 @@
-import { Label, LabeledInput } from '@hiarc-platform/ui';
-import { LabeledCalanderInput } from '@hiarc-platform/ui';
+import { Label, LabeledCalanderInput } from '@hiarc-platform/ui';
 
 export function InformaionSection({
   cruitPeriod,

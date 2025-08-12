@@ -1,23 +1,42 @@
-import { z } from 'zod';
-import { BaseModel } from '@/shared/base/base-model';
-
-export interface StreakDataProps extends Record<string, unknown> {
-  date: string;
-  value: boolean;
+export interface StreakDataProps {
+  date?: string | null;
+  value?: boolean | null;
 }
 
-export class StreakData extends BaseModel<StreakDataProps> {
-  static readonly schema = z.object({
-    date: z.string(),
-    value: z.boolean(),
-  });
+export class StreakData {
+  private readonly props: StreakDataProps;
 
-  get date(): string {
-    return this.props.date;
+  constructor(props: StreakDataProps) {
+    this.props = props;
   }
 
-  get value(): boolean {
-    return this.props.value;
+  get date(): string | null {
+    return this.props.date ?? null;
+  }
+
+  get value(): boolean | null {
+    return this.props.value ?? null;
+  }
+
+  toJson(): any {
+    return {
+      date: this.props.date,
+      value: this.props.value,
+    };
+  }
+
+  static fromJson(json: any): StreakData {
+    return new StreakData({
+      date: json?.date ?? null,
+      value: json?.value ?? null,
+    });
+  }
+
+  copyWith(updates: Partial<StreakDataProps>): StreakData {
+    return new StreakData({
+      ...this.props,
+      ...updates,
+    });
   }
 
   equals(other?: StreakData): boolean {
@@ -25,6 +44,8 @@ export class StreakData extends BaseModel<StreakDataProps> {
   }
 
   compareTo(other: StreakData): number {
-    return new Date(this.props.date).getTime() - new Date(other.props.date).getTime();
+    const thisDate = this.props.date ? new Date(this.props.date).getTime() : 0;
+    const otherDate = other.props.date ? new Date(other.props.date).getTime() : 0;
+    return thisDate - otherDate;
   }
 }

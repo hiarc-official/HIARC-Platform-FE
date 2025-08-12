@@ -1,139 +1,155 @@
-import { z } from 'zod';
-import { BaseModel } from '@/shared/base/base-model';
-
 interface AnnouncementNavigationItem {
-  announcementId: number;
-  title: string;
-  studyId: number;
-  studyName: string;
-  lectureRound: number;
+  announcementId?: number | null;
+  title?: string | null;
+  studyId?: number | null;
+  studyName?: string | null;
+  lectureRound?: number | null;
 }
 
-export interface AnnouncementProps extends Record<string, unknown> {
-  announcementId: number;
-  title: string;
-  place: string;
-  scheduledAt: Date;
-  content: string;
-  announcementType: 'STUDY' | 'RATING' | 'GENERAL' | 'ETC' | 'EXTERNAL';
-  createdAt: Date;
-  applicationUrl?: string;
-  applicationStartAt?: string;
-  applicationEndAt?: string;
-  attachmentUrls: string[];
-  imageUrls: string[];
-  studyId?: number;
-  studyName?: string;
-  lectureRound?: number;
-  prev?: AnnouncementNavigationItem;
-  next?: AnnouncementNavigationItem;
+export interface AnnouncementProps {
+  announcementId?: number | null;
+  title?: string | null;
+  place?: string | null;
+  scheduledAt?: Date | null;
+  content?: string | null;
+  announcementType?: 'STUDY' | 'RATING' | 'GENERAL' | 'ETC' | 'EXTERNAL' | null;
+  createdAt?: Date | null;
+  applicationUrl?: string | null;
+  applicationStartAt?: string | null;
+  applicationEndAt?: string | null;
+  attachmentUrls?: string[] | null;
+  imageUrls?: string[] | null;
+  studyId?: number | null;
+  studyName?: string | null;
+  lectureRound?: number | null;
+  prev?: AnnouncementNavigationItem | null;
+  next?: AnnouncementNavigationItem | null;
 }
 
-export class Announcement extends BaseModel<AnnouncementProps> {
-  static readonly schema = z.object({
-    announcementId: z.number(),
-    title: z.string().min(1),
-    place: z.string(),
-    scheduledAt: z.preprocess(
-      (value) => (typeof value === 'string' ? new Date(value) : value),
-      z.date()
-    ),
-    content: z.string(),
-    announcementType: z.enum(['STUDY', 'RATING', 'GENERAL', 'ETC', 'EXTERNAL']),
-    createdAt: z.preprocess(
-      (value) => (typeof value === 'string' ? new Date(value) : value),
-      z.date()
-    ),
-    applicationUrl: z.string().optional(),
-    applicationStartAt: z.string().optional(),
-    applicationEndAt: z.string().optional(),
-    attachmentUrls: z.array(z.string()).default([]),
-    imageUrls: z.array(z.string()).default([]),
-    studyId: z.number().optional(),
-    studyName: z.string().optional(),
-    lectureRound: z.number().optional(),
-    prev: z.object({
-      announcementId: z.number(),
-      title: z.string(),
-      studyId: z.number(),
-      studyName: z.string(),
-      lectureRound: z.number(),
-    }).optional(),
-    next: z.object({
-      announcementId: z.number(),
-      title: z.string(),
-      studyId: z.number(),
-      studyName: z.string(),
-      lectureRound: z.number(),
-    }).optional(),
-  });
+export class Announcement {
+  private readonly props: AnnouncementProps;
 
-  get announcementId(): number {
-    return this.props.announcementId;
+  constructor(props: AnnouncementProps) {
+    this.props = props;
   }
 
-  get title(): string {
-    return this.props.title;
+  get announcementId(): number | null {
+    return this.props.announcementId ?? null;
   }
 
-  get place(): string {
-    return this.props.place;
+  get title(): string | null {
+    return this.props.title ?? null;
   }
 
-  get scheduledAt(): Date {
-    return this.props.scheduledAt;
+  get place(): string | null {
+    return this.props.place ?? null;
   }
 
-  get content(): string {
-    return this.props.content;
+  get scheduledAt(): Date | null {
+    return this.props.scheduledAt ?? null;
   }
 
-  get announcementType(): 'STUDY' | 'RATING' | 'GENERAL' | 'ETC' | 'EXTERNAL' {
-    return this.props.announcementType;
+  get content(): string | null {
+    return this.props.content ?? null;
   }
 
-  get createdAt(): Date {
-    return this.props.createdAt;
+  get announcementType(): 'STUDY' | 'RATING' | 'GENERAL' | 'ETC' | 'EXTERNAL' | null {
+    return this.props.announcementType ?? null;
   }
 
-  get applicationUrl(): string | undefined {
-    return this.props.applicationUrl;
+  get createdAt(): Date | null {
+    return this.props.createdAt ?? null;
   }
 
-  get applicationStartAt(): string | undefined {
-    return this.props.applicationStartAt;
+  get applicationUrl(): string | null {
+    return this.props.applicationUrl ?? null;
   }
 
-  get applicationEndAt(): string | undefined {
-    return this.props.applicationEndAt;
+  get applicationStartAt(): string | null {
+    return this.props.applicationStartAt ?? null;
   }
 
-  get attachmentUrls(): string[] {
-    return this.props.attachmentUrls;
+  get applicationEndAt(): string | null {
+    return this.props.applicationEndAt ?? null;
   }
 
-  get imageUrls(): string[] {
-    return this.props.imageUrls;
+  get attachmentUrls(): string[] | null {
+    return this.props.attachmentUrls ?? null;
   }
 
-  get studyId(): number | undefined {
-    return this.props.studyId;
+  get imageUrls(): string[] | null {
+    return this.props.imageUrls ?? null;
   }
 
-  get studyName(): string | undefined {
-    return this.props.studyName;
+  get studyId(): number | null {
+    return this.props.studyId ?? null;
   }
 
-  get lectureRound(): number | undefined {
-    return this.props.lectureRound;
+  get studyName(): string | null {
+    return this.props.studyName ?? null;
   }
 
-  get prev(): AnnouncementNavigationItem | undefined {
-    return this.props.prev;
+  get lectureRound(): number | null {
+    return this.props.lectureRound ?? null;
   }
 
-  get next(): AnnouncementNavigationItem | undefined {
-    return this.props.next;
+  get prev(): AnnouncementNavigationItem | null {
+    return this.props.prev ?? null;
+  }
+
+  get next(): AnnouncementNavigationItem | null {
+    return this.props.next ?? null;
+  }
+
+  toJson(): any {
+    return {
+      announcementId: this.props.announcementId,
+      title: this.props.title,
+      place: this.props.place,
+      scheduledAt: this.props.scheduledAt,
+      content: this.props.content,
+      announcementType: this.props.announcementType,
+      createdAt: this.props.createdAt,
+      applicationUrl: this.props.applicationUrl,
+      applicationStartAt: this.props.applicationStartAt,
+      applicationEndAt: this.props.applicationEndAt,
+      attachmentUrls: this.props.attachmentUrls,
+      imageUrls: this.props.imageUrls,
+      studyId: this.props.studyId,
+      studyName: this.props.studyName,
+      lectureRound: this.props.lectureRound,
+      prev: this.props.prev,
+      next: this.props.next,
+    };
+  }
+
+  static fromJson(json: any): Announcement {
+    return new Announcement({
+      announcementId: json?.announcementId ?? null,
+      title: json?.title ?? null,
+      place: json?.place ?? null,
+      scheduledAt: json?.scheduledAt ? new Date(json.scheduledAt) : null,
+      content: json?.content ?? null,
+      announcementType: json?.announcementType ?? null,
+      createdAt: json?.createdAt ? new Date(json.createdAt) : null,
+      applicationUrl: json?.applicationUrl ?? null,
+      applicationStartAt: json?.applicationStartAt ?? null,
+      applicationEndAt: json?.applicationEndAt ?? null,
+      attachmentUrls: json?.attachmentUrls ?? null,
+      imageUrls: json?.imageUrls ?? null,
+      studyId: json?.studyId ?? null,
+      studyName: json?.studyName ?? null,
+      lectureRound: json?.lectureRound ?? null,
+      prev: json?.prev ?? null,
+      next: json?.next ?? null,
+    });
+  }
+
+  copyWith(updates: Partial<AnnouncementProps>): Announcement {
+    return new Announcement({
+      ...this.props,
+      ...updates,
+    });
   }
 
   equals(other?: Announcement): boolean {
@@ -141,6 +157,8 @@ export class Announcement extends BaseModel<AnnouncementProps> {
   }
 
   compareTo(other: Announcement): number {
-    return other.props.createdAt.getTime() - this.props.createdAt.getTime();
+    const thisCreated = this.props.createdAt ? this.props.createdAt.getTime() : 0;
+    const otherCreated = other.props.createdAt ? other.props.createdAt.getTime() : 0;
+    return otherCreated - thisCreated;
   }
 }
