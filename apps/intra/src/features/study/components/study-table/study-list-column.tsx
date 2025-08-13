@@ -1,6 +1,6 @@
 import { Label, CategoryChip } from '@hiarc-platform/ui';
 import { ColumnDef } from '@tanstack/react-table';
-import { StudySummary } from '../../types/study-summary';
+import { StudySummary } from '../../types/model/study-summary';
 
 export const STUDY_LIST_COLUMN: Array<ColumnDef<StudySummary>> = [
   {

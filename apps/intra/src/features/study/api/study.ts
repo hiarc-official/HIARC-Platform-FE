@@ -5,13 +5,13 @@ import { CreateStudyRequest } from '../types/request/create-study-request';
 import { UpdateStudyRequest } from '../types/request/update-study-request';
 import { StudyQueryParams } from '../types/request/study-query-params';
 import { PageableModel } from '@hiarc-platform/shared';
-import { StudySummary } from '../types/study-summary';
+import { StudySummary } from '../types/model/study-summary';
 
 export const studyApi = {
   // 스터디 목록 조회 (페이지네이션)
   GET_STUDIES: async (params: StudyQueryParams = {}): Promise<PageableModel<StudySummary>> => {
     const response = await apiClient.get('/studies', { params });
-    
+
     try {
       // API 응답이 빈 배열인 경우 기본 PageableModel 구조 생성
       if (Array.isArray(response.data) && response.data.length === 0) {
@@ -35,19 +35,18 @@ export const studyApi = {
           numberOfElements: 0,
           empty: true,
         };
-        
+
         return PageableModel.create<StudySummary>(defaultPageableData, StudySummary);
       }
-      
+
       // API 응답 데이터를 새로운 StudySummary 구조에 맞게 변환
       const content = response.data.content?.map((item: any) => StudySummary.fromJson(item)) ?? [];
-      
+
       const transformedData = {
         ...response.data,
-        content
+        content,
       };
-      
-      
+
       // 이미 변환된 객체들을 직접 사용
       const pageableProps = {
         content,
@@ -62,7 +61,7 @@ export const studyApi = {
         numberOfElements: response.data.numberOfElements,
         empty: response.data.empty,
       };
-      
+
       return new PageableModel(pageableProps);
     } catch (error) {
       throw error;

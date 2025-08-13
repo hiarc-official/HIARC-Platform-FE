@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
 import { STUDY_LIST_COLUMN } from './study-list-column';
-import { StudySummary } from '../../types/study-summary';
+import { StudySummary } from '../../types/model/study-summary';
 
 interface StudyTableProps {
   studyData: StudySummary[];
