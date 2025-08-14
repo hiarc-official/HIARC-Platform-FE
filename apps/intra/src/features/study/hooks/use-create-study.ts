@@ -1,7 +1,7 @@
 import { useMutation, UseMutationResult, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { studyApi } from '../api/study';
-import { Study } from '../types/model/study';
+import { Study } from '../types/model/study-model/study';
 import { CreateStudyRequest } from '../types/request/create-study-request';
 
 export default function useCreateStudy(): UseMutationResult<
