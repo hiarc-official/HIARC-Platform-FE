@@ -1,12 +1,18 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { announcementApi } from '../api/announcement';
-import { UpdateAnnouncementRequest } from '../types/request/update-announcement-request';
+import { CreateAnnouncementRequest } from '../types/request/create-announcement-request';
 
-export const useUpdateAdminAnnouncement = () => {
+import { UseMutationResult } from '@tanstack/react-query';
+
+export const useUpdateAdminAnnouncement = (): UseMutationResult<
+  unknown,
+  unknown,
+  { id: number; data: CreateAnnouncementRequest }
+> => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ id, data }: { id: string; data: UpdateAnnouncementRequest }) =>
+    mutationFn: ({ id, data }: { id: number; data: CreateAnnouncementRequest }) =>
       announcementApi.UPDATE_ADMIN_ANNOUNCEMENT(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['admin-announcements'] });

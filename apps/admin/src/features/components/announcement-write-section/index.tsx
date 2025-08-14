@@ -1,11 +1,16 @@
-import BasicInformaionSection from './basic-information-section';
 import DetailInformationSection from './detail-information-section';
-export default function AnnouncementWrite(): React.ReactElement {
+
+interface AnnouncementWriteProps {
+  announcementId?: number;
+}
+
+export default function AnnouncementWrite({ announcementId }: AnnouncementWriteProps): React.ReactElement {
   return (
-    <div className="mt-8 flex min-h-screen w-full max-w-[1200px] items-start gap-4">
-      <DetailInformationSection />
-      <div className=" w-[389px]">
-        <BasicInformaionSection />
+    <div className="mt-8 flex min-h-screen w-full flex-col gap-4">
+      <div className="flex items-start gap-4">
+        <div className="flex-1">
+          <DetailInformationSection announcementId={announcementId} />
+        </div>
       </div>
     </div>
   );

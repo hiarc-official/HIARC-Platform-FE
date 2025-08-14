@@ -5,6 +5,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/locale';
 import { Input } from './input';
+import Image from 'next/image';
 
 interface LabeledInputProps {
   label: string;
@@ -14,6 +15,8 @@ interface LabeledInputProps {
   onChange(value: Date | null | [Date | null, Date | null]): void;
   placeholder?: string;
   rangeMode?: boolean;
+  showTimeSelect?: boolean;
+  timeIntervals?: number;
 }
 
 function LabeledCalanderInput({
@@ -24,6 +27,8 @@ function LabeledCalanderInput({
   value,
   onChange,
   rangeMode = false,
+  showTimeSelect = false,
+  timeIntervals = 15,
 }: LabeledInputProps): React.ReactElement {
   const [startDate, endDate] = Array.isArray(value) ? value : [value, null];
 
@@ -38,10 +43,10 @@ function LabeledCalanderInput({
         </div>
       )}
       <div className="relative w-full">
-        <img
+        <Image
           src="/shared-assets/Schedule.svg"
           alt="캘린더 아이콘"
-          className=" absolute left-3 top-1/2 z-10 h-4 w-4 -translate-y-1/2"
+          className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2"
           width={16}
           height={16}
         />
@@ -55,10 +60,14 @@ function LabeledCalanderInput({
             endDate={endDate}
             placeholderText={placeholder}
             className="h-11 pl-10"
-            dateFormat="yyyy-MM-dd"
+            dateFormat={showTimeSelect ? 'yyyy-MM-dd HH:mm' : 'yyyy-MM-dd'}
             popperPlacement="bottom-start"
             wrapperClassName="w-full"
             locale={ko}
+            showTimeSelect={showTimeSelect}
+            timeIntervals={timeIntervals}
+            timeFormat="HH:mm"
+            timeCaption="시간"
             customInput={<Input className=" border-gray-200" />}
           />
         ) : (
@@ -67,10 +76,14 @@ function LabeledCalanderInput({
             onChange={(date: Date | null) => onChange(date)}
             placeholderText={placeholder}
             className="h-11 pl-10"
-            dateFormat="yyyy-MM-dd"
+            dateFormat={showTimeSelect ? 'yyyy-MM-dd HH:mm' : 'yyyy-MM-dd'}
             popperPlacement="bottom-start"
             wrapperClassName="w-full"
             locale={ko}
+            showTimeSelect={showTimeSelect}
+            timeIntervals={timeIntervals}
+            timeFormat="HH:mm"
+            timeCaption="시간"
             customInput={<Input className=" border-gray-200" />}
           />
         )}

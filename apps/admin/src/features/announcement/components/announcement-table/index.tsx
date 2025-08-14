@@ -1,26 +1,63 @@
-import { cn, CommonTableBody, CommonTableHead, TablePagination } from '@hiarc-platform/ui';
+import { cn, CommonTableBody, CommonTableHead, Pagination } from '@hiarc-platform/ui';
 import { useTable } from '@hiarc-platform/util';
+import { PageableModel } from '@hiarc-platform/shared';
 import { Row } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
-import { useMemo, useState } from 'react';
-import { ADMIN_ANNOUNCEMENT_LIST_COLUMN } from './announcement-list-column';
+import { useCallback, useMemo, useState } from 'react';
+import { getAdminAnnouncementListColumn } from './announcement-list-column';
+import { useDeleteAdminAnnouncement } from '../../hooks/use-delete-admin-announcement';
 import { Announcement } from '../../types/model/announcement';
 import { AnimatePresence, motion } from 'framer-motion';
 
 interface AdminAnnouncementTableProps {
-  data?: Announcement[];
+  pageableModel?: PageableModel<Announcement> | null;
   className?: string;
+  onPageChange?(page: number): void;
 }
 
-export function AnnouncementTable({ data, className }: AdminAnnouncementTableProps): React.ReactElement {
-  const columns = useMemo(() => ADMIN_ANNOUNCEMENT_LIST_COLUMN, []);
+export function AnnouncementTable({
+  pageableModel,
+  className,
+  onPageChange,
+}: AdminAnnouncementTableProps): React.ReactElement {
   const router = useRouter();
+  const { mutate: deleteAnnouncement } = useDeleteAdminAnnouncement();
+
+  const handleDelete = useCallback(
+    (id: number, options?: { onSuccess?(): void; onError?(error: unknown): void }): void => {
+      deleteAnnouncement(id, {
+        onSuccess: () => {
+          options?.onSuccess?.();
+        },
+        onError: (error) => {
+          options?.onError?.(error);
+        },
+      });
+    },
+    [deleteAnnouncement]
+  );
+
+  const handleEdit = useCallback(
+    (id: number): void => {
+      router.push(`/announcement/${id}/edit`);
+    },
+    [router]
+  );
+
+  const columns = useMemo(
+    () => getAdminAnnouncementListColumn(handleDelete, handleEdit),
+    [handleEdit, handleDelete]
+  );
   const [globalFilter, setGlobalFilter] = useState('');
+
+  const data = pageableModel?.content ?? [];
+  const totalPages = pageableModel?.totalPages ?? 0;
+
   const table = useTable({
     columns,
-    data: data ?? [],
+    data,
     pageState: [0, () => {}],
-    totalPages: 10,
+    totalPages,
     globalFilterState: [globalFilter, setGlobalFilter],
   });
 
@@ -39,8 +76,8 @@ export function AnnouncementTable({ data, className }: AdminAnnouncementTablePro
           <CommonTableBody
             table={table}
             onClick={function (row: Row<Announcement>): void {
-              console.log('Row clicked:', row.original);
               const announcementId = row.original.announcementId;
+
               if (announcementId !== undefined) {
                 router.push(`/announcement/${announcementId}`);
               }
@@ -48,7 +85,13 @@ export function AnnouncementTable({ data, className }: AdminAnnouncementTablePro
           />
         </motion.div>
       </AnimatePresence>
-      <TablePagination className="mt-8" table={table} />
+
+      {/* PageableModel 기반 Pagination */}
+      {pageableModel && onPageChange && (
+        <div className="flex w-full justify-center">
+          <Pagination className="mt-8" pageableModel={pageableModel} onPageChange={onPageChange} />
+        </div>
+      )}
     </div>
   );
 }

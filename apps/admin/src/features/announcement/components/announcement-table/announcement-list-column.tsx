@@ -1,8 +1,30 @@
-import { Label, CategoryChip, IconButton } from '@hiarc-platform/ui';
+import {
+  Label,
+  CategoryChip,
+  IconButton,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  DialogUtil,
+} from '@hiarc-platform/ui';
 import { ColumnDef } from '@tanstack/react-table';
-import { Announcement } from '../../types/model/announcement';
+import { AnnouncementSummary } from '../../types/model/announcement_summary';
 
-export const ADMIN_ANNOUNCEMENT_LIST_COLUMN: Array<ColumnDef<Announcement>> = [
+export interface Announcement {
+  name: string;
+  title: string;
+  date: string;
+  number: number;
+  category: string;
+}
+
+export const getAdminAnnouncementListColumn = (
+  deleteAnnouncement: (
+    id: number,
+    options?: { onSuccess?(): void; onError?(error: unknown): void }
+  ) => void,
+  onEdit: (id: number) => void
+): Array<ColumnDef<AnnouncementSummary>> => [
   {
     id: 'announcementId',
     accessorKey: 'announcementId',
@@ -17,7 +39,7 @@ export const ADMIN_ANNOUNCEMENT_LIST_COLUMN: Array<ColumnDef<Announcement>> = [
         번호
       </Label>
     ),
-    cell: ({ row }: { row: { original: Announcement } }) => (
+    cell: ({ row }: { row: { original: AnnouncementSummary } }) => (
       <Label size="md" weight="regular">
         {row.original.announcementId ?? '-'}
       </Label>
@@ -37,8 +59,8 @@ export const ADMIN_ANNOUNCEMENT_LIST_COLUMN: Array<ColumnDef<Announcement>> = [
         카테고리
       </Label>
     ),
-    cell: ({ row }: { row: { original: Announcement } }) => (
-      <CategoryChip category={row.original.announcementType?.toLowerCase() as any} />
+    cell: ({ row }: { row: { original: AnnouncementSummary } }) => (
+      <CategoryChip category={row.original.announcementType ?? 'RATING'} />
     ),
     footer: (props) => props.column.id,
   },
@@ -55,7 +77,7 @@ export const ADMIN_ANNOUNCEMENT_LIST_COLUMN: Array<ColumnDef<Announcement>> = [
         제목
       </Label>
     ),
-    cell: ({ row }: { row: { original: Announcement } }) => (
+    cell: ({ row }: { row: { original: AnnouncementSummary } }) => (
       <Label size="md" weight="regular" className="pl-4">
         {row.original.title ?? '-'}
       </Label>
@@ -75,7 +97,7 @@ export const ADMIN_ANNOUNCEMENT_LIST_COLUMN: Array<ColumnDef<Announcement>> = [
         작성자
       </Label>
     ),
-    cell: ({ row }: { row: { original: Announcement } }) => (
+    cell: ({ row }: { row: { original: AnnouncementSummary } }) => (
       <Label size="sm" weight="regular" className="text-gray-700">
         {row.original.authorName ?? '-'}
       </Label>
@@ -95,16 +117,17 @@ export const ADMIN_ANNOUNCEMENT_LIST_COLUMN: Array<ColumnDef<Announcement>> = [
         작성일
       </Label>
     ),
-    cell: ({ row }: { row: { original: Announcement } }) => (
+    cell: ({ row }: { row: { original: AnnouncementSummary } }) => (
       <Label size="sm" weight="regular" className="text-gray-700">
-        {row.original.createdAt ? new Date(row.original.createdAt).toLocaleDateString('ko-KR') : '-'}
+        {row.original.createdAt
+          ? new Date(row.original.createdAt).toLocaleDateString('ko-KR')
+          : '-'}
       </Label>
     ),
-    footer: (props) => props.column.id,
   },
   {
-    id: 'isPublished',
-    accessorKey: 'isPublished',
+    id: 'isPublic',
+    accessorKey: 'isPublic',
     size: 64,
     meta: {
       headAlign: 'center',
@@ -115,12 +138,15 @@ export const ADMIN_ANNOUNCEMENT_LIST_COLUMN: Array<ColumnDef<Announcement>> = [
         공개 여부
       </Label>
     ),
-    cell: ({ row }: { row: { original: Announcement } }) => (
+    cell: ({ row }: { row: { original: AnnouncementSummary } }) => (
       <Label size="sm" weight="regular" className="text-gray-700">
-        {row.original.isPublished ? '공개' : '비공개'}
+        {row.original.isPublic === null
+          ? '비공개'
+          : row.original.isPublic === true
+            ? '공개'
+            : '비공개'}
       </Label>
     ),
-    footer: (props) => props.column.id,
   },
   {
     id: 'edit',
@@ -131,20 +157,61 @@ export const ADMIN_ANNOUNCEMENT_LIST_COLUMN: Array<ColumnDef<Announcement>> = [
     },
     header: () => (
       <Label size="md" weight="bold">
-        수정
+        더보기
       </Label>
     ),
-    cell: ({ row }: { row: { original: Announcement } }) => (
-      <IconButton
-        className="relative z-10 w-full"
-        iconSrc="/shared-assets/Edit.svg"
-        size="sm"
-        onClick={(event) => {
-          event.stopPropagation();
-          console.log('Edit clicked for:', row.original);
-        }}
-      />
+    cell: ({ row }: { row: { original: AnnouncementSummary } }) => (
+      <Popover>
+        <PopoverTrigger asChild>
+          <IconButton
+            type="button"
+            iconSrc="/shared-assets/More.svg"
+            onClick={(event) => event.stopPropagation()}
+          />
+        </PopoverTrigger>
+        <PopoverContent align="end" onClick={(event) => event.stopPropagation()}>
+          <button
+            className="flex h-10 w-24 items-center rounded-sm transition-colors hover:bg-gray-100"
+            onClick={(event) => {
+              event.stopPropagation();
+              if (row.original.announcementId) {
+                onEdit(row.original.announcementId);
+              }
+            }}
+          >
+            <Label className="ml-3">수정</Label>
+          </button>
+          <button
+            className="flex h-10 w-24 items-center rounded-sm transition-colors hover:bg-gray-100"
+            onClick={(event) => {
+              event.stopPropagation();
+              DialogUtil.showConfirm(
+                '삭제된 공지사항은 복구할 수 없습니다.',
+                () => {
+                  if (row.original.announcementId) {
+                    deleteAnnouncement(row.original.announcementId, {
+                      onSuccess: () => {
+                        DialogUtil.showSuccess('삭제되었습니다.');
+                      },
+                      onError: (error) => {
+                        const errorMessage =
+                          error instanceof Error ? error.message : '삭제에 실패했습니다.';
+                        DialogUtil.showError(errorMessage);
+                      },
+                    });
+                  }
+                },
+                undefined,
+                {
+                  title: '정말로 삭제하시겠습니까?',
+                }
+              );
+            }}
+          >
+            <Label className="ml-3">삭제</Label>
+          </button>
+        </PopoverContent>
+      </Popover>
     ),
-    footer: (props) => props.column.id,
   },
 ];

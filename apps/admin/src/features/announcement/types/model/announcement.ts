@@ -1,4 +1,4 @@
-interface AnnouncementNavigationItem {
+export interface AnnouncementNavigationItem {
   announcementId?: number | null;
   title?: string | null;
   studyId?: number | null;
@@ -6,173 +6,56 @@ interface AnnouncementNavigationItem {
   lectureRound?: number | null;
 }
 
-export interface AnnouncementProps {
+export interface Announcement {
   announcementId?: number | null;
   title?: string | null;
   place?: string | null;
-  scheduledAt?: Date | null;
+  scheduleStartAt?: Date | null;
+  scheduleEndAt?: Date | null;
   content?: string | null;
   announcementType?: 'STUDY' | 'RATING' | 'GENERAL' | 'ETC' | 'EXTERNAL' | null;
   authorId?: number | null;
   authorName?: string | null;
   createdAt?: Date | null;
   applicationUrl?: string | null;
-  applicationStartAt?: string | null;
-  applicationEndAt?: string | null;
+  applicationStartAt?: Date | null;
+  applicationEndAt?: Date | null;
   attachmentUrls?: string[] | null;
   imageUrls?: string[] | null;
   studyId?: number | null;
   studyName?: string | null;
   lectureRound?: number | null;
+  isPublic?: boolean | null;
   prev?: AnnouncementNavigationItem | null;
   next?: AnnouncementNavigationItem | null;
 }
 
-export class Announcement {
-  private readonly props: AnnouncementProps;
-
-  constructor(props: AnnouncementProps) {
-    this.props = props;
-  }
-
-  get announcementId(): number | null {
-    return this.props.announcementId ?? null;
-  }
-
-  get title(): string | null {
-    return this.props.title ?? null;
-  }
-
-  get place(): string | null {
-    return this.props.place ?? null;
-  }
-
-  get scheduledAt(): Date | null {
-    return this.props.scheduledAt ?? null;
-  }
-
-  get content(): string | null {
-    return this.props.content ?? null;
-  }
-
-  get announcementType(): 'STUDY' | 'RATING' | 'GENERAL' | 'ETC' | 'EXTERNAL' | null {
-    return this.props.announcementType ?? null;
-  }
-
-  get createdAt(): Date | null {
-    return this.props.createdAt ?? null;
-  }
-
-  get applicationUrl(): string | null {
-    return this.props.applicationUrl ?? null;
-  }
-
-  get applicationStartAt(): string | null {
-    return this.props.applicationStartAt ?? null;
-  }
-
-  get applicationEndAt(): string | null {
-    return this.props.applicationEndAt ?? null;
-  }
-
-  get attachmentUrls(): string[] | null {
-    return this.props.attachmentUrls ?? null;
-  }
-
-  get imageUrls(): string[] | null {
-    return this.props.imageUrls ?? null;
-  }
-
-  get studyId(): number | null {
-    return this.props.studyId ?? null;
-  }
-
-  get studyName(): string | null {
-    return this.props.studyName ?? null;
-  }
-
-  get lectureRound(): number | null {
-    return this.props.lectureRound ?? null;
-  }
-
-  get prev(): AnnouncementNavigationItem | null {
-    return this.props.prev ?? null;
-  }
-
-  get next(): AnnouncementNavigationItem | null {
-    return this.props.next ?? null;
-  }
-
-  get authorId(): number | null {
-    return this.props.authorId ?? null;
-  }
-
-  get authorName(): string | null {
-    return this.props.authorName ?? null;
-  }
-
-  toJson(): any {
+export const Announcement = {
+  fromJson(json: unknown): Announcement {
+    const data = (json || {}) as Record<string, unknown>;
     return {
-      announcementId: this.props.announcementId,
-      title: this.props.title,
-      place: this.props.place,
-      scheduledAt: this.props.scheduledAt,
-      content: this.props.content,
-      announcementType: this.props.announcementType,
-      createdAt: this.props.createdAt,
-      applicationUrl: this.props.applicationUrl,
-      applicationStartAt: this.props.applicationStartAt,
-      applicationEndAt: this.props.applicationEndAt,
-      attachmentUrls: this.props.attachmentUrls,
-      imageUrls: this.props.imageUrls,
-      studyId: this.props.studyId,
-      studyName: this.props.studyName,
-      lectureRound: this.props.lectureRound,
-      prev: this.props.prev,
-      next: this.props.next,
-      authorId: this.props.authorId,
-      authorName: this.props.authorName,
+      announcementId: (data.announcementId as number) || null,
+      title: (data.title as string) || null,
+      place: (data.place as string) || null,
+      scheduleStartAt: data.scheduleStartAt ? new Date(data.scheduleStartAt as string) : null,
+      scheduleEndAt: data.scheduleEndAt ? new Date(data.scheduleEndAt as string) : null,
+      content: (data.content as string) || null,
+      announcementType: (data.announcementType as Announcement['announcementType']) || null,
+      authorId: (data.authorId as number) || null,
+      authorName: (data.authorName as string) || null,
+      createdAt: data.createdAt ? new Date(data.createdAt as string) : null,
+      applicationUrl: (data.applicationUrl as string) || null,
+      applicationStartAt: data.applicationStartAt
+        ? new Date(data.applicationStartAt as string)
+        : null,
+      applicationEndAt: data.applicationEndAt ? new Date(data.applicationEndAt as string) : null,
+      attachmentUrls: (data.attachmentUrls as string[]) || null,
+      imageUrls: (data.imageUrls as string[]) || null,
+      studyId: (data.studyId as number) || null,
+      studyName: (data.studyName as string) || null,
+      lectureRound: (data.lectureRound as number) || null,
+      prev: (data.prev as AnnouncementNavigationItem) || null,
+      next: (data.next as AnnouncementNavigationItem) || null,
     };
-  }
-
-  static fromJson(json: any): Announcement {
-    return new Announcement({
-      announcementId: json?.announcementId ?? null,
-      title: json?.title ?? null,
-      place: json?.place ?? null,
-      scheduledAt: json?.scheduledAt ? new Date(json.scheduledAt) : null,
-      content: json?.content ?? null,
-      announcementType: json?.announcementType ?? null,
-      createdAt: json?.createdAt ? new Date(json.createdAt) : null,
-      applicationUrl: json?.applicationUrl ?? null,
-      applicationStartAt: json?.applicationStartAt ?? null,
-      applicationEndAt: json?.applicationEndAt ?? null,
-      attachmentUrls: json?.attachmentUrls ?? null,
-      imageUrls: json?.imageUrls ?? null,
-      studyId: json?.studyId ?? null,
-      studyName: json?.studyName ?? null,
-      lectureRound: json?.lectureRound ?? null,
-      prev: json?.prev ?? null,
-      next: json?.next ?? null,
-      authorId: json?.authorId ?? null,
-      authorName: json?.authorName ?? null,
-    });
-  }
-
-  copyWith(updates: Partial<AnnouncementProps>): Announcement {
-    return new Announcement({
-      ...this.props,
-      ...updates,
-    });
-  }
-
-  equals(other?: Announcement): boolean {
-    return Boolean(other) && this.props.announcementId === other?.props.announcementId;
-  }
-
-  compareTo(other: Announcement): number {
-    const thisCreated = this.props.createdAt ? this.props.createdAt.getTime() : 0;
-    const otherCreated = other.props.createdAt ? other.props.createdAt.getTime() : 0;
-    return otherCreated - thisCreated;
-  }
-}
+  },
+};

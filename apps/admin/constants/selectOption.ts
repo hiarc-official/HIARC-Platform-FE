@@ -1,7 +1,8 @@
-interface SelectData {
+export interface SelectData {
   value: string;
   label: string;
 }
+
 export const selectOption: Record<string, SelectData[]> = {
   학년: [
     { value: '1', label: '1학년' },
@@ -28,15 +29,27 @@ export const selectOption: Record<string, SelectData[]> = {
     { value: '26년 2학기', label: '26년 2학기' },
   ],
   카테고리: [
-    { value: '스터디', label: '스터디' },
-    { value: '하이팅', label: '하이팅' },
-    { value: '학회행사', label: '학회행사' },
-    { value: '모집', label: '모집' },
+    { value: 'STUDY', label: '스터디' },
+    { value: 'RATING', label: '하이팅' },
+    { value: 'GENERAL', label: '학회일정' },
+    { value: 'EXTERNAL', label: '외부' },
+    { value: 'ETC', label: '기타' },
+  ],
+  신청유형: [
+    { value: '신청 없음', label: '신청 없음' },
+    { value: '신청', label: '신청' },
+    { value: '참석', label: '참석' },
+    { value: '참석 및 신청', label: '참석 및 신청' },
   ],
   스터디: [
     { value: '기초스터디', label: '기초스터디' },
     { value: '초급스터디', label: '초급스터디' },
     { value: '중급스터디', label: '중급스터디' },
+  ],
+  공개여부: [
+    { value: '', label: '전체' },
+    { value: 'true', label: '공개' },
+    { value: 'false', label: '비공개' },
   ],
   회차: Array.from({ length: 30 }, (_, i) => {
     const num = (i + 1).toString();

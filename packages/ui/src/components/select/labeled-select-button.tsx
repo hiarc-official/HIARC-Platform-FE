@@ -2,11 +2,17 @@
 import { cn } from '../../lib/utils';
 import { Button } from '../button';
 import { Label } from '../label/label';
+
+interface Option {
+  value: string;
+  label: string;
+}
+
 interface LabeledSelectButtonProps {
   label: string;
   showLabel?: boolean;
   required?: boolean;
-  options: string[];
+  options: Option[];
   value?: string;
   onChange?(value: string): void;
   className?: string;
@@ -39,12 +45,12 @@ function LabeledSelectButton({
       >
         {options.map((option) => (
           <Button
-            key={option}
-            variant={value === option ? 'line' : 'unselected'}
-            onClick={() => onChange?.(option)}
+            key={option.value}
+            variant={value === option.value ? 'line' : 'unselected'}
+            onClick={() => onChange?.(option.value)}
             className="h-11 w-full"
           >
-            {option}
+            {option.label}
           </Button>
         ))}
       </div>

@@ -12,23 +12,13 @@ export interface PaginationState {
   canGoToLast: boolean;
 }
 
-// Overloaded function signatures
-export function usePagination<T>(params: {
+// New API using PageableModel
+export function usePaginationWithPageable<T>(params: {
   pageableModel: PageableModel<T> | null | undefined;
   siblingCount?: number;
-}): PaginationState;
-
-export function usePagination(params: {
-  totalPageCount: number;
-  currentPage: number;
-  siblingCount?: number;
-}): Array<number | typeof DOTS>;
-
-// Implementation
-export function usePagination(params: any): PaginationState | Array<number | typeof DOTS> {
-  // Check if using PageableModel (new API)
-  if ('pageableModel' in params) {
-    const { pageableModel, siblingCount = 1 } = params;
+}): PaginationState {
+  const { pageableModel, siblingCount = 1 } = params;
+  
   if (!pageableModel) {
     return {
       pageRange: [],
@@ -96,18 +86,23 @@ export function usePagination(params: any): PaginationState | Array<number | typ
     }
   }
 
-    return {
-      pageRange,
-      currentPage,
-      totalPages,
-      hasPrevious,
-      hasNext,
-      canGoToFirst: currentPage > 1,
-      canGoToLast: currentPage < totalPages,
-    };
-  }
+  return {
+    pageRange,
+    currentPage,
+    totalPages,
+    hasPrevious,
+    hasNext,
+    canGoToFirst: currentPage > 1,
+    canGoToLast: currentPage < totalPages,
+  };
+}
 
-  // Legacy API (totalPageCount, currentPage)
+// Legacy API for backwards compatibility
+export function usePagination(params: {
+  totalPageCount: number;
+  currentPage: number;
+  siblingCount?: number;
+}): Array<number | typeof DOTS> {
   const { totalPageCount, currentPage, siblingCount = 1 } = params;
   const totalPageNumbers = siblingCount * 2 + 5;
 
@@ -148,4 +143,4 @@ export function usePagination(params: any): PaginationState | Array<number | typ
   }
 
   return Array.from({ length: totalPageCount }, (_, i) => i + 1);
-};
+}

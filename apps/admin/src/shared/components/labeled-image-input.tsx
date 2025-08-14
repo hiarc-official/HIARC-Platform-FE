@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Label } from '@hiarc-platform/ui';
+import { cn, Label } from '@hiarc-platform/ui';
 
 export default function LabeledImageInput({
   label,
@@ -40,13 +40,20 @@ export default function LabeledImageInput({
           <Label weight="medium" size="md">
             {label}
           </Label>
-          {required && <span className="relative-top-[2px] ml-0.5 text-red">*</span>}
+          {required && <span className="relative -top-[2px] ml-0.5 text-red">*</span>}
         </div>
       )}
       <div className="flex items-center gap-2">
-        <label className="flex h-[72px] w-[72px] cursor-pointer flex-col items-center justify-center rounded-lg border border-dashed border-gray-200 bg-white hover:bg-gray-100">
+        <div
+          className={cn(
+            'flex aspect-square h-[72px] w-[72px] rounded-lg',
+            'cursor-pointer flex-col items-center justify-center',
+            'border border-dashed border-gray-200 bg-white',
+            'transition-colors duration-200 hover:bg-gray-100'
+          )}
+        >
           <Image src="/shared-assets/Camera.svg" alt="카메라 아이콘" width={24} height={24} />
-          <span className=" text-sm text-gray-500">{`${images.length} / 5`}</span>
+          <Label className="text-gray-500" size="sm">{`${images.length} / 5`}</Label>
           <input
             type="file"
             accept="image/*"
@@ -54,10 +61,10 @@ export default function LabeledImageInput({
             onChange={handleFileChange}
             className="hidden"
           />
-        </label>
+        </div>
         <div className="flex gap-2">
           {previews.map((src, index) => (
-            <div key={index} className="relative h-[72px] w-[72px]">
+            <div key={index} className="relative aspect-square h-[72px] w-[72px]">
               <Image
                 src={src}
                 alt={`preview-${index}`}
@@ -68,7 +75,9 @@ export default function LabeledImageInput({
               />
               <button
                 onClick={() => handleRemove(index)}
-                className="absolute right-1.5 top-1.5 h-4 w-4 rounded-md bg-black text-xs text-white"
+                className="hover:bg-red-600 absolute z-10 flex h-5 w-5 items-center justify-center rounded-full bg-gray-900 text-xs font-bold text-white shadow-md"
+                style={{ top: '4px', right: '4px' }}
+                type="button"
               >
                 ✕
               </button>

@@ -16,7 +16,11 @@
     "noFallthroughCasesInSwitch": true,
     "declaration": true,
     "outDir": "./dist",
-    "emitDeclarationOnly": false
+    "emitDeclarationOnly": false,
+    "baseUrl": ".",
+    "paths": {
+      "@hiarc-platform/shared": ["../shared/src"]
+    }
   },
   "include": ["src/**/*", "src/types/**/*.d.ts"],
   "exclude": ["node_modules", "dist"]
