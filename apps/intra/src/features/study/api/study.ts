@@ -1,11 +1,11 @@
 import { apiClient } from '../../../shared/api/client';
 
-import { Study } from '../types/model/study';
+import { Study } from '../types/model/study-model/study';
 import { CreateStudyRequest } from '../types/request/create-study-request';
 import { UpdateStudyRequest } from '../types/request/update-study-request';
 import { StudyQueryParams } from '../types/request/study-query-params';
 import { PageableModel } from '@hiarc-platform/shared';
-import { StudySummary } from '../types/model/study-summary';
+import { StudySummary } from '../types/model/study-model/study-summary';
 
 export const studyApi = {
   // 스터디 목록 조회 (페이지네이션)

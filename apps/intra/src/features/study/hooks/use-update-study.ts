@@ -1,6 +1,6 @@
 import { useMutation, UseMutationResult, useQueryClient } from '@tanstack/react-query';
 import { studyApi } from '../api/study';
-import { Study } from '../types/model/study';
+import { Study } from '../types/model/study-model/study';
 import { UpdateStudyRequest } from '../types/request/update-study-request';
 
 interface UpdateStudyData {
