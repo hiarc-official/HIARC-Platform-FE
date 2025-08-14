@@ -1,12 +1,9 @@
 export interface AnnouncementQueryParams {
   page?: number;
   size?: number;
-  sort?: string;
-  search?: string;
-  isImportant?: boolean;
-  isPublished?: boolean;
+  sort?: string[];
   announcementType?: 'STUDY' | 'RATING' | 'GENERAL' | 'ETC' | 'EXTERNAL';
-  authorId?: number;
-  dateFrom?: string;
-  dateTo?: string;
+  semesterId?: number;
+  title?: string;
+  isPublic?: boolean;
 }

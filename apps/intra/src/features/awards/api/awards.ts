@@ -15,7 +15,7 @@ export const awardsApi = {
   // 내 수상 내역 조회/관리
   GET_MY_AWARDS: async (): Promise<Award[]> => {
     const response = await apiClient.get('/awards/me');
-    return response.data.map((item: JSON) => Award.fromJson(item));
+    return response.data.map((item: unknown) => Award.fromJson(item));
   },
 
   // 수상 내역 추가

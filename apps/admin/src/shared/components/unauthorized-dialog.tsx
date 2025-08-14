@@ -12,19 +12,21 @@ import {
 
 interface UnauthorizedDialogProps {
   isOpen: boolean;
-  onConfirm: () => void;
+  onConfirm(): void;
 }
 
-export function UnauthorizedDialog({ isOpen, onConfirm }: UnauthorizedDialogProps) {
+export function UnauthorizedDialog({
+  isOpen,
+  onConfirm,
+}: UnauthorizedDialogProps): React.ReactElement {
   return (
     <Dialog open={isOpen}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>인증이 필요합니다</DialogTitle>
           <DialogDescription>
             로그인이 만료되었거나 인증 정보가 없습니다.
-            <br />
-            홈 화면으로 이동하여 다시 로그인해주세요.
+            <br />홈 화면으로 이동하여 다시 로그인해주세요.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>

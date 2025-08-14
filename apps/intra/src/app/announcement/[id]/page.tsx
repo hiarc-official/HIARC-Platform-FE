@@ -7,14 +7,20 @@ import useAnnouncement from '@/features/announcement/hooks/use-announcement';
 import { BackButton, Button, PageLayout } from '@hiarc-platform/ui';
 import { useRouter, useParams } from 'next/navigation';
 
-function mapAnnouncementType(type: string): "rating" | "study" | "etc" | "general" | "external" {
+function mapAnnouncementType(type: string): 'RATING' | 'STUDY' | 'ETC' | 'GENERAL' | 'EXTERNAL' {
   switch (type) {
-    case 'RATING': return 'rating';
-    case 'STUDY': return 'study';
-    case 'GENERAL': return 'general';
-    case 'ETC': return 'etc';
-    case 'EXTERNAL': return 'external';
-    default: return 'general';
+    case 'RATING':
+      return 'RATING';
+    case 'STUDY':
+      return 'STUDY';
+    case 'GENERAL':
+      return 'GENERAL';
+    case 'ETC':
+      return 'ETC';
+    case 'EXTERNAL':
+      return 'EXTERNAL';
+    default:
+      return 'GENERAL';
   }
 }
 

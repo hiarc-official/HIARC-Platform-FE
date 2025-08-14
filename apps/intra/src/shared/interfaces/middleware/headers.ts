@@ -16,7 +16,7 @@ export function headersMiddleware(res: NextResponse): void {
     style-src 'self' 'unsafe-inline';
     img-src 'self' blob: data: https:;
     font-src 'self' data:;
-    connect-src 'self' https://test.hiarc-official.com https://*.hiarc-official.com http://localhost:* https://localhost:*;
+    connect-src 'self' https://test.hiarc-official.com https://*.hiarc-official.com https://accounts.google.com https://oauth2.googleapis.com https://*.amazonaws.com https://*.s3.ap-northeast-2.amazonaws.com http://localhost:* https://localhost:*;
     object-src 'none';
     base-uri 'self';
     form-action 'self';

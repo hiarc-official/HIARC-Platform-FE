@@ -1,9 +1,11 @@
 import { cn, Divider, Label, Title } from '@hiarc-platform/ui';
+import Image from 'next/image';
 
 interface AnnouncementInfoSectionProps {
   announcementTitle: string;
-  announcementCategory: 'rating' | 'study' | 'etc' | 'general' | 'external';
+  announcementCategory: 'RATING' | 'STUDY' | 'ETC' | 'GENERAL' | 'EXTERNAL';
   announcementDate: string;
+  urlList?: string[];
   className?: string;
 }
 
@@ -11,6 +13,7 @@ export function AnnouncementInfoSection({
   announcementTitle,
   announcementCategory,
   announcementDate,
+  urlList,
   className,
 }: AnnouncementInfoSectionProps): React.ReactElement {
   return (
@@ -30,6 +33,19 @@ export function AnnouncementInfoSection({
         </div>
       </div>
       <Divider variant="horizontal" size="full" className="mt-6" />
+      <div className="flex w-full">
+        <Image src="/shared-assets/Link.svg" width={20} height={20} alt="link" />
+        <Label size="lg" weight="semibold">
+          관련 URL
+        </Label>
+        <div className="flex w-full flex-col">
+          {urlList?.map((url, index) => (
+            <a key={index} href={url} className="text-blue-500 hover:underline">
+              {url}
+            </a>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

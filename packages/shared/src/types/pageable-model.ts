@@ -27,6 +27,24 @@ export interface PageableProps<T> {
   empty?: boolean | null;
 }
 
+interface ApiResponseData {
+  content?: unknown[];
+  pageable?: PageableInfo;
+  last?: boolean;
+  totalPages?: number;
+  totalElements?: number;
+  size?: number;
+  number?: number;
+  sort?: SortInfo;
+  first?: boolean;
+  numberOfElements?: number;
+  empty?: boolean;
+}
+
+interface ToJsonCapable {
+  toJson(): unknown;
+}
+
 export class PageableModel<T> {
   private readonly props: PageableProps<T>;
 
@@ -63,10 +81,12 @@ export class PageableModel<T> {
       });
     }
 
-    const data = responseData as any;
+    const data = responseData as ApiResponseData;
 
     // content 배열의 각 항목을 itemClass로 변환
-    const content = data.content ? data.content.map((item: any) => itemClass.fromJson(item)) : [];
+    const content = data.content
+      ? data.content.map((item: unknown) => itemClass.fromJson(item))
+      : [];
 
     const pageableProps: PageableProps<T> = {
       content,
@@ -186,9 +206,15 @@ export class PageableModel<T> {
     return content.find(predicate);
   }
 
-  toJson(): any {
+  toJson(): unknown {
     return {
-      content: this.props.content ? this.props.content.map((item: any) => item.toJson ? item.toJson() : item) : null,
+      content: this.props.content
+        ? this.props.content.map((item: T) =>
+            (item as unknown as ToJsonCapable)?.toJson
+              ? (item as unknown as ToJsonCapable).toJson()
+              : item
+          )
+        : null,
       pageable: this.props.pageable,
       last: this.props.last,
       totalPages: this.props.totalPages,
@@ -202,7 +228,7 @@ export class PageableModel<T> {
     };
   }
 
-  static fromJson<T>(json: any, itemClass: { fromJson(json: unknown): T }): PageableModel<T> {
+  static fromJson<T>(json: unknown, itemClass: { fromJson(json: unknown): T }): PageableModel<T> {
     return PageableModel.create(json, itemClass);
   }
 
@@ -228,8 +254,11 @@ export class PageableModel<T> {
       thisContent.length === otherContent.length &&
       thisContent.every((item, index) => {
         const otherItem = otherContent[index];
-        if (item && typeof (item as any).equals === 'function') {
-          return (item as any).equals(otherItem);
+        if (
+          item &&
+          typeof (item as unknown as { equals?(other: T): boolean }).equals === 'function'
+        ) {
+          return (item as unknown as { equals(other: T): boolean }).equals(otherItem);
         }
         return item === otherItem;
       })

@@ -1,43 +1,80 @@
 'use client';
 
-import { Title, Button, PageLayout } from '@hiarc-platform/ui';
-import SelectButtonSection from '@/features/components/announcement-section/select-button-section';
+import { Title, Button, PageLayout, LoadingDots } from '@hiarc-platform/ui';
+import { FilterSection } from '@/features/components/announcement-section/select-button-section';
 import { useRouter } from 'next/navigation';
 import { AnnouncementTable } from '@/features/announcement/components/announcement-table';
-import { useAdminAnnouncements } from '@/features/announcement/hooks';
+import { useAdminAnnouncementList } from '@/features/announcement/hooks';
+import { useState } from 'react';
+import { AnnouncementQueryParams } from '@/features/announcement/types/request/announcement-query-params';
+import { FadeIn } from '@/components/fade-in';
 
 export default function AnnouncementPage(): React.ReactElement {
   const router = useRouter();
-  const { data: announcementsData, isLoading, error } = useAdminAnnouncements({
-    page: 0,
-    size: 20,
-    sort: 'createdAt,desc',
+  const [currentPage, setCurrentPage] = useState(1); // 1-based page
+  const [filters, setFilters] = useState<Partial<AnnouncementQueryParams>>({});
+
+  const {
+    data: pageableModel,
+    isLoading,
+    error,
+  } = useAdminAnnouncementList({
+    page: currentPage - 1,
+    size: 10,
+    ...filters,
   });
 
-  const announcements = announcementsData?.content || [];
+  const handlePageChange = (page: number): void => {
+    setCurrentPage(page);
+  };
 
-  return (
-    <PageLayout>
-      <div className="flex max-w-[1200px] flex-col ">
-        <div className="mb-7  flex justify-between">
-          <Title size="sm" weight="bold">
-            공지사항
-          </Title>
-          <Button size="md" onClick={() => router.push('/announcement/write')}>
-            작성하기
-          </Button>
-        </div>
-        <SelectButtonSection />
-        {isLoading ? (
-          <div className="mt-6 text-center">Loading...</div>
-        ) : error ? (
-          <div className="mt-6 text-center text-red-500">
-            공지사항을 불러오는 중 오류가 발생했습니다.
-          </div>
-        ) : (
-          <AnnouncementTable className="mt-6" data={announcements} />
-        )}
+  const handleFilterChange = (newFilters: Partial<AnnouncementQueryParams>): void => {
+    setFilters(newFilters);
+    setCurrentPage(1);
+  };
+
+  if (isLoading) {
+    return (
+      <FadeIn
+        isVisible={true}
+        duration={0.3}
+        className="flex min-h-screen items-center justify-center"
+      >
+        <LoadingDots size="lg" className="flex min-h-screen items-center justify-center" />
+      </FadeIn>
+    );
+  }
+
+  if (error) {
+    return (
+      <FadeIn
+        isVisible={true}
+        duration={0.3}
+        className="flex min-h-screen items-center justify-center"
+      >
+        <p className="text-gray-500">문제가 발생했습니다.</p>
+      </FadeIn>
+    );
+  }
+
+  const contentComponent = (
+    <FadeIn isVisible={Boolean(pageableModel)} duration={0.4} className="flex flex-col">
+      <div className="mb-7 flex justify-between">
+        <Title size="sm" weight="bold">
+          공지사항
+        </Title>
+        <Button size="md" onClick={() => router.push('/announcement/write')}>
+          작성하기
+        </Button>
       </div>
-    </PageLayout>
+      <FilterSection onFilterChange={handleFilterChange} />
+      <AnnouncementTable
+        className="mt-6"
+        pageableModel={pageableModel}
+        onPageChange={handlePageChange}
+      />
+    </FadeIn>
   );
+
+  return <PageLayout desktopChildren={contentComponent} mobileChildren={contentComponent} />;
 }

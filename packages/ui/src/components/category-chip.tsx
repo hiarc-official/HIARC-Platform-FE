@@ -13,22 +13,22 @@ const categoryChipVariants = cva(
   {
     variants: {
       category: {
-        rating: 'bg-category-rating/20 text-category-rating',
-        study: 'bg-category-study/20 text-category-study',
-        etc: 'bg-category-etc_background/20 text-category-etc',
-        general: 'bg-category-general/20 text-category-general',
-        external: 'bg-category-external/20 text-category-external',
-        participating: 'bg-category-participating/20 text-category-participating',
-        recruiting: 'bg-category-recruiting/20 text-category-recruiting',
-        div1: 'bg-category-rating/20 text-category-rating',
-        div2: 'bg-category-rating/20 text-category-rating',
-        div3: 'bg-category-rating/20 text-category-rating',
-        onGoing: 'bg-category-participating/20 text-category-participating',
-        finished: 'bg-gray-200 text-primary-300 ',
+        RATING: 'bg-category-rating/20 text-category-rating',
+        STUDY: 'bg-category-study/20 text-category-study',
+        ETC: 'bg-category-etc_background/20 text-category-etc',
+        GENERAL: 'bg-category-general/20 text-category-general',
+        EXTERNAL: 'bg-category-external/20 text-category-external',
+        PARTICIPATING: 'bg-category-participating/20 text-category-participating',
+        RECRUITING: 'bg-category-recruiting/20 text-category-recruiting',
+        DIV_1: 'bg-category-rating/20 text-category-rating',
+        DIV_2: 'bg-category-rating/20 text-category-rating',
+        DIV_3: 'bg-category-rating/20 text-category-rating',
+        ONGOING: 'bg-category-participating/20 text-category-participating',
+        FINISHED: 'bg-gray-200 text-primary-300 ',
       },
     },
     defaultVariants: {
-      category: 'rating',
+      category: 'RATING',
     },
   }
 );
@@ -37,18 +37,18 @@ const categoryText: Record<
   NonNullable<VariantProps<typeof categoryChipVariants>['category']>,
   string
 > = {
-  rating: '하이팅',
-  study: '스터디',
-  etc: '기타',
-  general: '학회일정',
-  external: '외부',
-  participating: '참여중',
-  recruiting: '모집중',
-  div1: 'Div1',
-  div2: 'Div2',
-  div3: 'Div3',
-  onGoing: '진행중',
-  finished: '종료',
+  RATING: '하이팅',
+  STUDY: '스터디',
+  ETC: '기타',
+  GENERAL: '학회일정',
+  EXTERNAL: '외부',
+  PARTICIPATING: '참여중',
+  RECRUITING: '모집중',
+  DIV_1: 'Div1',
+  DIV_2: 'Div2',
+  DIV_3: 'Div3',
+  ONGOING: '진행중',
+  FINISHED: '종료',
 };
 
 type CategoryChipProps = React.HTMLAttributes<HTMLSpanElement> &
@@ -56,13 +56,13 @@ type CategoryChipProps = React.HTMLAttributes<HTMLSpanElement> &
 
 function CategoryChip({
   className,
-  category = 'rating',
+  category = 'RATING',
   children,
   ...props
 }: CategoryChipProps): React.ReactElement {
   return (
     <span data-slot="chip" className={cn(categoryChipVariants({ category }), className)} {...props}>
-      {children ?? categoryText[category ?? 'rating']}
+      {children ?? categoryText[category ?? 'RATING']}
     </span>
   );
 }

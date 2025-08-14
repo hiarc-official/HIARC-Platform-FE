@@ -1,16 +1,16 @@
 export interface CreateAnnouncementRequest {
   title: string;
-  content: string;
   place?: string;
-  scheduledAt?: string;
+  scheduleStartAt?: string;
+  scheduleEndAt?: string;
+  content: string;
   announcementType: 'STUDY' | 'RATING' | 'GENERAL' | 'ETC' | 'EXTERNAL';
   applicationUrl?: string;
   applicationStartAt?: string;
   applicationEndAt?: string;
-  attachmentUrls?: string[];
-  imageUrls?: string[];
+  isPublic: boolean;
   studyId?: number;
   lectureRound?: number;
-  isImportant?: boolean;
-  isPublished?: boolean;
+  imageKeys?: string[];
+  attachmentUrls?: string[];
 }

@@ -1,75 +1,77 @@
 'use client';
-import { PageLayout } from '@hiarc-platform/ui';
-import AnnouncementInfoTable from '@/features/components/announcement-section/AnnouncementInfoTable';
-import { Button, Label } from '@hiarc-platform/ui';
-import { Title } from '@hiarc-platform/ui';
-import { Divider } from '@hiarc-platform/ui';
-import { Textarea } from '@hiarc-platform/ui/src/components/input/textarea';
+import { BackButton, PageLayout, LoadingDots } from '@hiarc-platform/ui';
+import { Button } from '@hiarc-platform/ui';
 import { useParams, useRouter } from 'next/navigation';
+import { FadeIn } from '@/components/fade-in';
+import {
+  AnnouncementIndicatorSection,
+  AnnouncementInfoSection,
+  AnnouncementContentSection,
+} from '@hiarc-platform/ui';
+import { useAdminAnnouncement } from '@/features/announcement/hooks';
+
 export default function AnnouncementDetailPage(): React.ReactElement {
   const params = useParams();
   const router = useRouter();
   const id = Number(params.id);
-  return (
-    <PageLayout>
-      <div className="flex w-full max-w-[1200px] flex-col items-center gap-6">
-        <button
-          className="flex cursor-pointer items-center self-start rounded-md p-2 transition-colors hover:bg-gray-50"
-          onClick={() => window.history.back()}
-        >
-          <Label size="md" className="cursor-pointer text-gray-700">
-            ← 뒤로가기
-          </Label>
-        </button>
-        <div className="flex w-full items-center justify-between">
-          <Title size="sm" weight="bold">
-            스터디 시작 안내 공지
-          </Title>
-          <div className="flex items-center justify-center gap-3 ">
-            <Label className="text-orange">카테고리</Label>
-            <Divider variant="vertical" className="h-[10px]" />
-            <Label className="text-gray-700">작성자</Label>
-            <Divider variant="vertical" className="h-[10px]" />
-            <Label className="text-gray-700">2025.06.12</Label>
-          </div>
-        </div>
-        <div className="w-full">
-          <div className=" h-px w-full bg-gray-700"></div>
-          <AnnouncementInfoTable />
-          <div className=" h-px w-full bg-gray-200"></div>
-        </div>
-        <Textarea className="mt-[96px] text-lg text-gray-900" />
-        <div className="flex w-full justify-between text-gray-700">
-          <div className="flex items-center justify-center gap-3 ">
-            <button
-              className="flex cursor-pointer items-center self-start rounded-md p-2 transition-colors hover:bg-gray-50"
-              onClick={() => router.push(`/announcement/${id - 1}`)}
-            >
-              <Label size="md" className="cursor-pointer ">
-                ← 이전글
-              </Label>
-            </button>
-            <Divider variant="vertical" className="h-[10px]" />
-            <Label size="md">이전 공지사항</Label>
-          </div>
 
-          <div className="flex items-center justify-center gap-3 ">
-            <Label size="md">다음 공지사항</Label>
-            <Divider variant="vertical" className="h-[10px]" />
-            <button
-              className="flex cursor-pointer items-center self-start rounded-md p-2 transition-colors hover:bg-gray-50"
-              onClick={() => router.push(`/announcement/${id + 1}`)}
-            >
-              <Label size="md" className="cursor-pointer text-gray-700">
-                다음글 →
-              </Label>
-            </button>
-          </div>
-        </div>
-        <Button className="w-[186px]" variant="line" onClick={() => router.push('/announcement')}>
-          목록으로
-        </Button>
-      </div>
-    </PageLayout>
+  const { data: announcement, isLoading, error } = useAdminAnnouncement(id);
+
+  if (isLoading) {
+    return (
+      <FadeIn
+        isVisible={true}
+        duration={0.3}
+        className="flex min-h-screen items-center justify-center"
+      >
+        <LoadingDots size="lg" className="flex min-h-screen items-center justify-center" />
+      </FadeIn>
+    );
+  }
+
+  if (error) {
+    return (
+      <FadeIn
+        isVisible={true}
+        duration={0.3}
+        className="flex min-h-screen items-center justify-center"
+      >
+        <p className="text-gray-500">문제가 발생했습니다.</p>
+      </FadeIn>
+    );
+  }
+
+  const contentComponent = (
+    <FadeIn isVisible={Boolean(announcement)} duration={0.4} className="flex flex-col items-center">
+      <BackButton onClick={() => router.back()} />
+      <AnnouncementInfoSection
+        className="mt-6"
+        announcementTitle={announcement?.title || '제목 없음'}
+        announcementCategory={announcement?.announcementType || 'GENERAL'}
+        announcementDate={announcement?.createdAt?.toISOString() || '날짜 없음'}
+        urlList={announcement?.attachmentUrls || []}
+        place={announcement?.place || ''}
+        scheduleStartAt={announcement?.scheduleStartAt || undefined}
+        scheduleEndAt={announcement?.scheduleEndAt || undefined}
+        applicationStartAt={announcement?.applicationStartAt || undefined}
+        applicationEndAt={announcement?.applicationEndAt || undefined}
+        applicationUrl={announcement?.applicationUrl || ''}
+      />
+      <AnnouncementContentSection className="mt-8" content={announcement?.content || ''} />
+      <AnnouncementIndicatorSection
+        className="mt-8"
+        prevData={announcement?.prev}
+        nextData={announcement?.next}
+      />
+      <Button
+        variant="line"
+        className="mt-8 w-[186px]"
+        onClick={() => router.push('/announcement')}
+      >
+        목록으로
+      </Button>
+    </FadeIn>
   );
+
+  return <PageLayout desktopChildren={contentComponent} mobileChildren={contentComponent} />;
 }
