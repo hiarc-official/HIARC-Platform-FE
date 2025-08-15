@@ -1,14 +1,17 @@
 import { cn, Divider } from '@hiarc-platform/ui';
 import { StudyInfo } from './study-info';
 import { StudyTitle } from './study-title';
-import type { Study } from '@/features/study/types';
+import { Study } from '@hiarc-platform/shared';
 
 interface StudyInfoSectionProps {
   className?: string;
-  studyData?: Study;
+  studyData?: Study | null;
 }
 
-export function StudyInfoSection({ className, studyData }: StudyInfoSectionProps): React.ReactElement {
+export function StudyInfoSection({
+  className,
+  studyData,
+}: StudyInfoSectionProps): React.ReactElement {
   return (
     <div className={cn('flex w-full flex-col', className)}>
       <StudyTitle studyData={studyData} />

@@ -8,6 +8,7 @@ export * from './components/back-button';
 export * from './components/button';
 export * from './components/card';
 export * from './components/category-chip';
+export * from './components/study-status-chip';
 export * from './components/dialog/alert-dialog';
 export * from './components/dialog/dialog';
 export * from './components/divider';

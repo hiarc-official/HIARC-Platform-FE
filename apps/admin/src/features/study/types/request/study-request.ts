@@ -1,16 +1,3 @@
-// Study Request Types
-export interface CreateStudyRequest {
-  title: string;
-  description: string;
-  startDate: string;
-  endDate: string;
-  capacity: number;
-  semesterId: number;
-  category: string;
-  difficulty: 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED';
-  mentorId?: number;
-}
-
 export interface UpdateStudyRequest {
   title?: string;
   description?: string;

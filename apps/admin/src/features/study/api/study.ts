@@ -1,26 +1,24 @@
 import { apiClient } from '@/shared/api/client';
 import type {
-  StudyResponse,
-  StudyDetailResponse,
-  PageAllStudyResponse,
   StudyStatusUpdateResponse,
   AssignMentorResponse,
 } from '../types/response/study-response';
 import type {
-  CreateStudyRequest,
   UpdateStudyRequest,
   AssignMentorRequest,
   StudyQueryParams,
 } from '../types/request/study-request';
+import { CreateStudyRequest, PageableModel, Study, StudySummary } from '@hiarc-platform/shared';
 
 export const studyApi = {
   // 모든 스터디 리스트 조회
-  GET_ALL_STUDIES: async (params: StudyQueryParams = {}): Promise<PageAllStudyResponse> => {
+  GET_ALL_STUDIES: async (params: StudyQueryParams = {}): Promise<PageableModel<StudySummary>> => {
     console.log('[STUDY API] GET_ALL_STUDIES 요청:', params);
     try {
-      const response = await apiClient.get<PageAllStudyResponse>('/admin/studies', { params });
-      console.log('[STUDY API] GET_ALL_STUDIES 응답:', response.data);
-      return response.data;
+      const response = await apiClient.get<PageableModel<StudySummary>>('/studies', {
+        params,
+      });
+      return PageableModel.fromJson(response.data, StudySummary);
     } catch (error) {
       console.error('[STUDY API] GET_ALL_STUDIES 에러:', error);
       throw error;
@@ -28,12 +26,12 @@ export const studyApi = {
   },
 
   // 스터디 상세 조회
-  GET_STUDY_DETAIL: async (studyId: number): Promise<StudyDetailResponse> => {
+  GET_STUDY_DETAIL: async (studyId: number): Promise<Study> => {
     console.log('[STUDY API] GET_STUDY_DETAIL 요청:', studyId);
     try {
-      const response = await apiClient.get<StudyDetailResponse>(`/admin/studies/${studyId}`);
+      const response = await apiClient.get<Study>(`/studies/${studyId}`);
       console.log('[STUDY API] GET_STUDY_DETAIL 응답:', response.data);
-      return response.data;
+      return Study.fromJson(response.data);
     } catch (error) {
       console.error('[STUDY API] GET_STUDY_DETAIL 에러:', error);
       throw error;
@@ -41,12 +39,12 @@ export const studyApi = {
   },
 
   // 스터디 개설
-  CREATE_STUDY: async (studyData: CreateStudyRequest): Promise<StudyResponse> => {
+  CREATE_STUDY: async (studyData: CreateStudyRequest): Promise<Study> => {
     console.log('[STUDY API] CREATE_STUDY 요청:', studyData);
     try {
-      const response = await apiClient.post<StudyResponse>('/admin/studies', studyData);
+      const response = await apiClient.post<Study>('/admin/studies', studyData);
       console.log('[STUDY API] CREATE_STUDY 응답:', response.data);
-      return response.data;
+      return Study.fromJson(response.data);
     } catch (error) {
       console.error('[STUDY API] CREATE_STUDY 에러:', error);
       throw error;
@@ -54,12 +52,12 @@ export const studyApi = {
   },
 
   // 스터디 정보 수정
-  UPDATE_STUDY: async (studyId: number, studyData: UpdateStudyRequest): Promise<StudyResponse> => {
+  UPDATE_STUDY: async (studyId: number, studyData: UpdateStudyRequest): Promise<Study> => {
     console.log('[STUDY API] UPDATE_STUDY 요청:', { studyId, data: studyData });
     try {
-      const response = await apiClient.put<StudyResponse>(`/admin/studies/${studyId}`, studyData);
+      const response = await apiClient.put<Study>(`/admin/studies/${studyId}`, studyData);
       console.log('[STUDY API] UPDATE_STUDY 응답:', response.data);
-      return response.data;
+      return Study.fromJson(response.data);
     } catch (error) {
       console.error('[STUDY API] UPDATE_STUDY 에러:', error);
       throw error;
@@ -67,10 +65,16 @@ export const studyApi = {
   },
 
   // 스터디에 멘토 할당
-  ASSIGN_MENTOR: async (studyId: number, mentorData: AssignMentorRequest): Promise<AssignMentorResponse> => {
+  ASSIGN_MENTOR: async (
+    studyId: number,
+    mentorData: AssignMentorRequest
+  ): Promise<AssignMentorResponse> => {
     console.log('[STUDY API] ASSIGN_MENTOR 요청:', { studyId, mentorData });
     try {
-      const response = await apiClient.post<AssignMentorResponse>(`/admin/studies/${studyId}/mentor`, mentorData);
+      const response = await apiClient.post<AssignMentorResponse>(
+        `/admin/studies/${studyId}/mentor`,
+        mentorData
+      );
       console.log('[STUDY API] ASSIGN_MENTOR 응답:', response.data);
       return response.data;
     } catch (error) {
@@ -83,7 +87,9 @@ export const studyApi = {
   UPDATE_STUDY_STATUS: async (studyId: number): Promise<StudyStatusUpdateResponse> => {
     console.log('[STUDY API] UPDATE_STUDY_STATUS 요청:', studyId);
     try {
-      const response = await apiClient.patch<StudyStatusUpdateResponse>(`/admin/studies/${studyId}/status`);
+      const response = await apiClient.patch<StudyStatusUpdateResponse>(
+        `/admin/studies/${studyId}/status`
+      );
       console.log('[STUDY API] UPDATE_STUDY_STATUS 응답:', response.data);
       return response.data;
     } catch (error) {
@@ -105,7 +111,5 @@ export const studyApi = {
   },
 };
 
-// 타입들을 다시 export
-export type * from '../types/model/study';
 export type * from '../types/request/study-request';
 export type * from '../types/response/study-response';
