@@ -4,11 +4,18 @@ import { Title } from '@hiarc-platform/ui';
 import { Button } from '@hiarc-platform/ui';
 import SelectButtonSection from '@/features/components/announcement-section/select-button-section';
 import { useRouter } from 'next/navigation';
-import { Announcement } from '@/features/announcement/components/announcement-table/announcement-list-column';
+// Mock data interface (different from shared Announcement)
+interface MockAnnouncement {
+  name: string;
+  title: string;
+  date: string;
+  number: number;
+  category: string;
+}
 import { StudentTable } from '@/features/student/components/student-table';
 import { PageLayout } from '@hiarc-platform/ui';
 
-const announcementData: Announcement[] = [
+const announcementData: MockAnnouncement[] = [
   { name: 'John', title: '첫 번째 공지사항', date: '2025.10.01', number: 1, category: 'general' },
   { name: 'Jane', title: '두 번째 공지사항', date: '2025.10.02', number: 2, category: 'study' },
   { name: 'Alice', title: '세 번째 공지사항', date: '2025.10.03', number: 3, category: 'rating' },

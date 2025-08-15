@@ -1,7 +1,6 @@
-import { PageableModel } from '@hiarc-platform/shared';
+import { Announcement, CreateAnnouncementRequest, PageableModel } from '@hiarc-platform/shared';
 import { apiClient } from '../../../shared/api/client';
-import { Announcement } from '../types/model/announcement';
-import { CreateAnnouncementRequest } from '../types/request/create-announcement-request';
+
 import { AnnouncementQueryParams } from '../types/request/announcement-query-params';
 import { UploadResponse } from '../types/response/upload-response';
 import { AnnouncementSummary } from '../types/model/announcement_summary';

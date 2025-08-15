@@ -1,7 +1,7 @@
 import DetailInformationSection from './detail-information-section';
-import { Announcement, CreateAnnouncementRequest } from '@hiarc-platform/shared';
+import { CreateAnnouncementRequest, Announcement } from '@hiarc-platform/shared';
 
-interface AnnouncementWriteProps {
+export interface AnnouncementWriteProps {
   announcementId?: number;
   announcement?: Announcement;
   onSubmit?(data: CreateAnnouncementRequest, isEditMode: boolean, announcementId?: number): void;

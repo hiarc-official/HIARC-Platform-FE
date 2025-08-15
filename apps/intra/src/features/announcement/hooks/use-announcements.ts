@@ -1,10 +1,11 @@
 import { useQuery, UseQueryResult, keepPreviousData } from '@tanstack/react-query';
 import { announcementApi } from '../api/announcement';
-import type { AnnouncementQueryParams, AnnouncementListResponse } from '../types/announcement';
+import { PageableModel, Announcement } from '@hiarc-platform/shared';
+import type { AnnouncementQueryParams } from '../types/request/announcement-query-params';
 
 export default function useAnnouncements(
   params: AnnouncementQueryParams = {}
-): UseQueryResult<AnnouncementListResponse, Error> {
+): UseQueryResult<PageableModel<Announcement>, Error> {
   console.log('[HOOK] useAnnouncements 호출:', params);
 
   const query = useQuery({

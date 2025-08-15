@@ -1,6 +1,6 @@
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
 import { announcementApi } from '../api/announcement';
-import { Announcement } from '../types/model/announcement';
+import { Announcement } from '@hiarc-platform/shared';
 
 export const useAdminAnnouncement = (id: number): UseQueryResult<Announcement, Error> =>
   useQuery({

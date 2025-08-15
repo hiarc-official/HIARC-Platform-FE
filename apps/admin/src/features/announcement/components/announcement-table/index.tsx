@@ -1,12 +1,12 @@
 import { cn, CommonTableBody, CommonTableHead, Pagination } from '@hiarc-platform/ui';
 import { useTable } from '@hiarc-platform/util';
-import { PageableModel } from '@hiarc-platform/shared';
+import { Announcement, PageableModel } from '@hiarc-platform/shared';
 import { Row } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
 import { useCallback, useMemo, useState } from 'react';
 import { getAdminAnnouncementListColumn } from './announcement-list-column';
 import { useDeleteAdminAnnouncement } from '../../hooks/use-delete-admin-announcement';
-import { Announcement } from '../../types/model/announcement';
+
 import { AnimatePresence, motion } from 'framer-motion';
 
 interface AdminAnnouncementTableProps {

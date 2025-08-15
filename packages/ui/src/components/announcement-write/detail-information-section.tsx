@@ -1,17 +1,18 @@
 'use client';
-import { LabeledInput, LabeledTextarea } from '@hiarc-platform/ui';
-import { Button } from '@hiarc-platform/ui';
-import LabeledImageInput from '@/shared/components/labeled-image-input';
-import { LabeledCalanderInput } from '@hiarc-platform/ui';
+
 import { useState, useEffect } from 'react';
 import { SideBar } from './side-bar';
-import { Announcement, CreateAnnouncementRequest } from '@hiarc-platform/shared';
+import { CreateAnnouncementRequest, Announcement } from '@hiarc-platform/shared';
 import { UrlInput } from './url-input';
+
+import { Button } from '../button';
+import { LabeledCalanderInput } from '../input/labeled-calander-input';
+import { LabeledInput } from '../input/labeled-input';
+import { LabeledTextarea } from '../input/labeled-textarea';
 
 interface DetailInformationSectionProps {
   announcementId?: number;
   announcement?: Announcement;
-  // 콜백 함수
   onSubmit?(data: CreateAnnouncementRequest, isEditMode: boolean, announcementId?: number): void;
 }
 
@@ -55,8 +56,16 @@ export default function DetailInformationSection({
       setFormData({
         title: announcement.title || '',
         place: announcement.place || undefined,
-        scheduleStartAt: announcement.scheduleStartAt?.toISOString() || undefined,
-        scheduleEndAt: announcement.scheduleEndAt?.toISOString() || undefined,
+        scheduleStartAt: announcement.scheduleStartAt
+          ? announcement.scheduleStartAt instanceof Date
+            ? announcement.scheduleStartAt.toISOString()
+            : announcement.scheduleStartAt
+          : undefined,
+        scheduleEndAt: announcement.scheduleEndAt
+          ? announcement.scheduleEndAt instanceof Date
+            ? announcement.scheduleEndAt.toISOString()
+            : announcement.scheduleEndAt
+          : undefined,
         content: announcement.content || '',
         announcementType: announcement.announcementType || 'GENERAL',
         isPublic: announcement.isPublic ?? true,
@@ -64,8 +73,16 @@ export default function DetailInformationSection({
         studyId: announcement.studyId,
         lectureRound: announcement.lectureRound,
         applicationUrl: announcement.applicationUrl,
-        applicationStartAt: announcement.applicationStartAt?.toISOString() || undefined,
-        applicationEndAt: announcement.applicationEndAt?.toISOString() || undefined,
+        applicationStartAt: announcement.applicationStartAt
+          ? announcement.applicationStartAt instanceof Date
+            ? announcement.applicationStartAt.toISOString()
+            : announcement.applicationStartAt
+          : undefined,
+        applicationEndAt: announcement.applicationEndAt
+          ? announcement.applicationEndAt instanceof Date
+            ? announcement.applicationEndAt.toISOString()
+            : announcement.applicationEndAt
+          : undefined,
       });
 
       // UI 상태들 설정
@@ -225,7 +242,7 @@ export default function DetailInformationSection({
             value={formData.content}
             onChange={(value) => updateFormData({ content: value })}
           />
-          <LabeledImageInput label="이미지" />
+          {/* <LabeledImageInput label="이미지" /> */}
 
           <div className="flex flex-col gap-2">
             {attachmentUrls.map((url, index) => (

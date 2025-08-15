@@ -1,7 +1,7 @@
 import { cn } from '../../../lib/utils';
 import { NextButton } from './next-button';
 import { PreviousButton } from './previous-button';
-import { AnnouncementNavigationItem } from '../../../types/announcement';
+import { AnnouncementNavigationItem } from '@hiarc-platform/shared';
 import { useRouter } from 'next/navigation';
 
 interface AnnouncementIndicatorSectionProps {

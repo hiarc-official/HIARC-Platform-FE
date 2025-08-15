@@ -1,13 +1,10 @@
 'use client';
 
-import {
-  LabeledSelector,
-  LabeledSelectButton,
-  LabeledInput,
-  LabeledCalanderInput,
-} from '@hiarc-platform/ui';
-import { selectOption } from 'constants/selectOption';
-import { Button } from '@hiarc-platform/ui';
+import { LabeledSelector } from '../select/labeled-selector';
+import { LabeledSelectButton } from '../select/labeled-select-button';
+import { LabeledInput } from '../input/labeled-input';
+import { LabeledCalanderInput } from '../input/labeled-calander-input';
+import { Button } from '../button';
 import { CreateAnnouncementRequest } from '@hiarc-platform/shared';
 
 interface SideBarProps {
@@ -61,6 +58,14 @@ export function SideBar({
     { value: '회차별 공지', label: '회차별 공지' },
   ];
 
+  const categoryOptionList = [
+    { value: 'STUDY', label: '스터디' },
+    { value: 'RATING', label: '평가' },
+    { value: 'GENERAL', label: '일반' },
+    { value: 'ETC', label: '기타' },
+    { value: 'EXTERNAL', label: '외부 공지' },
+  ];
+
   return (
     <div className="flex w-[389px] flex-col justify-between rounded-lg border border-gray-200 p-4">
       <div className="flex flex-col gap-4">
@@ -68,21 +73,33 @@ export function SideBar({
         <div className="flex flex-col gap-2">
           <LabeledSelector
             placeholder="카테고리를 선택해주세요."
-            options={selectOption['카테고리']}
+            options={[
+              { value: 'STUDY', label: '스터디' },
+              { value: 'RATING', label: '평가' },
+              { value: 'GENERAL', label: '일반' },
+              { value: 'ETC', label: '기타' },
+              { value: 'EXTERNAL', label: '외부 공지' },
+            ]}
             label="카테고리"
             value={formData.announcementType}
-            onChange={(value) => onFormDataChange({ announcementType: value as 'STUDY' | 'RATING' | 'GENERAL' | 'ETC' | 'EXTERNAL' })}
+            onChange={(value: string) =>
+              onFormDataChange({
+                announcementType: value as 'STUDY' | 'RATING' | 'GENERAL' | 'ETC' | 'EXTERNAL',
+              })
+            }
           />
 
           {/* STUDY 카테고리일 때 스터디 선택 */}
           {formData.announcementType === 'STUDY' && (
             <LabeledSelector
               placeholder="스터디를 선택해주세요."
-              options={selectOption['스터디']}
+              options={categoryOptionList}
               label="스터디선택"
               showLabel={false}
               value={formData.studyId?.toString() || ''}
-              onChange={(value: string) => onFormDataChange({ studyId: value ? Number(value) : undefined })}
+              onChange={(value: string) =>
+                onFormDataChange({ studyId: value ? Number(value) : undefined })
+              }
             />
           )}
         </div>
@@ -103,7 +120,7 @@ export function SideBar({
             {studyAnnounceType === '회차별 공지' && (
               <LabeledSelector
                 placeholder="회차를 선택해주세요."
-                options={selectOption['회차']}
+                options={[]}
                 label="회차 선택"
                 required
                 value={formData.lectureRound?.toString() || ''}
@@ -132,7 +149,7 @@ export function SideBar({
                   label="신청 시작일"
                   required
                   value={applicationStartDate}
-                  onChange={(val) => {
+                  onChange={(val: Date | null) => {
                     if (!Array.isArray(val)) {
                       onApplicationStartDateChange(val);
                     }
@@ -143,7 +160,7 @@ export function SideBar({
                   label="신청 종료일"
                   required
                   value={applicationEndDate}
-                  onChange={(val) => {
+                  onChange={(val: Date | null) => {
                     if (!Array.isArray(val)) {
                       onApplicationEndDateChange(val);
                     }
@@ -153,7 +170,9 @@ export function SideBar({
                   label="신청 URL"
                   placeholder="신청 URL을 입력해주세요"
                   value={formData.applicationUrl || ''}
-                  onChange={(value) => onFormDataChange({ applicationUrl: value || undefined })}
+                  onChange={(value: string) =>
+                    onFormDataChange({ applicationUrl: value || undefined })
+                  }
                 />
               </>
             )}

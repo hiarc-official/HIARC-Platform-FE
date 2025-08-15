@@ -54,6 +54,7 @@ export const Announcement = {
       studyId: (data.studyId as number) || null,
       studyName: (data.studyName as string) || null,
       lectureRound: (data.lectureRound as number) || null,
+      isPublic: (data.isPublic as boolean) ?? null,
       prev: (data.prev as AnnouncementNavigationItem) || null,
       next: (data.next as AnnouncementNavigationItem) || null,
     };
