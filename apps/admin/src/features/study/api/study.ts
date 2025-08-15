@@ -9,6 +9,7 @@ import type {
   StudyQueryParams,
 } from '../types/request/study-request';
 import { CreateStudyRequest, PageableModel, Study, StudySummary } from '@hiarc-platform/shared';
+import { StudyInitialForm } from '../types';
 
 export const studyApi = {
   // 모든 스터디 리스트 조회
@@ -34,6 +35,19 @@ export const studyApi = {
       return Study.fromJson(response.data);
     } catch (error) {
       console.error('[STUDY API] GET_STUDY_DETAIL 에러:', error);
+      throw error;
+    }
+  },
+
+  // 스터디 개설 정보 조회
+  GET_STUDY_INITIAL_FORM: async (studyId: number): Promise<StudyInitialForm> => {
+    console.log('[STUDY API] GET_STUDY_INITIAL_FORM 요청:', studyId);
+    try {
+      const response = await apiClient.get<Study>(`/studies/${studyId}`);
+      console.log('[STUDY API] GET_STUDY_INITIAL_FORM 응답:', response.data);
+      return StudyInitialForm.fromJson(response.data);
+    } catch (error) {
+      console.error('[STUDY API] GET_STUDY_INITIAL_FORM 에러:', error);
       throw error;
     }
   },

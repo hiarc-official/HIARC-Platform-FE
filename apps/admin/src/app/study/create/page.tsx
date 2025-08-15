@@ -1,5 +1,6 @@
 'use client';
-import { CreateStudyFrom } from '@/features/components/create-study-form-section';
+
+import { CreateStudyForm } from '@/features/components/create-study-form-section';
 import { Label } from '@hiarc-platform/ui';
 import { Title } from '@hiarc-platform/ui';
 export default function CreateStudyPage(): React.ReactElement {
@@ -21,7 +22,7 @@ export default function CreateStudyPage(): React.ReactElement {
         </div>
         <div className=" h-px w-full bg-gray-700"></div>
       </div>
-      <CreateStudyFrom />
+      <CreateStudyForm />
     </main>
   );
 }

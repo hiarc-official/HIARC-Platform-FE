@@ -6,3 +6,4 @@ export * from './types/study/study';
 export * from './types/study/create-study-request';
 export * from './types/time/time';
 export * from './types/semester/semester';
+export * from './types/select/select-option';
