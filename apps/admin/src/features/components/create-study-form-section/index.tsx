@@ -13,6 +13,7 @@ import { useUpdateStudy } from '@/features/study/hooks/use-update-study';
 import { useStudyInitialForm } from '@/features/study/hooks/use-study-initial-form';
 import { useRouter } from 'next/navigation';
 import { CreateStudyRequest, StartTime } from '@hiarc-platform/shared';
+import { useSemesterStoreInit, useSemesterStore } from '@/hooks/use-semester-store';
 import { useEffect } from 'react';
 
 interface CreateStudyFormProps {
@@ -28,6 +29,10 @@ export function CreateStudyForm({
   const createStudyMutation = useCreateStudy();
   const updateStudyMutation = useUpdateStudy();
   const { data: initialData, isLoading: isLoadingInitialData } = useStudyInitialForm(studyId);
+  
+  // Initialize semester store on component mount
+  useSemesterStoreInit();
+  const { semesterOptions, isLoading: isSemesterLoading } = useSemesterStore();
 
   const [formData, setFormData] = useState<CreateStudyRequest>({
     name: '',
@@ -112,10 +117,6 @@ export function CreateStudyForm({
     { label: '일', value: 'SUNDAY' },
   ];
 
-  const semesterOptionList = [
-    { label: '1학기', value: '1' },
-    { label: '2학기', value: '2' },
-  ];
 
   const publicTypeOptionList = [
     { label: '공개', value: 'PUBLIC' },
@@ -184,7 +185,7 @@ export function CreateStudyForm({
     }
   };
 
-  if (isLoadingInitialData && isEditMode) {
+  if ((isLoadingInitialData && isEditMode) || isSemesterLoading) {
     return (
       <div className="flex min-h-screen items-center justify-center">
         <div>데이터를 불러오는 중...</div>
@@ -221,7 +222,7 @@ export function CreateStudyForm({
           label="진행 학기"
           placeholder="학기를 선택해주세요"
           required
-          options={semesterOptionList}
+          options={semesterOptions}
           value={formData.semesterId?.toString() || ''}
           onChange={(value) =>
             setFormData((prev) => ({ ...prev, semesterId: value ? Number(value) : null }))

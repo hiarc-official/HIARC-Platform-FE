@@ -3,12 +3,13 @@ import { Input } from '@hiarc-platform/ui';
 import { Button } from '@hiarc-platform/ui';
 import Image from 'next/image';
 import { LabeledSelector } from '@hiarc-platform/ui';
-import { selectOption } from 'constants/selectOption';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useSemesterStoreInit, useSemesterStore } from '@/hooks/use-semester-store';
 import Link from 'next/link';
 export default function Header(): React.ReactElement {
-  const [selectedSemester, setSelectedSemester] = useState(selectOption['학기'][0].value);
+  // Initialize semester store on component mount
+  useSemesterStoreInit();
+  const { semesterOptions, selectedSemesterId, setSelectedSemester } = useSemesterStore();
 
   const pathname = usePathname();
   const tabItems = [
@@ -20,16 +21,16 @@ export default function Header(): React.ReactElement {
   ];
 
   return (
-    <header className="w-full  items-center justify-between border-b border-gray-200   sm:px-10">
-      <div className="mx-auto  flex w-full min-w-[600px] max-w-[1200px] items-center gap-6 ">
+    <header className="w-full items-center justify-between border-b border-gray-200">
+      <div className="mx-auto flex w-full min-w-[600px] max-w-[1200px] items-center gap-6 ">
         <Image src="/shared-assets/Logo.svg" alt="HiarcLogo" width={120} height={30} />
 
         <LabeledSelector
           required={false}
           label=""
           placeholder=""
-          options={selectOption['학기']}
-          value={selectedSemester}
+          options={semesterOptions}
+          value={selectedSemesterId || ''}
           onChange={setSelectedSemester}
           className="mb-2 ml-4 w-[142px] border-gray-900 font-normal"
         />

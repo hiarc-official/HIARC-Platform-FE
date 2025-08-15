@@ -52,7 +52,7 @@ export default function StudyPage(): React.ReactElement {
         <Title size="sm" weight="bold">
           스터디
         </Title>
-        <Button size="md" className="w-[100px]" onClick={() => router.push('/study/information')}>
+        <Button size="md" className="w-[100px]" onClick={() => router.push('/study/create')}>
           개설하기
         </Button>
       </div>
