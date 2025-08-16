@@ -1,10 +1,11 @@
+import { PageableModel, StudySummary } from '@hiarc-platform/shared';
 import {
-  CategoryChip,
   cn,
   CommonTableBody,
   CommonTableHead,
   Label,
-  TablePagination,
+  Pagination,
+  StudyStatusChip,
 } from '@hiarc-platform/ui';
 import { useTable } from '@hiarc-platform/util';
 import { ColumnDef, Row } from '@tanstack/react-table';
@@ -12,16 +13,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
 
-export interface Study {
-  number?: number;
-  category: 'onGoing' | 'recruiting' | 'finished';
-  semester: string;
-  studyName: string;
-  studyHead: string;
-  date: string;
-}
-
-const STUDY_LIST_COLUMN: Array<ColumnDef<Study>> = [
+const STUDY_LIST_COLUMN: Array<ColumnDef<StudySummary>> = [
   {
     id: 'category',
     accessorKey: 'category',
@@ -35,8 +27,8 @@ const STUDY_LIST_COLUMN: Array<ColumnDef<Study>> = [
         상태
       </Label>
     ),
-    cell: ({ row }: { row: { original: Study } }) => (
-      <CategoryChip category={row.original.category}></CategoryChip>
+    cell: ({ row }: { row: { original: StudySummary } }) => (
+      <StudyStatusChip status={row.original.studyStatus}></StudyStatusChip>
     ),
     footer: (props) => props.column.id,
   },
@@ -53,9 +45,9 @@ const STUDY_LIST_COLUMN: Array<ColumnDef<Study>> = [
         진행 학기
       </Label>
     ),
-    cell: ({ row }: { row: { original: Study } }) => (
+    cell: ({ row }: { row: { original: StudySummary } }) => (
       <Label size="md" weight="regular">
-        {row.original.semester ?? '-'}
+        {row.original.semesterYear ?? '-'}년 {row.original.semesterType ?? '-'}
       </Label>
     ),
     footer: (props) => props.column.id,
@@ -73,7 +65,7 @@ const STUDY_LIST_COLUMN: Array<ColumnDef<Study>> = [
         스터디명
       </Label>
     ),
-    cell: ({ row }: { row: { original: Study } }) => (
+    cell: ({ row }: { row: { original: StudySummary } }) => (
       <Label size="sm" weight="regular" className="text-gray-700">
         {row.original.studyName ?? '-'}
       </Label>
@@ -93,9 +85,9 @@ const STUDY_LIST_COLUMN: Array<ColumnDef<Study>> = [
         스터디장 이름(핸들명)
       </Label>
     ),
-    cell: ({ row }: { row: { original: Study } }) => (
+    cell: ({ row }: { row: { original: StudySummary } }) => (
       <Label size="sm" weight="regular" className="text-gray-700">
-        {row.original.studyHead ?? '-'}
+        ({row.original.instructorName ?? '-'}) {row.original.instructorBojHandle ?? '-'}
       </Label>
     ),
     footer: (props) => props.column.id,
@@ -103,20 +95,28 @@ const STUDY_LIST_COLUMN: Array<ColumnDef<Study>> = [
 ];
 
 interface StudyTableSectionProps {
-  studyData: Study[];
+  pageableModel?: PageableModel<StudySummary> | null;
   className?: string;
+  onPageChange?(page: number): void;
 }
 
-export function StudyTable({ studyData, className }: StudyTableSectionProps): React.ReactElement {
+export function StudyTable({
+  pageableModel,
+  className,
+  onPageChange,
+}: StudyTableSectionProps): React.ReactElement {
   const router = useRouter();
   const columns = useMemo(() => STUDY_LIST_COLUMN, []);
   const [globalFilter, setGlobalFilter] = useState('');
 
+  const data = pageableModel?.content ?? [];
+  const totalPages = pageableModel?.totalPages ?? 0;
+
   const table = useTable({
     columns,
-    data: studyData,
+    data,
     pageState: [0, () => {}],
-    totalPages: 10,
+    totalPages,
     globalFilterState: [globalFilter, setGlobalFilter],
   });
 
@@ -134,8 +134,8 @@ export function StudyTable({ studyData, className }: StudyTableSectionProps): Re
           <CommonTableHead table={table} className="bg-gray-100" />
           <CommonTableBody
             table={table}
-            onClick={function (row: Row<Study>): void {
-              const id = row.original.number;
+            onClick={function (row: Row<StudySummary>): void {
+              const id = row.original.studyId;
               if (!id) {
                 return;
               }
@@ -144,7 +144,11 @@ export function StudyTable({ studyData, className }: StudyTableSectionProps): Re
           />
         </motion.div>
       </AnimatePresence>
-      <TablePagination className="pt-8" table={table} />
+      {pageableModel && onPageChange && (
+        <div className="flex w-full justify-center">
+          <Pagination className="mt-8" pageableModel={pageableModel} onPageChange={onPageChange} />
+        </div>
+      )}
     </div>
   );
 }

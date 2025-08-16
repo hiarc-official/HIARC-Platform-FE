@@ -1,8 +1,16 @@
 import { Staff } from '@/features/staff/components/staff-table';
 import { StudyLeader } from '@/features/staff/components/study-leader-table';
-import { Announcement } from '@/features/announcement/components/announcement-table/announcement-list-column';
-import { Competition } from '@/features/competition/components/competition-table/competition-list-column';
+import { Competition } from '@/features/award/components/award-table/award-list-column';
 import { Study } from '@/features/study/components/study-table';
+
+// Mock data interface (different from shared Announcement)
+interface MockAnnouncement {
+  name: string;
+  title: string;
+  date: string;
+  number: number;
+  category: string;
+}
 //Staff 데이터
 export const staffData: Staff[] = [
   {
@@ -56,7 +64,7 @@ export const studyLeaderData: StudyLeader[] = [
 
 //공지사항 데이터
 
-export const announcementData: Announcement[] = [
+export const announcementData: MockAnnouncement[] = [
   { name: 'John', title: '첫 번째 공지사항', date: '2025.10.01', number: 1, category: 'general' },
   { name: 'Jane', title: '두 번째 공지사항', date: '2025.10.02', number: 2, category: 'study' },
   { name: 'Alice', title: '세 번째 공지사항', date: '2025.10.03', number: 3, category: 'rating' },

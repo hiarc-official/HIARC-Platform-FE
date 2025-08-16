@@ -1,5 +1,6 @@
 'use client';
 
+import { SelectOption } from '@hiarc-platform/shared';
 import { cn } from '../../lib/utils';
 import { Label } from '../label/label';
 import {
@@ -11,17 +12,12 @@ import {
   SelectValue,
 } from './select';
 
-interface Option {
-  value: string;
-  label: string;
-}
-
 interface LabeledSelectorProps {
   placeholder: string;
   label: string;
   showLabel?: boolean;
   required?: boolean;
-  options: Option[];
+  options: SelectOption[];
   value?: string;
   onChange?(value: string): void;
   className?: string;

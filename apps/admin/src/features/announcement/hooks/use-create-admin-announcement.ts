@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { announcementApi } from '../api/announcement';
-import { CreateAnnouncementRequest } from '../types/request/create-announcement-request';
 
 import { UseMutationResult } from '@tanstack/react-query';
+import { CreateAnnouncementRequest } from '@hiarc-platform/shared';
 
 export const useCreateAdminAnnouncement = (): UseMutationResult<
   unknown,

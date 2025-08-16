@@ -38,7 +38,7 @@ const STAFF_LIST_COLUMN: Array<ColumnDef<Staff>> = [
   {
     id: 'name',
     accessorKey: 'name',
-    size: 260,
+    size: 0,
     meta: {
       headAlign: 'left',
       bodyAlign: 'left',
@@ -58,7 +58,7 @@ const STAFF_LIST_COLUMN: Array<ColumnDef<Staff>> = [
   {
     id: 'handle',
     accessorKey: 'handle',
-    size: 260,
+    size: 0,
     meta: {
       headAlign: 'left',
       bodyAlign: 'left',
@@ -78,7 +78,7 @@ const STAFF_LIST_COLUMN: Array<ColumnDef<Staff>> = [
   {
     id: 'startStaff',
     accessorKey: 'startStaff',
-    size: 300,
+    size: 0,
     meta: {
       headAlign: 'left',
       bodyAlign: 'left',

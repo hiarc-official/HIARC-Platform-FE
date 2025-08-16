@@ -10,14 +10,6 @@ import {
 import { ColumnDef } from '@tanstack/react-table';
 import { AnnouncementSummary } from '../../types/model/announcement_summary';
 
-export interface Announcement {
-  name: string;
-  title: string;
-  date: string;
-  number: number;
-  category: string;
-}
-
 export const getAdminAnnouncementListColumn = (
   deleteAnnouncement: (
     id: number,

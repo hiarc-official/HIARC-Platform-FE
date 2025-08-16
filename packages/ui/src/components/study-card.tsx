@@ -85,7 +85,7 @@ function MobileStudyCard({
             {hostName} | {startDate}~{endDate}
           </Label>
         </div>
-        <CategoryChip category={state} className="ml-auto h-[26px]" />
+        <CategoryChip category={state.toUpperCase() as 'PARTICIPATING' | 'RECRUITING'} className="ml-auto h-[26px]" />
       </div>
       <Label size="md" weight="regular" className="mt-1 line-clamp-2 overflow-hidden text-ellipsis">
         {studyDescription}
@@ -133,7 +133,7 @@ function DesktopStudyCard({
             </Label>
           </div>
         </div>
-        <CategoryChip category={state} className="ml-auto" />
+        <CategoryChip category={state.toUpperCase() as 'PARTICIPATING' | 'RECRUITING'} className="ml-auto" />
       </div>
       <Label size="md" weight="regular" className="mt-1 line-clamp-2 overflow-hidden text-ellipsis">
         {studyDescription}

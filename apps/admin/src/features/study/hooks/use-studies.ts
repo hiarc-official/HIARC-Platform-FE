@@ -1,11 +1,11 @@
 import { useQuery, UseQueryResult, keepPreviousData } from '@tanstack/react-query';
 import { studyApi } from '../api/study';
 import type { StudyQueryParams } from '../types/request/study-request';
-import type { PageAllStudyResponse } from '../types/response/study-response';
+import { PageableModel, StudySummary } from '@hiarc-platform/shared';
 
 export function useStudies(
   params: StudyQueryParams = {}
-): UseQueryResult<PageAllStudyResponse, Error> {
+): UseQueryResult<PageableModel<StudySummary>, Error> {
   console.log('[HOOK] useStudies 호출:', params);
 
   const query = useQuery({

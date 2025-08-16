@@ -8,50 +8,39 @@ import {
 } from '@hiarc-platform/ui';
 import { selectOption } from 'constants/selectOption';
 import { Button } from '@hiarc-platform/ui';
+import { CreateAnnouncementRequest } from '@hiarc-platform/shared';
 
 interface SideBarProps {
-  category: string;
-  onCategoryChange(value: string): void;
-  studyId?: number;
-  onStudyIdChange(value: number | undefined): void;
+  formData: CreateAnnouncementRequest;
+  onFormDataChange(updates: Partial<CreateAnnouncementRequest>): void;
   applyType: string;
   onApplyTypeChange(value: string): void;
   studyAnnounceType: string;
   onStudyAnnounceTypeChange(value: string): void;
-  lectureRound?: number;
-  onLectureRoundChange(value: number | undefined): void;
   publicType: string;
   onPublicTypeChange(value: string): void;
   applicationStartDate: Date | null;
   onApplicationStartDateChange(value: Date | null): void;
   applicationEndDate: Date | null;
   onApplicationEndDateChange(value: Date | null): void;
-  applicationUrl: string;
-  onApplicationUrlChange(value: string): void;
   onSubmit(): void;
   isLoading: boolean;
   buttonText?: string;
 }
 
 export function SideBar({
-  category,
-  onCategoryChange,
-  studyId,
-  onStudyIdChange,
+  formData,
+  onFormDataChange,
   applyType,
   onApplyTypeChange,
   studyAnnounceType,
   onStudyAnnounceTypeChange,
-  lectureRound,
-  onLectureRoundChange,
   publicType,
   onPublicTypeChange,
   applicationStartDate,
   onApplicationStartDateChange,
   applicationEndDate,
   onApplicationEndDateChange,
-  applicationUrl,
-  onApplicationUrlChange,
   onSubmit,
   isLoading,
   buttonText = '게시하기',
@@ -81,25 +70,25 @@ export function SideBar({
             placeholder="카테고리를 선택해주세요."
             options={selectOption['카테고리']}
             label="카테고리"
-            value={category}
-            onChange={onCategoryChange}
+            value={formData.announcementType}
+            onChange={(value) => onFormDataChange({ announcementType: value as 'STUDY' | 'RATING' | 'GENERAL' | 'ETC' | 'EXTERNAL' })}
           />
 
           {/* STUDY 카테고리일 때 스터디 선택 */}
-          {category === 'STUDY' && (
+          {formData.announcementType === 'STUDY' && (
             <LabeledSelector
               placeholder="스터디를 선택해주세요."
               options={selectOption['스터디']}
               label="스터디선택"
               showLabel={false}
-              value={studyId?.toString() || ''}
-              onChange={(value: string) => onStudyIdChange(value ? Number(value) : undefined)}
+              value={formData.studyId?.toString() || ''}
+              onChange={(value: string) => onFormDataChange({ studyId: value ? Number(value) : undefined })}
             />
           )}
         </div>
 
         {/* STUDY 카테고리일 때 */}
-        {category === 'STUDY' ? (
+        {formData.announcementType === 'STUDY' ? (
           <>
             {/* 스터디 공지 유형 */}
             <LabeledSelectButton
@@ -117,9 +106,9 @@ export function SideBar({
                 options={selectOption['회차']}
                 label="회차 선택"
                 required
-                value={lectureRound?.toString() || ''}
+                value={formData.lectureRound?.toString() || ''}
                 onChange={(value: string) =>
-                  onLectureRoundChange(value ? Number(value) : undefined)
+                  onFormDataChange({ lectureRound: value ? Number(value) : undefined })
                 }
               />
             )}
@@ -163,8 +152,8 @@ export function SideBar({
                 <LabeledInput
                   label="신청 URL"
                   placeholder="신청 URL을 입력해주세요"
-                  value={applicationUrl}
-                  onChange={(value) => onApplicationUrlChange(value)}
+                  value={formData.applicationUrl || ''}
+                  onChange={(value) => onFormDataChange({ applicationUrl: value || undefined })}
                 />
               </>
             )}

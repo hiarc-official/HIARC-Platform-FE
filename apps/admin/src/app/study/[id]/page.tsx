@@ -2,10 +2,11 @@
 
 import { StudyInfoSection } from '@/features/study/components/study-info-section';
 import { TabSection } from '@/features/study/components/tab-section';
-import { BackButton, Button, PageLayout, SingleColumnLayout } from '@hiarc-platform/ui';
+import { BackButton, Button, PageLayout, LoadingDots } from '@hiarc-platform/ui';
 import { useRouter, useParams } from 'next/navigation';
 import { useStudy } from '@/features/study/hooks';
 import React, { useState, useEffect } from 'react';
+import { FadeIn } from '@/components/fade-in';
 
 export default function StudyPage(): React.ReactElement {
   const router = useRouter();
@@ -20,39 +21,38 @@ export default function StudyPage(): React.ReactElement {
 
   if (!mounted || isLoading) {
     return (
-      <PageLayout>
-        <SingleColumnLayout>
-          <div className="flex justify-center items-center h-64">
-            <div>로딩 중...</div>
-          </div>
-        </SingleColumnLayout>
-      </PageLayout>
+      <FadeIn
+        isVisible={true}
+        duration={0.3}
+        className="flex min-h-screen items-center justify-center"
+      >
+        <LoadingDots size="lg" className="flex min-h-screen items-center justify-center" />
+      </FadeIn>
     );
   }
 
   if (error || !studyData) {
     return (
-      <PageLayout>
-        <SingleColumnLayout>
-          <BackButton onClick={() => router.back()} />
-          <div className="flex justify-center items-center h-64">
-            <div>스터디 정보를 불러오는 중 오류가 발생했습니다.</div>
-          </div>
-        </SingleColumnLayout>
-      </PageLayout>
+      <FadeIn
+        isVisible={true}
+        duration={0.3}
+        className="flex min-h-screen items-center justify-center"
+      >
+        <p className="text-gray-500">스터디 정보를 불러오는 중 오류가 발생했습니다.</p>
+      </FadeIn>
     );
   }
 
-  return (
-    <PageLayout>
-      <SingleColumnLayout>
-        <BackButton onClick={() => router.back()} />
-        <StudyInfoSection className="pt-5" studyData={studyData.data} />
-        <TabSection className="pt-8" isAdmin={true} />
-        <Button variant="line" className="mt-8 w-[186px]" onClick={() => router.push('/study')}>
-          목록으로
-        </Button>
-      </SingleColumnLayout>
-    </PageLayout>
+  const contentComponent = (
+    <FadeIn isVisible={Boolean(studyData)} duration={0.4} className="flex flex-col">
+      <BackButton onClick={() => router.back()} />
+      <StudyInfoSection className="pt-5" studyData={studyData} />
+      <TabSection className="pt-8" isAdmin={true} />
+      <Button variant="line" className="mt-8 w-[186px]" onClick={() => router.push('/study')}>
+        목록으로
+      </Button>
+    </FadeIn>
   );
+
+  return <PageLayout>{contentComponent}</PageLayout>;
 }

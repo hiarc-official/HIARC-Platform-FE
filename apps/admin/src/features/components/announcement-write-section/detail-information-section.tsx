@@ -1,75 +1,84 @@
 'use client';
-import { DialogUtil, LabeledInput, LabeledTextarea } from '@hiarc-platform/ui';
+import { LabeledInput, LabeledTextarea } from '@hiarc-platform/ui';
 import { Button } from '@hiarc-platform/ui';
 import LabeledImageInput from '@/shared/components/labeled-image-input';
 import { LabeledCalanderInput } from '@hiarc-platform/ui';
 import { useState, useEffect } from 'react';
 import { SideBar } from './side-bar';
-import { useCreateAdminAnnouncement } from '@/features/announcement/hooks/use-create-admin-announcement';
-import { useAdminAnnouncement } from '@/features/announcement/hooks/use-admin-announcement';
-import { useUpdateAdminAnnouncement } from '@/features/announcement/hooks/use-update-admin-announcement';
-import { LoadingDots } from '@hiarc-platform/ui';
-import { CreateAnnouncementRequest } from '@/features/announcement/types/request/create-announcement-request';
-import { useRouter } from 'next/navigation';
+import { Announcement, CreateAnnouncementRequest } from '@hiarc-platform/shared';
 import { UrlInput } from './url-input';
 
 interface DetailInformationSectionProps {
   announcementId?: number;
+  announcement?: Announcement;
+  // 콜백 함수
+  onSubmit?(data: CreateAnnouncementRequest, isEditMode: boolean, announcementId?: number): void;
 }
 
 export default function DetailInformationSection({
   announcementId,
+  announcement,
+  onSubmit,
 }: DetailInformationSectionProps): React.ReactElement {
-  const router = useRouter();
   const isEditMode = Boolean(announcementId);
 
-  // 훅들
-  const {
-    data: announcement,
-    isLoading: isLoadingAnnouncement,
-    error,
-  } = useAdminAnnouncement(announcementId || 0);
-  const { mutate: createAnnouncement, isPending: isCreating } = useCreateAdminAnnouncement();
-  const { mutate: updateAnnouncement, isPending: isUpdating } = useUpdateAdminAnnouncement();
+  // CreateAnnouncementRequest 상태
+  const [formData, setFormData] = useState<CreateAnnouncementRequest>({
+    title: '',
+    place: undefined,
+    scheduleStartAt: undefined,
+    scheduleEndAt: undefined,
+    content: '',
+    announcementType: 'GENERAL',
+    isPublic: true,
+    attachmentUrls: [],
+    studyId: undefined,
+    lectureRound: undefined,
+    applicationUrl: undefined,
+    applicationStartAt: undefined,
+    applicationEndAt: undefined,
+  });
 
-  const isLoading = isCreating || isUpdating;
-
-  // 기본 폼 데이터
-  const [title, setTitle] = useState<string>('');
-  const [place, setPlace] = useState<string>('');
-  const [scheduleStartAt, setScheduleStartAt] = useState<Date | null>(null);
-  const [scheduleEndAt, setScheduleEndAt] = useState<Date | null>(null);
-  const [content, setContent] = useState<string>('');
-  const [attachmentUrls, setAttachmentUrls] = useState<string[]>(['']);
-
-  // SideBar 관련 상태
-  const [category, setCategory] = useState<string>('');
-  const [studyId, setStudyId] = useState<number | undefined>();
+  // UI 관련 상태
   const [applyType, setApplyType] = useState<string>('신청 없음');
   const [studyAnnounceType, setStudyAnnounceType] = useState<string>('일반');
-  const [lectureRound, setLectureRound] = useState<number | undefined>();
   const [publicType, setPublicType] = useState<string>('공개');
+  const [attachmentUrls, setAttachmentUrls] = useState<string[]>(['']);
+  const [scheduleStartAt, setScheduleStartAt] = useState<Date | null>(null);
+  const [scheduleEndAt, setScheduleEndAt] = useState<Date | null>(null);
   const [applicationStartDate, setApplicationStartDate] = useState<Date | null>(null);
   const [applicationEndDate, setApplicationEndDate] = useState<Date | null>(null);
-  const [applicationUrl, setApplicationUrl] = useState<string>('');
 
   // 공지사항 데이터로 폼 초기화 (수정 모드일 때)
   useEffect(() => {
     if (isEditMode && announcement) {
-      setTitle(announcement.title || '');
-      setPlace(announcement.place || '');
-      setScheduleStartAt(announcement.scheduleStartAt || null);
-      setScheduleEndAt(announcement.scheduleEndAt || null);
-      setContent(announcement.content || '');
-      setAttachmentUrls(announcement.attachmentUrls?.length ? announcement.attachmentUrls : ['']);
+      setFormData({
+        title: announcement.title || '',
+        place: announcement.place || undefined,
+        scheduleStartAt: announcement.scheduleStartAt?.toISOString() || undefined,
+        scheduleEndAt: announcement.scheduleEndAt?.toISOString() || undefined,
+        content: announcement.content || '',
+        announcementType: announcement.announcementType || 'GENERAL',
+        isPublic: announcement.isPublic ?? true,
+        attachmentUrls: announcement.attachmentUrls?.filter((url) => url.trim() !== '') || [],
+        studyId: announcement.studyId,
+        lectureRound: announcement.lectureRound,
+        applicationUrl: announcement.applicationUrl,
+        applicationStartAt: announcement.applicationStartAt?.toISOString() || undefined,
+        applicationEndAt: announcement.applicationEndAt?.toISOString() || undefined,
+      });
 
-      setCategory(announcement.announcementType || '');
-      setStudyId(announcement.studyId || undefined);
+      // UI 상태들 설정
+      setAttachmentUrls(announcement.attachmentUrls?.length ? announcement.attachmentUrls : ['']);
       setPublicType(announcement.isPublic ? '공개' : '비공개');
-      setApplicationUrl(announcement.applicationUrl || '');
-      setLectureRound(announcement.lectureRound || undefined);
 
       // 날짜 파싱
+      if (announcement.scheduleStartAt) {
+        setScheduleStartAt(new Date(announcement.scheduleStartAt));
+      }
+      if (announcement.scheduleEndAt) {
+        setScheduleEndAt(new Date(announcement.scheduleEndAt));
+      }
       if (announcement.applicationStartAt) {
         setApplicationStartDate(new Date(announcement.applicationStartAt));
       }
@@ -115,90 +124,55 @@ export default function DetailInformationSection({
     }
   };
 
+  // formData 업데이트 헬퍼 함수
+  const updateFormData = (updates: Partial<CreateAnnouncementRequest>): void => {
+    setFormData((prev) => ({ ...prev, ...updates }));
+  };
+
   // 폼 제출 함수
   const handleSubmit = (): void => {
-    if (!title.trim() || !content.trim() || !category) {
+    if (!formData.title.trim() || !formData.content.trim() || !formData.announcementType) {
       alert('필수 항목을 모두 입력해주세요.');
       return;
     }
 
+    // 최종 데이터 정리
     const requestData: CreateAnnouncementRequest = {
-      title: title.trim(),
-      place: place.trim() || undefined,
-      scheduleStartAt: scheduleStartAt?.toISOString(),
-      scheduleEndAt: scheduleStartAt?.toISOString(),
-      content: content.trim(),
-      announcementType: category as 'STUDY' | 'RATING' | 'GENERAL' | 'ETC' | 'EXTERNAL',
+      ...formData,
+      title: formData.title.trim(),
+      content: formData.content.trim(),
+      place: formData.place?.trim() || undefined,
+      scheduleStartAt: scheduleStartAt?.toISOString() || undefined,
+      scheduleEndAt: scheduleEndAt?.toISOString() || undefined,
       isPublic: publicType === '공개',
       attachmentUrls: attachmentUrls.filter((url) => url.trim() !== ''),
     };
 
     // STUDY 카테고리일 때 추가 필드
-    if (category === 'STUDY') {
-      if (studyId) {
-        requestData.studyId = studyId;
-      }
-      if (studyAnnounceType === '회차별 공지' && lectureRound) {
-        requestData.lectureRound = lectureRound;
+    if (formData.announcementType === 'STUDY') {
+      if (studyAnnounceType === '회차별 공지') {
+        requestData.lectureRound = formData.lectureRound;
+      } else {
+        requestData.lectureRound = undefined;
       }
     } else {
       // 다른 카테고리에서 신청 관련 필드
       if (applyType === '신청 유형') {
-        requestData.applicationUrl = applicationUrl.trim() || undefined;
-        requestData.applicationStartAt = applicationStartDate?.toISOString();
-        requestData.applicationEndAt = applicationEndDate?.toISOString();
+        requestData.applicationUrl = formData.applicationUrl?.trim() || undefined;
+        requestData.applicationStartAt = applicationStartDate?.toISOString() || undefined;
+        requestData.applicationEndAt = applicationEndDate?.toISOString() || undefined;
+      } else {
+        requestData.applicationUrl = undefined;
+        requestData.applicationStartAt = undefined;
+        requestData.applicationEndAt = undefined;
       }
     }
 
-    if (isEditMode && announcementId) {
-      // 수정 모드
-      updateAnnouncement(
-        { id: announcementId, data: requestData },
-        {
-          onSuccess: () => {
-            DialogUtil.showSuccess('공지사항이 성공적으로 수정되었습니다.', undefined, () => {
-              router.back();
-            });
-          },
-          onError: (error) => {
-            const errorMessage = error instanceof Error ? error.message : '수정에 실패했습니다.';
-            DialogUtil.showError(errorMessage);
-          },
-        }
-      );
-    } else {
-      // 생성 모드
-      createAnnouncement(requestData, {
-        onSuccess: () => {
-          DialogUtil.showSuccess('공지사항이 성공적으로 등록되었습니다.', undefined, () => {
-            router.back();
-          });
-        },
-        onError: (error) => {
-          const errorMessage = error instanceof Error ? error.message : '등록에 실패했습니다.';
-          DialogUtil.showError(errorMessage);
-        },
-      });
+    // 콜백 호출
+    if (onSubmit) {
+      onSubmit(requestData, isEditMode, announcementId);
     }
   };
-
-  // 수정 모드에서 로딩 중일 때
-  if (isEditMode && isLoadingAnnouncement) {
-    return (
-      <div className="flex min-h-[400px] items-center justify-center">
-        <LoadingDots />
-      </div>
-    );
-  }
-
-  // 수정 모드에서 에러가 발생했을 때
-  if (isEditMode && error) {
-    return (
-      <div className="flex min-h-[400px] items-center justify-center">
-        <p className="text-red-500">공지사항을 불러오는데 실패했습니다.</p>
-      </div>
-    );
-  }
 
   return (
     <div>
@@ -208,15 +182,15 @@ export default function DetailInformationSection({
             label="제목"
             placeholder="제목을 입력해주세요"
             required={true}
-            value={title}
-            onChange={(value) => setTitle(value)}
+            value={formData.title}
+            onChange={(value) => updateFormData({ title: value })}
           />
           <div className="flex gap-4">
             <LabeledInput
               label="장소"
               placeholder="장소를 입력해주세요"
-              value={place}
-              onChange={(value) => setPlace(value)}
+              value={formData.place || ''}
+              onChange={(value) => updateFormData({ place: value || undefined })}
             />
             <LabeledCalanderInput
               placeholder="시작 일시를 선택해주세요"
@@ -248,12 +222,11 @@ export default function DetailInformationSection({
             placeholder="내용을 입력해주세요."
             required={true}
             className="aspect-[2/1] text-lg"
-            value={content}
-            onChange={(value) => setContent(value)}
+            value={formData.content}
+            onChange={(value) => updateFormData({ content: value })}
           />
           <LabeledImageInput label="이미지" />
 
-          {/* URL 입력 필드들 */}
           <div className="flex flex-col gap-2">
             {attachmentUrls.map((url, index) => (
               <UrlInput
@@ -267,26 +240,20 @@ export default function DetailInformationSection({
         </div>
 
         <SideBar
-          category={category}
-          onCategoryChange={setCategory}
-          studyId={studyId}
-          onStudyIdChange={setStudyId}
+          formData={formData}
+          onFormDataChange={updateFormData}
           applyType={applyType}
           onApplyTypeChange={setApplyType}
           studyAnnounceType={studyAnnounceType}
           onStudyAnnounceTypeChange={setStudyAnnounceType}
-          lectureRound={lectureRound}
-          onLectureRoundChange={setLectureRound}
           publicType={publicType}
           onPublicTypeChange={setPublicType}
           applicationStartDate={applicationStartDate}
           onApplicationStartDateChange={setApplicationStartDate}
           applicationEndDate={applicationEndDate}
           onApplicationEndDateChange={setApplicationEndDate}
-          applicationUrl={applicationUrl}
-          onApplicationUrlChange={setApplicationUrl}
           onSubmit={handleSubmit}
-          isLoading={isLoading}
+          isLoading={false}
           buttonText={isEditMode ? '수정하기' : '게시하기'}
         />
       </div>
