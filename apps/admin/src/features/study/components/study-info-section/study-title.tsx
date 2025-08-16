@@ -11,8 +11,8 @@ export function StudyTitle({ studyData }: StudyTitleProps): React.ReactElement {
       <div className="flex w-full flex-col md:flex-row md:items-center md:justify-between">
         <div className="flex flex-col">
           <div className="flex items-center gap-2">
-            <Title size="sm" weight="bold">
-              {studyData?.name || '-'}
+            <Title size="sm" weight="bold" disableAnimation>
+              {studyData?.name}
             </Title>
             <StudyStatusChip status={studyData?.studyStatus || 'PREPARING'} />
           </div>

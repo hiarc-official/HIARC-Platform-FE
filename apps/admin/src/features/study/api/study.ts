@@ -16,7 +16,7 @@ export const studyApi = {
   GET_ALL_STUDIES: async (params: StudyQueryParams = {}): Promise<PageableModel<StudySummary>> => {
     console.log('[STUDY API] GET_ALL_STUDIES 요청:', params);
     try {
-      const response = await apiClient.get<PageableModel<StudySummary>>('/studies', {
+      const response = await apiClient.get<PageableModel<StudySummary>>('/admin/studies', {
         params,
       });
       return PageableModel.fromJson(response.data, StudySummary);

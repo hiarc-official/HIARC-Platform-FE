@@ -1,5 +1,3 @@
-import { StartTime } from '../time/time';
-
 export interface Study {
   studyId?: number | null;
   name?: string | null;
@@ -12,7 +10,7 @@ export interface Study {
   semesterYear?: number | null;
   semesterType?: 'FIRST' | 'SECOND' | null;
   scheduledDays?: string[] | null;
-  startTime?: StartTime | null;
+  startTime?: string | null;
   isOnline?: boolean | null;
   studyType?: string | null;
   instructorId?: number | null;
@@ -20,12 +18,15 @@ export interface Study {
   instructorBojHandle?: string | null;
   isInstructor?: boolean | null;
   isStudent?: boolean | null;
+  
+  // Computed property
+  readonly scheduleText?: string;
 }
 
 export const Study = {
   fromJson(json: unknown): Study {
     const data = (json || {}) as Record<string, unknown>;
-    return {
+    const study = {
       studyId: (data.studyId as number) || null,
       name: (data.name as string) || null,
       studyStatus:
@@ -39,7 +40,7 @@ export const Study = {
       semesterYear: (data.semesterYear as number) || null,
       semesterType: (data.semesterType as 'FIRST' | 'SECOND') || null,
       scheduledDays: (data.scheduledDays as string[]) || null,
-      startTime: StartTime.fromJson(data.startTime),
+      startTime: (data.startTime as string) || null,
       isOnline: (data.isOnline as boolean) || null,
       studyType: (data.studyType as string) || null,
       instructorId: (data.instructorId as number) || null,
@@ -48,5 +49,41 @@ export const Study = {
       isInstructor: (data.isInstructor as boolean) || null,
       isStudent: (data.isStudent as boolean) || null,
     };
+
+    // Add computed scheduleText property
+    return {
+      ...study,
+      scheduleText: this.getScheduleText(study),
+    };
+  },
+
+  getScheduleText(study: Study): string {
+    if (!study.scheduledDays || study.scheduledDays.length === 0 || !study.startTime) {
+      return '-';
+    }
+
+    // Day mapping
+    const dayMap: Record<string, string> = {
+      MONDAY: '월',
+      TUESDAY: '화',
+      WEDNESDAY: '수',
+      THURSDAY: '목',
+      FRIDAY: '금',
+      SATURDAY: '토',
+      SUNDAY: '일',
+    };
+
+    // Convert days to Korean
+    const koreanDays = study.scheduledDays.map((day) => dayMap[day] || day).join(',');
+
+    // Parse time (HH:MM:SS format)
+    const timeParts = study.startTime.split(':');
+    const hour = Number(timeParts[0]);
+
+    // Convert to 12-hour format
+    const period = hour < 12 ? '오전' : '오후';
+    const displayHour = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
+
+    return `매주 ${koreanDays} ${period} ${displayHour}시`;
   },
 };
