@@ -5,22 +5,21 @@ export interface Study {
   name?: string | null;
   studyStatus?: 'PREPARING' | 'PRE_OPEN' | 'RECRUITING' | 'IN_PROGRESS' | 'CLOSED' | null;
   introduction?: string | null;
-  language?: string | null;
+  lang?: string | null;
   currentParticipants?: number | null;
-  maxParticipants?: number | null;
   recruitmentStartDate?: string | null;
   recruitmentEndDate?: string | null;
   semesterYear?: number | null;
-  semesterType?: string | null;
+  semesterType?: 'FIRST' | 'SECOND' | null;
   scheduledDays?: string[] | null;
   startTime?: StartTime | null;
+  isOnline?: boolean | null;
   studyType?: string | null;
   instructorId?: number | null;
   instructorName?: string | null;
   instructorBojHandle?: string | null;
   isInstructor?: boolean | null;
   isStudent?: boolean | null;
-  studyName?: string | null;
 }
 
 export const Study = {
@@ -33,13 +32,15 @@ export const Study = {
         (data.studyStatus as 'PREPARING' | 'PRE_OPEN' | 'RECRUITING' | 'IN_PROGRESS' | 'CLOSED') ||
         null,
       introduction: (data.introduction as string) || null,
-      language: (data.language as string) || null,
+      lang: (data.lang as string) || null,
       currentParticipants: (data.currentParticipants as number) || null,
-      maxParticipants: (data.maxParticipants as number) || null,
       recruitmentStartDate: (data.recruitmentStartDate as string) || null,
       recruitmentEndDate: (data.recruitmentEndDate as string) || null,
+      semesterYear: (data.semesterYear as number) || null,
+      semesterType: (data.semesterType as 'FIRST' | 'SECOND') || null,
       scheduledDays: (data.scheduledDays as string[]) || null,
       startTime: StartTime.fromJson(data.startTime),
+      isOnline: (data.isOnline as boolean) || null,
       studyType: (data.studyType as string) || null,
       instructorId: (data.instructorId as number) || null,
       instructorName: (data.instructorName as string) || null,

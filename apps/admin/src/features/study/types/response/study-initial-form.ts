@@ -1,5 +1,3 @@
-import { StartTime } from '@hiarc-platform/shared';
-
 export interface StudyInitialForm {
   name?: string;
   handle?: string;
@@ -7,13 +5,14 @@ export interface StudyInitialForm {
   startDate?: string | null;
   endDate?: string | null;
   daysOfWeek?: string[];
-  startTime?: StartTime | null;
+  startTime?: string | null;
   isOnline?: 'ONLINE' | 'IN_PERSON' | null;
   lang?: string | null;
   introduction?: string | null;
   recruitmentStartAt?: string | null;
   recruitmentEndAt?: string | null;
   precaution?: string | null;
+  isPublic?: boolean | null;
 }
 
 export const StudyInitialForm = {
@@ -26,13 +25,14 @@ export const StudyInitialForm = {
       startDate: (data.startDate as string) || null,
       endDate: (data.endDate as string) || null,
       daysOfWeek: (data.daysOfWeek as string[]) || [],
-      startTime: StartTime.fromJson(data.startTime),
+      startTime: (data.endDate as string) || null,
       isOnline: (data.isOnline as 'ONLINE' | 'IN_PERSON') || null,
       lang: (data.lang as string) || null,
       introduction: (data.introduction as string) || null,
       recruitmentStartAt: (data.recruitmentStartAt as string) || null,
       recruitmentEndAt: (data.recruitmentEndAt as string) || null,
       precaution: (data.precaution as string) || null,
+      isPublic: data.isPublic === true || data.isPublic === false ? data.isPublic : null,
     };
   },
 };

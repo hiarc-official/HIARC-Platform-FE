@@ -12,7 +12,7 @@ import { useCreateStudy } from '@/features/study/hooks';
 import { useUpdateStudy } from '@/features/study/hooks/use-update-study';
 import { useStudyInitialForm } from '@/features/study/hooks/use-study-initial-form';
 import { useRouter } from 'next/navigation';
-import { CreateStudyRequest, StartTime } from '@hiarc-platform/shared';
+import { CreateStudyRequest } from '@hiarc-platform/shared';
 import { useSemesterStoreInit, useSemesterStore } from '@/hooks/use-semester-store';
 import { useEffect } from 'react';
 
@@ -29,10 +29,10 @@ export function CreateStudyForm({
   const createStudyMutation = useCreateStudy();
   const updateStudyMutation = useUpdateStudy();
   const { data: initialData, isLoading: isLoadingInitialData } = useStudyInitialForm(studyId);
-  
+
   // Initialize semester store on component mount
   useSemesterStoreInit();
-  const { semesterOptions, isLoading: isSemesterLoading } = useSemesterStore();
+  const { semesterOptions } = useSemesterStore();
 
   const [formData, setFormData] = useState<CreateStudyRequest>({
     name: '',
@@ -40,7 +40,7 @@ export function CreateStudyForm({
     semesterId: null,
     startDate: null,
     endDate: null,
-    daysOfWeek: null,
+    scheduledDays: null,
     startTime: null,
     isOnline: null,
     lang: null,
@@ -66,7 +66,7 @@ export function CreateStudyForm({
         semesterId: initialData.semesterId || null,
         startDate: initialData.startDate || null,
         endDate: initialData.endDate || null,
-        daysOfWeek: initialData.daysOfWeek || null,
+        scheduledDays: initialData.daysOfWeek || null,
         startTime: initialData.startTime || null,
         isOnline:
           initialData.isOnline === 'ONLINE'
@@ -79,6 +79,7 @@ export function CreateStudyForm({
         recruitmentStartAt: initialData.recruitmentStartAt || null,
         recruitmentEndAt: initialData.recruitmentEndAt || null,
         precaution: initialData.precaution || null,
+        isPublic: initialData.isPublic || null,
       });
 
       setStudyPeriod([
@@ -92,11 +93,10 @@ export function CreateStudyForm({
       ]);
 
       setSelectedDays(initialData.daysOfWeek || []);
-      // Format time as HH:MM for time input
-      const formattedTime =
-        initialData.startTime?.hour !== undefined && initialData.startTime?.minute !== undefined
-          ? `${initialData.startTime.hour?.toString().padStart(2, '0')}:${initialData.startTime.minute?.toString().padStart(2, '0')}`
-          : '';
+      // Format time from HH:MM:SS to HH:MM for time input
+      const formattedTime = initialData.startTime
+        ? initialData.startTime.substring(0, 5) // Extract HH:MM from HH:MM:SS
+        : '';
       setSelectedStartTime(formattedTime);
       setIsOnline(initialData.isOnline || '');
     }
@@ -117,7 +117,6 @@ export function CreateStudyForm({
     { label: '일', value: 'SUNDAY' },
   ];
 
-
   const publicTypeOptionList = [
     { label: '공개', value: 'PUBLIC' },
     { label: '비공개', value: 'PRIVATE' },
@@ -129,27 +128,16 @@ export function CreateStudyForm({
       return;
     }
 
-    // StartTime 생성
-    let startTime: StartTime | null = null;
-    if (selectedStartTime) {
-      const [hours, minutes] = selectedStartTime.split(':');
-      startTime = {
-        hour: Number(hours),
-        minute: Number(minutes),
-        second: 0,
-        nano: 0,
-      };
-    }
-
     const studyRequest: CreateStudyRequest = {
       name: formData.name,
       handle: formData.handle,
       semesterId: formData.semesterId,
       startDate: studyPeriod[0]?.toISOString().split('T')[0] || null,
       endDate: studyPeriod[1]?.toISOString().split('T')[0] || null,
-      daysOfWeek: selectedDays.length > 0 ? selectedDays : null,
-      startTime,
+      scheduledDays: selectedDays.length > 0 ? selectedDays : null,
+      startTime: selectedStartTime ? `${selectedStartTime}:00` : null,
       isOnline: isOnline === 'ONLINE' ? true : isOnline === 'IN_PERSON' ? false : null,
+      isPublic: isPublic === 'PUBLIC' ? true : isPublic === 'PRIVATE' ? false : null,
       lang: formData.lang,
       introduction: formData.introduction,
       recruitmentStartAt: cruitPeriod[0]?.toISOString().split('T')[0] || null,
@@ -185,7 +173,7 @@ export function CreateStudyForm({
     }
   };
 
-  if ((isLoadingInitialData && isEditMode) || isSemesterLoading) {
+  if (isLoadingInitialData && isEditMode) {
     return (
       <div className="flex min-h-screen items-center justify-center">
         <div>데이터를 불러오는 중...</div>
