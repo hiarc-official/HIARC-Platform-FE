@@ -1,6 +1,6 @@
 import { Staff } from '@/features/staff/components/staff-table';
 import { StudyLeader } from '@/features/staff/components/study-leader-table';
-import { Competition } from '@/features/competition/components/competition-table/competition-list-column';
+import { Competition } from '@/features/award/components/award-table/award-list-column';
 import { Study } from '@/features/study/components/study-table';
 
 // Mock data interface (different from shared Announcement)

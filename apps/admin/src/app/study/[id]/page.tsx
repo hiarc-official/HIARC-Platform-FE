@@ -2,7 +2,7 @@
 
 import { StudyInfoSection } from '@/features/study/components/study-info-section';
 import { TabSection } from '@/features/study/components/tab-section';
-import { BackButton, Button, PageLayout, SingleColumnLayout, LoadingDots } from '@hiarc-platform/ui';
+import { BackButton, Button, PageLayout, LoadingDots } from '@hiarc-platform/ui';
 import { useRouter, useParams } from 'next/navigation';
 import { useStudy } from '@/features/study/hooks';
 import React, { useState, useEffect } from 'react';
@@ -54,9 +54,5 @@ export default function StudyPage(): React.ReactElement {
     </FadeIn>
   );
 
-  return (
-    <PageLayout>
-      <SingleColumnLayout>{contentComponent}</SingleColumnLayout>
-    </PageLayout>
-  );
+  return <PageLayout>{contentComponent}</PageLayout>;
 }

@@ -1,28 +1,34 @@
-import { cn, CommonTableBody, CommonTableHead, TablePagination } from '@hiarc-platform/ui';
+import { cn, CommonTableBody, CommonTableHead, Pagination } from '@hiarc-platform/ui';
 import { useTable } from '@hiarc-platform/util';
-import { Row } from '@tanstack/react-table';
-import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
 
 import { AnimatePresence, motion } from 'framer-motion';
-import { Competition, COMPETITION_LIST_COLUMN } from './competition-list-column';
+import { useAwardListColumns } from './award-list-column';
+import { PageableModel } from '@hiarc-platform/shared';
+import { Award } from '../../../../../../../packages/shared/src/types/award/award';
 
 interface CompetitionTableProps {
-  data?: Competition[];
+  data?: PageableModel<Award> | null;
   className?: string;
 }
 
 export function CompetitionTable({ data, className }: CompetitionTableProps): React.ReactElement {
-  const columns = useMemo(() => COMPETITION_LIST_COLUMN, []);
-  const router = useRouter();
+  const column = useAwardListColumns();
+  const columns = useMemo(() => column, [column]);
   const [globalFilter, setGlobalFilter] = useState('');
+  const [currentPage, setCurrentPage] = useState(0);
+
   const table = useTable({
     columns,
-    data: data ?? [],
-    pageState: [0, () => {}],
-    totalPages: 10,
+    data: data?.content ?? [],
+    pageState: [currentPage, setCurrentPage],
+    totalPages: data?.totalPages ?? 0,
     globalFilterState: [globalFilter, setGlobalFilter],
   });
+
+  const handlePageChange = (page: number): void => {
+    setCurrentPage(page);
+  };
 
   return (
     <div className={cn('w-full flex-col items-center', className)}>
@@ -36,19 +42,10 @@ export function CompetitionTable({ data, className }: CompetitionTableProps): Re
           className="w-full"
         >
           <CommonTableHead className="bg-gray-100 text-gray-900" table={table} />
-          <CommonTableBody
-            table={table}
-            onClick={function (row: Row<Competition>): void {
-              console.log('Row clicked:', row.original);
-              const competitionNumber = row.original.number;
-              if (competitionNumber !== undefined) {
-                router.push(`/competition/${competitionNumber}`);
-              }
-            }}
-          />
+          <CommonTableBody table={table} onClick={() => {}} />
         </motion.div>
       </AnimatePresence>
-      <TablePagination className="mt-8" table={table} />
+      <Pagination className="mt-8" pageableModel={data} onPageChange={handlePageChange} />
     </div>
   );
 }

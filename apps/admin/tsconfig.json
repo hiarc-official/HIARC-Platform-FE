@@ -26,6 +26,13 @@
       "@hiarc-platform/util": ["../../packages/util/src"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "types/**/*.d.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "types/**/*.d.ts",
+    "../../packages/shared/src/types/award/award.ts"
+  ],
   "exclude": ["node_modules"]
 }

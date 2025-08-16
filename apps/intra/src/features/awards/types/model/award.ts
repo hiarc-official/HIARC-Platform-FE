@@ -68,7 +68,7 @@ export class Award {
     return { ...this.props };
   }
 
-  static fromJson(json: any): Award {
+  static fromJson(json: unknown): Award {
     const data: AwardProps = {
       awardId: json.awardId ?? null,
       memberId: json.memberId ?? null,
@@ -80,7 +80,7 @@ export class Award {
       awardDate: json.awardDate ?? null,
       isOfficial: json.isOfficial ?? null,
     };
-    
+
     return new Award(data);
   }
 
