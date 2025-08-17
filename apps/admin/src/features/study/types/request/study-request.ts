@@ -6,6 +6,15 @@ export interface UpdateStudyRequest {
   capacity?: number;
   category?: string;
   mentorId?: number;
+  scheduledDays?: string[];
+  startTime?: string;
+  isOnline?: boolean;
+  lang?: string;
+  introduction?: string;
+  recruitmentStartAt?: string;
+  recruitmentEndAt?: string;
+  precaution?: string;
+  isPublic?: boolean;
 }
 
 export interface AssignMentorRequest {

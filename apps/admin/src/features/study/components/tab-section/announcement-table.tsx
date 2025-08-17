@@ -8,12 +8,10 @@ import { useMemo, useState } from 'react';
 
 const STUDY_ANNOUNCEMENT_COLUMN: Array<ColumnDef<AnnouncementSummary>> = [
   {
-    id: 'name',
-    accessorKey: 'name',
+    id: 'number',
+    accessorKey: 'number',
     enableSorting: false,
-    size: 15,
-    minSize: 15,
-    maxSize: 15,
+    size: 60,
     meta: {
       headAlign: 'center',
       bodyAlign: 'center',
@@ -32,6 +30,7 @@ const STUDY_ANNOUNCEMENT_COLUMN: Array<ColumnDef<AnnouncementSummary>> = [
   {
     id: 'title',
     accessorKey: 'title',
+    size: 0,
     meta: {
       headAlign: 'center',
       bodyAlign: 'left',
@@ -50,9 +49,7 @@ const STUDY_ANNOUNCEMENT_COLUMN: Array<ColumnDef<AnnouncementSummary>> = [
   {
     id: 'date',
     accessorKey: 'date',
-    size: 25,
-    minSize: 25,
-    maxSize: 25,
+    size: 96,
     meta: {
       headAlign: 'center',
       bodyAlign: 'center',
@@ -63,7 +60,7 @@ const STUDY_ANNOUNCEMENT_COLUMN: Array<ColumnDef<AnnouncementSummary>> = [
       </Label>
     ),
     cell: ({ row }: { row: { original: AnnouncementSummary } }) => (
-      <Label size="md" weight="regular">
+      <Label size="xs" weight="regular">
         {row.original.createdAt?.toISOString() ?? '-'}
       </Label>
     ),
@@ -94,7 +91,7 @@ export function AnnouncementTable({
   });
 
   return (
-    <div className={cn('flex w-full flex-col gap-4', className)}>
+    <div className={cn('flex w-full flex-col', className)}>
       <CommonTableHead table={table} className="border-b border-b-gray-200" />
       <CommonTableBody
         table={table}

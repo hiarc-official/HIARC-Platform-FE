@@ -73,5 +73,5 @@ export default function AnnouncementDetailPage(): React.ReactElement {
     </FadeIn>
   );
 
-  return <PageLayout desktopChildren={contentComponent} mobileChildren={contentComponent} />;
+  return <PageLayout>{contentComponent}</PageLayout>;
 }

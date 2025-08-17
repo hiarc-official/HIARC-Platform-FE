@@ -47,16 +47,10 @@ export default function StudyPage(): React.ReactElement {
     <FadeIn isVisible={Boolean(studyData)} duration={0.4} className="flex flex-col">
       <BackButton onClick={() => router.back()} />
       <StudyInfoSection className="pt-5" studyData={studyData} />
-      <TabSection className="pt-8" isAdmin={true} />
-      <div className="mt-8 flex gap-4">
+      <TabSection className="pt-8" isAdmin={true} studyId={studyId} />
+      <div className="mt-8 flex items-center justify-center gap-4">
         <Button variant="line" className="w-[186px]" onClick={() => router.push('/study')}>
           목록으로
-        </Button>
-        <Button 
-          className="w-[186px]" 
-          onClick={() => router.push(`/study/${studyId}/edit`)}
-        >
-          수정하기
         </Button>
       </div>
     </FadeIn>

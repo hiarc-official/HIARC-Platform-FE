@@ -15,10 +15,9 @@ interface DetailInformationSectionProps {
   announcement?: Announcement;
   initialAnnouncementType?: 'GENERAL' | 'STUDY' | 'RATING' | 'ETC' | 'EXTERNAL';
   initialStudyId?: number;
+  initialStudyAnnounceType?: '일반' | '회차별 공지';
   studyOptions?: SelectOption[];
-  lectureOptions?: SelectOption[];
   onSubmit?(data: CreateAnnouncementRequest, isEditMode: boolean, announcementId?: number): void;
-  onStudyChange?(studyId: number | undefined): void;
 }
 
 export default function DetailInformationSection({
@@ -26,10 +25,9 @@ export default function DetailInformationSection({
   announcement,
   initialAnnouncementType = 'GENERAL',
   initialStudyId,
+  initialStudyAnnounceType = '일반',
   studyOptions = [],
-  lectureOptions = [],
   onSubmit,
-  onStudyChange,
 }: DetailInformationSectionProps): React.ReactElement {
   const isEditMode = Boolean(announcementId);
 
@@ -52,7 +50,7 @@ export default function DetailInformationSection({
 
   // UI 관련 상태
   const [applyType, setApplyType] = useState<string>('신청 없음');
-  const [studyAnnounceType, setStudyAnnounceType] = useState<string>('일반');
+  const [studyAnnounceType, setStudyAnnounceType] = useState<string>(initialStudyAnnounceType);
   const [publicType, setPublicType] = useState<string>('공개');
   const [attachmentUrls, setAttachmentUrls] = useState<string[]>(['']);
   const [scheduleStartAt, setScheduleStartAt] = useState<Date | null>(null);
@@ -153,11 +151,17 @@ export default function DetailInformationSection({
 
   // formData 업데이트 헬퍼 함수
   const updateFormData = (updates: Partial<CreateAnnouncementRequest>): void => {
-    setFormData((prev) => ({ ...prev, ...updates }));
+    console.log('updateFormData 호출됨:', updates);
+    setFormData((prev) => {
+      const newData = { ...prev, ...updates };
+      console.log('업데이트된 formData:', newData);
+      return newData;
+    });
   };
 
   // 폼 제출 함수
   const handleSubmit = (): void => {
+    console.log('폼 제출 시 formData:', formData);
     if (!formData.title.trim() || !formData.content.trim() || !formData.announcementType) {
       alert('필수 항목을 모두 입력해주세요.');
       return;
@@ -280,11 +284,9 @@ export default function DetailInformationSection({
           applicationEndDate={applicationEndDate}
           onApplicationEndDateChange={setApplicationEndDate}
           studyOptions={studyOptions}
-          lectureOptions={lectureOptions}
           onSubmit={handleSubmit}
           isLoading={false}
           buttonText={isEditMode ? '수정하기' : '게시하기'}
-          onStudyChange={onStudyChange}
         />
       </div>
       <div className="mt-4 flex flex-col gap-2">

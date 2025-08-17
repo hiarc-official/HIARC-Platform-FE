@@ -2,36 +2,36 @@
 
 import { BackButton, Divider, PageLayout, DialogUtil } from '@hiarc-platform/ui';
 import { Title } from '@hiarc-platform/ui';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useCreateAdminAnnouncement } from '@/features/announcement/hooks/use-create-admin-announcement';
 import { CreateAnnouncementRequest } from '@hiarc-platform/shared';
 import { AnnouncementWrite } from '@hiarc-platform/ui';
 import { useSemesterStoreInit, useSemesterStore } from '@/hooks/use-semester-store';
-import { useStudyOptions, useLectureOptions } from '@/features/study/hooks';
-import { useState, useEffect } from 'react';
+import { useStudyOptions } from '@/features/study/hooks';
 
 export default function WriteAnnouncementPage(): React.ReactElement {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { mutate: createAnnouncement } = useCreateAdminAnnouncement();
+
+  // Get query parameters
+  const initialType = searchParams.get('type') as 'GENERAL' | 'STUDY' | 'RATING' | 'ETC' | 'EXTERNAL' | null;
+  const initialStudyId = searchParams.get('studyId');
+  const isLecture = searchParams.get('isLecture') === 'true';
 
   // Initialize semester store and get study options
   useSemesterStoreInit();
   const { selectedSemesterId } = useSemesterStore();
   const { data: studyOptions = [] } = useStudyOptions(selectedSemesterId);
-  
-  // Track selected study ID for lecture options
-  const [selectedStudyId, setSelectedStudyId] = useState<number | null>(null);
-  const { data: lectureOptions = [] } = useLectureOptions(selectedStudyId || 0);
-
-  const handleStudyChange = (studyId: number | undefined): void => {
-    setSelectedStudyId(studyId || null);
-  };
 
   const handleSubmit = (data: CreateAnnouncementRequest): void => {
     createAnnouncement(data, {
       onSuccess: () => {
-        DialogUtil.showSuccess('공지사항이 성공적으로 등록되었습니다.', undefined, () => {
-          router.back();
+        const successMessage = initialType === 'STUDY' ? '스터디 공지사항이 성공적으로 등록되었습니다.' : '공지사항이 성공적으로 등록되었습니다.';
+        const redirectPath = initialType === 'STUDY' && initialStudyId ? `/study/${initialStudyId}` : '/announcement';
+        
+        DialogUtil.showSuccess(successMessage, undefined, () => {
+          router.push(redirectPath);
         });
       },
       onError: (error) => {
@@ -54,9 +54,10 @@ export default function WriteAnnouncementPage(): React.ReactElement {
       </div>
       <AnnouncementWrite 
         studyOptions={studyOptions}
-        lectureOptions={lectureOptions}
-        onSubmit={handleSubmit}
-        onStudyChange={handleStudyChange}
+        initialAnnouncementType={initialType || 'GENERAL'}
+        initialStudyId={initialStudyId ? Number(initialStudyId) : undefined}
+        initialStudyAnnounceType={isLecture ? '회차별 공지' : '일반'}
+        onSubmit={handleSubmit} 
       />
     </PageLayout>
   );

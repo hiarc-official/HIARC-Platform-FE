@@ -6,10 +6,9 @@ export interface AnnouncementWriteProps {
   announcement?: Announcement;
   initialAnnouncementType?: 'GENERAL' | 'STUDY' | 'RATING' | 'ETC' | 'EXTERNAL';
   initialStudyId?: number;
+  initialStudyAnnounceType?: '일반' | '회차별 공지';
   studyOptions?: SelectOption[];
-  lectureOptions?: SelectOption[];
   onSubmit?(data: CreateAnnouncementRequest, isEditMode: boolean, announcementId?: number): void;
-  onStudyChange?(studyId: number | undefined): void;
 }
 
 export default function AnnouncementWrite({
@@ -17,10 +16,9 @@ export default function AnnouncementWrite({
   announcement,
   initialAnnouncementType,
   initialStudyId,
+  initialStudyAnnounceType,
   studyOptions,
-  lectureOptions,
   onSubmit,
-  onStudyChange,
 }: AnnouncementWriteProps): React.ReactElement {
   return (
     <div className="mt-8 flex min-h-screen w-full flex-col gap-4">
@@ -31,10 +29,9 @@ export default function AnnouncementWrite({
             announcement={announcement}
             initialAnnouncementType={initialAnnouncementType}
             initialStudyId={initialStudyId}
+            initialStudyAnnounceType={initialStudyAnnounceType}
             studyOptions={studyOptions}
-            lectureOptions={lectureOptions}
             onSubmit={onSubmit}
-            onStudyChange={onStudyChange}
           />
         </div>
       </div>

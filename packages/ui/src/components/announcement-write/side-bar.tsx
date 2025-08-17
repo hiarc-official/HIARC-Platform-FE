@@ -21,11 +21,9 @@ interface SideBarProps {
   applicationEndDate: Date | null;
   onApplicationEndDateChange(value: Date | null): void;
   studyOptions?: SelectOption[];
-  lectureOptions?: SelectOption[];
   onSubmit(): void;
   isLoading: boolean;
   buttonText?: string;
-  onStudyChange?(studyId: number | undefined): void;
 }
 
 export function SideBar({
@@ -42,11 +40,9 @@ export function SideBar({
   applicationEndDate,
   onApplicationEndDateChange,
   studyOptions = [],
-  lectureOptions = [],
   onSubmit,
   isLoading,
   buttonText = '게시하기',
-  onStudyChange,
 }: SideBarProps): React.ReactElement {
   const publicTypeOptionList = [
     {
@@ -66,11 +62,16 @@ export function SideBar({
 
   const categoryOptionList = [
     { value: 'STUDY', label: '스터디' },
-    { value: 'RATING', label: '평가' },
+    { value: 'RATING', label: '하이팅' },
     { value: 'GENERAL', label: '일반' },
-    { value: 'ETC', label: '기타' },
     { value: 'EXTERNAL', label: '외부 공지' },
+    { value: 'ETC', label: '기타' },
   ];
+
+  const lectureRoundOptions = Array.from({ length: 30 }, (_, i) => ({
+    value: (i + 1).toString(),
+    label: `${i + 1}회차`,
+  }));
 
   return (
     <div className="flex w-[389px] flex-col justify-between rounded-lg border border-gray-200 p-4">
@@ -79,13 +80,7 @@ export function SideBar({
         <div className="flex flex-col gap-2">
           <LabeledSelector
             placeholder="카테고리를 선택해주세요."
-            options={[
-              { value: 'STUDY', label: '스터디' },
-              { value: 'RATING', label: '평가' },
-              { value: 'GENERAL', label: '일반' },
-              { value: 'ETC', label: '기타' },
-              { value: 'EXTERNAL', label: '외부 공지' },
-            ]}
+            options={categoryOptionList}
             label="카테고리"
             value={formData.announcementType}
             onChange={(value: string) =>
@@ -106,7 +101,6 @@ export function SideBar({
               onChange={(value: string) => {
                 const studyId = value ? Number(value) : undefined;
                 onFormDataChange({ studyId });
-                onStudyChange?.(studyId);
               }}
             />
           )}
@@ -128,13 +122,15 @@ export function SideBar({
             {studyAnnounceType === '회차별 공지' && (
               <LabeledSelector
                 placeholder="회차를 선택해주세요."
-                options={lectureOptions}
+                options={lectureRoundOptions}
                 label="회차 선택"
                 required
                 value={formData.lectureRound?.toString() || ''}
-                onChange={(value: string) =>
-                  onFormDataChange({ lectureRound: value ? Number(value) : undefined })
-                }
+                onChange={(value: string) => {
+                  const lectureRound = value ? Number(value) : undefined;
+                  console.log('회차 선택됨:', lectureRound);
+                  onFormDataChange({ lectureRound });
+                }}
               />
             )}
           </>

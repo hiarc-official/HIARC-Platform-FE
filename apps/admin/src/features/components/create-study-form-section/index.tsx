@@ -114,6 +114,27 @@ export function CreateStudyForm({
     { label: '비공개', value: 'PRIVATE' },
   ];
 
+  // 시간 형식을 HH:MM:SS로 정규화하는 함수
+  const normalizeTimeFormat = (time: string): string => {
+    if (!time) {
+      return '';
+    }
+
+    // 이미 올바른 형식인지 확인 (HH:MM:SS)
+    if (/^\d{2}:\d{2}:\d{2}$/.test(time)) {
+      return time;
+    }
+
+    // HH:MM 형식인 경우 :00 추가
+    if (/^\d{2}:\d{2}$/.test(time)) {
+      return `${time}:00`;
+    }
+
+    // 잘못된 형식인 경우 :00 제거 후 다시 :00 추가
+    const cleanTime = time.replace(/:00$/, '');
+    return /^\d{2}:\d{2}$/.test(cleanTime) ? `${cleanTime}:00` : time;
+  };
+
   const handleSubmit = async (): Promise<void> => {
     if (!formData.name || !formData.bojHandle || !formData.semesterId) {
       DialogUtil.showError('필수 항목을 모두 입력해주세요.');
@@ -127,7 +148,7 @@ export function CreateStudyForm({
       startDate: studyPeriod[0]?.toISOString().split('T')[0] || null,
       endDate: studyPeriod[1]?.toISOString().split('T')[0] || null,
       scheduledDays: selectedDays.length > 0 ? selectedDays : null,
-      startTime: selectedStartTime ? `${selectedStartTime}:00` : null,
+      startTime: selectedStartTime ? normalizeTimeFormat(selectedStartTime) : null,
       isOnline: isOnline === 'ONLINE' ? true : isOnline === 'IN_PERSON' ? false : null,
       isPublic: isPublic === 'PUBLIC' ? true : isPublic === 'PRIVATE' ? false : null,
       lang: formData.lang,
@@ -141,10 +162,19 @@ export function CreateStudyForm({
       if (isEditMode && studyId) {
         // Edit mode: use update API
         const updateRequest = {
-          title: studyRequest.name,
+          // title, handle, semesterId는 수정 불가이므로 제외
           description: studyRequest.introduction || undefined,
           startDate: studyRequest.startDate || undefined,
           endDate: studyRequest.endDate || undefined,
+          scheduledDays: studyRequest.scheduledDays || undefined,
+          startTime: studyRequest.startTime || undefined,
+          isOnline: studyRequest.isOnline || undefined,
+          lang: studyRequest.lang || undefined,
+          introduction: studyRequest.introduction || undefined,
+          recruitmentStartAt: studyRequest.recruitmentStartAt || undefined,
+          recruitmentEndAt: studyRequest.recruitmentEndAt || undefined,
+          precaution: studyRequest.precaution || undefined,
+          isPublic: studyRequest.isPublic || undefined,
         };
         await updateStudyMutation.mutateAsync({ studyId, data: updateRequest });
         DialogUtil.showSuccess('스터디가 성공적으로 수정되었습니다.', undefined, () => {
@@ -195,12 +225,7 @@ export function CreateStudyForm({
           onChange={(value) => setFormData((prev) => ({ ...prev, bojHandle: value }))}
           disabled={isEditMode}
         />
-        <Button 
-          variant="fill" 
-          size="md" 
-          className="w-25 px-9 text-md"
-          disabled={isEditMode}
-        >
+        <Button variant="fill" size="md" className="w-25 px-9 text-md" disabled={isEditMode}>
           확인
         </Button>
       </div>

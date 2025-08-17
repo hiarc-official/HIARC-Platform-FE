@@ -5,6 +5,8 @@ export * from './types/study/study-summary';
 export * from './types/study/study';
 export * from './types/study/create-study-request';
 export * from './types/study/lecture';
+export * from './types/study/study-member';
+export * from './types/study/assignment';
 export * from './types/time/time';
 export * from './types/semester/semester';
 export * from './types/select/select-option';

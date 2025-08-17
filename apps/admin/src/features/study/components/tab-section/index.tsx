@@ -1,21 +1,22 @@
 import { Button, cn, Tabs } from '@hiarc-platform/ui';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
-import { useRouter, useParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { LectureList } from './lecture-list';
 import { AnnouncementTable } from './announcement-table';
 import { StudentList } from './student-list';
 import { useStudyAnnouncements } from '../../hooks/use-study-announcements';
+import { useLecturesByStudy } from '../../hooks';
+import { useStudyMembers } from '../../hooks/use-study-members';
 
 interface TabSectionProps {
+  studyId?: number;
   isAdmin?: boolean;
   className?: string;
 }
 
-export function TabSection({ className, isAdmin }: TabSectionProps): React.ReactElement {
+export function TabSection({ className, isAdmin, studyId }: TabSectionProps): React.ReactElement {
   const router = useRouter();
-  const params = useParams();
-  const studyId = typeof params.id === 'string' ? Number(params.id) : 1;
 
   const tabs = [
     { label: '커리큘럼', value: 'curriculum' },
@@ -23,24 +24,37 @@ export function TabSection({ className, isAdmin }: TabSectionProps): React.React
     ...(isAdmin ? [{ label: '스터디원 관리', value: 'manage_student' }] : []),
   ];
 
-  const [selectedTab, setSelectedTab] = useState('manage_student');
+  const [selectedTab, setSelectedTab] = useState('curriculum');
   const { data: pageableModel } = useStudyAnnouncements({
-    studyId: studyId,
+    studyId: studyId || 0,
     page: 0,
     size: 10,
   });
+  const { data: lectureList } = useLecturesByStudy(studyId || 0);
+  const { data: studentList } = useStudyMembers(studyId || 0);
+
+  const handleCurriculumAdd = (): void => {
+    router.push(`/announcement/write?type=STUDY&studyId=${studyId}&isLecture=true`);
+  };
 
   const handleAnnouncementAdd = (): void => {
-    router.push(`/study/${studyId}/announcement-create`);
+    router.push(`/announcement/write?type=STUDY&studyId=${studyId}`);
   };
 
   return (
     <div className={cn('flex w-full flex-col', className)}>
       <div className="flex w-full justify-between">
         <Tabs tabs={tabs} activeTab={selectedTab} onTabClick={setSelectedTab} />
-        <Button size="sm" className="bg-primary-200" onClick={handleAnnouncementAdd}>
-          공지사항 추가
-        </Button>
+        {selectedTab === 'curriculum' && (
+          <Button size="sm" className="bg-primary-200" onClick={handleCurriculumAdd}>
+            강의 추가
+          </Button>
+        )}
+        {selectedTab === 'announcement' && (
+          <Button size="sm" className="bg-primary-200" onClick={handleAnnouncementAdd}>
+            공지사항 추가
+          </Button>
+        )}
       </div>
       <div className="mt-6 min-h-[300px]">
         <AnimatePresence mode="wait">
@@ -53,7 +67,7 @@ export function TabSection({ className, isAdmin }: TabSectionProps): React.React
               transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
               className="w-full"
             >
-              <LectureList />
+              <LectureList studyId={studyId} lectureList={lectureList} />
             </motion.div>
           )}
           {selectedTab === 'announcement' && (
@@ -77,7 +91,7 @@ export function TabSection({ className, isAdmin }: TabSectionProps): React.React
               transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
               className="w-full"
             >
-              <StudentList />
+              <StudentList studentList={studentList || []} />
             </motion.div>
           )}
         </AnimatePresence>

@@ -1,14 +1,17 @@
 import { apiClient } from '@/shared/api/client';
 import type { UpdateStudyRequest, StudyQueryParams } from '../types/request/study-request';
 import {
+  Assignment,
   CreateStudyRequest,
   Lecture,
   PageableModel,
   Study,
+  StudyMember,
   StudySummary,
 } from '@hiarc-platform/shared';
 import { StudyInitialForm } from '../types';
 import { AnnouncementSummary } from '@/features/announcement/types/model/announcement_summary';
+import { CreateAssignmentRequest } from '../types/request/create-assignment-request';
 
 export const studyApi = {
   // 모든 스터디 리스트 조회
@@ -96,11 +99,72 @@ export const studyApi = {
   GET_LECTURES_BY_STUDY: async (studyId: number): Promise<Lecture[]> => {
     console.log('[STUDY API] GET_LECTURES_BY_STUDY 요청:', studyId);
     try {
-      const response = await apiClient.get(`/studies/${studyId}/lectures`);
+      const response = await apiClient.get(`/studies/${studyId}/lecture`);
       console.log('[STUDY API] GET_LECTURES_BY_STUDY 응답:', response.data);
       return response.data.map((lecture: unknown) => Lecture.fromJson(lecture));
     } catch (error) {
       console.error('[STUDY API] GET_LECTURES_BY_STUDY 에러:', error);
+      throw error;
+    }
+  },
+
+  GET_STUDY_MEMBERS: async (studyId: number): Promise<StudyMember[]> => {
+    try {
+      const response = await apiClient.get(`/studies/${studyId}/instructor/status`);
+      return response.data.map((member: unknown) => StudyMember.fromJson(member));
+    } catch (error) {
+      console.error('[STUDY API] GET_STUDY_MEMBERS 에러:', error);
+      throw error;
+    }
+  },
+
+  CREATE_ASSIGNMENT: async (
+    studyId: number,
+    lectureId: number,
+    data: CreateAssignmentRequest
+  ): Promise<void> => {
+    try {
+      await apiClient.post(`/studies/${studyId}/instructor/lecture/${lectureId}/assignment`, data);
+      console.log('[STUDY API] CREATE_ASSIGNMENT 성공');
+    } catch (error) {
+      console.error('[STUDY API] CREATE_ASSIGNMENT 에러:', error);
+      throw error;
+    }
+  },
+
+  GET_ASSIGNMENT: async (studyId: number, lectureId: number): Promise<Assignment> => {
+    try {
+      const response = await apiClient.get(`/studies/${studyId}/lecture/${lectureId}/assignment`);
+      return Assignment.fromJson(response.data);
+    } catch (error) {
+      console.error('[STUDY API] GET_ASSIGNMENT 에러:', error);
+      throw error;
+    }
+  },
+
+  CREATE_ATTENDANCE_CODE: async (
+    studyId: number,
+    lectureId: number,
+    code: string
+  ): Promise<void> => {
+    try {
+      await apiClient.post(`/studies/${studyId}/instructor/lecture/${lectureId}/attendance`, {
+        code,
+      });
+    } catch (error) {
+      console.error('[STUDY API] CREATE_ATTENDANCE_CODE 에러:', error);
+      throw error;
+    }
+  },
+
+  GET_ATTENDANCE_CODE: async (studyId: number, lectureId: number): Promise<string> => {
+    try {
+      const response = await apiClient.get(
+        `/studies/${studyId}/instructor/lecture/${lectureId}/attendance`
+      );
+      return response.data.code;
+    } catch (error) {
+      console.error('[STUDY API] GET_ATTENDANCE_CODE 에러:', error);
       throw error;
     }
   },

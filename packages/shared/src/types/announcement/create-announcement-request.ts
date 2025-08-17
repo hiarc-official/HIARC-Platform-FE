@@ -4,7 +4,7 @@ export interface CreateAnnouncementRequest {
   scheduleStartAt?: string | null;
   scheduleEndAt?: string | null;
   content: string;
-  announcementType: 'STUDY' | 'RATING' | 'GENERAL' | 'ETC' | 'EXTERNAL';
+  announcementType: 'STUDY' | 'RATING' | 'GENERAL' | 'ETC' | 'EXTERNAL' | 'LECTURE';
   applicationUrl?: string | null;
   applicationStartAt?: string | null;
   applicationEndAt?: string | null;

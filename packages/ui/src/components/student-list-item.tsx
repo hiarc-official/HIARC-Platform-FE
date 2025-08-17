@@ -8,13 +8,34 @@ import { IconButton } from './icon-button';
 import { Label } from './label/label';
 import { AttendanceTable } from './table/attendance-table';
 
+interface RoundStatus {
+  round?: number | null;
+  attendanceCompleted?: boolean | null;
+  assignmentCompleted?: boolean | null;
+}
+
 interface StudentListItemProps {
   name: string;
   imageUrl?: string;
+  attendanceCount?: number;
+  assignmentCount?: number;
+  totalRounds?: number;
+  roundStatuses?: RoundStatus[];
 }
 
-export function StudentListItem({ name, imageUrl }: StudentListItemProps): React.ReactElement {
+export function StudentListItem({
+  name,
+  imageUrl,
+  attendanceCount,
+  assignmentCount,
+  totalRounds,
+  roundStatuses = [],
+}: StudentListItemProps): React.ReactElement {
   const [open, setOpen] = useState(false);
+
+  // RoundStatus[]를 attendance, assignment 배열로 변환
+  const attendance = roundStatuses.map((status) => status.attendanceCompleted === true);
+  const assignment = roundStatuses.map((status) => status.assignmentCompleted === true);
 
   return (
     <div className="flex flex-col rounded-lg border border-gray-200 px-5 py-4 transition">
@@ -29,8 +50,12 @@ export function StudentListItem({ name, imageUrl }: StudentListItemProps): React
           </Button>
         </div>
         <div className="flex items-center">
-          <Label>출석: 12/13</Label>
-          <Label className="ml-6">과제: 12/13</Label>
+          <Label>
+            출석: {attendanceCount}/{totalRounds}
+          </Label>
+          <Label className="ml-6">
+            과제: {assignmentCount}/{totalRounds}
+          </Label>
           <IconButton
             className="ml-4"
             size="lg"
@@ -53,8 +78,8 @@ export function StudentListItem({ name, imageUrl }: StudentListItemProps): React
             <AttendanceTable
               className="mt-4"
               chunkSize={8}
-              attendance={[false, true, false]}
-              assignment={[false, true, false]}
+              attendance={attendance}
+              assignment={assignment}
             />
           </motion.div>
         )}
