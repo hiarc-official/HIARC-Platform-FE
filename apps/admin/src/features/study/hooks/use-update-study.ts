@@ -1,6 +1,6 @@
 import { useMutation, UseMutationResult, useQueryClient } from '@tanstack/react-query';
 import { studyApi } from '../api/study';
-import type { StudyResponse, UpdateStudyRequest } from '../api/study';
+import type { UpdateStudyRequest } from '../api/study';
 import { useErrorHandler } from '@/shared/hooks/use-error-handler';
 
 interface UpdateStudyParams {
@@ -8,18 +8,12 @@ interface UpdateStudyParams {
   data: UpdateStudyRequest;
 }
 
-export function useUpdateStudy(): UseMutationResult<
-  StudyResponse,
-  Error,
-  UpdateStudyParams,
-  unknown
-> {
+export function useUpdateStudy(): UseMutationResult<void, Error, UpdateStudyParams, unknown> {
   const queryClient = useQueryClient();
   const { showSuccess } = useErrorHandler();
 
   const mutation = useMutation({
-    mutationFn: ({ studyId, data }: UpdateStudyParams) =>
-      studyApi.UPDATE_STUDY(studyId, data),
+    mutationFn: ({ studyId, data }: UpdateStudyParams) => studyApi.UPDATE_STUDY(studyId, data),
     onSuccess: (response, variables) => {
       console.log('[HOOK] useUpdateStudy 성공:', response);
       queryClient.invalidateQueries({ queryKey: ['studies'] });

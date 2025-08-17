@@ -36,7 +36,7 @@ export function CreateStudyForm({
 
   const [formData, setFormData] = useState<CreateStudyRequest>({
     name: '',
-    handle: '',
+    bojHandle: '',
     semesterId: null,
     startDate: null,
     endDate: null,
@@ -62,18 +62,13 @@ export function CreateStudyForm({
     if (initialData && isEditMode) {
       setFormData({
         name: initialData.name || '',
-        handle: initialData.handle || '',
+        bojHandle: initialData.bojHandle || '',
         semesterId: initialData.semesterId || null,
         startDate: initialData.startDate || null,
         endDate: initialData.endDate || null,
-        scheduledDays: initialData.daysOfWeek || null,
+        scheduledDays: initialData.scheduledDays || null,
         startTime: initialData.startTime || null,
-        isOnline:
-          initialData.isOnline === 'ONLINE'
-            ? true
-            : initialData.isOnline === 'IN_PERSON'
-              ? false
-              : null,
+        isOnline: initialData.isOnline || null,
         lang: initialData.lang || null,
         introduction: initialData.introduction || null,
         recruitmentStartAt: initialData.recruitmentStartAt || null,
@@ -92,13 +87,10 @@ export function CreateStudyForm({
         initialData.recruitmentEndAt ? new Date(initialData.recruitmentEndAt) : null,
       ]);
 
-      setSelectedDays(initialData.daysOfWeek || []);
-      // Format time from HH:MM:SS to HH:MM for time input
-      const formattedTime = initialData.startTime
-        ? initialData.startTime.substring(0, 5) // Extract HH:MM from HH:MM:SS
-        : '';
-      setSelectedStartTime(formattedTime);
-      setIsOnline(initialData.isOnline || '');
+      setSelectedDays(initialData.scheduledDays || []);
+      setSelectedStartTime(initialData.startTime || '');
+      setIsOnline(initialData.isOnline ? 'ONLINE' : 'IN_PERSON');
+      setIsPublic(initialData.isPublic ? 'PUBLIC' : 'PRIVATE');
     }
   }, [initialData, isEditMode]);
 
@@ -123,14 +115,14 @@ export function CreateStudyForm({
   ];
 
   const handleSubmit = async (): Promise<void> => {
-    if (!formData.name || !formData.handle || !formData.semesterId) {
+    if (!formData.name || !formData.bojHandle || !formData.semesterId) {
       DialogUtil.showError('필수 항목을 모두 입력해주세요.');
       return;
     }
 
     const studyRequest: CreateStudyRequest = {
       name: formData.name,
-      handle: formData.handle,
+      bojHandle: formData.bojHandle,
       semesterId: formData.semesterId,
       startDate: studyPeriod[0]?.toISOString().split('T')[0] || null,
       endDate: studyPeriod[1]?.toISOString().split('T')[0] || null,
@@ -192,16 +184,23 @@ export function CreateStudyForm({
         required
         value={formData.name}
         onChange={(value) => setFormData((prev) => ({ ...prev, name: value }))}
+        disabled={isEditMode}
       />
       <div className="flex w-1/2 items-end gap-2">
         <LabeledInput
           label="스터디장"
           placeholder="스터디장의 핸들명을 입력해주세요"
           required
-          value={formData.handle}
-          onChange={(value) => setFormData((prev) => ({ ...prev, handle: value }))}
+          value={formData.bojHandle}
+          onChange={(value) => setFormData((prev) => ({ ...prev, bojHandle: value }))}
+          disabled={isEditMode}
         />
-        <Button variant="fill" size="md" className="w-25 px-9 text-md">
+        <Button 
+          variant="fill" 
+          size="md" 
+          className="w-25 px-9 text-md"
+          disabled={isEditMode}
+        >
           확인
         </Button>
       </div>
@@ -215,6 +214,7 @@ export function CreateStudyForm({
           onChange={(value) =>
             setFormData((prev) => ({ ...prev, semesterId: value ? Number(value) : null }))
           }
+          disabled={isEditMode}
         />
         <LabeledCalanderInput
           label="진행기간"

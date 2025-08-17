@@ -1,6 +1,6 @@
 export interface CreateStudyRequest {
   name: string;
-  handle: string;
+  bojHandle: string;
   semesterId: number | null;
   startDate?: string | null;
   endDate?: string | null;

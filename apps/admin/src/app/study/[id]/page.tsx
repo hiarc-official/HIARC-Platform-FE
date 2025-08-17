@@ -48,9 +48,17 @@ export default function StudyPage(): React.ReactElement {
       <BackButton onClick={() => router.back()} />
       <StudyInfoSection className="pt-5" studyData={studyData} />
       <TabSection className="pt-8" isAdmin={true} />
-      <Button variant="line" className="mt-8 w-[186px]" onClick={() => router.push('/study')}>
-        목록으로
-      </Button>
+      <div className="mt-8 flex gap-4">
+        <Button variant="line" className="w-[186px]" onClick={() => router.push('/study')}>
+          목록으로
+        </Button>
+        <Button 
+          className="w-[186px]" 
+          onClick={() => router.push(`/study/${studyId}/edit`)}
+        >
+          수정하기
+        </Button>
+      </div>
     </FadeIn>
   );
 

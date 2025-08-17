@@ -43,7 +43,7 @@ export const studyApi = {
   GET_STUDY_INITIAL_FORM: async (studyId: number): Promise<StudyInitialForm> => {
     console.log('[STUDY API] GET_STUDY_INITIAL_FORM 요청:', studyId);
     try {
-      const response = await apiClient.get<Study>(`/studies/${studyId}`);
+      const response = await apiClient.get<Study>(`/admin/studies/${studyId}`);
       console.log('[STUDY API] GET_STUDY_INITIAL_FORM 응답:', response.data);
       return StudyInitialForm.fromJson(response.data);
     } catch (error) {
@@ -66,16 +66,9 @@ export const studyApi = {
   },
 
   // 스터디 정보 수정
-  UPDATE_STUDY: async (studyId: number, studyData: UpdateStudyRequest): Promise<Study> => {
+  UPDATE_STUDY: async (studyId: number, studyData: UpdateStudyRequest): Promise<void> => {
     console.log('[STUDY API] UPDATE_STUDY 요청:', { studyId, data: studyData });
-    try {
-      const response = await apiClient.put<Study>(`/admin/studies/${studyId}`, studyData);
-      console.log('[STUDY API] UPDATE_STUDY 응답:', response.data);
-      return Study.fromJson(response.data);
-    } catch (error) {
-      console.error('[STUDY API] UPDATE_STUDY 에러:', error);
-      throw error;
-    }
+    await apiClient.patch<Study>(`/admin/studies/${studyId}`, studyData);
   },
 
   // 스터디에 멘토 할당

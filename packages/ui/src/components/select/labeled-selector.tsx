@@ -22,6 +22,7 @@ interface LabeledSelectorProps {
   onChange?(value: string): void;
   className?: string;
   triggerClassName?: string;
+  disabled?: boolean;
 }
 
 function LabeledSelector({
@@ -34,6 +35,7 @@ function LabeledSelector({
   onChange,
   className = '',
   triggerClassName = '',
+  disabled = false,
 }: LabeledSelectorProps): React.ReactElement {
   return (
     <div className={cn('flex w-full flex-col', className)}>
@@ -45,7 +47,7 @@ function LabeledSelector({
           {required && <span className="relative -top-[2px] ml-0.5 text-red">*</span>}
         </div>
       )}
-      <Select value={value} onValueChange={onChange}>
+      <Select value={value} onValueChange={onChange} disabled={disabled}>
         <SelectTrigger
           className={cn(
             'w-full border border-gray-200 data-[placeholder]:text-gray-500',

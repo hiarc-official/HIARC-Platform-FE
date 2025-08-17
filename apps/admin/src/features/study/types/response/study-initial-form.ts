@@ -1,12 +1,12 @@
 export interface StudyInitialForm {
   name?: string;
-  handle?: string;
+  bojHandle?: string;
   semesterId?: number;
   startDate?: string | null;
   endDate?: string | null;
-  daysOfWeek?: string[];
+  scheduledDays?: string[];
   startTime?: string | null;
-  isOnline?: 'ONLINE' | 'IN_PERSON' | null;
+  isOnline?: boolean | null;
   lang?: string | null;
   introduction?: string | null;
   recruitmentStartAt?: string | null;
@@ -20,13 +20,13 @@ export const StudyInitialForm = {
     const data = (json || {}) as Record<string, unknown>;
     return {
       name: (data.name as string) || '',
-      handle: (data.handle as string) || '',
+      bojHandle: (data.bojHandle as string) || '',
       semesterId: data.semesterId as number,
       startDate: (data.startDate as string) || null,
       endDate: (data.endDate as string) || null,
-      daysOfWeek: (data.daysOfWeek as string[]) || [],
-      startTime: (data.endDate as string) || null,
-      isOnline: (data.isOnline as 'ONLINE' | 'IN_PERSON') || null,
+      scheduledDays: (data.scheduledDays as string[]) || [],
+      startTime: (data.startTime as string | null) || null,
+      isOnline: (data.isOnline as boolean) || null,
       lang: (data.lang as string) || null,
       introduction: (data.introduction as string) || null,
       recruitmentStartAt: (data.recruitmentStartAt as string) || null,
