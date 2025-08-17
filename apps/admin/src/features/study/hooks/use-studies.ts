@@ -17,11 +17,5 @@ export function useStudies(
     refetchOnWindowFocus: false,
   });
 
-  console.log('[HOOK] useStudies 결과:', {
-    isLoading: query.isLoading,
-    error: query.error,
-    dataLength: query.data?.content?.length,
-  });
-
   return query;
 }

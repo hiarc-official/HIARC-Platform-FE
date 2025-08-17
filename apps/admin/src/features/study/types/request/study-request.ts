@@ -5,7 +5,6 @@ export interface UpdateStudyRequest {
   endDate?: string;
   capacity?: number;
   category?: string;
-  difficulty?: 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED';
   mentorId?: number;
 }
 
@@ -14,12 +13,8 @@ export interface AssignMentorRequest {
 }
 
 export interface StudyQueryParams {
+  semesterId?: number;
   page?: number;
   size?: number;
-  sort?: string;
-  status?: 'RECRUITING' | 'IN_PROGRESS' | 'COMPLETED' | 'CANCELLED';
-  semesterId?: number;
-  category?: string;
-  difficulty?: 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED';
   title?: string;
 }

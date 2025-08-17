@@ -54,6 +54,6 @@ export const useSemesterStore = create<SemesterState>((set, get) => ({
 
   getSelectedSemester: () => {
     const { semesters, selectedSemesterId } = get();
-    return semesters.find(semester => semester.semesterId?.toString() === selectedSemesterId) || null;
+    return semesters.find((semester) => semester.semesterId?.toString() === selectedSemesterId) || null;
   },
 }));

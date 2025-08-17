@@ -1,15 +1,14 @@
 import { apiClient } from '@/shared/api/client';
-import type {
-  StudyStatusUpdateResponse,
-  AssignMentorResponse,
-} from '../types/response/study-response';
-import type {
-  UpdateStudyRequest,
-  AssignMentorRequest,
-  StudyQueryParams,
-} from '../types/request/study-request';
-import { CreateStudyRequest, PageableModel, Study, StudySummary } from '@hiarc-platform/shared';
+import type { UpdateStudyRequest, StudyQueryParams } from '../types/request/study-request';
+import {
+  CreateStudyRequest,
+  Lecture,
+  PageableModel,
+  Study,
+  StudySummary,
+} from '@hiarc-platform/shared';
 import { StudyInitialForm } from '../types';
+import { AnnouncementSummary } from '@/features/announcement/types/model/announcement_summary';
 
 export const studyApi = {
   // 모든 스터디 리스트 조회
@@ -71,48 +70,37 @@ export const studyApi = {
     await apiClient.patch<Study>(`/admin/studies/${studyId}`, studyData);
   },
 
-  // 스터디에 멘토 할당
-  ASSIGN_MENTOR: async (
+  GET_STUDY_ANNOUNCEMENT_LIST: async (
     studyId: number,
-    mentorData: AssignMentorRequest
-  ): Promise<AssignMentorResponse> => {
-    console.log('[STUDY API] ASSIGN_MENTOR 요청:', { studyId, mentorData });
+    page: number = 0,
+    size: number = 10
+  ): Promise<PageableModel<AnnouncementSummary>> => {
+    console.log('[STUDY API] GET_STUDY_ANNOUNCEMENT_LIST 요청');
     try {
-      const response = await apiClient.post<AssignMentorResponse>(
-        `/admin/studies/${studyId}/mentor`,
-        mentorData
+      const response = await apiClient.get<PageableModel<AnnouncementSummary>>(
+        `/studies/${studyId}/announcements`,
+        {
+          params: {
+            page,
+            size,
+          },
+        }
       );
-      console.log('[STUDY API] ASSIGN_MENTOR 응답:', response.data);
-      return response.data;
+      return PageableModel.fromJson(response.data, AnnouncementSummary);
     } catch (error) {
-      console.error('[STUDY API] ASSIGN_MENTOR 에러:', error);
+      console.error('[STUDY API] GET_STUDY_ANNOUNCEMENT_LIST 에러:', error);
       throw error;
     }
   },
 
-  // 스터디 선공개 (상태 변경)
-  UPDATE_STUDY_STATUS: async (studyId: number): Promise<StudyStatusUpdateResponse> => {
-    console.log('[STUDY API] UPDATE_STUDY_STATUS 요청:', studyId);
+  GET_LECTURES_BY_STUDY: async (studyId: number): Promise<Lecture[]> => {
+    console.log('[STUDY API] GET_LECTURES_BY_STUDY 요청:', studyId);
     try {
-      const response = await apiClient.patch<StudyStatusUpdateResponse>(
-        `/admin/studies/${studyId}/status`
-      );
-      console.log('[STUDY API] UPDATE_STUDY_STATUS 응답:', response.data);
-      return response.data;
+      const response = await apiClient.get(`/studies/${studyId}/lectures`);
+      console.log('[STUDY API] GET_LECTURES_BY_STUDY 응답:', response.data);
+      return response.data.map((lecture: unknown) => Lecture.fromJson(lecture));
     } catch (error) {
-      console.error('[STUDY API] UPDATE_STUDY_STATUS 에러:', error);
-      throw error;
-    }
-  },
-
-  // 스터디 삭제
-  DELETE_STUDY: async (studyId: number): Promise<void> => {
-    console.log('[STUDY API] DELETE_STUDY 요청:', studyId);
-    try {
-      await apiClient.delete(`/admin/studies/${studyId}`);
-      console.log('[STUDY API] DELETE_STUDY 성공');
-    } catch (error) {
-      console.error('[STUDY API] DELETE_STUDY 에러:', error);
+      console.error('[STUDY API] GET_LECTURES_BY_STUDY 에러:', error);
       throw error;
     }
   },

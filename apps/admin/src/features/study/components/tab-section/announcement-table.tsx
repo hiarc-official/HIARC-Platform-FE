@@ -1,18 +1,12 @@
-import { cn, CommonTableBody, CommonTableHead, Label, TablePagination } from '@hiarc-platform/ui';
+import { AnnouncementSummary } from '@/features/announcement/types/model/announcement_summary';
+import { PageableModel } from '@hiarc-platform/shared';
+import { cn, CommonTableBody, CommonTableHead, Label, Pagination } from '@hiarc-platform/ui';
 import { useTable } from '@hiarc-platform/util';
 import { ColumnDef, Row } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
 
-interface StudyAnnouncement {
-  number?: number;
-  name: string;
-  category: 'rating' | 'study' | 'etc' | 'general' | 'external';
-  title: string;
-  date: string;
-}
-
-const STUDY_ANNOUNCEMENT_COLUMN: Array<ColumnDef<StudyAnnouncement>> = [
+const STUDY_ANNOUNCEMENT_COLUMN: Array<ColumnDef<AnnouncementSummary>> = [
   {
     id: 'name',
     accessorKey: 'name',
@@ -29,9 +23,9 @@ const STUDY_ANNOUNCEMENT_COLUMN: Array<ColumnDef<StudyAnnouncement>> = [
         번호
       </Label>
     ),
-    cell: ({ row }: { row: { original: StudyAnnouncement } }) => (
+    cell: ({ row }: { row: { original: AnnouncementSummary } }) => (
       <Label size="md" weight="regular">
-        {row.original.number ?? '-'}
+        {row.original.announcementId ?? '-'}
       </Label>
     ),
   },
@@ -47,7 +41,7 @@ const STUDY_ANNOUNCEMENT_COLUMN: Array<ColumnDef<StudyAnnouncement>> = [
         제목
       </Label>
     ),
-    cell: ({ row }: { row: { original: StudyAnnouncement } }) => (
+    cell: ({ row }: { row: { original: AnnouncementSummary } }) => (
       <Label size="md" weight="regular" className="pl-4">
         {row.original.title ?? '-'}
       </Label>
@@ -68,120 +62,56 @@ const STUDY_ANNOUNCEMENT_COLUMN: Array<ColumnDef<StudyAnnouncement>> = [
         작성일
       </Label>
     ),
-    cell: ({ row }: { row: { original: StudyAnnouncement } }) => (
+    cell: ({ row }: { row: { original: AnnouncementSummary } }) => (
       <Label size="md" weight="regular">
-        {row.original.date ?? '-'}
+        {row.original.createdAt?.toISOString() ?? '-'}
       </Label>
     ),
   },
 ];
 
-const announcementData: StudyAnnouncement[] = [
-  {
-    name: '피카츄 뉴스',
-    title: '첫 번째 뉴스',
-    date: '2025.10.01',
-    number: 1,
-    category: 'general',
-  },
-  {
-    name: '라이츄 뉴스',
-    title: '두 번째 뉴스',
-    date: '2025.10.02',
-    number: 2,
-    category: 'study',
-  },
-  {
-    name: '파이리 뉴스',
-    title: '세 번째 뉴스',
-    date: '2025.10.03',
-    number: 3,
-    category: 'rating',
-  },
-  {
-    name: '꼬부기 뉴스',
-    title: '네 번째 뉴스',
-    date: '2025.10.04',
-    number: 4,
-    category: 'etc',
-  },
-  {
-    name: '버터플 뉴스',
-    title: '다섯 번째 뉴스',
-    date: '2025.10.05',
-    number: 5,
-    category: 'external',
-  },
-  {
-    name: '야도란 뉴스',
-    title: '여섯 번째 뉴스',
-    date: '2025.10.06',
-    number: 6,
-    category: 'general',
-  },
-  {
-    name: '피죤투 뉴스',
-    title: '일곱 번째 뉴스',
-    date: '2025.10.06',
-    number: 7,
-    category: 'general',
-  },
-  {
-    name: '또가스 뉴스',
-    title: '여덟 번째 뉴스',
-    date: '2025.10.06',
-    number: 8,
-    category: 'general',
-  },
-  {
-    name: '아보 뉴스',
-    title: '아홉 번째 뉴스',
-    date: '2025.10.06',
-    number: 9,
-    category: 'general',
-  },
-  {
-    name: '이상해씨 뉴스',
-    title: '열 번째 뉴스',
-    date: '2025.10.06',
-    number: 10,
-    category: 'general',
-  },
-];
-
 interface AnnouncementTableProps {
+  pageableModel?: PageableModel<AnnouncementSummary> | null;
+  onPageChange?(page: number): void;
   className?: string;
 }
 
-export function AnnouncementTable({ className }: AnnouncementTableProps): React.ReactElement {
+export function AnnouncementTable({
+  className,
+  pageableModel,
+  onPageChange,
+}: AnnouncementTableProps): React.ReactElement {
   const columns = useMemo(() => STUDY_ANNOUNCEMENT_COLUMN, []);
   const [globalFilter, setGlobalFilter] = useState('');
   const router = useRouter();
 
   const table = useTable({
     columns,
-    data: announcementData,
+    data: pageableModel?.content ?? [],
     pageState: [0, () => {}],
-    totalPages: 10,
+    totalPages: pageableModel?.totalPages ?? 0,
     globalFilterState: [globalFilter, setGlobalFilter],
   });
 
   return (
     <div className={cn('flex w-full flex-col gap-4', className)}>
-      <table className="w-full table-fixed">
-        <CommonTableHead table={table} className="border-b border-b-gray-200" />
-        <CommonTableBody
-          table={table}
-          onClick={function (row: Row<StudyAnnouncement>): void {
-            const id = row.original.number;
-            if (!id) {
-              return;
-            }
-            router.push(`/announcement/${id}`);
-          }}
-        />
-      </table>
-      <TablePagination table={table} />
+      <CommonTableHead table={table} className="border-b border-b-gray-200" />
+      <CommonTableBody
+        table={table}
+        onClick={function (row: Row<AnnouncementSummary>): void {
+          const id = row.original.announcementId;
+          if (!id) {
+            return;
+          }
+          router.push(`/announcement/${id}`);
+        }}
+      />
+
+      {pageableModel && onPageChange && (
+        <div className="flex w-full justify-center">
+          <Pagination className="mt-8" pageableModel={pageableModel} onPageChange={onPageChange} />
+        </div>
+      )}
     </div>
   );
 }

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { SideBar } from './side-bar';
-import { CreateAnnouncementRequest, Announcement } from '@hiarc-platform/shared';
+import { CreateAnnouncementRequest, Announcement, SelectOption } from '@hiarc-platform/shared';
 import { UrlInput } from './url-input';
 
 import { Button } from '../button';
@@ -13,13 +13,23 @@ import { LabeledTextarea } from '../input/labeled-textarea';
 interface DetailInformationSectionProps {
   announcementId?: number;
   announcement?: Announcement;
+  initialAnnouncementType?: 'GENERAL' | 'STUDY' | 'RATING' | 'ETC' | 'EXTERNAL';
+  initialStudyId?: number;
+  studyOptions?: SelectOption[];
+  lectureOptions?: SelectOption[];
   onSubmit?(data: CreateAnnouncementRequest, isEditMode: boolean, announcementId?: number): void;
+  onStudyChange?(studyId: number | undefined): void;
 }
 
 export default function DetailInformationSection({
   announcementId,
   announcement,
+  initialAnnouncementType = 'GENERAL',
+  initialStudyId,
+  studyOptions = [],
+  lectureOptions = [],
   onSubmit,
+  onStudyChange,
 }: DetailInformationSectionProps): React.ReactElement {
   const isEditMode = Boolean(announcementId);
 
@@ -30,10 +40,10 @@ export default function DetailInformationSection({
     scheduleStartAt: undefined,
     scheduleEndAt: undefined,
     content: '',
-    announcementType: 'GENERAL',
+    announcementType: initialAnnouncementType,
     isPublic: true,
     attachmentUrls: [],
-    studyId: undefined,
+    studyId: initialStudyId,
     lectureRound: undefined,
     applicationUrl: undefined,
     applicationStartAt: undefined,
@@ -269,9 +279,12 @@ export default function DetailInformationSection({
           onApplicationStartDateChange={setApplicationStartDate}
           applicationEndDate={applicationEndDate}
           onApplicationEndDateChange={setApplicationEndDate}
+          studyOptions={studyOptions}
+          lectureOptions={lectureOptions}
           onSubmit={handleSubmit}
           isLoading={false}
           buttonText={isEditMode ? '수정하기' : '게시하기'}
+          onStudyChange={onStudyChange}
         />
       </div>
       <div className="mt-4 flex flex-col gap-2">

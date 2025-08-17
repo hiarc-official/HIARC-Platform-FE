@@ -5,7 +5,7 @@ import { LabeledSelectButton } from '../select/labeled-select-button';
 import { LabeledInput } from '../input/labeled-input';
 import { LabeledCalanderInput } from '../input/labeled-calander-input';
 import { Button } from '../button';
-import { CreateAnnouncementRequest } from '@hiarc-platform/shared';
+import { CreateAnnouncementRequest, SelectOption } from '@hiarc-platform/shared';
 
 interface SideBarProps {
   formData: CreateAnnouncementRequest;
@@ -20,9 +20,12 @@ interface SideBarProps {
   onApplicationStartDateChange(value: Date | null): void;
   applicationEndDate: Date | null;
   onApplicationEndDateChange(value: Date | null): void;
+  studyOptions?: SelectOption[];
+  lectureOptions?: SelectOption[];
   onSubmit(): void;
   isLoading: boolean;
   buttonText?: string;
+  onStudyChange?(studyId: number | undefined): void;
 }
 
 export function SideBar({
@@ -38,9 +41,12 @@ export function SideBar({
   onApplicationStartDateChange,
   applicationEndDate,
   onApplicationEndDateChange,
+  studyOptions = [],
+  lectureOptions = [],
   onSubmit,
   isLoading,
   buttonText = '게시하기',
+  onStudyChange,
 }: SideBarProps): React.ReactElement {
   const publicTypeOptionList = [
     {
@@ -93,13 +99,15 @@ export function SideBar({
           {formData.announcementType === 'STUDY' && (
             <LabeledSelector
               placeholder="스터디를 선택해주세요."
-              options={categoryOptionList}
+              options={studyOptions}
               label="스터디선택"
               showLabel={false}
               value={formData.studyId?.toString() || ''}
-              onChange={(value: string) =>
-                onFormDataChange({ studyId: value ? Number(value) : undefined })
-              }
+              onChange={(value: string) => {
+                const studyId = value ? Number(value) : undefined;
+                onFormDataChange({ studyId });
+                onStudyChange?.(studyId);
+              }}
             />
           )}
         </div>
@@ -120,7 +128,7 @@ export function SideBar({
             {studyAnnounceType === '회차별 공지' && (
               <LabeledSelector
                 placeholder="회차를 선택해주세요."
-                options={[]}
+                options={lectureOptions}
                 label="회차 선택"
                 required
                 value={formData.lectureRound?.toString() || ''}

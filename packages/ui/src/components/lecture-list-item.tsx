@@ -205,7 +205,7 @@ function DeleteButton({ onComplete }: { onComplete(): void }): React.ReactElemen
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <IconButton
-          iconSrc="/Delete.svg"
+          iconSrc="/shared-assets/Delete.svg"
           className="text-red-500 hover:text-red-700"
           aria-label="Delete Lecture"
           onClick={() => setOpen(true)}

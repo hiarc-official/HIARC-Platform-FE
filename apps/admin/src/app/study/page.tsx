@@ -5,15 +5,22 @@ import { StudyTable } from '@/features/study/components/study-table';
 import { useStudies } from '@/features/study/hooks';
 import { useState } from 'react';
 import { FadeIn } from '@/components/fade-in';
+import { useSemesterStoreInit, useSemesterStore } from '@/hooks/use-semester-store';
 
 export default function StudyPage(): React.ReactElement {
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
+
+  // Initialize semester store on component mount
+  useSemesterStoreInit();
+  const { selectedSemesterId } = useSemesterStore();
+
   const {
     data: studiesData,
     isLoading,
     error,
   } = useStudies({
+    semesterId: selectedSemesterId ? Number(selectedSemesterId) : 1,
     page: currentPage - 1,
     size: 10,
   });

@@ -6,10 +6,26 @@ import { useRouter } from 'next/navigation';
 import { useCreateAdminAnnouncement } from '@/features/announcement/hooks/use-create-admin-announcement';
 import { CreateAnnouncementRequest } from '@hiarc-platform/shared';
 import { AnnouncementWrite } from '@hiarc-platform/ui';
+import { useSemesterStoreInit, useSemesterStore } from '@/hooks/use-semester-store';
+import { useStudyOptions, useLectureOptions } from '@/features/study/hooks';
+import { useState, useEffect } from 'react';
 
 export default function WriteAnnouncementPage(): React.ReactElement {
   const router = useRouter();
   const { mutate: createAnnouncement } = useCreateAdminAnnouncement();
+
+  // Initialize semester store and get study options
+  useSemesterStoreInit();
+  const { selectedSemesterId } = useSemesterStore();
+  const { data: studyOptions = [] } = useStudyOptions(selectedSemesterId);
+  
+  // Track selected study ID for lecture options
+  const [selectedStudyId, setSelectedStudyId] = useState<number | null>(null);
+  const { data: lectureOptions = [] } = useLectureOptions(selectedStudyId || 0);
+
+  const handleStudyChange = (studyId: number | undefined): void => {
+    setSelectedStudyId(studyId || null);
+  };
 
   const handleSubmit = (data: CreateAnnouncementRequest): void => {
     createAnnouncement(data, {
@@ -36,7 +52,12 @@ export default function WriteAnnouncementPage(): React.ReactElement {
         </div>
         <Divider variant="horizontal" size="full" />
       </div>
-      <AnnouncementWrite onSubmit={handleSubmit} />
+      <AnnouncementWrite 
+        studyOptions={studyOptions}
+        lectureOptions={lectureOptions}
+        onSubmit={handleSubmit}
+        onStudyChange={handleStudyChange}
+      />
     </PageLayout>
   );
 }
