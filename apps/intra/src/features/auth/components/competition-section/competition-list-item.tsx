@@ -1,4 +1,3 @@
-import { Award } from '@/features/awards/types/model/award';
 import {
   cn,
   Divider,
@@ -10,8 +9,9 @@ import {
   DialogUtil,
 } from '@hiarc-platform/ui';
 import React from 'react';
-import useDeleteAward from '@/features/awards/hooks/use-delete-award';
+import useDeleteAward from '@/features/award/hooks/use-delete-award';
 import { EditCompetitionDialog } from './edit-competition-dialog';
+import { Award } from '@hiarc-platform/shared';
 
 interface CompetitionListItemProps {
   award: Award;
@@ -66,7 +66,7 @@ export function CompetitionListItem({ award }: CompetitionListItemProps): React.
     >
       <div className="flex w-full flex-col">
         <Label size="sm" className="text-gray-500">
-          {award.awardDate}
+          {award.awardDate?.toISOString() ?? '날짜 미등록'}
         </Label>
         <div className="flex w-full items-center justify-between">
           <div className="flex flex-row items-center gap-2">

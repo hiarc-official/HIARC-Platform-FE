@@ -2,7 +2,7 @@ import { cn, DialogUtil, IconButton, Label, Title } from '@hiarc-platform/ui';
 import React from 'react';
 import { CompetitionListItem } from './competition-list-item';
 import { CompetitionDialog } from './competition-dialog';
-import { Award } from '@/features/awards/types/model/award';
+import { Award } from '@hiarc-platform/shared';
 
 interface CompetitionSectionProps {
   awardList?: Award[];

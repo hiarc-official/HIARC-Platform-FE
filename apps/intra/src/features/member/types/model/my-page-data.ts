@@ -1,8 +1,8 @@
-import { Award } from '@/features/awards/types/model/award';
+import { Award } from '@hiarc-platform/shared';
 import { Rating } from './rating';
 import { Streak } from './streak';
 
-export interface MyPageDataProps {
+export interface MyPageData {
   bojHandle?: string | null;
   name?: string | null;
   division?: 'DIV_1' | 'DIV_2' | 'DIV_3' | null;
@@ -22,96 +22,30 @@ export interface MyPageDataProps {
   award?: Award[] | null;
 }
 
-export class MyPageData {
-  private readonly props: MyPageDataProps;
+export const MyPageData = {
+  fromJson(json: unknown): MyPageData {
+    const data = (json || {}) as Record<string, unknown>;
 
-  constructor(props: MyPageDataProps) {
-    console.log('[MyPageData] Constructor called with props:', props);
-    this.props = props;
-    console.log('[MyPageData] Instance created with awards:', this.props.award);
-  }
-
-  get bojHandle(): string | null {
-    return this.props.bojHandle ?? null;
-  }
-
-  get name(): string | null {
-    return this.props.name ?? null;
-  }
-
-  get division(): 'DIV_1' | 'DIV_2' | 'DIV_3' | null {
-    return this.props.division ?? null;
-  }
-
-  get tier():
-    | 'UNRATED'
-    | 'BRONZE'
-    | 'SILVER'
-    | 'GOLD'
-    | 'PLATINUM'
-    | 'DIAMOND'
-    | 'RUBY'
-    | 'MASTER'
-    | null {
-    return this.props.tier ?? null;
-  }
-
-  get introduction(): string | null {
-    return this.props.introduction ?? null;
-  }
-
-  get rating(): Rating | null {
-    return this.props.rating ?? null;
-  }
-
-  get streak(): Streak | null {
-    return this.props.streak ?? null;
-  }
-
-  get awards(): Award[] | null {
-    return this.props.award ?? null;
-  }
-
-  toJson(): any {
     return {
-      bojHandle: this.props.bojHandle,
-      name: this.props.name,
-      division: this.props.division,
-      tier: this.props.tier,
-      introduction: this.props.introduction,
-      rating: this.props.rating?.toJson() ?? null,
-      streak: this.props.streak?.toJson() ?? null,
-      award: this.props.award?.map(award => award.toJson()) ?? null,
+      bojHandle: (data?.bojHandle as string) ?? null,
+      name: (data?.name as string) ?? null,
+      division: (data?.division as 'DIV_1' | 'DIV_2' | 'DIV_3') ?? null,
+      tier:
+        (data?.tier as
+          | 'UNRATED'
+          | 'BRONZE'
+          | 'SILVER'
+          | 'GOLD'
+          | 'PLATINUM'
+          | 'DIAMOND'
+          | 'RUBY'
+          | 'MASTER') ?? null,
+      introduction: (data?.introduction as string) ?? null,
+      rating: data?.rating ? Rating.fromJson(data.rating) : null,
+      streak: data?.streak ? Streak.fromJson(data.streak) : null,
+      award: Array.isArray(data?.award)
+        ? data.award.map((award: unknown) => Award.fromJson(award))
+        : null,
     };
-  }
-
-  static fromJson(json: any): MyPageData {
-    return new MyPageData({
-      bojHandle: json?.bojHandle ?? null,
-      name: json?.name ?? null,
-      division: json?.division ?? null,
-      tier: json?.tier ?? null,
-      introduction: json?.introduction ?? null,
-      rating: json?.rating ? Rating.fromJson(json.rating) : null,
-      streak: json?.streak ? Streak.fromJson(json.streak) : null,
-      award: json?.award ? json.award.map((award: any) => Award.fromJson(award)) : null,
-    });
-  }
-
-  copyWith(updates: Partial<MyPageDataProps>): MyPageData {
-    return new MyPageData({
-      ...this.props,
-      ...updates,
-    });
-  }
-
-  equals(other?: MyPageData): boolean {
-    return Boolean(other) && this.props.bojHandle === other?.props.bojHandle;
-  }
-
-  compareTo(other: MyPageData): number {
-    const thisName = this.props.name ?? '';
-    const otherName = other.props.name ?? '';
-    return thisName.localeCompare(otherName);
-  }
-}
+  },
+};

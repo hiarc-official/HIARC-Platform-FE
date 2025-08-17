@@ -155,7 +155,7 @@ export default function MyPage(): React.ReactElement {
                 <StreakSection className="mt-6" />
               </>
             }
-            right={<CompetitionSection awardList={myPageData?.awards ?? []} />}
+            right={<CompetitionSection awardList={myPageData?.award ?? []} />}
           />
           <Divider variant="horizontal" size="full" className="mt-8 bg-gray-900" />
           <StudySection attendance={attendance} assignment={assignment} className="mt-8" />
@@ -178,7 +178,7 @@ export default function MyPage(): React.ReactElement {
             today={myPageData?.rating?.todayScore ?? 0}
           />
           <StreakSection className="mt-6" />
-          <CompetitionSection className="mt-6" awardList={myPageData?.awards ?? []} />
+          <CompetitionSection className="mt-6" awardList={myPageData?.award ?? []} />
           <Divider variant="horizontal" size="full" className="mt-8 bg-gray-900" />
           <StudySection attendance={attendance} assignment={assignment} className="mt-8" />
         </FadeIn>

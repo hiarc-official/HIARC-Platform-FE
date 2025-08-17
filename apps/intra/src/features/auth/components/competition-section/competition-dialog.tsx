@@ -12,8 +12,8 @@ import {
   LabeledInput,
 } from '@hiarc-platform/ui';
 import React from 'react';
-import useCreateAward from '@/features/awards/hooks/use-create-award';
-import { CreateAwardRequest } from '@/features/awards/types/request/create-award-request';
+import useCreateAward from '@/features/award/hooks/use-create-award';
+import { CreateAwardRequest } from '@/features/award/types/request/create-award-request';
 
 interface CompetitionDialogProps {
   onSave?(): void;
