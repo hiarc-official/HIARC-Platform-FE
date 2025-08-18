@@ -19,8 +19,6 @@ export function useUpdateStudy(): UseMutationResult<void, Error, UpdateStudyPara
       queryClient.invalidateQueries({ queryKey: ['study', variables.studyId] });
       showSuccess('스터디 정보가 성공적으로 수정되었습니다.');
     },
-    onError: (error) => {
-    },
   });
 
   return mutation;
