@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --experimental-https",
-    "build": "next build && mkdir -p .vercel/output/static && cp -r public .vercel/output/static/ 2>/dev/null || true",
+    "build": "next build",
     "start": "next start",
     "lint": "eslint src/",
     "lint:fix": "eslint src/ --fix",

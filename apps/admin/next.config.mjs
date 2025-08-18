@@ -1,11 +1,6 @@
 // apps/admin/next.config.mjs
 const nextConfig = {
   transpilePackages: ['@hiarc-platform/ui', '@hiarc-platform/util'],
-  
-  // Vercel 배포 시 static 파일 처리
-  experimental: {
-    outputFileTracingRoot: '../../'
-  },
 
   async headers() {
     return [
