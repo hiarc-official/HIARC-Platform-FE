@@ -16,13 +16,11 @@ import { useSelectedSemester } from '@/hooks/use-semester-store';
 interface RecruitCompleteDialogProps {
   generalDescription?: string;
   militaryDescription?: string;
-  showBackground?: boolean;
 }
 
 export function RecruitCompleteDialog({
   generalDescription = '',
   militaryDescription = '',
-  showBackground = true,
 }: RecruitCompleteDialogProps): React.ReactElement {
   const [generalText, setGeneralText] = useState(generalDescription);
   const [militaryText, setMilitaryText] = useState(militaryDescription);
@@ -53,7 +51,6 @@ export function RecruitCompleteDialog({
       <DialogContent
         onOpenAutoFocus={(ev) => ev.preventDefault()}
         className="fixed left-1/2 top-1/2 !w-[540px] !max-w-[540px] -translate-x-1/2 -translate-y-1/2 overflow-visible"
-        showBackground={showBackground}
       >
         <DialogHeader>
           <DialogTitle className="w-full">학회원 모집 문구 관리 - 학회 가입 완료</DialogTitle>

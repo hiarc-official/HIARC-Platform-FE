@@ -1,4 +1,4 @@
-import { cn, CommonTableBody, CommonTableHead, TablePagination } from '@hiarc-platform/ui';
+import { cn, CommonTableBody, CommonTableHead, Pagination } from '@hiarc-platform/ui';
 import { useTable } from '@hiarc-platform/util';
 import { Row } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
@@ -118,7 +118,7 @@ export function StudyAnnouncementTable({
           router.push(`/announcement/${id}`);
         }}
       />
-      <TablePagination table={table} />
+      {/* <Pagination table={table} /> */}
     </div>
   );
 }

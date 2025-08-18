@@ -2,22 +2,16 @@
 
 import React from 'react';
 import { useDialogStore, DialogConfig } from '../../store/dialog-store';
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogDescription, 
-  DialogHeader, 
-  DialogTitle 
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
 } from '../dialog/dialog';
 import { Button } from '../button';
 import { Label } from '../label/label';
-import {
-  ErrorDialog,
-  SuccessDialog,
-  WarningDialog,
-  ConfirmDialog,
-  InfoDialog,
-} from './';
+import { ErrorDialog, SuccessDialog, WarningDialog, ConfirmDialog, InfoDialog } from './';
 
 const getDialogSize = (size: DialogConfig['size']): string => {
   switch (size) {
@@ -60,14 +54,15 @@ function DialogItem({ dialog }: { dialog: DialogConfig }): React.ReactElement {
   // If it's a custom dialog or has hideButtons, use the original generic dialog
   if (dialog.type === 'custom' || dialog.hideButtons) {
     const showCancelButton = dialog.type === 'confirm' || dialog.onCancel;
-    
+
     return (
       <Dialog open={true} onOpenChange={(open) => !open && handleClose()}>
-        <DialogContent className={getDialogSize(dialog.size)} showBackground={dialog.showBackground}>
+        <DialogContent
+          className={getDialogSize(dialog.size)}
+          showBackground={dialog.showBackground}
+        >
           <DialogHeader>
-            <DialogTitle>
-              {dialog.title}
-            </DialogTitle>
+            <DialogTitle>{dialog.title}</DialogTitle>
           </DialogHeader>
           <DialogDescription className="mt-4">
             {typeof dialog.content === 'string' ? (
@@ -79,11 +74,22 @@ function DialogItem({ dialog }: { dialog: DialogConfig }): React.ReactElement {
           {!dialog.hideButtons && (
             <div className="mt-6 flex justify-end gap-2">
               {showCancelButton && (
-                <Button variant="secondary" onClick={() => { handleCancel(); handleClose(); }}>
+                <Button
+                  variant="secondary"
+                  onClick={() => {
+                    handleCancel();
+                    handleClose();
+                  }}
+                >
                   <Label>{dialog.cancelText}</Label>
                 </Button>
               )}
-              <Button onClick={() => { handleConfirm(); handleClose(); }}>
+              <Button
+                onClick={() => {
+                  handleConfirm();
+                  handleClose();
+                }}
+              >
                 <Label>{dialog.confirmText}</Label>
               </Button>
             </div>
