@@ -47,7 +47,7 @@ export const useSemesterStore = create<SemesterState>((set, get) => ({
 
   initializeWithCurrentSemester: async () => {
     const currentState = get();
-    
+
     // 이미 선택된 학기가 있으면 그대로 유지
     if (currentState.selectedSemesterId) {
       return;
@@ -58,7 +58,7 @@ export const useSemesterStore = create<SemesterState>((set, get) => ({
       // 현재 학기와 전체 학기 목록을 병렬로 가져오기
       const [currentSemesterResponse, semesters] = await Promise.all([
         semesterApi.GET_CURRENT_SEMESTER(),
-        semesterApi.GET_SEMESTER_LIST()
+        semesterApi.GET_SEMESTER_LIST(),
       ]);
 
       const semesterOptions = semesters.map((semester) => ({
@@ -92,6 +92,8 @@ export const useSemesterStore = create<SemesterState>((set, get) => ({
 
   getSelectedSemester: () => {
     const { semesters, selectedSemesterId } = get();
-    return semesters.find((semester) => semester.semesterId?.toString() === selectedSemesterId) || null;
+    return (
+      semesters.find((semester) => semester.semesterId?.toString() === selectedSemesterId) || null
+    );
   },
 }));

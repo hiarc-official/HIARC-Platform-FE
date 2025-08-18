@@ -1,40 +1,12 @@
 'use client';
+import { Instructor } from '@hiarc-platform/shared';
 import { cn, CommonTableBody, CommonTableHead, Label } from '@hiarc-platform/ui';
 import { useTable } from '@hiarc-platform/util';
-import { ColumnDef, Row } from '@tanstack/react-table';
+import { ColumnDef } from '@tanstack/react-table';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
 
-export interface StudyLeader {
-  number?: number;
-  role: string;
-  name: string;
-  handle: string;
-  studyName: string;
-}
-
-const STAFF_LIST_COLUMN: Array<ColumnDef<StudyLeader>> = [
-  {
-    id: 'role',
-    accessorKey: 'role',
-    size: 150,
-    meta: {
-      headAlign: 'left',
-      bodyAlign: 'left',
-    },
-    header: () => (
-      <Label size="md" weight="bold">
-        직함
-      </Label>
-    ),
-    cell: ({ row }: { row: { original: StudyLeader } }) => (
-      <Label size="md" weight="regular">
-        {row.original.role ?? '-'}
-      </Label>
-    ),
-    footer: (props) => props.column.id,
-  },
+const STUDY_LEADER_LIST_COLUMN: Array<ColumnDef<Instructor>> = [
   {
     id: 'name',
     accessorKey: 'name',
@@ -48,9 +20,9 @@ const STAFF_LIST_COLUMN: Array<ColumnDef<StudyLeader>> = [
         이름
       </Label>
     ),
-    cell: ({ row }: { row: { original: StudyLeader } }) => (
+    cell: ({ row }: { row: { original: Instructor } }) => (
       <Label size="md" weight="regular">
-        {row.original.name ?? '-'}
+        {row.original.memberName ?? '-'}
       </Label>
     ),
     footer: (props) => props.column.id,
@@ -68,9 +40,9 @@ const STAFF_LIST_COLUMN: Array<ColumnDef<StudyLeader>> = [
         핸들명
       </Label>
     ),
-    cell: ({ row }: { row: { original: StudyLeader } }) => (
+    cell: ({ row }: { row: { original: Instructor } }) => (
       <Label size="sm" weight="regular" className="text-gray-700">
-        {row.original.handle ?? '-'}
+        {row.original.bojHandle ?? '-'}
       </Label>
     ),
     footer: (props) => props.column.id,
@@ -88,7 +60,7 @@ const STAFF_LIST_COLUMN: Array<ColumnDef<StudyLeader>> = [
         스터디명
       </Label>
     ),
-    cell: ({ row }: { row: { original: StudyLeader } }) => (
+    cell: ({ row }: { row: { original: Instructor } }) => (
       <Label size="sm" weight="regular" className="text-gray-700">
         {row.original.studyName ?? '-'}
       </Label>
@@ -98,21 +70,20 @@ const STAFF_LIST_COLUMN: Array<ColumnDef<StudyLeader>> = [
 ];
 
 interface StudyReaderTableSectionProps {
-  studyLeaderData: StudyLeader[];
+  instructorData: Instructor[];
   className?: string;
 }
 
-export function StudyLeaderTable({
-  studyLeaderData,
+export function InstructorTable({
+  instructorData,
   className,
 }: StudyReaderTableSectionProps): React.ReactElement {
-  const router = useRouter();
-  const columns = useMemo(() => STAFF_LIST_COLUMN, []);
+  const columns = useMemo(() => STUDY_LEADER_LIST_COLUMN, []);
   const [globalFilter, setGlobalFilter] = useState('');
 
   const table = useTable({
     columns,
-    data: studyLeaderData,
+    data: instructorData,
     pageState: [0, () => {}],
     totalPages: 10,
     globalFilterState: [globalFilter, setGlobalFilter],
@@ -130,16 +101,7 @@ export function StudyLeaderTable({
           className="w-full"
         >
           <CommonTableHead table={table} className="bg-gray-100" />
-          <CommonTableBody
-            table={table}
-            onClick={function (row: Row<StudyLeader>): void {
-              const id = row.original.number;
-              if (!id) {
-                return;
-              }
-              router.push(`/study/${id}`);
-            }}
-          />
+          <CommonTableBody table={table} onClick={function (): void {}} />
         </motion.div>
       </AnimatePresence>
     </div>

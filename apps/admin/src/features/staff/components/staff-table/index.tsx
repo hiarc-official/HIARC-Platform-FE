@@ -1,20 +1,12 @@
 'use client';
+import { Admin } from '@hiarc-platform/shared';
 import { cn, CommonTableBody, CommonTableHead, IconButton, Label } from '@hiarc-platform/ui';
 import { useTable } from '@hiarc-platform/util';
-import { ColumnDef, Row } from '@tanstack/react-table';
+import { ColumnDef } from '@tanstack/react-table';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
 
-export interface Staff {
-  number?: number;
-  role: string;
-  name: string;
-  handle: string;
-  startStaff: string;
-}
-
-const STAFF_LIST_COLUMN: Array<ColumnDef<Staff>> = [
+const STAFF_LIST_COLUMN: Array<ColumnDef<Admin>> = [
   {
     id: 'role',
     accessorKey: 'role',
@@ -28,9 +20,9 @@ const STAFF_LIST_COLUMN: Array<ColumnDef<Staff>> = [
         직함
       </Label>
     ),
-    cell: ({ row }: { row: { original: Staff } }) => (
+    cell: ({ row }: { row: { original: Admin } }) => (
       <Label size="md" weight="regular">
-        {row.original.role ?? '-'}
+        {row.original.adminRole ?? '-'}
       </Label>
     ),
     footer: (props) => props.column.id,
@@ -48,9 +40,9 @@ const STAFF_LIST_COLUMN: Array<ColumnDef<Staff>> = [
         이름
       </Label>
     ),
-    cell: ({ row }: { row: { original: Staff } }) => (
+    cell: ({ row }: { row: { original: Admin } }) => (
       <Label size="md" weight="regular">
-        {row.original.name ?? '-'}
+        {row.original.memberName ?? '-'}
       </Label>
     ),
     footer: (props) => props.column.id,
@@ -68,9 +60,9 @@ const STAFF_LIST_COLUMN: Array<ColumnDef<Staff>> = [
         핸들명
       </Label>
     ),
-    cell: ({ row }: { row: { original: Staff } }) => (
+    cell: ({ row }: { row: { original: Admin } }) => (
       <Label size="sm" weight="regular" className="text-gray-700">
-        {row.original.handle ?? '-'}
+        {row.original.bojHandle ?? '-'}
       </Label>
     ),
     footer: (props) => props.column.id,
@@ -88,16 +80,30 @@ const STAFF_LIST_COLUMN: Array<ColumnDef<Staff>> = [
         직함 시작일
       </Label>
     ),
-    cell: ({ row }: { row: { original: Staff } }) => (
-      <Label size="sm" weight="regular" className="text-gray-700">
-        {row.original.startStaff ?? '-'}
-      </Label>
-    ),
+    cell: ({ row }: { row: { original: Admin } }) => {
+      const formatDate = (date: string | Date | null | undefined) => {
+        if (!date) {
+          return '-';
+        }
+        const dateObj = typeof date === 'string' ? new Date(date) : date;
+        return dateObj.toLocaleDateString('ko-KR', {
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+        });
+      };
+
+      return (
+        <Label size="sm" weight="regular" className="text-gray-700">
+          {formatDate(row.original.adminStartedAt)}
+        </Label>
+      );
+    },
     footer: (props) => props.column.id,
   },
   {
-    id: 'date',
-    accessorKey: 'date',
+    id: 'edit',
+    accessorKey: 'edit',
     size: 64,
     meta: {
       headAlign: 'center',
@@ -108,7 +114,7 @@ const STAFF_LIST_COLUMN: Array<ColumnDef<Staff>> = [
         수정
       </Label>
     ),
-    cell: ({ row }: { row: { original: Staff } }) => (
+    cell: ({ row }: { row: { original: Admin } }) => (
       <IconButton
         className="relative z-10 w-full"
         iconSrc="/shared-assets/Edit.svg"
@@ -122,8 +128,8 @@ const STAFF_LIST_COLUMN: Array<ColumnDef<Staff>> = [
     footer: (props) => props.column.id,
   },
   {
-    id: 'date',
-    accessorKey: 'date',
+    id: 'delete',
+    accessorKey: 'delete',
     size: 64,
     meta: {
       headAlign: 'center',
@@ -134,7 +140,7 @@ const STAFF_LIST_COLUMN: Array<ColumnDef<Staff>> = [
         삭제
       </Label>
     ),
-    cell: ({ row }: { row: { original: Staff } }) => (
+    cell: ({ row }: { row: { original: Admin } }) => (
       <IconButton
         className="relative z-10 w-full"
         iconSrc="/shared-assets/Delete.svg"
@@ -150,12 +156,11 @@ const STAFF_LIST_COLUMN: Array<ColumnDef<Staff>> = [
 ];
 
 interface StaffTableSectionProps {
-  staffData: Staff[];
+  staffData: Admin[];
   className?: string;
 }
 
 export function StaffTable({ staffData, className }: StaffTableSectionProps): React.ReactElement {
-  const router = useRouter();
   const columns = useMemo(() => STAFF_LIST_COLUMN, []);
   const [globalFilter, setGlobalFilter] = useState('');
 
@@ -179,16 +184,7 @@ export function StaffTable({ staffData, className }: StaffTableSectionProps): Re
           className="w-full"
         >
           <CommonTableHead table={table} className="bg-gray-100" />
-          <CommonTableBody
-            table={table}
-            onClick={function (row: Row<Staff>): void {
-              const id = row.original.number;
-              if (!id) {
-                return;
-              }
-              router.push(`/study/${id}`);
-            }}
-          />
+          <CommonTableBody table={table} onClick={function (): void {}} />
         </motion.div>
       </AnimatePresence>
     </div>

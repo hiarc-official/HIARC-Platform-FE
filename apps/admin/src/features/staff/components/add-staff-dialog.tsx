@@ -12,8 +12,9 @@ import {
   LabeledInput,
   LabeledSelector,
 } from '@hiarc-platform/ui';
-import React from 'react';
-import { selectOption } from 'constants/selectOption';
+import React, { useState } from 'react';
+import { useCreateAdmin } from '@/features/student/hooks';
+import { useSelectedSemester } from '@/hooks/use-semester-store';
 
 interface AddStaffDialogProps {
   onSave?(): Promise<void>;
@@ -26,17 +27,38 @@ export function AddStaffDialog({
   onCancel,
   showBackground = true,
 }: AddStaffDialogProps): React.ReactElement {
+  const [bojHandle, setBojHandle] = useState('');
+  const [adminRole, setAdminRole] = useState<
+    'PRESIDENT' | 'VICE_PRESIDENT' | 'SECRETARY' | 'STAFF' | 'NONE'
+  >('STAFF');
+
+  const { selectedSemesterId } = useSelectedSemester();
+  const createAdminMutation = useCreateAdmin();
   const handleSave = async (): Promise<void> => {
+    if (!bojHandle.trim()) {
+      alert('핸들명을 입력해주세요.');
+      return;
+    }
+
     try {
+      if (!selectedSemesterId) {
+        alert('학기를 선택해주세요.');
+        return;
+      }
+
+      await createAdminMutation.mutateAsync({
+        semesterId: Number(selectedSemesterId),
+        bojHandle: bojHandle.trim(),
+        adminRole,
+      });
+
       if (onSave) {
         await onSave();
-      } else {
-        alert('변경이 완료되었습니다');
       }
+
       DialogUtil.hideAllDialogs();
     } catch (error) {
       console.error('저장 실패:', error);
-      throw error;
     }
   };
 
@@ -58,7 +80,12 @@ export function AddStaffDialog({
         <DialogDescription>
           <div className="mt-6 flex w-full flex-col gap-6">
             <div className="flex items-end gap-2">
-              <LabeledInput label="핸들명" placeholder="핸들명 입력하기" />
+              <LabeledInput
+                label="핸들명"
+                placeholder="핸들명 입력하기"
+                value={bojHandle}
+                onChange={(value) => setBojHandle(value)}
+              />
               <Button size="md" className="w-[120px]">
                 인증하기
               </Button>
@@ -66,7 +93,14 @@ export function AddStaffDialog({
             <LabeledSelector
               label="직함"
               placeholder="직함을 입력해주세요"
-              options={selectOption['직함']}
+              options={[
+                { value: 'STAFF', label: '스태프' },
+                { value: 'SECRETARY', label: '총무' },
+                { value: 'VICE_PRESIDENT', label: '부회장' },
+                { value: 'PRESIDENT', label: '회장' },
+              ]}
+              value={adminRole}
+              onChange={(value) => setAdminRole(value as typeof adminRole)}
             />
           </div>
         </DialogDescription>
@@ -74,8 +108,13 @@ export function AddStaffDialog({
           <Button variant="secondary" className="w-full" size="lg" onClick={handleCancel}>
             <Label size="lg">취소</Label>
           </Button>
-          <Button className="w-full" size="lg" onClick={handleSave}>
-            <Label size="lg">출석하기</Label>
+          <Button
+            className="w-full"
+            size="lg"
+            onClick={handleSave}
+            disabled={createAdminMutation.isPending}
+          >
+            <Label size="lg">{createAdminMutation.isPending ? '추가 중...' : '추가하기'}</Label>
           </Button>
         </div>
       </DialogContent>
