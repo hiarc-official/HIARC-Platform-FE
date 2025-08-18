@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --experimental-https",
+    "prebuild": "mkdir -p .vercel/output/static/shared-assets",
     "build": "next build",
     "start": "next start",
     "lint": "eslint src/",
