@@ -1,9 +1,9 @@
 import { Button, cn } from '@hiarc-platform/ui';
 import { InputButtons } from './InputButtons';
-import { StudentApplyTable } from '@/features/student/components/student-apply-table';
-import { useRecruitmentList } from '@/features/student/hooks';
-import { useCurrentSemester } from '@/features/semester/hooks/use-current-semester';
+import { useStudentList } from '@/features/student/hooks';
+import { useSelectedSemester } from '@/hooks/use-semester-store';
 import { useState } from 'react';
+import { StudentTable } from '@/features/student/components/student-table';
 
 interface CurrentSemesterSectionProps {
   className?: string;
@@ -15,17 +15,17 @@ export function CurrentSemesterSection({
   // 페이지네이션 상태
   const [page, setPage] = useState(0);
 
-  // 현재 학기 정보 가져오기
-  const { data: currentSemester } = useCurrentSemester();
+  // 선택된 학기 정보 가져오기
+  const { selectedSemesterId } = useSelectedSemester();
 
-  // 모집 리스트 데이터 가져오기
-  const { data: recruitmentData } = useRecruitmentList({
-    semesterId: currentSemester?.currentSemester?.semesterId || 0,
+  // 학생 리스트 데이터 가져오기
+  const { data: studentData } = useStudentList({
+    semesterId: Number(selectedSemesterId) || 0,
     page,
     size: 10,
   });
 
-  const totalCount = recruitmentData?.totalElements || 0;
+  const totalCount = studentData?.totalElements || 0;
 
   return (
     <div className={cn('flex w-full flex-col gap-6', className)}>
@@ -37,7 +37,7 @@ export function CurrentSemesterSection({
             명단 다운로드
           </Button>
         </div>
-        <StudentApplyTable pageableModel={recruitmentData} onPageChange={setPage} />
+        <StudentTable pageableModel={studentData} onPageChange={setPage} />
       </div>
     </div>
   );

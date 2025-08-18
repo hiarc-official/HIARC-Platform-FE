@@ -9,25 +9,34 @@ import {
   Button,
   LabeledTextarea,
 } from '@hiarc-platform/ui';
-import React from 'react';
+import React, { useState } from 'react';
+import { useUpdateRecruitment } from '@/features/recruitment/hooks/use-update-recruitment';
+import { useSelectedSemester } from '@/hooks/use-semester-store';
 
 interface RecruitCompleteDialogProps {
-  onSave?: () => Promise<void>;
-  onCancel?: () => void;
+  generalDescription?: string;
+  militaryDescription?: string;
   showBackground?: boolean;
 }
 
 export function RecruitCompleteDialog({
-  onSave,
-  onCancel,
+  generalDescription = '',
+  militaryDescription = '',
   showBackground = true,
 }: RecruitCompleteDialogProps): React.ReactElement {
+  const [generalText, setGeneralText] = useState(generalDescription);
+  const [militaryText, setMilitaryText] = useState(militaryDescription);
+  const { selectedSemesterId } = useSelectedSemester();
+  const { mutate: updateRecruitment } = useUpdateRecruitment();
   const handleSave = async (): Promise<void> => {
     try {
-      alert('변경이 완료되었습니다');
-      if (onSave) {
-        await onSave();
-      }
+      updateRecruitment({
+        semesterId: Number(selectedSemesterId),
+        data: {
+          generalDescription: generalText,
+          militaryDescription: militaryText,
+        },
+      });
       DialogUtil.hideAllDialogs();
     } catch (error) {
       console.error('저장 실패:', error);
@@ -36,7 +45,6 @@ export function RecruitCompleteDialog({
   };
 
   const handleCancel = (): void => {
-    onCancel?.();
     DialogUtil.hideAllDialogs();
   };
 
@@ -44,7 +52,7 @@ export function RecruitCompleteDialog({
     <Dialog open={true} onOpenChange={(open) => !open && handleCancel()}>
       <DialogContent
         onOpenAutoFocus={(ev) => ev.preventDefault()}
-        className="relative !w-[540px] !max-w-[540px] overflow-visible"
+        className="fixed left-1/2 top-1/2 !w-[540px] !max-w-[540px] -translate-x-1/2 -translate-y-1/2 overflow-visible"
         showBackground={showBackground}
       >
         <DialogHeader>
@@ -52,8 +60,17 @@ export function RecruitCompleteDialog({
         </DialogHeader>
         <DialogDescription className="mt-6 w-[482px]">
           <div className="flex flex-col gap-6">
-            <LabeledTextarea label="군 휴학 대상" />
-            <LabeledTextarea label="일반 대상" className="min-h-[213px]" />
+            <LabeledTextarea
+              label="군 휴학 대상"
+              value={militaryText}
+              onChange={(value) => setMilitaryText(value)}
+            />
+            <LabeledTextarea
+              label="일반 대상"
+              className="min-h-[213px]"
+              value={generalText}
+              onChange={(value) => setGeneralText(value)}
+            />
           </div>
         </DialogDescription>
         <div className="mt-6 flex w-full gap-2">

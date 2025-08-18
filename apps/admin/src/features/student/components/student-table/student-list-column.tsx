@@ -1,14 +1,6 @@
+import { Student } from '@hiarc-platform/shared';
 import { Label, Button } from '@hiarc-platform/ui';
 import { ColumnDef } from '@tanstack/react-table';
-
-export interface Student {
-  number?: number;
-  name: string;
-  category: 'rating' | 'study' | 'etc' | 'general' | 'external';
-  title: string;
-  date: string;
-  isPublic?: boolean;
-}
 
 export const STUDENT_LIST_COLUMN: Array<ColumnDef<Student>> = [
   {
@@ -27,7 +19,7 @@ export const STUDENT_LIST_COLUMN: Array<ColumnDef<Student>> = [
     ),
     cell: ({ row }: { row: { original: Student } }) => (
       <Label size="md" weight="regular">
-        {row.original.number ?? '-'}
+        {row.original.id ?? '-'}
       </Label>
     ),
     footer: (props) => props.column.id,
@@ -54,8 +46,8 @@ export const STUDENT_LIST_COLUMN: Array<ColumnDef<Student>> = [
     footer: (props) => props.column.id,
   },
   {
-    id: 'handleName',
-    accessorKey: 'handleName',
+    id: 'bojHandle',
+    accessorKey: 'bojHandle',
     enableSorting: false,
     size: 150,
     meta: {
@@ -69,7 +61,7 @@ export const STUDENT_LIST_COLUMN: Array<ColumnDef<Student>> = [
     ),
     cell: ({ row }: { row: { original: Student } }) => (
       <Label size="md" weight="regular">
-        {row.original.number ?? '-'}
+        {row.original.bojHandle ?? '-'}
       </Label>
     ),
     footer: (props) => props.column.id,
@@ -90,7 +82,7 @@ export const STUDENT_LIST_COLUMN: Array<ColumnDef<Student>> = [
     ),
     cell: ({ row }: { row: { original: Student } }) => (
       <Label size="md" weight="regular">
-        {row.original.number ?? '-'}
+        {row.original.studentId ?? '-'}
       </Label>
     ),
     footer: (props) => props.column.id,
@@ -111,7 +103,7 @@ export const STUDENT_LIST_COLUMN: Array<ColumnDef<Student>> = [
     ),
     cell: ({ row }: { row: { original: Student } }) => (
       <Label size="md" weight="regular">
-        {row.original.number ?? '-'}
+        {row.original.phoneAddress ?? '-'}
       </Label>
     ),
     footer: (props) => props.column.id,
@@ -130,11 +122,26 @@ export const STUDENT_LIST_COLUMN: Array<ColumnDef<Student>> = [
         참여스터디
       </Label>
     ),
-    cell: ({ row }: { row: { original: Student } }) => (
-      <Label size="md" weight="regular">
-        {row.original.number ?? '-'}
-      </Label>
-    ),
+    cell: ({ row }: { row: { original: Student } }) => {
+      const studies = row.original.studies;
+      if (!studies || studies.length === 0) {
+        return (
+          <Label size="md" weight="regular">
+            -
+          </Label>
+        );
+      }
+
+      return (
+        <div className="flex flex-col gap-1">
+          {studies.map((study, index) => (
+            <Label key={index} size="md" weight="regular">
+              • {study.studyName}
+            </Label>
+          ))}
+        </div>
+      );
+    },
     footer: (props) => props.column.id,
   },
   {
@@ -151,11 +158,48 @@ export const STUDENT_LIST_COLUMN: Array<ColumnDef<Student>> = [
         이전 참여 학기
       </Label>
     ),
-    cell: ({ row }: { row: { original: Student } }) => (
-      <Label size="md" weight="regular">
-        {row.original.number ?? '-'}
-      </Label>
-    ),
+    cell: ({ row }: { row: { original: Student } }) => {
+      const semesters = row.original.participatedSemesters;
+      if (!semesters || semesters.length === 0) {
+        return (
+          <Label size="md" weight="regular">
+            -
+          </Label>
+        );
+      }
+
+      // 연도별로 그룹화
+      const groupedByYear = semesters.reduce(
+        (acc, semester) => {
+          const year = semester.semesterYear;
+          if (!acc[year ?? 0]) {
+            acc[year ?? 0] = [];
+          }
+          acc[year ?? 0].push(semester);
+          return acc;
+        },
+        {} as Record<number, typeof semesters>
+      );
+
+      return (
+        <div className="flex flex-col gap-1">
+          {Object.entries(groupedByYear)
+            .sort(([first], [second]) => Number(second) - Number(first)) // 최신 연도부터
+            .map(([year, yearSemesters]) => {
+              const semesterTexts = yearSemesters
+                .sort((first) => (first.semesterType === 'FIRST' ? -1 : 1))
+                .map((semester) => `${semester.semesterType === 'FIRST' ? '1학기' : '2학기'}`)
+                .join(', ');
+
+              return (
+                <Label key={year} size="md" weight="regular">
+                  • {year}년 {semesterTexts}
+                </Label>
+              );
+            })}
+        </div>
+      );
+    },
     footer: (props) => props.column.id,
   },
   {
@@ -174,7 +218,7 @@ export const STUDENT_LIST_COLUMN: Array<ColumnDef<Student>> = [
     ),
     cell: ({ row }: { row: { original: Student } }) => (
       <Label size="md" weight="regular">
-        {row.original.number ?? '-'}
+        {row.original.memberRole ?? '-'}
       </Label>
     ),
     footer: (props) => props.column.id,

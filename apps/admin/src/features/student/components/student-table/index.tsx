@@ -1,12 +1,10 @@
 import { cn, CommonTableBody, CommonTableHead, Pagination } from '@hiarc-platform/ui';
 import { useTable } from '@hiarc-platform/util';
-import { Row } from '@tanstack/react-table';
-import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
 
 import { AnimatePresence, motion } from 'framer-motion';
-import { Student, STUDENT_LIST_COLUMN } from './student-list-column';
-import { PageableModel } from '@hiarc-platform/shared';
+import { STUDENT_LIST_COLUMN } from './student-list-column';
+import { PageableModel, Student } from '@hiarc-platform/shared';
 
 interface StudentTableProps {
   pageableModel?: PageableModel<Student>;
@@ -20,7 +18,6 @@ export function StudentTable({
   onPageChange,
 }: StudentTableProps): React.ReactElement {
   const columns = useMemo(() => STUDENT_LIST_COLUMN, []);
-  const router = useRouter();
   const [globalFilter, setGlobalFilter] = useState('');
   const table = useTable({
     columns,
@@ -42,16 +39,7 @@ export function StudentTable({
           className="w-full"
         >
           <CommonTableHead className="bg-gray-100 text-gray-900" table={table} />
-          <CommonTableBody
-            table={table}
-            onClick={function (row: Row<Student>): void {
-              console.log('Row clicked:', row.original);
-              const studentNumber = row.original.number;
-              if (studentNumber !== undefined) {
-                router.push(`/student/${studentNumber}`);
-              }
-            }}
-          />
+          <CommonTableBody table={table} onClick={function (): void {}} />
         </motion.div>
       </AnimatePresence>
       {pageableModel && onPageChange && (

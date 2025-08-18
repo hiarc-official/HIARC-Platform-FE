@@ -14,6 +14,8 @@ interface ErrorState {
   errors: ErrorInfo[];
   currentError: ErrorInfo | null;
   isDialogOpen: boolean;
+  isHandling403: boolean;
+  isHandling401: boolean;
 }
 
 interface ErrorActions {
@@ -25,6 +27,8 @@ interface ErrorActions {
   clearAllErrors(): void;
   openDialog(error: ErrorInfo): void;
   closeDialog(): void;
+  set403Handling: (isHandling: boolean) => void;
+  set401Handling: (isHandling: boolean) => void;
 }
 
 type ErrorStore = ErrorState & ErrorActions;
@@ -34,6 +38,8 @@ export const useErrorStore = create<ErrorStore>((set, get) => ({
   errors: [],
   currentError: null,
   isDialogOpen: false,
+  isHandling403: false,
+  isHandling401: false,
 
   // Actions
   addError: (errorInfo) => {
@@ -107,5 +113,13 @@ export const useErrorStore = create<ErrorStore>((set, get) => ({
     set({
       isDialogOpen: false,
     });
+  },
+
+  set403Handling: (isHandling) => {
+    set({ isHandling403: isHandling });
+  },
+
+  set401Handling: (isHandling) => {
+    set({ isHandling401: isHandling });
   },
 }));

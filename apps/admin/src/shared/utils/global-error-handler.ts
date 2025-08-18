@@ -21,6 +21,7 @@ interface AxiosError {
 
 export class GlobalErrorHandler {
   private static isHandlingError = false;
+  private static recentErrors = new Set<string>();
 
   /**
    * 에러를 분석하고 적절한 메시지를 생성합니다
@@ -110,10 +111,25 @@ export class GlobalErrorHandler {
       return;
     }
 
+    const errorInfo = this.parseError(error);
+    
+    // 403, 401 에러는 API 인터셉터에서 처리하므로 여기서는 무시
+    if (errorInfo.status === 403 || errorInfo.status === 401) {
+      console.log(`${errorInfo.status} 에러는 API 인터셉터에서 처리됨 - GlobalErrorHandler 무시`);
+      return;
+    }
+    
+    const errorKey = `${errorInfo.status}-${errorInfo.message}`;
+    
+    // 동일한 에러가 최근에 발생했으면 무시
+    if (this.recentErrors.has(errorKey)) {
+      return;
+    }
+
     this.isHandlingError = true;
+    this.recentErrors.add(errorKey);
     console.error('🚨 [GLOBAL ERROR HANDLER]', error);
 
-    const errorInfo = this.parseError(error);
     const message = customMessage || errorInfo.message;
 
     DialogUtil.showError(message, errorInfo.title);
@@ -122,6 +138,11 @@ export class GlobalErrorHandler {
     setTimeout(() => {
       this.isHandlingError = false;
     }, 100);
+    
+    // 5초 후 에러 키 제거 (같은 에러가 다시 발생할 수 있도록)
+    setTimeout(() => {
+      this.recentErrors.delete(errorKey);
+    }, 5000);
   }
 
   /**

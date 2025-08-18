@@ -1,34 +1,11 @@
 import { StudentApply } from '@hiarc-platform/shared';
-import { Label, Button } from '@hiarc-platform/ui';
+import { Label } from '@hiarc-platform/ui';
 import { ColumnDef } from '@tanstack/react-table';
-import { useSelectedSemester } from '@/hooks/use-semester-store';
-import { useCurrentSemester } from '@/features/semester/hooks/use-current-semester';
+import { ApprovalButton } from './approval-button';
 
-function ApprovalButton({ studentApply }: { studentApply: StudentApply }) {
-  const { selectedSemesterId } = useSelectedSemester();
-  const { data: currentSemester } = useCurrentSemester();
-  
-  const isCurrentSemesterSelected = selectedSemesterId === currentSemester?.currentSemester?.semesterId?.toString();
-  
-  if (!isCurrentSemesterSelected) {
-    return null;
-  }
-  
-  return (
-    <Button
-      className="relative z-10 w-full bg-primary-100"
-      size="xs"
-      onClick={(event) => {
-        event.stopPropagation();
-        console.log('Edit clicked for:', studentApply);
-      }}
-    >
-      승인하기
-    </Button>
-  );
-}
-
-export const STUDENT_APPLY_LIST_COLUMN: Array<ColumnDef<StudentApply>> = [
+export const getStudentApplyListColumns = (
+  showApprovalButton: boolean
+): Array<ColumnDef<StudentApply>> => [
   {
     id: 'number',
     accessorKey: 'number',
@@ -75,7 +52,7 @@ export const STUDENT_APPLY_LIST_COLUMN: Array<ColumnDef<StudentApply>> = [
     id: 'bojHandle',
     accessorKey: 'bojHandle',
     enableSorting: false,
-    size: 150,
+    size: 0,
     meta: {
       headAlign: 'left',
       bodyAlign: 'left',
@@ -117,7 +94,7 @@ export const STUDENT_APPLY_LIST_COLUMN: Array<ColumnDef<StudentApply>> = [
     id: 'studentId',
     accessorKey: 'studentId',
     enableSorting: false,
-    size: 100,
+    size: 0,
     meta: {
       headAlign: 'left',
       bodyAlign: 'left',
@@ -195,7 +172,6 @@ export const STUDENT_APPLY_LIST_COLUMN: Array<ColumnDef<StudentApply>> = [
         {row.original.grade ?? '-'}
       </Label>
     ),
-    footer: (props) => props.column.id,
   },
   {
     id: 'status',
@@ -216,13 +192,12 @@ export const STUDENT_APPLY_LIST_COLUMN: Array<ColumnDef<StudentApply>> = [
         {row.original.absenceStatus ?? '-'}
       </Label>
     ),
-    footer: (props) => props.column.id,
   },
   {
     id: 'approve',
     accessorKey: 'approve',
     enableSorting: false,
-    size: 0,
+    size: 100,
     meta: {
       headAlign: 'left',
       bodyAlign: 'left',
@@ -237,24 +212,26 @@ export const STUDENT_APPLY_LIST_COLUMN: Array<ColumnDef<StudentApply>> = [
         {row.original.applicationStatus ?? '-'}
       </Label>
     ),
-    footer: (props) => props.column.id,
   },
-  {
-    id: 'approveButton',
-    accessorKey: 'approveButton',
-    size: 60,
-    meta: {
-      headAlign: 'left',
-      bodyAlign: 'left',
-    },
-    header: () => (
-      <Label size="md" weight="bold">
-        승인
-      </Label>
-    ),
-    cell: ({ row }: { row: { original: StudentApply } }) => (
-      <ApprovalButton studentApply={row.original} />
-    ),
-    footer: (props) => props.column.id,
-  },
+  ...(showApprovalButton
+    ? [
+        {
+          id: 'approveButton',
+          accessorKey: 'approveButton',
+          size: 100,
+          meta: {
+            headAlign: 'left' as const,
+            bodyAlign: 'left' as const,
+          },
+          header: () => (
+            <Label size="md" weight="bold">
+              승인
+            </Label>
+          ),
+          cell: ({ row }: { row: { original: StudentApply } }) => (
+            <ApprovalButton studentApply={row.original} />
+          ),
+        },
+      ]
+    : []),
 ];

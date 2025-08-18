@@ -1,18 +1,15 @@
 import { useMutation, UseMutationResult, useQueryClient } from '@tanstack/react-query';
 import { recruitmentApi } from '../api/recruitment';
-import type { 
-  RecruitmentUpdateResponse, 
-  RecruitmentUpdateRequest 
-} from '../api/recruitment';
 import { useErrorHandler } from '@/shared/hooks/use-error-handler';
+import { UpdateRecruitmentRequest } from '@hiarc-platform/shared';
 
 interface UpdateRecruitmentParams {
   semesterId: number;
-  data: RecruitmentUpdateRequest;
+  data: UpdateRecruitmentRequest;
 }
 
 export function useUpdateRecruitment(): UseMutationResult<
-  RecruitmentUpdateResponse,
+  void,
   Error,
   UpdateRecruitmentParams,
   unknown

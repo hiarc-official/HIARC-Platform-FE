@@ -9,25 +9,30 @@ import {
   Button,
   LabeledTextarea,
 } from '@hiarc-platform/ui';
-import React from 'react';
+import React, { useState } from 'react';
+import { useUpdateRecruitment } from '@/features/recruitment/hooks/use-update-recruitment';
+import { useSelectedSemester } from '@/hooks/use-semester-store';
 
 interface RecruitInformationDialogProps {
-  onSave?: () => Promise<void>;
-  onCancel?: () => void;
+  greetingDescription?: string;
   showBackground?: boolean;
 }
 
 export function RecruitInformationDialog({
-  onSave,
-  onCancel,
+  greetingDescription,
   showBackground = true,
 }: RecruitInformationDialogProps): React.ReactElement {
+  const [greetingText, setGreetingText] = useState(greetingDescription);
+  const { selectedSemesterId } = useSelectedSemester();
+  const { mutate: updateRecruitment } = useUpdateRecruitment();
   const handleSave = async (): Promise<void> => {
     try {
-      alert('변경이 완료되었습니다');
-      if (onSave) {
-        await onSave();
-      }
+      updateRecruitment({
+        semesterId: Number(selectedSemesterId),
+        data: {
+          greetingDescription: greetingText,
+        },
+      });
       DialogUtil.hideAllDialogs();
     } catch (error) {
       console.error('저장 실패:', error);
@@ -36,7 +41,6 @@ export function RecruitInformationDialog({
   };
 
   const handleCancel = (): void => {
-    onCancel?.();
     DialogUtil.hideAllDialogs();
   };
 
@@ -44,14 +48,19 @@ export function RecruitInformationDialog({
     <Dialog open={true} onOpenChange={(open) => !open && handleCancel()}>
       <DialogContent
         onOpenAutoFocus={(ev) => ev.preventDefault()}
-        className="relative !w-[540px] !max-w-[540px] overflow-visible"
+        className="fixed left-1/2 top-1/2 !w-[540px] !max-w-[540px] -translate-x-1/2 -translate-y-1/2 overflow-visible"
         showBackground={showBackground}
       >
         <DialogHeader>
           <DialogTitle className="w-full">학회원 모집 문구 관리 - 안내사항</DialogTitle>
         </DialogHeader>
         <DialogDescription className="mt-6 w-[482px]">
-          <LabeledTextarea label="일반 대상" className="min-h-[213px]" />
+          <LabeledTextarea
+            label="일반 대상"
+            className="min-h-[213px]"
+            value={greetingText}
+            onChange={(value) => setGreetingText(value)}
+          />
         </DialogDescription>
         <div className="mt-6 flex w-full gap-2">
           <Button variant="secondary" className="w-full" size="lg" onClick={handleCancel}>

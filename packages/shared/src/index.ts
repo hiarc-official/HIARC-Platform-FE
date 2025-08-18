@@ -17,3 +17,5 @@ export * from './types/student/admin';
 export * from './types/student/instructor';
 export * from './types/semester/current-semester';
 export * from './types/semester/semester';
+export * from './types/recruit/recruitment';
+export * from './types/recruit/update-recruitment-request';

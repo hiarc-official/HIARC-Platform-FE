@@ -3,8 +3,10 @@ import { useTable } from '@hiarc-platform/util';
 import { useMemo, useState } from 'react';
 
 import { AnimatePresence, motion } from 'framer-motion';
-import { STUDENT_APPLY_LIST_COLUMN } from './student-apply-list-column';
+import { getStudentApplyListColumns } from './student-apply-list-column';
 import { PageableModel, StudentApply } from '@hiarc-platform/shared';
+import { useSelectedSemester } from '@/hooks/use-semester-store';
+import { useCurrentSemester } from '@/features/semester/hooks/use-current-semester';
 
 interface StudentTableProps {
   pageableModel?: PageableModel<StudentApply>;
@@ -17,7 +19,16 @@ export function StudentApplyTable({
   className,
   onPageChange,
 }: StudentTableProps): React.ReactElement {
-  const columns = useMemo(() => STUDENT_APPLY_LIST_COLUMN, []);
+  const { selectedSemesterId } = useSelectedSemester();
+  const { data: currentSemester } = useCurrentSemester();
+
+  const showApprovalButton =
+    selectedSemesterId === currentSemester?.currentSemester?.semesterId?.toString();
+
+  const columns = useMemo(
+    () => getStudentApplyListColumns(showApprovalButton),
+    [showApprovalButton]
+  );
   const [globalFilter, setGlobalFilter] = useState('');
   const table = useTable({
     columns,

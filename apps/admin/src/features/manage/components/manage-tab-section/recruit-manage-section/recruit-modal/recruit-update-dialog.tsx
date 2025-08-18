@@ -1,7 +1,6 @@
 'use client';
 
 import { useUpdateRecruitment } from '@/features/recruitment';
-import { useStartRecruitment } from '@/features/student/hooks';
 import { useSelectedSemester } from '@/hooks/use-semester-store';
 import { UpdateRecruitmentRequest } from '@hiarc-platform/shared';
 import {
@@ -17,22 +16,27 @@ import {
 } from '@hiarc-platform/ui';
 import React from 'react';
 
-interface RecruitStartDialogProps {
-  isRecruit?: boolean;
+interface RecruitUpdateDialogProps {
+  startDate?: string | null;
+  endDate?: string | null;
   onCancel?(): void;
   showBackground?: boolean;
 }
 
-export function RecruitStartDialog({
-  isRecruit = false,
+export function RecruitUpdateDialog({
+  startDate: initialStartDate,
+  endDate: initialEndDate,
   onCancel,
   showBackground = true,
-}: RecruitStartDialogProps): React.ReactElement {
-  const [startDate, setStartDate] = React.useState<Date | null>(null);
-  const [endDate, setEndDate] = React.useState<Date | null>(null);
+}: RecruitUpdateDialogProps): React.ReactElement {
+  const [startDate, setStartDate] = React.useState<Date | null>(
+    initialStartDate ? new Date(initialStartDate) : null
+  );
+  const [endDate, setEndDate] = React.useState<Date | null>(
+    initialEndDate ? new Date(initialEndDate) : null
+  );
   const { selectedSemesterId } = useSelectedSemester();
   const { mutate: updateRecruitment } = useUpdateRecruitment();
-  const { mutate: startRecruitment } = useStartRecruitment();
 
   const handleSaveRecruit = async (): Promise<void> => {
     try {
@@ -48,21 +52,6 @@ export function RecruitStartDialog({
         });
 
         DialogUtil.hideAllDialogs();
-      }
-    } catch (error) {
-      console.error('저장 실패:', error);
-      throw error;
-    }
-  };
-
-  const handleStartRecruit = async (): Promise<void> => {
-    try {
-      if (startDate && endDate) {
-        startRecruitment(Number(selectedSemesterId));
-
-        DialogUtil.hideAllDialogs();
-      } else {
-        alert('모집 시작일과 모집 종료일을 입력해주세요');
       }
     } catch (error) {
       console.error('저장 실패:', error);
@@ -107,11 +96,6 @@ export function RecruitStartDialog({
           <Button variant="secondary" className="w-full" size="lg" onClick={handleSaveRecruit}>
             <Label size="lg">저장하기</Label>
           </Button>
-          {!isRecruit && (
-            <Button className="w-full" size="lg" onClick={handleStartRecruit}>
-              <Label size="lg">모집 시작하기</Label>
-            </Button>
-          )}
         </div>
       </DialogContent>
     </Dialog>
