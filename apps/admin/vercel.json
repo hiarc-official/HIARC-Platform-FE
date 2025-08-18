@@ -1,0 +1,13 @@
+{
+  "buildCommand": "next build",
+  "functions": {
+    "app/**/*": {
+      "maxDuration": 30
+    }
+  },
+  "build": {
+    "env": {
+      "NEXT_PHASE": "build"
+    }
+  }
+}

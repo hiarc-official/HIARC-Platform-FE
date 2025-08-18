@@ -1,31 +1,10 @@
 // apps/admin/next.config.mjs
-import fs from 'fs';
-import path from 'path';
-
-// 빌드 시 한 번 디렉토리 생성
-function ensureSharedAssetsDir() {
-  try {
-    const dir = path.join(process.cwd(), '.vercel', 'output', 'static', 'shared-assets');
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
-    }
-  } catch (error) {
-    console.warn('Could not create shared-assets directory:', error.message);
-  }
-}
-
 const nextConfig = {
   transpilePackages: ['@hiarc-platform/ui', '@hiarc-platform/util'],
   
-  // public 디렉토리의 파일들이 정적 에셋으로 올바르게 복사되도록 설정
-  assetPrefix: '',
-  
-  webpack: (config, { isServer }) => {
-    // 서버 사이드에서만 디렉토리 생성 시도
-    if (isServer) {
-      ensureSharedAssetsDir();
-    }
-    return config;
+  // Vercel 배포 시 static 파일 처리
+  experimental: {
+    outputFileTracingRoot: '../../'
   },
 
   async headers() {
