@@ -80,8 +80,7 @@ export function LectureList({
             );
           }}
           onEditClick={() => {
-            // 강의 수정 로직 추가
-            console.log('강의 수정:', lecture);
+            // TODO: 강의 수정 로직 구현 필요
           }}
           onDeleteClick={() => {}}
         />

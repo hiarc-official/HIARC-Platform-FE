@@ -10,7 +10,6 @@ export function useStudyAnnouncements(
     size: 10,
   }
 ): UseQueryResult<PageableModel<AnnouncementSummary>, Error> {
-  console.log('[HOOK] useStudies 호출:', params);
 
   const query = useQuery({
     queryKey: ['studies', params],

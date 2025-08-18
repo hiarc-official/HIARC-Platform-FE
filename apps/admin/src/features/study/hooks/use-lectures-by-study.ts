@@ -3,7 +3,6 @@ import { studyApi } from '../api/study';
 import { Lecture } from '@hiarc-platform/shared';
 
 export function useLecturesByStudy(studyId: number): UseQueryResult<Lecture[], Error> {
-  console.log('[HOOK] useLecturesByStudy 호출:', studyId);
 
   const query = useQuery({
     queryKey: ['lectures', studyId],

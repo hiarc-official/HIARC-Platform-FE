@@ -6,7 +6,7 @@ export function useStudyInitialForm(
   studyId: number | undefined
 ): UseQueryResult<StudyInitialForm, Error> {
   const query = useQuery({
-    queryKey: ['study', studyId],
+    queryKey: ['study-initial-form', studyId],
     queryFn: () => studyApi.GET_STUDY_INITIAL_FORM(studyId!),
     enabled: Boolean(studyId),
     staleTime: 5 * 60 * 1000, // 5 minutes

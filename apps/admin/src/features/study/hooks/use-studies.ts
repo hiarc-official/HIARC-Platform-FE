@@ -6,7 +6,6 @@ import { PageableModel, StudySummary } from '@hiarc-platform/shared';
 export function useStudies(
   params: StudyQueryParams = {}
 ): UseQueryResult<PageableModel<StudySummary>, Error> {
-  console.log('[HOOK] useStudies 호출:', params);
 
   const query = useQuery({
     queryKey: ['studies', params],
