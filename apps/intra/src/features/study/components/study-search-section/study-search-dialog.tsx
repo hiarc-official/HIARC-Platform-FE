@@ -15,8 +15,8 @@ import React, { useState } from 'react';
 import { StudyQueryParams } from '../../types/request/study-query-params';
 
 interface StudySearchDialogProps {
-  onSave?: (params: Partial<StudyQueryParams>) => Promise<void>;
-  onCancel?: () => void;
+  onSave?(params: Partial<StudyQueryParams>): Promise<void>;
+  onCancel?(): void;
   showBackground?: boolean;
 }
 
@@ -32,19 +32,19 @@ export function StudySearchDialog({
   const handleSave = async (): Promise<void> => {
     try {
       const searchParams: Partial<StudyQueryParams> = {};
-      
+
       if (searchTitle.trim()) {
         searchParams.search = searchTitle.trim();
       }
-      
+
       if (selectedSemester) {
         searchParams.category = selectedSemester;
       }
-      
+
       if (selectedStatus) {
         searchParams.status = selectedStatus as 'active' | 'completed' | 'cancelled';
       }
-      
+
       if (onSave) {
         await onSave(searchParams);
       }
@@ -110,8 +110,8 @@ export function StudySearchDialog({
                 setSelectedStatus(value);
               }}
             />
-            <LabeledInput 
-              label="스터디명" 
+            <LabeledInput
+              label="스터디명"
               value={searchTitle}
               onChange={(e) => setSearchTitle(e.target.value)}
               placeholder="스터디명을 입력하세요"

@@ -9,8 +9,8 @@ import {
 } from '@hiarc-platform/ui';
 
 interface BojGuideDialogProps {
-  onSave?: () => Promise<void>;
-  onCancel?: () => void;
+  onSave?(): Promise<void>;
+  onCancel?(): void;
   showBackground?: boolean;
 }
 

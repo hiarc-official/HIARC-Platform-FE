@@ -14,9 +14,9 @@ import { DialogConfig } from '../../store/dialog-store';
 
 interface ConfirmDialogProps {
   dialog: DialogConfig;
-  onConfirm: () => void;
-  onCancel: () => void;
-  onClose: () => void;
+  onConfirm(): void;
+  onCancel(): void;
+  onClose(): void;
   showBackground?: boolean;
 }
 

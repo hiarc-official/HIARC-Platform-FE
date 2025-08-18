@@ -14,8 +14,8 @@ import {
 import React from 'react';
 
 interface StudySearchDialogProps {
-  onSave?: () => Promise<void>;
-  onCancel?: () => void;
+  onSave?(): Promise<void>;
+  onCancel?(): void;
   showBackground?: boolean;
 }
 

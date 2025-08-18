@@ -15,8 +15,8 @@ import React from 'react';
 
 interface MyInfoDialogProps {
   initialValue?: string;
-  onSave?: (value: string) => Promise<void>;
-  onCancel?: () => void;
+  onSave?(value: string): Promise<void>;
+  onCancel?(): void;
   showBackground?: boolean;
 }
 

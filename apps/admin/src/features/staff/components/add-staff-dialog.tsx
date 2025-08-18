@@ -16,8 +16,8 @@ import React from 'react';
 import { selectOption } from 'constants/selectOption';
 
 interface AddStaffDialogProps {
-  onSave?: () => Promise<void>;
-  onCancel?: () => void;
+  onSave?(): Promise<void>;
+  onCancel?(): void;
   showBackground?: boolean;
 }
 
@@ -47,8 +47,8 @@ export function AddStaffDialog({
 
   return (
     <Dialog open={true} onOpenChange={(open) => !open && handleCancel()}>
-      <DialogContent 
-        className="!w-[540px] !max-w-[540px]" 
+      <DialogContent
+        className="!w-[540px] !max-w-[540px]"
         showBackground={showBackground}
         onOpenAutoFocus={(ev) => ev.preventDefault()}
       >

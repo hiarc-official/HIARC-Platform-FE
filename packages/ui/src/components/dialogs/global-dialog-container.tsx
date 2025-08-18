@@ -44,9 +44,9 @@ function DialogItem({ dialog }: { dialog: DialogConfig }): React.ReactElement {
   // If it's a component type, render the component directly with background option
   if (dialog.type === 'component') {
     if (React.isValidElement(dialog.component)) {
-      return React.cloneElement(dialog.component, {
-        showBackground: dialog.showBackground,
-      });
+      const extraProps =
+        'showBackground' in dialog.component.props ? { showBackground: dialog.showBackground } : {};
+      return React.cloneElement(dialog.component, extraProps);
     }
     return <>{dialog.component}</>;
   }
