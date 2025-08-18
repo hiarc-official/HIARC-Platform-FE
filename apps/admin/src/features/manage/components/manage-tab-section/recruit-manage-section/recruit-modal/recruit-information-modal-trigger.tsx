@@ -5,14 +5,7 @@ import { RecruitInformationDialog } from './recruit-information-dialog';
 export function RecruitInfromationModalTrigger(): React.ReactElement {
   const handleOpenDialog = (): void => {
     DialogUtil.showComponent(
-      <RecruitInformationDialog
-        onSave={async () => {
-          console.log('Recruit information dialog saved');
-        }}
-        onCancel={() => {
-          console.log('Recruit information dialog cancelled');
-        }}
-      />
+      <RecruitInformationDialog />
     );
   };
 

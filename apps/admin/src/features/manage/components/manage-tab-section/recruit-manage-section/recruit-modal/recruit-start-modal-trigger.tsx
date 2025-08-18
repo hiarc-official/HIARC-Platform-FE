@@ -12,14 +12,7 @@ export function RecruitStartModalTrigger({
 }: RecruitStartModalTriggerProps): React.ReactElement {
   const handleOpenDialog = (): void => {
     DialogUtil.showComponent(
-      <RecruitStartDialog
-        onSave={async () => {
-          onClick?.();
-        }}
-        onCancel={() => {
-          console.log('Recruit start dialog cancelled');
-        }}
-      />
+      <RecruitStartDialog />
     );
   };
 

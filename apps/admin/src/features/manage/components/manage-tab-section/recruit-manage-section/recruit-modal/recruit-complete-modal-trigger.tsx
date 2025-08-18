@@ -5,14 +5,7 @@ import { RecruitCompleteDialog } from './recruit-complete-dialog';
 export function RecruitCompleteModalTrigger(): React.ReactElement {
   const handleOpenDialog = (): void => {
     DialogUtil.showComponent(
-      <RecruitCompleteDialog
-        onSave={async () => {
-          console.log('Recruit complete dialog saved');
-        }}
-        onCancel={() => {
-          console.log('Recruit complete dialog cancelled');
-        }}
-      />
+      <RecruitCompleteDialog />
     );
   };
 

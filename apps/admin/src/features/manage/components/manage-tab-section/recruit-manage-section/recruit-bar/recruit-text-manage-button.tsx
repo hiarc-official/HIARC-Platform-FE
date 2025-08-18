@@ -31,12 +31,7 @@ export function RecruitTextManageButton(): React.ReactElement {
             onClick={() => {
               setOpen(false);
               DialogUtil.showComponent(
-                <RecruitCompleteDialog
-                  onSave={async () => {}}
-                  onCancel={() => {
-                    DialogUtil.hideAllDialogs();
-                  }}
-                />
+                <RecruitCompleteDialog />
               );
             }}
           >
@@ -47,12 +42,7 @@ export function RecruitTextManageButton(): React.ReactElement {
             onClick={() => {
               setOpen(false);
               DialogUtil.showComponent(
-                <RecruitInformationDialog
-                  onSave={async () => {}}
-                  onCancel={() => {
-                    DialogUtil.hideAllDialogs();
-                  }}
-                />
+                <RecruitInformationDialog />
               );
             }}
           >
