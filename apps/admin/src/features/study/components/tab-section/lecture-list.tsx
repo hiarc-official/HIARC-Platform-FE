@@ -1,8 +1,9 @@
 import { cn, CreateAttendanceCodeDialog, DialogUtil, LectureListItem } from '@hiarc-platform/ui';
 import { Lecture } from '@hiarc-platform/shared';
-import { useCreateAttendanceCode } from '../../hooks/use-create-attendance-code';
+import { useCreateAttendanceCode, useDeleteLecture } from '../../hooks';
 import { ShowAttendanceCodeDialogWrapper } from './show-attendance-code-dialog-wrapper';
 import { CreateAssignmentDialogWrapper } from './create-assignment-dialog-wrapper';
+import { useRouter } from 'next/navigation';
 
 interface LectureListProps {
   studyId?: number;
@@ -15,7 +16,9 @@ export function LectureList({
   lectureList,
   studyId,
 }: LectureListProps): React.ReactElement {
+  const router = useRouter();
   const { mutate: createAttendanceCode } = useCreateAttendanceCode();
+  const { mutate: deleteLecture } = useDeleteLecture();
 
   return (
     <div className={cn('flex w-full flex-col gap-2', className)}>
@@ -80,9 +83,26 @@ export function LectureList({
             );
           }}
           onEditClick={() => {
-            // TODO: 강의 수정 로직 구현 필요
+            if (!lecture.announcementId) {
+              console.error('강의 수정 실패: announcementId가 없습니다.');
+              return;
+            }
+            
+            router.push(`/announcement/${lecture.announcementId}/edit`);
           }}
-          onDeleteClick={() => {}}
+          onDeleteClick={() => {
+            if (!lecture.announcementId) {
+              console.error('강의 삭제 실패: announcementId가 없습니다.');
+              return;
+            }
+
+            DialogUtil.showConfirm('정말로 삭제하시겠습니까?', () => {
+              deleteLecture({
+                studyId: studyId ?? 0,
+                announcementId: lecture.announcementId!,
+              });
+            });
+          }}
         />
       ))}
     </div>

@@ -12,6 +12,7 @@ interface SemesterState {
   getSemesterOptions(): SelectOption[];
   setSelectedSemester(semesterId: string): void;
   getSelectedSemester(): Semester | null;
+  initializeWithCurrentSemester(): Promise<void>;
 }
 
 export const useSemesterStore = create<SemesterState>((set, get) => ({
@@ -34,13 +35,50 @@ export const useSemesterStore = create<SemesterState>((set, get) => ({
         semesters,
         semesterOptions,
         isLoading: false,
-        // Set first semester as default if no semester is selected
-        selectedSemesterId: get().selectedSemesterId || semesterOptions[0]?.value || null,
       });
     } catch (error) {
       console.error('Failed to fetch semesters:', error);
       set({
         error: error instanceof Error ? error.message : 'Failed to fetch semesters',
+        isLoading: false,
+      });
+    }
+  },
+
+  initializeWithCurrentSemester: async () => {
+    const currentState = get();
+    
+    // 이미 선택된 학기가 있으면 그대로 유지
+    if (currentState.selectedSemesterId) {
+      return;
+    }
+
+    set({ isLoading: true, error: null });
+    try {
+      // 현재 학기와 전체 학기 목록을 병렬로 가져오기
+      const [currentSemesterResponse, semesters] = await Promise.all([
+        semesterApi.GET_CURRENT_SEMESTER(),
+        semesterApi.GET_SEMESTER_LIST()
+      ]);
+
+      const semesterOptions = semesters.map((semester) => ({
+        label: `${semester.semesterYear}년 ${semester.semesterType === 'FIRST' ? '1학기' : '2학기'}`,
+        value: semester.semesterId?.toString() || '',
+      }));
+
+      const currentSemesterId = currentSemesterResponse.currentSemester?.semesterId?.toString();
+
+      set({
+        semesters,
+        semesterOptions,
+        isLoading: false,
+        // 현재 학기를 기본값으로 설정
+        selectedSemesterId: currentSemesterId || semesterOptions[0]?.value || null,
+      });
+    } catch (error) {
+      console.error('Failed to initialize with current semester:', error);
+      set({
+        error: error instanceof Error ? error.message : 'Failed to initialize semester',
         isLoading: false,
       });
     }

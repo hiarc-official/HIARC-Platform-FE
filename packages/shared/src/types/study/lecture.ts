@@ -1,4 +1,5 @@
 export interface Lecture {
+  announcementId?: number | null;
   round?: number | null;
   title?: string | null;
   isAttendanceCodeExist?: boolean | null;
@@ -11,6 +12,7 @@ export const Lecture = {
   fromJson(json: unknown): Lecture {
     const data = (json || {}) as Record<string, unknown>;
     return {
+      announcementId: (data.announcementId as number) || null,
       round: (data.round as number) || null,
       title: (data.title as string) || null,
       isAttendanceCodeExist: (data.isAttendanceCodeExist as boolean) || null,

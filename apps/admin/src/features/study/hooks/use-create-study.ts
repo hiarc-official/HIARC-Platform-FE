@@ -16,8 +16,6 @@ export function useCreateStudy(): UseMutationResult<Study, Error, CreateStudyReq
       showSuccess('스터디가 성공적으로 생성되었습니다.');
       router.push(`/study/${response.studyId}`);
     },
-    onError: (error) => {
-    },
   });
 
   return mutation;

@@ -45,11 +45,16 @@ const gradeOptions: SelectData[] = [
   { value: Grade.OVER, label: '5학년 이상' },
 ];
 
-// const absenceStatusOptions: SelectData[] = [
-//   { value: AbsenceStatus.ENROLLED, label: '재학 중' },
-//   { value: AbsenceStatus.ON_LEAVE, label: '휴학 중' },
-//   { value: AbsenceStatus.MILITARY_LEAVE, label: '군휴학' },
-// ];
+const doubleMajorOptions: SelectData[] = [
+  { value: '복수전공 미진행', label: '복수전공 미진행' },
+  { value: '복수전공 진행', label: '복수전공 진행' },
+];
+
+const absenceStatusOptions: SelectData[] = [
+  { value: AbsenceStatus.ENROLLED, label: '재학 중' },
+  { value: AbsenceStatus.ON_LEAVE, label: '휴학 중' },
+  { value: AbsenceStatus.MILITARY_LEAVE, label: '군휴학' },
+];
 
 const departmentOptions: SelectData[] = [
   { value: '컴퓨터공학과', label: '컴퓨터공학과' },
@@ -222,7 +227,7 @@ export default function SignUpPage(): React.ReactElement {
           <LabeledSelectButton
             label="복수전공 여부"
             required={true}
-            options={['복수전공 미진행', '복수전공 진행']}
+            options={doubleMajorOptions}
             value={formData.isDoubleMajor ? '복수전공 진행' : '복수전공 미진행'}
             onChange={(value: string) =>
               handleInputChange('isDoubleMajor')(value === '복수전공 진행')
@@ -239,22 +244,10 @@ export default function SignUpPage(): React.ReactElement {
           <LabeledSelectButton
             label="재학여부"
             required={true}
-            options={['재학 중', '휴학 중', '군휴학']}
-            value={
-              formData.absenceStatus === AbsenceStatus.ENROLLED
-                ? '재학 중'
-                : formData.absenceStatus === AbsenceStatus.ON_LEAVE
-                  ? '휴학 중'
-                  : '군휴학'
-            }
+            options={absenceStatusOptions}
+            value={formData.absenceStatus}
             onChange={(value: string) => {
-              const status: AbsenceStatus =
-                value === '재학 중'
-                  ? AbsenceStatus.ENROLLED
-                  : value === '휴학 중'
-                    ? AbsenceStatus.ON_LEAVE
-                    : AbsenceStatus.MILITARY_LEAVE;
-              handleInputChange('absenceStatus')(status);
+              handleInputChange('absenceStatus')(value as AbsenceStatus);
             }}
           />
           <div className="flex w-full flex-col gap-1">

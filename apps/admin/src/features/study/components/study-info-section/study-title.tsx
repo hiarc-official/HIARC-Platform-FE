@@ -3,9 +3,10 @@ import { Button, Label, StudyStatusChip, Title } from '@hiarc-platform/ui';
 
 interface StudyTitleProps {
   studyData?: Study | null;
+  onEditClick?(): void;
 }
 
-export function StudyTitle({ studyData }: StudyTitleProps): React.ReactElement {
+export function StudyTitle({ studyData, onEditClick }: StudyTitleProps): React.ReactElement {
   return (
     <div className="flex w-full flex-col">
       <div className="flex w-full flex-col md:flex-row md:items-center md:justify-between">
@@ -29,7 +30,7 @@ export function StudyTitle({ studyData }: StudyTitleProps): React.ReactElement {
           </div>
         </div>
         <div className="hidden flex-shrink-0 items-center md:ml-6 md:flex">
-          <Button size="md" className="ml-6" variant="line">
+          <Button size="md" className="ml-6" variant="line" onClick={onEditClick}>
             수정하기
           </Button>
         </div>

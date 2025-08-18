@@ -46,7 +46,11 @@ export default function StudyPage(): React.ReactElement {
   const contentComponent = (
     <FadeIn isVisible={Boolean(studyData)} duration={0.4} className="flex flex-col">
       <BackButton onClick={() => router.back()} />
-      <StudyInfoSection className="pt-5" studyData={studyData} />
+      <StudyInfoSection
+        className="pt-5"
+        studyData={studyData}
+        onEditClick={() => router.push(`/study/${studyId}/edit`)}
+      />
       <TabSection className="pt-8" isAdmin={true} studyId={studyId} />
       <div className="mt-8 flex items-center justify-center gap-4">
         <Button variant="line" className="w-[186px]" onClick={() => router.push('/study')}>

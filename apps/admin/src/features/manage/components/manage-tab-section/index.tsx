@@ -11,21 +11,21 @@ interface TabSectionProps {
   className?: string;
 }
 
-export function ManageTabSection({ className, isAdmin }: TabSectionProps): React.ReactElement {
+export function ManageTabSection({ className }: TabSectionProps): React.ReactElement {
   const tabs = [
-    { label: '이번 학기 명단', value: 'current_semester_section' },
+    { label: '학회원 명단', value: 'member_list_section' },
     { label: '모집관리', value: 'recruit_manage_section' },
     { label: '이전 학기 명단', value: 'previous_semester_section' },
   ];
 
-  const [selectedTab, setSelectedTab] = useState('current_semester_section');
+  const [selectedTab, setSelectedTab] = useState('member_list_section');
 
   return (
     <div className={cn('mt-4 flex w-full flex-col', className)}>
       <Tabs tabs={tabs} activeTab={selectedTab} onTabClick={setSelectedTab} />
       <div className="mt-6 min-h-[300px]">
         <AnimatePresence mode="wait">
-          {selectedTab === 'current_semester_section' && (
+          {selectedTab === 'member_list_section' && (
             <motion.div
               key="current_semester_list"
               initial={{ opacity: 0, y: 6 }}

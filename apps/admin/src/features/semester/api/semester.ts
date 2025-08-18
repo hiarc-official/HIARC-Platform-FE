@@ -1,4 +1,4 @@
-import { Semester } from '@hiarc-platform/shared';
+import { CurrentSemester, Semester } from '@hiarc-platform/shared';
 import { apiClient } from '../../../shared/api/client';
 
 export const semesterApi = {
@@ -19,5 +19,10 @@ export const semesterApi = {
       semesterType,
     });
     return Semester.fromJson(response.data);
+  },
+
+  GET_CURRENT_SEMESTER: async (): Promise<CurrentSemester> => {
+    const response = await apiClient.get<CurrentSemester | null>('/semesters/now');
+    return CurrentSemester.fromJson(response.data);
   },
 };

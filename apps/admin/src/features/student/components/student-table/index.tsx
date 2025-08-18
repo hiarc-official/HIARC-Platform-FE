@@ -1,4 +1,4 @@
-import { cn, CommonTableBody, CommonTableHead, TablePagination } from '@hiarc-platform/ui';
+import { cn, CommonTableBody, CommonTableHead, Pagination } from '@hiarc-platform/ui';
 import { useTable } from '@hiarc-platform/util';
 import { Row } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
@@ -6,21 +6,27 @@ import { useMemo, useState } from 'react';
 
 import { AnimatePresence, motion } from 'framer-motion';
 import { Student, STUDENT_LIST_COLUMN } from './student-list-column';
+import { PageableModel } from '@hiarc-platform/shared';
 
 interface StudentTableProps {
-  data?: Student[];
+  pageableModel?: PageableModel<Student>;
   className?: string;
+  onPageChange?(page: number): void;
 }
 
-export function StudentTable({ data, className }: StudentTableProps): React.ReactElement {
+export function StudentTable({
+  pageableModel,
+  className,
+  onPageChange,
+}: StudentTableProps): React.ReactElement {
   const columns = useMemo(() => STUDENT_LIST_COLUMN, []);
   const router = useRouter();
   const [globalFilter, setGlobalFilter] = useState('');
   const table = useTable({
     columns,
-    data: data ?? [],
-    pageState: [0, () => {}],
-    totalPages: 10,
+    data: pageableModel?.content ?? [],
+    pageState: [pageableModel?.number ?? 0, () => {}],
+    totalPages: pageableModel?.totalPages ?? 0,
     globalFilterState: [globalFilter, setGlobalFilter],
   });
 
@@ -48,7 +54,11 @@ export function StudentTable({ data, className }: StudentTableProps): React.Reac
           />
         </motion.div>
       </AnimatePresence>
-      <TablePagination className="mt-8" table={table} />
+      {pageableModel && onPageChange && (
+        <div className="flex w-full justify-center">
+          <Pagination className="mt-8" pageableModel={pageableModel} onPageChange={onPageChange} />
+        </div>
+      )}
     </div>
   );
 }

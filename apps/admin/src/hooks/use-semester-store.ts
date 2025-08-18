@@ -2,14 +2,14 @@ import { useEffect } from 'react';
 import { useSemesterStore } from '@/stores/semester-store';
 
 export function useSemesterStoreInit(): void {
-  const { fetchSemesters, semesters } = useSemesterStore();
+  const { initializeWithCurrentSemester, semesters } = useSemesterStore();
 
   useEffect(() => {
-    // Only fetch if we don't have semester data yet
+    // Only initialize if we don't have semester data yet
     if (semesters.length === 0) {
-      fetchSemesters();
+      initializeWithCurrentSemester();
     }
-  }, [fetchSemesters, semesters.length]);
+  }, [initializeWithCurrentSemester, semesters.length]);
 }
 
 // Hook to get selected semester information easily

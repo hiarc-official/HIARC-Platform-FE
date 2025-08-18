@@ -156,6 +156,15 @@ export const studyApi = {
       throw error;
     }
   },
+
+  DELETE_LECTURE: async (studyId: number, announcementId: number): Promise<void> => {
+    try {
+      await apiClient.delete(`/studies/${studyId}/instructor/announcements/${announcementId}`);
+    } catch (error) {
+      console.error('[STUDY API] DELETE_LECTURE 에러:', error);
+      throw error;
+    }
+  },
 };
 
 export type * from '../types/request/study-request';

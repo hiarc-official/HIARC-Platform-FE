@@ -1,16 +1,34 @@
+import { StudentApply } from '@hiarc-platform/shared';
 import { Label, Button } from '@hiarc-platform/ui';
 import { ColumnDef } from '@tanstack/react-table';
+import { useSelectedSemester } from '@/hooks/use-semester-store';
+import { useCurrentSemester } from '@/features/semester/hooks/use-current-semester';
 
-export interface Student {
-  number?: number;
-  name: string;
-  category: 'rating' | 'study' | 'etc' | 'general' | 'external';
-  title: string;
-  date: string;
-  isPublic?: boolean;
+function ApprovalButton({ studentApply }: { studentApply: StudentApply }) {
+  const { selectedSemesterId } = useSelectedSemester();
+  const { data: currentSemester } = useCurrentSemester();
+  
+  const isCurrentSemesterSelected = selectedSemesterId === currentSemester?.currentSemester?.semesterId?.toString();
+  
+  if (!isCurrentSemesterSelected) {
+    return null;
+  }
+  
+  return (
+    <Button
+      className="relative z-10 w-full bg-primary-100"
+      size="xs"
+      onClick={(event) => {
+        event.stopPropagation();
+        console.log('Edit clicked for:', studentApply);
+      }}
+    >
+      승인하기
+    </Button>
+  );
 }
 
-export const STUDENT_APPLY_LIST_COLUMN: Array<ColumnDef<Student>> = [
+export const STUDENT_APPLY_LIST_COLUMN: Array<ColumnDef<StudentApply>> = [
   {
     id: 'number',
     accessorKey: 'number',
@@ -25,9 +43,9 @@ export const STUDENT_APPLY_LIST_COLUMN: Array<ColumnDef<Student>> = [
         번호
       </Label>
     ),
-    cell: ({ row }: { row: { original: Student } }) => (
+    cell: ({ row }: { row: { original: StudentApply } }) => (
       <Label size="md" weight="regular">
-        {row.original.number ?? '-'}
+        {row.original.memberId ?? '-'}
       </Label>
     ),
     footer: (props) => props.column.id,
@@ -46,16 +64,16 @@ export const STUDENT_APPLY_LIST_COLUMN: Array<ColumnDef<Student>> = [
         이름
       </Label>
     ),
-    cell: ({ row }: { row: { original: Student } }) => (
+    cell: ({ row }: { row: { original: StudentApply } }) => (
       <Label size="md" weight="regular">
-        {row.original.name ?? '-'}
+        {row.original.memberName ?? '-'}
       </Label>
     ),
     footer: (props) => props.column.id,
   },
   {
-    id: 'handleName',
-    accessorKey: 'handleName',
+    id: 'bojHandle',
+    accessorKey: 'bojHandle',
     enableSorting: false,
     size: 150,
     meta: {
@@ -67,9 +85,9 @@ export const STUDENT_APPLY_LIST_COLUMN: Array<ColumnDef<Student>> = [
         핸들명
       </Label>
     ),
-    cell: ({ row }: { row: { original: Student } }) => (
+    cell: ({ row }: { row: { original: StudentApply } }) => (
       <Label size="md" weight="regular">
-        {row.original.number ?? '-'}
+        {row.original.bojHandle ?? '-'}
       </Label>
     ),
     footer: (props) => props.column.id,
@@ -88,9 +106,9 @@ export const STUDENT_APPLY_LIST_COLUMN: Array<ColumnDef<Student>> = [
         연락처
       </Label>
     ),
-    cell: ({ row }: { row: { original: Student } }) => (
+    cell: ({ row }: { row: { original: StudentApply } }) => (
       <Label size="md" weight="regular">
-        {row.original.number ?? '-'}
+        {row.original.phoneAddress ?? '-'}
       </Label>
     ),
     footer: (props) => props.column.id,
@@ -109,16 +127,16 @@ export const STUDENT_APPLY_LIST_COLUMN: Array<ColumnDef<Student>> = [
         학번
       </Label>
     ),
-    cell: ({ row }: { row: { original: Student } }) => (
+    cell: ({ row }: { row: { original: StudentApply } }) => (
       <Label size="md" weight="regular">
-        {row.original.number ?? '-'}
+        {row.original.studentId ?? '-'}
       </Label>
     ),
     footer: (props) => props.column.id,
   },
   {
-    id: 'major',
-    accessorKey: 'major',
+    id: 'department',
+    accessorKey: 'department',
     enableSorting: false,
     size: 0,
     meta: {
@@ -130,9 +148,9 @@ export const STUDENT_APPLY_LIST_COLUMN: Array<ColumnDef<Student>> = [
         학과
       </Label>
     ),
-    cell: ({ row }: { row: { original: Student } }) => (
+    cell: ({ row }: { row: { original: StudentApply } }) => (
       <Label size="md" weight="regular">
-        {row.original.number ?? '-'}
+        {row.original.department ?? '-'}
       </Label>
     ),
     footer: (props) => props.column.id,
@@ -151,9 +169,9 @@ export const STUDENT_APPLY_LIST_COLUMN: Array<ColumnDef<Student>> = [
         복전 여부
       </Label>
     ),
-    cell: ({ row }: { row: { original: Student } }) => (
+    cell: ({ row }: { row: { original: StudentApply } }) => (
       <Label size="md" weight="regular">
-        {row.original.number ?? '-'}
+        {row.original.isDoubleMajor ?? '-'}
       </Label>
     ),
     footer: (props) => props.column.id,
@@ -172,9 +190,9 @@ export const STUDENT_APPLY_LIST_COLUMN: Array<ColumnDef<Student>> = [
         Grade
       </Label>
     ),
-    cell: ({ row }: { row: { original: Student } }) => (
+    cell: ({ row }: { row: { original: StudentApply } }) => (
       <Label size="md" weight="regular">
-        {row.original.number ?? '-'}
+        {row.original.grade ?? '-'}
       </Label>
     ),
     footer: (props) => props.column.id,
@@ -193,9 +211,9 @@ export const STUDENT_APPLY_LIST_COLUMN: Array<ColumnDef<Student>> = [
         재학여부
       </Label>
     ),
-    cell: ({ row }: { row: { original: Student } }) => (
+    cell: ({ row }: { row: { original: StudentApply } }) => (
       <Label size="md" weight="regular">
-        {row.original.number ?? '-'}
+        {row.original.absenceStatus ?? '-'}
       </Label>
     ),
     footer: (props) => props.column.id,
@@ -214,9 +232,9 @@ export const STUDENT_APPLY_LIST_COLUMN: Array<ColumnDef<Student>> = [
         승인여부
       </Label>
     ),
-    cell: ({ row }: { row: { original: Student } }) => (
+    cell: ({ row }: { row: { original: StudentApply } }) => (
       <Label size="md" weight="regular">
-        {row.original.number ?? '-'}
+        {row.original.applicationStatus ?? '-'}
       </Label>
     ),
     footer: (props) => props.column.id,
@@ -234,17 +252,8 @@ export const STUDENT_APPLY_LIST_COLUMN: Array<ColumnDef<Student>> = [
         승인
       </Label>
     ),
-    cell: ({ row }: { row: { original: Student } }) => (
-      <Button
-        className="relative z-10 w-full bg-primary-100"
-        size="xs"
-        onClick={(event) => {
-          event.stopPropagation();
-          console.log('Edit clicked for:', row.original);
-        }}
-      >
-        승인하기
-      </Button>
+    cell: ({ row }: { row: { original: StudentApply } }) => (
+      <ApprovalButton studentApply={row.original} />
     ),
     footer: (props) => props.column.id,
   },

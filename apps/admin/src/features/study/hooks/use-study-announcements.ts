@@ -10,7 +10,6 @@ export function useStudyAnnouncements(
     size: 10,
   }
 ): UseQueryResult<PageableModel<AnnouncementSummary>, Error> {
-
   const query = useQuery({
     queryKey: ['studies', params],
     queryFn: () => studyApi.GET_STUDY_ANNOUNCEMENT_LIST(params.studyId, params.page, params.size),

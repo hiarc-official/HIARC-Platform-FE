@@ -9,7 +9,7 @@ export function useCreateAttendanceCode(): UseMutationResult<
   unknown
 > {
   const queryClient = useQueryClient();
-  const { showSuccess, showMessage } = useErrorHandler();
+  const { showSuccess } = useErrorHandler();
 
   const mutation = useMutation({
     mutationFn: ({
@@ -28,24 +28,6 @@ export function useCreateAttendanceCode(): UseMutationResult<
       queryClient.invalidateQueries({ queryKey: ['studies'] });
       queryClient.invalidateQueries({ queryKey: ['lectures'] });
       queryClient.invalidateQueries({ queryKey: ['assignments'] });
-    },
-    onError: (error: any) => {
-      console.error('[HOOK] useCreateAttendanceCode 에러:', error);
-      
-      // 403 에러의 경우 권한 부족 메시지 표시
-      if (error.response?.status === 403) {
-        showMessage('권한 오류', '출석 코드 생성 권한이 없습니다. 관리자에게 문의하세요.', 'error');
-        return;
-      }
-      
-      // 401 에러의 경우 인증 실패 메시지 표시
-      if (error.response?.status === 401) {
-        showMessage('인증 오류', '로그인이 필요합니다. 다시 로그인해주세요.', 'error');
-        return;
-      }
-      
-      // 기타 에러의 경우 일반 에러 메시지 표시
-      showMessage('오류', '출석 코드 생성에 실패했습니다. 다시 시도해주세요.', 'error');
     },
   });
 

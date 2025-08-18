@@ -178,7 +178,7 @@ export function CreateStudyForm({
         };
         await updateStudyMutation.mutateAsync({ studyId, data: updateRequest });
         DialogUtil.showSuccess('스터디가 성공적으로 수정되었습니다.', undefined, () => {
-          router.push('/study');
+          router.push(`/study/${studyId}`);
         });
       } else {
         // Create mode
