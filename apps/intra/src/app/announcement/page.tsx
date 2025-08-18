@@ -17,7 +17,6 @@ export default function AnnouncementList(): React.ReactElement {
   } = useAnnouncements({
     page: currentPage - 1,
     size: pageSize,
-    announcementType: 'STUDY',
   });
 
   const handlePageChange = (page: number): void => {
@@ -38,11 +37,6 @@ export default function AnnouncementList(): React.ReactElement {
       </Title>
       <AnnouncementSearchSection className="mt-6" />
       <AnnouncementTable className="mt-8" data={announcements?.content || []} />
-      <Pagination
-        className="mt-6"
-        pageableModel={announcements}
-        onPageChange={handlePageChange}
-      />
     </PageLayout>
   );
 }

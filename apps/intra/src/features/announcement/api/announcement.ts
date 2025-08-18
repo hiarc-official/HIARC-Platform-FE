@@ -3,19 +3,20 @@ import { apiClient } from '../../../shared/api/client';
 import { CreateAnnouncementRequest } from '@hiarc-platform/shared';
 import { UpdateAnnouncementRequest } from '../types/request/update-announcement-request';
 import { AnnouncementQueryParams } from '../types/request/announcement-query-params';
+import { AnnouncementSummary } from '../types/model/announcement-summary';
 
 export const announcementApi = {
   // 공지사항 목록 조회 (페이지네이션)
   GET_ANNOUNCEMENTS: async (
     params: AnnouncementQueryParams = {}
-  ): Promise<PageableModel<Announcement>> => {
+  ): Promise<PageableModel<AnnouncementSummary>> => {
     console.log('[ANNOUNCEMENT API] GET_ANNOUNCEMENTS 요청:', params);
     try {
-      const response = await apiClient.get<PageableModel<Announcement>>('/announcements', {
+      const response = await apiClient.get<PageableModel<AnnouncementSummary>>('/announcements', {
         params,
       });
       console.log('[ANNOUNCEMENT API] GET_ANNOUNCEMENTS 응답:', response.data);
-      return PageableModel.fromJson(response.data, Announcement);
+      return PageableModel.fromJson(response.data, AnnouncementSummary);
     } catch (error) {
       console.error('[ANNOUNCEMENT API] GET_ANNOUNCEMENTS 에러:', error);
       throw error;

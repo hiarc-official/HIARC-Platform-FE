@@ -1,16 +1,28 @@
 import { cn, StudyCard, Title } from '@hiarc-platform/ui';
+import { useRouter } from 'next/navigation';
 
 interface StudyListSectionProps {
   className?: string;
 }
 
 export function StudyListSection({ className }: StudyListSectionProps): React.ReactElement {
+  const router = useRouter();
+
   return (
     <div className={cn('flex w-full flex-col gap-8', className)}>
       <section className="">
-        <Title size="sm" weight="bold" className="mb-2">
-          스터디목록
-        </Title>
+        <div className="flex w-full justify-between">
+          <Title size="sm" weight="bold" className="mb-2">
+            스터디목록
+          </Title>
+          <button
+            onClick={() => {
+              router.push('/study');
+            }}
+          >
+            {'더보기 ->'}
+          </button>
+        </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <StudyCard
             time="화,금 (8시)"

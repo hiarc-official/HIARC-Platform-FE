@@ -95,12 +95,13 @@ interface LectureCardProps {
   lecture: Lecture;
   isAdmin?: boolean;
   onTitleClick?(): void;
-  onCreateAttendanceClick?(): void;
+  onCreateAttendanceClick?(onSuccess: () => void): void;
   onShowAttendanceClick?(): void;
-  onCreateAssignmentClick?(): void;
+  onCreateAssignmentClick?(onSuccess: () => void): void;
   onShowAssignmentClick?(): void;
-  onAttendanceCheckClick?(): void;
-  onDoAssignmentClick?(): void;
+  onAttendanceCheckClick?(onSuccess: () => void): void;
+  onDoAssignmentClick?(onSuccess: () => void): void;
+  onEditClick?(): void;
   onDeleteClick?(): void;
 }
 
@@ -114,6 +115,7 @@ function MobileLectureListItem({
   onShowAssignmentClick,
   onAttendanceCheckClick,
   onDoAssignmentClick,
+  onEditClick,
   onDeleteClick,
 }: LectureCardProps): React.ReactElement {
   const [isAttendanceCreated, setIsAttendanceCreated] = useState(
@@ -137,8 +139,7 @@ function MobileLectureListItem({
         <CreateCodeButton
           key="attendance"
           onClick={() => {
-            onCreateAttendanceClick?.();
-            setIsAttendanceCreated(true);
+            onCreateAttendanceClick?.(() => setIsAttendanceCreated(true));
           }}
         />
       );
@@ -154,8 +155,7 @@ function MobileLectureListItem({
         <CreateAssignmentButton
           key="assignment"
           onClick={() => {
-            onCreateAssignmentClick?.();
-            setIsAssignmentCreated(true);
+            onCreateAssignmentClick?.(() => setIsAssignmentCreated(true));
           }}
         />
       );
@@ -171,8 +171,7 @@ function MobileLectureListItem({
         <AttendanceCheckButton
           key="attendance-check"
           onClick={() => {
-            onAttendanceCheckClick?.();
-            setAttendanceCompleted(true);
+            onAttendanceCheckClick?.(() => setAttendanceCompleted(true));
           }}
         />
       );
@@ -186,8 +185,7 @@ function MobileLectureListItem({
         <DoAssignmentButton
           key="assignment-do"
           onClick={() => {
-            onDoAssignmentClick?.();
-            setAssignmentCompleted(true);
+            onDoAssignmentClick?.(() => setAssignmentCompleted(true));
           }}
         />
       );
@@ -217,7 +215,7 @@ function MobileLectureListItem({
         </Label>
         {isAdmin && (
           <div className="ml-4 flex gap-4">
-            <IconButton iconSrc="/shared-assets/Edit.svg" />
+            <IconButton iconSrc="/shared-assets/Edit.svg" onClick={() => onEditClick?.()} />
             <DeleteButton onClick={() => onDeleteClick?.()} />
           </div>
         )}
@@ -248,6 +246,7 @@ function DesktopLectureCardListItem(props: LectureCardProps): React.ReactElement
     onShowAssignmentClick,
     onAttendanceCheckClick,
     onDoAssignmentClick,
+    onEditClick,
     onDeleteClick,
   } = props;
 
@@ -260,8 +259,7 @@ function DesktopLectureCardListItem(props: LectureCardProps): React.ReactElement
         <CreateCodeButton
           key="attendance"
           onClick={() => {
-            onCreateAttendanceClick?.();
-            setIsAttendanceCreated(true);
+            onCreateAttendanceClick?.(() => setIsAttendanceCreated(true));
           }}
         />
       );
@@ -277,8 +275,7 @@ function DesktopLectureCardListItem(props: LectureCardProps): React.ReactElement
         <CreateAssignmentButton
           key="assignment"
           onClick={() => {
-            onCreateAssignmentClick?.();
-            setIsAssignmentCreated(true);
+            onCreateAssignmentClick?.(() => setIsAssignmentCreated(true));
           }}
         />
       );
@@ -294,8 +291,7 @@ function DesktopLectureCardListItem(props: LectureCardProps): React.ReactElement
         <AttendanceCheckButton
           key="attendance-check"
           onClick={() => {
-            onAttendanceCheckClick?.();
-            setAttendanceCompleted(true);
+            onAttendanceCheckClick?.(() => setAttendanceCompleted(true));
           }}
         />
       );
@@ -309,8 +305,7 @@ function DesktopLectureCardListItem(props: LectureCardProps): React.ReactElement
         <DoAssignmentButton
           key="assignment-do"
           onClick={() => {
-            onDoAssignmentClick?.();
-            setAssignmentCompleted(true);
+            onDoAssignmentClick?.(() => setAssignmentCompleted(true));
           }}
         />
       );
@@ -346,7 +341,7 @@ function DesktopLectureCardListItem(props: LectureCardProps): React.ReactElement
         </div>
         {props.isAdmin && (
           <div className="ml-4 flex gap-4">
-            <IconButton iconSrc="/shared-assets/Edit.svg" />
+            <IconButton iconSrc="/shared-assets/Edit.svg" onClick={() => onEditClick?.()} />
             <DeleteButton onClick={() => onDeleteClick?.()} />
           </div>
         )}
@@ -365,6 +360,7 @@ export function LectureListItem({
   onShowAssignmentClick,
   onAttendanceCheckClick,
   onDoAssignmentClick,
+  onEditClick,
   onDeleteClick,
 }: LectureCardProps): React.ReactElement {
   return (
@@ -380,6 +376,7 @@ export function LectureListItem({
           onShowAssignmentClick={onShowAssignmentClick}
           onAttendanceCheckClick={onAttendanceCheckClick}
           onDoAssignmentClick={onDoAssignmentClick}
+          onEditClick={onEditClick}
           onDeleteClick={onDeleteClick}
         />
       </div>
@@ -394,6 +391,7 @@ export function LectureListItem({
           onShowAssignmentClick={onShowAssignmentClick}
           onAttendanceCheckClick={onAttendanceCheckClick}
           onDoAssignmentClick={onDoAssignmentClick}
+          onEditClick={onEditClick}
           onDeleteClick={onDeleteClick}
         />
       </div>

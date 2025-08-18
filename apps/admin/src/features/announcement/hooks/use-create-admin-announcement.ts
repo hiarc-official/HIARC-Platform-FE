@@ -16,6 +16,7 @@ export const useCreateAdminAnnouncement = (): UseMutationResult<
       announcementApi.CREATE_ADMIN_ANNOUNCEMENT(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['admin-announcements'] });
+      queryClient.invalidateQueries({ queryKey: ['lectures'] });
     },
   });
 };

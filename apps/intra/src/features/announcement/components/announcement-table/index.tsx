@@ -1,4 +1,4 @@
-import { cn, CommonTableBody, CommonTableHead, TablePagination } from '@hiarc-platform/ui';
+import { cn, CommonTableBody, CommonTableHead, Pagination } from '@hiarc-platform/ui';
 import { useTable } from '@hiarc-platform/util';
 import { Row } from '@tanstack/react-table';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -6,15 +6,18 @@ import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
 import { ANNOUNCEMENT_LIST_COLUMN } from './announcement-list-column';
 import type { AnnouncementSummary } from '../../types/model/announcement-summary';
+import { PageableModel } from '@hiarc-platform/shared';
 
 interface AnnouncementTableSectionProps {
+  pageableModel?: PageableModel<AnnouncementSummary>;
   className?: string;
-  data: AnnouncementSummary[];
+  onPageChange?(page: number): void;
 }
 
 export function AnnouncementTable({
   className,
-  data,
+  pageableModel,
+  onPageChange,
 }: AnnouncementTableSectionProps): React.ReactElement {
   const columns = useMemo(() => ANNOUNCEMENT_LIST_COLUMN, []);
   const [globalFilter, setGlobalFilter] = useState('');
@@ -23,9 +26,9 @@ export function AnnouncementTable({
 
   const table = useTable({
     columns,
-    data,
+    data: pageableModel?.content || [],
     pageState: [page, setPage],
-    totalPages: Math.ceil(data.length / 10),
+    totalPages: Math.ceil((pageableModel?.totalElements || 0) / 10),
     globalFilterState: [globalFilter, setGlobalFilter],
   });
 
@@ -55,7 +58,11 @@ export function AnnouncementTable({
           />
         </motion.div>
       </AnimatePresence>
-      <TablePagination className="mt-8" table={table} />
+      {pageableModel && onPageChange && (
+        <div className="flex w-full justify-center">
+          <Pagination className="mt-8" pageableModel={pageableModel} onPageChange={onPageChange} />
+        </div>
+      )}
     </div>
   );
 }
