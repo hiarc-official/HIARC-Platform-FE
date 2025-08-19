@@ -3,12 +3,10 @@
 import { StudySearchSection } from '@/features/study/components/study-search-section';
 import { StudyTable } from '@/features/study/components/study-table';
 import useStudies from '@/features/study/hooks/use-studies';
-import { PageLayout, Title, LoadingDots, Button } from '@hiarc-platform/ui';
+import { PageLayout, Title, LoadingDots } from '@hiarc-platform/ui';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 
 export default function StudyListPage(): React.ReactElement {
-  const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
 
   const {
@@ -46,20 +44,13 @@ export default function StudyListPage(): React.ReactElement {
 
   return (
     <PageLayout>
-      <div className="flex justify-between items-center">
+      <div className="flex items-center justify-between">
         <Title size="sm" weight="bold">
           스터디
         </Title>
-        <Button size="md" className="w-[100px]" onClick={() => router.push('/study/create')}>
-          개설하기
-        </Button>
       </div>
       <StudySearchSection className="mt-6" />
-      <StudyTable 
-        className="mt-6" 
-        pageableModel={studies} 
-        onPageChange={handlePageChange} 
-      />
+      <StudyTable className="mt-6" pageableModel={studies} onPageChange={handlePageChange} />
     </PageLayout>
   );
 }

@@ -1,36 +1,33 @@
 'use client';
-import { Label, LabeledInput, LabeledSelectButton, DialogUtil } from '@hiarc-platform/ui';
-import { Button } from '@hiarc-platform/ui';
-import { LabeledSelector } from '@hiarc-platform/ui';
-import { LabeledMultiSelect, LabeledTimePicker, InformaionSection } from '@hiarc-platform/ui';
-import { LabeledTextarea } from '@hiarc-platform/ui';
-import { LabeledCalanderInput } from '@hiarc-platform/ui';
-import { useState } from 'react';
-import { useCreateStudy } from '@/features/study/hooks';
-import { useUpdateStudy } from '@/features/study/hooks/use-update-study';
-import { useStudyInitialForm } from '@/features/study/hooks/use-study-initial-form';
+import {
+  Label,
+  LabeledInput,
+  LabeledSelectButton,
+  DialogUtil,
+  Button,
+  LabeledSelector,
+  LabeledMultiSelect,
+  LabeledTimePicker,
+  InformaionSection,
+  LabeledTextarea,
+  LabeledCalanderInput,
+} from '@hiarc-platform/ui';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { CreateStudyRequest } from '@hiarc-platform/shared';
-import { useSemesterStoreInit, useSemesterStore } from '@/hooks/use-semester-store';
-import { useEffect } from 'react';
+import { useUpdateStudy } from '@/features/study/hooks/use-update-study';
+import useStudy from '@/features/study/hooks/use-study';
 
-interface CreateStudyFormProps {
-  studyId?: number;
-  isEditMode?: boolean;
+interface EditStudyFormProps {
+  studyId: number;
 }
 
-export function CreateStudyForm({
+export function EditStudyForm({
   studyId,
-  isEditMode = false,
-}: CreateStudyFormProps = {}): React.ReactElement {
+}: EditStudyFormProps): React.ReactElement {
   const router = useRouter();
-  const createStudyMutation = useCreateStudy();
   const updateStudyMutation = useUpdateStudy();
-  const { data: initialData, isLoading: isLoadingInitialData } = useStudyInitialForm(studyId);
-
-  // Initialize semester store on component mount
-  useSemesterStoreInit();
-  const { semesterOptions } = useSemesterStore();
+  const { data: studyData } = useStudy(studyId);
 
   const [formData, setFormData] = useState<CreateStudyRequest>({
     name: '',
@@ -55,43 +52,6 @@ export function CreateStudyForm({
   const [isOnline, setIsOnline] = useState<string>('');
   const [isPublic, setIsPublic] = useState<string>('');
 
-  // Initialize form data when initialData is loaded
-  useEffect(() => {
-    if (initialData && isEditMode) {
-      setFormData({
-        name: initialData.name || '',
-        bojHandle: initialData.bojHandle || '',
-        semesterId: initialData.semesterId || null,
-        startDate: initialData.startDate || null,
-        endDate: initialData.endDate || null,
-        scheduledDays: initialData.scheduledDays || null,
-        startTime: initialData.startTime || null,
-        isOnline: initialData.isOnline || null,
-        lang: initialData.lang || null,
-        introduction: initialData.introduction || null,
-        recruitmentStartAt: initialData.recruitmentStartAt || null,
-        recruitmentEndAt: initialData.recruitmentEndAt || null,
-        precaution: initialData.precaution || null,
-        isPublic: initialData.isPublic || null,
-      });
-
-      setStudyPeriod([
-        initialData.startDate ? new Date(initialData.startDate) : null,
-        initialData.endDate ? new Date(initialData.endDate) : null,
-      ]);
-
-      setCruitPeriod([
-        initialData.recruitmentStartAt ? new Date(initialData.recruitmentStartAt) : null,
-        initialData.recruitmentEndAt ? new Date(initialData.recruitmentEndAt) : null,
-      ]);
-
-      setSelectedDays(initialData.scheduledDays || []);
-      setSelectedStartTime(initialData.startTime || '');
-      setIsOnline(initialData.isOnline ? 'ONLINE' : 'IN_PERSON');
-      setIsPublic(initialData.isPublic ? 'PUBLIC' : 'PRIVATE');
-    }
-  }, [initialData, isEditMode]);
-
   const studyTypeOptionList = [
     { label: '대면', value: 'IN_PERSON' },
     { label: '비대면', value: 'ONLINE' },
@@ -111,6 +71,55 @@ export function CreateStudyForm({
     { label: '공개', value: 'PUBLIC' },
     { label: '비공개', value: 'PRIVATE' },
   ];
+
+  // 학기 옵션 (임시)
+  const semesterOptions = [
+    { label: '2024년 1학기', value: '1' },
+    { label: '2024년 2학기', value: '2' },
+  ];
+
+  // Initialize form data when studyData is loaded
+  useEffect(() => {
+    if (studyData) {
+      setFormData({
+        name: studyData.name || '',
+        bojHandle: studyData.instructorBojHandle || '',
+        semesterId: studyData.semesterId || null,
+        startDate: studyData.startDate || null,
+        endDate: studyData.endDate || null,
+        scheduledDays: studyData.scheduledDays || null,
+        startTime: studyData.startTime || null,
+        isOnline: studyData.isOnline || null,
+        lang: studyData.lang || null,
+        introduction: studyData.introduction || null,
+        recruitmentStartAt: studyData.recruitmentStartAt || null,
+        recruitmentEndAt: studyData.recruitmentEndAt || null,
+        precaution: studyData.precaution || null,
+      });
+
+      // Set date ranges
+      if (studyData.startDate && studyData.endDate) {
+        setStudyPeriod([new Date(studyData.startDate), new Date(studyData.endDate)]);
+      }
+      if (studyData.recruitmentStartAt && studyData.recruitmentEndAt) {
+        setCruitPeriod([new Date(studyData.recruitmentStartAt), new Date(studyData.recruitmentEndAt)]);
+      }
+
+      // Set other form values
+      if (studyData.scheduledDays) {
+        setSelectedDays(studyData.scheduledDays);
+      }
+      if (studyData.startTime) {
+        setSelectedStartTime(studyData.startTime);
+      }
+      if (studyData.isOnline !== null) {
+        setIsOnline(studyData.isOnline ? 'ONLINE' : 'IN_PERSON');
+      }
+      if (studyData.isPublic !== null) {
+        setIsPublic(studyData.isPublic ? 'PUBLIC' : 'PRIVATE');
+      }
+    }
+  }, [studyData]);
 
   // 시간 형식을 HH:MM:SS로 정규화하는 함수
   const normalizeTimeFormat = (time: string): string => {
@@ -157,49 +166,29 @@ export function CreateStudyForm({
     };
 
     try {
-      if (isEditMode && studyId) {
-        // Edit mode: use update API
-        const updateRequest = {
-          // title, handle, semesterId는 수정 불가이므로 제외
-          description: studyRequest.introduction || undefined,
-          startDate: studyRequest.startDate || undefined,
-          endDate: studyRequest.endDate || undefined,
-          scheduledDays: studyRequest.scheduledDays || undefined,
-          startTime: studyRequest.startTime || undefined,
-          isOnline: studyRequest.isOnline || undefined,
-          lang: studyRequest.lang || undefined,
-          introduction: studyRequest.introduction || undefined,
-          recruitmentStartAt: studyRequest.recruitmentStartAt || undefined,
-          recruitmentEndAt: studyRequest.recruitmentEndAt || undefined,
-          precaution: studyRequest.precaution || undefined,
-          isPublic: studyRequest.isPublic || undefined,
-        };
-        await updateStudyMutation.mutateAsync({ studyId, data: updateRequest });
-        DialogUtil.showSuccess('스터디가 성공적으로 수정되었습니다.', undefined, () => {
-          router.push(`/study/${studyId}`);
-        });
-      } else {
-        // Create mode
-        await createStudyMutation.mutateAsync(studyRequest);
-        DialogUtil.showSuccess('스터디가 성공적으로 생성되었습니다.', undefined, () => {
-          router.push('/study');
-        });
-      }
+      const updateRequest = {
+        description: studyRequest.introduction || undefined,
+        startDate: studyRequest.startDate || undefined,
+        endDate: studyRequest.endDate || undefined,
+        scheduledDays: studyRequest.scheduledDays || undefined,
+        startTime: studyRequest.startTime || undefined,
+        isOnline: studyRequest.isOnline ?? undefined,
+        lang: studyRequest.lang || undefined,
+        introduction: studyRequest.introduction || undefined,
+        recruitmentStartAt: studyRequest.recruitmentStartAt || undefined,
+        recruitmentEndAt: studyRequest.recruitmentEndAt || undefined,
+        precaution: studyRequest.precaution || undefined,
+        isPublic: studyRequest.isPublic ?? undefined,
+      };
+      await updateStudyMutation.mutateAsync({ studyId, data: updateRequest });
+      DialogUtil.showSuccess('스터디가 성공적으로 수정되었습니다.', undefined, () => {
+        router.push(`/study/${studyId}`);
+      });
     } catch (error) {
-      console.error(isEditMode ? '스터디 수정 실패:' : '스터디 생성 실패:', error);
-      DialogUtil.showError(
-        isEditMode ? '스터디 수정에 실패했습니다.' : '스터디 생성에 실패했습니다.'
-      );
+      console.error('스터디 수정 실패:', error);
+      DialogUtil.showError('스터디 수정에 실패했습니다.');
     }
   };
-
-  if (isLoadingInitialData && isEditMode) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <div>데이터를 불러오는 중...</div>
-      </div>
-    );
-  }
 
   return (
     <div className="mt-8 flex min-h-screen w-full max-w-[1200px] flex-col items-start gap-4">
@@ -212,7 +201,7 @@ export function CreateStudyForm({
         required
         value={formData.name}
         onChange={(value) => setFormData((prev) => ({ ...prev, name: value }))}
-        disabled={isEditMode}
+        disabled={true}
       />
       <div className="flex w-1/2 items-end gap-2">
         <LabeledInput
@@ -221,13 +210,13 @@ export function CreateStudyForm({
           required
           value={formData.bojHandle}
           onChange={(value) => setFormData((prev) => ({ ...prev, bojHandle: value }))}
-          disabled={isEditMode}
+          disabled={true}
         />
-        <Button variant="fill" size="md" className="w-25 px-9 text-md" disabled={isEditMode}>
+        <Button variant="fill" size="md" className="w-25 px-9 text-md" disabled={true}>
           확인
         </Button>
       </div>
-      <div className="flex w-full  items-end gap-2">
+      <div className="flex w-full items-end gap-2">
         <LabeledSelector
           label="진행 학기"
           placeholder="학기를 선택해주세요"
@@ -237,7 +226,7 @@ export function CreateStudyForm({
           onChange={(value) =>
             setFormData((prev) => ({ ...prev, semesterId: value ? Number(value) : null }))
           }
-          disabled={isEditMode}
+          disabled={true}
         />
         <LabeledCalanderInput
           label="진행기간"
@@ -267,7 +256,7 @@ export function CreateStudyForm({
         />
       </div>
 
-      <div className="flex w-full items-end  gap-2">
+      <div className="flex w-full items-end gap-2">
         <LabeledSelectButton
           label="진행방식"
           options={studyTypeOptionList}
@@ -282,7 +271,7 @@ export function CreateStudyForm({
         />
       </div>
 
-      <div className="flex w-full items-end  gap-2">
+      <div className="flex w-full items-end gap-2">
         <LabeledSelectButton
           label="공개 여부"
           options={publicTypeOptionList}
@@ -309,15 +298,9 @@ export function CreateStudyForm({
         <Button
           className="w-full max-w-[390px]"
           onClick={handleSubmit}
-          disabled={createStudyMutation.isPending || updateStudyMutation.isPending}
+          disabled={updateStudyMutation.isPending}
         >
-          {isEditMode
-            ? updateStudyMutation.isPending
-              ? '수정 중...'
-              : '수정하기'
-            : createStudyMutation.isPending
-              ? '생성 중...'
-              : '개설하기'}
+          {updateStudyMutation.isPending ? '수정 중...' : '수정하기'}
         </Button>
       </div>
     </div>

@@ -1,26 +1,23 @@
 import { useMutation, UseMutationResult, useQueryClient } from '@tanstack/react-query';
 import { studyApi } from '../api/study';
-import { Study } from '../types/model/study-model/study';
-import { UpdateStudyRequest } from '../types/request/update-study-request';
+import type { UpdateStudyRequest } from '../api/study';
+import { useErrorHandler } from '@/shared/hooks/use-error-handler';
 
-interface UpdateStudyData {
-  id: string;
+interface UpdateStudyParams {
+  studyId: number;
   data: UpdateStudyRequest;
 }
 
-export default function useUpdateStudy(): UseMutationResult<
-  Study,
-  Error,
-  UpdateStudyData,
-  unknown
-> {
+export function useUpdateStudy(): UseMutationResult<void, Error, UpdateStudyParams, unknown> {
   const queryClient = useQueryClient();
+  const { showSuccess } = useErrorHandler();
 
   const mutation = useMutation({
-    mutationFn: ({ id, data }: UpdateStudyData) => studyApi.UPDATE_STUDY(id, data),
-    onSuccess: (_, variables) => {
+    mutationFn: ({ studyId, data }: UpdateStudyParams) => studyApi.UPDATE_STUDY(studyId, data),
+    onSuccess: (response, variables) => {
       queryClient.invalidateQueries({ queryKey: ['studies'] });
-      queryClient.invalidateQueries({ queryKey: ['study', variables.id] });
+      queryClient.invalidateQueries({ queryKey: ['study', variables.studyId] });
+      showSuccess('스터디 정보가 성공적으로 수정되었습니다.');
     },
   });
 

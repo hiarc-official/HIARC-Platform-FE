@@ -6,7 +6,7 @@ import { BackButton, Button, PageLayout, LoadingDots } from '@hiarc-platform/ui'
 import { useRouter, useParams } from 'next/navigation';
 import { useStudy } from '@/features/study/hooks';
 import React, { useState, useEffect } from 'react';
-import { FadeIn } from '@/components/fade-in';
+import { FadeIn } from '@hiarc-platform/ui';
 
 export default function StudyPage(): React.ReactElement {
   const router = useRouter();

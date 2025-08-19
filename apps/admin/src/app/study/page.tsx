@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { StudyTable } from '@/features/study/components/study-table';
 import { useStudies } from '@/features/study/hooks';
 import { useState } from 'react';
-import { FadeIn } from '@/components/fade-in';
+import { FadeIn } from '@hiarc-platform/ui';
 import { useSemesterStoreInit, useSemesterStore } from '@/hooks/use-semester-store';
 
 export default function StudyPage(): React.ReactElement {

@@ -33,10 +33,9 @@ export const studyApi = {
     await apiClient.post('/studies', studyData);
   },
 
-  // 스터디 수정
-  UPDATE_STUDY: async (id: string, studyData: UpdateStudyRequest): Promise<Study> => {
-    const response = await apiClient.put(`/studies/${id}`, studyData);
-    return Study.fromJson(response.data);
+  // 스터디 정보 수정
+  UPDATE_STUDY: async (studyId: number, studyData: UpdateStudyRequest): Promise<void> => {
+    await apiClient.patch<Study>(`/admin/studies/${studyId}`, studyData);
   },
 
   // 스터디 신청하기

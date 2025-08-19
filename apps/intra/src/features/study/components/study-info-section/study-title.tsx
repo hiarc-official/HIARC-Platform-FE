@@ -35,9 +35,11 @@ export function StudyTitle({
           </div>
         </div>
         <div className="hidden flex-shrink-0 items-center md:ml-6 md:flex">
-          <Button size="md" className="ml-6" variant="line" onClick={onEditClick}>
-            수정하기
-          </Button>
+          {isAdmin && (
+            <Button size="md" className="ml-6" variant="line" onClick={onEditClick}>
+              수정하기
+            </Button>
+          )}
         </div>
       </div>
     </div>
