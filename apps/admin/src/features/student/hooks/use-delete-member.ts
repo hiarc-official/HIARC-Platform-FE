@@ -15,26 +15,6 @@ export function useDeleteMember(): UseMutationResult<void, Error, number, unknow
       queryClient.invalidateQueries({ queryKey: ['recruitment-list'] });
       showSuccess('회원이 성공적으로 삭제되었습니다.');
     },
-    onError: (error: any) => {
-      console.error('[HOOK] useDeleteMember 에러:', error);
-      
-      if (error.response?.status === 403) {
-        showMessage('권한 오류', '회원 삭제 권한이 없습니다.', 'error');
-        return;
-      }
-      
-      if (error.response?.status === 404) {
-        showMessage('오류', '해당 회원을 찾을 수 없습니다.', 'error');
-        return;
-      }
-      
-      if (error.response?.status === 409) {
-        showMessage('오류', '삭제할 수 없는 회원입니다.', 'error');
-        return;
-      }
-      
-      showMessage('오류', '회원 삭제에 실패했습니다.', 'error');
-    },
   });
 
   return mutation;
