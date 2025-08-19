@@ -1,6 +1,7 @@
 import { apiClient } from '@/shared/api/client';
 import type { UpdateStudyRequest, StudyQueryParams } from '../types/request/study-request';
 import {
+  AnnouncementSummary,
   Assignment,
   CreateStudyRequest,
   Lecture,
@@ -10,8 +11,8 @@ import {
   StudySummary,
 } from '@hiarc-platform/shared';
 import { StudyInitialForm } from '../types';
-import { AnnouncementSummary } from '@/features/announcement/types/model/announcement_summary';
-import { CreateAssignmentRequest } from '../types/request/create-assignment-request';
+
+import { CreateAssignmentRequest } from '@hiarc-platform/shared/src/types/study/create-assignment-request';
 
 export const studyApi = {
   // 모든 스터디 리스트 조회

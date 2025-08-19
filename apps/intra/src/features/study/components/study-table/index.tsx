@@ -1,32 +1,45 @@
-import { cn, CommonTableBody, CommonTableHead } from '@hiarc-platform/ui';
+import { PageableModel, StudySummary } from '@hiarc-platform/shared';
+import { 
+  cn, 
+  CommonTableBody, 
+  CommonTableHead, 
+  Pagination 
+} from '@hiarc-platform/ui';
 import { useTable } from '@hiarc-platform/util';
 import { Row } from '@tanstack/react-table';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
 import { STUDY_LIST_COLUMN } from './study-list-column';
-import { StudySummary } from '../../types/model/study-model/study-summary';
 
 interface StudyTableProps {
-  studyData: StudySummary[];
+  pageableModel?: PageableModel<StudySummary> | null;
   className?: string;
+  onPageChange?(page: number): void;
 }
 
-export function StudyTable({ studyData, className }: StudyTableProps): React.ReactElement {
+export function StudyTable({ 
+  pageableModel, 
+  className, 
+  onPageChange 
+}: StudyTableProps): React.ReactElement {
   const router = useRouter();
   const columns = useMemo(() => STUDY_LIST_COLUMN, []);
   const [globalFilter, setGlobalFilter] = useState('');
 
+  const data = pageableModel?.content ?? [];
+  const totalPages = pageableModel?.totalPages ?? 0;
+
   const table = useTable({
     columns,
-    data: studyData,
+    data,
     pageState: [0, () => {}],
-    totalPages: 10,
+    totalPages,
     globalFilterState: [globalFilter, setGlobalFilter],
   });
 
   return (
-    <div className={cn('flex w-full flex-col gap-4', className)}>
+    <div className={cn('w-full flex-col items-center', className)}>
       <AnimatePresence mode="wait">
         <motion.div
           key="table"
@@ -49,6 +62,11 @@ export function StudyTable({ studyData, className }: StudyTableProps): React.Rea
           />
         </motion.div>
       </AnimatePresence>
+      {pageableModel && onPageChange && (
+        <div className="flex w-full justify-center">
+          <Pagination className="mt-8" pageableModel={pageableModel} onPageChange={onPageChange} />
+        </div>
+      )}
     </div>
   );
 }

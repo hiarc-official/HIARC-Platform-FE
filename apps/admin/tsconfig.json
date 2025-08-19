@@ -32,7 +32,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "types/**/*.d.ts",
-    "../../packages/shared/src/types/award/award.ts"
+    "../../packages/shared/src/types/award/award.ts",
+    "../../packages/shared/src/types/study/create-assignment-request.ts"
   ],
   "exclude": ["node_modules"]
 }

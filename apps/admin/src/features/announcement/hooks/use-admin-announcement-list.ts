@@ -4,7 +4,7 @@ import { AnnouncementQueryParams } from '../types/request/announcement-query-par
 
 import type { UseQueryResult } from '@tanstack/react-query';
 import { PageableModel } from '@hiarc-platform/shared';
-import { AnnouncementSummary } from '../types/model/announcement_summary';
+import { AnnouncementSummary } from '@hiarc-platform/shared/src/types/announcement/announcement_summary';
 
 export const useAdminAnnouncementList = (
   params: AnnouncementQueryParams = {}

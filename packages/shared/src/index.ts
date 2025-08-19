@@ -1,6 +1,7 @@
 export * from './types/pageable-model';
 export * from './types/announcement/create-announcement-request';
 export * from './types/announcement/announcement';
+export * from './types/announcement/announcement-summary';
 export * from './types/study/study-summary';
 export * from './types/study/study';
 export * from './types/study/create-study-request';
@@ -19,3 +20,4 @@ export * from './types/semester/current-semester';
 export * from './types/semester/semester';
 export * from './types/recruit/recruitment';
 export * from './types/recruit/update-recruitment-request';
+export * from './types/study/create-assignment-request';
