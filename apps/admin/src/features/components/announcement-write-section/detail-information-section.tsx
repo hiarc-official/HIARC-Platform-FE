@@ -1,7 +1,7 @@
 'use client';
-import { LabeledInput, LabeledTextarea } from '@hiarc-platform/ui';
+import { LabeledImageInput, LabeledInput, LabeledTextarea } from '@hiarc-platform/ui';
 import { Button } from '@hiarc-platform/ui';
-import LabeledImageInput from '@/shared/components/labeled-image-input';
+
 import { LabeledCalanderInput } from '@hiarc-platform/ui';
 import { useState, useEffect } from 'react';
 import { SideBar } from './side-bar';

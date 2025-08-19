@@ -1,7 +1,6 @@
 import { useQuery, UseQueryResult, keepPreviousData } from '@tanstack/react-query';
 import { studyApi } from '../api/study';
-import { PageableModel } from '@hiarc-platform/shared';
-import { AnnouncementSummary } from '@/features/announcement/types/model/announcement_summary';
+import { AnnouncementSummary, PageableModel } from '@hiarc-platform/shared';
 
 export function useStudyAnnouncements(
   params: { studyId: number; page: number; size: number } = {

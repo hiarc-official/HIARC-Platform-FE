@@ -1,8 +1,14 @@
+import React from 'react';
 import { Student } from '@hiarc-platform/shared';
-import { Label, Button } from '@hiarc-platform/ui';
+import { Button, Label } from '@hiarc-platform/ui';
 import { ColumnDef } from '@tanstack/react-table';
 
-export const STUDENT_LIST_COLUMN: Array<ColumnDef<Student>> = [
+interface StudentColumnsOptions {
+  onDelete: (student: Student) => void;
+  isDeleting: boolean;
+}
+
+export const createStudentColumns = ({ onDelete, isDeleting }: StudentColumnsOptions): Array<ColumnDef<Student>> => [
   {
     id: 'number',
     accessorKey: 'number',
@@ -242,8 +248,9 @@ export const STUDENT_LIST_COLUMN: Array<ColumnDef<Student>> = [
         size="xs"
         onClick={(event) => {
           event.stopPropagation();
-          console.log('Edit clicked for:', row.original);
+          onDelete(row.original);
         }}
+        disabled={isDeleting}
       >
         탈퇴
       </Button>

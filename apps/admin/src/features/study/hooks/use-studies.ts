@@ -6,7 +6,6 @@ import { PageableModel, StudySummary } from '@hiarc-platform/shared';
 export function useStudies(
   params: StudyQueryParams = {}
 ): UseQueryResult<PageableModel<StudySummary>, Error> {
-
   const query = useQuery({
     queryKey: ['studies', params],
     queryFn: () => studyApi.GET_ALL_STUDIES(params),

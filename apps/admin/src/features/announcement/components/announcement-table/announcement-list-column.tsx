@@ -1,3 +1,4 @@
+import { AnnouncementSummary } from '@hiarc-platform/shared';
 import {
   Label,
   CategoryChip,
@@ -8,7 +9,6 @@ import {
   DialogUtil,
 } from '@hiarc-platform/ui';
 import { ColumnDef } from '@tanstack/react-table';
-import { AnnouncementSummary } from '@hiarc-platform/shared/src/types/announcement/announcement_summary';
 
 export const getAdminAnnouncementListColumn = (
   deleteAnnouncement: (

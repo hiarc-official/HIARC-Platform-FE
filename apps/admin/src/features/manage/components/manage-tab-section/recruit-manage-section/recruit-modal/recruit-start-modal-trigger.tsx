@@ -3,17 +3,9 @@ import { Button, DialogUtil } from '@hiarc-platform/ui';
 import React from 'react';
 import { RecruitStartDialog } from './recruit-start-dialog';
 
-interface RecruitStartModalTriggerProps {
-  onClick?(): void;
-}
-
-export function RecruitStartModalTrigger({
-  onClick,
-}: RecruitStartModalTriggerProps): React.ReactElement {
+export function RecruitStartModalTrigger(): React.ReactElement {
   const handleOpenDialog = (): void => {
-    DialogUtil.showComponent(
-      <RecruitStartDialog />
-    );
+    DialogUtil.showComponent(<RecruitStartDialog />);
   };
 
   return (

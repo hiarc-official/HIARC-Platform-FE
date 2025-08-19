@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useSemesterStore } from '@/stores/semester-store';
+import { Semester } from '@hiarc-platform/shared';
 
 export function useSemesterStoreInit(): void {
   const { initializeWithCurrentSemester, semesters } = useSemesterStore();
@@ -13,7 +14,10 @@ export function useSemesterStoreInit(): void {
 }
 
 // Hook to get selected semester information easily
-export function useSelectedSemester() {
+export function useSelectedSemester(): {
+  selectedSemester: Semester | null;
+  selectedSemesterId: string | null;
+} {
   const { getSelectedSemester, selectedSemesterId } = useSemesterStore();
   return {
     selectedSemester: getSelectedSemester(),

@@ -1,8 +1,10 @@
+'use client';
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { cn, Label } from '@hiarc-platform/ui';
+import { Label } from '../label/label';
+import { cn } from '../../lib/utils';
 
-export default function LabeledImageInput({
+export function LabeledImageInput({
   label,
   showLabel = true,
   required = false,

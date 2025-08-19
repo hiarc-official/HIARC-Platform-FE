@@ -1,9 +1,13 @@
-import { Announcement, CreateAnnouncementRequest, PageableModel } from '@hiarc-platform/shared';
+import {
+  Announcement,
+  AnnouncementSummary,
+  CreateAnnouncementRequest,
+  PageableModel,
+} from '@hiarc-platform/shared';
 import { apiClient } from '../../../shared/api/client';
 
 import { AnnouncementQueryParams } from '../types/request/announcement-query-params';
 import { UploadResponse } from '../types/response/upload-response';
-import { AnnouncementSummary } from '@hiarc-platform/shared/src/types/announcement/announcement_summary';
 
 export const announcementApi = {
   // 관리자 공지사항 목록 조회 (페이지네이션)

@@ -4,11 +4,11 @@ import { useErrorHandler } from '@/shared/hooks/use-error-handler';
 
 export function useDeleteMember(): UseMutationResult<void, Error, number, unknown> {
   const queryClient = useQueryClient();
-  const { showSuccess, showMessage } = useErrorHandler();
+  const { showSuccess } = useErrorHandler();
 
   const mutation = useMutation({
     mutationFn: (memberId: number) => studentApi.DELETE_MEMBER(memberId),
-    onSuccess: (_, memberId) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['student-list'] });
       queryClient.invalidateQueries({ queryKey: ['admin-list'] });
       queryClient.invalidateQueries({ queryKey: ['instructor-list'] });

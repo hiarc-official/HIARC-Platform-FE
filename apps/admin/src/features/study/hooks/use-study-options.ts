@@ -3,7 +3,6 @@ import { studyApi } from '../api/study';
 import { StudySummary, PageableModel, SelectOption } from '@hiarc-platform/shared';
 
 export function useStudyOptions(semesterId?: string | null): UseQueryResult<SelectOption[], Error> {
-
   const query = useQuery({
     queryKey: ['study-options', semesterId],
     queryFn: async (): Promise<SelectOption[]> => {

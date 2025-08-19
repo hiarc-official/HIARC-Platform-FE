@@ -1,12 +1,6 @@
 'use client';
 
-import {
-  Button,
-  cn,
-  DialogUtil,
-  LabeledInput,
-  LabeledSelector,
-} from '@hiarc-platform/ui';
+import { Button, cn, DialogUtil, LabeledInput, LabeledSelector } from '@hiarc-platform/ui';
 import React from 'react';
 import { StudySearchDialog } from './study-search-dialog';
 

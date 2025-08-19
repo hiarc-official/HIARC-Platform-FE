@@ -3,8 +3,7 @@ import { announcementApi } from '../api/announcement';
 import { AnnouncementQueryParams } from '../types/request/announcement-query-params';
 
 import type { UseQueryResult } from '@tanstack/react-query';
-import { PageableModel } from '@hiarc-platform/shared';
-import { AnnouncementSummary } from '@hiarc-platform/shared/src/types/announcement/announcement_summary';
+import { AnnouncementSummary, PageableModel } from '@hiarc-platform/shared';
 
 export const useAdminAnnouncementList = (
   params: AnnouncementQueryParams = {}
