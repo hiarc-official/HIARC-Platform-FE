@@ -5,8 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
 import { ANNOUNCEMENT_LIST_COLUMN } from './announcement-list-column';
-import type { AnnouncementSummary } from '../../types/model/announcement-summary';
-import { PageableModel } from '@hiarc-platform/shared';
+import { AnnouncementSummary, PageableModel } from '@hiarc-platform/shared';
 
 interface AnnouncementTableSectionProps {
   pageableModel?: PageableModel<AnnouncementSummary>;

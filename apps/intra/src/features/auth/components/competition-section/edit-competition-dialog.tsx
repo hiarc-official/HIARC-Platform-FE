@@ -44,7 +44,7 @@ export function EditCompetitionDialog({
       const updateData: UpdateAwardRequest = {
         organization: formData.organization,
         awardName: formData.awardName,
-        awardDate: formData.awardDate,
+        awardDate: formData.awardDate.toString(),
         awardDetail: formData.awardDetail,
       };
 
@@ -98,7 +98,7 @@ export function EditCompetitionDialog({
             <LabeledInput
               label="일시"
               placeholder="예) 2024-03-15"
-              value={formData.awardDate}
+              value={formData.awardDate.toString()}
               onChange={(value) => setFormData((prev) => ({ ...prev, awardDate: value }))}
             />
             <LabeledInput

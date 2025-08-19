@@ -11,18 +11,13 @@ import {
   TwoColumnLayout,
 } from '@hiarc-platform/ui';
 
-export const metaData = {
-  title: 'HIARC 플랫폼',
-  description: 'HIARC 플랫폼에 오신 것을 환영합니다. 스터디와 공지사항을 확인하세요.',
-};
-
 export default function Home(): React.ReactElement {
   return (
     <PageLayout
       mobileChildren={
         <ContentSection>
           <SingleColumnLayout>
-            <HiarcScheduleSection daysToShow={3} />
+            <HiarcScheduleSection daysToShow={7} />
             <AnnouncementListSection className="mt-6" />
             <StudyListSection className="mt-6" />
           </SingleColumnLayout>

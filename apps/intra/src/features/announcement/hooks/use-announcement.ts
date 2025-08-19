@@ -3,19 +3,10 @@ import { announcementApi } from '../api/announcement';
 import { Announcement } from '@hiarc-platform/shared';
 
 export default function useAnnouncement(id: string): UseQueryResult<Announcement, Error> {
-  console.log('[HOOK] useAnnouncement 호출:', id);
-
   const query = useQuery({
     queryKey: ['announcement', id],
     queryFn: () => announcementApi.GET_ANNOUNCEMENT(id),
     enabled: Boolean(id),
   });
-
-  console.log('[HOOK] useAnnouncement 결과:', {
-    isLoading: query.isLoading,
-    error: query.error,
-    hasData: Boolean(query.data),
-  });
-
   return query;
 }

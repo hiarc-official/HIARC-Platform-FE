@@ -23,6 +23,10 @@ interface Props {
   data: DataItem[];
   daysToShow: number; // 3 또는 7
   className?: string; // 추가: 클래스 이름을 받을 수 있도록
+  onDateSelect?(date: string): void;
+  selectedDate?: string;
+  onWeekChange?(weekStart: Date): void;
+  currentWeekStart?: Date;
 }
 
 function getDateRange(startDate: Date, days: number): Date[] {
@@ -34,14 +38,28 @@ function getStartOfWeekWithSunday(date: Date): Date {
   return startOfWeek(date, { weekStartsOn: 0 });
 }
 
-export default function CalendarBar({ data, daysToShow, className }: Props): React.ReactElement {
-  const [currentStartDate, setCurrentStartDate] = useState<Date>(
+export default function CalendarBar({
+  data,
+  daysToShow,
+  className,
+  onDateSelect,
+  selectedDate: externalSelectedDate,
+  onWeekChange,
+  currentWeekStart: externalCurrentWeekStart,
+}: Props): React.ReactElement {
+  const today = new Date();
+  
+  // 외부에서 전달된 currentWeekStart가 있으면 사용, 없으면 내부 state 사용
+  const [internalCurrentStartDate, setInternalCurrentStartDate] = useState<Date>(
     daysToShow === 7 ? getStartOfWeekWithSunday(new Date()) : new Date()
   );
-  const today = new Date();
+  const currentStartDate = externalCurrentWeekStart || internalCurrentStartDate;
 
-  // "오늘"을 기본 선택
-  const [selectedDate, setSelectedDate] = useState<string>(format(today, 'yyyy-MM-dd'));
+  // 외부에서 전달된 selectedDate가 있으면 사용, 없으면 내부 state 사용
+  const [internalSelectedDate, setInternalSelectedDate] = useState<string>(
+    format(today, 'yyyy-MM-dd')
+  );
+  const selectedDate = externalSelectedDate || internalSelectedDate;
 
   const dates = getDateRange(currentStartDate, daysToShow);
 
@@ -54,16 +72,32 @@ export default function CalendarBar({ data, daysToShow, className }: Props): Rea
     return map;
   }, [data]);
 
+  // 날짜 선택 핸들러
+  const handleDateSelect = (date: string): void => {
+    if (onDateSelect) {
+      onDateSelect(date);
+    } else {
+      setInternalSelectedDate(date);
+    }
+  };
+
   // 날짜 이동
   const move = (dir: 'prev' | 'next'): void => {
-    setCurrentStartDate((prev) => {
-      const next = addDays(prev, (dir === 'next' ? 1 : -1) * daysToShow);
-      const newDates = getDateRange(next, daysToShow);
-      if (!newDates.some((day) => format(day, 'yyyy-MM-dd') === selectedDate)) {
-        setSelectedDate(format(newDates[0], 'yyyy-MM-dd'));
-      }
-      return next;
-    });
+    const newWeekStart = addDays(currentStartDate, (dir === 'next' ? 1 : -1) * daysToShow);
+    const newDates = getDateRange(newWeekStart, daysToShow);
+    
+    // 외부에서 주 변경 핸들러가 제공되면 사용
+    if (onWeekChange) {
+      onWeekChange(newWeekStart);
+    } else {
+      setInternalCurrentStartDate(newWeekStart);
+    }
+    
+    // 새로운 주에서 선택된 날짜가 없으면 첫 번째 날짜 선택
+    if (!newDates.some((day) => format(day, 'yyyy-MM-dd') === selectedDate)) {
+      const newSelectedDate = format(newDates[0], 'yyyy-MM-dd');
+      handleDateSelect(newSelectedDate);
+    }
   };
 
   return (
@@ -90,7 +124,7 @@ export default function CalendarBar({ data, daysToShow, className }: Props): Rea
                     'border-transparent': !isSelected,
                   }
                 )}
-                onClick={() => setSelectedDate(ymd)}
+                onClick={() => handleDateSelect(ymd)}
               >
                 <Label className="text-gray-700">{dayLabel}</Label>
                 <div className="mt-1 flex h-7 items-center justify-center gap-0.5">

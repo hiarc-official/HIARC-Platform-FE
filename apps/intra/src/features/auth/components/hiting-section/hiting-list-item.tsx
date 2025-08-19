@@ -4,7 +4,7 @@ import Image from 'next/image';
 interface HitingListItemProps {
   name: string;
   rank: number;
-  div: 'div1' | 'div2' | 'div3';
+  div: 'DIV_1' | 'DIV_2' | 'DIV_3';
 }
 
 const medalSrcMap = {

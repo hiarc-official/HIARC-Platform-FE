@@ -1,9 +1,8 @@
-import { PageableModel, Announcement } from '@hiarc-platform/shared';
+import { PageableModel, Announcement, AnnouncementSummary } from '@hiarc-platform/shared';
 import { apiClient } from '../../../shared/api/client';
 import { CreateAnnouncementRequest } from '@hiarc-platform/shared';
 import { UpdateAnnouncementRequest } from '../types/request/update-announcement-request';
 import { AnnouncementQueryParams } from '../types/request/announcement-query-params';
-import { AnnouncementSummary } from '../types/model/announcement-summary';
 
 export const announcementApi = {
   // 공지사항 목록 조회 (페이지네이션)

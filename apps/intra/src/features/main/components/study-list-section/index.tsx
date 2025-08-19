@@ -1,5 +1,6 @@
 import { cn, StudyCard, Title } from '@hiarc-platform/ui';
 import { useRouter } from 'next/navigation';
+import { useStudiesNow } from '../../hooks/use-studies-now';
 
 interface StudyListSectionProps {
   className?: string;
@@ -7,6 +8,7 @@ interface StudyListSectionProps {
 
 export function StudyListSection({ className }: StudyListSectionProps): React.ReactElement {
   const router = useRouter();
+  const { data: studyList } = useStudiesNow();
 
   return (
     <div className={cn('flex w-full flex-col gap-8', className)}>
@@ -24,39 +26,24 @@ export function StudyListSection({ className }: StudyListSectionProps): React.Re
           </button>
         </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          <StudyCard
-            time="화,금 (8시)"
-            delivery="대면"
-            studyLevel="basic"
-            studyTitle="초급스터디"
-            hostName="이가은"
-            startDate="2025.03.25"
-            endDate="2025.06.20"
-            studyDescription="스터디 설명"
-            state="participating"
-          />
-          <StudyCard
-            time="화,금 (8시)"
-            delivery="대면"
-            studyLevel="intermediate"
-            studyTitle="초급스터디"
-            hostName="이태경"
-            startDate="2025.03.25"
-            endDate="2025.06.20"
-            studyDescription="스터디 설명"
-            state="recruiting"
-          />
-          <StudyCard
-            time="화,금 (8시)"
-            delivery="비대면"
-            studyLevel="expert"
-            studyTitle="초급스터디"
-            hostName="송한서"
-            startDate="2025.03.25"
-            endDate="2025.06.20"
-            studyDescription="스터디 설명"
-            state="participating"
-          />
+          {studyList?.map((study) => (
+            <StudyCard
+              key={study.studyId}
+              studyId={study.studyId ?? 0}
+              delivery={study.isOnline ? '비대면' : '대면'}
+              studyTitle={study.studyName ?? ''}
+              hostName={study.instructorName ?? ''}
+              startDate={
+                study.startDate ? study.startDate.toISOString().slice(0, 10).replace(/-/g, '.') : ''
+              }
+              endDate={
+                study.endDate ? study.endDate.toISOString().slice(0, 10).replace(/-/g, '.') : ''
+              }
+              studyDescription={study.introduction ?? ''}
+              state={study.activeStatus ?? 'CLOSED'}
+              time={study.startTime ?? ''}
+            />
+          ))}
         </div>
       </section>
     </div>

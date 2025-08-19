@@ -113,7 +113,7 @@ export function StudySearchDialog({
             <LabeledInput
               label="스터디명"
               value={searchTitle}
-              onChange={(e) => setSearchTitle(e.target.value)}
+              onChange={setSearchTitle}
               placeholder="스터디명을 입력하세요"
             />
             <div className="flex w-full items-center gap-2">

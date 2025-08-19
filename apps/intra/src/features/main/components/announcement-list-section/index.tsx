@@ -4,6 +4,9 @@ import { cn, Divider, Tabs } from '@hiarc-platform/ui';
 import { useState } from 'react';
 import { AnnouncementListItem } from './announcement-list-item';
 import { useRouter } from 'next/navigation';
+import { useUpcomingSchedule } from '../../hooks/use-upcoming-schedule';
+import { useExternalSchedule } from '../../hooks/use-external-schedule';
+import { Schedule } from '../../types/model/schedule';
 
 interface AnnouncementListSectionProps {
   className?: string;
@@ -13,11 +16,13 @@ export function AnnouncementListSection({
   className,
 }: AnnouncementListSectionProps): React.ReactElement {
   const tabItems = [
-    { label: '공지사항', value: 'announcement' },
-    { label: '알고리즘 소식', value: 'algorithm-news' },
+    { label: '다가오는 소식', value: 'announcement' },
+    { label: '외부 소식', value: 'algorithm-news' },
   ];
   const [tab, setTab] = useState('announcement');
   const router = useRouter();
+  const { data: upcomingSchedule } = useUpcomingSchedule();
+  const { data: externalAnnouncements } = useExternalSchedule();
 
   return (
     <div className={cn('w-full', className)}>
@@ -33,10 +38,34 @@ export function AnnouncementListSection({
       </div>
 
       <Divider variant="horizontal" size="full" className="mt-4" />
-      <div>
-        <AnnouncementListItem title={'알고리즘 소식 1'} category={'RATING'} />
-        <AnnouncementListItem title={'알고리즘 소식 1'} date={'2025.06.12'} category={'STUDY'} />
-        <AnnouncementListItem title={'알고리즘 소식 1'} date={'2025.06.12'} category={'ETC'} />
+      <div className="max-h-[350px] overflow-y-auto">
+        {tab === 'announcement' &&
+          upcomingSchedule &&
+          upcomingSchedule.schedules &&
+          upcomingSchedule.schedules.map((announcement: Schedule, index: number) => (
+            <AnnouncementListItem
+              key={announcement.announcementId || index}
+              announcementId={announcement.announcementId || 0}
+              title={announcement.scheduleName || '제목 없음'}
+              date={
+                announcement.createdAt ? new Date(announcement.createdAt).toLocaleDateString() : ''
+              }
+              category={announcement.announcementType || 'GENERAL'}
+            />
+          ))}
+        {tab === 'algorithm-news' &&
+          externalAnnouncements &&
+          externalAnnouncements.map((announcement: Schedule, index: number) => (
+            <AnnouncementListItem
+              key={announcement.announcementId || index}
+              announcementId={announcement.announcementId || 0}
+              title={announcement.scheduleName || '제목 없음'}
+              date={
+                announcement.createdAt ? new Date(announcement.createdAt).toLocaleDateString() : ''
+              }
+              category={announcement.announcementType || 'GENERAL'}
+            />
+          ))}
       </div>
     </div>
   );

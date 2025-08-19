@@ -2,7 +2,7 @@ import { CategoryChip, cn, Label } from '@hiarc-platform/ui';
 
 interface ScheduleListItemProps {
   title: string;
-  category: 'rating' | 'study' | 'etc' | 'general' | 'external';
+  category: 'RATING' | 'STUDY' | 'ETC' | 'GENERAL' | 'EXTERNAL';
   date?: string;
   className?: string;
 }

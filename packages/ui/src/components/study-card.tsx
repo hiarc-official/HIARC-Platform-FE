@@ -3,6 +3,7 @@ import { cn } from '../lib/utils';
 import { CategoryChip } from './category-chip';
 import { Divider } from './divider';
 import { Label } from './label/label';
+import { useRouter } from 'next/navigation';
 
 export default function StudyGrayChip({
   type,
@@ -25,38 +26,21 @@ export default function StudyGrayChip({
   );
 }
 
-// 1. enum 제거, string literal union type 선언
-type StudyLevel = 'basic' | 'intermediate' | 'expert';
-
-// 2. 유틸 타입 수정
-const LevelIcon: Record<StudyLevel, string> = {
-  basic: '/shared-assets/Basic.svg',
-  intermediate: '/shared-assets/Intermediate.svg',
-  expert: '/shared-assets/Expert.svg',
-};
-
-const KoreanLevel: Record<StudyLevel, string> = {
-  basic: '기초',
-  intermediate: '초급',
-  expert: '중급',
-};
-
 interface StudyCardProps {
+  studyId: number;
   time: string;
   delivery: string;
-  studyLevel: StudyLevel; // string literal!
   studyTitle: string;
   hostName: string;
   startDate: string;
   endDate: string;
   studyDescription: string;
-  state: 'participating' | 'recruiting';
+  state: 'PREPARING' | 'PRE_OPEN' | 'RECRUITING' | 'IN_PROGRESS' | 'CLOSED';
 }
 
 function MobileStudyCard({
   time,
   delivery,
-  studyLevel,
   studyTitle,
   hostName,
   startDate,
@@ -79,13 +63,16 @@ function MobileStudyCard({
       <div className="flex items-center">
         <div className=" flex flex-col">
           <Label size="lg" weight="bold">
-            [{KoreanLevel[studyLevel]}] {studyTitle}
+            {studyTitle}
           </Label>
           <Label size="sm" weight="regular" className="text-gray-700">
             {hostName} | {startDate}~{endDate}
           </Label>
         </div>
-        <CategoryChip category={state.toUpperCase() as 'PARTICIPATING' | 'RECRUITING'} className="ml-auto h-[26px]" />
+        <CategoryChip
+          category={state.toUpperCase() as 'PARTICIPATING' | 'RECRUITING'}
+          className="ml-auto h-[26px]"
+        />
       </div>
       <Label size="md" weight="regular" className="mt-1 line-clamp-2 overflow-hidden text-ellipsis">
         {studyDescription}
@@ -97,7 +84,6 @@ function MobileStudyCard({
 function DesktopStudyCard({
   time,
   delivery,
-  studyLevel,
   studyTitle,
   hostName,
   startDate,
@@ -118,10 +104,10 @@ function DesktopStudyCard({
         <StudyGrayChip type="delivery" title={delivery} />
       </div>
       <div className="flex items-center">
-        <Image src={LevelIcon[studyLevel]} alt="" height={42} width={42} />
+        <Image src="/shared-assets/Basic.svg" alt="" height={42} width={42} />
         <div className="ml-3 flex flex-col gap-1">
           <Label size="lg" weight="bold">
-            [{KoreanLevel[studyLevel]}] {studyTitle}
+            {studyTitle}
           </Label>
           <div className="flex items-center gap-2 text-gray-700">
             <Label size="sm" weight="regular" className="text-gray-700">
@@ -133,7 +119,10 @@ function DesktopStudyCard({
             </Label>
           </div>
         </div>
-        <CategoryChip category={state.toUpperCase() as 'PARTICIPATING' | 'RECRUITING'} className="ml-auto" />
+        <CategoryChip
+          category={state.toUpperCase() as 'PARTICIPATING' | 'RECRUITING'}
+          className="ml-auto"
+        />
       </div>
       <Label size="md" weight="regular" className="mt-1 line-clamp-2 overflow-hidden text-ellipsis">
         {studyDescription}
@@ -143,9 +132,9 @@ function DesktopStudyCard({
 }
 
 export function StudyCard({
+  studyId,
   time,
   delivery,
-  studyLevel,
   studyTitle,
   hostName,
   startDate,
@@ -153,13 +142,20 @@ export function StudyCard({
   studyDescription,
   state,
 }: StudyCardProps): React.ReactElement {
+  const router = useRouter();
+
   return (
-    <div className="flex w-full flex-col">
+    <div
+      className="flex w-full cursor-pointer flex-col"
+      onClick={() => {
+        router.push(`/study/${studyId}`);
+      }}
+    >
       <div className="block md:hidden">
         <MobileStudyCard
+          studyId={studyId}
           time={time}
           delivery={delivery}
-          studyLevel={studyLevel}
           studyTitle={studyTitle}
           hostName={hostName}
           startDate={startDate}
@@ -170,9 +166,9 @@ export function StudyCard({
       </div>
       <div className="hidden md:block">
         <DesktopStudyCard
+          studyId={studyId}
           time={time}
           delivery={delivery}
-          studyLevel={studyLevel}
           studyTitle={studyTitle}
           hostName={hostName}
           startDate={startDate}

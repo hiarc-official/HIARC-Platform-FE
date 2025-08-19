@@ -1,5 +1,4 @@
-import { AnnouncementSummary } from '@/features/announcement/types/model/announcement_summary';
-import { PageableModel } from '@hiarc-platform/shared';
+import { AnnouncementSummary, PageableModel } from '@hiarc-platform/shared';
 import { cn, CommonTableBody, CommonTableHead, Label, Pagination } from '@hiarc-platform/ui';
 import { useTable } from '@hiarc-platform/util';
 import { ColumnDef, Row } from '@tanstack/react-table';

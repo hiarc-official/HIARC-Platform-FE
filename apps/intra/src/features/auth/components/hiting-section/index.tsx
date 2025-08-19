@@ -35,9 +35,9 @@ export function HitingSection({
             {ratingRecords.map((record, index) => (
               <HitingListItem
                 key={index}
-                name={record.description}
-                rank={record.ranking}
-                div={'div1'}
+                name={record.description ?? ''}
+                rank={record.ranking ?? 0}
+                div={'DIV_1'}
               />
             ))}
           </div>

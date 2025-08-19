@@ -7,7 +7,7 @@ import { StudyQueryParams } from '../../types/request/study-query-params';
 
 interface StudySearchSectionProps {
   className?: string;
-  onSearchChange?: (params: Partial<StudyQueryParams>) => void;
+  onSearchChange?(params: Partial<StudyQueryParams>): void;
 }
 
 export function StudySearchSection({

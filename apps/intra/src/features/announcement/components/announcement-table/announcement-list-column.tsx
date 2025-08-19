@@ -1,6 +1,6 @@
+import { AnnouncementSummary } from '@hiarc-platform/shared';
 import { Label, CategoryChip } from '@hiarc-platform/ui';
 import { ColumnDef } from '@tanstack/react-table';
-import type { AnnouncementSummary } from '../../types/model/announcement-summary';
 
 function mapAnnouncementType(type: string): 'RATING' | 'STUDY' | 'ETC' | 'GENERAL' | 'EXTERNAL' {
   switch (type) {

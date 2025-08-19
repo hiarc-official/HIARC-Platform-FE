@@ -1,5 +1,7 @@
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError, InternalAxiosRequestConfig } from 'axios';
+import React from 'react';
 import { useAuthStore } from '../store/auth-store';
+import { DialogUtil } from '@hiarc-platform/ui';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
 
@@ -15,78 +17,86 @@ const apiClient: AxiosInstance = axios.create({
 
 // Pretty Logger (dio style)
 const prettyLog = {
-  request: (config: any) => {
+  request: (config: InternalAxiosRequestConfig & { _requestStartTime?: number }) => {
     const timestamp = new Date().toLocaleTimeString();
     console.group(`🚀 [${timestamp}] ${config.method?.toUpperCase()} ${config.url}`);
-    
+
     if (config.params && Object.keys(config.params).length > 0) {
       console.log('📝 Query Parameters:');
       console.table(config.params);
     }
-    
+
     if (config.data) {
       console.log('📦 Request Body:');
       console.log(JSON.stringify(config.data, null, 2));
     }
-    
+
     console.log('⚙️ Headers:');
     console.table(config.headers);
     console.groupEnd();
   },
-  
-  response: (response: any) => {
+
+  response: (response: AxiosResponse & { config: { _requestStartTime?: number } }) => {
     const timestamp = new Date().toLocaleTimeString();
-    const duration = response.config._requestStartTime ? Date.now() - response.config._requestStartTime : 0;
-    
-    console.group(`✅ [${timestamp}] ${response.status} ${response.config.method?.toUpperCase()} ${response.config.url} (${duration}ms)`);
-    
+    const duration = response.config._requestStartTime
+      ? Date.now() - response.config._requestStartTime
+      : 0;
+
+    console.group(
+      `✅ [${timestamp}] ${response.status} ${response.config.method?.toUpperCase()} ${response.config.url} (${duration}ms)`
+    );
+
     if (response.data) {
       console.log('📥 Response Data:');
       console.log(JSON.stringify(response.data, null, 2));
     }
-    
+
     console.log('📊 Response Headers:');
     console.table(response.headers);
     console.groupEnd();
   },
-  
-  error: (error: any) => {
+
+  error: (error: AxiosError) => {
     const timestamp = new Date().toLocaleTimeString();
     const config = error.config;
     const response = error.response;
-    
-    console.group(`❌ [${timestamp}] ${response?.status || 'NETWORK_ERROR'} ${config?.method?.toUpperCase()} ${config?.url}`);
-    
+
+    console.group(
+      `❌ [${timestamp}] ${response?.status || 'NETWORK_ERROR'} ${config?.method?.toUpperCase()} ${config?.url}`
+    );
+
     if (response?.data) {
       console.log('💥 Error Response:');
       console.log(JSON.stringify(response.data, null, 2));
     }
-    
+
     if (error.message) {
       console.log('📝 Error Message:');
       console.log(error.message);
     }
-    
+
     console.groupEnd();
-  }
+  },
 };
 
 // 요청 인터셉터
-apiClient.interceptors.request.use((config) => {
-  config._requestStartTime = Date.now();
-  prettyLog.request(config);
-  return config;
-});
+apiClient.interceptors.request.use(
+  (config: InternalAxiosRequestConfig) => {
+    (config as any)._requestStartTime = Date.now();
+    prettyLog.request(config as InternalAxiosRequestConfig & { _requestStartTime?: number });
+    return config;
+  }
+);
 
 // 응답 인터셉터
 apiClient.interceptors.response.use(
-  (response) => {
+  (response: AxiosResponse & { config: { _requestStartTime?: number } }) => {
     prettyLog.response(response);
     return response;
   },
-  async (error) => {
+  async (error: AxiosError) => {
     prettyLog.error(error);
-    const originalRequest = error.config;
+    const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
 
     // 401 에러 처리 (인증 실패)
     if (error.response?.status === 401 && !originalRequest._retry) {
@@ -94,14 +104,23 @@ apiClient.interceptors.response.use(
 
       const { clearAuth } = useAuthStore.getState();
 
-      // 인증 실패 시 모든 인증 정보 삭제 후 메인 화면으로 이동
+      // 인증 실패 시 모든 인증 정보 삭제
       clearAuth();
 
       // localStorage도 완전히 정리
       localStorage.removeItem('auth-storage');
 
-      // 메인 화면으로 리다이렉트
-      window.location.href = '/';
+      // 다이얼로그로 알림 표시 (리다이렉트 대신)
+      try {
+        DialogUtil.showError('로그인이 만료되었습니다. 다시 로그인하시겠습니까?');
+      } catch (dialogError) {
+        // DialogUtil이 실패하면 기본 alert 사용
+        console.warn('DialogUtil failed, using browser alert:', dialogError);
+        if (window.confirm('로그인이 만료되었습니다. 다시 로그인하시겠습니까?')) {
+          window.location.href = '/login';
+        }
+      }
+
       return Promise.reject(error);
     }
 

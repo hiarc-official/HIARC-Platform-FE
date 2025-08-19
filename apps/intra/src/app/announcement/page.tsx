@@ -4,10 +4,12 @@ import { AnnouncementSearchSection } from '@/features/announcement/components/an
 import { AnnouncementTable } from '@/features/announcement/components/announcement-table';
 import useAnnouncements from '@/features/announcement/hooks/use-announcements';
 import { AnnouncementQueryParams } from '@/features/announcement/types/request/announcement-query-params';
+import { useSemesterStoreInit } from '@/hooks/use-semester-store';
 import { PageLayout, Title } from '@hiarc-platform/ui';
 import { useState } from 'react';
 
 export default function AnnouncementList(): React.ReactElement {
+  useSemesterStoreInit();
   const [currentPage, setCurrentPage] = useState(1);
   const [searchParams, setSearchParams] = useState<Omit<AnnouncementQueryParams, 'page' | 'size'>>({});
   const pageSize = 10;

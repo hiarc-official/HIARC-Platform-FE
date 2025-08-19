@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import { AnnouncementSearchDialog } from './announcement-search-dialog';
 import { announcementTypeSelectOption, AnnnouncementType } from '@hiarc-platform/shared';
 import { AnnouncementQueryParams } from '../../types/request/announcement-query-params';
+import { useSemesterStore } from '@/hooks/use-semester-store';
 
 interface AnnouncementSearchSectionProps {
   className?: string;
@@ -15,6 +16,7 @@ export function AnnouncementSearchSection({
   className,
   onSearch,
 }: AnnouncementSearchSectionProps): React.ReactElement {
+  const { getSemesterOptions } = useSemesterStore();
   const [announcementType, setAnnouncementType] = useState<AnnnouncementType | ''>('');
   const [semesterId, setSemesterId] = useState<string | ''>('');
   const [title, setTitle] = useState<string>('');
@@ -85,7 +87,7 @@ export function AnnouncementSearchSection({
           placeholder="학기를 선택해주세요."
           required={false}
           label={'진행 학기'}
-          options={[]}
+          options={getSemesterOptions()}
           value={semesterId}
           onChange={setSemesterId}
         />

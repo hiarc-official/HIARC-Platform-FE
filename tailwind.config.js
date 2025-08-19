@@ -23,6 +23,7 @@ module.exports = {
     'max-w-[390px]',
     'min-w-[600px]',
     'max-w-[1200px]',
+    'max-h-[350px]',
     'h-[46.5px]',
     'h-[10px]',
     'h-15',
