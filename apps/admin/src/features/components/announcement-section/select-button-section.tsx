@@ -1,18 +1,26 @@
 import { Button, LabeledInput, LabeledSelectButton } from '@hiarc-platform/ui';
 import { LabeledSelector } from '@hiarc-platform/ui';
 import { selectOption } from 'constants/selectOption';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { AnnouncementQueryParams } from '@/features/announcement/types/request/announcement-query-params';
 
 interface FilterSectionProps {
   onFilterChange?(filters: Partial<AnnouncementQueryParams>): void;
+  filters?: Partial<AnnouncementQueryParams>;
 }
 
-export function FilterSection({ onFilterChange }: FilterSectionProps): React.ReactElement {
+export function FilterSection({ onFilterChange, filters }: FilterSectionProps): React.ReactElement {
   const [category, setCategory] = useState<string>('');
-  const [semester, setSemester] = useState<string>('');
   const [isPublic, setIsPublic] = useState<string>('전체');
   const [title, setTitle] = useState<string>('');
+
+  useEffect(() => {
+    if (filters) {
+      setCategory(filters.announcementType || '');
+      setIsPublic(filters.isPublic === undefined ? '전체' : filters.isPublic ? 'true' : 'false');
+      setTitle(filters.title || '');
+    }
+  }, [filters]);
 
   const handleSearch = (): void => {
     const filters: Partial<AnnouncementQueryParams> = {
@@ -28,7 +36,6 @@ export function FilterSection({ onFilterChange }: FilterSectionProps): React.Rea
 
   const handleReset = (): void => {
     setCategory('');
-    setSemester('');
     setIsPublic('전체');
     setTitle('');
     onFilterChange?.({});
@@ -42,13 +49,6 @@ export function FilterSection({ onFilterChange }: FilterSectionProps): React.Rea
         placeholder="카테고리를 선택해주세요"
         value={category}
         onChange={setCategory}
-      />
-      <LabeledSelector
-        label="학기"
-        options={selectOption['학기']}
-        placeholder="학기를 선택해주세요"
-        value={semester}
-        onChange={setSemester}
       />
       <LabeledSelectButton
         label="공개여부"

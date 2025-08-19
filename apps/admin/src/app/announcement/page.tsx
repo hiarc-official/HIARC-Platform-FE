@@ -8,11 +8,13 @@ import { useAdminAnnouncementList } from '@/features/announcement/hooks';
 import { useState } from 'react';
 import { AnnouncementQueryParams } from '@/features/announcement/types/request/announcement-query-params';
 import { FadeIn } from '@/components/fade-in';
+import { useSelectedSemester } from '@/hooks/use-semester-store';
 
 export default function AnnouncementPage(): React.ReactElement {
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1); // 1-based page
   const [filters, setFilters] = useState<Partial<AnnouncementQueryParams>>({});
+  const { selectedSemesterId } = useSelectedSemester();
 
   const {
     data: pageableModel,
@@ -21,6 +23,7 @@ export default function AnnouncementPage(): React.ReactElement {
   } = useAdminAnnouncementList({
     page: currentPage - 1,
     size: 10,
+    semesterId: Number(selectedSemesterId),
     ...filters,
   });
 
@@ -67,7 +70,7 @@ export default function AnnouncementPage(): React.ReactElement {
           작성하기
         </Button>
       </div>
-      <FilterSection onFilterChange={handleFilterChange} />
+      <FilterSection onFilterChange={handleFilterChange} filters={filters} />
       <AnnouncementTable
         className="mt-6"
         pageableModel={pageableModel}

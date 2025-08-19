@@ -26,6 +26,7 @@ export interface Announcement {
   studyName?: string | null;
   lectureRound?: number | null;
   isPublic?: boolean | null;
+  semesterId?: number | null;
   prev?: AnnouncementNavigationItem | null;
   next?: AnnouncementNavigationItem | null;
 }
@@ -55,6 +56,7 @@ export const Announcement = {
       studyName: (data.studyName as string) || null,
       lectureRound: (data.lectureRound as number) || null,
       isPublic: (data.isPublic as boolean) ?? null,
+      semesterId: (data.semesterId as number) || null,
       prev: (data.prev as AnnouncementNavigationItem) || null,
       next: (data.next as AnnouncementNavigationItem) || null,
     };
