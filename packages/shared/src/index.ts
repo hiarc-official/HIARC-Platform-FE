@@ -22,3 +22,5 @@ export * from './types/semester/semester';
 export * from './types/recruit/recruitment';
 export * from './types/recruit/update-recruitment-request';
 export * from './types/study/create-assignment-request';
+export * from './types/category/announcement-type';
+export * from './types/category/announcement-type-utils';

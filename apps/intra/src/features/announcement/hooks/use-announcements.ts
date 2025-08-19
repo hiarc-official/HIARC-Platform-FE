@@ -15,11 +15,5 @@ export default function useAnnouncements(
     placeholderData: keepPreviousData,
   });
 
-  console.log('[HOOK] useAnnouncements 결과:', {
-    isLoading: query.isLoading,
-    error: query.error,
-    dataLength: query.data?.content?.length,
-  });
-
   return query;
 }

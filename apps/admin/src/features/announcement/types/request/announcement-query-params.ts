@@ -1,8 +1,10 @@
+import { AnnnouncementType } from '@hiarc-platform/shared';
+
 export interface AnnouncementQueryParams {
   page?: number;
   size?: number;
   sort?: string[];
-  announcementType?: 'STUDY' | 'RATING' | 'GENERAL' | 'ETC' | 'EXTERNAL';
+  announcementType?: AnnnouncementType;
   semesterId?: number;
   title?: string;
   isPublic?: boolean;

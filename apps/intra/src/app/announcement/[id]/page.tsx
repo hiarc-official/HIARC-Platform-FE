@@ -1,10 +1,14 @@
 'use client';
 
-import { AnnouncementContentSection } from '@/features/announcement/components/announcement-content-section';
-import { AnnouncementIndicatorSection } from '@/features/announcement/components/announcement-indicator-section';
-import { AnnouncementInfoSection } from '@/features/announcement/components/announcement-info-section';
 import useAnnouncement from '@/features/announcement/hooks/use-announcement';
-import { BackButton, Button, PageLayout } from '@hiarc-platform/ui';
+import {
+  AnnouncementContentSection,
+  AnnouncementIndicatorSection,
+  AnnouncementInfoSection,
+  BackButton,
+  Button,
+  PageLayout,
+} from '@hiarc-platform/ui';
 import { useRouter, useParams } from 'next/navigation';
 
 function mapAnnouncementType(type: string): 'RATING' | 'STUDY' | 'ETC' | 'GENERAL' | 'EXTERNAL' {

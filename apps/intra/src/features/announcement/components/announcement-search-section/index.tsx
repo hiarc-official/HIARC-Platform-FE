@@ -1,28 +1,62 @@
 'use client';
 
-import {
-  Button,
-  cn,
-  DialogUtil,
-  LabeledInput,
-  LabeledSelector,
-} from '@hiarc-platform/ui';
-import React from 'react';
+import { Button, cn, DialogUtil, LabeledInput, LabeledSelector } from '@hiarc-platform/ui';
+import React, { useState } from 'react';
 import { AnnouncementSearchDialog } from './announcement-search-dialog';
+import { announcementTypeSelectOption, AnnnouncementType } from '@hiarc-platform/shared';
+import { AnnouncementQueryParams } from '../../types/request/announcement-query-params';
 
 interface AnnouncementSearchSectionProps {
   className?: string;
+  onSearch?(params: Omit<AnnouncementQueryParams, 'page' | 'size'>): void;
 }
 
-export function AnnouncementSearchSection({ className }: AnnouncementSearchSectionProps): React.ReactElement {
+export function AnnouncementSearchSection({
+  className,
+  onSearch,
+}: AnnouncementSearchSectionProps): React.ReactElement {
+  const [announcementType, setAnnouncementType] = useState<AnnnouncementType | ''>('');
+  const [semesterId, setSemesterId] = useState<string | ''>('');
+  const [title, setTitle] = useState<string>('');
+  const handleSearch = (): void => {
+    const params: Omit<AnnouncementQueryParams, 'page' | 'size'> = {};
+
+    if (announcementType) {
+      params.announcementType = announcementType;
+    }
+    if (semesterId) {
+      params.semesterId = Number(semesterId);
+    }
+    if (title.trim()) {
+      params.title = title.trim();
+    }
+
+    onSearch?.(params);
+  };
+
+  const handleReset = (): void => {
+    setAnnouncementType('');
+    setSemesterId('');
+    setTitle('');
+    onSearch?.({});
+  };
+
   const handleOpenDialog = (): void => {
     DialogUtil.showComponent(
       <AnnouncementSearchDialog
-        onSave={async () => {
-          console.log('Search performed');
+        onSave={async (params) => {
+          setAnnouncementType((params.announcementType as AnnnouncementType) || '');
+          setSemesterId(params.semesterId ? params.semesterId.toString() : '');
+          setTitle(params.title || '');
+          onSearch?.(params);
         }}
         onCancel={() => {
           console.log('Search cancelled');
+        }}
+        initialValues={{
+          announcementType,
+          semesterId,
+          title,
         }}
       />
     );
@@ -38,21 +72,29 @@ export function AnnouncementSearchSection({ className }: AnnouncementSearchSecti
         )}
       >
         <LabeledSelector
-          placeholder={'123'}
+          placeholder="카테고리를 선택해주세요."
+          required={false}
+          label={'카테고리'}
+          options={announcementTypeSelectOption()}
+          value={announcementType}
+          onChange={(value: unknown) => {
+            setAnnouncementType(value as AnnnouncementType | '');
+          }}
+        />
+        <LabeledSelector
+          placeholder="학기를 선택해주세요."
           required={false}
           label={'진행 학기'}
           options={[]}
-          value="123"
-          onChange={(value: unknown) => {
-            console.log(value);
-          }}
+          value={semesterId}
+          onChange={setSemesterId}
         />
-        <LabeledInput label={'스터디명'} />
+        <LabeledInput label={'스터디명'} value={title} onChange={setTitle} />
         <div className="flex w-full items-center gap-2">
-          <Button variant="secondary" size="md" className="w-full">
+          <Button variant="secondary" size="md" className="w-full" onClick={handleReset}>
             초기화
           </Button>
-          <Button variant="fill" size="md" className="w-full bg-primary-200">
+          <Button variant="fill" size="md" className="w-full bg-primary-200" onClick={handleSearch}>
             검색
           </Button>
         </div>

@@ -1,7 +1,9 @@
+import { AnnnouncementType } from '@hiarc-platform/shared';
+
 export interface AnnouncementQueryParams {
   page?: number;
   size?: number;
-  sort?: string;
-  search?: string;
-  isImportant?: boolean;
+  semesterId?: number;
+  title?: string;
+  announcementType?: AnnnouncementType;
 }

@@ -3,11 +3,13 @@
 import { AnnouncementSearchSection } from '@/features/announcement/components/announcement-search-section';
 import { AnnouncementTable } from '@/features/announcement/components/announcement-table';
 import useAnnouncements from '@/features/announcement/hooks/use-announcements';
-import { PageLayout, Title, Pagination } from '@hiarc-platform/ui';
+import { AnnouncementQueryParams } from '@/features/announcement/types/request/announcement-query-params';
+import { PageLayout, Title } from '@hiarc-platform/ui';
 import { useState } from 'react';
 
 export default function AnnouncementList(): React.ReactElement {
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchParams, setSearchParams] = useState<Omit<AnnouncementQueryParams, 'page' | 'size'>>({});
   const pageSize = 10;
 
   const {
@@ -17,10 +19,16 @@ export default function AnnouncementList(): React.ReactElement {
   } = useAnnouncements({
     page: currentPage - 1,
     size: pageSize,
+    ...searchParams,
   });
 
   const handlePageChange = (page: number): void => {
     setCurrentPage(page);
+  };
+
+  const handleSearch = (params: Omit<AnnouncementQueryParams, 'page' | 'size'>): void => {
+    setSearchParams(params);
+    setCurrentPage(1);
   };
 
   if (isLoading) {
@@ -35,8 +43,12 @@ export default function AnnouncementList(): React.ReactElement {
       <Title size="sm" weight="bold">
         공지사항
       </Title>
-      <AnnouncementSearchSection className="mt-6" />
-      <AnnouncementTable className="mt-8" data={announcements?.content || []} />
+      <AnnouncementSearchSection className="mt-6" onSearch={handleSearch} />
+      <AnnouncementTable
+        className="mt-8"
+        pageableModel={announcements}
+        onPageChange={handlePageChange}
+      />
     </PageLayout>
   );
 }

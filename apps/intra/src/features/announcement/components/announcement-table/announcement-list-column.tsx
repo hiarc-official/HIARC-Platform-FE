@@ -2,14 +2,20 @@ import { Label, CategoryChip } from '@hiarc-platform/ui';
 import { ColumnDef } from '@tanstack/react-table';
 import type { AnnouncementSummary } from '../../types/model/announcement-summary';
 
-function mapAnnouncementType(type: string): "rating" | "study" | "etc" | "general" | "external" {
+function mapAnnouncementType(type: string): 'RATING' | 'STUDY' | 'ETC' | 'GENERAL' | 'EXTERNAL' {
   switch (type) {
-    case 'RATING': return 'rating';
-    case 'STUDY': return 'study';
-    case 'GENERAL': return 'general';
-    case 'ETC': return 'etc';
-    case 'EXTERNAL': return 'external';
-    default: return 'general';
+    case 'RATING':
+      return 'RATING';
+    case 'STUDY':
+      return 'STUDY';
+    case 'GENERAL':
+      return 'GENERAL';
+    case 'ETC':
+      return 'ETC';
+    case 'EXTERNAL':
+      return 'EXTERNAL';
+    default:
+      return 'GENERAL';
   }
 }
 
@@ -49,7 +55,9 @@ export const ANNOUNCEMENT_LIST_COLUMN: Array<ColumnDef<AnnouncementSummary>> = [
       </Label>
     ),
     cell: ({ row }: { row: { original: AnnouncementSummary } }) => (
-      <CategoryChip category={mapAnnouncementType(row.original.announcementType || 'GENERAL')}></CategoryChip>
+      <CategoryChip
+        category={mapAnnouncementType(row.original.announcementType || 'GENERAL')}
+      ></CategoryChip>
     ),
     footer: (props) => props.column.id,
   },
@@ -88,7 +96,9 @@ export const ANNOUNCEMENT_LIST_COLUMN: Array<ColumnDef<AnnouncementSummary>> = [
     ),
     cell: ({ row }: { row: { original: AnnouncementSummary } }) => (
       <Label size="sm" weight="regular" className="text-gray-700">
-        {row.original.createdAt ? new Date(row.original.createdAt).toLocaleDateString('ko-KR') : '-'}
+        {row.original.createdAt
+          ? new Date(row.original.createdAt).toLocaleDateString('ko-KR')
+          : '-'}
       </Label>
     ),
     footer: (props) => props.column.id,

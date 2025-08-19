@@ -11,23 +11,50 @@ import {
   LabeledInput,
   LabeledSelector,
 } from '@hiarc-platform/ui';
-import React from 'react';
+import React, { useState } from 'react';
+import { announcementTypeSelectOption, AnnnouncementType } from '@hiarc-platform/shared';
+import { AnnouncementQueryParams } from '../../types/request/announcement-query-params';
 
 interface AnnouncementSearchDialogProps {
-  onSave?(): Promise<void>;
+  onSave?(params: Omit<AnnouncementQueryParams, 'page' | 'size'>): Promise<void>;
   onCancel?(): void;
   showBackground?: boolean;
+  initialValues?: {
+    announcementType?: AnnnouncementType | '';
+    semesterId?: string | '';
+    title?: string;
+  };
 }
 
 export function AnnouncementSearchDialog({
   onSave,
   onCancel,
   showBackground = true,
+  initialValues,
 }: AnnouncementSearchDialogProps): React.ReactElement {
+  const [announcementType, setAnnouncementType] = useState<AnnnouncementType | ''>(
+    initialValues?.announcementType ?? ''
+  );
+  const [semesterId, setSemesterId] = useState<string | ''>(
+    initialValues?.semesterId ?? ''
+  );
+  const [title, setTitle] = useState<string>(initialValues?.title ?? '');
   const handleSave = async (): Promise<void> => {
     try {
+      const params: Omit<AnnouncementQueryParams, 'page' | 'size'> = {};
+
+      if (announcementType) {
+        params.announcementType = announcementType;
+      }
+      if (semesterId) {
+        params.semesterId = Number(semesterId);
+      }
+      if (title.trim()) {
+        params.title = title.trim();
+      }
+
       if (onSave) {
-        await onSave();
+        await onSave(params);
       }
       DialogUtil.hideAllDialogs();
     } catch (error) {
@@ -42,8 +69,9 @@ export function AnnouncementSearchDialog({
   };
 
   const handleReset = (): void => {
-    // Reset form logic here
-    console.log('Form reset');
+    setAnnouncementType('');
+    setSemesterId('');
+    setTitle('');
   };
 
   return (
@@ -55,16 +83,24 @@ export function AnnouncementSearchDialog({
         <div className="pt-6">
           <div className={cn('flex flex-col gap-6')}>
             <LabeledSelector
-              placeholder={'123'}
+              placeholder="카테고리를 선택해주세요."
+              required={false}
+              label={'카테고리'}
+              options={announcementTypeSelectOption()}
+              value={announcementType}
+              onChange={(value: unknown) => {
+                setAnnouncementType(value as AnnnouncementType | '');
+              }}
+            />
+            <LabeledSelector
+              placeholder="학기를 선택해주세요."
               required={false}
               label={'진행 학기'}
               options={[]}
-              value="123"
-              onChange={(value: unknown) => {
-                console.log(value);
-              }}
+              value={semesterId}
+              onChange={setSemesterId}
             />
-            <LabeledInput label={'스터디명'} />
+            <LabeledInput label={'스터디명'} value={title} onChange={setTitle} />
             <div className="flex w-full items-center gap-2">
               <Button variant="secondary" size="md" className="w-full" onClick={handleReset}>
                 초기화

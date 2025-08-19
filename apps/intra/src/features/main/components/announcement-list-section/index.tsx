@@ -25,7 +25,7 @@ export function AnnouncementListSection({
         <Tabs tabs={tabItems} activeTab={tab} onTabClick={setTab} />
         <button
           onClick={() => {
-            router.push('/study');
+            router.push('/announcement');
           }}
         >
           {'더보기 ->'}
@@ -34,9 +34,9 @@ export function AnnouncementListSection({
 
       <Divider variant="horizontal" size="full" className="mt-4" />
       <div>
-        <AnnouncementListItem title={'알고리즘 소식 1'} category={'rating'} />
-        <AnnouncementListItem title={'알고리즘 소식 1'} date={'2025.06.12'} category={'study'} />
-        <AnnouncementListItem title={'알고리즘 소식 1'} date={'2025.06.12'} category={'etc'} />
+        <AnnouncementListItem title={'알고리즘 소식 1'} category={'RATING'} />
+        <AnnouncementListItem title={'알고리즘 소식 1'} date={'2025.06.12'} category={'STUDY'} />
+        <AnnouncementListItem title={'알고리즘 소식 1'} date={'2025.06.12'} category={'ETC'} />
       </div>
     </div>
   );
