@@ -16,18 +16,16 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { CreateStudyRequest } from '@hiarc-platform/shared';
 import { useUpdateStudy } from '@/features/study/hooks/use-update-study';
-import useStudy from '@/features/study/hooks/use-study';
+import { useStudyInitialForm } from '@/features/study/hooks/use-study-initial-form';
 
 interface EditStudyFormProps {
   studyId: number;
 }
 
-export function EditStudyForm({
-  studyId,
-}: EditStudyFormProps): React.ReactElement {
+export function EditStudyForm({ studyId }: EditStudyFormProps): React.ReactElement {
   const router = useRouter();
   const updateStudyMutation = useUpdateStudy();
-  const { data: studyData } = useStudy(studyId);
+  const { data: studyData } = useStudyInitialForm(studyId);
 
   const [formData, setFormData] = useState<CreateStudyRequest>({
     name: '',
@@ -83,7 +81,7 @@ export function EditStudyForm({
     if (studyData) {
       setFormData({
         name: studyData.name || '',
-        bojHandle: studyData.instructorBojHandle || '',
+        bojHandle: studyData.bojHandle || '',
         semesterId: studyData.semesterId || null,
         startDate: studyData.startDate || null,
         endDate: studyData.endDate || null,
@@ -102,7 +100,10 @@ export function EditStudyForm({
         setStudyPeriod([new Date(studyData.startDate), new Date(studyData.endDate)]);
       }
       if (studyData.recruitmentStartAt && studyData.recruitmentEndAt) {
-        setCruitPeriod([new Date(studyData.recruitmentStartAt), new Date(studyData.recruitmentEndAt)]);
+        setCruitPeriod([
+          new Date(studyData.recruitmentStartAt),
+          new Date(studyData.recruitmentEndAt),
+        ]);
       }
 
       // Set other form values

@@ -18,7 +18,8 @@ export interface Study {
   instructorBojHandle?: string | null;
   isInstructor?: boolean | null;
   isStudent?: boolean | null;
-  
+  precaution?: string | null;
+
   // Computed property
   readonly scheduleText?: string;
 }

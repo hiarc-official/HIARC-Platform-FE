@@ -11,6 +11,7 @@ import {
   Lecture,
   PageableModel,
   Study,
+  StudyInitialForm,
   StudyMember,
   StudySummary,
 } from '@hiarc-platform/shared';
@@ -150,6 +151,17 @@ export const studyApi = {
       return PageableModel.fromJson(response.data, AnnouncementSummary);
     } catch (error) {
       console.error('[STUDY API] GET_STUDY_ANNOUNCEMENT_LIST 에러:', error);
+      throw error;
+    }
+  },
+
+  // 스터디 개설 정보 조회
+  GET_STUDY_INITIAL_FORM: async (studyId: number): Promise<StudyInitialForm> => {
+    try {
+      const response = await apiClient.get<Study>(`/admin/studies/${studyId}`);
+      return StudyInitialForm.fromJson(response.data);
+    } catch (error) {
+      console.error('[STUDY API] GET_STUDY_INITIAL_FORM 에러:', error);
       throw error;
     }
   },

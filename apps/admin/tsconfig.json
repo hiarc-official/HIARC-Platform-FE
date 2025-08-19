@@ -33,7 +33,8 @@
     ".next/types/**/*.ts",
     "types/**/*.d.ts",
     "../../packages/shared/src/types/award/award.ts",
-    "../../packages/shared/src/types/study/create-assignment-request.ts"
+    "../../packages/shared/src/types/study/create-assignment-request.ts",
+    "../../packages/shared/src/types/study/study-initial-form.ts"
   ],
   "exclude": ["node_modules"]
 }
