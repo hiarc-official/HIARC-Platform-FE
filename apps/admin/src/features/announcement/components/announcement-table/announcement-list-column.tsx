@@ -71,7 +71,7 @@ export const getAdminAnnouncementListColumn = (
     ),
     cell: ({ row }: { row: { original: AnnouncementSummary } }) => (
       <Label size="md" weight="regular" className="pl-4">
-        {row.original.title ?? '-'}
+        {row.original.announcementTitle ?? '-'}
       </Label>
     ),
     footer: (props) => props.column.id,

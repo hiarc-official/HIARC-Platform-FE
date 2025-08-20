@@ -29,12 +29,14 @@ export interface Announcement {
   semesterId?: number | null;
   prev?: AnnouncementNavigationItem | null;
   next?: AnnouncementNavigationItem | null;
+
+  announcementTitle: string;
 }
 
 export const Announcement = {
   fromJson(json: unknown): Announcement {
     const data = (json || {}) as Record<string, unknown>;
-    return {
+    const announcement = {
       announcementId: (data.announcementId as number) || null,
       title: (data.title as string) || null,
       place: (data.place as string) || null,
@@ -59,6 +61,21 @@ export const Announcement = {
       semesterId: (data.semesterId as number) || null,
       prev: (data.prev as AnnouncementNavigationItem) || null,
       next: (data.next as AnnouncementNavigationItem) || null,
+
+      get announcementTitle(): string {
+        if (!this.title) return '';
+
+        if (this.announcementType === 'STUDY') {
+          if (this.lectureRound !== null && this.lectureRound !== undefined) {
+            return `[${this.studyName}][${this.lectureRound}회차] ${this.title}`;
+          }
+          return `[${this.studyName}] ${this.title}`;
+        }
+
+        return this.title;
+      },
     };
+
+    return announcement;
   },
 };

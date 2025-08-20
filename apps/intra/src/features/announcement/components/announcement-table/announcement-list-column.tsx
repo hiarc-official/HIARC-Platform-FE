@@ -76,7 +76,7 @@ export const ANNOUNCEMENT_LIST_COLUMN: Array<ColumnDef<AnnouncementSummary>> = [
     ),
     cell: ({ row }: { row: { original: AnnouncementSummary } }) => (
       <Label size="md" weight="regular" className="pl-4">
-        {row.original.title ?? '-'}
+        {row.original.announcementTitle ?? '-'}
       </Label>
     ),
     footer: (props) => props.column.id,

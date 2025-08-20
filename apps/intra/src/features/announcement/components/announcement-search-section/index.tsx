@@ -1,7 +1,7 @@
 'use client';
 
 import { Button, cn, DialogUtil, LabeledInput, LabeledSelector } from '@hiarc-platform/ui';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AnnouncementSearchDialog } from './announcement-search-dialog';
 import { announcementTypeSelectOption, AnnnouncementType } from '@hiarc-platform/shared';
 import { AnnouncementQueryParams } from '../../types/request/announcement-query-params';
@@ -10,16 +10,25 @@ import { useSemesterStore } from '@/hooks/use-semester-store';
 interface AnnouncementSearchSectionProps {
   className?: string;
   onSearch?(params: Omit<AnnouncementQueryParams, 'page' | 'size'>): void;
+  initialValues?: Omit<AnnouncementQueryParams, 'page' | 'size'>;
 }
 
 export function AnnouncementSearchSection({
   className,
   onSearch,
+  initialValues = {},
 }: AnnouncementSearchSectionProps): React.ReactElement {
   const { getSemesterOptions } = useSemesterStore();
   const [announcementType, setAnnouncementType] = useState<AnnnouncementType | ''>('');
   const [semesterId, setSemesterId] = useState<string | ''>('');
   const [title, setTitle] = useState<string>('');
+
+  // initialValues가 변경될 때 state 업데이트
+  useEffect(() => {
+    setAnnouncementType((initialValues.announcementType as AnnnouncementType) || '');
+    setSemesterId(initialValues.semesterId ? initialValues.semesterId.toString() : '');
+    setTitle(initialValues.title || '');
+  }, [initialValues]);
   const handleSearch = (): void => {
     const params: Omit<AnnouncementQueryParams, 'page' | 'size'> = {};
 
@@ -91,7 +100,12 @@ export function AnnouncementSearchSection({
           value={semesterId}
           onChange={setSemesterId}
         />
-        <LabeledInput label={'스터디명'} value={title} onChange={setTitle} />
+        <LabeledInput
+          label="제목"
+          placeholder="제목을 입력해주세요."
+          value={title}
+          onChange={setTitle}
+        />
         <div className="flex w-full items-center gap-2">
           <Button variant="secondary" size="md" className="w-full" onClick={handleReset}>
             초기화

@@ -19,7 +19,10 @@
     "emitDeclarationOnly": false,
     "baseUrl": ".",
     "paths": {
-      "@hiarc-platform/shared": ["../shared/src"]
+      "@/*": ["./src/*"],
+      "@hiarc-platform/shared": ["../../packages/shared/src"],
+      "@hiarc-platform/ui": ["../../packages/ui/src"],
+      "@hiarc-platform/util": ["../../packages/util/src"]
     }
   },
   "include": ["src/**/*", "src/types/**/*.d.ts"],

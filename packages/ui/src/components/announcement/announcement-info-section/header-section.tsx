@@ -1,6 +1,8 @@
+import { AnnnouncementType, getAnnouncementTypeLabel } from '@hiarc-platform/shared';
 import { Divider } from '../../divider';
 import { Label } from '../../label/label';
 import { Title } from '../../label/title';
+import { cn } from '@hiarc-platform/ui';
 
 interface HeaderSectionProps {
   announcementTitle: string;
@@ -20,8 +22,8 @@ export function HeaderSection({
           {announcementTitle}
         </Title>
         <div className="flex items-center gap-3">
-          <Label size="md" className="text-orange">
-            {announcementCategory}
+          <Label size="md" className={cn('text-orange')}>
+            {getAnnouncementTypeLabel(AnnnouncementType[announcementCategory])}
           </Label>
           <Divider variant="vertical" size="10px" />
           <Label size="md" className="text-gray-700">

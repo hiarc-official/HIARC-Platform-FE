@@ -109,7 +109,7 @@ export function HiarcScheduleSection({
           selectedSchedules.map((schedule, index) => (
             <ScheduleListItem
               key={index}
-              title={schedule.scheduleName || '제목 없음'}
+              title={schedule.scheduleTitle || '제목 없음'}
               category={schedule.announcementType || 'GENERAL'}
             />
           ))

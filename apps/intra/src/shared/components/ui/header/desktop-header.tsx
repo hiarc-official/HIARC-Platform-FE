@@ -1,9 +1,9 @@
 'use client';
 
-import { Button, Input } from '@hiarc-platform/ui';
+import { Button, Input, Label } from '@hiarc-platform/ui';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { IconButton } from '@hiarc-platform/ui';
 
 interface DesktopHeaderProps {
@@ -12,6 +12,7 @@ interface DesktopHeaderProps {
 
 export function DesktopHeader({ isAuthenticated }: DesktopHeaderProps): React.ReactElement {
   const router = useRouter();
+  const pathname = usePathname();
 
   const handleLogin = (): void => {
     router.push('/login');
@@ -21,11 +22,53 @@ export function DesktopHeader({ isAuthenticated }: DesktopHeaderProps): React.Re
     router.push('/my');
   };
 
+  const isActive = (path: string): boolean => {
+    return pathname.startsWith(`/${path}`);
+  };
+
   return (
     <div className="hidden w-full items-center justify-between md:flex">
-      <Link href="/">
-        <Image src="/shared-assets/Logo.svg" alt="HiarcLogo" width={120} height={30} />
-      </Link>
+      <div className="flex items-center gap-8">
+        <Link href="/">
+          <Image src="/shared-assets/Logo.svg" alt="HiarcLogo" width={120} height={30} />
+        </Link>
+        <nav className="flex items-center gap-4">
+          <Link
+            href="/announcement"
+            className={`text-sm transition-colors ${
+              isActive('announcement')
+                ? 'font-semibold text-gray-900'
+                : 'font-medium text-gray-200 hover:text-gray-700'
+            }`}
+          >
+            <Label size="lg" weight="bold" className="cursor-pointer">
+              공지사항
+            </Label>
+          </Link>
+          <Link
+            href="/study"
+            className={`text-sm transition-colors ${
+              isActive('study')
+                ? 'font-semibold text-gray-900'
+                : 'font-medium text-gray-200 hover:text-gray-700'
+            }`}
+          >
+            <Label size="lg" weight="bold" className="cursor-pointer">
+              스터디
+            </Label>
+          </Link>
+          <a
+            href="https://www.hi-rating.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm font-medium text-gray-200 transition-colors hover:text-gray-700"
+          >
+            <Label size="lg" weight="bold" className="cursor-pointer">
+              하이팅
+            </Label>
+          </a>
+        </nav>
+      </div>
       <div className="flex items-center gap-2">
         <Input
           type="search"

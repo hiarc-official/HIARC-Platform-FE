@@ -28,6 +28,13 @@ function mapAnnouncementType(type: string): 'RATING' | 'STUDY' | 'ETC' | 'GENERA
   }
 }
 
+function formatDate(date: Date): string {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}.${month}.${day}`;
+}
+
 export default function AnnouncementDetail(): React.ReactElement {
   const router = useRouter();
   const params = useParams();
@@ -50,12 +57,35 @@ export default function AnnouncementDetail(): React.ReactElement {
           <BackButton onClick={() => router.back()} />
           <AnnouncementInfoSection
             className="mt-6"
-            announcementTitle={announcement.title || '제목 없음'}
+            announcementTitle={announcement.announcementTitle || '제목 없음'}
             announcementCategory={mapAnnouncementType(announcement.announcementType || 'GENERAL')}
-            announcementDate={announcement.createdAt?.toISOString() || '날짜 없음'}
+            announcementDate={
+              announcement.createdAt ? formatDate(announcement.createdAt) : '날짜 없음'
+            }
+            urlList={announcement.attachmentUrls || []}
+            place={announcement.place ?? undefined}
+            scheduleStartAt={
+              announcement.scheduleStartAt ? new Date(announcement.scheduleStartAt) : undefined
+            }
+            scheduleEndAt={
+              announcement.scheduleEndAt ? new Date(announcement.scheduleEndAt) : undefined
+            }
+            applicationStartAt={
+              announcement.applicationStartAt
+                ? new Date(announcement.applicationStartAt)
+                : undefined
+            }
+            applicationEndAt={
+              announcement.applicationEndAt ? new Date(announcement.applicationEndAt) : undefined
+            }
+            applicationUrl={announcement.applicationUrl || ''}
           />
           <AnnouncementContentSection className="mt-8" content={announcement.content || ''} />
-          <AnnouncementIndicatorSection className="mt-8" />
+          <AnnouncementIndicatorSection
+            className="mt-8"
+            prevData={announcement.prev}
+            nextData={announcement.next}
+          />
           <Button
             variant="line"
             className="mt-8 w-[186px]"
@@ -69,12 +99,35 @@ export default function AnnouncementDetail(): React.ReactElement {
         <div className="flex flex-col items-center">
           <AnnouncementInfoSection
             className="mt-6"
-            announcementTitle={announcement.title || '제목 없음'}
+            announcementTitle={announcement.announcementTitle || '제목 없음'}
             announcementCategory={mapAnnouncementType(announcement.announcementType || 'GENERAL')}
-            announcementDate={announcement.createdAt?.toISOString() || '날짜 없음'}
+            announcementDate={
+              announcement.createdAt ? formatDate(announcement.createdAt) : '날짜 없음'
+            }
+            urlList={announcement.attachmentUrls || []}
+            place={announcement.place ?? undefined}
+            scheduleStartAt={
+              announcement.scheduleStartAt ? new Date(announcement.scheduleStartAt) : undefined
+            }
+            scheduleEndAt={
+              announcement.scheduleEndAt ? new Date(announcement.scheduleEndAt) : undefined
+            }
+            applicationStartAt={
+              announcement.applicationStartAt
+                ? new Date(announcement.applicationStartAt)
+                : undefined
+            }
+            applicationEndAt={
+              announcement.applicationEndAt ? new Date(announcement.applicationEndAt) : undefined
+            }
+            applicationUrl={announcement.applicationUrl || ''}
           />
           <AnnouncementContentSection className="mt-8" content={announcement.content || ''} />
-          <AnnouncementIndicatorSection className="mt-8" />
+          <AnnouncementIndicatorSection
+            className="mt-8"
+            prevData={announcement.prev}
+            nextData={announcement.next}
+          />
           <Button
             variant="line"
             className="mt-8 w-[186px]"

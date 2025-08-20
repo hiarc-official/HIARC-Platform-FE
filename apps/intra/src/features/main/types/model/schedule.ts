@@ -8,12 +8,13 @@ export interface Schedule {
   isScheduled?: boolean | null;
   scheduledAt?: Date | null;
   createdAt?: Date | null;
+  scheduleTitle?: string;
 }
 
 export const Schedule = {
   fromJson(json: unknown): Schedule {
     const data = (json || {}) as Record<string, unknown>;
-    return {
+    const schedule = {
       announcementId: (data.announcementId as number) || null,
       announcementType:
         (data.announcementType as 'RATING' | 'STUDY' | 'GENERAL' | 'EXTERNAL' | 'ETC') || null,
@@ -24,6 +25,21 @@ export const Schedule = {
       isScheduled: (data.isScheduled as boolean) || null,
       scheduledAt: data.scheduledAt ? new Date(data.scheduledAt as string) : null,
       createdAt: data.createdAt ? new Date(data.createdAt as string) : null,
+
+      get scheduleTitle(): string {
+        if (!this.studyName) return this.scheduleName || '';
+
+        if (this.announcementType === 'STUDY') {
+          if (this.lectureRound !== null && this.lectureRound !== undefined) {
+            return `[${this.studyName}] ${this.lectureRound}회차`;
+          }
+          return `[${this.studyName}] ${this.scheduleName || ''}`;
+        }
+
+        return this.scheduleName || '';
+      },
     };
+
+    return schedule;
   },
 };

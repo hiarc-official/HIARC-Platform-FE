@@ -46,7 +46,7 @@ export function AnnouncementListSection({
             <AnnouncementListItem
               key={announcement.announcementId || index}
               announcementId={announcement.announcementId || 0}
-              title={announcement.scheduleName || '제목 없음'}
+              title={announcement.scheduleTitle || '제목 없음'}
               date={
                 announcement.createdAt ? new Date(announcement.createdAt).toLocaleDateString() : ''
               }
@@ -59,7 +59,7 @@ export function AnnouncementListSection({
             <AnnouncementListItem
               key={announcement.announcementId || index}
               announcementId={announcement.announcementId || 0}
-              title={announcement.scheduleName || '제목 없음'}
+              title={announcement.scheduleTitle || '제목 없음'}
               date={
                 announcement.createdAt ? new Date(announcement.createdAt).toLocaleDateString() : ''
               }
