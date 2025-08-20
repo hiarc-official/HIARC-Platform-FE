@@ -1,12 +1,7 @@
 import { useMutation, UseMutationResult, useQueryClient } from '@tanstack/react-query';
 import { studyApi } from '../api/study';
 
-export default function useApplyToStudy(): UseMutationResult<
-  void,
-  Error,
-  string,
-  unknown
-> {
+export default function useApplyToStudy(): UseMutationResult<void, Error, number, unknown> {
   const queryClient = useQueryClient();
 
   return useMutation({

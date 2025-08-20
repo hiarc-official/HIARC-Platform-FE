@@ -1,41 +1,95 @@
-import { cn, CreateAttendanceCodeDialog, DialogUtil, LectureListItem } from '@hiarc-platform/ui';
+import {
+  AttendanceCheckDialog,
+  cn,
+  CreateAttendanceCodeDialog,
+  DialogUtil,
+  LectureListItem,
+} from '@hiarc-platform/ui';
 import { Lecture } from '@hiarc-platform/shared';
 
 import { ShowAttendanceCodeDialogWrapper } from './show-attendance-code-dialog-wrapper';
 import { CreateAssignmentDialogWrapper } from './create-assignment-dialog-wrapper';
+import { DoAssignmentDialogWrapper } from './do-assignment-dialog-wrapper';
 import { useRouter } from 'next/navigation';
 import { useCreateAttendanceCode } from '../../hooks/use-create-attendance-code';
 import { useDeleteLecture } from '../../hooks/use-delete-lecture';
+import { useCheckAttendanceCode } from '../../hooks/use-check-attendance-code';
 
 interface LectureListProps {
   isAdmin?: boolean;
+  isStudent?: boolean;
   studyId?: number;
   lectureList?: Lecture[];
   className?: string;
+  studyName?: string;
+  semesterId?: number;
 }
 
 export function LectureList({
   isAdmin,
+  isStudent,
   className,
   lectureList,
   studyId,
+  studyName,
+  semesterId,
 }: LectureListProps): React.ReactElement {
   const router = useRouter();
   const { mutate: createAttendanceCode } = useCreateAttendanceCode();
   const { mutate: deleteLecture } = useDeleteLecture();
+  const { mutate: checkAttendanceCode } = useCheckAttendanceCode();
 
   return (
     <div className={cn('flex w-full flex-col gap-2', className)}>
       {lectureList?.map((lecture) => (
         <LectureListItem
           isAdmin={isAdmin}
+          isStudent={isStudent}
           key={lecture.round}
           lecture={lecture}
           onTitleClick={() => {}}
+          onAttendanceCheckClick={(onSuccess) => {
+            DialogUtil.showComponent(
+              <AttendanceCheckDialog
+                studyName={studyName ?? ''}
+                round={lecture.round ?? 0}
+                lectureName={lecture.title ?? ''}
+                onCheckAttendance={(attendanceCode: string) => {
+                  checkAttendanceCode(
+                    {
+                      studyId: studyId ?? 0,
+                      lectureRound: lecture.round ?? 0,
+                      attendanceCode,
+                    },
+                    {
+                      onSuccess: () => {
+                        DialogUtil.showSuccess('출석이 완료되었습니다.');
+                        onSuccess();
+                      },
+                      onError: (error) => {
+                        const errorMessage =
+                          error instanceof Error ? error.message : '출석 체크에 실패했습니다.';
+                        DialogUtil.showError(errorMessage);
+                      },
+                    }
+                  );
+                }}
+              />
+            );
+          }}
+          onDoAssignmentClick={(onSuccess) => {
+            DialogUtil.showComponent(
+              <DoAssignmentDialogWrapper
+                studyId={studyId ?? 0}
+                lectureId={lecture.round ?? 0}
+                lectureRound={lecture.round ?? 0}
+              />
+            );
+          }}
           onCreateAttendanceClick={(onSuccess) => {
             DialogUtil.showComponent(
               <CreateAttendanceCodeDialog
-                studyName={''}
+                studyName={studyName ?? ''}
                 round={lecture.round ?? 0}
                 lectureName={lecture.title ?? ''}
                 onCreateAttendance={(attendanceCode: string) => {
@@ -92,7 +146,11 @@ export function LectureList({
               return;
             }
 
-            router.push(`/announcement/${lecture.announcementId}/edit`);
+            const params = new URLSearchParams();
+            if (studyId) params.set('studyId', studyId.toString());
+            if (semesterId) params.set('semesterId', semesterId.toString());
+
+            router.push(`/announcement/${lecture.announcementId}/edit?${params.toString()}`);
           }}
           onDeleteClick={() => {
             if (!lecture.announcementId) {

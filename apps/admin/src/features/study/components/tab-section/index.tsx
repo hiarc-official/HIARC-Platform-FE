@@ -10,12 +10,18 @@ import { useLecturesByStudy } from '../../hooks';
 import { useStudyMembers } from '../../hooks/use-study-members';
 
 interface TabSectionProps {
+  studyName?: string;
   studyId?: number;
   isAdmin?: boolean;
   className?: string;
 }
 
-export function TabSection({ className, isAdmin, studyId }: TabSectionProps): React.ReactElement {
+export function TabSection({
+  className,
+  isAdmin,
+  studyId,
+  studyName,
+}: TabSectionProps): React.ReactElement {
   const router = useRouter();
 
   const tabs = [
@@ -67,7 +73,11 @@ export function TabSection({ className, isAdmin, studyId }: TabSectionProps): Re
               transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
               className="w-full"
             >
-              <LectureList studyId={studyId} lectureList={lectureList} />
+              <LectureList
+                studyName={studyName ?? ''}
+                studyId={studyId}
+                lectureList={lectureList}
+              />
             </motion.div>
           )}
           {selectedTab === 'announcement' && (

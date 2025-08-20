@@ -4,14 +4,28 @@ import { useState } from 'react';
 import { Button } from '../button';
 import { NumberInput } from '../input/number-input';
 import { Label } from '../label/label';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose, DialogFooter } from '../dialog/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogClose,
+  DialogFooter,
+} from '../dialog/dialog';
 
 interface AttendanceCheckDialogProps {
-  onComplete(): void;
+  studyName: string;
+  lectureName: string;
+  round: number;
   onCheckAttendance?(attendanceCode: string): void;
 }
 
-export function AttendanceCheckDialog({ onComplete, onCheckAttendance }: AttendanceCheckDialogProps): React.ReactElement {
+export function AttendanceCheckDialog({
+  onCheckAttendance,
+  studyName,
+  lectureName,
+  round,
+}: AttendanceCheckDialogProps): React.ReactElement {
   const [inputValue, setInputValue] = useState('');
 
   return (
@@ -23,10 +37,12 @@ export function AttendanceCheckDialog({ onComplete, onCheckAttendance }: Attenda
         <div className="flex flex-col gap-4">
           <ol className="list-disc pl-4 pt-2 text-sm text-gray-600">
             <li>
-              <Label size="lg">스터디명</Label>
+              <Label size="lg">{studyName}</Label>
             </li>
             <li>
-              <Label size="lg">N주차 : 강의명</Label>
+              <Label size="lg">
+                {round}주차 : {lectureName}
+              </Label>
             </li>
           </ol>
           <NumberInput
@@ -36,7 +52,7 @@ export function AttendanceCheckDialog({ onComplete, onCheckAttendance }: Attenda
             onChange={(value: string) => setInputValue(value)}
           />
         </div>
-        <DialogFooter>
+        <DialogFooter className="mt-6">
           <DialogClose asChild>
             <Button variant="secondary" size="sm" className="w-full">
               취소
@@ -49,7 +65,6 @@ export function AttendanceCheckDialog({ onComplete, onCheckAttendance }: Attenda
               size="sm"
               onClick={() => {
                 onCheckAttendance?.(inputValue);
-                onComplete();
               }}
             >
               출석하기

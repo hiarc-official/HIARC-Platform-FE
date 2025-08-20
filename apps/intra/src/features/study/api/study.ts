@@ -17,6 +17,18 @@ import {
 } from '@hiarc-platform/shared';
 
 export const studyApi = {
+  GET_ALL_STUDIES: async (params: StudyQueryParams = {}): Promise<PageableModel<StudySummary>> => {
+    try {
+      const response = await apiClient.get<PageableModel<StudySummary>>('/admin/studies', {
+        params,
+      });
+      return PageableModel.fromJson(response.data, StudySummary);
+    } catch (error) {
+      console.error('[STUDY API] GET_ALL_STUDIES 에러:', error);
+      throw error;
+    }
+  },
+
   // 스터디 목록 조회 (페이지네이션)
   GET_STUDIES: async (params: StudyQueryParams = {}): Promise<PageableModel<StudySummary>> => {
     const response = await apiClient.get('/studies', { params });
@@ -40,7 +52,7 @@ export const studyApi = {
   },
 
   // 스터디 신청하기
-  APPLY_TO_STUDY: async (studyId: string): Promise<void> => {
+  APPLY_TO_STUDY: async (studyId: number): Promise<void> => {
     await apiClient.post(`/studies/${studyId}/application`);
   },
 
@@ -162,6 +174,21 @@ export const studyApi = {
       return StudyInitialForm.fromJson(response.data);
     } catch (error) {
       console.error('[STUDY API] GET_STUDY_INITIAL_FORM 에러:', error);
+      throw error;
+    }
+  },
+
+  CHECK_ATTENDANCE_CODE: async (
+    studyId: number,
+    lectureRound: number,
+    attendanceCode: string
+  ): Promise<void> => {
+    try {
+      await apiClient.post(`/studies/${studyId}/lecture/${lectureRound}/attendance-code`, {
+        code: attendanceCode,
+      });
+    } catch (error) {
+      console.error('[STUDY API] CHECK_ATTENDANCE_CODE 에러:', error);
       throw error;
     }
   },

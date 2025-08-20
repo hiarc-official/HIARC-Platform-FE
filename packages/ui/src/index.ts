@@ -43,6 +43,7 @@ export * from './components/study/show-assignment-dialog';
 export * from './components/study/attendance-check-dialog';
 export * from './components/study/create-assignment-dialog';
 export * from './components/study/show-attendance-code-dialog';
+export * from './components/study/do-assignment-dialog';
 export * from './components/study/create-study-form';
 export * from './constants/assets';
 export * from './lib/utils';

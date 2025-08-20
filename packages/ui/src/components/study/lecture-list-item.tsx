@@ -32,9 +32,9 @@ function ShowCodeButton({ onClick }: { onClick(): void }): React.ReactElement {
   );
 }
 
-function AttendanceCheckButton({ onClick }: { onClick(): void }): React.ReactElement {
+function AttendanceCheckButton({ onClick, disabled = false }: { onClick(): void; disabled?: boolean }): React.ReactElement {
   return (
-    <Button variant="fill_light" size="xs" onClick={onClick}>
+    <Button variant="fill_light" size="xs" onClick={onClick} disabled={disabled}>
       출석 체크
     </Button>
   );
@@ -64,9 +64,9 @@ function ShowAssignmentButton({ onClick }: { onClick(): void }): React.ReactElem
   );
 }
 
-function DoAssignmentButton({ onClick }: { onClick(): void }): React.ReactElement {
+function DoAssignmentButton({ onClick, disabled = false }: { onClick(): void; disabled?: boolean }): React.ReactElement {
   return (
-    <Button variant="fill_light" size="xs" onClick={onClick}>
+    <Button variant="fill_light" size="xs" onClick={onClick} disabled={disabled}>
       과제하기
     </Button>
   );
@@ -94,6 +94,7 @@ function DeleteButton({ onClick }: { onClick(): void }): React.ReactElement {
 interface LectureCardProps {
   lecture: Lecture;
   isAdmin?: boolean;
+  isStudent?: boolean;
   onTitleClick?(): void;
   onCreateAttendanceClick?(onSuccess: () => void): void;
   onShowAttendanceClick?(): void;
@@ -108,6 +109,7 @@ interface LectureCardProps {
 function MobileLectureListItem({
   lecture,
   isAdmin,
+  isStudent,
   onTitleClick,
   onCreateAttendanceClick,
   onShowAttendanceClick,
@@ -134,6 +136,7 @@ function MobileLectureListItem({
   const buttons = [];
 
   if (isAdmin) {
+    // Admin: 출석번호 생성, 과제 생성/수정
     if (!isAttendanceCreated) {
       buttons.push(
         <CreateCodeButton
@@ -164,35 +167,41 @@ function MobileLectureListItem({
         <ShowAssignmentButton key="assignment-show" onClick={() => onShowAssignmentClick?.()} />
       );
     }
-  } else {
-    // 출석 관련 버튼
-    if (attendanceCompleted === false) {
+  } else if (isStudent) {
+    // Student: 출석번호 입력, 과제 확인
+    // 출석 관련 버튼 - 항상 표시
+    if (attendanceCompleted === true) {
+      buttons.push(<AttendanceDoneButton key="attendance-done" />);
+    } else {
+      // attendanceCompleted가 false이거나 null인 경우
       buttons.push(
         <AttendanceCheckButton
           key="attendance-check"
           onClick={() => {
             onAttendanceCheckClick?.(() => setAttendanceCompleted(true));
           }}
+          disabled={!isAttendanceCreated}
         />
       );
-    } else if (attendanceCompleted === true) {
-      buttons.push(<AttendanceDoneButton key="attendance-done" />);
     }
 
-    // 과제 관련 버튼
-    if (assignmentCompleted === false) {
+    // 과제 관련 버튼 - 항상 표시
+    if (assignmentCompleted === true) {
+      buttons.push(<AssignmentDoneButton key="assignment-done" />);
+    } else {
+      // assignmentCompleted가 false이거나 null인 경우
       buttons.push(
         <DoAssignmentButton
           key="assignment-do"
           onClick={() => {
             onDoAssignmentClick?.(() => setAssignmentCompleted(true));
           }}
+          disabled={!isAssignmentCreated}
         />
       );
-    } else if (assignmentCompleted === true) {
-      buttons.push(<AssignmentDoneButton key="assignment-done" />);
     }
   }
+  // else: isStudent === false && isAdmin === false -> 아무 버튼도 표시하지 않음
 
   return (
     <div className="flex w-full flex-col gap-2 rounded-sm border border-gray-200 px-4 py-3">
@@ -253,7 +262,7 @@ function DesktopLectureCardListItem(props: LectureCardProps): React.ReactElement
   const buttons = [];
 
   if (props.isAdmin) {
-    // 출석 관련 버튼
+    // Admin: 출석번호 생성, 과제 생성/수정
     if (!isAttendanceCreated) {
       buttons.push(
         <CreateCodeButton
@@ -284,35 +293,41 @@ function DesktopLectureCardListItem(props: LectureCardProps): React.ReactElement
         <ShowAssignmentButton key="assignment-show" onClick={() => onShowAssignmentClick?.()} />
       );
     }
-  } else {
-    // 출석 관련 버튼
-    if (attendanceCompleted === false) {
+  } else if (props.isStudent) {
+    // Student: 출석번호 입력, 과제 확인
+    // 출석 관련 버튼 - 항상 표시
+    if (attendanceCompleted === true) {
+      buttons.push(<AttendanceDoneButton key="attendance-done" />);
+    } else {
+      // attendanceCompleted가 false이거나 null인 경우
       buttons.push(
         <AttendanceCheckButton
           key="attendance-check"
           onClick={() => {
             onAttendanceCheckClick?.(() => setAttendanceCompleted(true));
           }}
+          disabled={!isAttendanceCreated}
         />
       );
-    } else if (attendanceCompleted === true) {
-      buttons.push(<AttendanceDoneButton key="attendance-done" />);
     }
 
-    // 과제 관련 버튼
-    if (assignmentCompleted === false) {
+    // 과제 관련 버튼 - 항상 표시
+    if (assignmentCompleted === true) {
+      buttons.push(<AssignmentDoneButton key="assignment-done" />);
+    } else {
+      // assignmentCompleted가 false이거나 null인 경우
       buttons.push(
         <DoAssignmentButton
           key="assignment-do"
           onClick={() => {
             onDoAssignmentClick?.(() => setAssignmentCompleted(true));
           }}
+          disabled={!isAssignmentCreated}
         />
       );
-    } else if (assignmentCompleted === true) {
-      buttons.push(<AssignmentDoneButton key="assignment-done" />);
     }
   }
+  // else: isStudent === false && isAdmin === false -> 아무 버튼도 표시하지 않음
 
   return (
     <div
@@ -353,6 +368,7 @@ function DesktopLectureCardListItem(props: LectureCardProps): React.ReactElement
 export function LectureListItem({
   lecture,
   isAdmin = false,
+  isStudent = false,
   onTitleClick,
   onCreateAttendanceClick,
   onShowAttendanceClick,
@@ -369,6 +385,7 @@ export function LectureListItem({
         <MobileLectureListItem
           lecture={lecture}
           isAdmin={isAdmin}
+          isStudent={isStudent}
           onTitleClick={onTitleClick}
           onCreateAttendanceClick={onCreateAttendanceClick}
           onShowAttendanceClick={onShowAttendanceClick}
@@ -384,6 +401,7 @@ export function LectureListItem({
         <DesktopLectureCardListItem
           lecture={lecture}
           isAdmin={isAdmin}
+          isStudent={isStudent}
           onTitleClick={onTitleClick}
           onCreateAttendanceClick={onCreateAttendanceClick}
           onShowAttendanceClick={onShowAttendanceClick}

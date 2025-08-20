@@ -9,12 +9,14 @@ interface LectureListProps {
   studyId?: number;
   lectureList?: Lecture[];
   className?: string;
+  studyName?: string;
 }
 
 export function LectureList({
   className,
   lectureList,
   studyId,
+  studyName,
 }: LectureListProps): React.ReactElement {
   const router = useRouter();
   const { mutate: createAttendanceCode } = useCreateAttendanceCode();
@@ -31,7 +33,7 @@ export function LectureList({
           onCreateAttendanceClick={(onSuccess) => {
             DialogUtil.showComponent(
               <CreateAttendanceCodeDialog
-                studyName={''}
+                studyName={studyName ?? ''}
                 round={lecture.round ?? 0}
                 lectureName={lecture.title ?? ''}
                 onCreateAttendance={(attendanceCode: string) => {
@@ -87,7 +89,7 @@ export function LectureList({
               console.error('강의 수정 실패: announcementId가 없습니다.');
               return;
             }
-            
+
             router.push(`/announcement/${lecture.announcementId}/edit`);
           }}
           onDeleteClick={() => {

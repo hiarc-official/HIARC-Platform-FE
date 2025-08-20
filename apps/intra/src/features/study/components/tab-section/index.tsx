@@ -11,12 +11,22 @@ import { useStudyAnnouncements } from '../../hooks/use-study-announcements';
 import { useLecturesByStudy } from '../../hooks/use-lectures-by-study';
 
 interface TabSectionProps {
+  isStudent?: boolean;
+  studyName?: string;
   studyId?: number;
+  semesterId?: number;
   isAdmin?: boolean;
   className?: string;
 }
 
-export function TabSection({ className, isAdmin, studyId }: TabSectionProps): React.ReactElement {
+export function TabSection({
+  className,
+  studyName,
+  isAdmin,
+  studyId,
+  semesterId,
+  isStudent,
+}: TabSectionProps): React.ReactElement {
   const router = useRouter();
 
   const tabs = [
@@ -35,11 +45,13 @@ export function TabSection({ className, isAdmin, studyId }: TabSectionProps): Re
   const { data: studentList } = useStudyMembers(studyId || 0);
 
   const handleCurriculumAdd = (): void => {
-    router.push(`/announcement/write?type=STUDY&studyId=${studyId}&isLecture=true`);
+    router.push(
+      `/announcement/write?type=STUDY&studyId=${studyId}&semesterId=${semesterId}&isLecture=true`
+    );
   };
 
   const handleAnnouncementAdd = (): void => {
-    router.push(`/announcement/write?type=STUDY&studyId=${studyId}`);
+    router.push(`/announcement/write?type=STUDY&studyId=${studyId}&semesterId=${semesterId}`);
   };
 
   return (
@@ -68,7 +80,14 @@ export function TabSection({ className, isAdmin, studyId }: TabSectionProps): Re
               transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
               className="w-full"
             >
-              <LectureList studyId={studyId} lectureList={lectureList} />
+              <LectureList
+                isAdmin={isAdmin}
+                isStudent={isStudent}
+                studyName={studyName ?? ''}
+                studyId={studyId}
+                lectureList={lectureList}
+                semesterId={semesterId}
+              />
             </motion.div>
           )}
           {selectedTab === 'announcement' && (

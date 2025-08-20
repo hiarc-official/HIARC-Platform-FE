@@ -77,4 +77,29 @@ export const announcementApi = {
       throw error;
     }
   },
+
+  CREATE_STUDY_ANNOUNCEMENT: async (
+    studyId: number,
+    announcementData: CreateAnnouncementRequest
+  ): Promise<Announcement> => {
+    const response = await apiClient.post(
+      `/studies/${studyId}/instructor/announcements`,
+      announcementData
+    );
+
+    return Announcement.fromJson(response.data);
+  },
+
+  UPDATE_INSTRUCTOR_ANNOUNCEMENT: async (
+    studyId: number,
+    announcementId: number,
+    announcementData: UpdateAnnouncementRequest
+  ): Promise<Announcement> => {
+    const response = await apiClient.patch(
+      `/studies/${studyId}/instructor/announcements/${announcementId}`,
+      announcementData
+    );
+
+    return Announcement.fromJson(response.data);
+  },
 };

@@ -6,8 +6,8 @@ export function useStudyOptions(semesterId?: number | null): UseQueryResult<Sele
   const query = useQuery({
     queryKey: ['study-options', semesterId],
     queryFn: async (): Promise<SelectOption[]> => {
-      const response: PageableModel<StudySummary> = await studyApi.GET_STUDIES({
-        semesterId: 2,
+      const response: PageableModel<StudySummary> = await studyApi.GET_ALL_STUDIES({
+        semesterId: Number(semesterId),
         page: 0,
         size: 1000, // 모든 스터디를 가져오기 위해 큰 수로 설정
       });

@@ -5,20 +5,20 @@ import { Study } from '@hiarc-platform/shared';
 
 interface StudyInfoSectionProps {
   className?: string;
-  isAdmin?: boolean;
   studyData?: Study | null;
   onEditClick?(): void;
+  onApplyClick?(): void;
 }
 
 export function StudyInfoSection({
   className,
-  isAdmin,
   studyData,
   onEditClick,
+  onApplyClick,
 }: StudyInfoSectionProps): React.ReactElement {
   return (
     <div className={cn('flex w-full flex-col', className)}>
-      <StudyTitle isAdmin={isAdmin} studyData={studyData} onEditClick={onEditClick} />
+      <StudyTitle studyData={studyData} onEditClick={onEditClick} onApplyClick={onApplyClick} />
       <Divider variant="horizontal" size="full" className="mb-6 mt-4" />
       <StudyInfo studyData={studyData} />
       <Divider variant="horizontal" size="full" className="mt-6 bg-gray-200" />

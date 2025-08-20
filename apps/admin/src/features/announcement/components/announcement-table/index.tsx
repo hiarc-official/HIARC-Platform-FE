@@ -1,6 +1,6 @@
 import { cn, CommonTableBody, CommonTableHead, Pagination } from '@hiarc-platform/ui';
 import { useTable } from '@hiarc-platform/util';
-import { Announcement, PageableModel } from '@hiarc-platform/shared';
+import { Announcement, AnnouncementSummary, PageableModel } from '@hiarc-platform/shared';
 import { Row } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
 import { useCallback, useMemo, useState } from 'react';
@@ -10,7 +10,7 @@ import { useDeleteAdminAnnouncement } from '../../hooks/use-delete-admin-announc
 import { AnimatePresence, motion } from 'framer-motion';
 
 interface AdminAnnouncementTableProps {
-  pageableModel?: PageableModel<Announcement> | null;
+  pageableModel?: PageableModel<AnnouncementSummary> | null;
   className?: string;
   onPageChange?(page: number): void;
 }

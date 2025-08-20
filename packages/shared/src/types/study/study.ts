@@ -5,8 +5,11 @@ export interface Study {
   introduction?: string | null;
   lang?: string | null;
   currentParticipants?: number | null;
+  startDate?: string | null;
+  endDate?: string | null;
   recruitmentStartDate?: string | null;
   recruitmentEndDate?: string | null;
+  semesterId?: number | null;
   semesterYear?: number | null;
   semesterType?: 'FIRST' | 'SECOND' | null;
   scheduledDays?: string[] | null;
@@ -36,8 +39,11 @@ export const Study = {
       introduction: (data.introduction as string) || null,
       lang: (data.lang as string) || null,
       currentParticipants: (data.currentParticipants as number) || null,
+      startDate: (data.startDate as string) || null,
+      endDate: (data.endDate as string) || null,
       recruitmentStartDate: (data.recruitmentStartDate as string) || null,
       recruitmentEndDate: (data.recruitmentEndDate as string) || null,
+      semesterId: (data.semesterId as number) || null,
       semesterYear: (data.semesterYear as number) || null,
       semesterType: (data.semesterType as 'FIRST' | 'SECOND') || null,
       scheduledDays: (data.scheduledDays as string[]) || null,

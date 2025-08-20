@@ -51,7 +51,12 @@ export default function StudyPage(): React.ReactElement {
         studyData={studyData}
         onEditClick={() => router.push(`/study/${studyId}/edit`)}
       />
-      <TabSection className="pt-8" isAdmin={true} studyId={studyId} />
+      <TabSection
+        className="pt-8"
+        isAdmin={true}
+        studyName={studyData?.name ?? ''}
+        studyId={studyId}
+      />
       <div className="mt-8 flex items-center justify-center gap-4">
         <Button variant="line" className="w-[186px]" onClick={() => router.push('/study')}>
           목록으로
