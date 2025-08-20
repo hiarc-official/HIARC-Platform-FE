@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosInstance, InternalAxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 import { useAuthStore } from '../store/auth-store';
 import { useDialogStore } from '../store/dialog-store';
 import { useErrorStore } from '../store/error-store';
@@ -21,7 +21,7 @@ const apiClient: AxiosInstance = axios.create({
 
 // Pretty Logger (dio style)
 const prettyLog = {
-  request: (config: unknown) => {
+  request: (config: InternalAxiosRequestConfig) => {
     const timestamp = new Date().toLocaleTimeString();
     console.group(`🚀 [${timestamp}] ${config.method?.toUpperCase()} ${config.url}`);
 
@@ -40,10 +40,13 @@ const prettyLog = {
     console.groupEnd();
   },
 
-  response: (response: unknown) => {
+  response: (response: AxiosResponse) => {
     const timestamp = new Date().toLocaleTimeString();
-    const duration = response.config._requestStartTime
-      ? Date.now() - response.config._requestStartTime
+    const configWithTime = response.config as InternalAxiosRequestConfig & {
+      _requestStartTime?: number;
+    };
+    const duration = configWithTime._requestStartTime
+      ? Date.now() - configWithTime._requestStartTime
       : 0;
 
     console.group(
@@ -60,7 +63,7 @@ const prettyLog = {
     console.groupEnd();
   },
 
-  error: (error: unknown) => {
+  error: (error: AxiosError) => {
     const timestamp = new Date().toLocaleTimeString();
     const config = error.config;
     const response = error.response;
@@ -85,7 +88,8 @@ const prettyLog = {
 
 // 요청 인터셉터
 apiClient.interceptors.request.use((config) => {
-  (config as unknown)._requestStartTime = Date.now();
+  const configWithTime = config as InternalAxiosRequestConfig & { _requestStartTime?: number };
+  configWithTime._requestStartTime = Date.now();
   prettyLog.request(config);
   return config;
 });
