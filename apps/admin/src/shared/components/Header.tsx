@@ -22,7 +22,7 @@ export default function Header(): React.ReactElement {
 
   return (
     <header className="w-full items-center justify-between border-b border-gray-200">
-      <div className="mx-auto flex w-full min-w-[600px] max-w-[1200px] items-center gap-6 ">
+      <div className="mx-auto flex w-full min-w-[600px] max-w-[1200px] items-center gap-6 px-5 ">
         <Image src="/shared-assets/Logo.svg" alt="HiarcLogo" width={120} height={30} />
 
         <LabeledSelector
