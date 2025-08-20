@@ -11,10 +11,10 @@ export function StudyListSection({ className }: StudyListSectionProps): React.Re
   const { data: studyList } = useStudiesNow();
 
   return (
-    <div className={cn('flex w-full flex-col gap-8', className)}>
+    <div className={cn('flex w-full flex-col justify-center', className)}>
       <section className="">
         <div className="flex w-full justify-between">
-          <Title size="sm" weight="bold" className="mb-2">
+          <Title size="sm" weight="bold">
             스터디목록
           </Title>
           <button
@@ -25,7 +25,7 @@ export function StudyListSection({ className }: StudyListSectionProps): React.Re
             {'더보기 ->'}
           </button>
         </div>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
           {studyList?.map((study) => (
             <StudyCard
               key={study.studyId}
@@ -41,7 +41,7 @@ export function StudyListSection({ className }: StudyListSectionProps): React.Re
               }
               studyDescription={study.introduction ?? ''}
               state={study.activeStatus ?? 'CLOSED'}
-              time={study.startTime ?? ''}
+              time={study.studyTime ?? ''}
             />
           ))}
         </div>

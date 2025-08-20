@@ -11,12 +11,13 @@ export interface StudyNow {
   isOnline?: boolean | null;
   activeStatus?: 'PREPARING' | 'PRE_OPEN' | 'RECRUITING' | 'IN_PROGRESS' | 'CLOSED' | null;
   isEnrolled?: boolean | null;
+  get studyTime(): string;
 }
 
 export const StudyNow = {
   fromJson(json: unknown): StudyNow {
     const data = (json || {}) as Record<string, unknown>;
-    return {
+    const studyData = {
       studyId: (data.studyId as number) || null,
       studyName: (data.studyName as string) || null,
       instructorId: (data.instructorId as number) || null,
@@ -33,6 +34,43 @@ export const StudyNow = {
         (data.activeStatus as 'PREPARING' | 'PRE_OPEN' | 'RECRUITING' | 'IN_PROGRESS' | 'CLOSED') ||
         null,
       isEnrolled: (data.isEnrolled as boolean) || null,
+    };
+
+    return {
+      ...studyData,
+      get studyTime(): string {
+        const dayMap = {
+          MONDAY: '월',
+          TUESDAY: '화',
+          WEDNESDAY: '수',
+          THURSDAY: '목',
+          FRIDAY: '금',
+          SATURDAY: '토',
+          SUNDAY: '일',
+        };
+
+        if (!this.scheduledDays || this.scheduledDays.length === 0) {
+          return '미정';
+        }
+
+        const days = this.scheduledDays.map((day) => dayMap[day]).join(',');
+
+        if (!this.startTime) {
+          return days;
+        }
+
+        // 시간 포맷팅 (HH:mm:ss -> H시 M분)
+        const [hours, minutes] = this.startTime.split(':');
+        const hour = Number(hours);
+        const minute = Number(minutes);
+
+        let timeStr = `${hour}시`;
+        if (minute > 0) {
+          timeStr += ` ${minute}분`;
+        }
+
+        return `${days} (${timeStr})`;
+      },
     };
   },
 };

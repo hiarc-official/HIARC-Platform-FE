@@ -87,25 +87,11 @@ export const authApi = {
     sessionStorage.setItem('redirectUrl', currentUrl);
 
     const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
-    window.location.href = `${API_BASE_URL}/oauth2/authorization/google`;
-  },
-
-  // Kakao OAuth 로그인 리다이렉트
-  KAKAO_LOGIN: (): void => {
-    const currentUrl = window.location.href;
-    sessionStorage.setItem('redirectUrl', currentUrl);
-
-    const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
-    window.location.href = `${API_BASE_URL}/oauth2/authorization/kakao`;
-  },
-
-  // Naver OAuth 로그인 리다이렉트
-  NAVER_LOGIN: (): void => {
-    const currentUrl = window.location.href;
-    sessionStorage.setItem('redirectUrl', currentUrl);
-
-    const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
-    window.location.href = `${API_BASE_URL}/oauth2/authorization/naver`;
+    // URL에서 host만 추출 (예: https://localhost:3000/login → localhost:3000)
+    const urlObj = new URL(currentUrl);
+    const hostOnly = urlObj.host;
+    const refererParam = encodeURIComponent(hostOnly);
+    window.location.href = `${API_BASE_URL}/oauth2/authorization/google?target_url=${refererParam}`;
   },
 };
 

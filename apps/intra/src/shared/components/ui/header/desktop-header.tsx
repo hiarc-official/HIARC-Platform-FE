@@ -22,9 +22,7 @@ export function DesktopHeader({ isAuthenticated }: DesktopHeaderProps): React.Re
     router.push('/my');
   };
 
-  const isActive = (path: string): boolean => {
-    return pathname.startsWith(`/${path}`);
-  };
+  const isActive = (path: string): boolean => pathname.startsWith(`/${path}`);
 
   return (
     <div className="hidden w-full items-center justify-between md:flex">
@@ -73,7 +71,7 @@ export function DesktopHeader({ isAuthenticated }: DesktopHeaderProps): React.Re
         <Input
           type="search"
           variant="search"
-          placeholder="Placeholder"
+          placeholder="학회원을 검색해보세요"
           className="h-[44px] w-[328px]"
         />
         {isAuthenticated ? (
@@ -81,8 +79,12 @@ export function DesktopHeader({ isAuthenticated }: DesktopHeaderProps): React.Re
             <IconButton
               iconSrc="/shared-assets/User.svg"
               aria-label="프로필"
+              size="lg"
               onClick={handleMyPage}
             />
+            <Button size="sm" className="bg-primary-100">
+              출석체크
+            </Button>
           </div>
         ) : (
           <Button variant="secondary" size="sm" onClick={handleLogin}>

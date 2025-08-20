@@ -1,5 +1,4 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError, InternalAxiosRequestConfig } from 'axios';
-import React from 'react';
+import axios, { AxiosInstance, AxiosResponse, AxiosError, InternalAxiosRequestConfig } from 'axios';
 import { useAuthStore } from '../store/auth-store';
 import { DialogUtil } from '@hiarc-platform/ui';
 
@@ -80,13 +79,12 @@ const prettyLog = {
 };
 
 // 요청 인터셉터
-apiClient.interceptors.request.use(
-  (config: InternalAxiosRequestConfig) => {
-    (config as any)._requestStartTime = Date.now();
-    prettyLog.request(config as InternalAxiosRequestConfig & { _requestStartTime?: number });
-    return config;
-  }
-);
+apiClient.interceptors.request.use((config: InternalAxiosRequestConfig) => {
+  (config as InternalAxiosRequestConfig & { _requestStartTime?: number })._requestStartTime =
+    Date.now();
+  prettyLog.request(config as InternalAxiosRequestConfig & { _requestStartTime?: number });
+  return config;
+});
 
 // 응답 인터셉터
 apiClient.interceptors.response.use(
@@ -97,6 +95,28 @@ apiClient.interceptors.response.use(
   async (error: AxiosError) => {
     prettyLog.error(error);
     const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
+
+    // 에러 응답에서 code 확인
+    const errorData = error.response?.data as { code?: string; message?: string };
+
+    // STUDY4003 에러 처리
+    if (errorData?.code === 'STUDY4003') {
+      try {
+        DialogUtil.showError(
+          undefined,
+          errorData.message || '이 스터디의 수강생이 아닙니다.',
+          () => {
+            if (typeof window !== 'undefined') {
+              window.history.back();
+            }
+          }
+        );
+      } catch (dialogError) {
+        console.warn('DialogUtil failed, using browser alert:', dialogError);
+        alert(errorData.message || '이 스터디의 수강생이 아닙니다.');
+      }
+      return Promise.reject(error);
+    }
 
     // 401 에러 처리 (인증 실패)
     if (error.response?.status === 401 && !originalRequest._retry) {

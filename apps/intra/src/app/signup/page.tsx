@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { BojGuideButton } from '@/features/signup/components/boj-guide-button';
+import { BojGuideButton } from '@/features/auth/components/boj-guide-button/boj-guide-button';
 import useSignUp from '@/features/auth/hooks/use-sign-up';
 import { Grade, AbsenceStatus } from '@/features/auth/types/request/signup-request';
 import {

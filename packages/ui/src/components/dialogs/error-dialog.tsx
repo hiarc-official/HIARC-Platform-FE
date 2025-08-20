@@ -35,19 +35,19 @@ export function ErrorDialog({
   return (
     <Dialog open={true} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="max-w-sm" showBackground={showBackground ?? dialog.showBackground}>
-        <div className="flex flex-col items-center space-y-4 py-2 text-center">
+        <div className="flex flex-col items-center py-2 text-center">
           {/* Error Icon */}
           <Image src="/shared-assets/Error.svg" alt="Error Icon" width={32} height={32} />
 
           {/* Title */}
-          <DialogHeader>
+          <DialogHeader className="mt-6">
             <DialogTitle className="text-lg font-semibold text-gray-900">
               {dialog.title}
             </DialogTitle>
           </DialogHeader>
 
           {/* Content */}
-          <DialogDescription className="text-gray-600">
+          <DialogDescription className="mt-4 text-gray-600">
             {typeof dialog.content === 'string' ? (
               <Label size="md" weight="regular">
                 {dialog.content}
@@ -58,7 +58,7 @@ export function ErrorDialog({
           </DialogDescription>
 
           {/* Button */}
-          <div className="pt-4">
+          <div className="mt-6">
             <Button size="sm" onClick={handleConfirm}>
               <Label>{dialog.confirmText || '닫기'}</Label>
             </Button>

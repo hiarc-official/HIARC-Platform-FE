@@ -27,7 +27,9 @@ export const Schedule = {
       createdAt: data.createdAt ? new Date(data.createdAt as string) : null,
 
       get scheduleTitle(): string {
-        if (!this.studyName) return this.scheduleName || '';
+        if (!this.studyName) {
+          return this.scheduleName || '';
+        }
 
         if (this.announcementType === 'STUDY') {
           if (this.lectureRound !== null && this.lectureRound !== undefined) {

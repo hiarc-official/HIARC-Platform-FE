@@ -18,7 +18,7 @@ export function OnboardingButton({ className }: OnboardingButtonProps): React.Re
         className
       )}
     >
-      <Title className="text-white" size="sm" weight="bold">
+      <Title className="cursor-pointer text-white" size="sm" weight="bold">
         🚀 2025-2학기 HI-ARC 참여하러 가기
       </Title>
     </button>

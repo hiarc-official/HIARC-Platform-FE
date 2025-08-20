@@ -10,6 +10,7 @@ import {
   DialogUtil,
   Label,
   LabeledInput,
+  LabeledCalanderInput,
 } from '@hiarc-platform/ui';
 import React from 'react';
 import useCreateAward from '@/features/award/hooks/use-create-award';
@@ -27,7 +28,7 @@ export function CompetitionDialog({
   const [formData, setFormData] = React.useState({
     organization: '',
     awardName: '',
-    awardDate: '',
+    awardDate: null as Date | null,
     awardDetail: '',
   });
 
@@ -38,7 +39,7 @@ export function CompetitionDialog({
       const createData: CreateAwardRequest = {
         organization: formData.organization,
         awardName: formData.awardName,
-        awardDate: formData.awardDate,
+        awardDate: formData.awardDate ? formData.awardDate.toISOString().split('T')[0] : '',
         awardDetail: formData.awardDetail,
       };
 
@@ -83,11 +84,15 @@ export function CompetitionDialog({
               value={formData.awardName}
               onChange={(value) => setFormData((prev) => ({ ...prev, awardName: value }))}
             />
-            <LabeledInput
+            <LabeledCalanderInput
               label="일시"
-              placeholder="예) 2024-03-15"
+              placeholder="일시를 선택하세요"
               value={formData.awardDate}
-              onChange={(value) => setFormData((prev) => ({ ...prev, awardDate: value }))}
+              onChange={(date) => {
+                // 단일 날짜만 허용 (범위 모드가 아닐 때)
+                const singleDate = Array.isArray(date) ? date[0] : date;
+                setFormData((prev) => ({ ...prev, awardDate: singleDate }));
+              }}
             />
             <LabeledInput
               label="수상 내역"

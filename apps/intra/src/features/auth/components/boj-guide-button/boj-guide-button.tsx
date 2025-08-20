@@ -1,7 +1,4 @@
-import {
-  DialogUtil,
-  Label,
-} from '@hiarc-platform/ui';
+import { DialogUtil, Label } from '@hiarc-platform/ui';
 import { BojGuideDialog } from './boj-guide-dialog';
 
 export function BojGuideButton(): React.ReactElement {
@@ -23,7 +20,7 @@ export function BojGuideButton(): React.ReactElement {
       <Label size="sm" weight="regular" className="text-gray-500">
         혹시 백준이 처음이실까요?
       </Label>
-      <button 
+      <button
         className="ml-2 h-auto p-0 font-pretendard text-xs text-gray-900 underline"
         onClick={handleOpenDialog}
       >

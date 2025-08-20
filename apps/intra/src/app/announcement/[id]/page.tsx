@@ -8,6 +8,7 @@ import {
   BackButton,
   Button,
   PageLayout,
+  LoadingDots,
 } from '@hiarc-platform/ui';
 import { useRouter, useParams } from 'next/navigation';
 
@@ -43,11 +44,23 @@ export default function AnnouncementDetail(): React.ReactElement {
   const { data: announcement, isLoading, error } = useAnnouncement(announcementId);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <PageLayout>
+        <div className="flex min-h-screen items-center justify-center">
+          <LoadingDots size="lg" />
+        </div>
+      </PageLayout>
+    );
   }
 
   if (error || !announcement) {
-    return <div>공지사항을 불러올 수 없습니다.</div>;
+    return (
+      <PageLayout>
+        <div className="flex min-h-screen items-center justify-center">
+          <p className="text-gray-500">공지사항을 불러올 수 없습니다.</p>
+        </div>
+      </PageLayout>
+    );
   }
 
   return (

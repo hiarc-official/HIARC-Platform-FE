@@ -41,132 +41,140 @@ export function LectureList({
 
   return (
     <div className={cn('flex w-full flex-col gap-2', className)}>
-      {lectureList?.map((lecture) => (
-        <LectureListItem
-          isAdmin={isAdmin}
-          isStudent={isStudent}
-          key={lecture.round}
-          lecture={lecture}
-          onTitleClick={() => {}}
-          onAttendanceCheckClick={(onSuccess) => {
-            DialogUtil.showComponent(
-              <AttendanceCheckDialog
-                studyName={studyName ?? ''}
-                round={lecture.round ?? 0}
-                lectureName={lecture.title ?? ''}
-                onCheckAttendance={(attendanceCode: string) => {
-                  checkAttendanceCode(
-                    {
-                      studyId: studyId ?? 0,
-                      lectureRound: lecture.round ?? 0,
-                      attendanceCode,
-                    },
-                    {
-                      onSuccess: () => {
-                        DialogUtil.showSuccess('출석이 완료되었습니다.');
-                        onSuccess();
+      {lectureList && lectureList.length > 0 ? (
+        lectureList.map((lecture) => (
+          <LectureListItem
+            isAdmin={isAdmin}
+            isStudent={isStudent}
+            key={lecture.round}
+            lecture={lecture}
+            onTitleClick={() => {}}
+            onAttendanceCheckClick={(onSuccess) => {
+              DialogUtil.showComponent(
+                <AttendanceCheckDialog
+                  studyName={studyName ?? ''}
+                  round={lecture.round ?? 0}
+                  lectureName={lecture.title ?? ''}
+                  onCheckAttendance={(attendanceCode: string) => {
+                    checkAttendanceCode(
+                      {
+                        studyId: studyId ?? 0,
+                        lectureRound: lecture.round ?? 0,
+                        attendanceCode,
                       },
-                      onError: (error) => {
-                        const errorMessage =
-                          error instanceof Error ? error.message : '출석 체크에 실패했습니다.';
-                        DialogUtil.showError(errorMessage);
+                      {
+                        onSuccess: () => {
+                          DialogUtil.showSuccess('출석이 완료되었습니다.');
+                          onSuccess();
+                        },
+                        onError: (error) => {
+                          const errorMessage =
+                            error instanceof Error ? error.message : '출석 체크에 실패했습니다.';
+                          DialogUtil.showError(errorMessage);
+                        },
+                      }
+                    );
+                  }}
+                />
+              );
+            }}
+            onDoAssignmentClick={() => {
+              DialogUtil.showComponent(
+                <DoAssignmentDialogWrapper
+                  studyId={studyId ?? 0}
+                  lectureId={lecture.round ?? 0}
+                  lectureRound={lecture.round ?? 0}
+                />
+              );
+            }}
+            onCreateAttendanceClick={(onSuccess) => {
+              DialogUtil.showComponent(
+                <CreateAttendanceCodeDialog
+                  studyName={studyName ?? ''}
+                  round={lecture.round ?? 0}
+                  lectureName={lecture.title ?? ''}
+                  onCreateAttendance={(attendanceCode: string) => {
+                    createAttendanceCode(
+                      {
+                        studyId: studyId ?? 0,
+                        lectureId: lecture.round ?? 0,
+                        code: attendanceCode,
                       },
-                    }
-                  );
-                }}
-              />
-            );
-          }}
-          onDoAssignmentClick={(onSuccess) => {
-            DialogUtil.showComponent(
-              <DoAssignmentDialogWrapper
-                studyId={studyId ?? 0}
-                lectureId={lecture.round ?? 0}
-                lectureRound={lecture.round ?? 0}
-              />
-            );
-          }}
-          onCreateAttendanceClick={(onSuccess) => {
-            DialogUtil.showComponent(
-              <CreateAttendanceCodeDialog
-                studyName={studyName ?? ''}
-                round={lecture.round ?? 0}
-                lectureName={lecture.title ?? ''}
-                onCreateAttendance={(attendanceCode: string) => {
-                  createAttendanceCode(
-                    {
-                      studyId: studyId ?? 0,
-                      lectureId: lecture.round ?? 0,
-                      code: attendanceCode,
-                    },
-                    {
-                      onSuccess: () => {
-                        onSuccess();
-                      },
-                      onError: (error) => {
-                        console.error('출석 코드 생성 실패:', error);
-                        // 에러 발생 시 onSuccess를 호출하지 않음
-                      },
-                    }
-                  );
-                }}
-              />
-            );
-          }}
-          onShowAttendanceClick={() => {
-            DialogUtil.showComponent(
-              <ShowAttendanceCodeDialogWrapper
-                studyId={studyId ?? 0}
-                lectureId={lecture.round ?? 0}
-              />
-            );
-          }}
-          onCreateAssignmentClick={(onSuccess) => {
-            DialogUtil.showComponent(
-              <CreateAssignmentDialogWrapper
-                studyId={studyId ?? 0}
-                lectureId={lecture.round ?? 0}
-                isUpdate={false}
-                onSuccess={onSuccess}
-              />
-            );
-          }}
-          onShowAssignmentClick={() => {
-            DialogUtil.showComponent(
-              <CreateAssignmentDialogWrapper
-                studyId={studyId ?? 0}
-                lectureId={lecture.round ?? 0}
-                isUpdate={true}
-              />
-            );
-          }}
-          onEditClick={() => {
-            if (!lecture.announcementId) {
-              console.error('강의 수정 실패: announcementId가 없습니다.');
-              return;
-            }
+                      {
+                        onSuccess: () => {
+                          onSuccess();
+                        },
+                        onError: (error) => {
+                          console.error('출석 코드 생성 실패:', error);
+                          // 에러 발생 시 onSuccess를 호출하지 않음
+                        },
+                      }
+                    );
+                  }}
+                />
+              );
+            }}
+            onShowAttendanceClick={() => {
+              DialogUtil.showComponent(
+                <ShowAttendanceCodeDialogWrapper
+                  studyId={studyId ?? 0}
+                  lectureId={lecture.round ?? 0}
+                />
+              );
+            }}
+            onCreateAssignmentClick={(onSuccess) => {
+              DialogUtil.showComponent(
+                <CreateAssignmentDialogWrapper
+                  studyId={studyId ?? 0}
+                  lectureId={lecture.round ?? 0}
+                  isUpdate={false}
+                  onSuccess={onSuccess}
+                />
+              );
+            }}
+            onShowAssignmentClick={() => {
+              DialogUtil.showComponent(
+                <CreateAssignmentDialogWrapper
+                  studyId={studyId ?? 0}
+                  lectureId={lecture.round ?? 0}
+                  isUpdate={true}
+                />
+              );
+            }}
+            onEditClick={() => {
+              if (!lecture.announcementId) {
+                console.error('강의 수정 실패: announcementId가 없습니다.');
+                return;
+              }
 
-            const params = new URLSearchParams();
-            if (studyId) params.set('studyId', studyId.toString());
-            if (semesterId) params.set('semesterId', semesterId.toString());
+              const params = new URLSearchParams();
+              if (studyId) {
+                params.set('studyId', studyId.toString());
+              }
+              if (semesterId) {
+                params.set('semesterId', semesterId.toString());
+              }
 
-            router.push(`/announcement/${lecture.announcementId}/edit?${params.toString()}`);
-          }}
-          onDeleteClick={() => {
-            if (!lecture.announcementId) {
-              console.error('강의 삭제 실패: announcementId가 없습니다.');
-              return;
-            }
+              router.push(`/announcement/${lecture.announcementId}/edit?${params.toString()}`);
+            }}
+            onDeleteClick={() => {
+              if (!lecture.announcementId) {
+                console.error('강의 삭제 실패: announcementId가 없습니다.');
+                return;
+              }
 
-            DialogUtil.showConfirm('정말로 삭제하시겠습니까?', () => {
-              deleteLecture({
-                studyId: studyId ?? 0,
-                announcementId: lecture.announcementId!,
+              DialogUtil.showConfirm('정말로 삭제하시겠습니까?', () => {
+                deleteLecture({
+                  studyId: studyId ?? 0,
+                  announcementId: lecture.announcementId!,
+                });
               });
-            });
-          }}
-        />
-      ))}
+            }}
+          />
+        ))
+      ) : (
+        <div className="p-4 text-center text-gray-500">커리큘럼이 없습니다.</div>
+      )}
     </div>
   );
 }

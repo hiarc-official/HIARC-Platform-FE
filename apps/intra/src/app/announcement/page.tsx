@@ -28,13 +28,19 @@ export default function AnnouncementList(): React.ReactElement {
     const semesterId = searchParams.get('semesterId');
 
     if (page) {
-      setCurrentPage(parseInt(page, 10));
+      setCurrentPage(Number(page));
     }
 
     const params: Omit<AnnouncementQueryParams, 'page' | 'size'> = {};
-    if (title) params.title = title;
-    if (announcementType) params.announcementType = announcementType as any;
-    if (semesterId) params.semesterId = parseInt(semesterId, 10);
+    if (title) {
+      params.title = title;
+    }
+    if (announcementType) {
+      params.announcementType = announcementType || 'GENERAL';
+    }
+    if (semesterId) {
+      params.semesterId = Number(semesterId);
+    }
 
     setFilterParams(params);
   }, [searchParams]);
@@ -49,7 +55,10 @@ export default function AnnouncementList(): React.ReactElement {
     ...filterParams,
   });
 
-  const updateURL = (page: number, params: Omit<AnnouncementQueryParams, 'page' | 'size'>) => {
+  const updateURL = (
+    page: number,
+    params: Omit<AnnouncementQueryParams, 'page' | 'size'>
+  ): void => {
     const newSearchParams = new URLSearchParams();
 
     if (page > 1) {

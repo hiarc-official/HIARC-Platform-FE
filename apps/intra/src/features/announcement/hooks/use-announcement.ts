@@ -7,6 +7,7 @@ export default function useAnnouncement(id: string): UseQueryResult<Announcement
     queryKey: ['announcement', id],
     queryFn: () => announcementApi.GET_ANNOUNCEMENT(id),
     enabled: Boolean(id),
+    retry: false,
   });
   return query;
 }

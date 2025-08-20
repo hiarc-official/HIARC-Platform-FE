@@ -58,7 +58,7 @@ export const studyApi = {
 
   GET_STUDY_LECTURE: async (studyId: string): Promise<Lecture[]> => {
     const response = await apiClient.get(`/studies/${studyId}/lecture`);
-    return response.data.map((lecture: any) => Lecture.fromJson(lecture));
+    return response.data.map((lecture: unknown) => Lecture.fromJson(lecture));
   },
 
   GET_STUDY_ANNOUNCEMENTS: async (studyId: string): Promise<PageableModel<Announcement>> => {

@@ -1,4 +1,4 @@
-import { cn, Divider, Title } from '@hiarc-platform/ui';
+import { cn, Divider, Label, Title } from '@hiarc-platform/ui';
 import { useMemo, useState, useCallback } from 'react';
 import { addDays, startOfWeek, format } from 'date-fns';
 import CalendarBar from './calendar-bar';
@@ -42,7 +42,7 @@ export function HiarcScheduleSection({
         ? Array.from(
             new Set(
               schedule.schedules
-                .map((s) => s.announcementType?.toLowerCase())
+                .map((schedule) => schedule.announcementType?.toLowerCase())
                 .filter((type): type is string => Boolean(type))
             )
           )
@@ -77,38 +77,47 @@ export function HiarcScheduleSection({
     setSelectedDate(format(newWeekStart, 'yyyy-MM-dd'));
   }, []);
 
-  if (isLoading) {
-    return (
-      <section className={cn('w-full', className)}>
-        <Title size="sm" weight="bold" className="mb-2">
-          학회일정
-        </Title>
-        <div className="p-4 text-center text-gray-500">로딩중...</div>
-      </section>
-    );
-  }
-
   return (
     <section className={cn('w-full', className)}>
-      <Title size="sm" weight="bold" className="mb-2">
-        학회일정
-      </Title>
+      <div className="flex w-full items-center">
+        <Title size="sm" weight="bold" className="whitespace-nowrap">
+          학회일정
+        </Title>
+        <div className="ml-[14px] flex w-full items-center gap-2">
+          <div className="h-2 w-2 rounded-sm bg-category-rating" />
+          <Label size="sm" weight="regular">
+            하이팅
+          </Label>
+          <div className="h-2 w-2 rounded-sm bg-category-study" />
+          <Label size="sm" weight="regular">
+            스터디
+          </Label>
+          <div className="h-2 w-2 rounded-sm bg-category-general" />
+          <Label size="sm" weight="regular">
+            학회 행사
+          </Label>
+        </div>
+      </div>
       <Divider variant="horizontal" size="full" className="mt-4" />
-      <div className="flex max-h-[350px] flex-col gap-2 overflow-y-auto">
-        <CalendarBar
-          data={calendarData}
-          daysToShow={daysToShow}
-          className="mb-7 mt-4"
-          onDateSelect={handleDateSelect}
-          selectedDate={selectedDate}
-          onWeekChange={handleWeekChange}
-          currentWeekStart={currentWeekStart}
-        />
 
-        {selectedSchedules.length > 0 ? (
+      <CalendarBar
+        data={calendarData}
+        daysToShow={daysToShow}
+        className="mb-7 mt-4"
+        onDateSelect={handleDateSelect}
+        selectedDate={selectedDate}
+        onWeekChange={handleWeekChange}
+        currentWeekStart={currentWeekStart}
+      />
+
+      <div className="flex max-h-[242px] flex-col gap-2 overflow-y-auto">
+        {isLoading ? (
+          <div className="p-4 text-center text-gray-500">로딩중...</div>
+        ) : selectedSchedules.length > 0 ? (
           selectedSchedules.map((schedule, index) => (
             <ScheduleListItem
               key={index}
+              schedule={schedule}
               title={schedule.scheduleTitle || '제목 없음'}
               category={schedule.announcementType || 'GENERAL'}
             />
