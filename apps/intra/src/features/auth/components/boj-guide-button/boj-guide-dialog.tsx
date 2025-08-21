@@ -40,9 +40,14 @@ export function BojGuideDialog({ showBackground = true }: BojGuideDialogProps): 
                 className="mb-6"
                 variant="secondary"
                 size="xs"
-                onClick={() => window.open('https://www.acmicpc.net/', '_blank')}
+                onClick={() =>
+                  window.open(
+                    'https://ethereal-wolf-335.notion.site/solved-ac-0c11e694fa6143929554f33f0e183da3',
+                    '_blank'
+                  )
+                }
               >
-                <Label>백준 사이트 바로가기</Label>
+                <Label>소개 바로가기</Label>
                 <Image
                   src="/shared-assets/Open.svg"
                   alt="Link to solved.ac"
@@ -64,9 +69,14 @@ export function BojGuideDialog({ showBackground = true }: BojGuideDialogProps): 
                 className="mb-6"
                 variant="secondary"
                 size="xs"
-                onClick={() => window.open('https://www.acmicpc.net/user/edit', '_blank')}
+                onClick={() =>
+                  window.open(
+                    'https://ethereal-wolf-335.notion.site/6bf4a94a2544439cab519102a725c361?pvs=74',
+                    '_blank'
+                  )
+                }
               >
-                <Label>프로필 설정하기</Label>
+                <Label>가이드 바로가기</Label>
                 <Image
                   src="/shared-assets/Open.svg"
                   alt="Link to solved.ac"
@@ -84,9 +94,14 @@ export function BojGuideDialog({ showBackground = true }: BojGuideDialogProps): 
                 className="mb-6"
                 variant="secondary"
                 size="xs"
-                onClick={() => window.open('https://solved.ac/', '_blank')}
+                onClick={() =>
+                  window.open(
+                    'https://ethereal-wolf-335.notion.site/solved-ac-0c11e694fa6143929554f33f0e183da3?pvs=74',
+                    '_blank'
+                  )
+                }
               >
-                <Label>solved.ac 바로가기</Label>
+                <Label>가이드 바로가기</Label>
                 <Image
                   src="/shared-assets/Open.svg"
                   alt="Link to solved.ac"
