@@ -2,11 +2,11 @@
 
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
-import { Avatar } from './avatar';
-import { Button } from './button';
-import { IconButton } from './icon-button';
-import { Label } from './label/label';
-import { AttendanceTable } from './table/attendance-table';
+import { Avatar } from '../avatar';
+import { Button } from '../button';
+import { IconButton } from '../icon-button';
+import { Label } from '../label/label';
+import { AttendanceTable } from '../table/attendance-table';
 
 interface RoundStatus {
   round?: number | null;

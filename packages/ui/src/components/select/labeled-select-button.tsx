@@ -10,9 +10,9 @@ interface LabeledSelectButtonProps {
   required?: boolean;
   options: SelectOption[];
   value?: string;
+  disabled?: boolean;
   onChange?(value: string): void;
   className?: string;
-  onChange?(value: string): void;
 }
 
 function LabeledSelectButton({
@@ -21,6 +21,7 @@ function LabeledSelectButton({
   required = false,
   options,
   value,
+  disabled = false,
   onChange,
   className = '',
 }: LabeledSelectButtonProps): React.ReactElement {
@@ -43,8 +44,13 @@ function LabeledSelectButton({
           <Button
             key={option.value}
             variant={value === option.value ? 'line' : 'unselected'}
-            onClick={() => onChange?.(option.value)}
-            className="h-11 w-full"
+            disabled={disabled}
+            onClick={() => !disabled && onChange?.(option.value)}
+            className={cn(
+              'h-11 w-full',
+              disabled && value !== option.value && 'cursor-not-allowed opacity-50',
+              disabled && value === option.value && 'cursor-not-allowed opacity-75'
+            )}
           >
             {option.label}
           </Button>

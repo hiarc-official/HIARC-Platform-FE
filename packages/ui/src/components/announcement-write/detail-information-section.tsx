@@ -17,6 +17,8 @@ interface DetailInformationSectionProps {
   initialStudyId?: number;
   initialStudyAnnounceType?: '일반' | '회차별 공지';
   studyOptions?: SelectOption[];
+  disableCategoryChange?: boolean;
+  disableStudyTypeChange?: boolean;
   onSubmit?(data: CreateAnnouncementRequest, isEditMode: boolean, announcementId?: number): void;
 }
 
@@ -27,6 +29,8 @@ export default function DetailInformationSection({
   initialStudyId,
   initialStudyAnnounceType = '일반',
   studyOptions = [],
+  disableCategoryChange = false,
+  disableStudyTypeChange = false,
   onSubmit,
 }: DetailInformationSectionProps): React.ReactElement {
   const isEditMode = Boolean(announcementId);
@@ -235,18 +239,6 @@ export default function DetailInformationSection({
                 }
               }}
             />
-            <LabeledCalanderInput
-              placeholder="종료 일시를 선택해주세요"
-              label="종료 일시"
-              value={scheduleEndAt}
-              showTimeSelect={true}
-              timeIntervals={30}
-              onChange={(val) => {
-                if (!Array.isArray(val)) {
-                  setScheduleEndAt(val);
-                }
-              }}
-            />
           </div>
           <LabeledTextarea
             label="본문"
@@ -284,6 +276,8 @@ export default function DetailInformationSection({
           applicationEndDate={applicationEndDate}
           onApplicationEndDateChange={setApplicationEndDate}
           studyOptions={studyOptions}
+          disableCategoryChange={disableCategoryChange}
+          disableStudyTypeChange={disableStudyTypeChange}
           onSubmit={handleSubmit}
           isLoading={false}
           buttonText={isEditMode ? '수정하기' : '게시하기'}

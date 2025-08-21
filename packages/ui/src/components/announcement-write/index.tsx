@@ -8,6 +8,8 @@ export interface AnnouncementWriteProps {
   initialStudyId?: number;
   initialStudyAnnounceType?: '일반' | '회차별 공지';
   studyOptions?: SelectOption[];
+  disableCategoryChange?: boolean;
+  disableStudyTypeChange?: boolean;
   onSubmit?(data: CreateAnnouncementRequest, isEditMode: boolean, announcementId?: number): void;
 }
 
@@ -18,6 +20,8 @@ export default function AnnouncementWrite({
   initialStudyId,
   initialStudyAnnounceType,
   studyOptions,
+  disableCategoryChange = false,
+  disableStudyTypeChange = false,
   onSubmit,
 }: AnnouncementWriteProps): React.ReactElement {
   return (
@@ -31,6 +35,8 @@ export default function AnnouncementWrite({
             initialStudyId={initialStudyId}
             initialStudyAnnounceType={initialStudyAnnounceType}
             studyOptions={studyOptions}
+            disableCategoryChange={disableCategoryChange}
+            disableStudyTypeChange={disableStudyTypeChange}
             onSubmit={onSubmit}
           />
         </div>

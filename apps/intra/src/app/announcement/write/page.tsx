@@ -74,6 +74,8 @@ export default function WriteAnnouncementPage(): React.ReactElement {
         initialAnnouncementType={initialType || 'GENERAL'}
         initialStudyId={initialStudyId ? Number(initialStudyId) : undefined}
         initialStudyAnnounceType={isLecture ? '회차별 공지' : '일반'}
+        disableCategoryChange={true}
+        disableStudyTypeChange={true}
         onSubmit={handleSubmit}
       />
     </PageLayout>

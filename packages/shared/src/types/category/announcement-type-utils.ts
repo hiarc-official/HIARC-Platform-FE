@@ -72,3 +72,13 @@ export function getAnnouncementTypeColor(category: AnnnouncementType): string {
 export function getAnnouncementTypeBgColor(category: AnnnouncementType): string {
   return ANNOUNCEMENT_TYPE_INFO_MAP[category].bgColor;
 }
+
+/**
+ * 문자열을 AnnouncementType으로 변환
+ */
+export function getAnnouncementTypeFromString(typeString: string): AnnnouncementType {
+  const typeValues = Object.values(AnnnouncementType) as string[];
+  return typeValues.includes(typeString)
+    ? (typeString as AnnnouncementType)
+    : AnnnouncementType.ETC;
+}

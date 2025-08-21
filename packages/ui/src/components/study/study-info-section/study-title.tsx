@@ -2,12 +2,14 @@ import { Study } from '@hiarc-platform/shared';
 import { Button, Label, StudyStatusChip, Title } from '@hiarc-platform/ui';
 
 interface StudyTitleProps {
+  isAdmin?: boolean;
   studyData?: Study | null;
   onEditClick?(): void;
   onApplyClick?(): void;
 }
 
 export function StudyTitle({
+  isAdmin = false,
   studyData,
   onEditClick,
   onApplyClick,
@@ -53,7 +55,7 @@ export function StudyTitle({
               </Label>
             </div>
           )}
-          {studyData?.isInstructor && (
+          {(isAdmin || studyData?.isInstructor) && (
             <Button size="md" className="ml-6" variant="line" onClick={onEditClick}>
               수정하기
             </Button>

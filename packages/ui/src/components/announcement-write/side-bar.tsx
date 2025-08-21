@@ -21,6 +21,8 @@ interface SideBarProps {
   applicationEndDate: Date | null;
   onApplicationEndDateChange(value: Date | null): void;
   studyOptions?: SelectOption[];
+  disableCategoryChange?: boolean;
+  disableStudyTypeChange?: boolean;
   onSubmit(): void;
   isLoading: boolean;
   buttonText?: string;
@@ -40,6 +42,8 @@ export function SideBar({
   applicationEndDate,
   onApplicationEndDateChange,
   studyOptions = [],
+  disableCategoryChange = false,
+  disableStudyTypeChange = false,
   onSubmit,
   isLoading,
   buttonText = '게시하기',
@@ -83,6 +87,7 @@ export function SideBar({
             options={categoryOptionList}
             label="카테고리"
             value={formData.announcementType}
+            disabled={disableCategoryChange}
             onChange={(value: string) =>
               onFormDataChange({
                 announcementType: value as 'STUDY' | 'RATING' | 'GENERAL' | 'ETC' | 'EXTERNAL',
@@ -98,6 +103,7 @@ export function SideBar({
               label="스터디선택"
               showLabel={false}
               value={formData.studyId?.toString() || ''}
+              disabled={disableCategoryChange}
               onChange={(value: string) => {
                 const studyId = value ? Number(value) : undefined;
                 onFormDataChange({ studyId });
@@ -115,6 +121,7 @@ export function SideBar({
               required={true}
               value={studyAnnounceType}
               options={studyAnnounceTypeOptionList}
+              disabled={disableStudyTypeChange}
               onChange={onStudyAnnounceTypeChange}
             />
 

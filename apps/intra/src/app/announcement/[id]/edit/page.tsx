@@ -124,6 +124,8 @@ export default function EditAnnouncementPage(): React.ReactElement {
         initialStudyId={studyId || announcement?.studyId || 0}
         announcement={announcement}
         studyOptions={studyOptions || []}
+        disableCategoryChange={true}
+        disableStudyTypeChange={true}
         onSubmit={handleSubmit}
       />
     </PageLayout>

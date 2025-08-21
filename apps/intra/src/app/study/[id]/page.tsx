@@ -1,11 +1,18 @@
 'use client';
 
-import { BackButton, Button, PageLayout, LoadingDots, DialogUtil } from '@hiarc-platform/ui';
+import {
+  BackButton,
+  Button,
+  PageLayout,
+  LoadingDots,
+  DialogUtil,
+  StudyInfoSection,
+} from '@hiarc-platform/ui';
 import { useRouter, useParams } from 'next/navigation';
 import useStudy from '@/features/study/hooks/use-study';
 import useApplyToStudy from '@/features/study/hooks/use-apply-to-study';
 import React, { useState, useEffect } from 'react';
-import { StudyInfoSection } from '@/features/study/components/study-info-section';
+
 import { TabSection } from '@/features/study/components/tab-section';
 
 export default function StudyPage(): React.ReactElement {

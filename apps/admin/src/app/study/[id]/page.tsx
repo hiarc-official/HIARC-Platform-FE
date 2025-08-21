@@ -1,8 +1,7 @@
 'use client';
 
-import { StudyInfoSection } from '@/features/study/components/study-info-section';
 import { TabSection } from '@/features/study/components/tab-section';
-import { BackButton, Button, PageLayout, LoadingDots } from '@hiarc-platform/ui';
+import { BackButton, Button, PageLayout, LoadingDots, StudyInfoSection } from '@hiarc-platform/ui';
 import { useRouter, useParams } from 'next/navigation';
 import { useStudy } from '@/features/study/hooks';
 import React, { useState, useEffect } from 'react';
@@ -48,6 +47,7 @@ export default function StudyPage(): React.ReactElement {
       <BackButton onClick={() => router.back()} />
       <StudyInfoSection
         className="pt-5"
+        isAdmin={true}
         studyData={studyData}
         onEditClick={() => router.push(`/study/${studyId}/edit`)}
       />
