@@ -9,7 +9,7 @@ const inputVariants = cva(
     'focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]',
     'file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-md file:font-medium',
     'disabled:cursor-not-allowed disabled:opacity-50 disabled:pointer-events-none',
-    'placeholder-gray-500'
+    'placeholder-gray-500 placeholder:text-md placeholder:font-normal'
   ),
   {
     variants: {

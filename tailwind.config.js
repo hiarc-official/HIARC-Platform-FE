@@ -37,6 +37,7 @@ module.exports = {
     'animation-delay-150',
     'animation-delay-300',
     'animate-bounce-up',
+    'placeholder:text-md',
     'hidden',
     'ml-[14px]',
     'block',

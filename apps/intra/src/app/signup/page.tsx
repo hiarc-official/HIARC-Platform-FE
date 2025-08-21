@@ -3,9 +3,11 @@
 import { useState } from 'react';
 import { BojGuideButton } from '@/features/auth/components/boj-guide-button/boj-guide-button';
 import useSignUp from '@/features/auth/hooks/use-sign-up';
+import useHandleValidation from '@/features/auth/hooks/use-handle-validation';
 import { Grade, AbsenceStatus } from '@/features/auth/types/request/signup-request';
 import {
   Button,
+  Label,
   LabeledInput,
   LabeledSelectButton,
   LabeledSelector,
@@ -82,8 +84,12 @@ export default function SignUpPage(): React.ReactElement {
     bojHandle: '',
   });
 
+  const [isCustomDepartment, setIsCustomDepartment] = useState(false);
+
   const [isHandleValidated, setIsHandleValidated] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
+  
+  const handleValidationMutation = useHandleValidation();
 
   const validateField = (field: keyof FormErrors, value: string): string | undefined => {
     switch (field) {
@@ -147,7 +153,17 @@ export default function SignUpPage(): React.ReactElement {
   };
 
   const handleValidateHandle = (): void => {
-    setIsHandleValidated(true);
+    if (!formData.bojHandle || formData.bojHandle.length < 3) {
+      return;
+    }
+
+    handleValidationMutation.mutate(formData.bojHandle, {
+      onSuccess: (data) => {
+        if (data.isAvailable) {
+          setIsHandleValidated(true);
+        }
+      },
+    });
   };
 
   const handleSubmit = (): void => {
@@ -221,9 +237,27 @@ export default function SignUpPage(): React.ReactElement {
             placeholder="학과을 입력해주세요"
             required={true}
             options={departmentOptions}
-            value={formData.department}
-            onChange={(value: string) => handleInputChange('department')(value)}
+            value={isCustomDepartment ? '기타' : formData.department}
+            onChange={(value: string) => {
+              if (value === '기타') {
+                setIsCustomDepartment(true);
+                handleInputChange('department')('');
+              } else {
+                setIsCustomDepartment(false);
+                handleInputChange('department')(value);
+              }
+            }}
           />
+          {isCustomDepartment && (
+            <LabeledInput
+              label="학과명"
+              required={true}
+              placeholder="학과명을 입력해주세요"
+              value={formData.department}
+              onChange={(value: string) => handleInputChange('department')(value)}
+              error={errors.department}
+            />
+          )}
           <LabeledSelectButton
             label="복수전공 여부"
             required={true}
@@ -251,10 +285,15 @@ export default function SignUpPage(): React.ReactElement {
             }}
           />
           <div className="flex w-full flex-col gap-1">
-            <div className="flex w-full items-end gap-2">
+            <div className="flex w-full">
+              <Label size="md" weight="medium">
+                백준 핸들
+              </Label>
+              <span className="relative -top-[2px] ml-0.5 text-red">*</span>
+            </div>
+            <div className="flex w-full items-start gap-2">
               <LabeledInput
-                label="BOJ"
-                required={true}
+                label=""
                 placeholder="백준 핸들을 입력해주세요"
                 value={formData.bojHandle}
                 onChange={(value) => handleInputChange('bojHandle')(value)}
@@ -264,9 +303,15 @@ export default function SignUpPage(): React.ReactElement {
                 variant="fill"
                 size="md"
                 onClick={handleValidateHandle}
-                disabled={!formData.bojHandle}
+                disabled={
+                  !formData.bojHandle ||
+                  formData.bojHandle.length < 3 ||
+                  handleValidationMutation.isPending ||
+                  isHandleValidated
+                }
+                className="mt-2"
               >
-                {isHandleValidated ? '인증완료' : '인증하기'}
+                {handleValidationMutation.isPending ? '확인중...' : isHandleValidated ? '인증완료' : '인증하기'}
               </Button>
             </div>
             <BojGuideButton />

@@ -6,33 +6,20 @@ import {
   DialogHeader,
   DialogTitle,
   DialogUtil,
+  Label,
 } from '@hiarc-platform/ui';
+import Image from 'next/image';
 
 interface BojGuideDialogProps {
-  onSave?(): Promise<void>;
-  onCancel?(): void;
   showBackground?: boolean;
 }
 
-export function BojGuideDialog({
-  onSave,
-  onCancel,
-  showBackground = true,
-}: BojGuideDialogProps): React.ReactElement {
+export function BojGuideDialog({ showBackground = true }: BojGuideDialogProps): React.ReactElement {
   const handleConfirm = async (): Promise<void> => {
-    try {
-      if (onSave) {
-        await onSave();
-      }
-      DialogUtil.hideAllDialogs();
-    } catch (error) {
-      console.error('확인 실패:', error);
-      throw error;
-    }
+    DialogUtil.hideAllDialogs();
   };
 
   const handleCancel = (): void => {
-    onCancel?.();
     DialogUtil.hideAllDialogs();
   };
 
@@ -43,17 +30,74 @@ export function BojGuideDialog({
           <DialogTitle>백준 가이드</DialogTitle>
         </DialogHeader>
         <DialogDescription asChild>
-          <ol className="mt-2 list-decimal space-y-4 pl-5">
-            <li>백준(BOJ)과 solved.ac에 관해 알아보기</li>
-            <li>
-              백준 사이트에 가입한 후, 소속 학교를 홍익대학교로 설정해주세요.
-              <br />
-              학회 활동 시 활용될 예정입니다.
-            </li>
-            <li>solved.ac에 가입할 때, 백준 핸들을 연동하여 가입을 완료해주세요.</li>
-          </ol>
+          <div className="mt-2 space-y-6">
+            <div>
+              <div className="mb-2 flex">
+                <Label className="mr-2 font-medium">1.</Label>
+                <Label>백준(BOJ)과 solved.ac에 관해 알아보기</Label>
+              </div>
+              <Button
+                className="mb-6"
+                variant="secondary"
+                size="xs"
+                onClick={() => window.open('https://www.acmicpc.net/', '_blank')}
+              >
+                <Label>백준 사이트 바로가기</Label>
+                <Image
+                  src="/shared-assets/Open.svg"
+                  alt="Link to solved.ac"
+                  width={16}
+                  height={16}
+                />
+              </Button>
+            </div>
+            <div>
+              <div className="mb-2 flex">
+                <Label className="mr-2 font-medium">2.</Label>
+                <Label>
+                  백준 사이트에 가입한 후, 소속 학교를 홍익대학교로 설정해주세요.
+                  <br />
+                  학회 활동 시 활용될 예정입니다.
+                </Label>
+              </div>
+              <Button
+                className="mb-6"
+                variant="secondary"
+                size="xs"
+                onClick={() => window.open('https://www.acmicpc.net/user/edit', '_blank')}
+              >
+                <Label>프로필 설정하기</Label>
+                <Image
+                  src="/shared-assets/Open.svg"
+                  alt="Link to solved.ac"
+                  width={16}
+                  height={16}
+                />
+              </Button>
+            </div>
+            <div>
+              <div className="mb-2 flex">
+                <Label className="mr-2 font-medium">3.</Label>
+                <Label>solved.ac에 가입할 때, 백준 핸들을 연동하여 가입을 완료해주세요.</Label>
+              </div>
+              <Button
+                className="mb-6"
+                variant="secondary"
+                size="xs"
+                onClick={() => window.open('https://solved.ac/', '_blank')}
+              >
+                <Label>solved.ac 바로가기</Label>
+                <Image
+                  src="/shared-assets/Open.svg"
+                  alt="Link to solved.ac"
+                  width={16}
+                  height={16}
+                />
+              </Button>
+            </div>
+          </div>
         </DialogDescription>
-        <Button className="mt-4 w-full" onClick={handleConfirm}>
+        <Button className="w-full" onClick={handleConfirm}>
           확인
         </Button>
       </DialogContent>

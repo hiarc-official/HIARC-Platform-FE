@@ -3,16 +3,7 @@ import { BojGuideDialog } from './boj-guide-dialog';
 
 export function BojGuideButton(): React.ReactElement {
   const handleOpenDialog = (): void => {
-    DialogUtil.showComponent(
-      <BojGuideDialog
-        onSave={async () => {
-          console.log('BOJ guide dialog confirmed');
-        }}
-        onCancel={() => {
-          console.log('BOJ guide dialog cancelled');
-        }}
-      />
-    );
+    DialogUtil.showComponent(<BojGuideDialog />);
   };
 
   return (

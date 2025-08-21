@@ -10,8 +10,13 @@ interface MyInfoResponse {
 }
 
 interface ValidHandleResponse {
-  isValid: boolean;
+  isAvailable?: boolean;
   message?: string;
+}
+
+interface RecruitApplicationResponse {
+  description?: string;
+  greetingDescription?: string;
 }
 
 export const authApi = {
@@ -70,10 +75,9 @@ export const authApi = {
   CHECK_HANDLE_VALIDITY: async (handle: string): Promise<ValidHandleResponse> => {
     console.log('[AUTH API] CHECK_HANDLE_VALIDITY 요청:', { handle });
     try {
-      const response = await apiClient.get<ValidHandleResponse>('/auth/valid-handle', {
-        params: { handle },
-      });
-      console.log('[AUTH API] CHECK_HANDLE_VALIDITY 응답:', response.data);
+      const response = await apiClient.post<ValidHandleResponse>(
+        `/auth/valid-handle?bojHandle=${handle}`
+      );
       return response.data;
     } catch (error) {
       console.error('[AUTH API] CHECK_HANDLE_VALIDITY 에러:', error);
@@ -92,6 +96,17 @@ export const authApi = {
     const hostOnly = urlObj.host;
     const refererParam = encodeURIComponent(hostOnly);
     window.location.href = `${API_BASE_URL}/oauth2/authorization/google?target_url=${refererParam}`;
+  },
+
+  RECRUIT_APPLICATION: async (): Promise<RecruitApplicationResponse> => {
+    console.log('[AUTH API] RECRUIT_APPLICATION 요청');
+    try {
+      const response = await apiClient.get<RecruitApplicationResponse>('/recruitment/application');
+      return response.data;
+    } catch (error) {
+      console.error('[AUTH API] RECRUIT_APPLICATION 에러:', error);
+      throw error;
+    }
   },
 };
 
