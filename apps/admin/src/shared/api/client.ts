@@ -55,7 +55,12 @@ const prettyLog = {
 
     if (response.data) {
       console.log('📥 Response Data:');
-      console.log(JSON.stringify(response.data, null, 2));
+      // Blob 데이터는 JSON.stringify하면 안되므로 체크
+      if (response.config.responseType === 'blob') {
+        console.log('Blob 데이터 (크기:', response.data.size, 'bytes)');
+      } else {
+        console.log(JSON.stringify(response.data, null, 2));
+      }
     }
 
     console.log('📊 Response Headers:');
