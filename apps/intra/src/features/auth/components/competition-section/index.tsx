@@ -14,17 +14,9 @@ export function CompetitionSection({
   className,
 }: CompetitionSectionProps): React.ReactElement {
   const handleOpenDialog = (): void => {
-    DialogUtil.showComponent(
-      <CompetitionDialog
-        onSave={() => {
-          DialogUtil.showSuccess('대회 정보가 성공적으로 저장되었습니다.');
-        }}
-        onCancel={() => {
-          console.log('Competition dialog cancelled');
-        }}
-      />,
-      { showBackground: false }
-    );
+    DialogUtil.showComponent(<CompetitionDialog onSave={() => {}} onCancel={() => {}} />, {
+      showBackground: false,
+    });
   };
 
   console.log('Award List:', awardList);

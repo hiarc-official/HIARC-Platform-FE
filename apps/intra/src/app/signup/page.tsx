@@ -54,7 +54,7 @@ const doubleMajorOptions: SelectData[] = [
 
 const absenceStatusOptions: SelectData[] = [
   { value: AbsenceStatus.ENROLLED, label: '재학 중' },
-  { value: AbsenceStatus.ON_LEAVE, label: '휴학 중' },
+  { value: AbsenceStatus.ON_LEAVE, label: '일반 휴학' },
   { value: AbsenceStatus.MILITARY_LEAVE, label: '군휴학' },
 ];
 
@@ -88,7 +88,7 @@ export default function SignUpPage(): React.ReactElement {
 
   const [isHandleValidated, setIsHandleValidated] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
-  
+
   const handleValidationMutation = useHandleValidation();
 
   const validateField = (field: keyof FormErrors, value: string): string | undefined => {
@@ -205,8 +205,8 @@ export default function SignUpPage(): React.ReactElement {
       className="mx-auto max-w-[470px] items-center justify-center gap-4"
       desktopChildren={
         <div className="flex w-full flex-col gap-4">
-          <Title size="sm" weight="bold" className="text-gray-900">
-            회원가입
+          <Title size="sm" weight="bold" className="justify-center text-gray-900">
+            가입하기
           </Title>
           <LabeledInput
             label="이름"
@@ -219,9 +219,20 @@ export default function SignUpPage(): React.ReactElement {
           <LabeledInput
             label="전화번호"
             required={true}
-            placeholder="-없이 숫자만 입력해주세요"
+            placeholder="010-0000-0000"
             value={formData.phoneAddress}
-            onChange={(value: string) => handleInputChange('phoneAddress')(value)}
+            onChange={(value: string) => {
+              const numbersOnly = value.replace(/\D/g, '');
+              let formatted = numbersOnly;
+              
+              if (numbersOnly.length > 3 && numbersOnly.length <= 7) {
+                formatted = `${numbersOnly.slice(0, 3)}-${numbersOnly.slice(3)}`;
+              } else if (numbersOnly.length > 7) {
+                formatted = `${numbersOnly.slice(0, 3)}-${numbersOnly.slice(3, 7)}-${numbersOnly.slice(7, 11)}`;
+              }
+              
+              handleInputChange('phoneAddress')(formatted);
+            }}
             error={errors.phoneAddress}
           />
           <LabeledInput
@@ -311,7 +322,11 @@ export default function SignUpPage(): React.ReactElement {
                 }
                 className="mt-2"
               >
-                {handleValidationMutation.isPending ? '확인중...' : isHandleValidated ? '인증완료' : '인증하기'}
+                {handleValidationMutation.isPending
+                  ? '확인중...'
+                  : isHandleValidated
+                    ? '인증완료'
+                    : '인증하기'}
               </Button>
             </div>
             <BojGuideButton />

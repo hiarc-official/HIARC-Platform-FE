@@ -30,11 +30,15 @@ export function BojGuideDialog({ showBackground = true }: BojGuideDialogProps): 
           <DialogTitle>백준 가이드</DialogTitle>
         </DialogHeader>
         <DialogDescription asChild>
-          <div className="mt-2 space-y-6">
-            <div>
+          <>
+            <div className="mt-6">
               <div className="mb-2 flex">
-                <Label className="mr-2 font-medium">1.</Label>
-                <Label>백준(BOJ)과 solved.ac에 관해 알아보기</Label>
+                <Label size="lg" weight="regular" className="mr-2">
+                  1.
+                </Label>
+                <Label size="lg" weight="regular">
+                  백준(BOJ)과 solved.ac에 관해 알아보기
+                </Label>
               </div>
               <Button
                 className="mb-6"
@@ -58,11 +62,12 @@ export function BojGuideDialog({ showBackground = true }: BojGuideDialogProps): 
             </div>
             <div>
               <div className="mb-2 flex">
-                <Label className="mr-2 font-medium">2.</Label>
-                <Label>
-                  백준 사이트에 가입한 후, 소속 학교를 홍익대학교로 설정해주세요.
-                  <br />
-                  학회 활동 시 활용될 예정입니다.
+                <Label size="lg" weight="regular" className="mr-2">
+                  2.
+                </Label>
+                <Label size="lg" weight="regular">
+                  백준 사이트에 가입한 후, 소속 학교를 &#39;홍익대학교&#39;로 설정해주세요. 학회
+                  활동 시 활용될 예정입니다.
                 </Label>
               </div>
               <Button
@@ -87,8 +92,12 @@ export function BojGuideDialog({ showBackground = true }: BojGuideDialogProps): 
             </div>
             <div>
               <div className="mb-2 flex">
-                <Label className="mr-2 font-medium">3.</Label>
-                <Label>solved.ac에 가입할 때, 백준 핸들을 연동하여 가입을 완료해주세요.</Label>
+                <Label size="lg" weight="regular" className="mr-2">
+                  3.
+                </Label>
+                <Label size="lg" weight="regular">
+                  solved.ac에 가입할 때, 백준 핸들을 연동하여 가입을 완료해주세요.
+                </Label>
               </div>
               <Button
                 className="mb-6"
@@ -110,10 +119,10 @@ export function BojGuideDialog({ showBackground = true }: BojGuideDialogProps): 
                 />
               </Button>
             </div>
-          </div>
+          </>
         </DialogDescription>
         <Button className="w-full" onClick={handleConfirm}>
-          확인
+          <Label size="md">확인</Label>
         </Button>
       </DialogContent>
     </Dialog>

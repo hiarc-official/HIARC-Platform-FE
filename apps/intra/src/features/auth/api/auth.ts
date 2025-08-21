@@ -14,7 +14,7 @@ interface ValidHandleResponse {
   message?: string;
 }
 
-interface RecruitApplicationResponse {
+export interface RecruitApplicationResponse {
   description?: string;
   greetingDescription?: string;
 }

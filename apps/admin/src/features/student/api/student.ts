@@ -82,16 +82,19 @@ export const studentApi = {
       adminRole,
     });
   },
+
   DELETE_ADMIN: async (memberId: number, semesterId: number): Promise<void> => {
     await apiClient.delete(`/admin/members/admin/${memberId}`, {
       data: { semesterId },
     });
   },
+
   DELETE_MEMBER: async (memberId: number): Promise<void> => {
-    await apiClient.delete(`/admin/members/${memberId}`);
+    await apiClient.post(`/admin/members/${memberId}/withdraw`);
   },
+
   DOWNLOAD_EXCEL: async (semesterId: number): Promise<void> => {
-    await apiClient.get(`/admin/members/excel/download`, {
+    await apiClient.get('/admin/members/excel/download', {
       params: { semesterId },
     });
   },

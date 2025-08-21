@@ -99,25 +99,6 @@ apiClient.interceptors.response.use(
     // 에러 응답에서 code 확인
     const errorData = error.response?.data as { code?: string; message?: string };
 
-    // STUDY4003 에러 처리
-    if (errorData?.code === 'STUDY4003') {
-      try {
-        DialogUtil.showError(
-          undefined,
-          errorData.message || '이 스터디의 수강생이 아닙니다.',
-          () => {
-            if (typeof window !== 'undefined') {
-              window.history.back();
-            }
-          }
-        );
-      } catch (dialogError) {
-        console.warn('DialogUtil failed, using browser alert:', dialogError);
-        alert(errorData.message || '이 스터디의 수강생이 아닙니다.');
-      }
-      return Promise.reject(error);
-    }
-
     // 401 에러 처리 (인증 실패)
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
@@ -129,17 +110,6 @@ apiClient.interceptors.response.use(
 
       // localStorage도 완전히 정리
       localStorage.removeItem('auth-storage');
-
-      // 다이얼로그로 알림 표시 (리다이렉트 대신)
-      try {
-        DialogUtil.showError('로그인이 만료되었습니다. 다시 로그인하시겠습니까?');
-      } catch (dialogError) {
-        // DialogUtil이 실패하면 기본 alert 사용
-        console.warn('DialogUtil failed, using browser alert:', dialogError);
-        if (window.confirm('로그인이 만료되었습니다. 다시 로그인하시겠습니까?')) {
-          window.location.href = '/login';
-        }
-      }
 
       return Promise.reject(error);
     }

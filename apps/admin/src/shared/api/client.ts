@@ -111,66 +111,21 @@ apiClient.interceptors.response.use(
     const originalRequest = error.config;
 
     const { clearAuth } = useAuthStore.getState();
-    const { showUnauthorizedDialog } = useDialogStore.getState();
-    const { isHandling401, isHandling403, set401Handling, set403Handling } =
-      useErrorStore.getState();
 
-    // 401 (인증 실패) → 다이얼로그 표시
-    if (error.response?.status === 401 && !originalRequest._retry && !isHandling401) {
+    // 401 (인증 실패)
+    if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
-      set401Handling(true);
 
       clearAuth();
       localStorage.removeItem('auth-storage');
 
-      // 다이얼로그 표시 (홈으로 리다이렉트는 다이얼로그에서 처리)
-      showUnauthorizedDialog();
-
-      // 5초 후 플래그 리셋 (다이얼로그 처리 완료 후)
-      setTimeout(() => {
-        set401Handling(false);
-      }, 5000);
-
       return Promise.reject(error);
     }
 
-    // 403 (권한 없음) → 다이얼로그 표시
-    if (error.response?.status === 403) {
-      // 이미 처리 중이면 에러를 조용히 무시
-      if (isHandling403) {
-        console.log('403 에러 이미 처리 중 - 무시');
-        return Promise.resolve({
-          data: null,
-          status: 403,
-          statusText: 'Forbidden',
-          headers: {},
-          config: originalRequest,
-        });
-      }
-
-      // 첫 번째 403 에러만 처리
-      if (!originalRequest._retry) {
-        originalRequest._retry = true;
-        set403Handling(true);
-
-        console.log('403 에러 처리: 다이얼로그 표시');
-
-        // 다이얼로그 표시
-        showUnauthorizedDialog();
-
-        // 5초 후 플래그 리셋
-        setTimeout(() => {
-          set403Handling(false);
-        }, 5000);
-
-        return Promise.resolve({
-          data: null,
-          status: 403,
-          statusText: 'Forbidden',
-          headers: {},
-          config: originalRequest,
-        });
-      }
+    // 403 (권한 없음)
+    if (error.response?.status === 403 && !originalRequest._retry) {
+      originalRequest._retry = true;
+      return Promise.reject(error);
     }
 
     return Promise.reject(error);
