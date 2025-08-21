@@ -1,7 +1,7 @@
 'use client';
 
 import { LoadingDots } from '@hiarc-platform/ui';
-import useOAuthCallback from '../../../features/auth/hooks/use-oauth-callback';
+import useOAuthCallback from '../../../features/auth/hooks/callback/use-oauth-callback';
 
 export default function OAuthCallbackPage(): React.ReactElement {
   const { isProcessing } = useOAuthCallback();

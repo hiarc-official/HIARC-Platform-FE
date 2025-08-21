@@ -27,24 +27,28 @@ export function StudySection({ className }: StudySectionProps): React.ReactEleme
   const { data: myStudyInfo } = useMyStudyInfo(selectedStudyId || 0);
 
   // 스터디 목록을 SelectOption으로 변환
-  const studyOptions: SelectOption[] = useMemo(() => {
-    return myStudies.map((study) => ({
-      value: study.studyId?.toString() || '',
-      label: study.name || '',
-    }));
-  }, [myStudies]);
+  const studyOptions: SelectOption[] = useMemo(
+    () =>
+      myStudies.map((study) => ({
+        value: study.studyId?.toString() || '',
+        label: study.name || '',
+      })),
+    [myStudies]
+  );
 
   // RoundStatus를 boolean 배열로 변환
-  const attendanceStatus: boolean[] = useMemo(() => {
-    return myStudyInfo?.roundStatuses?.map((status) => status.attendanceCompleted || false) || [];
-  }, [myStudyInfo?.roundStatuses]);
+  const attendanceStatus: boolean[] = useMemo(
+    () => myStudyInfo?.roundStatuses?.map((status) => status.attendanceCompleted || false) || [],
+    [myStudyInfo?.roundStatuses]
+  );
 
-  const assignmentStatus: boolean[] = useMemo(() => {
-    return myStudyInfo?.roundStatuses?.map((status) => status.assignmentCompleted || false) || [];
-  }, [myStudyInfo?.roundStatuses]);
+  const assignmentStatus: boolean[] = useMemo(
+    () => myStudyInfo?.roundStatuses?.map((status) => status.assignmentCompleted || false) || [],
+    [myStudyInfo?.roundStatuses]
+  );
 
   // 탭 변경 시 선택된 스터디 초기화
-  const handleTabChange = (newTab: string) => {
+  const handleTabChange = (newTab: string): void => {
     setTab(newTab);
     setSelectedStudyId(null);
   };

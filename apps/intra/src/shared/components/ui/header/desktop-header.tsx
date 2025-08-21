@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import { IconButton } from '@hiarc-platform/ui';
 import { StudyAttendanceDialog } from '@/features/study/components/study-attendance-dialog';
-import useLogout from '@/features/auth/hooks/use-logout';
+import useLogout from '@/features/auth/hooks/mutation/use-logout';
 
 interface DesktopHeaderProps {
   isAuthenticated: boolean;
@@ -35,7 +35,7 @@ export function DesktopHeader({ isAuthenticated }: DesktopHeaderProps): React.Re
       {
         title: '로그아웃',
         confirmText: '로그아웃',
-        cancelText: '취소'
+        cancelText: '취소',
       }
     );
   };

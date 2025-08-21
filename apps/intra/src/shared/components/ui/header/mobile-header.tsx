@@ -4,7 +4,7 @@ import { Button, cn, IconButton, Input, DialogUtil } from '@hiarc-platform/ui';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import useLogout from '@/features/auth/hooks/use-logout';
+import useLogout from '@/features/auth/hooks/mutation/use-logout';
 import { StudyAttendanceDialog } from '@/features/study/components/study-attendance-dialog';
 
 interface MobileHeaderProps {
@@ -39,7 +39,7 @@ export function MobileHeader({
       {
         title: '로그아웃',
         confirmText: '로그아웃',
-        cancelText: '취소'
+        cancelText: '취소',
       }
     );
   };

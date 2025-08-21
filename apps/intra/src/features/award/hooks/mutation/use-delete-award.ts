@@ -1,5 +1,5 @@
 import { useMutation, UseMutationResult, useQueryClient } from '@tanstack/react-query';
-import { awardsApi } from '../api/awards';
+import { awardsApi } from '../../api/awards';
 
 export default function useDeleteAward(): UseMutationResult<void, Error, number, unknown> {
   const queryClient = useQueryClient();

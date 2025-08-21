@@ -1,6 +1,5 @@
 import { useMutation, UseMutationResult, useQueryClient } from '@tanstack/react-query';
-import { awardsApi } from '../api/awards';
-import { CreateAwardRequest } from '../types/request/create-award-request';
+import { CreateAwardRequest, awardsApi } from '../../api/awards';
 
 export default function useCreateAward(): UseMutationResult<
   void,

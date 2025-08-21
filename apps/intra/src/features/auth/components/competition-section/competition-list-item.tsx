@@ -9,10 +9,11 @@ import {
   DialogUtil,
 } from '@hiarc-platform/ui';
 import React from 'react';
-import useDeleteAward from '@/features/award/hooks/use-delete-award';
+
 import { EditCompetitionDialog } from './edit-competition-dialog';
 import { Award } from '@hiarc-platform/shared';
 import { formatDateWithDots } from '@hiarc-platform/util';
+import useDeleteAward from '@/features/award/hooks/mutation/use-delete-award';
 
 interface CompetitionListItemProps {
   award: Award;

@@ -1,10 +1,10 @@
 import React from 'react';
 import { useMutation, UseMutationResult } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
-import { authApi, SignupRequest } from '../api/auth';
+import { authApi, SignupRequest } from '../../api/auth';
 import { DialogUtil } from '@hiarc-platform/ui';
-import { SignupSuccessDialog } from '../components/dialog/signup-success-dialog';
-import { NoticeDialog } from '../components/dialog/notice-dialog';
+import { SignupSuccessDialog } from '../../components/dialog/signup-success-dialog';
+import { NoticeDialog } from '../../components/dialog/notice-dialog';
+import { ErrorUtil } from '../../../../shared/utils/error-util';
 
 export default function useSignUp(): UseMutationResult<void, Error, SignupRequest, unknown> {
   const mutation = useMutation({
@@ -52,13 +52,7 @@ export default function useSignUp(): UseMutationResult<void, Error, SignupReques
       }
     },
     onError: (error) => {
-      console.error('Sign up failed:', error);
-      
-      const axiosError = error as AxiosError<{ message?: string }>;
-      const backendMessage = axiosError.response?.data?.message;
-      const errorMessage = backendMessage || error.message || '회원가입 중 오류가 발생했습니다.';
-      
-      DialogUtil.showError(undefined, errorMessage);
+      ErrorUtil.showError(error, '회원가입 중 오류가 발생했습니다.');
     },
   });
 

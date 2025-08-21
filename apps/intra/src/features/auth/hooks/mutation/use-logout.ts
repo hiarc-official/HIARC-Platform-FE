@@ -1,7 +1,7 @@
 import { useMutation, UseMutationResult } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import { authApi } from '../api/auth';
-import { useAuthStore } from '../../../shared/store/auth-store';
+import { authApi } from '../../api/auth';
+import { useAuthStore } from '../../../../shared/store/auth-store';
 
 export default function useLogout(): UseMutationResult<void, Error, void, unknown> {
   const router = useRouter();

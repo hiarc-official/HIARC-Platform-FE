@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { authApi } from '../api/auth';
+import { authApi } from '../../api/auth';
 
 type OAuthProvider = 'google' | 'kakao' | 'naver';
 

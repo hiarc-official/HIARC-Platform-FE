@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { BojGuideButton } from '@/features/auth/components/boj-guide-button/boj-guide-button';
-import useSignUp from '@/features/auth/hooks/use-sign-up';
-import useHandleValidation from '@/features/auth/hooks/use-handle-validation';
+import useSignUp from '@/features/auth/hooks/mutation/use-sign-up';
+import useHandleValidation from '@/features/auth/hooks/mutation/use-handle-validation';
 import { Grade, AbsenceStatus } from '@/features/auth/types/request/signup-request';
 import {
   Button,
@@ -224,13 +224,13 @@ export default function SignUpPage(): React.ReactElement {
             onChange={(value: string) => {
               const numbersOnly = value.replace(/\D/g, '');
               let formatted = numbersOnly;
-              
+
               if (numbersOnly.length > 3 && numbersOnly.length <= 7) {
                 formatted = `${numbersOnly.slice(0, 3)}-${numbersOnly.slice(3)}`;
               } else if (numbersOnly.length > 7) {
                 formatted = `${numbersOnly.slice(0, 3)}-${numbersOnly.slice(3, 7)}-${numbersOnly.slice(7, 11)}`;
               }
-              
+
               handleInputChange('phoneAddress')(formatted);
             }}
             error={errors.phoneAddress}

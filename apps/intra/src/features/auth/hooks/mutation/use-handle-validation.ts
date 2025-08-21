@@ -1,5 +1,5 @@
 import { useMutation, UseMutationResult } from '@tanstack/react-query';
-import { authApi } from '../api/auth';
+import { authApi } from '../../api/auth';
 import { DialogUtil } from '@hiarc-platform/ui';
 
 interface ValidHandleResponse {

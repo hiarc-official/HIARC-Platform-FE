@@ -13,9 +13,9 @@ import {
 } from '@hiarc-platform/ui';
 import React from 'react';
 
-import useUpdateAward from '@/features/award/hooks/use-update-award';
 import { UpdateAwardRequest } from '@/features/award/types/request/update-award-request';
 import { Award } from '@hiarc-platform/shared';
+import useUpdateAward from '@/features/award/hooks/mutation/use-update-award';
 
 interface EditCompetitionDialogProps {
   award: Award;

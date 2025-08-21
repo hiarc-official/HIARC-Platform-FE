@@ -13,8 +13,9 @@ import {
   LabeledCalanderInput,
 } from '@hiarc-platform/ui';
 import React from 'react';
-import useCreateAward from '@/features/award/hooks/use-create-award';
+
 import { CreateAwardRequest } from '@/features/award/types/request/create-award-request';
+import useCreateAward from '@/features/award/hooks/mutation/use-create-award';
 
 interface CompetitionDialogProps {
   onSave?(): void;

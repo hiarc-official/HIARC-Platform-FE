@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { authApi } from '../api/auth';
+import { authApi } from '../../api/auth';
 
 export default function useGoogleLogin(): { googleLogin(): void; isLoading: boolean } {
   const [isLoading, setIsLoading] = useState(false);

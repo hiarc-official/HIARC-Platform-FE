@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
 import { useAuthStore } from '../../shared/store/auth-store';
-import useGoogleLogin from '../../features/auth/hooks/use-google-login';
+import useGoogleLogin from '../../features/auth/hooks/callback/use-google-login';
 
 export default function LoginPage(): React.ReactElement {
   const { user, isLoading, logout } = useAuthStore();
