@@ -8,5 +8,6 @@ export function useMyPageData(): UseQueryResult<MyPageData, Error> {
     queryFn: myApi.GET_MY_PAGE_DATA,
     staleTime: 5 * 60 * 1000, // 5분
     gcTime: 10 * 60 * 1000, // 10분
+    retry: false,
   });
 }

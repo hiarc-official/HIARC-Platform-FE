@@ -1,10 +1,11 @@
 'use client';
 
-import { Button, Input, Label } from '@hiarc-platform/ui';
+import { Button, DialogUtil, Input, Label } from '@hiarc-platform/ui';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import { IconButton } from '@hiarc-platform/ui';
+import { StudyAttendanceDialog } from '@/features/study/components/study-attendance-dialog';
 
 interface DesktopHeaderProps {
   isAuthenticated: boolean;
@@ -82,7 +83,13 @@ export function DesktopHeader({ isAuthenticated }: DesktopHeaderProps): React.Re
               size="lg"
               onClick={handleMyPage}
             />
-            <Button size="sm" className="bg-primary-100">
+            <Button
+              size="sm"
+              className="bg-primary-100"
+              onClick={() => {
+                DialogUtil.showComponent(<StudyAttendanceDialog />);
+              }}
+            >
               출석체크
             </Button>
           </div>

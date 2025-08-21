@@ -90,4 +90,9 @@ export const studentApi = {
   DELETE_MEMBER: async (memberId: number): Promise<void> => {
     await apiClient.delete(`/admin/members/${memberId}`);
   },
+  DOWNLOAD_EXCEL: async (semesterId: number): Promise<void> => {
+    await apiClient.get(`/admin/members/excel/download`, {
+      params: { semesterId },
+    });
+  },
 };

@@ -21,8 +21,6 @@ import { useRouter } from 'next/navigation';
 import { useMyPageData } from '@/features/member/hooks/my/use-my-page-data';
 
 export default function MyPage(): React.ReactElement {
-  const attendance = [true, true, true, true, true, true, true, true];
-  const assignment = [true, true, false, true, true, true, true, true];
   const router = useRouter();
   const { user } = useAuthStore();
   const [hydrated, setHydrated] = React.useState(false);
@@ -42,7 +40,9 @@ export default function MyPage(): React.ReactElement {
   // 인증 정보가 없으면 메인으로 리다이렉트
   useEffect(() => {
     if (hydrated && !user) {
-      DialogUtil.showError('로그인이 필요한 페이지입니다.', undefined);
+      DialogUtil.showError(undefined, '로그인이 필요한 페이지입니다.', () => {
+        router.push('/login');
+      });
     }
   }, [hydrated, user, router]);
 
@@ -158,7 +158,7 @@ export default function MyPage(): React.ReactElement {
             right={<CompetitionSection awardList={myPageData?.award ?? []} />}
           />
           <Divider variant="horizontal" size="full" className="mt-8 bg-gray-900" />
-          <StudySection attendance={attendance} assignment={assignment} className="mt-8" />
+          <StudySection className="mt-8" />
         </FadeIn>
       }
       mobileChildren={
@@ -180,7 +180,7 @@ export default function MyPage(): React.ReactElement {
           <StreakSection className="mt-6" />
           <CompetitionSection className="mt-6" awardList={myPageData?.award ?? []} />
           <Divider variant="horizontal" size="full" className="mt-8 bg-gray-900" />
-          <StudySection attendance={attendance} assignment={assignment} className="mt-8" />
+          <StudySection className="mt-8" />
         </FadeIn>
       }
     />

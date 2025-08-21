@@ -15,6 +15,10 @@ import {
   StudyMember,
   StudySummary,
 } from '@hiarc-platform/shared';
+import { AttendanceableStudy } from '../types/request/attendanceable-study';
+import { MyStudy } from '../types/model/my-study';
+import { MyStudyInfo } from '../types/model/my-study-info';
+import { is } from 'date-fns/locale';
 
 export const studyApi = {
   GET_ALL_STUDIES: async (params: StudyQueryParams = {}): Promise<PageableModel<StudySummary>> => {
@@ -189,6 +193,40 @@ export const studyApi = {
       });
     } catch (error) {
       console.error('[STUDY API] CHECK_ATTENDANCE_CODE 에러:', error);
+      throw error;
+    }
+  },
+
+  GET_STUDY_FOR_ATTENDANCE: async (): Promise<AttendanceableStudy> => {
+    try {
+      const response = await apiClient.get('/studies/me/current-for-attendance');
+      return AttendanceableStudy.fromJson(response.data);
+    } catch (error) {
+      console.error('[STUDY API] GET_STUDY_FOR_ATTENDANCE 에러:', error);
+      throw error;
+    }
+  },
+
+  GET_MY_STUDIES: async (isCurrent: boolean): Promise<MyStudy[]> => {
+    try {
+      const response = await apiClient.get('/studies/me', {
+        params: {
+          isCurrent,
+        },
+      });
+      return response.data.map((study: unknown) => MyStudy.fromJson(study));
+    } catch (error) {
+      console.error('[STUDY API] GET_MY_STUDIES 에러:', error);
+      throw error;
+    }
+  },
+
+  GET_MY_STUDY_INFO: async (studyId: number): Promise<MyStudyInfo> => {
+    try {
+      const response = await apiClient.get(`/studies/${studyId}/me`);
+      return MyStudyInfo.fromJson(response.data);
+    } catch (error) {
+      console.error('[STUDY API] GET_MY_STUDY_INFO 에러:', error);
       throw error;
     }
   },
