@@ -39,7 +39,7 @@ export function ConfirmDialog({
 
   return (
     <Dialog open={true} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-w-md" showBackground={showBackground ?? dialog.showBackground}>
+      <DialogContent className="max-w-lg sm:max-w-md" showBackground={showBackground ?? dialog.showBackground}>
         <div className="flex flex-col space-y-4 py-2">
           <DialogHeader className="text-center">
             <DialogTitle>{dialog.title}</DialogTitle>

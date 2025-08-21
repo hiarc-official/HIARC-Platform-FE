@@ -28,11 +28,13 @@ export const AnnouncementSummary = {
       lectureRound: (data.lectureRound as number) || null,
 
       get announcementTitle(): string {
-        if (!this.title) return '';
+        if (!this.title) {
+          return '';
+        }
 
         if (this.announcementType === 'STUDY') {
           if (this.lectureRound !== null && this.lectureRound !== undefined) {
-            return `[${this.studyName}] ${this.lectureRound}회차`;
+            return `[${this.studyName}][${this.lectureRound}회차] ${this.title}`;
           }
           return `[${this.studyName}] ${this.title}`;
         }

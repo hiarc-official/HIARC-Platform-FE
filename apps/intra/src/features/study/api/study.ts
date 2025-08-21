@@ -18,7 +18,6 @@ import {
 import { AttendanceableStudy } from '../types/request/attendanceable-study';
 import { MyStudy } from '../types/model/my-study';
 import { MyStudyInfo } from '../types/model/my-study-info';
-import { is } from 'date-fns/locale';
 
 export const studyApi = {
   GET_ALL_STUDIES: async (params: StudyQueryParams = {}): Promise<PageableModel<StudySummary>> => {

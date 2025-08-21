@@ -34,7 +34,7 @@ export function ErrorDialog({
 
   return (
     <Dialog open={true} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-w-sm" showBackground={showBackground ?? dialog.showBackground}>
+      <DialogContent className="max-w-lg sm:max-w-sm" showBackground={showBackground ?? dialog.showBackground}>
         <div className="flex flex-col items-center py-2 text-center">
           {/* Error Icon */}
           <Image src="/shared-assets/Error.svg" alt="Error Icon" width={32} height={32} />

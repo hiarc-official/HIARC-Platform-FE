@@ -72,7 +72,7 @@ export const useAuthStore = create<AuthState>()(
         // localStorage에서 복원할 때 JSON을 MyInfo 인스턴스로 변환
         if (state?.user) {
           try {
-            state.user = MyInfo.fromJson(state.user as any);
+            state.user = MyInfo.fromJson(state.user as unknown);
           } catch (error) {
             console.error('Failed to rehydrate user from localStorage:', error);
             state.user = null;

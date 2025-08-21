@@ -33,7 +33,7 @@ export const Schedule = {
 
         if (this.announcementType === 'STUDY') {
           if (this.lectureRound !== null && this.lectureRound !== undefined) {
-            return `[${this.studyName}] ${this.lectureRound}회차`;
+            return `[${this.studyName}][${this.lectureRound}회차] ${this.scheduleName || ''}`;
           }
           return `[${this.studyName}] ${this.scheduleName || ''}`;
         }
