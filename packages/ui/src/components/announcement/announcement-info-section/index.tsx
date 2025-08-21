@@ -24,7 +24,6 @@ export function AnnouncementInfoSection({
   urlList,
   place,
   scheduleStartAt,
-  scheduleEndAt,
   applicationStartAt,
   applicationEndAt,
   applicationUrl,
@@ -40,7 +39,6 @@ export function AnnouncementInfoSection({
       <LocationScheduleSection
         place={place}
         scheduleStartAt={scheduleStartAt}
-        scheduleEndAt={scheduleEndAt}
         applicationStartAt={applicationStartAt}
         applicationEndAt={applicationEndAt}
         applicationUrl={applicationUrl}

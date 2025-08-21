@@ -47,7 +47,7 @@ const STUDY_LIST_COLUMN: Array<ColumnDef<StudySummary>> = [
     ),
     cell: ({ row }: { row: { original: StudySummary } }) => (
       <Label size="md" weight="regular">
-        {row.original.semesterYear ?? '-'}년 {row.original.semesterType ?? '-'}
+        {row.original.semesterName}
       </Label>
     ),
     footer: (props) => props.column.id,
@@ -66,7 +66,7 @@ const STUDY_LIST_COLUMN: Array<ColumnDef<StudySummary>> = [
       </Label>
     ),
     cell: ({ row }: { row: { original: StudySummary } }) => (
-      <Label size="sm" weight="regular" className="text-gray-700">
+      <Label size="md" weight="regular" className="text-gray-700">
         {row.original.studyName ?? '-'}
       </Label>
     ),

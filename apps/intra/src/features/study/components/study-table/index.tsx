@@ -1,10 +1,5 @@
 import { PageableModel, StudySummary } from '@hiarc-platform/shared';
-import { 
-  cn, 
-  CommonTableBody, 
-  CommonTableHead, 
-  Pagination 
-} from '@hiarc-platform/ui';
+import { cn, CommonTableBody, CommonTableHead, Pagination } from '@hiarc-platform/ui';
 import { useTable } from '@hiarc-platform/util';
 import { Row } from '@tanstack/react-table';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -18,10 +13,10 @@ interface StudyTableProps {
   onPageChange?(page: number): void;
 }
 
-export function StudyTable({ 
-  pageableModel, 
-  className, 
-  onPageChange 
+export function StudyTable({
+  pageableModel,
+  className,
+  onPageChange,
 }: StudyTableProps): React.ReactElement {
   const router = useRouter();
   const columns = useMemo(() => STUDY_LIST_COLUMN, []);

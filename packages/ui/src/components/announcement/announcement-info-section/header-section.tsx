@@ -3,6 +3,7 @@ import { Divider } from '../../divider';
 import { Label } from '../../label/label';
 import { Title } from '../../label/title';
 import { cn } from '@hiarc-platform/ui';
+import { formatDateWithDots } from '@hiarc-platform/util';
 
 interface HeaderSectionProps {
   announcementTitle: string;
@@ -27,7 +28,7 @@ export function HeaderSection({
           </Label>
           <Divider variant="vertical" size="10px" />
           <Label size="md" className="text-gray-700">
-            {announcementDate}
+            {formatDateWithDots(announcementDate)}
           </Label>
         </div>
       </div>

@@ -6,11 +6,9 @@ interface RelatedUrlsSectionProps {
   urlList?: string[];
 }
 
-export function RelatedUrlsSection({ urlList }: RelatedUrlsSectionProps): React.ReactElement | null {
-  if (!urlList || urlList.length === 0) {
-    return null;
-  }
-
+export function RelatedUrlsSection({
+  urlList,
+}: RelatedUrlsSectionProps): React.ReactElement | null {
   return (
     <div className="flex w-full flex-col">
       <div className="flex w-full items-start gap-8 pt-6">
@@ -21,17 +19,19 @@ export function RelatedUrlsSection({ urlList }: RelatedUrlsSectionProps): React.
           </Label>
         </div>
         <div className="flex w-full flex-col gap-2">
-          {urlList?.map((url, index) => (
-            <a key={index} href={url} className="leading-none">
-              <Label
-                size="md"
-                weight="regular"
-                className="cursor-pointer leading-none underline"
-              >
-                {url}
-              </Label>
-            </a>
-          ))}
+          {!urlList || urlList.length === 0 ? (
+            <Label size="md" weight="regular" className="text-gray-500">
+              -
+            </Label>
+          ) : (
+            urlList.map((url, index) => (
+              <a key={index} href={url} className="leading-none">
+                <Label size="md" weight="regular" className="cursor-pointer leading-none underline">
+                  {url}
+                </Label>
+              </a>
+            ))
+          )}
         </div>
       </div>
       <Divider variant="horizontal" size="full" className="mt-6 bg-gray-200" />

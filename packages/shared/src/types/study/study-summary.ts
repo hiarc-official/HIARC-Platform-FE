@@ -7,6 +7,8 @@ export interface StudySummary {
   instructorId?: number | null;
   instructorName?: string | null;
   instructorBojHandle?: string | null;
+
+  get semesterName(): string;
 }
 
 export const StudySummary = {
@@ -23,6 +25,14 @@ export const StudySummary = {
       instructorId: (data.instructorId as number) || null,
       instructorName: (data.instructorName as string) || null,
       instructorBojHandle: (data.instructorBojHandle as string) || null,
+
+      get semesterName(): string {
+        if (!this.semesterYear || !this.semesterType) {
+          return '';
+        }
+        const semester = this.semesterType === 'FIRST' ? '1학기' : '2학기';
+        return `${this.semesterYear}년 ${semester}`;
+      },
     };
   },
 };

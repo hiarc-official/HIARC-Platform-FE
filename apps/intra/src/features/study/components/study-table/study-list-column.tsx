@@ -1,5 +1,5 @@
 import { StudySummary } from '@hiarc-platform/shared';
-import { Label, CategoryChip } from '@hiarc-platform/ui';
+import { Label, StudyStatusChip } from '@hiarc-platform/ui';
 import { ColumnDef } from '@tanstack/react-table';
 
 export const STUDY_LIST_COLUMN: Array<ColumnDef<StudySummary>> = [
@@ -17,9 +17,7 @@ export const STUDY_LIST_COLUMN: Array<ColumnDef<StudySummary>> = [
       </Label>
     ),
     cell: ({ row }: { row: { original: StudySummary } }) => (
-      <Label size="md" weight="regular">
-        {row.original.studyStatus}
-      </Label>
+      <StudyStatusChip status={row.original.studyStatus}></StudyStatusChip>
     ),
     footer: (props) => props.column.id,
   },
@@ -38,7 +36,7 @@ export const STUDY_LIST_COLUMN: Array<ColumnDef<StudySummary>> = [
     ),
     cell: ({ row }: { row: { original: StudySummary } }) => (
       <Label size="sm" weight="regular" className="text-gray-700">
-        {row.original.semesterYear} {row.original.semesterType}
+        {row.original.semesterName}
       </Label>
     ),
     footer: (props) => props.column.id,

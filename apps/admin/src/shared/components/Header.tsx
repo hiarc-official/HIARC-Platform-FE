@@ -28,7 +28,7 @@ export default function Header(): React.ReactElement {
         <LabeledSelector
           required={false}
           label=""
-          placeholder=""
+          placeholder="학기를 불러오는 입니다..."
           options={semesterOptions}
           value={selectedSemesterId || ''}
           onChange={setSelectedSemester}
@@ -49,20 +49,6 @@ export default function Header(): React.ReactElement {
             );
           })}
         </nav>
-
-        <div className=" ml-auto flex items-center gap-4">
-          <Input
-            type="search"
-            variant="search"
-            placeholder="Placeholder"
-            className="w-55 h-[44px]"
-          />
-          <Image src="/shared-assets/User.svg" alt="user" width={36} height={36} />
-
-          <Button variant="fill_light" size="sm">
-            출석체크
-          </Button>
-        </div>
       </div>
     </header>
   );

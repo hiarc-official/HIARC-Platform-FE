@@ -11,7 +11,7 @@ export function AnnouncementContentSection({
   className,
 }: AnnouncementContentSectionProps): React.ReactElement {
   return (
-    <div className={cn('w-full self-start', className)}>
+    <div className={cn('min-h-40 w-full self-start', className)}>
       <Label size="lg" className="text-gray-900">
         {content}
       </Label>
