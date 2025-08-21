@@ -36,7 +36,8 @@ export function SignupSuccessDialog({
         <DialogHeader>
           <DialogTitle>학회 가입 완료</DialogTitle>
         </DialogHeader>
-        <DialogDescription className="mt-6" asChild>
+        <DialogDescription asChild>
+          <div className="mt-6" />
           <Label>
             {message.split('\n').map((line, index) => (
               <React.Fragment key={index}>
@@ -45,6 +46,7 @@ export function SignupSuccessDialog({
               </React.Fragment>
             ))}
           </Label>
+          <div className="mt-6" />
         </DialogDescription>
         <Button className="mt-6 w-full" onClick={handleConfirm}>
           <Label size="md">확인</Label>

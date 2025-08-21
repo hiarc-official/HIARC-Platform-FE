@@ -37,6 +37,7 @@ export function NoticeDialog({
           <DialogTitle>안내사항</DialogTitle>
         </DialogHeader>
         <DialogDescription className="mt-6" asChild>
+          <div className="mt-6" />
           <Label>
             {message.split('\n').map((line, index) => (
               <React.Fragment key={index}>
@@ -45,6 +46,7 @@ export function NoticeDialog({
               </React.Fragment>
             ))}
           </Label>
+          <div className="mt-6" />
         </DialogDescription>
         <Button className="w-full" onClick={handleConfirm}>
           <Label size="md">확인</Label>
