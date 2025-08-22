@@ -1,7 +1,6 @@
 import axios, { AxiosInstance, InternalAxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 import { useAuthStore } from '../store/auth-store';
-import { useDialogStore } from '../store/dialog-store';
-import { useErrorStore } from '../store/error-store';
+import { DialogUtil } from '@hiarc-platform/ui';
 
 // In development, use Next.js API route proxy to avoid CORS issues
 // In production, use direct API calls
@@ -113,11 +112,20 @@ apiClient.interceptors.response.use(
     const { clearAuth } = useAuthStore.getState();
 
     // 401 (인증 실패)
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    if (
+      (error.response?.status === 401 || error.response?.status === 403) &&
+      !originalRequest._retry
+    ) {
       originalRequest._retry = true;
 
       clearAuth();
       localStorage.removeItem('auth-storage');
+
+      // 401 에러 다이얼로그 표시
+      DialogUtil.showError('로그인이 만료되었거나 권한이 없습니다. 다시 로그인해주세요.', () => {
+        // 확인 버튼 클릭 시 로그인 페이지로 리디렉션
+        window.location.href = '/login';
+      });
 
       return Promise.reject(error);
     }

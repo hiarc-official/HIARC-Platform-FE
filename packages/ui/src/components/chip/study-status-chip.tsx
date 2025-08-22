@@ -2,7 +2,7 @@
 
 import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
-import { cn } from '../lib/utils';
+import { cn } from '../../lib/utils';
 
 const studyStatusChipVariants = cva(
   cn(
@@ -15,9 +15,9 @@ const studyStatusChipVariants = cva(
       status: {
         PREPARING: 'bg-category-rating/20 text-category-rating',
         PRE_OPEN: 'bg-category-study/20 text-category-study',
-        RECRUITING: 'bg-category-etc_background/20 text-category-etc',
-        IN_PROGRESS: 'bg-category-general/20 text-category-general',
-        CLOSED: 'bg-category-external/20 text-category-external',
+        RECRUITING: 'bg-red/20 text-red',
+        IN_PROGRESS: 'bg-primary-100/20 text-primary-100',
+        CLOSED: 'bg-gray-200 text-primary-300',
       },
     },
     defaultVariants: {

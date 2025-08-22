@@ -3,7 +3,6 @@ import { useMutation, UseMutationResult } from '@tanstack/react-query';
 import { authApi, SignupRequest } from '../../api/auth';
 import { DialogUtil } from '@hiarc-platform/ui';
 import { GreetingDialog } from '../../components/dialog/greeting-dialog';
-import { ErrorUtil } from '../../../../shared/utils/error-util';
 
 export default function useSignUp(): UseMutationResult<void, Error, SignupRequest, unknown> {
   const mutation = useMutation({
@@ -54,7 +53,7 @@ export default function useSignUp(): UseMutationResult<void, Error, SignupReques
       }
     },
     onError: (error) => {
-      ErrorUtil.showError(error, '회원가입 중 오류가 발생했습니다.');
+      DialogUtil.showServerError(error, '회원가입 중 오류가 발생했습니다.');
     },
   });
 

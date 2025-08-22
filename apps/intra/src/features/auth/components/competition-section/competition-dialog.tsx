@@ -11,6 +11,7 @@ import {
   Label,
   LabeledInput,
   LabeledCalanderInput,
+  LabeledSelectButton,
 } from '@hiarc-platform/ui';
 import React from 'react';
 
@@ -33,7 +34,23 @@ export function CompetitionDialog({
     awardDetail: '',
   });
 
+  const [recordType, setRecordType] = React.useState<'participation' | 'award'>('participation');
+
   const createAwardMutation = useCreateAward();
+
+  // 폼 유효성 검사
+  const isFormValid = React.useMemo(() => {
+    const basicFieldsValid =
+      formData.organization.trim() !== '' &&
+      formData.awardName.trim() !== '' &&
+      formData.awardDate !== null;
+
+    if (recordType === 'participation') {
+      return basicFieldsValid;
+    } else {
+      return basicFieldsValid && formData.awardDetail.trim() !== '';
+    }
+  }, [formData, recordType]);
 
   const handleSave = async (): Promise<void> => {
     try {
@@ -41,7 +58,7 @@ export function CompetitionDialog({
         organization: formData.organization,
         awardName: formData.awardName,
         awardDate: formData.awardDate ? formData.awardDate.toISOString().split('T')[0] : '',
-        awardDetail: formData.awardDetail,
+        awardDetail: recordType === 'participation' ? '참여' : formData.awardDetail,
       };
 
       await createAwardMutation.mutateAsync(createData);
@@ -95,12 +112,29 @@ export function CompetitionDialog({
                 setFormData((prev) => ({ ...prev, awardDate: singleDate }));
               }}
             />
-            <LabeledInput
-              label="수상 내역"
-              placeholder="예) 본선 진출, 3위, 장려상, 특별상 등"
-              value={formData.awardDetail}
-              onChange={(value) => setFormData((prev) => ({ ...prev, awardDetail: value }))}
+            <LabeledSelectButton
+              options={[
+                { label: '참여', value: 'participation' },
+                { label: '수상', value: 'award' },
+              ]}
+              label={'기록유형'}
+              value={recordType}
+              onChange={(value) => {
+                setRecordType(value as 'participation' | 'award');
+                // 참여로 변경할 때 수상 내역 초기화
+                if (value === 'participation') {
+                  setFormData((prev) => ({ ...prev, awardDetail: '' }));
+                }
+              }}
             />
+            {recordType === 'award' && (
+              <LabeledInput
+                label="수상 내역"
+                placeholder="예) 본선 진출, 3위, 장려상, 특별상 등"
+                value={formData.awardDetail}
+                onChange={(value) => setFormData((prev) => ({ ...prev, awardDetail: value }))}
+              />
+            )}
           </div>
         </DialogDescription>
         <div className="mt-6 flex w-full gap-2">
@@ -111,15 +145,15 @@ export function CompetitionDialog({
             onClick={handleCancel}
             disabled={createAwardMutation.isPending}
           >
-            <Label size="lg">취소</Label>
+            취소
           </Button>
           <Button
             className="w-full"
             size="lg"
             onClick={handleSave}
-            disabled={createAwardMutation.isPending}
+            disabled={createAwardMutation.isPending || !isFormValid}
           >
-            <Label size="lg">{createAwardMutation.isPending ? '기록 중...' : '기록하기'}</Label>
+            {createAwardMutation.isPending ? '기록 중...' : '기록하기'}
           </Button>
         </div>
       </DialogContent>

@@ -15,7 +15,11 @@ export function useUpdateMyIntroduction(): UseMutationResult<
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['member', 'profile'] });
       queryClient.invalidateQueries({ queryKey: ['member', 'me'] });
-      DialogUtil.showSuccess('자기소개가 성공적으로 업데이트되었습니다!', '업데이트 완료');
+      DialogUtil.hideAllDialogs();
+      DialogUtil.showSuccess('업데이트 완료');
+    },
+    onError: (error) => {
+      DialogUtil.showServerError(error, '자기소개 업데이트 실패');
     },
   });
 }

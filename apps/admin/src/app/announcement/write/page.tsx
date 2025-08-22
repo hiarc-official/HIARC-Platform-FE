@@ -15,7 +15,13 @@ export default function WriteAnnouncementPage(): React.ReactElement {
   const { mutate: createAnnouncement } = useCreateAdminAnnouncement();
 
   // Get query parameters
-  const initialType = searchParams.get('type') as 'GENERAL' | 'STUDY' | 'RATING' | 'ETC' | 'EXTERNAL' | null;
+  const initialType = searchParams.get('type') as
+    | 'GENERAL'
+    | 'STUDY'
+    | 'RATING'
+    | 'ETC'
+    | 'EXTERNAL'
+    | null;
   const initialStudyId = searchParams.get('studyId');
   const isLecture = searchParams.get('isLecture') === 'true';
 
@@ -27,10 +33,14 @@ export default function WriteAnnouncementPage(): React.ReactElement {
   const handleSubmit = (data: CreateAnnouncementRequest): void => {
     createAnnouncement(data, {
       onSuccess: () => {
-        const successMessage = initialType === 'STUDY' ? '스터디 공지사항이 성공적으로 등록되었습니다.' : '공지사항이 성공적으로 등록되었습니다.';
-        const redirectPath = initialType === 'STUDY' && initialStudyId ? `/study/${initialStudyId}` : '/announcement';
-        
-        DialogUtil.showSuccess(successMessage, undefined, () => {
+        const successMessage =
+          initialType === 'STUDY'
+            ? '스터디 공지사항이 성공적으로 등록되었습니다.'
+            : '공지사항이 성공적으로 등록되었습니다.';
+        const redirectPath =
+          initialType === 'STUDY' && initialStudyId ? `/study/${initialStudyId}` : '/announcement';
+
+        DialogUtil.showSuccess(successMessage, () => {
           router.push(redirectPath);
         });
       },
@@ -52,12 +62,12 @@ export default function WriteAnnouncementPage(): React.ReactElement {
         </div>
         <Divider variant="horizontal" size="full" />
       </div>
-      <AnnouncementWrite 
+      <AnnouncementWrite
         studyOptions={studyOptions}
         initialAnnouncementType={initialType || 'GENERAL'}
         initialStudyId={initialStudyId ? Number(initialStudyId) : undefined}
         initialStudyAnnounceType={isLecture ? '회차별 공지' : '일반'}
-        onSubmit={handleSubmit} 
+        onSubmit={handleSubmit}
       />
     </PageLayout>
   );

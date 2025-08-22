@@ -23,8 +23,9 @@ export interface Study {
   isStudent?: boolean | null;
   precaution?: string | null;
 
-  // Computed property
+  // Computed properties
   readonly scheduleText?: string;
+  readonly instructorNameHandle?: string;
 }
 
 export const Study = {
@@ -57,10 +58,11 @@ export const Study = {
       isStudent: (data.isStudent as boolean) || null,
     };
 
-    // Add computed scheduleText property
+    // Add computed properties
     return {
       ...study,
       scheduleText: this.getScheduleText(study),
+      instructorNameHandle: this.getInstructorNameHandle(study),
     };
   },
 
@@ -92,5 +94,17 @@ export const Study = {
     const displayHour = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
 
     return `매주 ${koreanDays} ${period} ${displayHour}시`;
+  },
+
+  getInstructorNameHandle(study: Study): string {
+    if (!study.instructorName) {
+      return '-';
+    }
+
+    if (!study.instructorBojHandle) {
+      return study.instructorName;
+    }
+
+    return `${study.instructorName}(${study.instructorBojHandle})`;
   },
 };

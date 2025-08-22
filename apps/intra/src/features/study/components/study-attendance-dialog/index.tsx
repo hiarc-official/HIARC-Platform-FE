@@ -33,24 +33,11 @@ export function StudyAttendanceDialog() {
       return;
     }
 
-    checkAttendanceMutation.mutate(
-      {
-        studyId,
-        lectureRound,
-        attendanceCode: attendanceCode.trim(),
-      },
-      {
-        onSuccess: () => {
-          DialogUtil.showSuccess('출석이 완료되었습니다.', undefined, () => {
-            DialogUtil.hideAllDialogs();
-          });
-        },
-        onError: (error) => {
-          const errorMessage = error instanceof Error ? error.message : '출석에 실패했습니다.';
-          DialogUtil.showError(errorMessage);
-        },
-      }
-    );
+    checkAttendanceMutation.mutate({
+      studyId,
+      lectureRound,
+      attendanceCode: attendanceCode.trim(),
+    });
   };
 
   return (

@@ -11,6 +11,7 @@ import { DialogConfig } from '../../store/dialog-store';
 import { Label } from '../label/label';
 import { Button } from '../button';
 import Image from 'next/image';
+import { AlertDialogTitle } from '@radix-ui/react-alert-dialog';
 
 interface AlertDialogComponentProps {
   dialog: DialogConfig;
@@ -44,18 +45,9 @@ export function AlertDialogComponent({
         <div className="flex flex-col items-center py-2 text-center">
           {/* Error Icon */}
           <Image src="/shared-assets/Error.svg" alt="Error Icon" width={32} height={32} />
-
-          {/* Content */}
-          <div className="mt-6">
-            {typeof dialog.content === 'string' ? (
-              <Label size="lg" weight="medium">
-                {dialog.content}
-              </Label>
-            ) : (
-              dialog.content
-            )}
-          </div>
-
+          <AlertDialogTitle className="mt-6 text-lg font-semibold text-gray-900">
+            {dialog.title}
+          </AlertDialogTitle>
           {/* Buttons */}
           <div className="mt-6 flex gap-2">
             {showCancelButton && (
@@ -66,8 +58,8 @@ export function AlertDialogComponent({
               </AlertDialogCancel>
             )}
             <AlertDialogAction asChild>
-              <Button size="sm" onClick={handleAction}>
-                <Label>{dialog.confirmText || '닫기'}</Label>
+              <Button size="sm" className="min-w-[57px]" onClick={handleAction}>
+                {dialog.confirmText || '닫기'}
               </Button>
             </AlertDialogAction>
           </div>

@@ -5,5 +5,5 @@ export interface StudyQueryParams {
   category?: string;
   status?: 'active' | 'completed' | 'cancelled';
   authorId?: string;
-  search?: string;
+  studyName?: string;
 }

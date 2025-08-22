@@ -26,9 +26,7 @@ export function CompetitionListItem({ award }: CompetitionListItemProps): React.
     DialogUtil.showComponent(
       <EditCompetitionDialog
         award={award}
-        onSave={() => {
-          DialogUtil.showSuccess('대회 정보가 성공적으로 수정되었습니다.');
-        }}
+        onSave={() => {}}
         onCancel={() => {
           console.log('대회 수정 취소');
         }}
@@ -37,26 +35,18 @@ export function CompetitionListItem({ award }: CompetitionListItemProps): React.
   };
 
   const handleDelete = async (): Promise<void> => {
-    const confirmed = await DialogUtil.confirm(
+    DialogUtil.showConfirm(
       '이 대회 기록을 삭제하시겠습니까?\n삭제된 기록은 복구할 수 없습니다.',
+      () => {
+        deleteAwardMutation.mutateAsync(award.awardId ?? 0);
+      },
+      () => {},
       {
         title: '대회 기록 삭제',
         confirmText: '삭제',
         cancelText: '취소',
       }
     );
-
-    if (confirmed) {
-      try {
-        console.log('🗑️ [COMPETITION] 대회 삭제 시작:', award.awardId);
-        await deleteAwardMutation.mutateAsync(award.awardId ?? 0);
-        console.log('✨ [COMPETITION] 대회 삭제 완료');
-        DialogUtil.showSuccess('대회 기록이 성공적으로 삭제되었습니다.');
-      } catch (error) {
-        console.error('💥 [COMPETITION] 대회 삭제 실패:', error);
-        DialogUtil.showError('대회 기록 삭제 중 오류가 발생했습니다.');
-      }
-    }
   };
   return (
     <div

@@ -1,32 +1,47 @@
 'use client';
 
 import { Button, cn, DialogUtil, LabeledInput, LabeledSelector } from '@hiarc-platform/ui';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StudySearchDialog } from './study-search-dialog';
 import { StudyQueryParams } from '../../types/request/study-query-params';
+import { useSemesterStore } from '@/hooks/use-semester-store';
 
 interface StudySearchSectionProps {
   className?: string;
-  onSearchChange?(params: Partial<StudyQueryParams>): void;
+  onSearchChange?(params: Omit<StudyQueryParams, 'page' | 'size'>): void;
+  initialValues?: Omit<StudyQueryParams, 'page' | 'size'>;
 }
 
 export function StudySearchSection({
   className,
   onSearchChange,
+  initialValues = {},
 }: StudySearchSectionProps): React.ReactElement {
+  const { semesters } = useSemesterStore();
   const [searchTitle, setSearchTitle] = useState('');
   const [selectedSemester, setSelectedSemester] = useState('all');
 
+  // Initialize with initial values
+  useEffect(() => {
+    if (initialValues.studyName) {
+      setSearchTitle(initialValues.studyName);
+    }
+    if (initialValues.semesterId) {
+      setSelectedSemester(initialValues.semesterId.toString());
+    }
+  }, [initialValues]);
+
   const handleSearch = (): void => {
-    const searchParams: Partial<StudyQueryParams> = {};
+    const searchParams: Omit<StudyQueryParams, 'page' | 'size'> = {};
 
     if (searchTitle.trim()) {
-      searchParams.search = searchTitle.trim();
+      searchParams.studyName = searchTitle.trim();
     }
 
     if (selectedSemester && selectedSemester !== 'all') {
-      searchParams.category = selectedSemester;
+      searchParams.semesterId = Number(selectedSemester);
     }
+    // 'all'인 경우 semesterId를 아예 보내지 않음
 
     onSearchChange?.(searchParams);
   };
@@ -40,23 +55,40 @@ export function StudySearchSection({
   const handleOpenDialog = (): void => {
     DialogUtil.showComponent(
       <StudySearchDialog
-        onSave={async (params: Partial<StudyQueryParams>) => {
+        onSave={async (params: Omit<StudyQueryParams, 'page' | 'size'>) => {
+          // 다이얼로그에서 받은 값으로 state 업데이트
+          if (params.studyName) {
+            setSearchTitle(params.studyName);
+          } else {
+            setSearchTitle('');
+          }
+          
+          if (params.semesterId) {
+            setSelectedSemester(params.semesterId.toString());
+          } else {
+            setSelectedSemester('all');
+          }
+
           onSearchChange?.(params);
         }}
         onCancel={() => {
           console.log('Study search cancelled');
         }}
+        initialValues={{
+          studyName: searchTitle,
+          semesterId: selectedSemester !== 'all' ? Number(selectedSemester) : undefined,
+        }}
       />
     );
   };
 
-  // 임시 학기 옵션 (실제로는 API에서 가져와야 함)
+  // 학기 옵션 생성
   const semesterOptions = [
     { label: '전체', value: 'all' },
-    { label: '2024-1', value: '2024-1' },
-    { label: '2024-2', value: '2024-2' },
-    { label: '2023-1', value: '2023-1' },
-    { label: '2023-2', value: '2023-2' },
+    ...semesters.map((semester) => ({
+      label: semester.semesterName,
+      value: semester.semesterId?.toString() ?? '',
+    })),
   ];
 
   return (
@@ -84,11 +116,11 @@ export function StudySearchSection({
           onChange={(value) => setSearchTitle(value)}
           placeholder="스터디명을 입력하세요"
         />
-        <div className="flex w-full items-center gap-2">
-          <Button variant="secondary" size="md" className="w-full" onClick={handleReset}>
+        <div className="flex items-center gap-2">
+          <Button variant="line" size="md" className="w-[134px]" onClick={handleReset}>
             초기화
           </Button>
-          <Button variant="fill" size="md" className="w-full bg-primary-200" onClick={handleSearch}>
+          <Button variant="fill" size="md" className="w-[134px]" onClick={handleSearch}>
             검색
           </Button>
         </div>

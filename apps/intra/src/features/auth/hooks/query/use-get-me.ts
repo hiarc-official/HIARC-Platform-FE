@@ -1,8 +1,8 @@
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
 import { useEffect } from 'react';
-import { authApi } from '../api/auth';
-import { useAuthStore } from '../../../shared/store/auth-store';
-import { MyInfo } from '../types/model/my-info';
+import { MyInfo } from '../../types/model/my-info';
+import { useAuthStore } from '@/shared/store/auth-store';
+import { authApi } from '../../api/auth';
 
 export default function useGetMe(): UseQueryResult<MyInfo, Error> {
   const { isAuthenticated, clearAuth } = useAuthStore();

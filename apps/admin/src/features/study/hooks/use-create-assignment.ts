@@ -1,7 +1,8 @@
 import { useMutation, UseMutationResult, useQueryClient } from '@tanstack/react-query';
 import { studyApi } from '../api/study';
-import { useErrorHandler } from '@/shared/hooks/use-error-handler';
+
 import { CreateAssignmentRequest } from '@hiarc-platform/shared/src/types/study/create-assignment-request';
+import { DialogUtil } from '@hiarc-platform/ui';
 
 export function useCreateAssignment(): UseMutationResult<
   void,
@@ -10,7 +11,6 @@ export function useCreateAssignment(): UseMutationResult<
   unknown
 > {
   const queryClient = useQueryClient();
-  const { showSuccess } = useErrorHandler();
 
   const mutation = useMutation({
     mutationFn: ({
@@ -23,12 +23,10 @@ export function useCreateAssignment(): UseMutationResult<
       data: CreateAssignmentRequest;
     }) => studyApi.CREATE_ASSIGNMENT(studyId, lectureId, data),
     onSuccess: () => {
-      showSuccess('과제가 성공적으로 등록되었습니다.');
-
-      // 관련 쿼리들 무효화하여 최신 데이터 반영
       queryClient.invalidateQueries({ queryKey: ['studies'] });
       queryClient.invalidateQueries({ queryKey: ['lectures'] });
       queryClient.invalidateQueries({ queryKey: ['assignments'] });
+      DialogUtil.showSuccess('과제가 성공적으로 등록되었습니다.');
     },
     onError: (error) => {
       console.error('[HOOK] useCreateAssignment 에러:', error);

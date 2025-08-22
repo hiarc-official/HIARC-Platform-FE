@@ -1,8 +1,8 @@
 'use client';
 
+import { DialogUtil } from '@hiarc-platform/ui';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactNode, useEffect, useState } from 'react';
-import { createQueryErrorHandler, setupGlobalErrorHandler } from '../hooks/use-error-handler';
+import { ReactNode, useState } from 'react';
 
 interface ProvidersProps {
   children: ReactNode;
@@ -18,20 +18,14 @@ export function Providers({ children }: ProvidersProps): React.ReactElement {
             gcTime: 5 * 60 * 1000,
           },
           mutations: {
-            onError: createQueryErrorHandler(),
+            onError: (error: Error) => {
+              DialogUtil.hideAllDialogs();
+              DialogUtil.showServerError(error, '서버 오류가 발생했습니다.');
+            },
           },
         },
       })
   );
 
-  useEffect(() => {
-    // 글로벌 에러 핸들러 설정
-    setupGlobalErrorHandler();
-  }, []);
-
-  return (
-    <QueryClientProvider client={queryClient}>
-      {children}
-    </QueryClientProvider>
-  );
+  return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
 }

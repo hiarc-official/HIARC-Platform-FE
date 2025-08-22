@@ -47,7 +47,7 @@ export default function WriteAnnouncementPage(): React.ReactElement {
         const redirectPath =
           initialType === 'STUDY' && initialStudyId ? `/study/${initialStudyId}` : '/announcement';
 
-        DialogUtil.showSuccess(successMessage, undefined, () => {
+        DialogUtil.showSuccess(successMessage, () => {
           router.push(redirectPath);
         });
       },

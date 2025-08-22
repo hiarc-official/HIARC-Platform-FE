@@ -20,9 +20,6 @@ export default function useCreateAnnouncement(): UseMutationResult<
       queryClient.invalidateQueries({ queryKey: ['announcements'] });
       router.push(`/announcement/${newAnnouncement.announcementId}`);
     },
-    onError: (error) => {
-      console.error('[HOOK] useCreateAnnouncement 에러:', error);
-    },
   });
 
   return mutation;

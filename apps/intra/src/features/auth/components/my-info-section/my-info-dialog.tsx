@@ -29,21 +29,7 @@ export function MyInfoDialog({
   const [introductionValue, setIntroductionValue] = React.useState(initialValue);
 
   const handleSave = async (): Promise<void> => {
-    console.log('💾 [MY INFO] 저장 시작:', introductionValue);
-
-    try {
-      if (onSave) {
-        await onSave(introductionValue);
-        console.log('✨ [MY INFO] 저장 성공');
-      } else {
-        console.log('⚠️ [MY INFO] onSave 함수 없음');
-      }
-      DialogUtil.hideAllDialogs();
-    } catch (error) {
-      console.error('💥 [MY INFO] 저장 실패:', error);
-      // 에러는 상위 컴포넌트에서 처리하도록 다시 throw
-      throw error;
-    }
+    await onSave?.(introductionValue);
   };
 
   const handleCancel = (): void => {

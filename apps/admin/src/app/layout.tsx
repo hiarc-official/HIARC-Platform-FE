@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import Header from '@/shared/components/Header';
 import Footer from '@/shared/components/Footer';
-import '@/shared/utils/global-error-handler'; // 전역 에러 핸들러 초기화
 
 // 로컬 폰트 import
 import '@fontsource/pretendard/400.css';
@@ -12,7 +11,6 @@ import '@fontsource/pretendard/700.css';
 import { Providers } from '../shared/providers/providers';
 import './globals.css';
 import { GlobalDialogContainer } from '@hiarc-platform/ui';
-import { DialogContainer } from '@/shared/components/dialog-container';
 
 export const metadata: Metadata = {
   title: 'Admin App',
@@ -32,7 +30,6 @@ export default function RootLayout({
           <main className="flex-1">{children}</main>
           <Footer />
           <GlobalDialogContainer />
-          <DialogContainer />
         </Providers>
       </body>
     </html>

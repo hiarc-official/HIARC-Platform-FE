@@ -1,13 +1,8 @@
+import { useAuthStore } from '@/shared/store/auth-store';
 import { useMutation, UseMutationResult } from '@tanstack/react-query';
-import { authApi } from '../api/auth';
-import { useAuthStore } from '../../../shared/store/auth-store';
+import { authApi } from '../../api/auth';
 
-export default function useRefreshToken(): UseMutationResult<
-  void,
-  Error,
-  void,
-  unknown
-> {
+export default function useRefreshToken(): UseMutationResult<void, Error, void, unknown> {
   const { clearAuth } = useAuthStore();
 
   const mutation = useMutation({

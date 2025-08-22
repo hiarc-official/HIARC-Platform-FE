@@ -1,10 +1,9 @@
 import { useMutation, UseMutationResult, useQueryClient } from '@tanstack/react-query';
 import { studentApi } from '../api/student';
-import { useErrorHandler } from '@/shared/hooks/use-error-handler';
+import { DialogUtil } from '@hiarc-platform/ui';
 
 export function useDeleteMember(): UseMutationResult<void, Error, number, unknown> {
   const queryClient = useQueryClient();
-  const { showSuccess } = useErrorHandler();
 
   const mutation = useMutation({
     mutationFn: (memberId: number) => studentApi.DELETE_MEMBER(memberId),
@@ -13,7 +12,7 @@ export function useDeleteMember(): UseMutationResult<void, Error, number, unknow
       queryClient.invalidateQueries({ queryKey: ['admin-list'] });
       queryClient.invalidateQueries({ queryKey: ['instructor-list'] });
       queryClient.invalidateQueries({ queryKey: ['recruitment-list'] });
-      showSuccess('회원이 성공적으로 삭제되었습니다.');
+      DialogUtil.showSuccess('회원이 성공적으로 삭제되었습니다.');
     },
   });
 

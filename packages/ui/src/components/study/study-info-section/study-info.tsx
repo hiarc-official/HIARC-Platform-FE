@@ -21,7 +21,7 @@ export function StudyInfo({ studyData }: { studyData?: Study | null }): React.Re
         category={'참여 인원'}
         content={studyData ? `${studyData.currentParticipants ?? 0}명` : '-'}
       />
-      <CategoryText category={'스터디장'} content={studyData?.instructorName || '-'} />
+      <CategoryText category={'스터디장'} content={studyData?.instructorNameHandle || '-'} />
       <CategoryText
         category={'진행방식'}
         content={

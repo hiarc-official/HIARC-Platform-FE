@@ -1,6 +1,6 @@
 import { useMutation, UseMutationResult, useQueryClient } from '@tanstack/react-query';
 import { recruitmentApi } from '../api/recruitment';
-import { useErrorHandler } from '@/shared/hooks/use-error-handler';
+import { DialogUtil } from '@hiarc-platform/ui';
 
 export function useStartRecruitment(): UseMutationResult<
   void,
@@ -9,7 +9,6 @@ export function useStartRecruitment(): UseMutationResult<
   unknown
 > {
   const queryClient = useQueryClient();
-  const { showSuccess } = useErrorHandler();
 
   const mutation = useMutation({
     mutationFn: ({ semesterId }: { semesterId: number }) =>
@@ -17,7 +16,7 @@ export function useStartRecruitment(): UseMutationResult<
     onSuccess: (response, variables) => {
       console.log('[HOOK] useStartRecruitment 성공:', response);
       queryClient.invalidateQueries({ queryKey: ['recruitment', variables.semesterId] });
-      showSuccess('학회원 모집이 시작되었습니다.');
+      DialogUtil.showSuccess('학회원 모집이 시작되었습니다.');
     },
     onError: (error) => {
       console.error('[HOOK] useStartRecruitment 에러:', error);

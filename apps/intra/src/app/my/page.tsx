@@ -37,15 +37,6 @@ export default function MyPage(): React.ReactElement {
     setHydrated(true);
   }, []);
 
-  // 인증 정보가 없으면 메인으로 리다이렉트
-  useEffect(() => {
-    if (hydrated && !user) {
-      DialogUtil.showError(undefined, '로그인이 필요한 페이지입니다.', () => {
-        router.push('/login');
-      });
-    }
-  }, [hydrated, user, router]);
-
   // hydration 완료 전에는 로딩 표시 (hooks 호출 이후)
   if (!hydrated) {
     return (
@@ -169,6 +160,8 @@ export default function MyPage(): React.ReactElement {
             name={myPageData?.name}
             introduction={myPageData?.introduction}
             onSave={handleUpdateIntroduction}
+            rating={myPageData?.tier ?? 'UNRATED'}
+            div={myPageData?.division ?? 'DIV_1'}
           />
           <Divider variant="horizontal" size="full" className="mt-4 bg-gray-900" />
           <HitingSection

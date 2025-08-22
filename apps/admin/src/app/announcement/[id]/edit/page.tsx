@@ -33,7 +33,7 @@ export default function EditAnnouncementPage(): React.ReactElement {
         { id: announcementId, data },
         {
           onSuccess: () => {
-            DialogUtil.showSuccess('강의가 성공적으로 수정되었습니다.', undefined, () => {
+            DialogUtil.showSuccess('강의가 성공적으로 수정되었습니다.', () => {
               // 스터디 상세 페이지로 이동
               if (announcement?.studyId) {
                 router.push(`/study/${announcement.studyId}`);

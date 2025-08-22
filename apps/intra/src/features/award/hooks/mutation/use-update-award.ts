@@ -1,6 +1,6 @@
 import { useMutation, UseMutationResult, useQueryClient } from '@tanstack/react-query';
-import { awardsApi } from '../api/awards';
-import { UpdateAwardRequest } from '../types/request/update-award-request';
+import { awardsApi, UpdateAwardRequest } from '../../api/awards';
+import { DialogUtil } from '@hiarc-platform/ui';
 
 export default function useUpdateAward(): UseMutationResult<
   void,

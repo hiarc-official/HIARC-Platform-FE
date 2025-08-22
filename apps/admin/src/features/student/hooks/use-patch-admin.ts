@@ -1,6 +1,6 @@
 import { useMutation, UseMutationResult, useQueryClient } from '@tanstack/react-query';
 import { studentApi } from '../api/student';
-import { useErrorHandler } from '@/shared/hooks/use-error-handler';
+import { DialogUtil } from '@hiarc-platform/ui';
 
 interface PatchAdminParams {
   semesterId: number;
@@ -10,14 +10,13 @@ interface PatchAdminParams {
 
 export function usePatchAdmin(): UseMutationResult<void, Error, PatchAdminParams, unknown> {
   const queryClient = useQueryClient();
-  const { showSuccess } = useErrorHandler();
 
   const mutation = useMutation({
     mutationFn: (params: PatchAdminParams) => studentApi.PATCH_ADMIN(params),
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: ['admin-list', variables.semesterId] });
       queryClient.invalidateQueries({ queryKey: ['student-list'] });
-      showSuccess('관리자 권한이 성공적으로 수정되었습니다.');
+      DialogUtil.showSuccess('관리자 권한이 성공적으로 수정되었습니다.');
     },
   });
 

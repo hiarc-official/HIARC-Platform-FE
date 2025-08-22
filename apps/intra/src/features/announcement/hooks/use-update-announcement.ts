@@ -3,6 +3,7 @@ import { useRouter } from 'next/navigation';
 import { announcementApi } from '../api/announcement';
 import { Announcement } from '@hiarc-platform/shared';
 import type { UpdateAnnouncementRequest } from '../types/request/update-announcement-request';
+import { DialogUtil } from '@hiarc-platform/ui';
 
 interface UpdateAnnouncementParams {
   id: string;
@@ -28,9 +29,6 @@ export default function useUpdateAnnouncement(): UseMutationResult<
         updatedAnnouncement
       );
       router.push(`/announcement/${updatedAnnouncement.announcementId}`);
-    },
-    onError: (error) => {
-      console.error('[HOOK] useUpdateAnnouncement 에러:', error);
     },
   });
 

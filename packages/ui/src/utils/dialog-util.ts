@@ -35,7 +35,6 @@ export class DialogUtil {
    * 성공 다이얼로그를 표시합니다
    */
   static showSuccess(
-    content: React.ReactNode,
     title?: string,
     onConfirm?: () => void,
     options?: { showBackground?: boolean }
@@ -43,7 +42,6 @@ export class DialogUtil {
     return this.showDialog({
       type: 'success',
       title: title || '성공',
-      content,
       onConfirm,
       showBackground: options?.showBackground,
     });
@@ -53,7 +51,6 @@ export class DialogUtil {
    * 경고 다이얼로그를 표시합니다
    */
   static showWarning(
-    content: React.ReactNode,
     title?: string,
     onConfirm?: () => void,
     options?: { showBackground?: boolean }
@@ -61,7 +58,6 @@ export class DialogUtil {
     return this.showDialog({
       type: 'warning',
       title: title || '경고',
-      content,
       onConfirm,
       showBackground: options?.showBackground,
     });
@@ -71,7 +67,6 @@ export class DialogUtil {
    * 에러 다이얼로그를 표시합니다 (AlertDialog로 표시)
    */
   static showError(
-    content: React.ReactNode,
     title?: string,
     onConfirm?: () => void,
     options?: { showBackground?: boolean }
@@ -79,7 +74,6 @@ export class DialogUtil {
     return this.showDialog({
       type: 'alert',
       title: title || '오류',
-      content,
       onConfirm,
       showBackground: options?.showBackground,
     });
@@ -299,6 +293,50 @@ export class DialogUtil {
       hideButtons: true,
       closeOnBackdropClick: options?.closeOnBackdropClick ?? true,
       showBackground: options?.showBackground ?? true,
+    });
+  }
+
+  /**
+   * 서버 에러를 처리하고 에러 다이얼로그를 표시합니다
+   * 백엔드에서 보낸 에러 메시지를 우선적으로 표시하며, 없을 경우 기본 메시지를 사용합니다
+   * @param error - 처리할 에러 (AxiosError 또는 일반 Error)
+   * @param defaultMessage - 백엔드 메시지가 없을 때 사용할 기본 메시지
+   * @param onConfirm - 확인 버튼 클릭 시 실행할 콜백
+   */
+  static showServerError(
+    error: unknown,
+    defaultMessage = '오류가 발생했습니다.',
+    onConfirm?: () => void
+  ): string {
+    console.error('Error occurred:', error);
+
+    // AxiosError 타입 정의
+    interface AxiosError {
+      response?: {
+        status?: number;
+        data?: {
+          message?: string;
+        };
+      };
+      message?: string;
+    }
+
+    const axiosError = error as AxiosError;
+    const status = axiosError.response?.status;
+    const backendMessage = axiosError.response?.data?.message;
+    
+    // 401 에러는 API 인터셉터에서 처리되므로 여기서 무시
+    if (status === 401) {
+      console.log('🚨 401 에러는 API 인터셉터에서 처리됨 - showServerError 무시');
+      return ''; // 빈 ID 반환하여 다이얼로그 표시하지 않음
+    }
+    
+    const errorMessage = backendMessage || (error as Error)?.message || defaultMessage;
+
+    return this.showDialog({
+      type: 'alert',
+      title: errorMessage || '오류',
+      onConfirm,
     });
   }
 }

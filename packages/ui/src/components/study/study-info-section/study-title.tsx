@@ -35,14 +35,6 @@ export function StudyTitle({
             <StudyStatusChip status={studyData?.studyStatus || 'PREPARING'} />
           </div>
           <Label>{studyData?.introduction || '-'}</Label>
-          <div className="mt-3 flex items-center">
-            <Label size="lg" className="text-gray-500">
-              진행 기간
-            </Label>
-            <Label size="lg" weight="medium" className="ml-4 text-gray-900">
-              {studyData ? `${studyData.startDate} - ${studyData.endDate}` : '-'}
-            </Label>
-          </div>
         </div>
         <div className="hidden flex-shrink-0 items-center md:ml-6 md:flex">
           {hasRecruitmentDates && (

@@ -1,4 +1,12 @@
-import { CategoryChip, cn, DialogUtil, IconButton, Label, Title } from '@hiarc-platform/ui';
+import {
+  cn,
+  DialogUtil,
+  IconButton,
+  Label,
+  RatingChip,
+  RatingChipProps,
+  Title,
+} from '@hiarc-platform/ui';
 import React from 'react';
 import { MyInfoDialog } from './my-info-dialog';
 
@@ -6,6 +14,8 @@ interface MyInfoSectionProps {
   name?: string | null;
   bojHandle?: string | null;
   introduction?: string | null;
+  rating?: RatingChipProps['rating'];
+  div?: RatingChipProps['rating'];
   className?: string;
   onSave?(introduction: string): Promise<void>;
 }
@@ -16,6 +26,8 @@ export function MyInfoSection({
   name,
   bojHandle,
   onSave,
+  rating,
+  div,
 }: MyInfoSectionProps): React.ReactElement {
   const handleOpenDialog = (): void => {
     DialogUtil.showComponent(
@@ -40,8 +52,8 @@ export function MyInfoSection({
             <Title size="sm" weight="semibold" disableAnimation={true} className="text-gray-500">
               ({name})
             </Title>
-            <CategoryChip />
-            <CategoryChip />
+            <RatingChip rating={rating} />
+            <RatingChip rating={div} />
           </div>
           <IconButton type="button" iconSrc="/shared-assets/Edit.svg" onClick={handleOpenDialog} />
         </div>

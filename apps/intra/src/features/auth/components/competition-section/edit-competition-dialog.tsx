@@ -10,6 +10,8 @@ import {
   DialogUtil,
   Label,
   LabeledInput,
+  LabeledCalanderInput,
+  LabeledSelectButton,
 } from '@hiarc-platform/ui';
 import React from 'react';
 
@@ -33,19 +35,37 @@ export function EditCompetitionDialog({
   const [formData, setFormData] = React.useState({
     organization: award.organization || '',
     awardName: award.awardName || '',
-    awardDate: award.awardDate || '',
+    awardDate: award.awardDate ? new Date(award.awardDate) : (null as Date | null),
     awardDetail: award.awardDetail || '',
   });
 
+  const [recordType, setRecordType] = React.useState<'participation' | 'award'>(
+    award.awardDetail === '참여' ? 'participation' : 'award'
+  );
+
   const updateAwardMutation = useUpdateAward();
+
+  // 폼 유효성 검사
+  const isFormValid = React.useMemo(() => {
+    const basicFieldsValid =
+      formData.organization.trim() !== '' &&
+      formData.awardName.trim() !== '' &&
+      formData.awardDate !== null;
+
+    if (recordType === 'participation') {
+      return basicFieldsValid;
+    } else {
+      return basicFieldsValid && formData.awardDetail.trim() !== '';
+    }
+  }, [formData, recordType]);
 
   const handleSave = async (): Promise<void> => {
     try {
       const updateData: UpdateAwardRequest = {
         organization: formData.organization,
         awardName: formData.awardName,
-        awardDate: formData.awardDate.toString(),
-        awardDetail: formData.awardDetail,
+        awardDate: formData.awardDate ? formData.awardDate.toISOString().split('T')[0] : '',
+        awardDetail: recordType === 'participation' ? '참여' : formData.awardDetail,
       };
 
       console.log('💾 [EDIT AWARD] 수정 시작:', updateData);
@@ -70,7 +90,7 @@ export function EditCompetitionDialog({
 
   return (
     <Dialog open={true} onOpenChange={(open) => !open && handleCancel()}>
-      <DialogContent className="!w-[540px] !max-w-[540px]" showBackground={showBackground}>
+      <DialogContent className="!w-[540px] !max-w-[540px]" fullscreen={true}>
         <DialogHeader>
           <DialogTitle>참여한 대회 수정하기</DialogTitle>
         </DialogHeader>
@@ -95,18 +115,39 @@ export function EditCompetitionDialog({
               value={formData.awardName}
               onChange={(value) => setFormData((prev) => ({ ...prev, awardName: value }))}
             />
-            <LabeledInput
+            <LabeledCalanderInput
               label="일시"
-              placeholder="예) 2024-03-15"
-              value={formData.awardDate.toString()}
-              onChange={(value) => setFormData((prev) => ({ ...prev, awardDate: value }))}
+              placeholder="일시를 선택하세요"
+              value={formData.awardDate}
+              onChange={(date) => {
+                // 단일 날짜만 허용 (범위 모드가 아닐 때)
+                const singleDate = Array.isArray(date) ? date[0] : date;
+                setFormData((prev) => ({ ...prev, awardDate: singleDate }));
+              }}
             />
-            <LabeledInput
-              label="수상 내역"
-              placeholder="예) 본선 진출, 3위, 장려상, 특별상 등"
-              value={formData.awardDetail}
-              onChange={(value) => setFormData((prev) => ({ ...prev, awardDetail: value }))}
+            <LabeledSelectButton
+              options={[
+                { label: '참여', value: 'participation' },
+                { label: '수상', value: 'award' },
+              ]}
+              label={'기록유형'}
+              value={recordType}
+              onChange={(value) => {
+                setRecordType(value as 'participation' | 'award');
+                // 참여로 변경할 때 수상 내역 초기화
+                if (value === 'participation') {
+                  setFormData((prev) => ({ ...prev, awardDetail: '' }));
+                }
+              }}
             />
+            {recordType === 'award' && (
+              <LabeledInput
+                label="수상 내역"
+                placeholder="예) 본선 진출, 3위, 장려상, 특별상 등"
+                value={formData.awardDetail}
+                onChange={(value) => setFormData((prev) => ({ ...prev, awardDetail: value }))}
+              />
+            )}
           </div>
         </DialogDescription>
         <div className="mt-6 flex w-full gap-2">
@@ -117,15 +158,15 @@ export function EditCompetitionDialog({
             onClick={handleCancel}
             disabled={updateAwardMutation.isPending}
           >
-            <Label size="lg">취소</Label>
+            취소
           </Button>
           <Button
             className="w-full"
             size="lg"
             onClick={handleSave}
-            disabled={updateAwardMutation.isPending}
+            disabled={updateAwardMutation.isPending || !isFormValid}
           >
-            <Label size="lg">{updateAwardMutation.isPending ? '수정 중...' : '수정하기'}</Label>
+            {updateAwardMutation.isPending ? '수정 중...' : '수정하기'}
           </Button>
         </div>
       </DialogContent>

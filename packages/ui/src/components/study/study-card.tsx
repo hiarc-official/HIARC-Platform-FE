@@ -1,8 +1,8 @@
 import Image from 'next/image';
-import { cn } from '../lib/utils';
-import { CategoryChip } from './category-chip';
-import { Divider } from './divider';
-import { Label } from './label/label';
+import { cn } from '../../lib/utils';
+import { CategoryChip } from '../chip/category-chip';
+import { Divider } from '../divider';
+import { Label } from '../label/label';
 import { useRouter } from 'next/navigation';
 
 export default function StudyGrayChip({

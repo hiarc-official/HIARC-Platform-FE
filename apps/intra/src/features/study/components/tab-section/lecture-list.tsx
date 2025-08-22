@@ -56,24 +56,11 @@ export function LectureList({
                   round={lecture.round ?? 0}
                   lectureName={lecture.title ?? ''}
                   onCheckAttendance={(attendanceCode: string) => {
-                    checkAttendanceCode(
-                      {
-                        studyId: studyId ?? 0,
-                        lectureRound: lecture.round ?? 0,
-                        attendanceCode,
-                      },
-                      {
-                        onSuccess: () => {
-                          DialogUtil.showSuccess('출석이 완료되었습니다.');
-                          onSuccess();
-                        },
-                        onError: (error) => {
-                          const errorMessage =
-                            error instanceof Error ? error.message : '출석 체크에 실패했습니다.';
-                          DialogUtil.showError(errorMessage);
-                        },
-                      }
-                    );
+                    checkAttendanceCode({
+                      studyId: studyId ?? 0,
+                      lectureRound: lecture.round ?? 0,
+                      attendanceCode,
+                    });
                   }}
                 />
               );

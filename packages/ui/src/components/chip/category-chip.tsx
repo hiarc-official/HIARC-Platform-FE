@@ -2,7 +2,7 @@
 
 import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
-import { cn } from '../lib/utils';
+import { cn } from '../../lib/utils';
 
 const categoryChipVariants = cva(
   cn(
@@ -20,9 +20,6 @@ const categoryChipVariants = cva(
         EXTERNAL: 'bg-category-external/20 text-category-external',
         PARTICIPATING: 'bg-category-participating/20 text-category-participating',
         RECRUITING: 'bg-category-recruiting/20 text-category-recruiting',
-        DIV_1: 'bg-category-rating/20 text-category-rating',
-        DIV_2: 'bg-category-rating/20 text-category-rating',
-        DIV_3: 'bg-category-rating/20 text-category-rating',
         ONGOING: 'bg-category-participating/20 text-category-participating',
         FINISHED: 'bg-gray-200 text-primary-300 ',
       },
@@ -44,9 +41,6 @@ const categoryText: Record<
   EXTERNAL: '외부',
   PARTICIPATING: '참여중',
   RECRUITING: '모집중',
-  DIV_1: 'Div1',
-  DIV_2: 'Div2',
-  DIV_3: 'Div3',
   ONGOING: '진행중',
   FINISHED: '종료',
 };

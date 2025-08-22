@@ -182,7 +182,7 @@ export function EditStudyForm({ studyId }: EditStudyFormProps): React.ReactEleme
         isPublic: studyRequest.isPublic ?? undefined,
       };
       await updateStudyMutation.mutateAsync({ studyId, data: updateRequest });
-      DialogUtil.showSuccess('스터디가 성공적으로 수정되었습니다.', undefined, () => {
+      DialogUtil.showSuccess('스터디가 성공적으로 수정되었습니다.', () => {
         router.push(`/study/${studyId}`);
       });
     } catch (error) {

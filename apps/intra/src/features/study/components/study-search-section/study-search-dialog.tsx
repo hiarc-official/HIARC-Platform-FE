@@ -11,37 +11,62 @@ import {
   LabeledInput,
   LabeledSelector,
 } from '@hiarc-platform/ui';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StudyQueryParams } from '../../types/request/study-query-params';
+import { useSemesterStore } from '@/hooks/use-semester-store';
 
 interface StudySearchDialogProps {
-  onSave?(params: Partial<StudyQueryParams>): Promise<void>;
+  onSave?(params: Omit<StudyQueryParams, 'page' | 'size'>): Promise<void>;
   onCancel?(): void;
+  initialValues?: Omit<StudyQueryParams, 'page' | 'size'>;
   showBackground?: boolean;
 }
 
 export function StudySearchDialog({
   onSave,
   onCancel,
+  initialValues = {},
   showBackground = true,
 }: StudySearchDialogProps): React.ReactElement {
+  const { semesters } = useSemesterStore();
   const [searchTitle, setSearchTitle] = useState('');
-  const [selectedSemester, setSelectedSemester] = useState('');
-  const [selectedStatus, setSelectedStatus] = useState('');
+  const [selectedSemester, setSelectedSemester] = useState('all');
+  const [selectedStatus, setSelectedStatus] = useState('all');
+
+  // Initialize with initial values
+  useEffect(() => {
+    if (initialValues.studyName) {
+      setSearchTitle(initialValues.studyName);
+    } else {
+      setSearchTitle('');
+    }
+
+    if (initialValues.semesterId) {
+      setSelectedSemester(initialValues.semesterId.toString());
+    } else {
+      setSelectedSemester('all');
+    }
+
+    if (initialValues.status) {
+      setSelectedStatus(initialValues.status);
+    } else {
+      setSelectedStatus('all');
+    }
+  }, [initialValues]);
 
   const handleSave = async (): Promise<void> => {
     try {
-      const searchParams: Partial<StudyQueryParams> = {};
+      const searchParams: Omit<StudyQueryParams, 'page' | 'size'> = {};
 
       if (searchTitle.trim()) {
-        searchParams.search = searchTitle.trim();
+        searchParams.studyName = searchTitle.trim();
       }
 
-      if (selectedSemester) {
-        searchParams.category = selectedSemester;
+      if (selectedSemester && selectedSemester !== 'all') {
+        searchParams.semesterId = Number(selectedSemester);
       }
 
-      if (selectedStatus) {
+      if (selectedStatus && selectedStatus !== 'all') {
         searchParams.status = selectedStatus as 'active' | 'completed' | 'cancelled';
       }
 
@@ -62,24 +87,19 @@ export function StudySearchDialog({
 
   const handleReset = (): void => {
     setSearchTitle('');
-    setSelectedSemester('');
-    setSelectedStatus('');
+    setSelectedSemester('all');
+    setSelectedStatus('all');
   };
 
-  // 임시 옵션들 (실제로는 API에서 가져와야 함)
+  // 학기 옵션 생성
   const semesterOptions = [
-    { label: '전체', value: '' },
-    { label: '2024-1', value: '2024-1' },
-    { label: '2024-2', value: '2024-2' },
-    { label: '2023-1', value: '2023-1' },
-    { label: '2023-2', value: '2023-2' },
-  ];
-
-  const statusOptions = [
-    { label: '전체', value: '' },
-    { label: '진행중', value: 'active' },
-    { label: '완료', value: 'completed' },
-    { label: '취소', value: 'cancelled' },
+    { label: '전체', value: 'all' },
+    ...semesters
+      .map((semester) => ({
+        label: semester.semesterName ?? '',
+        value: semester.semesterId?.toString() ?? '',
+      }))
+      .filter((option) => option.value !== ''),
   ];
 
   return (
@@ -96,19 +116,7 @@ export function StudySearchDialog({
               label="진행 학기"
               options={semesterOptions}
               value={selectedSemester}
-              onChange={(value: string) => {
-                setSelectedSemester(value);
-              }}
-            />
-            <LabeledSelector
-              placeholder="상태를 선택하세요"
-              required={false}
-              label="스터디 상태"
-              options={statusOptions}
-              value={selectedStatus}
-              onChange={(value: string) => {
-                setSelectedStatus(value);
-              }}
+              onChange={setSelectedSemester}
             />
             <LabeledInput
               label="스터디명"

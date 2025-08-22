@@ -35,7 +35,7 @@ export const STUDY_LIST_COLUMN: Array<ColumnDef<StudySummary>> = [
       </Label>
     ),
     cell: ({ row }: { row: { original: StudySummary } }) => (
-      <Label size="sm" weight="regular" className="text-gray-700">
+      <Label size="md" weight="regular">
         {row.original.semesterName}
       </Label>
     ),
@@ -56,7 +56,7 @@ export const STUDY_LIST_COLUMN: Array<ColumnDef<StudySummary>> = [
       </Label>
     ),
     cell: ({ row }: { row: { original: StudySummary } }) => (
-      <Label size="sm" weight="regular" className="text-gray-700">
+      <Label size="md" weight="regular" className="underline">
         {row.original.studyName ?? '-'}
       </Label>
     ),
@@ -76,7 +76,7 @@ export const STUDY_LIST_COLUMN: Array<ColumnDef<StudySummary>> = [
       </Label>
     ),
     cell: ({ row }: { row: { original: StudySummary } }) => (
-      <Label size="sm" weight="regular" className="text-gray-700">
+      <Label size="md" weight="regular">
         {row.original.instructorName} ({row.original.instructorBojHandle})
       </Label>
     ),

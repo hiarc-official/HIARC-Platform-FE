@@ -1,4 +1,4 @@
-import { CategoryChip, Label } from '@hiarc-platform/ui';
+import { CategoryChip, Label, RatingChip } from '@hiarc-platform/ui';
 import Image from 'next/image';
 
 interface HitingListItemProps {
@@ -16,7 +16,7 @@ const medalSrcMap = {
 export function HitingListItem({ name, rank, div }: HitingListItemProps): React.ReactElement {
   return (
     <div className="flex w-full items-center">
-      <CategoryChip category={div} />
+      <RatingChip rating={div} />
       <Label size="lg" className="ml-4 flex-1">
         {name}
       </Label>

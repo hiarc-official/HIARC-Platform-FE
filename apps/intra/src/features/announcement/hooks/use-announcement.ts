@@ -20,7 +20,7 @@ export default function useAnnouncement(id: string): UseQueryResult<Announcement
       const errorMessage =
         backendMessage || query.error.message || '공지사항을 불러오는 중 오류가 발생했습니다.';
 
-      DialogUtil.showError(undefined, errorMessage, () => {
+      DialogUtil.showError(errorMessage, () => {
         window.history.back();
       });
     }

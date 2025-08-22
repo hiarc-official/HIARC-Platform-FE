@@ -175,13 +175,13 @@ export function CreateStudyForm({
           isPublic: studyRequest.isPublic || undefined,
         };
         await updateStudyMutation.mutateAsync({ studyId, data: updateRequest });
-        DialogUtil.showSuccess('스터디가 성공적으로 수정되었습니다.', undefined, () => {
+        DialogUtil.showSuccess('스터디가 성공적으로 수정되었습니다.', () => {
           router.push(`/study/${studyId}`);
         });
       } else {
         // Create mode
         await createStudyMutation.mutateAsync(studyRequest);
-        DialogUtil.showSuccess('스터디가 성공적으로 생성되었습니다.', undefined, () => {
+        DialogUtil.showSuccess('스터디가 성공적으로 생성되었습니다.', () => {
           router.push('/study');
         });
       }

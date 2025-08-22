@@ -1,21 +1,13 @@
 import { Award } from '@hiarc-platform/shared';
+import { RatingChipProps } from '@hiarc-platform/ui';
 import { Rating } from './rating';
 import { Streak } from './streak';
 
 export interface MyPageData {
   bojHandle?: string | null;
   name?: string | null;
-  division?: 'DIV_1' | 'DIV_2' | 'DIV_3' | null;
-  tier?:
-    | 'UNRATED'
-    | 'BRONZE'
-    | 'SILVER'
-    | 'GOLD'
-    | 'PLATINUM'
-    | 'DIAMOND'
-    | 'RUBY'
-    | 'MASTER'
-    | null;
+  division?: RatingChipProps['rating'];
+  tier?: RatingChipProps['rating'];
   introduction?: string | null;
   rating?: Rating | null;
   streak?: Streak | null;
@@ -29,17 +21,8 @@ export const MyPageData = {
     return {
       bojHandle: (data?.bojHandle as string) ?? null,
       name: (data?.name as string) ?? null,
-      division: (data?.division as 'DIV_1' | 'DIV_2' | 'DIV_3') ?? null,
-      tier:
-        (data?.tier as
-          | 'UNRATED'
-          | 'BRONZE'
-          | 'SILVER'
-          | 'GOLD'
-          | 'PLATINUM'
-          | 'DIAMOND'
-          | 'RUBY'
-          | 'MASTER') ?? null,
+      division: (data?.division as RatingChipProps['rating']) ?? null,
+      tier: (data?.tier as RatingChipProps['rating']) ?? null,
       introduction: (data?.introduction as string) ?? null,
       rating: data?.rating ? Rating.fromJson(data.rating) : null,
       streak: data?.streak ? Streak.fromJson(data.streak) : null,

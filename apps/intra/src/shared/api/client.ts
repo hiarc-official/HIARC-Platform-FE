@@ -111,6 +111,12 @@ apiClient.interceptors.response.use(
       // localStorage도 완전히 정리
       localStorage.removeItem('auth-storage');
 
+      // 401 에러 다이얼로그 표시
+      DialogUtil.showError('로그인이 만료되었습니다. 다시 로그인해주세요.', () => {
+        // 확인 버튼 클릭 시 로그인 페이지로 리디렉션
+        window.location.href = '/login';
+      });
+
       return Promise.reject(error);
     }
 

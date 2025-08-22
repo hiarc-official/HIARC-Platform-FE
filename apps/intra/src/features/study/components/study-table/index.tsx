@@ -44,7 +44,7 @@ export function StudyTable({
           transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
           className="w-full"
         >
-          <CommonTableHead table={table} className="bg-gray-100" />
+          <CommonTableHead table={table} />
           <CommonTableBody
             table={table}
             onClick={function (row: Row<StudySummary>): void {

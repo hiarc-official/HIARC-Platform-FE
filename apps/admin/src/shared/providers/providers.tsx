@@ -2,7 +2,6 @@
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactNode, useEffect, useState } from 'react';
-import { createQueryErrorHandler, setupGlobalErrorHandler } from '../hooks/use-error-handler';
 
 interface ProvidersProps {
   children: ReactNode;
@@ -24,10 +23,9 @@ export function Providers({ children }: ProvidersProps): React.ReactElement {
               // 다른 에러는 최대 3번까지 재시도
               return failureCount < 3;
             },
-            retryDelay: attemptIndex => Math.min(1000 * 2 ** attemptIndex, 30000),
+            retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
           },
           mutations: {
-            onError: createQueryErrorHandler(),
             retry: (failureCount, error: any) => {
               // 403, 401 에러면 재시도하지 않음
               if (error?.response?.status === 403 || error?.response?.status === 401) {
@@ -41,14 +39,5 @@ export function Providers({ children }: ProvidersProps): React.ReactElement {
       })
   );
 
-  useEffect(() => {
-    // 글로벌 에러 핸들러 설정
-    setupGlobalErrorHandler();
-  }, []);
-
-  return (
-    <QueryClientProvider client={queryClient}>
-      {children}
-    </QueryClientProvider>
-  );
+  return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
 }
