@@ -6,6 +6,7 @@ interface LabeledTextarea extends Omit<React.ComponentProps<'textarea'>, 'onChan
   showLabel?: boolean;
   required?: boolean;
   onChange?(value: string): void;
+  error?: string;
 }
 
 function LabeledTextarea({
@@ -16,6 +17,7 @@ function LabeledTextarea({
   value,
   onChange,
   className,
+  error,
   ...props
 }: LabeledTextarea): React.ReactElement {
   return (
@@ -33,6 +35,13 @@ function LabeledTextarea({
         className={className}
         {...props}
       />
+      {error && (
+        <div className="mt-1">
+          <Label size="sm" className="text-red">
+            {error}
+          </Label>
+        </div>
+      )}
     </div>
   );
 }

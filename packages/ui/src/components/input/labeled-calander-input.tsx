@@ -17,6 +17,7 @@ interface LabeledInputProps {
   rangeMode?: boolean;
   showTimeSelect?: boolean;
   timeIntervals?: number;
+  error?: string;
 }
 
 function LabeledCalanderInput({
@@ -29,6 +30,7 @@ function LabeledCalanderInput({
   rangeMode = false,
   showTimeSelect = false,
   timeIntervals = 15,
+  error,
 }: LabeledInputProps): React.ReactElement {
   const [startDate, endDate] = Array.isArray(value) ? value : [value, null];
 
@@ -88,6 +90,13 @@ function LabeledCalanderInput({
           />
         )}
       </div>
+      {error && (
+        <div className="mt-1">
+          <Label size="sm" className="text-red">
+            {error}
+          </Label>
+        </div>
+      )}
     </div>
   );
 }

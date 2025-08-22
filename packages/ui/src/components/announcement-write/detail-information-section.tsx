@@ -9,6 +9,7 @@ import { Button } from '../button';
 import { LabeledCalanderInput } from '../input/labeled-calander-input';
 import { LabeledInput } from '../input/labeled-input';
 import { LabeledTextarea } from '../input/labeled-textarea';
+import { DialogUtil } from '../../utils/dialog-util';
 
 interface DetailInformationSectionProps {
   announcementId?: number;
@@ -167,7 +168,7 @@ export default function DetailInformationSection({
   const handleSubmit = (): void => {
     console.log('폼 제출 시 formData:', formData);
     if (!formData.title.trim() || !formData.content.trim() || !formData.announcementType) {
-      alert('필수 항목을 모두 입력해주세요.');
+      DialogUtil.showError('필수 항목을 모두 입력해주세요.');
       return;
     }
 

@@ -40,7 +40,7 @@ export function StudyTitle({
           {hasRecruitmentDates && (
             <div className="flex items-center">
               <Label size="lg" className="text-gray-500">
-                모집 기간
+                모집일
               </Label>
               <Label size="lg" weight="medium" className="ml-4 text-gray-900">
                 {`${studyData.recruitmentStartDate} - ${studyData.recruitmentEndDate}`}

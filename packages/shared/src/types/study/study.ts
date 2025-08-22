@@ -1,3 +1,5 @@
+import { formatDateWithDots } from '@hiarc-platform/util';
+
 export interface Study {
   studyId?: number | null;
   name?: string | null;
@@ -106,5 +108,13 @@ export const Study = {
     }
 
     return `${study.instructorName}(${study.instructorBojHandle})`;
+  },
+
+  getRecruitingDates(study: Study): string {
+    if (!study.recruitmentStartDate || !study.recruitmentEndDate) {
+      return '-';
+    }
+
+    return `${formatDateWithDots(study.recruitmentStartDate)} - ${formatDateWithDots(study.recruitmentEndDate)}`;
   },
 };

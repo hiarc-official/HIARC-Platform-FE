@@ -15,7 +15,12 @@
     "noFallthroughCasesInSwitch": true,
     "declaration": true,
     "outDir": "dist",
-    "rootDir": "src"
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@hiarc-platform/ui": ["../../packages/ui/src"],
+      "@hiarc-platform/util": ["../../packages/util/src"]
+    }
   },
   "include": ["src/**/*"],
   "exclude": ["dist", "node_modules"]
