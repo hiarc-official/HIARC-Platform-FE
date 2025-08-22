@@ -3,66 +3,87 @@
  * Based on TkDodo's recommendations for React Query key management
  */
 
+// Auth related queries
+const authKeys = {
+  all: ['auth'] as const,
+  me: () => [...authKeys.all, 'me'] as const,
+} as const;
+
+// Study related queries
+const studyKeys = {
+  all: ['studies'] as const,
+  lists: () => [...studyKeys.all, 'list'] as const,
+  list: (params: unknown) => [...studyKeys.lists(), params] as const,
+  details: () => [...studyKeys.all, 'detail'] as const,
+  detail: (id: number) => [...studyKeys.details(), id] as const,
+  lectures: (studyId: number) => [...studyKeys.detail(studyId), 'lectures'] as const,
+  lecture: (studyId: number, lectureId: number) =>
+    [...studyKeys.lectures(studyId), lectureId] as const,
+  assignments: (studyId: number) => [...studyKeys.detail(studyId), 'assignments'] as const,
+  assignment: (studyId: number, assignmentId: number) =>
+    [...studyKeys.assignments(studyId), assignmentId] as const,
+  attendanceCodes: (studyId: number) => [...studyKeys.detail(studyId), 'attendance-codes'] as const,
+  my: () => [...studyKeys.all, 'my'] as const,
+} as const;
+
+// Announcement related queries
+const announcementKeys = {
+  all: ['announcements'] as const,
+  lists: () => [...announcementKeys.all, 'list'] as const,
+  list: (params: unknown) => [...announcementKeys.lists(), params] as const,
+  details: () => [...announcementKeys.all, 'detail'] as const,
+  detail: (id: number) => [...announcementKeys.details(), id] as const,
+} as const;
+
+const instructorAnnouncementKeys = {
+  all: [...announcementKeys.all, 'instructor'] as const,
+  lists: () => [...instructorAnnouncementKeys.all, 'list'] as const,
+  list: (params: unknown) => [...instructorAnnouncementKeys.lists(), params] as const,
+} as const;
+
+const announcementKeysWithInstructor = {
+  ...announcementKeys,
+  instructor: instructorAnnouncementKeys,
+} as const;
+
+// Member related queries
+const memberKeys = {
+  all: ['members'] as const,
+} as const;
+
+const myMemberKeys = {
+  all: [...memberKeys.all, 'my'] as const,
+  introduction: () => [...myMemberKeys.all, 'introduction'] as const,
+} as const;
+
+const memberKeysWithMy = {
+  ...memberKeys,
+  my: myMemberKeys,
+} as const;
+
+// Award related queries
+const awardKeys = {
+  all: ['awards'] as const,
+  lists: () => [...awardKeys.all, 'list'] as const,
+  list: (params: unknown) => [...awardKeys.lists(), params] as const,
+  details: () => [...awardKeys.all, 'detail'] as const,
+  detail: (id: number) => [...awardKeys.details(), id] as const,
+  my: () => [...awardKeys.all, 'my'] as const,
+} as const;
+
+// Recruitment related queries
+const recruitmentKeys = {
+  all: ['recruitment'] as const,
+  applications: () => [...recruitmentKeys.all, 'applications'] as const,
+} as const;
+
 export const queryKeys = {
-  // Auth related queries
-  auth: {
-    all: ['auth'] as const,
-    me: () => [...queryKeys.auth.all, 'me'] as const,
-  },
-
-  // Study related queries  
-  studies: {
-    all: ['studies'] as const,
-    lists: () => [...queryKeys.studies.all, 'list'] as const,
-    list: (params: any) => [...queryKeys.studies.lists(), params] as const,
-    details: () => [...queryKeys.studies.all, 'detail'] as const,
-    detail: (id: number) => [...queryKeys.studies.details(), id] as const,
-    lectures: (studyId: number) => [...queryKeys.studies.detail(studyId), 'lectures'] as const,
-    lecture: (studyId: number, lectureId: number) => [...queryKeys.studies.lectures(studyId), lectureId] as const,
-    assignments: (studyId: number) => [...queryKeys.studies.detail(studyId), 'assignments'] as const,
-    assignment: (studyId: number, assignmentId: number) => [...queryKeys.studies.assignments(studyId), assignmentId] as const,
-    attendanceCodes: (studyId: number) => [...queryKeys.studies.detail(studyId), 'attendance-codes'] as const,
-    my: () => [...queryKeys.studies.all, 'my'] as const,
-  },
-
-  // Announcement related queries
-  announcements: {
-    all: ['announcements'] as const,
-    lists: () => [...queryKeys.announcements.all, 'list'] as const,
-    list: (params: any) => [...queryKeys.announcements.lists(), params] as const,
-    details: () => [...queryKeys.announcements.all, 'detail'] as const,
-    detail: (id: number) => [...queryKeys.announcements.details(), id] as const,
-    instructor: {
-      all: [...queryKeys.announcements.all, 'instructor'] as const,
-      lists: () => [...queryKeys.announcements.instructor.all, 'list'] as const,
-      list: (params: any) => [...queryKeys.announcements.instructor.lists(), params] as const,
-    },
-  },
-
-  // Member related queries
-  members: {
-    all: ['members'] as const,
-    my: {
-      all: [...queryKeys.members.all, 'my'] as const,
-      introduction: () => [...queryKeys.members.my.all, 'introduction'] as const,
-    },
-  },
-
-  // Award related queries
-  awards: {
-    all: ['awards'] as const,
-    lists: () => [...queryKeys.awards.all, 'list'] as const,
-    list: (params: any) => [...queryKeys.awards.lists(), params] as const,
-    details: () => [...queryKeys.awards.all, 'detail'] as const,
-    detail: (id: number) => [...queryKeys.awards.details(), id] as const,
-    my: () => [...queryKeys.awards.all, 'my'] as const,
-  },
-
-  // Recruitment related queries
-  recruitment: {
-    all: ['recruitment'] as const,
-    applications: () => [...queryKeys.recruitment.all, 'applications'] as const,
-  },
+  auth: authKeys,
+  studies: studyKeys,
+  announcements: announcementKeysWithInstructor,
+  members: memberKeysWithMy,
+  awards: awardKeys,
+  recruitment: recruitmentKeys,
 } as const;
 
 // Mutation keys for better organization
