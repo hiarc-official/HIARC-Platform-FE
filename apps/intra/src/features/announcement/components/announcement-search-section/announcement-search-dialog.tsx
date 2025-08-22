@@ -37,9 +37,7 @@ export function AnnouncementSearchDialog({
   const [announcementType, setAnnouncementType] = useState<AnnnouncementType | ''>(
     initialValues?.announcementType ?? ''
   );
-  const [semesterId, setSemesterId] = useState<string | ''>(
-    initialValues?.semesterId ?? ''
-  );
+  const [semesterId, setSemesterId] = useState<string | ''>(initialValues?.semesterId ?? '');
   const [title, setTitle] = useState<string>(initialValues?.title ?? '');
   const handleSave = async (): Promise<void> => {
     try {
@@ -80,7 +78,7 @@ export function AnnouncementSearchDialog({
     <Dialog open={true} onOpenChange={(open) => !open && handleCancel()}>
       <DialogContent fullscreen showBackground={showBackground}>
         <DialogHeader>
-          <DialogTitle>스터디 검색</DialogTitle>
+          <DialogTitle>공지사항 검색</DialogTitle>
         </DialogHeader>
         <div className="pt-6">
           <div className={cn('flex flex-col gap-6')}>
@@ -97,12 +95,12 @@ export function AnnouncementSearchDialog({
             <LabeledSelector
               placeholder="학기를 선택해주세요."
               required={false}
-              label={'진행 학기'}
+              label="학기"
               options={getSemesterOptions()}
               value={semesterId}
               onChange={setSemesterId}
             />
-            <LabeledInput label={'스터디명'} value={title} onChange={setTitle} />
+            <LabeledInput label="제목" value={title} onChange={setTitle} />
             <div className="flex w-full items-center gap-2">
               <Button variant="secondary" size="md" className="w-full" onClick={handleReset}>
                 초기화

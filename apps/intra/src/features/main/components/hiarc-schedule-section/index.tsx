@@ -19,11 +19,12 @@ export function HiarcScheduleSection({
     () => startOfWeek(new Date(), { weekStartsOn: 0 }) // 일요일 시작
   );
 
-  // 현재 주의 수요일 계산 (median으로 사용)
+  // 현재 표시되는 날짜들의 중앙값 계산 (median으로 사용)
   const medianDate = useMemo(() => {
-    const wednesday = addDays(currentWeekStart, 3); // 일요일부터 3일 후 = 수요일
-    return format(wednesday, 'yyyy-MM-dd');
-  }, [currentWeekStart]);
+    const medianIndex = Math.floor(daysToShow / 2); // 중앙 인덱스 계산
+    const medianDay = addDays(currentWeekStart, medianIndex);
+    return format(medianDay, 'yyyy-MM-dd');
+  }, [currentWeekStart, daysToShow]);
 
   const { data: calendarSchedules, isLoading } = useCalendarSchedule({
     median: medianDate,
@@ -95,6 +96,14 @@ export function HiarcScheduleSection({
           <div className="h-2 w-2 rounded-sm bg-category-general" />
           <Label size="sm" weight="regular">
             학회 행사
+          </Label>
+          <div className="h-2 w-2 rounded-sm bg-category-external" />
+          <Label size="sm" weight="regular">
+            외부
+          </Label>
+          <div className="h-2 w-2 rounded-sm bg-category-etc" />
+          <Label size="sm" weight="regular">
+            기타
           </Label>
         </div>
       </div>

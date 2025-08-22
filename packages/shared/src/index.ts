@@ -24,3 +24,4 @@ export * from './types/recruit/update-recruitment-request';
 export * from './types/study/create-assignment-request';
 export * from './types/category/announcement-type';
 export * from './types/category/announcement-type-utils';
+export * from './types/react-query/mutation-meta';

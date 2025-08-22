@@ -95,7 +95,7 @@ export function AnnouncementSearchSection({
         <LabeledSelector
           placeholder="학기를 선택해주세요."
           required={false}
-          label={'진행 학기'}
+          label="학기"
           options={getSemesterOptions()}
           value={semesterId}
           onChange={setSemesterId}

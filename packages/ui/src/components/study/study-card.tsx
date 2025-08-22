@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import { cn } from '../../lib/utils';
-import { CategoryChip } from '../chip/category-chip';
 import { Divider } from '../divider';
 import { Label } from '../label/label';
 import { useRouter } from 'next/navigation';
+import { StudyStatusChip } from '../chip/study-status-chip';
 
 export default function StudyGrayChip({
   type,
@@ -35,7 +35,8 @@ interface StudyCardProps {
   startDate: string;
   endDate: string;
   studyDescription: string;
-  state: 'PREPARING' | 'PRE_OPEN' | 'RECRUITING' | 'IN_PROGRESS' | 'CLOSED';
+  state: 'PREPARING' | 'PRE_OPEN' | 'RECRUITING' | 'IN_PROGRESS' | 'CLOSED' | 'ENROLLED';
+  isEnrolled: boolean;
 }
 
 function MobileStudyCard({
@@ -47,6 +48,7 @@ function MobileStudyCard({
   endDate,
   studyDescription,
   state,
+  isEnrolled,
 }: StudyCardProps): React.ReactElement {
   return (
     <div
@@ -69,10 +71,7 @@ function MobileStudyCard({
             {hostName} | {startDate}~{endDate}
           </Label>
         </div>
-        <CategoryChip
-          category={state.toUpperCase() as 'PARTICIPATING' | 'RECRUITING'}
-          className="ml-auto h-[26px]"
-        />
+        <StudyStatusChip status={isEnrolled ? 'ENROLLED' : state} className="ml-auto h-[26px]" />
       </div>
       <Label size="md" weight="regular" className="mt-1 line-clamp-2 overflow-hidden text-ellipsis">
         {studyDescription}
@@ -90,6 +89,7 @@ function DesktopStudyCard({
   endDate,
   studyDescription,
   state,
+  isEnrolled,
 }: StudyCardProps): React.ReactElement {
   return (
     <div
@@ -119,10 +119,7 @@ function DesktopStudyCard({
             </Label>
           </div>
         </div>
-        <CategoryChip
-          category={state.toUpperCase() as 'PARTICIPATING' | 'RECRUITING'}
-          className="ml-auto"
-        />
+        <StudyStatusChip status={isEnrolled ? 'ENROLLED' : state} className="ml-auto" />
       </div>
       <Label size="md" weight="regular" className="mt-1 line-clamp-2 overflow-hidden text-ellipsis">
         {studyDescription}
@@ -141,6 +138,7 @@ export function StudyCard({
   endDate,
   studyDescription,
   state,
+  isEnrolled = false,
 }: StudyCardProps): React.ReactElement {
   const router = useRouter();
 
@@ -162,6 +160,7 @@ export function StudyCard({
           endDate={endDate}
           studyDescription={studyDescription}
           state={state}
+          isEnrolled={isEnrolled}
         />
       </div>
       <div className="hidden md:block">
@@ -175,6 +174,7 @@ export function StudyCard({
           endDate={endDate}
           studyDescription={studyDescription}
           state={state}
+          isEnrolled={isEnrolled}
         />
       </div>
     </div>

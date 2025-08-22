@@ -26,7 +26,10 @@ export function SuccessDialog({
 
   return (
     <Dialog open={true} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-w-sm" showBackground={showBackground ?? dialog.showBackground}>
+      <DialogContent
+        className="max-w-full"
+        showBackground={showBackground ?? dialog.showBackground}
+      >
         <div className="flex flex-col items-center text-center">
           <div className="flex justify-center">
             <div className="flex h-9 w-9 items-center justify-center rounded-full bg-green-100">

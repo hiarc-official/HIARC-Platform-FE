@@ -3,12 +3,13 @@ import { useEffect } from 'react';
 import { MyInfo } from '../../types/model/my-info';
 import { useAuthStore } from '@/shared/store/auth-store';
 import { authApi } from '../../api/auth';
+import { queryKeys } from '@/shared/constants/query-keys';
 
 export default function useGetMe(): UseQueryResult<MyInfo, Error> {
   const { isAuthenticated, clearAuth } = useAuthStore();
 
   const query = useQuery({
-    queryKey: ['auth', 'me'],
+    queryKey: queryKeys.auth.me(),
     queryFn: authApi.GET_ME,
     enabled: isAuthenticated,
     retry: false,

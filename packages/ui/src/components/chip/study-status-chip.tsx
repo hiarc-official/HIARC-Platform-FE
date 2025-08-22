@@ -18,6 +18,7 @@ const studyStatusChipVariants = cva(
         RECRUITING: 'bg-red/20 text-red',
         IN_PROGRESS: 'bg-primary-100/20 text-primary-100',
         CLOSED: 'bg-gray-200 text-primary-300',
+        ENROLLED: 'bg-primary-100/20 text-primary-100',
       },
     },
     defaultVariants: {
@@ -35,6 +36,7 @@ const statusText: Record<
   RECRUITING: '모집중',
   IN_PROGRESS: '진행중',
   CLOSED: '종료',
+  ENROLLED: '참여중',
 };
 
 type StudyStatusChipProps = React.HTMLAttributes<HTMLSpanElement> &

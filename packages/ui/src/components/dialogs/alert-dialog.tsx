@@ -15,9 +15,9 @@ import { AlertDialogTitle } from '@radix-ui/react-alert-dialog';
 
 interface AlertDialogComponentProps {
   dialog: DialogConfig;
-  onConfirm: () => void;
-  onCancel: () => void;
-  onClose: () => void;
+  onConfirm(): void;
+  onCancel(): void;
+  onClose(): void;
   showBackground?: boolean;
 }
 
@@ -41,7 +41,7 @@ export function AlertDialogComponent({
 
   return (
     <AlertDialog open={true} onOpenChange={(open) => !open && onClose()}>
-      <AlertDialogContent className="max-w-lg sm:max-w-sm">
+      <AlertDialogContent className="max-w-full sm:max-w-sm">
         <div className="flex flex-col items-center py-2 text-center">
           {/* Error Icon */}
           <Image src="/shared-assets/Error.svg" alt="Error Icon" width={32} height={32} />

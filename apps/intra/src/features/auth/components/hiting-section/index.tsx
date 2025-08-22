@@ -42,11 +42,16 @@ export function HitingSection({
             ))}
           </div>
         ) : (
-          <div className="flexl justify-center gap-2">
-            <Label size="sm" weight="regular">
+          <div className="flexl justify-center">
+            <Label size="lg" weight="regular" className="text-gray-700">
               하이팅에 참여하시고, 10위 안에 도전해보세요!
             </Label>
-            <Label size="sm" weight="regular" className="ml-1">
+            <Label
+              size="lg"
+              weight="regular"
+              className="ml-2 cursor-pointer text-gray-700 underline"
+              onClick={() => window.open('https://rating.hiarc-official.com', '_blank')}
+            >
               하이팅 바로가기
             </Label>
           </div>

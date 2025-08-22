@@ -1,7 +1,7 @@
 'use client';
 
 import { DialogUtil } from '@hiarc-platform/ui';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { MutationCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactNode, useState } from 'react';
 
 interface ProvidersProps {
@@ -12,6 +12,26 @@ export function Providers({ children }: ProvidersProps): React.ReactElement {
   const [queryClient] = useState(
     () =>
       new QueryClient({
+        mutationCache: new MutationCache({
+          onSuccess: (data, variables, context, mutation) => {
+            // Global automatic invalidation after successful mutations
+            const shouldSkipInvalidation = mutation.meta?.skipInvalidation;
+            const invalidateQueries = mutation.meta?.invalidateQueries;
+            
+            if (!shouldSkipInvalidation) {
+              if (invalidateQueries) {
+                // Selective invalidation based on meta
+                const queries = Array.isArray(invalidateQueries) ? invalidateQueries : [invalidateQueries];
+                queries.forEach(queryKey => {
+                  queryClient.invalidateQueries({ queryKey });
+                });
+              } else {
+                // Default: invalidate all queries (can be refined later)
+                queryClient.invalidateQueries();
+              }
+            }
+          },
+        }),
         defaultOptions: {
           queries: {
             staleTime: 60 * 1000,

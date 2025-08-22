@@ -4,6 +4,7 @@ import { HiarcScheduleSection } from '@/features/main/components/hiarc-schedule-
 import { AnnouncementListSection } from '@/features/main/components/announcement-list-section';
 import { OnboardingButton } from '@/features/main/components/onboarding-button';
 import { StudyListSection } from '@/features/main/components/study-list-section';
+import { useAuthStore } from '@/shared/store/auth-store';
 import {
   ContentSection,
   PageLayout,
@@ -12,12 +13,14 @@ import {
 } from '@hiarc-platform/ui';
 
 export default function Home(): React.ReactElement {
+  const { isAuthenticated } = useAuthStore();
+
   return (
     <PageLayout
       mobileChildren={
         <ContentSection>
           <SingleColumnLayout>
-            <HiarcScheduleSection daysToShow={7} />
+            <HiarcScheduleSection daysToShow={3} />
             <AnnouncementListSection className="mt-6" />
             <StudyListSection className="mt-6" />
           </SingleColumnLayout>
@@ -32,7 +35,7 @@ export default function Home(): React.ReactElement {
           />
         </ContentSection>
       }
-      stickyBottom={<OnboardingButton />}
+      stickyBottom={!isAuthenticated ? <OnboardingButton /> : undefined}
     />
   );
 }

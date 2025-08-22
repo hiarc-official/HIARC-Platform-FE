@@ -123,7 +123,7 @@ export function MobileHeader({
               <div className="flex items-center gap-2 border-b border-gray-200 px-5 py-2">
                 <Input variant="search" placeholder="검색어를 입력하세요" className="flex-1" />
                 <IconButton
-                  iconSrc="/Close.svg"
+                  iconSrc="/shared-assets/Close.svg"
                   size="lg"
                   onClick={() => setIsMobileSearchOpen(false)}
                 />
