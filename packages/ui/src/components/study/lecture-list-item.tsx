@@ -32,7 +32,13 @@ function ShowCodeButton({ onClick }: { onClick(): void }): React.ReactElement {
   );
 }
 
-function AttendanceCheckButton({ onClick, disabled = false }: { onClick(): void; disabled?: boolean }): React.ReactElement {
+function AttendanceCheckButton({
+  onClick,
+  disabled = false,
+}: {
+  onClick(): void;
+  disabled?: boolean;
+}): React.ReactElement {
   return (
     <Button variant="fill_light" size="xs" onClick={onClick} disabled={disabled}>
       출석 체크
@@ -64,7 +70,13 @@ function ShowAssignmentButton({ onClick }: { onClick(): void }): React.ReactElem
   );
 }
 
-function DoAssignmentButton({ onClick, disabled = false }: { onClick(): void; disabled?: boolean }): React.ReactElement {
+function DoAssignmentButton({
+  onClick,
+  disabled = false,
+}: {
+  onClick(): void;
+  disabled?: boolean;
+}): React.ReactElement {
   return (
     <Button variant="fill_light" size="xs" onClick={onClick} disabled={disabled}>
       과제하기
@@ -209,7 +221,7 @@ function MobileLectureListItem({
         <WeekChip week={lecture?.round || 0} />
         <div className="flex items-center gap-2">
           <Label size="md" className="text-gray-700">
-            {lecture?.title || '강의실 정보 없음'}
+            {lecture?.place || '강의실 정보 없음'}
           </Label>
           <div className="flex gap-2">{buttons}</div>
         </div>
@@ -220,7 +232,7 @@ function MobileLectureListItem({
           className="cursor-pointer underline decoration-gray-900 decoration-1 underline-offset-2 hover:opacity-70"
           onClick={onTitleClick}
         >
-          {lecture?.title || '강의실 정보 없음'}
+          {lecture?.title || '강의 제목 없음'}
         </Label>
         {isAdmin && (
           <div className="ml-4 flex gap-4">
@@ -351,7 +363,7 @@ function DesktopLectureCardListItem(props: LectureCardProps): React.ReactElement
         <div className="flex items-center gap-2">
           <div className="flex gap-2">{buttons}</div>
           <Label size="md" className="w-[80px] text-right text-gray-700">
-            {lecture?.title || '강의실 정보 없음'}
+            {lecture?.place || '강의실 정보 없음'}
           </Label>
         </div>
         {props.isAdmin && (

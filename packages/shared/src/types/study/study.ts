@@ -28,6 +28,7 @@ export interface Study {
   // Computed properties
   readonly scheduleText?: string;
   readonly instructorNameHandle?: string;
+  readonly recruitingDates?: string;
 }
 
 export const Study = {
@@ -65,6 +66,7 @@ export const Study = {
       ...study,
       scheduleText: this.getScheduleText(study),
       instructorNameHandle: this.getInstructorNameHandle(study),
+      recruitingDates: this.getRecruitingDates(study),
     };
   },
 

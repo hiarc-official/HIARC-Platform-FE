@@ -43,7 +43,7 @@ export function StudyTitle({
                 모집일
               </Label>
               <Label size="lg" weight="medium" className="ml-4 text-gray-900">
-                {`${studyData.recruitmentStartDate} - ${studyData.recruitmentEndDate}`}
+                {studyData.recruitingDates}
               </Label>
             </div>
           )}
