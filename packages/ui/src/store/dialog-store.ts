@@ -9,7 +9,7 @@ export interface DialogConfig {
   onCancel?(): void;
   confirmText?: string;
   cancelText?: string;
-  type?: 'info' | 'warning' | 'error' | 'success' | 'confirm' | 'custom' | 'component';
+  type?: 'info' | 'warning' | 'error' | 'success' | 'confirm' | 'custom' | 'component' | 'alert';
   size?: 'sm' | 'md' | 'lg' | 'xl';
   hideButtons?: boolean; // 커스텀 다이얼로그에서 기본 버튼 숨기기
   closeOnBackdropClick?: boolean; // 백드롭 클릭시 닫기 여부

@@ -11,7 +11,7 @@ import {
 } from '../dialog/dialog';
 import { Button } from '../button';
 import { Label } from '../label/label';
-import { ErrorDialog, SuccessDialog, WarningDialog, ConfirmDialog, InfoDialog } from './';
+import { ErrorDialog, SuccessDialog, WarningDialog, ConfirmDialog, InfoDialog, AlertDialogComponent } from './';
 
 const getDialogSize = (size: DialogConfig['size']): string => {
   switch (size) {
@@ -101,6 +101,16 @@ function DialogItem({ dialog }: { dialog: DialogConfig }): React.ReactElement {
 
   // Use specific dialog components based on type
   switch (dialog.type) {
+    case 'alert':
+      return (
+        <AlertDialogComponent
+          dialog={dialog}
+          onConfirm={handleConfirm}
+          onCancel={handleCancel}
+          onClose={handleClose}
+          showBackground={dialog.showBackground}
+        />
+      );
     case 'error':
       return (
         <ErrorDialog

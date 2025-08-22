@@ -17,9 +17,9 @@ export class DialogUtil {
    * 정보 다이얼로그를 표시합니다
    */
   static showInfo(
-    content: React.ReactNode, 
-    title?: string, 
-    onConfirm?: () => void, 
+    content: React.ReactNode,
+    title?: string,
+    onConfirm?: () => void,
     options?: { showBackground?: boolean }
   ): string {
     return this.showDialog({
@@ -35,8 +35,8 @@ export class DialogUtil {
    * 성공 다이얼로그를 표시합니다
    */
   static showSuccess(
-    content: React.ReactNode, 
-    title?: string, 
+    content: React.ReactNode,
+    title?: string,
     onConfirm?: () => void,
     options?: { showBackground?: boolean }
   ): string {
@@ -53,8 +53,8 @@ export class DialogUtil {
    * 경고 다이얼로그를 표시합니다
    */
   static showWarning(
-    content: React.ReactNode, 
-    title?: string, 
+    content: React.ReactNode,
+    title?: string,
     onConfirm?: () => void,
     options?: { showBackground?: boolean }
   ): string {
@@ -68,16 +68,16 @@ export class DialogUtil {
   }
 
   /**
-   * 에러 다이얼로그를 표시합니다
+   * 에러 다이얼로그를 표시합니다 (AlertDialog로 표시)
    */
   static showError(
-    content: React.ReactNode, 
-    title?: string, 
+    content: React.ReactNode,
+    title?: string,
     onConfirm?: () => void,
     options?: { showBackground?: boolean }
   ): string {
     return this.showDialog({
-      type: 'error',
+      type: 'alert',
       title: title || '오류',
       content,
       onConfirm,
@@ -216,10 +216,78 @@ export class DialogUtil {
   }
 
   /**
+   * AlertDialog로 정보를 표시합니다
+   */
+  static showAlertInfo(content: React.ReactNode, title?: string, onConfirm?: () => void): string {
+    return this.showDialog({
+      type: 'alert',
+      title: title || '정보',
+      content,
+      onConfirm,
+    });
+  }
+
+  /**
+   * AlertDialog로 경고를 표시합니다
+   */
+  static showAlertWarning(
+    content: React.ReactNode,
+    title?: string,
+    onConfirm?: () => void
+  ): string {
+    return this.showDialog({
+      type: 'alert',
+      title: title || '경고',
+      content,
+      onConfirm,
+    });
+  }
+
+  /**
+   * AlertDialog로 성공 메시지를 표시합니다
+   */
+  static showAlertSuccess(
+    content: React.ReactNode,
+    title?: string,
+    onConfirm?: () => void
+  ): string {
+    return this.showDialog({
+      type: 'alert',
+      title: title || '성공',
+      content,
+      onConfirm,
+    });
+  }
+
+  /**
+   * AlertDialog로 확인 다이얼로그를 표시합니다
+   */
+  static showAlertConfirm(
+    content: React.ReactNode,
+    onConfirm?: () => void,
+    onCancel?: () => void,
+    options?: {
+      title?: string;
+      confirmText?: string;
+      cancelText?: string;
+    }
+  ): string {
+    return this.showDialog({
+      type: 'alert',
+      title: options?.title || '확인',
+      content,
+      onConfirm,
+      onCancel,
+      confirmText: options?.confirmText || '확인',
+      cancelText: options?.cancelText || '취소',
+    });
+  }
+
+  /**
    * Dialog 구조를 가진 컴포넌트를 다이얼로그로 표시합니다
    */
   static showComponent(
-    component: React.ReactNode, 
+    component: React.ReactNode,
     options?: {
       closeOnBackdropClick?: boolean;
       showBackground?: boolean;
