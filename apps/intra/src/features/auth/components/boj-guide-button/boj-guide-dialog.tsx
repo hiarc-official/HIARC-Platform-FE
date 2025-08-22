@@ -27,7 +27,7 @@ export function BojGuideDialog({ showBackground = true }: BojGuideDialogProps): 
     <Dialog open={true} onOpenChange={(open) => !open && handleCancel()}>
       <DialogContent className="sm:max-w-[380px]" showBackground={showBackground}>
         <DialogHeader>
-          <DialogTitle>백준 가이드</DialogTitle>
+          <DialogTitle className="text-left">백준 가이드</DialogTitle>
         </DialogHeader>
         <DialogDescription asChild>
           <>

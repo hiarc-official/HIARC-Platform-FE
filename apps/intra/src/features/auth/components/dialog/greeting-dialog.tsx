@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Button,
   Dialog,
@@ -9,18 +8,21 @@ import {
   DialogUtil,
   Label,
 } from '@hiarc-platform/ui';
+import React from 'react';
 
-interface SignupSuccessDialogProps {
+interface GreetingDialogProps {
+  title: string;
   message: string;
   showBackground?: boolean;
   onConfirm?(): void;
 }
 
-export function SignupSuccessDialog({
+export function GreetingDialog({
+  title,
   message,
   showBackground = true,
   onConfirm,
-}: SignupSuccessDialogProps): React.ReactElement {
+}: GreetingDialogProps): React.ReactElement {
   const handleConfirm = async (): Promise<void> => {
     DialogUtil.hideAllDialogs();
     onConfirm?.();
@@ -33,11 +35,10 @@ export function SignupSuccessDialog({
   return (
     <Dialog open={true} onOpenChange={(open) => !open && handleCancel()}>
       <DialogContent className="sm:max-w-[380px]" showBackground={showBackground}>
-        <DialogHeader>
-          <DialogTitle>학회 가입 완료</DialogTitle>
+        <DialogHeader className="mb-6">
+          <DialogTitle>{title}</DialogTitle>
         </DialogHeader>
         <DialogDescription asChild>
-          <div className="mt-6" />
           <Label>
             {message.split('\n').map((line, index) => (
               <React.Fragment key={index}>
@@ -46,7 +47,6 @@ export function SignupSuccessDialog({
               </React.Fragment>
             ))}
           </Label>
-          <div className="mt-6" />
         </DialogDescription>
         <Button className="mt-6 w-full" onClick={handleConfirm}>
           <Label size="md">확인</Label>
