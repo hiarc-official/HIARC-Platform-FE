@@ -57,16 +57,7 @@ export default function StudyPage(): React.ReactElement {
           onEditClick={() => router.push(`/study/${studyId}/edit`)}
           onApplyClick={() => {
             DialogUtil.showConfirm('스터디에 신청하시겠습니까?', () => {
-              applyToStudy(studyId, {
-                onSuccess: () => {
-                  DialogUtil.showSuccess('스터디 신청이 완료되었습니다.');
-                },
-                onError: (error) => {
-                  const errorMessage =
-                    error instanceof Error ? error.message : '신청에 실패했습니다.';
-                  DialogUtil.showError(errorMessage);
-                },
-              });
+              applyToStudy(studyId);
             });
           }}
         />

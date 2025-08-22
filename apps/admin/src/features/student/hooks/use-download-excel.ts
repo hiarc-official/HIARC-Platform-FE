@@ -1,11 +1,12 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, UseMutationResult } from '@tanstack/react-query';
 import { apiClient } from '../../../shared/api/client';
+import { DialogUtil } from '@hiarc-platform/ui';
 
-export const useDownloadExcel = () => {
-  return useMutation({
+export const useDownloadExcel = (): UseMutationResult<void, Error, number, unknown> =>
+  useMutation({
     mutationFn: async (semesterId: number) => {
       try {
-        const response = await apiClient.get(`/admin/members/excel/download`, {
+        const response = await apiClient.get('/admin/members/excel/download', {
           params: { semesterId },
           responseType: 'blob',
         });
@@ -23,12 +24,12 @@ export const useDownloadExcel = () => {
         }
 
         // 서버에서 제공하는 Content-Type을 우선 사용하거나 기본값 사용
-        const contentType = 
-          response.headers['content-type'] || 
+        const contentType =
+          response.headers['content-type'] ||
           'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
         const blob = new Blob([response.data], { type: contentType });
-        
+
         console.log('[EXCEL DOWNLOAD] Blob 생성 완료:', {
           size: blob.size,
           type: blob.type,
@@ -37,12 +38,12 @@ export const useDownloadExcel = () => {
         const url = window.URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = url;
-        link.download = `회원목록_${semesterId}.xlsx`;
+        link.download = `회원목록_${semesterId}.csv`;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
         window.URL.revokeObjectURL(url);
-        
+
         console.log('[EXCEL DOWNLOAD] 다운로드 트리거 완료');
       } catch (error) {
         console.error('[EXCEL DOWNLOAD] 다운로드 실패:', error);
@@ -50,10 +51,9 @@ export const useDownloadExcel = () => {
       }
     },
     onSuccess: () => {
-      console.log('[EXCEL DOWNLOAD] 다운로드 성공');
+      DialogUtil.showSuccess('엑셀 다운로드 요청이 완료되었습니다.');
     },
     onError: (error) => {
-      console.error('[EXCEL DOWNLOAD] 다운로드 실패:', error);
+      DialogUtil.showServerError(error);
     },
   });
-};

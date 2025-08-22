@@ -237,8 +237,8 @@ export const createStudentColumns = ({
     accessorKey: 'withdrawButton',
     size: 60,
     meta: {
-      headAlign: 'left',
-      bodyAlign: 'left',
+      headAlign: 'center',
+      bodyAlign: 'center',
     },
     header: () => (
       <Label size="md" weight="bold">
