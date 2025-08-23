@@ -1,6 +1,6 @@
-import useStudy from '@/features/study/hooks/use-study';
 import { useParams, useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import { useStudy } from '../study-common/query/use-study';
 
 export function useStudyEditPageState() {
   const router = useRouter();

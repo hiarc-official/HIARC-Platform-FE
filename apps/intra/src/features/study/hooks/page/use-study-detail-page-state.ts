@@ -1,8 +1,8 @@
-import useStudy from '@/features/study/hooks/use-study';
-import useApplyToStudy from '@/features/study/hooks/use-apply-to-study';
+import useApplyToStudy from '@/features/study/hooks/study-common/mutation/use-apply-to-study';
 import { DialogUtil } from '@hiarc-platform/ui';
 import { useRouter, useParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import { useStudy } from '../study-common/query/use-study';
 
 export function useStudyDetailPageState() {
   const router = useRouter();

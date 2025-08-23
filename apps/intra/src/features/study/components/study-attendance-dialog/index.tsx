@@ -8,11 +8,12 @@ import {
   Label,
 } from '@hiarc-platform/ui';
 import { NumberInput } from '@hiarc-platform/ui/src/components/input/number-input';
-import { useState } from 'react';
-import { useCheckAttendanceCode } from '../../hooks/use-check-attendance-code';
-import { useStudyForAttendance } from '../../hooks/use-studies-for-attendance';
+import React, { useState } from 'react';
 
-export function StudyAttendanceDialog() {
+import { useStudyForAttendance } from '../../hooks/study-member/query/use-study-for-attendance';
+import { useCheckAttendanceCode } from '../../hooks/study-member/mutation/use-check-attendance-code';
+
+export function StudyAttendanceDialog(): React.ReactElement {
   const [attendanceCode, setAttendanceCode] = useState<string>('');
   const { data } = useStudyForAttendance();
   const checkAttendanceMutation = useCheckAttendanceCode();

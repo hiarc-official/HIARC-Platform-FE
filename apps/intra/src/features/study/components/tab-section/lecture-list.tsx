@@ -11,9 +11,9 @@ import { ShowAttendanceCodeDialogWrapper } from './show-attendance-code-dialog-w
 import { CreateAssignmentDialogWrapper } from './create-assignment-dialog-wrapper';
 import { DoAssignmentDialogWrapper } from './do-assignment-dialog-wrapper';
 import { useRouter } from 'next/navigation';
-import { useCreateAttendanceCode } from '../../hooks/use-create-attendance-code';
-import { useDeleteLecture } from '../../hooks/use-delete-lecture';
-import { useCheckAttendanceCode } from '../../hooks/use-check-attendance-code';
+import { useCreateAttendanceCode } from '../../hooks/study-instructor/mutation/use-create-attendance-code';
+import { useDeleteLecture } from '../../hooks/study-instructor/mutation/use-delete-lecture';
+import { useCheckAttendanceCode } from '../../hooks/study-member/mutation/use-check-attendance-code';
 
 interface LectureListProps {
   isAdmin?: boolean;
@@ -49,7 +49,7 @@ export function LectureList({
             key={lecture.round}
             lecture={lecture}
             onTitleClick={() => {}}
-            onAttendanceCheckClick={(onSuccess) => {
+            onAttendanceCheckClick={() => {
               DialogUtil.showComponent(
                 <AttendanceCheckDialog
                   studyName={studyName ?? ''}

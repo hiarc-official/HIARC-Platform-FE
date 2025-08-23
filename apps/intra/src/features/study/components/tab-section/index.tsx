@@ -5,10 +5,9 @@ import { useRouter } from 'next/navigation';
 import { LectureList } from './lecture-list';
 import { AnnouncementTable } from './announcement-table';
 import { StudentList } from './student-list';
-
-import { useStudyMembers } from '../../hooks/use-study-members';
-import { useStudyAnnouncements } from '../../hooks/use-study-announcements';
-import { useLecturesByStudy } from '../../hooks/use-lectures-by-study';
+import { useLecturesByStudy } from '../../hooks/study-common/query/use-lectures';
+import { useStudyAnnouncements } from '../../hooks/study-common/query/use-study-announcements';
+import { useStudyMembers } from '../../hooks/study-instructor/query/use-study-members';
 
 interface TabSectionProps {
   isStudent?: boolean;

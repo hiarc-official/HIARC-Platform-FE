@@ -1,9 +1,10 @@
 import { cn, Label, LabeledSelector, Tabs } from '@hiarc-platform/ui';
 import { AttendanceTable } from '@hiarc-platform/ui/src/components/table/attendance-table';
 import { useState, useMemo } from 'react';
-import { useMyStudies } from '@/features/study/hooks/use-my-studies';
-import { useMyStudyInfo } from '@/features/study/hooks/use-my-study-info';
+
 import { SelectOption } from '@hiarc-platform/shared';
+import { useMyStudies } from '@/features/study/hooks/study-member/query/use-my-studies';
+import { useMyStudyInfo } from '@/features/study/hooks/study-member/query/use-my-study-info';
 
 interface StudySectionProps {
   className?: string;

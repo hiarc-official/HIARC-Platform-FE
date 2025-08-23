@@ -30,7 +30,7 @@ export interface Announcement {
   prev?: AnnouncementNavigationItem | null;
   next?: AnnouncementNavigationItem | null;
 
-  announcementTitle: string;
+  readonly announcementTitle?: string | null;
 }
 
 export const Announcement = {
@@ -38,7 +38,7 @@ export const Announcement = {
     const data = (json || {}) as Record<string, unknown>;
     const announcement = {
       announcementId: (data.announcementId as number) || null,
-      title: (data.title as string) || null,
+      title: data.title as string,
       place: (data.place as string) || null,
       scheduleStartAt: data.scheduleStartAt ? new Date(data.scheduleStartAt as string) : null,
       scheduleEndAt: data.scheduleEndAt ? new Date(data.scheduleEndAt as string) : null,
@@ -61,21 +61,23 @@ export const Announcement = {
       semesterId: (data.semesterId as number) || null,
       prev: (data.prev as AnnouncementNavigationItem) || null,
       next: (data.next as AnnouncementNavigationItem) || null,
-
-      get announcementTitle(): string {
-        if (!this.title) return '';
-
-        if (this.announcementType === 'STUDY') {
-          if (this.lectureRound !== null && this.lectureRound !== undefined) {
-            return `[${this.studyName}][${this.lectureRound}회차] ${this.title}`;
-          }
-          return `[${this.studyName}] ${this.title}`;
-        }
-
-        return this.title;
-      },
     };
 
-    return announcement;
+    return { ...announcement, announcementTitle: this.getAnnouncementTitle(announcement) };
+  },
+
+  getAnnouncementTitle(announcement: Announcement): string {
+    if (!announcement.title) {
+      return '';
+    }
+
+    if (announcement.announcementType === 'STUDY') {
+      if (announcement.lectureRound !== null && announcement.lectureRound !== undefined) {
+        return `[${announcement.studyName}][${announcement.lectureRound}회차] ${announcement.title}`;
+      }
+      return `[${announcement.studyName}] ${announcement.title}`;
+    }
+
+    return announcement.title;
   },
 };

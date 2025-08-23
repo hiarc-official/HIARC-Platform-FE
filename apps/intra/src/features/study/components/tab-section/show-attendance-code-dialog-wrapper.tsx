@@ -1,7 +1,7 @@
 'use client';
 
-import { useAttendanceCode } from '../../hooks/use-attendance-code';
 import { ShowAttendanceCodeDialog } from '@hiarc-platform/ui';
+import { useAttendanceCode } from '../../hooks/study-instructor/query/use-attendance-code';
 
 interface ShowAttendanceCodeDialogWrapperProps {
   studyId: number;

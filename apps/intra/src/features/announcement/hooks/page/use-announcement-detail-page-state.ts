@@ -1,29 +1,7 @@
 import { useRouter, useParams } from 'next/navigation';
 import useAnnouncement from '../query/use-announcement';
-
-function mapAnnouncementType(type: string): 'RATING' | 'STUDY' | 'ETC' | 'GENERAL' | 'EXTERNAL' {
-  switch (type) {
-    case 'RATING':
-      return 'RATING';
-    case 'STUDY':
-      return 'STUDY';
-    case 'GENERAL':
-      return 'GENERAL';
-    case 'ETC':
-      return 'ETC';
-    case 'EXTERNAL':
-      return 'EXTERNAL';
-    default:
-      return 'GENERAL';
-  }
-}
-
-function formatDate(date: Date): string {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  return `${year}.${month}.${day}`;
-}
+import { AnnnouncementType } from '@hiarc-platform/shared';
+import { formatDateWithDots } from '@hiarc-platform/util';
 
 export function useAnnouncementDetailPageState() {
   const router = useRouter();
@@ -32,11 +10,11 @@ export function useAnnouncementDetailPageState() {
 
   const { data: announcement, isLoading, error } = useAnnouncement(announcementId);
 
-  const handleGoBack = () => {
+  const handleGoBack = (): void => {
     router.back();
   };
 
-  const handleGoToList = () => {
+  const handleGoToList = (): void => {
     router.push('/announcement');
   };
 
@@ -45,8 +23,8 @@ export function useAnnouncementDetailPageState() {
     ? {
         ...announcement,
         announcementTitle: announcement.announcementTitle || '제목 없음',
-        announcementCategory: mapAnnouncementType(announcement.announcementType || 'GENERAL'),
-        announcementDate: announcement.createdAt ? formatDate(announcement.createdAt) : '날짜 없음',
+        announcementCategory: AnnnouncementType[announcement.announcementType || 'GENERAL'],
+        announcementDate: formatDateWithDots(announcement.createdAt ?? ''),
         urlList: announcement.attachmentUrls || [],
         place: announcement.place ?? undefined,
         scheduleStartAt: announcement.scheduleStartAt

@@ -1,14 +1,15 @@
 import { useQuery, UseQueryResult, keepPreviousData } from '@tanstack/react-query';
-import { studyApi } from '../api/study';
-import { StudyQueryParams } from '../types/request/study-query-params';
+
 import { PageableModel, StudySummary } from '@hiarc-platform/shared';
+import { studyCommonApi } from '@/features/study/api';
+import { StudyQueryParams } from '@/features/study/api/study-common';
 
 export default function useStudies(
   params: StudyQueryParams = {}
 ): UseQueryResult<PageableModel<StudySummary>, Error> {
   const query = useQuery({
     queryKey: ['studies', params],
-    queryFn: () => studyApi.GET_STUDIES(params),
+    queryFn: () => studyCommonApi.GET_STUDIES(params),
     placeholderData: keepPreviousData,
   });
 

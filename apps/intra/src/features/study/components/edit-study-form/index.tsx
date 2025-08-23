@@ -15,8 +15,8 @@ import {
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { CreateStudyRequest } from '@hiarc-platform/shared';
-import { useUpdateStudy } from '@/features/study/hooks/use-update-study';
-import { useStudyInitialForm } from '@/features/study/hooks/use-study-initial-form';
+import { useStudyInitialForm } from '../../hooks/study-instructor/query/use-study-initial-form';
+import { useUpdateStudy } from '../../hooks/study-instructor/mutation/use-update-study';
 
 interface EditStudyFormProps {
   studyId: number;

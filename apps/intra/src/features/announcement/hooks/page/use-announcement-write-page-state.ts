@@ -1,9 +1,8 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import { CreateAnnouncementRequest } from '@hiarc-platform/shared';
-import { DialogUtil } from '@hiarc-platform/ui';
 import { useSemesterStoreInit, useSemesterStore } from '@/hooks/use-semester-store';
-import { useStudyOptions } from '@/features/study/hooks/use-study-options';
-import useCreateStudyAnnouncement from '@/features/study/hooks/use-create-study-announcement';
+import useCreateStudyAnnouncement from '@/features/study/hooks/study-instructor/mutation/use-create-study-announcement';
+import { useStudyOptions } from '@/features/study/hooks/study-instructor/query/use-study-options';
 
 export function useAnnouncementWritePageState() {
   const router = useRouter();
@@ -33,24 +32,7 @@ export function useAnnouncementWritePageState() {
       ? { studyId: Number(initialStudyId), announcementData: data }
       : data;
 
-    createAnnouncement(mutationData, {
-      onSuccess: () => {
-        const successMessage =
-          initialType === 'STUDY'
-            ? '스터디 공지사항이 성공적으로 등록되었습니다.'
-            : '공지사항이 성공적으로 등록되었습니다.';
-        const redirectPath =
-          initialType === 'STUDY' && initialStudyId ? `/study/${initialStudyId}` : '/announcement';
-
-        DialogUtil.showSuccess(successMessage, () => {
-          router.push(redirectPath);
-        });
-      },
-      onError: (error: Error) => {
-        const errorMessage = error instanceof Error ? error.message : '등록에 실패했습니다.';
-        DialogUtil.showError(errorMessage);
-      },
-    });
+    createAnnouncement(mutationData);
   };
 
   const handleGoBack = (): void => {
@@ -61,7 +43,7 @@ export function useAnnouncementWritePageState() {
     studyOptions,
     initialType: initialType || 'GENERAL',
     initialStudyId: initialStudyId ? Number(initialStudyId) : undefined,
-    initialStudyAnnounceType: (isLecture ? '회차별 공지' : '일반') as "일반" | "회차별 공지",
+    initialStudyAnnounceType: (isLecture ? '회차별 공지' : '일반') as '일반' | '회차별 공지',
     handleSubmit,
     handleGoBack,
   };

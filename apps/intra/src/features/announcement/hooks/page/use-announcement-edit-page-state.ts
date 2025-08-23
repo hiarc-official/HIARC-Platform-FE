@@ -1,15 +1,15 @@
 import { useRouter, useParams, useSearchParams } from 'next/navigation';
 import { CreateAnnouncementRequest } from '@hiarc-platform/shared';
 import { useSemesterStoreInit } from '@/hooks/use-semester-store';
-import { useStudyOptions } from '@/features/study/hooks/use-study-options';
 import useAnnouncement from '../query/use-announcement';
 import { useUpdateInstructorAnnouncement } from '../mutation/use-update-instructor-announcement';
+import { useStudyOptions } from '@/features/study/hooks/study-instructor/query/use-study-options';
 
 export function useAnnouncementEditPageState() {
   const router = useRouter();
   const params = useParams();
   const searchParams = useSearchParams();
-  
+
   const id = Number(params.id);
   const studyId = Number(searchParams.get('studyId')) || 0;
   const semesterId = Number(searchParams.get('semesterId')) || 0;

@@ -1,18 +1,12 @@
 'use client';
 
-import { EditStudyForm } from '@/components/create-study-form';
 import { BackButton, LoadingDots, FadeIn, Title } from '@hiarc-platform/ui';
 import { useStudyEditPageState } from '@/features/study/hooks/page/use-study-edit-page-state';
+import { EditStudyForm } from '../../components/edit-study-form';
 
 export function MobileStudyEditPage(): React.ReactElement {
-  const {
-    studyId,
-    studyData,
-    isLoading,
-    error,
-    mounted,
-    handleBackClick,
-  } = useStudyEditPageState();
+  const { studyId, studyData, isLoading, error, mounted, handleBackClick } =
+    useStudyEditPageState();
 
   if (!mounted || isLoading) {
     return (

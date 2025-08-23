@@ -1,12 +1,13 @@
 import { useMutation, UseMutationResult, useQueryClient } from '@tanstack/react-query';
-import { studyApi } from '../api/study';
+
 import { DialogUtil } from '@hiarc-platform/ui';
+import { studyCommonApi } from '../../../api';
 
 export default function useApplyToStudy(): UseMutationResult<void, Error, number, unknown> {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: studyApi.APPLY_TO_STUDY,
+    mutationFn: studyCommonApi.APPLY_TO_STUDY,
     onSuccess: (_, studyId) => {
       queryClient.invalidateQueries({ queryKey: ['studies'] });
       queryClient.invalidateQueries({ queryKey: ['studies', studyId] });

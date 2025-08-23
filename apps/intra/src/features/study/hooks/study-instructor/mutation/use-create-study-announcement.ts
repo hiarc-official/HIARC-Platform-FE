@@ -1,7 +1,8 @@
 import { useMutation, UseMutationResult, useQueryClient } from '@tanstack/react-query';
-import { announcementApi } from '../../announcement/api/announcement';
+
 import { Announcement } from '@hiarc-platform/shared';
 import { CreateAnnouncementRequest } from '@hiarc-platform/shared';
+import { announcementApi } from '@/features/announcement/api/announcement';
 
 interface CreateStudyAnnouncementParams {
   studyId: number;

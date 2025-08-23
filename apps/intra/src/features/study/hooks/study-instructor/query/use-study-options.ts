@@ -1,12 +1,13 @@
 import { useQuery, UseQueryResult, keepPreviousData } from '@tanstack/react-query';
-import { studyApi } from '../api/study';
+
 import { StudySummary, PageableModel, SelectOption } from '@hiarc-platform/shared';
+import { studyInstructorApi } from '@/features/study/api';
 
 export function useStudyOptions(semesterId?: number | null): UseQueryResult<SelectOption[], Error> {
   const query = useQuery({
     queryKey: ['study-options', semesterId],
     queryFn: async (): Promise<SelectOption[]> => {
-      const response: PageableModel<StudySummary> = await studyApi.GET_ALL_STUDIES({
+      const response: PageableModel<StudySummary> = await studyInstructorApi.GET_ALL_STUDIES({
         semesterId: Number(semesterId),
         page: 0,
         size: 1000, // 모든 스터디를 가져오기 위해 큰 수로 설정

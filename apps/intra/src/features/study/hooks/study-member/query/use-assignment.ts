@@ -1,6 +1,7 @@
 import { useQuery, UseQueryResult, keepPreviousData } from '@tanstack/react-query';
-import { studyApi } from '../api/study';
+
 import { Assignment } from '@hiarc-platform/shared';
+import { studyMemberApi } from '@/features/study/api';
 
 export function useAssignment(
   studyId: number,
@@ -8,7 +9,7 @@ export function useAssignment(
 ): UseQueryResult<Assignment, Error> {
   const query = useQuery({
     queryKey: ['assignments', { studyId, lectureId }],
-    queryFn: () => studyApi.GET_ASSIGNMENT(studyId, lectureId),
+    queryFn: () => studyMemberApi.GET_ASSIGNMENT(studyId, lectureId),
     placeholderData: keepPreviousData,
     staleTime: 5 * 60 * 1000, // 5 minutes
     gcTime: 10 * 60 * 1000, // 10 minutes

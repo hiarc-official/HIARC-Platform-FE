@@ -1,12 +1,12 @@
 import { useQuery, UseQueryResult, keepPreviousData } from '@tanstack/react-query';
-import { studyApi } from '../api/study';
+
 import { Lecture } from '@hiarc-platform/shared';
+import { studyCommonApi } from '@/features/study/api';
 
 export function useLecturesByStudy(studyId: number): UseQueryResult<Lecture[], Error> {
-
   const query = useQuery({
     queryKey: ['lectures', studyId],
-    queryFn: () => studyApi.GET_LECTURES_BY_STUDY(studyId),
+    queryFn: () => studyCommonApi.GET_LECTURES(studyId),
     placeholderData: keepPreviousData,
     staleTime: 0, // 항상 최신 데이터 가져오도록 설정
     gcTime: 10 * 60 * 1000, // 10 minutes

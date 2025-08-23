@@ -1,8 +1,8 @@
 'use client';
 
-import { useAssignment } from '../../hooks/use-assignment';
-import { useCreateAssignment } from '../../hooks/use-create-assignment';
 import { CreateAssignmentDialog } from '@hiarc-platform/ui';
+import { useCreateAssignment } from '../../hooks/study-instructor/mutation/use-create-assignment';
+import { useAssignment } from '../../hooks/study-member/query/use-assignment';
 
 interface CreateAssignmentDialogWrapperProps {
   studyId: number;

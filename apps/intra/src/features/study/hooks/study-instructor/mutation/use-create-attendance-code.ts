@@ -1,12 +1,11 @@
 import { useMutation, UseMutationResult, useQueryClient } from '@tanstack/react-query';
-import { studyApi } from '../api/study';
-import { CreateAssignmentRequest } from '@hiarc-platform/shared/src/types/study/create-assignment-request';
 import { DialogUtil } from '@hiarc-platform/ui';
+import { studyInstructorApi } from '@/features/study/api';
 
-export function useCreateAssignment(): UseMutationResult<
+export function useCreateAttendanceCode(): UseMutationResult<
   void,
   Error,
-  { studyId: number; lectureId: number; data: CreateAssignmentRequest },
+  { studyId: number; lectureId: number; code: string },
   unknown
 > {
   const queryClient = useQueryClient();
@@ -15,22 +14,19 @@ export function useCreateAssignment(): UseMutationResult<
     mutationFn: ({
       studyId,
       lectureId,
-      data,
+      code,
     }: {
       studyId: number;
       lectureId: number;
-      data: CreateAssignmentRequest;
-    }) => studyApi.CREATE_ASSIGNMENT(studyId, lectureId, data),
+      code: string;
+    }) => studyInstructorApi.CREATE_ATTENDANCE_CODE(studyId, lectureId, code),
     onSuccess: () => {
-      DialogUtil.showSuccess('과제가 성공적으로 등록되었습니다.');
+      DialogUtil.showSuccess('출석 코드가 성공적으로 등록되었습니다.');
 
       // 관련 쿼리들 무효화하여 최신 데이터 반영
       queryClient.invalidateQueries({ queryKey: ['studies'] });
       queryClient.invalidateQueries({ queryKey: ['lectures'] });
       queryClient.invalidateQueries({ queryKey: ['assignments'] });
-    },
-    onError: (error) => {
-      console.error('[HOOK] useCreateAssignment 에러:', error);
     },
   });
 
