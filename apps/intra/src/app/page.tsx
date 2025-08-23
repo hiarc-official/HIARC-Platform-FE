@@ -1,41 +1,18 @@
 'use client';
 
-import { HiarcScheduleSection } from '@/features/main/components/hiarc-schedule-section';
-import { AnnouncementListSection } from '@/features/main/components/announcement-list-section';
+import { PageLayout } from '@hiarc-platform/ui';
+import { DesktopHomePage, MobileHomePage } from '@/features/main/pages/home';
+import { useHomePageState } from '@/features/main/hooks/page/use-home-page-state';
 import { OnboardingButton } from '@/features/main/components/onboarding-button';
-import { StudyListSection } from '@/features/main/components/study-list-section';
-import { useAuthStore } from '@/shared/store/auth-store';
-import {
-  ContentSection,
-  PageLayout,
-  SingleColumnLayout,
-  TwoColumnLayout,
-} from '@hiarc-platform/ui';
 
 export default function Home(): React.ReactElement {
-  const { isAuthenticated } = useAuthStore();
+  const { isAuthenticated } = useHomePageState();
 
   return (
     <PageLayout
-      mobileChildren={
-        <ContentSection>
-          <SingleColumnLayout>
-            <HiarcScheduleSection daysToShow={3} />
-            <AnnouncementListSection className="mt-6" />
-            <StudyListSection className="mt-6" />
-          </SingleColumnLayout>
-        </ContentSection>
-      }
-      desktopChildren={
-        <ContentSection>
-          <TwoColumnLayout
-            left={<HiarcScheduleSection daysToShow={7} />}
-            right={<AnnouncementListSection />}
-            bottom={<StudyListSection className="mt-6" />}
-          />
-        </ContentSection>
-      }
-      stickyBottom={!isAuthenticated ? <OnboardingButton /> : undefined}
+      desktopChildren={<DesktopHomePage />}
+      mobileChildren={<MobileHomePage />}
+      stickyBottom={!isAuthenticated && <OnboardingButton />}
     />
   );
 }

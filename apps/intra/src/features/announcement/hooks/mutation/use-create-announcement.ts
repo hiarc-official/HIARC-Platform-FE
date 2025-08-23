@@ -1,8 +1,9 @@
 import { useMutation, UseMutationResult, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import { announcementApi } from '../api/announcement';
+
 import { Announcement } from '@hiarc-platform/shared';
 import { CreateAnnouncementRequest } from '@hiarc-platform/shared';
+import { announcementApi } from '../../api/announcement';
 
 export default function useCreateAnnouncement(): UseMutationResult<
   Announcement,

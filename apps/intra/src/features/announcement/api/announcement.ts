@@ -9,45 +9,24 @@ export const announcementApi = {
   GET_ANNOUNCEMENTS: async (
     params: AnnouncementQueryParams = {}
   ): Promise<PageableModel<AnnouncementSummary>> => {
-    console.log('[ANNOUNCEMENT API] GET_ANNOUNCEMENTS 요청:', params);
-    try {
-      const response = await apiClient.get<PageableModel<AnnouncementSummary>>('/announcements', {
-        params,
-      });
-      console.log('[ANNOUNCEMENT API] GET_ANNOUNCEMENTS 응답:', response.data);
-      return PageableModel.fromJson(response.data, AnnouncementSummary);
-    } catch (error) {
-      console.error('[ANNOUNCEMENT API] GET_ANNOUNCEMENTS 에러:', error);
-      throw error;
-    }
+    const response = await apiClient.get<PageableModel<AnnouncementSummary>>('/announcements', {
+      params,
+    });
+    return PageableModel.fromJson(response.data, AnnouncementSummary);
   },
 
   // 공지사항 상세 조회
   GET_ANNOUNCEMENT: async (id: string): Promise<Announcement> => {
-    console.log('[ANNOUNCEMENT API] GET_ANNOUNCEMENT 요청:', id);
-    try {
-      const response = await apiClient.get(`/announcements/${id}`);
-      console.log('[ANNOUNCEMENT API] GET_ANNOUNCEMENT 응답:', response.data);
-      return Announcement.fromJson(response.data);
-    } catch (error) {
-      console.error('[ANNOUNCEMENT API] GET_ANNOUNCEMENT 에러:', error);
-      throw error;
-    }
+    const response = await apiClient.get(`/announcements/${id}`);
+    return Announcement.fromJson(response.data);
   },
 
   // 공지사항 생성
   CREATE_ANNOUNCEMENT: async (
     announcementData: CreateAnnouncementRequest
   ): Promise<Announcement> => {
-    console.log('[ANNOUNCEMENT API] CREATE_ANNOUNCEMENT 요청:', announcementData);
-    try {
-      const response = await apiClient.post('/announcements', announcementData);
-      console.log('[ANNOUNCEMENT API] CREATE_ANNOUNCEMENT 응답:', response.data);
-      return Announcement.fromJson(response.data);
-    } catch (error) {
-      console.error('[ANNOUNCEMENT API] CREATE_ANNOUNCEMENT 에러:', error);
-      throw error;
-    }
+    const response = await apiClient.post('/announcements', announcementData);
+    return Announcement.fromJson(response.data);
   },
 
   // 공지사항 수정
@@ -55,27 +34,13 @@ export const announcementApi = {
     id: string,
     announcementData: UpdateAnnouncementRequest
   ): Promise<Announcement> => {
-    console.log('[ANNOUNCEMENT API] UPDATE_ANNOUNCEMENT 요청:', { id, data: announcementData });
-    try {
-      const response = await apiClient.put(`/announcements/${id}`, announcementData);
-      console.log('[ANNOUNCEMENT API] UPDATE_ANNOUNCEMENT 응답:', response.data);
-      return Announcement.fromJson(response.data);
-    } catch (error) {
-      console.error('[ANNOUNCEMENT API] UPDATE_ANNOUNCEMENT 에러:', error);
-      throw error;
-    }
+    const response = await apiClient.put(`/announcements/${id}`, announcementData);
+    return Announcement.fromJson(response.data);
   },
 
   // 공지사항 삭제
   DELETE_ANNOUNCEMENT: async (id: string): Promise<void> => {
-    console.log('[ANNOUNCEMENT API] DELETE_ANNOUNCEMENT 요청:', id);
-    try {
-      await apiClient.delete(`/announcements/${id}`);
-      console.log('[ANNOUNCEMENT API] DELETE_ANNOUNCEMENT 성공');
-    } catch (error) {
-      console.error('[ANNOUNCEMENT API] DELETE_ANNOUNCEMENT 에러:', error);
-      throw error;
-    }
+    await apiClient.delete(`/announcements/${id}`);
   },
 
   CREATE_STUDY_ANNOUNCEMENT: async (
@@ -86,7 +51,6 @@ export const announcementApi = {
       `/studies/${studyId}/instructor/announcements`,
       announcementData
     );
-
     return Announcement.fromJson(response.data);
   },
 
@@ -99,7 +63,6 @@ export const announcementApi = {
       `/studies/${studyId}/instructor/announcements/${announcementId}`,
       announcementData
     );
-
     return Announcement.fromJson(response.data);
   },
 };

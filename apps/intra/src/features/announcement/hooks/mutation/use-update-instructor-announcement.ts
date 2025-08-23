@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { announcementApi } from '../api/announcement';
-import { UpdateAnnouncementRequest } from '../types/request/update-announcement-request';
 import { DialogUtil } from '@hiarc-platform/ui';
+import { UpdateAnnouncementRequest } from '../../types/request/update-announcement-request';
+import { announcementApi } from '../../api/announcement';
 
 export const useUpdateInstructorAnnouncement = () => {
   const queryClient = useQueryClient();

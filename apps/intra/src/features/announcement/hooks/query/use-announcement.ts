@@ -1,9 +1,9 @@
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { AxiosError } from 'axios';
-import { announcementApi } from '../api/announcement';
 import { Announcement } from '@hiarc-platform/shared';
 import { DialogUtil } from '@hiarc-platform/ui';
+import { announcementApi } from '../../api/announcement';
 
 export default function useAnnouncement(id: string): UseQueryResult<Announcement, Error> {
   const query = useQuery({

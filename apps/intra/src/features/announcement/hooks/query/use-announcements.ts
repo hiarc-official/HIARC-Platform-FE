@@ -1,7 +1,7 @@
 import { useQuery, UseQueryResult, keepPreviousData } from '@tanstack/react-query';
-import { announcementApi } from '../api/announcement';
 import { AnnouncementSummary, PageableModel } from '@hiarc-platform/shared';
-import type { AnnouncementQueryParams } from '../types/request/announcement-query-params';
+import { announcementApi } from '../../api/announcement';
+import { AnnouncementQueryParams } from '../../types/request/announcement-query-params';
 
 export default function useAnnouncements(
   params: AnnouncementQueryParams = {}
