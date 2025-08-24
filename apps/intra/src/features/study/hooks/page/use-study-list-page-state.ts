@@ -1,5 +1,5 @@
 import { StudyQueryParams } from '@/features/study/types/request/study-query-params';
-import { useSemesterStoreInit } from '@/hooks/use-semester-store';
+import { useSemesterStoreInit } from '@/shared/hooks/use-semester-store';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import useStudies from '../study-common/query/use-studies';

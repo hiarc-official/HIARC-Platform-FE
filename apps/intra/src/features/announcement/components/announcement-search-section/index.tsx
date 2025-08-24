@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { AnnouncementSearchDialog } from './announcement-search-dialog';
 import { announcementTypeSelectOption, AnnnouncementType } from '@hiarc-platform/shared';
 import { AnnouncementQueryParams } from '../../types/request/announcement-query-params';
-import { useSemesterStore } from '@/hooks/use-semester-store';
+import { useSemesterStore } from '@/shared/hooks/use-semester-store';
 
 interface AnnouncementSearchSectionProps {
   className?: string;

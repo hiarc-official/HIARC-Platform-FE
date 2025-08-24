@@ -1,6 +1,6 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import { CreateAnnouncementRequest } from '@hiarc-platform/shared';
-import { useSemesterStoreInit, useSemesterStore } from '@/hooks/use-semester-store';
+import { useSemesterStoreInit, useSemesterStore } from '@/shared/hooks/use-semester-store';
 import useCreateStudyAnnouncement from '@/features/study/hooks/study-instructor/mutation/use-create-study-announcement';
 import { useStudyOptions } from '@/features/study/hooks/study-instructor/query/use-study-options';
 

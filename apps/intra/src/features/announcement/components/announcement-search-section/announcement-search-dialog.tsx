@@ -14,7 +14,7 @@ import {
 import React, { useState } from 'react';
 import { announcementTypeSelectOption, AnnnouncementType } from '@hiarc-platform/shared';
 import { AnnouncementQueryParams } from '../../types/request/announcement-query-params';
-import { useSemesterStore } from '@/hooks/use-semester-store';
+import { useSemesterStore } from '@/shared/hooks/use-semester-store';
 
 interface AnnouncementSearchDialogProps {
   onSave?(params: Omit<AnnouncementQueryParams, 'page' | 'size'>): Promise<void>;

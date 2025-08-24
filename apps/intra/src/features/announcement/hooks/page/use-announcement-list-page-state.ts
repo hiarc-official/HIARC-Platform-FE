@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-import { useSemesterStoreInit } from '@/hooks/use-semester-store';
+import { useSemesterStoreInit } from '@/shared/hooks/use-semester-store';
 import { AnnouncementQueryParams } from '../../types/request/announcement-query-params';
 import useAnnouncements from '../query/use-announcements';
 

@@ -4,7 +4,7 @@ import { Button, cn, DialogUtil, LabeledInput, LabeledSelector } from '@hiarc-pl
 import React, { useState, useEffect } from 'react';
 import { StudySearchDialog } from './study-search-dialog';
 import { StudyQueryParams } from '../../types/request/study-query-params';
-import { useSemesterStore } from '@/hooks/use-semester-store';
+import { useSemesterStore } from '@/shared/hooks/use-semester-store';
 
 interface StudySearchSectionProps {
   className?: string;
@@ -62,7 +62,7 @@ export function StudySearchSection({
           } else {
             setSearchTitle('');
           }
-          
+
           if (params.semesterId) {
             setSelectedSemester(params.semesterId.toString());
           } else {

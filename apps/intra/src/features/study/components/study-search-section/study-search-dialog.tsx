@@ -13,7 +13,7 @@ import {
 } from '@hiarc-platform/ui';
 import React, { useState, useEffect } from 'react';
 import { StudyQueryParams } from '../../types/request/study-query-params';
-import { useSemesterStore } from '@/hooks/use-semester-store';
+import { useSemesterStore } from '@/shared/hooks/use-semester-store';
 
 interface StudySearchDialogProps {
   onSave?(params: Omit<StudyQueryParams, 'page' | 'size'>): Promise<void>;
