@@ -1,8 +1,7 @@
 'use client';
 import { Admin } from '@hiarc-platform/shared';
-import { cn, CommonTableBody, CommonTableHead, DialogUtil } from '@hiarc-platform/ui';
+import { cn, CommonTableBody, CommonTableHead, DialogUtil, SlideFade } from '@hiarc-platform/ui';
 import { useTable } from '@hiarc-platform/util';
-import { AnimatePresence, motion } from 'framer-motion';
 import { useCallback, useMemo, useState } from 'react';
 import { useSelectedSemester } from '@/hooks/use-semester-store';
 import { createAdminColumns } from './columns';
@@ -61,19 +60,10 @@ export function AdminTable({ adminData, className }: AdminTableSectionProps): Re
 
   return (
     <div className={cn('w-full flex-col items-center', className)}>
-      <AnimatePresence mode="wait">
-        <motion.div
-          key="table"
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -12 }}
-          transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
-          className="w-full"
-        >
-          <CommonTableHead table={table} className="bg-gray-100" />
-          <CommonTableBody table={table} onClick={function (): void {}} />
-        </motion.div>
-      </AnimatePresence>
+      <SlideFade key="table" className="w-full">
+        <CommonTableHead table={table} className="bg-gray-100" />
+        <CommonTableBody table={table} onClick={function (): void {}} />
+      </SlideFade>
     </div>
   );
 }

@@ -1,12 +1,12 @@
 'use client';
 
-import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 import { Avatar } from '../avatar';
 import { Button } from '../button';
 import { IconButton } from '../icon-button';
 import { Label } from '../label/label';
 import { AttendanceTable } from '../table/attendance-table';
+import { SlideFade } from '../animation/slide-fade';
 
 interface RoundStatus {
   round?: number | null;
@@ -65,25 +65,17 @@ export function StudentListItem({
           />
         </div>
       </div>
-      <AnimatePresence initial={false}>
-        {open && (
-          <motion.div
-            key="student-detail"
-            initial={{ opacity: 0, y: -10, height: 0 }}
-            animate={{ opacity: 1, y: 0, height: 'auto' }}
-            exit={{ opacity: 0, y: -10, height: 0 }}
-            transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
-            className="overflow-hidden"
-          >
-            <AttendanceTable
-              className="mt-4"
-              chunkSize={8}
-              attendance={attendance}
-              assignment={assignment}
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
+
+      {open && (
+        <SlideFade key="table" className="w-full">
+          <AttendanceTable
+            className="mt-4"
+            chunkSize={8}
+            attendance={attendance}
+            assignment={assignment}
+          />
+        </SlideFade>
+      )}
     </div>
   );
 }

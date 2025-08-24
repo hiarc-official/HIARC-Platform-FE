@@ -1,8 +1,7 @@
 import { PageableModel, StudySummary } from '@hiarc-platform/shared';
-import { cn, CommonTableBody, CommonTableHead, Pagination } from '@hiarc-platform/ui';
+import { cn, CommonTableBody, CommonTableHead, Pagination, SlideFade } from '@hiarc-platform/ui';
 import { useTable } from '@hiarc-platform/util';
 import { Row } from '@tanstack/react-table';
-import { AnimatePresence, motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
 import { STUDY_LIST_COLUMN } from './study-list-column';
@@ -35,28 +34,19 @@ export function StudyTable({
 
   return (
     <div className={cn('w-full flex-col items-center', className)}>
-      <AnimatePresence mode="wait">
-        <motion.div
-          key="table"
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -12 }}
-          transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
-          className="w-full"
-        >
-          <CommonTableHead table={table} />
-          <CommonTableBody
-            table={table}
-            onClick={function (row: Row<StudySummary>): void {
-              const id = row.original.studyId;
-              if (!id) {
-                return;
-              }
-              router.push(`/study/${id}`);
-            }}
-          />
-        </motion.div>
-      </AnimatePresence>
+      <SlideFade key="table" className="w-full">
+        <CommonTableHead table={table} />
+        <CommonTableBody
+          table={table}
+          onClick={function (row: Row<StudySummary>): void {
+            const id = row.original.studyId;
+            if (!id) {
+              return;
+            }
+            router.push(`/study/${id}`);
+          }}
+        />
+      </SlideFade>
       {pageableModel && onPageChange && (
         <div className="flex w-full justify-center">
           <Pagination className="mt-8" pageableModel={pageableModel} onPageChange={onPageChange} />

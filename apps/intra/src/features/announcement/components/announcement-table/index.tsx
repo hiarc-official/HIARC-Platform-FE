@@ -1,7 +1,6 @@
-import { cn, CommonTableBody, CommonTableHead, Pagination } from '@hiarc-platform/ui';
+import { cn, CommonTableBody, CommonTableHead, Pagination, SlideFade } from '@hiarc-platform/ui';
 import { useTable } from '@hiarc-platform/util';
 import { Row } from '@tanstack/react-table';
-import { AnimatePresence, motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
 import { ANNOUNCEMENT_LIST_COLUMN } from './announcement-list-column';
@@ -33,30 +32,22 @@ export function AnnouncementTable({
 
   return (
     <div className={cn('flex w-full flex-col', className)}>
-      <AnimatePresence mode="wait">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -12 }}
-          transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
-          className="w-full"
-        >
-          <CommonTableHead
-            table={table}
-            className="border-b border-t border-b-gray-200 border-t-gray-900 bg-white"
-          />
-          <CommonTableBody
-            table={table}
-            onClick={function (row: Row<AnnouncementSummary>): void {
-              const announcementId = row.original.announcementId;
-              if (!announcementId) {
-                return;
-              }
-              router.push(`/announcement/${announcementId}`);
-            }}
-          />
-        </motion.div>
-      </AnimatePresence>
+      <SlideFade key="table" className="w-full">
+        <CommonTableHead
+          table={table}
+          className="border-b border-t border-b-gray-200 border-t-gray-900 bg-white"
+        />
+        <CommonTableBody
+          table={table}
+          onClick={function (row: Row<AnnouncementSummary>): void {
+            const announcementId = row.original.announcementId;
+            if (!announcementId) {
+              return;
+            }
+            router.push(`/announcement/${announcementId}`);
+          }}
+        />
+      </SlideFade>
       {pageableModel && onPageChange && (
         <div className="flex w-full justify-center">
           <Pagination className="mt-8" pageableModel={pageableModel} onPageChange={onPageChange} />

@@ -1,5 +1,4 @@
-import { Button, cn, Tabs } from '@hiarc-platform/ui';
-import { AnimatePresence, motion } from 'framer-motion';
+import { Button, cn, SlideFade, Tabs } from '@hiarc-platform/ui';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { LectureList } from './lecture-list';
@@ -63,48 +62,21 @@ export function TabSection({
         )}
       </div>
       <div className="mt-6 min-h-[300px]">
-        <AnimatePresence mode="wait">
-          {selectedTab === 'curriculum' && (
-            <motion.div
-              key="curriculum"
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
-              transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
-              className="w-full"
-            >
-              <LectureList
-                studyName={studyName ?? ''}
-                studyId={studyId}
-                lectureList={lectureList}
-              />
-            </motion.div>
-          )}
-          {selectedTab === 'announcement' && (
-            <motion.div
-              key="announcement"
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
-              transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
-              className="w-full"
-            >
-              <AnnouncementTable pageableModel={pageableModel} />
-            </motion.div>
-          )}
-          {selectedTab === 'manage_student' && (
-            <motion.div
-              key="manage_student"
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
-              transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
-              className="w-full"
-            >
-              <StudentList studentList={studentList || []} />
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {selectedTab === 'curriculum' && (
+          <SlideFade key="curriculum" className="w-full">
+            <LectureList studyName={studyName ?? ''} studyId={studyId} lectureList={lectureList} />
+          </SlideFade>
+        )}
+        {selectedTab === 'announcement' && (
+          <SlideFade key="announcement" className="w-full">
+            <AnnouncementTable pageableModel={pageableModel} />
+          </SlideFade>
+        )}
+        {selectedTab === 'manage_student' && (
+          <SlideFade key="manage_student" className="w-full">
+            <StudentList studentList={studentList || []} />
+          </SlideFade>
+        )}
       </div>
     </div>
   );

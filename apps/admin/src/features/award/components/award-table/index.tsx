@@ -1,8 +1,6 @@
-import { cn, CommonTableBody, CommonTableHead, Pagination } from '@hiarc-platform/ui';
+import { cn, CommonTableBody, CommonTableHead, Pagination, SlideFade } from '@hiarc-platform/ui';
 import { useTable } from '@hiarc-platform/util';
 import { useMemo, useState } from 'react';
-
-import { AnimatePresence, motion } from 'framer-motion';
 import { useAwardListColumns } from './award-list-column';
 import { PageableModel } from '@hiarc-platform/shared';
 import { Award } from '../../../../../../../packages/shared/src/types/award/award';
@@ -32,19 +30,10 @@ export function CompetitionTable({ data, className }: CompetitionTableProps): Re
 
   return (
     <div className={cn('w-full flex-col items-center', className)}>
-      <AnimatePresence mode="wait">
-        <motion.div
-          key="table"
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -12 }}
-          transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
-          className="w-full"
-        >
-          <CommonTableHead className="bg-gray-100 text-gray-900" table={table} />
-          <CommonTableBody table={table} onClick={() => {}} />
-        </motion.div>
-      </AnimatePresence>
+      <SlideFade key="table" className="w-full">
+        <CommonTableHead className="bg-gray-100 text-gray-900" table={table} />
+        <CommonTableBody table={table} onClick={() => {}} />
+      </SlideFade>
       <Pagination className="mt-8" pageableModel={data} onPageChange={handlePageChange} />
     </div>
   );

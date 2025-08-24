@@ -1,6 +1,6 @@
 'use client';
-import { cn, FadeIn, Tabs } from '@hiarc-platform/ui';
-import { AnimatePresence, motion } from 'framer-motion';
+import { cn, FadeIn, Tabs, SlideFade } from '@hiarc-platform/ui';
+import { AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { CurrentSemesterSection } from './current-semester-section';
 import { RecruitManageSection } from './recruit-manage-section';
@@ -24,28 +24,14 @@ export function ManageTabSection({ className }: TabSectionProps): React.ReactEle
       <div className="mt-6 min-h-[300px]">
         <AnimatePresence mode="wait">
           {selectedTab === 'member_list_section' && (
-            <motion.div
-              key="current_semester_list"
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
-              transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
-              className="w-full"
-            >
+            <SlideFade key="current_semester_list" className="w-full">
               <CurrentSemesterSection />
-            </motion.div>
+            </SlideFade>
           )}
           {selectedTab === 'recruit_manage_section' && (
-            <motion.div
-              key="current_semester_list"
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
-              transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
-              className="w-full"
-            >
+            <SlideFade key="recruit_manage_section" className="w-full">
               <RecruitManageSection />
-            </motion.div>
+            </SlideFade>
           )}
         </AnimatePresence>
       </div>

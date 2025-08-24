@@ -1,7 +1,13 @@
-import { cn, CommonTableBody, CommonTableHead, Pagination, DialogUtil } from '@hiarc-platform/ui';
+import {
+  cn,
+  CommonTableBody,
+  CommonTableHead,
+  Pagination,
+  DialogUtil,
+  SlideFade,
+} from '@hiarc-platform/ui';
 import { useTable } from '@hiarc-platform/util';
 import { useCallback, useMemo, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
 import { PageableModel, Student } from '@hiarc-platform/shared';
 import { createStudentColumns } from './columns';
 import { useDeleteMember } from '../../hooks';
@@ -51,19 +57,11 @@ export function MemberTable({
 
   return (
     <div className={cn('w-full flex-col items-center', className)}>
-      <AnimatePresence mode="wait">
-        <motion.div
-          key="table"
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -12 }}
-          transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
-          className="w-full"
-        >
-          <CommonTableHead className="bg-gray-100 text-gray-900" table={table} />
-          <CommonTableBody table={table} onClick={function (): void {}} />
-        </motion.div>
-      </AnimatePresence>
+      <SlideFade key="table" className="w-full">
+        <CommonTableHead className="bg-gray-100 text-gray-900" table={table} />
+        <CommonTableBody table={table} onClick={function (): void {}} />
+      </SlideFade>
+
       {pageableModel && onPageChange && (
         <div className="flex w-full justify-center">
           <Pagination className="mt-8" pageableModel={pageableModel} onPageChange={onPageChange} />

@@ -1,4 +1,4 @@
-import { cn, CommonTableBody, CommonTableHead, Pagination } from '@hiarc-platform/ui';
+import { cn, CommonTableBody, CommonTableHead, Pagination, SlideFade } from '@hiarc-platform/ui';
 import { useTable } from '@hiarc-platform/util';
 import { Announcement, AnnouncementSummary, PageableModel } from '@hiarc-platform/shared';
 import { Row } from '@tanstack/react-table';
@@ -6,8 +6,6 @@ import { useRouter } from 'next/navigation';
 import { useCallback, useMemo, useState } from 'react';
 import { getAdminAnnouncementListColumn } from './announcement-list-column';
 import { useDeleteAdminAnnouncement } from '../../hooks/use-delete-admin-announcement';
-
-import { AnimatePresence, motion } from 'framer-motion';
 
 interface AdminAnnouncementTableProps {
   pageableModel?: PageableModel<AnnouncementSummary> | null;
@@ -63,28 +61,19 @@ export function AnnouncementTable({
 
   return (
     <div className={cn('w-full flex-col items-center', className)}>
-      <AnimatePresence mode="wait">
-        <motion.div
-          key="table"
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -12 }}
-          transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
-          className="w-full"
-        >
-          <CommonTableHead className="text-gray-900" table={table} />
-          <CommonTableBody
-            table={table}
-            onClick={function (row: Row<Announcement>): void {
-              const announcementId = row.original.announcementId;
+      <SlideFade key="table" className="w-full">
+        <CommonTableHead className="text-gray-900" table={table} />
+        <CommonTableBody
+          table={table}
+          onClick={function (row: Row<Announcement>): void {
+            const announcementId = row.original.announcementId;
 
-              if (announcementId !== undefined) {
-                router.push(`/announcement/${announcementId}`);
-              }
-            }}
-          />
-        </motion.div>
-      </AnimatePresence>
+            if (announcementId !== undefined) {
+              router.push(`/announcement/${announcementId}`);
+            }
+          }}
+        />
+      </SlideFade>
 
       {/* PageableModel 기반 Pagination */}
       {pageableModel && onPageChange && (
