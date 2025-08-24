@@ -31,7 +31,7 @@ export const getStudentApplyListColumns = (
     id: 'name',
     accessorKey: 'name',
     enableSorting: false,
-    size: 100,
+    size: 0,
     meta: {
       headAlign: 'left',
       bodyAlign: 'left',
@@ -73,7 +73,7 @@ export const getStudentApplyListColumns = (
     id: 'contact',
     accessorKey: 'contact',
     enableSorting: false,
-    size: 0,
+    size: 120,
     meta: {
       headAlign: 'left',
       bodyAlign: 'left',
@@ -94,7 +94,7 @@ export const getStudentApplyListColumns = (
     id: 'studentId',
     accessorKey: 'studentId',
     enableSorting: false,
-    size: 0,
+    size: 80,
     meta: {
       headAlign: 'left',
       bodyAlign: 'left',
@@ -115,7 +115,7 @@ export const getStudentApplyListColumns = (
     id: 'department',
     accessorKey: 'department',
     enableSorting: false,
-    size: 0,
+    size: 96,
     meta: {
       headAlign: 'left',
       bodyAlign: 'left',
@@ -136,10 +136,10 @@ export const getStudentApplyListColumns = (
     id: 'doubleMajor',
     accessorKey: 'doubleMajor',
     enableSorting: false,
-    size: 0,
+    size: 60,
     meta: {
-      headAlign: 'left',
-      bodyAlign: 'left',
+      headAlign: 'center',
+      bodyAlign: 'center',
     },
     header: () => (
       <Label size="md" weight="bold">
@@ -148,7 +148,7 @@ export const getStudentApplyListColumns = (
     ),
     cell: ({ row }: { row: { original: StudentApply } }) => (
       <Label size="md" weight="regular">
-        {row.original.isDoubleMajor ?? '-'}
+        {row.original.isDoubleMajorLabel ?? '-'}
       </Label>
     ),
     footer: (props) => props.column.id,
@@ -157,19 +157,19 @@ export const getStudentApplyListColumns = (
     id: 'grade',
     accessorKey: 'grade',
     enableSorting: false,
-    size: 0,
+    size: 80,
     meta: {
       headAlign: 'left',
       bodyAlign: 'left',
     },
     header: () => (
       <Label size="md" weight="bold">
-        Grade
+        학년
       </Label>
     ),
     cell: ({ row }: { row: { original: StudentApply } }) => (
       <Label size="md" weight="regular">
-        {row.original.grade ?? '-'}
+        {row.original.gradeLabel ?? '-'}
       </Label>
     ),
   },
@@ -177,7 +177,7 @@ export const getStudentApplyListColumns = (
     id: 'status',
     accessorKey: 'status',
     enableSorting: false,
-    size: 0,
+    size: 80,
     meta: {
       headAlign: 'left',
       bodyAlign: 'left',
@@ -189,7 +189,7 @@ export const getStudentApplyListColumns = (
     ),
     cell: ({ row }: { row: { original: StudentApply } }) => (
       <Label size="md" weight="regular">
-        {row.original.absenceStatus ?? '-'}
+        {row.original.absenceStatusLabel ?? '-'}
       </Label>
     ),
   },
@@ -197,7 +197,7 @@ export const getStudentApplyListColumns = (
     id: 'approve',
     accessorKey: 'approve',
     enableSorting: false,
-    size: 100,
+    size: 80,
     meta: {
       headAlign: 'left',
       bodyAlign: 'left',
@@ -209,7 +209,7 @@ export const getStudentApplyListColumns = (
     ),
     cell: ({ row }: { row: { original: StudentApply } }) => (
       <Label size="md" weight="regular">
-        {row.original.applicationStatus ?? '-'}
+        {row.original.applicationStatusLabel ?? '-'}
       </Label>
     ),
   },

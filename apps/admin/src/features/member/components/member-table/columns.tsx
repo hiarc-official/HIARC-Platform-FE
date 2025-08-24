@@ -227,7 +227,7 @@ export const createStudentColumns = ({
     ),
     cell: ({ row }: { row: { original: Student } }) => (
       <Label size="md" weight="regular">
-        {row.original.memberRole ?? '-'}
+        {row.original.memberRoleLabel ?? '-'}
       </Label>
     ),
     footer: (props) => props.column.id,

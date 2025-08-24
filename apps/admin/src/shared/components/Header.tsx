@@ -1,12 +1,13 @@
 'use client';
 import { Button, DialogUtil } from '@hiarc-platform/ui';
 import Image from 'next/image';
-import { LabeledSelector } from '@hiarc-platform/ui';
 import { usePathname, useRouter } from 'next/navigation';
 import { useSemesterStoreInit, useSemesterStore } from '@/hooks/use-semester-store';
 import { useAuthStore } from '../store/auth-store';
 import useLogout from '@/features/auth/hooks/use-logout';
 import Link from 'next/link';
+import { CustomLabeledSelector } from './custom-labeled-selector';
+import { SemesterAddDialog } from '@/features/semester/components/semester-add-dialog';
 export default function Header(): React.ReactElement {
   // Initialize semester store on component mount
   useSemesterStoreInit();
@@ -43,13 +44,17 @@ export default function Header(): React.ReactElement {
     );
   };
 
+  const handleAddSemester = (): void => {
+    DialogUtil.showComponent(<SemesterAddDialog />);
+  };
+
   return (
     <header className="w-full items-center justify-between border-b border-gray-200">
       <div className="mx-auto flex w-full min-w-[600px] max-w-[1200px] items-center justify-between px-5">
         <div className="flex items-center gap-6">
           <Image src="/shared-assets/Logo.svg" alt="HiarcLogo" width={120} height={30} />
 
-          <LabeledSelector
+          <CustomLabeledSelector
             required={false}
             label=""
             placeholder="학기를 불러오는 입니다..."
@@ -57,6 +62,9 @@ export default function Header(): React.ReactElement {
             value={selectedSemesterId || ''}
             onChange={setSelectedSemester}
             className="mb-2 ml-4 w-[142px] border-gray-900 font-normal"
+            showAddButton={true}
+            addButtonLabel="학기 추가"
+            onAddClick={handleAddSemester}
           />
 
           <nav className="flex gap-8 overflow-x-auto whitespace-nowrap">
