@@ -1,13 +1,8 @@
 import { useMutation, useQueryClient, UseMutationResult } from '@tanstack/react-query';
-import { myApi } from '../../api/my';
-import type { UpdateIntroductionRequest } from '../../types/member';
+import { myApi } from '../../api/member';
 import { DialogUtil } from '@hiarc-platform/ui';
 
-export function useUpdateMyIntroduction(): UseMutationResult<
-  void,
-  Error,
-  UpdateIntroductionRequest
-> {
+export function useUpdateMyIntroduction(): UseMutationResult<void, Error, string> {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -17,9 +12,6 @@ export function useUpdateMyIntroduction(): UseMutationResult<
       queryClient.invalidateQueries({ queryKey: ['member', 'me'] });
       DialogUtil.hideAllDialogs();
       DialogUtil.showSuccess('업데이트 완료');
-    },
-    onError: (error) => {
-      DialogUtil.showServerError(error, '자기소개 업데이트 실패');
     },
   });
 }

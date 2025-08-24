@@ -17,6 +17,7 @@ interface MyInfoSectionProps {
   rating?: RatingChipProps['rating'];
   div?: RatingChipProps['rating'];
   className?: string;
+  isMe?: boolean;
   onSave?(introduction: string): Promise<void>;
 }
 
@@ -28,6 +29,7 @@ export function MyInfoSection({
   onSave,
   rating,
   div,
+  isMe,
 }: MyInfoSectionProps): React.ReactElement {
   const handleOpenDialog = (): void => {
     DialogUtil.showComponent(
@@ -55,7 +57,13 @@ export function MyInfoSection({
             <RatingChip rating={rating} />
             <RatingChip rating={div} />
           </div>
-          <IconButton type="button" iconSrc="/shared-assets/Edit.svg" onClick={handleOpenDialog} />
+          {isMe && (
+            <IconButton
+              type="button"
+              iconSrc="/shared-assets/Edit.svg"
+              onClick={handleOpenDialog}
+            />
+          )}
         </div>
         <Label className={cn(!introduction ? 'text-gray-500' : 'text-gray-900')}>
           {introduction ?? '자기소개가 없습니다.'}

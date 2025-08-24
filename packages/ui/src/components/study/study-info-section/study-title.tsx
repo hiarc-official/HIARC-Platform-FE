@@ -16,13 +16,23 @@ export function StudyTitle({
 }: StudyTitleProps): React.ReactElement {
   const hasRecruitmentDates = studyData?.recruitmentStartDate && studyData?.recruitmentEndDate;
 
-  const isRecruitmentOpen = () => {
-    if (!hasRecruitmentDates || !studyData?.recruitmentStartDate || !studyData?.recruitmentEndDate)
+  const isRecruitmentOpen = (): boolean => {
+    if (
+      !hasRecruitmentDates ||
+      !studyData?.recruitmentStartDate ||
+      !studyData?.recruitmentEndDate
+    ) {
       return false;
+    }
     const now = new Date();
     const startDate = new Date(studyData.recruitmentStartDate);
     const endDate = new Date(studyData.recruitmentEndDate);
-    return now >= startDate && now <= endDate;
+
+    const [nowDateStr] = now.toISOString().split('T');
+    const [startDateStr] = startDate.toISOString().split('T');
+    const [endDateStr] = endDate.toISOString().split('T');
+
+    return nowDateStr >= startDateStr && nowDateStr <= endDateStr;
   };
   return (
     <div className="flex w-full flex-col">
@@ -53,7 +63,7 @@ export function StudyTitle({
             </Button>
           )}
           {hasRecruitmentDates && !studyData?.isStudent && !studyData?.isInstructor && (
-            <>
+            <div>
               {isRecruitmentOpen() ? (
                 <Button size="md" className="ml-6" variant="fill" onClick={onApplyClick}>
                   스터디 신청
@@ -63,7 +73,7 @@ export function StudyTitle({
                   모집 종료
                 </Button>
               )}
-            </>
+            </div>
           )}
         </div>
       </div>

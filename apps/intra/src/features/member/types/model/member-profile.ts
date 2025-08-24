@@ -1,121 +1,34 @@
-export interface MemberProfileProps {
-  id?: string | null;
-  username?: string | null;
-  name?: string | null;
+import { Award } from '@hiarc-platform/shared';
+import { RatingChipProps } from '@hiarc-platform/ui';
+import { Rating } from './rating';
+import { Streak } from './streak';
+
+export interface MemberProfile {
   bojHandle?: string | null;
-  generation?: number | null;
-  role?: 'STUDENT' | 'INSTRUCTOR' | 'ADMIN' | null;
-  status?: 'ACTIVE' | 'INACTIVE' | 'GRADUATED' | null;
-  profileImageUrl?: string | null;
-  bio?: string | null;
-  totalStudies?: number | null;
-  currentStudies?: number | null;
-  completedStudies?: number | null;
+  name?: string | null;
+  division?: RatingChipProps['rating'];
+  tier?: RatingChipProps['rating'];
+  introduction?: string | null;
+  rating?: Rating | null;
+  streak?: Streak | null;
+  award?: Award[] | null;
 }
 
-export class MemberProfile {
-  private readonly props: MemberProfileProps;
+export const MemberProfile = {
+  fromJson(json: unknown): MemberProfile {
+    const data = (json || {}) as Record<string, unknown>;
 
-  constructor(props: MemberProfileProps) {
-    this.props = props;
-  }
-
-  get id(): string | null {
-    return this.props.id ?? null;
-  }
-
-  get username(): string | null {
-    return this.props.username ?? null;
-  }
-
-  get name(): string | null {
-    return this.props.name ?? null;
-  }
-
-  get bojHandle(): string | null {
-    return this.props.bojHandle ?? null;
-  }
-
-  get generation(): number | null {
-    return this.props.generation ?? null;
-  }
-
-  get role(): 'STUDENT' | 'INSTRUCTOR' | 'ADMIN' | null {
-    return this.props.role ?? null;
-  }
-
-  get status(): 'ACTIVE' | 'INACTIVE' | 'GRADUATED' | null {
-    return this.props.status ?? null;
-  }
-
-  get profileImageUrl(): string | null {
-    return this.props.profileImageUrl ?? null;
-  }
-
-  get bio(): string | null {
-    return this.props.bio ?? null;
-  }
-
-  get totalStudies(): number | null {
-    return this.props.totalStudies ?? null;
-  }
-
-  get currentStudies(): number | null {
-    return this.props.currentStudies ?? null;
-  }
-
-  get completedStudies(): number | null {
-    return this.props.completedStudies ?? null;
-  }
-
-  toJson(): any {
     return {
-      id: this.props.id,
-      username: this.props.username,
-      name: this.props.name,
-      bojHandle: this.props.bojHandle,
-      generation: this.props.generation,
-      role: this.props.role,
-      status: this.props.status,
-      profileImageUrl: this.props.profileImageUrl,
-      bio: this.props.bio,
-      totalStudies: this.props.totalStudies,
-      currentStudies: this.props.currentStudies,
-      completedStudies: this.props.completedStudies,
+      bojHandle: (data?.bojHandle as string) ?? null,
+      name: (data?.name as string) ?? null,
+      division: (data?.division as RatingChipProps['rating']) ?? null,
+      tier: (data?.tier as RatingChipProps['rating']) ?? null,
+      introduction: (data?.introduction as string) ?? null,
+      rating: data?.rating ? Rating.fromJson(data.rating) : null,
+      streak: data?.streak ? Streak.fromJson(data.streak) : null,
+      award: Array.isArray(data?.award)
+        ? data.award.map((award: unknown) => Award.fromJson(award))
+        : null,
     };
-  }
-
-  static fromJson(json: any): MemberProfile {
-    return new MemberProfile({
-      id: json?.id ?? null,
-      username: json?.username ?? null,
-      name: json?.name ?? null,
-      bojHandle: json?.bojHandle ?? null,
-      generation: json?.generation ?? null,
-      role: json?.role ?? null,
-      status: json?.status ?? null,
-      profileImageUrl: json?.profileImageUrl ?? null,
-      bio: json?.bio ?? null,
-      totalStudies: json?.totalStudies ?? null,
-      currentStudies: json?.currentStudies ?? null,
-      completedStudies: json?.completedStudies ?? null,
-    });
-  }
-
-  copyWith(updates: Partial<MemberProfileProps>): MemberProfile {
-    return new MemberProfile({
-      ...this.props,
-      ...updates,
-    });
-  }
-
-  equals(other?: MemberProfile): boolean {
-    return Boolean(other) && this.props.id === other?.props.id;
-  }
-
-  compareTo(other: MemberProfile): number {
-    const thisUsername = this.props.username ?? '';
-    const otherUsername = other.props.username ?? '';
-    return thisUsername.localeCompare(otherUsername);
-  }
-}
+  },
+};

@@ -1,20 +1,22 @@
 import { cn, DialogUtil, IconButton, Label, Title } from '@hiarc-platform/ui';
 import React from 'react';
-import { CompetitionListItem } from './competition-list-item';
-import { CompetitionDialog } from './competition-dialog';
+import { AwardListItem } from './award-list-item';
+import { AwardDialog } from './award-dialog';
 import { Award } from '@hiarc-platform/shared';
 
-interface CompetitionSectionProps {
+interface AwardSectionProps {
+  isMe?: boolean;
   awardList?: Award[];
   className?: string;
 }
 
-export function CompetitionSection({
+export function AwardSection({
+  isMe,
   awardList,
   className,
-}: CompetitionSectionProps): React.ReactElement {
+}: AwardSectionProps): React.ReactElement {
   const handleOpenDialog = (): void => {
-    DialogUtil.showComponent(<CompetitionDialog onSave={() => {}} onCancel={() => {}} />, {
+    DialogUtil.showComponent(<AwardDialog />, {
       showBackground: false,
     });
   };
@@ -27,13 +29,15 @@ export function CompetitionSection({
         <Title size="sm" weight="bold">
           참여한 대회
         </Title>
-        <IconButton type="button" iconSrc="/shared-assets/Edit.svg" onClick={handleOpenDialog} />
+        {isMe && (
+          <IconButton type="button" iconSrc="/shared-assets/Edit.svg" onClick={handleOpenDialog} />
+        )}
       </div>
 
       {!awardList || awardList.length === 0 ? (
         <Label className="py-20 text-center">대회 정보가 없어요</Label>
       ) : (
-        awardList.map((award) => <CompetitionListItem key={award.awardId} award={award} />)
+        awardList.map((award) => <AwardListItem key={award.awardId} award={award} />)
       )}
     </div>
   );

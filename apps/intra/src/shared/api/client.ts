@@ -96,9 +96,6 @@ apiClient.interceptors.response.use(
     prettyLog.error(error);
     const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
 
-    // 에러 응답에서 code 확인
-    const errorData = error.response?.data as { code?: string; message?: string };
-
     // 401 에러 처리 (인증 실패)
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;

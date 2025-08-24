@@ -8,35 +8,39 @@ import {
   DialogHeader,
   DialogTitle,
   DialogUtil,
-  Label,
   LabeledInput,
   LabeledCalanderInput,
   LabeledSelectButton,
 } from '@hiarc-platform/ui';
 import React from 'react';
 
-import { CreateAwardRequest } from '@/features/award/types/request/create-award-request';
-import useCreateAward from '@/features/award/hooks/mutation/use-create-award';
+import { UpdateAwardRequest } from '@/features/award/types/request/update-award-request';
+import { Award } from '@hiarc-platform/shared';
+import useUpdateAward from '@/features/award/hooks/mutation/use-update-award';
 
-interface CompetitionDialogProps {
+interface EditAwardDialogProps {
+  award: Award;
   onSave?(): void;
   onCancel?(): void;
 }
 
-export function CompetitionDialog({
+export function EditAwardDialog({
+  award,
   onSave,
   onCancel,
-}: CompetitionDialogProps): React.ReactElement {
+}: EditAwardDialogProps): React.ReactElement {
   const [formData, setFormData] = React.useState({
-    organization: '',
-    awardName: '',
-    awardDate: null as Date | null,
-    awardDetail: '',
+    organization: award.organization || '',
+    awardName: award.awardName || '',
+    awardDate: award.awardDate ? new Date(award.awardDate) : (null as Date | null),
+    awardDetail: award.awardDetail || '',
   });
 
-  const [recordType, setRecordType] = React.useState<'participation' | 'award'>('participation');
+  const [recordType, setRecordType] = React.useState<'participation' | 'award'>(
+    award.awardDetail === '참여' ? 'participation' : 'award'
+  );
 
-  const createAwardMutation = useCreateAward();
+  const updateAwardMutation = useUpdateAward();
 
   // 폼 유효성 검사
   const isFormValid = React.useMemo(() => {
@@ -54,18 +58,24 @@ export function CompetitionDialog({
 
   const handleSave = async (): Promise<void> => {
     try {
-      const createData: CreateAwardRequest = {
+      const updateData: UpdateAwardRequest = {
         organization: formData.organization,
         awardName: formData.awardName,
         awardDate: formData.awardDate ? formData.awardDate.toISOString().split('T')[0] : '',
         awardDetail: recordType === 'participation' ? '참여' : formData.awardDetail,
       };
 
-      await createAwardMutation.mutateAsync(createData);
+      console.log('💾 [EDIT AWARD] 수정 시작:', updateData);
+
+      await updateAwardMutation.mutateAsync({
+        awardId: award.awardId ?? 0,
+        awardData: updateData,
+      });
+
       DialogUtil.hideAllDialogs();
       onSave?.();
     } catch (error) {
-      console.error('💥 [CREATE AWARD] 생성 실패:', error);
+      console.error('💥 [EDIT AWARD] 수정 실패:', error);
       throw error;
     }
   };
@@ -79,7 +89,7 @@ export function CompetitionDialog({
     <Dialog open={true} onOpenChange={(open) => !open && handleCancel()}>
       <DialogContent className="!w-[540px] !max-w-[540px]" fullscreen={true}>
         <DialogHeader>
-          <DialogTitle>참여한 대회 기록하기</DialogTitle>
+          <DialogTitle>참여한 대회 수정하기</DialogTitle>
         </DialogHeader>
         <DialogDescription>
           <div className="mt-6 flex w-full flex-col gap-4">
@@ -143,7 +153,7 @@ export function CompetitionDialog({
             className="w-full"
             size="lg"
             onClick={handleCancel}
-            disabled={createAwardMutation.isPending}
+            disabled={updateAwardMutation.isPending}
           >
             취소
           </Button>
@@ -151,9 +161,9 @@ export function CompetitionDialog({
             className="w-full"
             size="lg"
             onClick={handleSave}
-            disabled={createAwardMutation.isPending || !isFormValid}
+            disabled={updateAwardMutation.isPending || !isFormValid}
           >
-            {createAwardMutation.isPending ? '기록 중...' : '기록하기'}
+            {updateAwardMutation.isPending ? '수정 중...' : '수정하기'}
           </Button>
         </div>
       </DialogContent>

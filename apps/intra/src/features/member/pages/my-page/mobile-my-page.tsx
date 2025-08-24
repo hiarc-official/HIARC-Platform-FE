@@ -1,17 +1,12 @@
 'use client';
 
-import { CompetitionSection } from '@/features/auth/components/competition-section';
-import { HitingSection } from '@/features/auth/components/hiting-section';
-import { MyInfoSection } from '@/features/auth/components/my-info-section';
-import { StreakSection } from '@/features/auth/components/streak-section';
-import { StudySection } from '@/features/auth/components/study-section';
+import { AwardSection } from '@/features/award/components/award-section';
+import { HitingSection } from '@/features/member/components/hiting-section';
+import { MyInfoSection } from '@/features/member/components/my-info-section';
+import { StreakSection } from '@/features/member/components/streak-section';
+import { StudySection } from '@/features/member/components/study-section';
 import { useMyPageState } from '@/features/member/hooks/page/use-my-page-state';
-import {
-  BackButton,
-  Divider,
-  LoadingDots,
-  FadeIn,
-} from '@hiarc-platform/ui';
+import { BackButton, Divider, LoadingDots, FadeIn } from '@hiarc-platform/ui';
 
 export function MobileMyPage(): React.ReactElement {
   const {
@@ -79,7 +74,7 @@ export function MobileMyPage(): React.ReactElement {
         today={myPageData?.rating?.todayScore ?? 0}
       />
       <StreakSection className="mt-4" />
-      <CompetitionSection className="mt-4" awardList={myPageData?.award ?? []} />
+      <AwardSection className="mt-4" awardList={myPageData?.award ?? []} />
       <Divider variant="horizontal" size="full" className="mt-6 bg-gray-900" />
       <StudySection className="mt-6" />
     </FadeIn>

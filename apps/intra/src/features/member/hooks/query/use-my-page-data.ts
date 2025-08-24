@@ -1,11 +1,11 @@
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
-import { myApi } from '../../api/my';
-import { MyPageData } from '../../types/model/my-page-data';
+import { myApi } from '../../api/member';
+import { MemberProfile } from '../../types/model/member-profile';
 
-export function useMyPageData(): UseQueryResult<MyPageData, Error> {
+export function useMyProfileData(): UseQueryResult<MemberProfile, Error> {
   return useQuery({
     queryKey: ['member', 'me'],
-    queryFn: myApi.GET_MY_PAGE_DATA,
+    queryFn: myApi.GET_MY_PROFILE,
     staleTime: 5 * 60 * 1000, // 5분
     gcTime: 10 * 60 * 1000, // 10분
     retry: false,

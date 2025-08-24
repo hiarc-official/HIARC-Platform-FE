@@ -10,21 +10,21 @@ import {
 } from '@hiarc-platform/ui';
 import React from 'react';
 
-import { EditCompetitionDialog } from './edit-competition-dialog';
+import { EditAwardDialog } from './edit-award-dialog';
 import { Award } from '@hiarc-platform/shared';
 import { formatDateWithDots } from '@hiarc-platform/util';
 import useDeleteAward from '@/features/award/hooks/mutation/use-delete-award';
 
-interface CompetitionListItemProps {
+interface AwardListItemProps {
   award: Award;
 }
 
-export function CompetitionListItem({ award }: CompetitionListItemProps): React.ReactElement {
+export function AwardListItem({ award }: AwardListItemProps): React.ReactElement {
   const deleteAwardMutation = useDeleteAward();
 
   const handleEdit = (): void => {
     DialogUtil.showComponent(
-      <EditCompetitionDialog
+      <EditAwardDialog
         award={award}
         onSave={() => {}}
         onCancel={() => {
