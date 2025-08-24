@@ -10,12 +10,15 @@ import {
 import { NumberInput } from '@hiarc-platform/ui/src/components/input/number-input';
 import React, { useState } from 'react';
 
-import { useStudyForAttendance } from '../../hooks/study-member/query/use-study-for-attendance';
 import { useCheckAttendanceCode } from '../../hooks/study-member/mutation/use-check-attendance-code';
+import { AttendanceableStudy } from '../../types/request/attendanceable-study';
 
-export function StudyAttendanceDialog(): React.ReactElement {
+interface StudyAttendanceDialogProps {
+  data?: AttendanceableStudy;
+}
+
+export function StudyAttendanceDialog({ data }: StudyAttendanceDialogProps): React.ReactElement {
   const [attendanceCode, setAttendanceCode] = useState<string>('');
-  const { data } = useStudyForAttendance();
   const checkAttendanceMutation = useCheckAttendanceCode();
 
   const handleCancel = (): void => {

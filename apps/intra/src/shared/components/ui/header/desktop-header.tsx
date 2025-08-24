@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import { IconButton } from '@hiarc-platform/ui';
 import { StudyAttendanceDialog } from '@/features/study/components/study-attendance-dialog';
+import { studyMemberApi } from '@/features/study/api';
 import useLogout from '@/features/auth/hooks/mutation/use-logout';
 
 interface DesktopHeaderProps {
@@ -38,6 +39,15 @@ export function DesktopHeader({ isAuthenticated }: DesktopHeaderProps): React.Re
         cancelText: '취소',
       }
     );
+  };
+
+  const handleAttendanceCheck = async (): Promise<void> => {
+    try {
+      const attendanceData = await studyMemberApi.GET_STUDY_FOR_ATTENDANCE();
+      DialogUtil.showComponent(<StudyAttendanceDialog data={attendanceData} />);
+    } catch (error) {
+      DialogUtil.showServerError(error);
+    }
   };
 
   const isActive = (path: string): boolean => pathname.startsWith(`/${path}`);
@@ -100,13 +110,7 @@ export function DesktopHeader({ isAuthenticated }: DesktopHeaderProps): React.Re
               size="lg"
               onClick={handleMyPage}
             />
-            <Button
-              size="sm"
-              className="bg-primary-100"
-              onClick={() => {
-                DialogUtil.showComponent(<StudyAttendanceDialog />);
-              }}
-            >
+            <Button size="sm" className="bg-primary-100" onClick={handleAttendanceCheck}>
               출석체크
             </Button>
             <Button

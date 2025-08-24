@@ -1,5 +1,6 @@
 import { useMutation, UseMutationResult, useQueryClient } from '@tanstack/react-query';
 import { studyMemberApi } from '@/features/study/api';
+import { DialogUtil } from '@hiarc-platform/ui';
 
 export const useCheckAttendanceCode = (): UseMutationResult<
   void,
@@ -26,6 +27,8 @@ export const useCheckAttendanceCode = (): UseMutationResult<
     onSuccess: (_, { studyId }) => {
       queryClient.invalidateQueries({ queryKey: ['study', studyId] });
       queryClient.invalidateQueries({ queryKey: ['lectures', studyId] });
+      DialogUtil.hideAllDialogs();
+      DialogUtil.showSuccess('출석이 완료되었습니다.');
     },
   });
 };
