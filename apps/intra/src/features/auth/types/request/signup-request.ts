@@ -21,4 +21,8 @@ export interface SignupRequest {
   grade: Grade;
   absenceStatus: AbsenceStatus;
   bojHandle: string;
+  languages: string[];
+  languageLevel: string;
+  motivations: string[];
+  expectedActivity: string;
 }

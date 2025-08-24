@@ -5,7 +5,9 @@ import { useSignupPageState } from '@/features/auth/hooks/page/use-signup-page-s
 import { Grade, AbsenceStatus } from '@/features/auth/types/request/signup-request';
 import {
   Button,
+  FadeIn,
   Label,
+  LabeledCheckboxList,
   LabeledInput,
   LabeledSelectButton,
   LabeledSelector,
@@ -48,6 +50,56 @@ const departmentOptions: SelectData[] = [
   { value: '기타', label: '기타' },
 ];
 
+const languageOptions: SelectData[] = [
+  { value: '없음', label: '없음' },
+  { value: 'C/C++', label: 'C/C++' },
+  { value: 'Python', label: 'Python' },
+  { value: 'Java', label: 'Java' },
+  { value: '기타', label: '기타' },
+];
+
+const languageLevelOptions: SelectData[] = [
+  {
+    value: '거의 모른다. (기본 입/출력만 할 줄 안다.)',
+    label: '거의 모른다. (기본 입/출력만 할 줄 안다.)',
+  },
+  {
+    value: '조금 알고 있다. (기본 문법만 알고 있다. ex) 조건문, 반복문)',
+    label: '조금 알고 있다. (기본 문법만 알고 있다. ex) 조건문, 반복문)',
+  },
+  {
+    value: '잘 알고 있다. (기초 알고리즘을 다룰 수 있다.)',
+    label: '잘 알고 있다. (기초 알고리즘을 다룰 수 있다.)',
+  },
+  {
+    value: '매우 잘 알고 있다.',
+    label: '매우 잘 알고 있다.',
+  },
+];
+
+const motivationOptions: SelectData[] = [
+  {
+    value: '기초 알고리즘 실력 향상',
+    label: '기초 알고리즘 실력 향상',
+  },
+  {
+    value: '코딩 테스트 준비',
+    label: '코딩 테스트 준비',
+  },
+  {
+    value: '대회 준비',
+    label: '대회 준비',
+  },
+  {
+    value: '친목 도모',
+    label: '친목 도모',
+  },
+  {
+    value: '기타',
+    label: '기타',
+  },
+];
+
 interface SignupFormProps {
   className?: string;
 }
@@ -67,11 +119,26 @@ export function SignupForm({ className }: SignupFormProps): React.ReactElement {
     handleSubmit,
   } = useSignupPageState();
 
+  const handleLanguageChange = (values: string[]): void => {
+    if (values.includes('없음')) {
+      // '없음' 선택 시 다른 모든 선택 해제하고 languagesAsString도 초기화
+      handleInputChange('languages')(['없음']);
+      handleInputChange('languagesAsString')('');
+    } else {
+      // '없음' 이외의 다른 것을 선택하면 '없음' 제거
+      const filteredValues = values.filter((value) => value !== '없음');
+      handleInputChange('languages')(filteredValues);
+    }
+  };
+
   return (
     <div className={`flex w-full flex-col gap-4 ${className || ''}`}>
       <Title size="sm" weight="bold" className="justify-center text-gray-900">
         가입하기
       </Title>
+      <Label size="md" weight="bold" className="mt-4">
+        기본 정보
+      </Label>
       <LabeledInput
         label="이름"
         required={true}
@@ -138,9 +205,7 @@ export function SignupForm({ className }: SignupFormProps): React.ReactElement {
         required={true}
         options={doubleMajorOptions}
         value={formData.isDoubleMajor ? '복수전공 진행' : '복수전공 미진행'}
-        onChange={(value: string) =>
-          handleInputChange('isDoubleMajor')(value === '복수전공 진행')
-        }
+        onChange={(value: string) => handleInputChange('isDoubleMajor')(value === '복수전공 진행')}
       />
       <LabeledSelector
         required={true}
@@ -195,6 +260,64 @@ export function SignupForm({ className }: SignupFormProps): React.ReactElement {
         </div>
         <BojGuideButton />
       </div>
+
+      <div className="flex flex-col gap-4 py-4">
+        <Label size="md" weight="bold">
+          추가 정보
+        </Label>
+        <LabeledCheckboxList
+          label="Q1. 지금까지 사용해 본 프로그래밍 언어는 무엇인가요?"
+          subtitle="* 중복 선택 가능합니다."
+          items={languageOptions}
+          multiple={true}
+          selectedValues={formData.languages}
+          onSelectionChange={handleLanguageChange}
+        />
+
+        {formData.languages.includes('기타') && !formData.languages.includes('없음') && (
+          <FadeIn
+            isVisible={formData.languages.includes('기타') && !formData.languages.includes('없음')}
+          >
+            <LabeledInput
+              label="기타 프로그래밍 언어"
+              placeholder="다른 언어를 입력해주세요"
+              value={formData.languagesAsString}
+              onChange={(value: string) => handleInputChange('languagesAsString')(value)}
+            />
+          </FadeIn>
+        )}
+
+        {!formData.languages.includes('없음') && formData.languages.length > 0 && (
+          <FadeIn isVisible={!formData.languages.includes('없음') && formData.languages.length > 0}>
+            <LabeledCheckboxList
+              label="Q1-1. 1번에서 선택한 언어의 실력은 어느 정도인가요?"
+              subtitle="* 선택한 언어 중 가장 높은 실력으로 선택해주세요."
+              items={languageLevelOptions}
+              multiple={false}
+              selectedValue={formData.languageLevel}
+              onSingleSelectionChange={(value) => handleInputChange('languageLevel')(value || '')}
+            />
+          </FadeIn>
+        )}
+
+        <LabeledCheckboxList
+          label="Q2. 하이아크에 지원하게 된 동기는 무엇인가요?"
+          subtitle="* 중복 선택 가능합니다."
+          items={motivationOptions}
+          multiple={true}
+          selectedValues={formData.motivations}
+          onSelectionChange={(values) => handleInputChange('motivations')(values)}
+        />
+
+        <LabeledInput
+          label="Q3. 하이아크에 바라는 활동을 적어주시기 바랍니다."
+          required={true}
+          placeholder="자유롭게 작성해주세요."
+          value={formData.expectedActivity}
+          onChange={(value: string) => handleInputChange('expectedActivity')(value)}
+        />
+      </div>
+
       <Button
         variant="fill"
         size="lg"
