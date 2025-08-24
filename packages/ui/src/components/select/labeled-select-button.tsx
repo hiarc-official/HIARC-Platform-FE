@@ -48,6 +48,7 @@ function LabeledSelectButton({
             onClick={() => !disabled && onChange?.(option.value)}
             className={cn(
               'h-11 w-full',
+              'text-md',
               disabled && value !== option.value && 'cursor-not-allowed opacity-50',
               disabled && value === option.value && 'cursor-not-allowed opacity-75'
             )}

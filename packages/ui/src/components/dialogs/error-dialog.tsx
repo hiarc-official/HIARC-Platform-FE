@@ -63,7 +63,7 @@ export function ErrorDialog({
           {/* Button */}
           <div className="mt-6">
             <Button size="sm" onClick={handleConfirm}>
-              <Label>{dialog.confirmText || '닫기'}</Label>
+              {dialog.confirmText || '닫기'}
             </Button>
           </div>
         </div>

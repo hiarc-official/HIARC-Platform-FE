@@ -8,7 +8,6 @@ import {
   AlertDialogContent,
 } from '../dialog/alert-dialog';
 import { DialogConfig } from '../../store/dialog-store';
-import { Label } from '../label/label';
 import { Button } from '../button';
 import Image from 'next/image';
 import { AlertDialogTitle } from '@radix-ui/react-alert-dialog';
@@ -53,7 +52,7 @@ export function AlertDialogComponent({
             {showCancelButton && (
               <AlertDialogCancel asChild>
                 <Button variant="secondary" size="sm" onClick={handleCancel}>
-                  <Label>{dialog.cancelText || '취소'}</Label>
+                  {dialog.cancelText || '취소'}
                 </Button>
               </AlertDialogCancel>
             )}

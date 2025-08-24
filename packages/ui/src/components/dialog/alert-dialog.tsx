@@ -45,11 +45,11 @@ const buttonVariants = cva(
         unselected: cn('text-gray-300 border border-gray-200'),
       },
       size: {
-        xs: 'h-8 px-4 rounded-sm',
-        sm: 'h-10 px-4',
-        md: 'h-11 px-5',
-        lg: 'h-12 px-7',
-        xl: 'h-14 px-8',
+        xs: 'h-8 px-4 rounded-sm text-sm font-medium',
+        sm: 'h-10 px-4 text-md font-medium',
+        md: 'h-11 px-5 text-md font-medium',
+        lg: 'h-12 px-7 text-lg font-medium',
+        xl: 'h-14 px-8 text-lg font-medium',
       },
     },
     defaultVariants: {

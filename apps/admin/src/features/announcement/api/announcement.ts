@@ -33,15 +33,8 @@ export const announcementApi = {
    * @returns 공지사항 객체를 반환합니다.
    */
   GET_ADMIN_ANNOUNCEMENT: async (id: number) => {
-    console.log('[ADMIN ANNOUNCEMENT API] GET_ADMIN_ANNOUNCEMENT 요청:', id);
-    try {
-      const response = await apiClient.get(`/admin/announcements/${id}`);
-      console.log('[ADMIN ANNOUNCEMENT API] GET_ADMIN_ANNOUNCEMENT 응답:', response.data);
-      return Announcement.fromJson(response.data);
-    } catch (error) {
-      console.error('[ADMIN ANNOUNCEMENT API] GET_ADMIN_ANNOUNCEMENT 에러:', error);
-      throw error;
-    }
+    const response = await apiClient.get(`/admin/announcements/${id}`);
+    return Announcement.fromJson(response.data);
   },
 
   /**

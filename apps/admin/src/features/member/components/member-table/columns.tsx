@@ -253,7 +253,11 @@ export const createStudentColumns = ({
           event.stopPropagation();
           onDelete(row.original);
         }}
-        disabled={isDeleting}
+        disabled={
+          isDeleting ||
+          row.original.memberRole === 'ASSOCIATE' ||
+          row.original.memberRole === 'ADMIN'
+        }
       >
         탈퇴
       </Button>

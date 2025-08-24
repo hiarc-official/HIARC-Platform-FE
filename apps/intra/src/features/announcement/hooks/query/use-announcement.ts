@@ -5,6 +5,9 @@ import { Announcement } from '@hiarc-platform/shared';
 import { DialogUtil } from '@hiarc-platform/ui';
 import { announcementApi } from '../../api/announcement';
 
+// 모듈 레벨에서 에러를 추적하는 Set (전역적으로 중복 방지)
+const shownErrorIds = new Set<string>();
+
 export default function useAnnouncement(id: string): UseQueryResult<Announcement, Error> {
   const query = useQuery({
     queryKey: ['announcement', id],
@@ -14,7 +17,9 @@ export default function useAnnouncement(id: string): UseQueryResult<Announcement
   });
 
   useEffect(() => {
-    if (query.error) {
+    if (query.error && id && !shownErrorIds.has(id)) {
+      shownErrorIds.add(id);
+
       const axiosError = query.error as AxiosError<{ message?: string }>;
       const backendMessage = axiosError.response?.data?.message;
       const errorMessage =
@@ -24,7 +29,19 @@ export default function useAnnouncement(id: string): UseQueryResult<Announcement
         window.history.back();
       });
     }
-  }, [query.error]);
+
+    // 쿼리가 성공하면 해당 ID를 Set에서 제거
+    if (query.isSuccess && id) {
+      shownErrorIds.delete(id);
+    }
+
+    // 컴포넌트 언마운트 시 해당 ID를 Set에서 제거 (페이지 이탈 시)
+    return () => {
+      if (id) {
+        shownErrorIds.delete(id);
+      }
+    };
+  }, [query.error, query.isSuccess, id]);
 
   return query;
 }

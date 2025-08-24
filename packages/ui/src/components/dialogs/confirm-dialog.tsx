@@ -58,11 +58,9 @@ export function ConfirmDialog({
           </DialogDescription>
           <div className="flex justify-end gap-3 pt-4">
             <Button variant="secondary" onClick={handleCancel}>
-              <Label>{dialog.cancelText || '취소'}</Label>
+              {dialog.cancelText || '취소'}
             </Button>
-            <Button onClick={handleConfirm}>
-              <Label>{dialog.confirmText || '확인'}</Label>
-            </Button>
+            <Button onClick={handleConfirm}>{dialog.confirmText || '확인'}</Button>
           </div>
         </div>
       </DialogContent>

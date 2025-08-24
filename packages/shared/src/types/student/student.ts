@@ -9,7 +9,7 @@ export interface Student {
   phoneAddress?: string | null;
   studies?: StudySummary[] | null;
   participatedSemesters?: Semester[] | null;
-  memberRole?: 'GUEST' | 'MEMBER' | 'ADMIN' | null;
+  memberRole?: 'GUEST' | 'ASSOCIATE' | 'ADMIN' | 'REGULAR' | null;
 }
 
 export const Student = {
@@ -23,7 +23,7 @@ export const Student = {
       phoneAddress: (data.phoneAddress as string) || null,
       studies: (data.studies as StudySummary[]) || null,
       participatedSemesters: (data.participatedSemesters as Semester[]) || null,
-      memberRole: (data.memberRole as 'GUEST' | 'MEMBER' | 'ADMIN') || null,
+      memberRole: (data.memberRole as 'GUEST' | 'ASSOCIATE' | 'ADMIN' | 'REGULAR') || null,
     };
   },
 };
