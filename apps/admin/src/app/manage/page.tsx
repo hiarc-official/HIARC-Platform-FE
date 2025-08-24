@@ -1,9 +1,11 @@
 import { PageLayout } from '@hiarc-platform/ui';
-import { ManageTabSection } from '@/features/member/components/manage-tab-section';
+import { DesktopManagePage, MobileManagePage } from '@/features/member/pages/manage-page';
+
 export default function ManagePage(): React.ReactElement {
   return (
-    <PageLayout>
-      <ManageTabSection />
-    </PageLayout>
+    <PageLayout
+      desktopChildren={<DesktopManagePage />}
+      mobileChildren={<MobileManagePage />}
+    />
   );
 }

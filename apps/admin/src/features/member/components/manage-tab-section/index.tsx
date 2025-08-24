@@ -1,6 +1,5 @@
 'use client';
-import { cn, FadeIn, Tabs, SlideFade } from '@hiarc-platform/ui';
-import { AnimatePresence } from 'framer-motion';
+import { cn, Tabs, SlideFade } from '@hiarc-platform/ui';
 import { useState } from 'react';
 import { CurrentSemesterSection } from './current-semester-section';
 import { RecruitManageSection } from './recruit-manage-section';
@@ -22,18 +21,16 @@ export function ManageTabSection({ className }: TabSectionProps): React.ReactEle
     <div className={cn('mt-4 flex w-full flex-col', className)}>
       <Tabs tabs={tabs} activeTab={selectedTab} onTabClick={setSelectedTab} />
       <div className="mt-6 min-h-[300px]">
-        <AnimatePresence mode="wait">
-          {selectedTab === 'member_list_section' && (
-            <SlideFade key="current_semester_list" className="w-full">
-              <CurrentSemesterSection />
-            </SlideFade>
-          )}
-          {selectedTab === 'recruit_manage_section' && (
-            <SlideFade key="recruit_manage_section" className="w-full">
-              <RecruitManageSection />
-            </SlideFade>
-          )}
-        </AnimatePresence>
+        {selectedTab === 'member_list_section' && (
+          <SlideFade key="current_semester_list" className="w-full">
+            <CurrentSemesterSection />
+          </SlideFade>
+        )}
+        {selectedTab === 'recruit_manage_section' && (
+          <SlideFade key="recruit_manage_section" className="w-full">
+            <RecruitManageSection />
+          </SlideFade>
+        )}
       </div>
     </div>
   );
