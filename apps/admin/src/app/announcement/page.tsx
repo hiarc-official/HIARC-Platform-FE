@@ -1,7 +1,7 @@
 'use client';
 
 import { Title, Button, PageLayout, LoadingDots } from '@hiarc-platform/ui';
-import { FilterSection } from '@/features/components/announcement-section/select-button-section';
+import { AnnouncementFilter } from '@/features/announcement/components/announcement-filter';
 import { useRouter } from 'next/navigation';
 import { AnnouncementTable } from '@/features/announcement/components/announcement-table';
 import { useAdminAnnouncementList } from '@/features/announcement/hooks';
@@ -70,7 +70,7 @@ export default function AnnouncementPage(): React.ReactElement {
           작성하기
         </Button>
       </div>
-      <FilterSection onFilterChange={handleFilterChange} filters={filters} />
+      <AnnouncementFilter onFilterChange={handleFilterChange} filters={filters} />
       <AnnouncementTable
         className="mt-6"
         pageableModel={pageableModel}

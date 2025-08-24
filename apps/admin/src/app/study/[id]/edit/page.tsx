@@ -1,6 +1,6 @@
 'use client';
 
-import { CreateStudyForm } from '@/features/components/create-study-form-section';
+import { CreateStudyForm } from '@/features/study/components/create-study-form-section';
 import { BackButton, PageLayout, LoadingDots } from '@hiarc-platform/ui';
 import { Title } from '@hiarc-platform/ui';
 import { useParams, useRouter } from 'next/navigation';
