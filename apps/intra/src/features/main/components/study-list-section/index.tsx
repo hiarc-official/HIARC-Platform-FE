@@ -15,7 +15,10 @@ export function StudyListSection({ className }: StudyListSectionProps): React.Re
     <div className={cn('flex w-full flex-col justify-center', className)}>
       <section className="">
         <div className="flex w-full justify-between">
-          <Title size="sm" weight="bold">
+          <Title size="sm" weight="bold" className="hidden md:block">
+            스터디목록
+          </Title>
+          <Title size="xs" weight="bold" className="md:hidden">
             스터디목록
           </Title>
           <button

@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import useLogout from '@/features/auth/hooks/mutation/use-logout';
-import { StudyAttendanceDialog } from '@/features/study/components/study-attendance-dialog';
+// import { StudyAttendanceDialog } from '@/features/study/components/study-attendance-dialog';
 
 interface MobileHeaderProps {
   isAuthenticated: boolean;
@@ -61,7 +61,7 @@ export function MobileHeader({
             autoFocus
           />
           <IconButton
-            iconSrc="/Close.svg"
+            iconSrc="/shared-assets/Close.svg"
             aria-label="검색 닫기"
             onClick={() => setIsMobileSearchOpen(false)}
           />
@@ -74,10 +74,11 @@ export function MobileHeader({
           )}
         >
           <Link href="/">
-            <Image src="/shared-assets/Logo.svg" alt="HiarcLogo" width={120} height={30} />
+            <Image src="/shared-assets/Logo.svg" alt="HiarcLogo" width={86} height={21} />
           </Link>
           <div className="flex items-center gap-2">
             <IconButton
+              size="lg"
               iconSrc="/shared-assets/ZoomIn.svg"
               aria-label="검색"
               onClick={() => setIsMobileSearchOpen(true)}
@@ -85,22 +86,25 @@ export function MobileHeader({
             {isAuthenticated ? (
               <div className="flex items-center gap-2">
                 <IconButton
+                  size="lg"
                   iconSrc="/shared-assets/User.svg"
                   aria-label="프로필"
                   onClick={handleMyPage}
                 />
-                <Button
-                  size="sm"
+                {/* 2025.08.24
+                출석체크 버튼 임시 비활성화 */}
+                {/* <Button
+                  size="xs"
                   className="bg-primary-100"
                   onClick={() => {
                     DialogUtil.showComponent(<StudyAttendanceDialog />);
                   }}
                 >
                   출석체크
-                </Button>
+                </Button> */}
                 <Button
-                  variant="secondary"
-                  size="sm"
+                  variant="line_secondary"
+                  size="xs"
                   onClick={handleLogout}
                   disabled={logoutMutation.isPending}
                 >
@@ -108,7 +112,7 @@ export function MobileHeader({
                 </Button>
               </div>
             ) : (
-              <Button variant="secondary" size="sm" onClick={handleLogin}>
+              <Button variant="line_secondary" size="xs" onClick={handleLogin}>
                 로그인
               </Button>
             )}
