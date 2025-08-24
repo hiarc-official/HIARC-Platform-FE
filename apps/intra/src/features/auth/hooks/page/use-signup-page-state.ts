@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import useSignUp from '@/features/auth/hooks/mutation/use-sign-up';
 import useHandleValidation from '@/features/auth/hooks/mutation/use-handle-validation';
 import { Grade, AbsenceStatus } from '@/features/auth/types/request/signup-request';
@@ -27,6 +27,8 @@ interface FormErrors {
   studentId?: string;
   department?: string;
   bojHandle?: string;
+  languagesAsString?: string;
+  motivationAsString?: string;
 }
 
 export function useSignupPageState() {
@@ -94,6 +96,16 @@ export function useSignupPageState() {
           return 'BOJ 핸들은 3글자 이상 입력해주세요.';
         }
         break;
+      case 'languagesAsString':
+        if (formData.languages.includes('기타') && !value.trim()) {
+          return '다른 언어를 입력해주세요.';
+        }
+        break;
+      case 'motivationAsString':
+        if (formData.motivations.includes('기타') && !value.trim()) {
+          return '다른 동기를 입력해주세요.';
+        }
+        break;
       default:
         return undefined;
     }
@@ -110,12 +122,30 @@ export function useSignupPageState() {
 
       if (
         typeof value === 'string' &&
-        ['name', 'phoneAddress', 'studentId', 'department', 'bojHandle'].includes(field)
+        ['name', 'phoneAddress', 'studentId', 'department', 'bojHandle', 'languagesAsString', 'motivationAsString'].includes(field)
       ) {
         const error = validateField(field as keyof FormErrors, value);
         setErrors((prev) => ({ ...prev, [field]: error }));
       }
     };
+
+  const validateAdditionalFields = useCallback((): void => {
+    // languagesAsString 검증
+    if (formData.languages.includes('기타')) {
+      const languageError = !formData.languagesAsString.trim() ? '다른 언어를 입력해주세요.' : undefined;
+      setErrors((prev) => ({ ...prev, languagesAsString: languageError }));
+    } else {
+      setErrors((prev) => ({ ...prev, languagesAsString: undefined }));
+    }
+
+    // motivationAsString 검증
+    if (formData.motivations.includes('기타')) {
+      const motivationError = !formData.motivationAsString.trim() ? '다른 동기를 입력해주세요.' : undefined;
+      setErrors((prev) => ({ ...prev, motivationAsString: motivationError }));
+    } else {
+      setErrors((prev) => ({ ...prev, motivationAsString: undefined }));
+    }
+  }, [formData.languages, formData.motivations, formData.languagesAsString, formData.motivationAsString]);
 
   const handleValidateHandle = (): void => {
     if (!formData.bojHandle || formData.bojHandle.length < 3) {
@@ -143,6 +173,18 @@ export function useSignupPageState() {
       return;
     }
 
+    // languages에 languagesAsString 추가
+    const finalLanguages = [...formData.languages];
+    if (formData.languagesAsString.trim()) {
+      finalLanguages.push(formData.languagesAsString.trim());
+    }
+
+    // motivations에 motivationAsString 추가
+    const finalMotivations = [...formData.motivations];
+    if (formData.motivationAsString.trim()) {
+      finalMotivations.push(formData.motivationAsString.trim());
+    }
+
     signUpMutation.mutate({
       name: formData.name,
       phoneAddress: formData.phoneAddress,
@@ -152,9 +194,9 @@ export function useSignupPageState() {
       grade: formData.grade,
       absenceStatus: formData.absenceStatus,
       bojHandle: formData.bojHandle,
-      languages: formData.languages,
+      languages: finalLanguages,
       languageLevel: formData.languageLevel,
-      motivations: formData.motivations,
+      motivations: finalMotivations,
       expectedActivity: formData.expectedActivity,
     });
   };
@@ -167,7 +209,13 @@ export function useSignupPageState() {
     formData.grade &&
     formData.absenceStatus &&
     formData.bojHandle &&
-    isHandleValidated;
+    isHandleValidated &&
+    formData.languages.length > 0 &&
+    (!formData.languages.includes('없음') ? formData.languageLevel : true) &&
+    (!formData.languages.includes('기타') || formData.languagesAsString.trim()) &&
+    formData.motivations.length > 0 &&
+    (!formData.motivations.includes('기타') || formData.motivationAsString.trim()) &&
+    formData.expectedActivity.trim();
 
   return {
     formData,
@@ -181,5 +229,6 @@ export function useSignupPageState() {
     handleInputChange,
     handleValidateHandle,
     handleSubmit,
+    validateAdditionalFields,
   };
 }

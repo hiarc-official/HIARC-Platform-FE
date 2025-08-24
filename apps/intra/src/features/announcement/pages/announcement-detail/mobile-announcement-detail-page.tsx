@@ -10,7 +10,7 @@ import {
 import { useAnnouncementDetailPageState } from '../../hooks/page/use-announcement-detail-page-state';
 
 export function MobileAnnouncementDetailPage(): React.ReactElement {
-  const { announcement, isLoading, error, handleGoToList } = useAnnouncementDetailPageState();
+  const { announcement, memberRole, isLoading, error, handleGoToList } = useAnnouncementDetailPageState();
 
   if (isLoading) {
     return (
@@ -42,6 +42,7 @@ export function MobileAnnouncementDetailPage(): React.ReactElement {
         applicationStartAt={announcement.applicationStartAt}
         applicationEndAt={announcement.applicationEndAt}
         applicationUrl={announcement.applicationUrl}
+        memberRole={memberRole}
       />
       <AnnouncementContentSection content={announcement.content} />
       <AnnouncementIndicatorSection prevData={announcement.prev} nextData={announcement.next} />

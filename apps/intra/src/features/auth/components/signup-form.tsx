@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import { BojGuideButton } from '@/features/auth/components/boj-guide-button/boj-guide-button';
 import { useSignupPageState } from '@/features/auth/hooks/page/use-signup-page-state';
 import { Grade, AbsenceStatus } from '@/features/auth/types/request/signup-request';
@@ -117,18 +118,47 @@ export function SignupForm({ className }: SignupFormProps): React.ReactElement {
     handleInputChange,
     handleValidateHandle,
     handleSubmit,
+    validateAdditionalFields,
   } = useSignupPageState();
 
+  // 기타 필드 표시 상태 변경 시 즉시 검증
+  useEffect(() => {
+    if (formData.languages.includes('기타') || formData.motivations.includes('기타')) {
+      validateAdditionalFields();
+    }
+  }, [formData.languages, formData.motivations, validateAdditionalFields]);
+
   const handleLanguageChange = (values: string[]): void => {
-    if (values.includes('없음')) {
-      // '없음' 선택 시 다른 모든 선택 해제하고 languagesAsString도 초기화
+    // '없음'이 포함되어 있고 다른 값도 있다면
+    if (values.includes('없음') && values.length > 1) {
+      // 새로 추가된 값이 '없음'이라면 '없음'만 남기기
+      const prevLanguages = formData.languages;
+      const newlyAdded = values.find((value) => !prevLanguages.includes(value));
+
+      if (newlyAdded === '없음') {
+        handleInputChange('languages')(['없음']);
+        handleInputChange('languagesAsString')('');
+      } else {
+        // 다른 값이 새로 추가되었다면 '없음' 제거
+        const filteredValues = values.filter((value) => value !== '없음');
+        handleInputChange('languages')(filteredValues);
+      }
+    } else if (values.includes('없음')) {
+      // '없음'만 선택된 경우
       handleInputChange('languages')(['없음']);
       handleInputChange('languagesAsString')('');
     } else {
-      // '없음' 이외의 다른 것을 선택하면 '없음' 제거
-      const filteredValues = values.filter((value) => value !== '없음');
-      handleInputChange('languages')(filteredValues);
+      // '없음'이 없는 경우
+      handleInputChange('languages')(values);
+
+      // '기타'가 해제되었으면 languagesAsString 초기화
+      if (!values.includes('기타') && formData.languages.includes('기타')) {
+        handleInputChange('languagesAsString')('');
+      }
     }
+
+    // 언어 변경 후 추가 필드 검증
+    setTimeout(() => validateAdditionalFields(), 0);
   };
 
   return (
@@ -270,6 +300,7 @@ export function SignupForm({ className }: SignupFormProps): React.ReactElement {
           subtitle="* 중복 선택 가능합니다."
           items={languageOptions}
           multiple={true}
+          required={true}
           selectedValues={formData.languages}
           onSelectionChange={handleLanguageChange}
         />
@@ -279,10 +310,12 @@ export function SignupForm({ className }: SignupFormProps): React.ReactElement {
             isVisible={formData.languages.includes('기타') && !formData.languages.includes('없음')}
           >
             <LabeledInput
-              label="기타 프로그래밍 언어"
+              label=""
+              showLabel={false}
               placeholder="다른 언어를 입력해주세요"
               value={formData.languagesAsString}
               onChange={(value: string) => handleInputChange('languagesAsString')(value)}
+              error={formData.languagesAsString.trim() ? undefined : '다른 언어를 입력해주세요'}
             />
           </FadeIn>
         )}
@@ -294,6 +327,7 @@ export function SignupForm({ className }: SignupFormProps): React.ReactElement {
               subtitle="* 선택한 언어 중 가장 높은 실력으로 선택해주세요."
               items={languageLevelOptions}
               multiple={false}
+              required={true}
               selectedValue={formData.languageLevel}
               onSingleSelectionChange={(value) => handleInputChange('languageLevel')(value || '')}
             />
@@ -303,11 +337,45 @@ export function SignupForm({ className }: SignupFormProps): React.ReactElement {
         <LabeledCheckboxList
           label="Q2. 하이아크에 지원하게 된 동기는 무엇인가요?"
           subtitle="* 중복 선택 가능합니다."
+          required={true}
           items={motivationOptions}
           multiple={true}
           selectedValues={formData.motivations}
-          onSelectionChange={(values) => handleInputChange('motivations')(values)}
+          onSelectionChange={(values) => {
+            handleInputChange('motivations')(values);
+
+            // '기타'가 해제되었으면 motivationAsString 초기화
+            if (!values.includes('기타') && formData.motivations.includes('기타')) {
+              handleInputChange('motivationAsString')('');
+            }
+
+            // '기타'가 새로 선택되었고 motivationAsString이 비어있으면 즉시 에러 표시
+            if (
+              values.includes('기타') &&
+              !formData.motivations.includes('기타') &&
+              !formData.motivationAsString.trim()
+            ) {
+              handleInputChange('motivationAsString')('');
+              setTimeout(() => validateAdditionalFields(), 10);
+            } else {
+              // 동기 변경 후 추가 필드 검증
+              setTimeout(() => validateAdditionalFields(), 0);
+            }
+          }}
         />
+
+        {formData.motivations.includes('기타') && (
+          <FadeIn isVisible={formData.motivations.includes('기타')}>
+            <LabeledInput
+              label=""
+              showLabel={false}
+              placeholder="다른 동기를 입력해주세요"
+              value={formData.motivationAsString}
+              onChange={(value: string) => handleInputChange('motivationAsString')(value)}
+              error={formData.motivationAsString.trim() ? undefined : '다른 동기를 입력해주세요'}
+            />
+          </FadeIn>
+        )}
 
         <LabeledInput
           label="Q3. 하이아크에 바라는 활동을 적어주시기 바랍니다."

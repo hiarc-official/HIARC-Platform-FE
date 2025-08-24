@@ -57,7 +57,7 @@ export function MobileHeader({
             type="search"
             variant="search"
             placeholder="검색어를 입력하세요"
-            className="mx-4 h-[44px] flex-1"
+            className="mx-4 h-[44px] flex-1 text-base"
             autoFocus
           />
           <IconButton
@@ -125,7 +125,11 @@ export function MobileHeader({
           <div className="flex h-full flex-col">
             <div className="flex-1 overflow-y-auto">
               <div className="flex items-center gap-2 border-b border-gray-200 px-5 py-2">
-                <Input variant="search" placeholder="검색어를 입력하세요" className="flex-1" />
+                <Input
+                  variant="search"
+                  placeholder="검색어를 입력하세요"
+                  className="flex-1 text-base"
+                />
                 <IconButton
                   iconSrc="/shared-assets/Close.svg"
                   size="lg"

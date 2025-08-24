@@ -3,6 +3,7 @@ import {
   cn,
   CommonTableBody,
   CommonTableHead,
+  IconButton,
   Label,
   Pagination,
   SlideFade,
@@ -13,7 +14,9 @@ import { ColumnDef, Row } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
 
-const STUDY_LIST_COLUMN: Array<ColumnDef<StudySummary>> = [
+const createStudyListColumn = (
+  router: ReturnType<typeof useRouter>
+): Array<ColumnDef<StudySummary>> => [
   {
     id: 'category',
     accessorKey: 'category',
@@ -66,7 +69,7 @@ const STUDY_LIST_COLUMN: Array<ColumnDef<StudySummary>> = [
       </Label>
     ),
     cell: ({ row }: { row: { original: StudySummary } }) => (
-      <Label size="md" weight="regular" className="text-gray-700">
+      <Label size="md" weight="regular" className="underline">
         {row.original.studyName ?? '-'}
       </Label>
     ),
@@ -86,9 +89,35 @@ const STUDY_LIST_COLUMN: Array<ColumnDef<StudySummary>> = [
       </Label>
     ),
     cell: ({ row }: { row: { original: StudySummary } }) => (
-      <Label size="sm" weight="regular" className="text-gray-700">
-        ({row.original.instructorName ?? '-'}) {row.original.instructorBojHandle ?? '-'}
+      <Label size="md" weight="regular">
+        {row.original.instructorName ?? '-'} ({row.original.instructorBojHandle ?? '-'})
       </Label>
+    ),
+    footer: (props) => props.column.id,
+  },
+  {
+    id: 'edit',
+    accessorKey: 'edit',
+    size: 60,
+    meta: {
+      headAlign: 'center',
+      bodyAlign: 'center',
+    },
+    header: () => (
+      <Label size="md" weight="bold">
+        수정
+      </Label>
+    ),
+    cell: ({ row }: { row: { original: StudySummary } }) => (
+      <IconButton
+        className="ml-1.5"
+        iconSrc="/shared-assets/Edit.svg"
+        aria-label="수정"
+        onClick={(event) => {
+          event.stopPropagation();
+          router.push(`/study/${row.original.studyId}/edit`);
+        }}
+      />
     ),
     footer: (props) => props.column.id,
   },
@@ -106,7 +135,7 @@ export function StudyTable({
   onPageChange,
 }: StudyTableSectionProps): React.ReactElement {
   const router = useRouter();
-  const columns = useMemo(() => STUDY_LIST_COLUMN, []);
+  const columns = useMemo(() => createStudyListColumn(router), [router]);
   const [globalFilter, setGlobalFilter] = useState('');
 
   const data = pageableModel?.content ?? [];

@@ -7,10 +7,10 @@ export function CompetitionSearchButtons(): React.ReactElement {
       <LabeledInput label="주최(단체명)" placeholder="Placeholder" />
       <LabeledInput label="주최(단체명)" placeholder="Placeholder" />
       <div className="flex gap-2">
-        <Button size="md" variant="whitebg" className="w-[134px]">
+        <Button size="md" variant="line_secondary" className="w-[134px]">
           초기화
         </Button>
-        <Button size="md" className="w-[134px] bg-primary-200 ">
+        <Button size="md" className="w-[134px]">
           검색
         </Button>
       </div>
