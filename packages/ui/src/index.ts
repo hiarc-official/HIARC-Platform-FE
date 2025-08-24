@@ -47,6 +47,8 @@ export * from './components/study/show-attendance-code-dialog';
 export * from './components/study/do-assignment-dialog';
 export * from './components/study/create-study-form';
 export * from './components/study/study-info-section';
+export * from './components/select/checkbox-list';
+export * from './components/select/labeled-checkbox-list';
 export * from './constants/assets';
 export * from './lib/utils';
 export * from './store/dialog-store';

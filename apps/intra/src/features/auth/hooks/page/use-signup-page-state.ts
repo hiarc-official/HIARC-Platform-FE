@@ -12,6 +12,13 @@ interface SignupFormData {
   grade: Grade;
   absenceStatus: AbsenceStatus;
   bojHandle: string;
+  selectedDepartments: string[];
+  languages: string[];
+  languageLevel: string;
+  motivations: string[];
+  expectedActivity: string;
+  languagesAsString: string;
+  motivationAsString: string;
 }
 
 interface FormErrors {
@@ -35,6 +42,13 @@ export function useSignupPageState() {
     grade: Grade.FRESHMAN,
     absenceStatus: AbsenceStatus.ENROLLED,
     bojHandle: '',
+    selectedDepartments: [],
+    languages: [],
+    languageLevel: '',
+    motivations: [],
+    expectedActivity: '',
+    languagesAsString: '',
+    motivationAsString: '',
   });
 
   const [isCustomDepartment, setIsCustomDepartment] = useState(false);
@@ -86,21 +100,22 @@ export function useSignupPageState() {
     return undefined;
   };
 
-  const handleInputChange = (field: keyof SignupFormData) => (value: string | number | boolean) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
+  const handleInputChange =
+    (field: keyof SignupFormData) => (value: string | number | boolean | string[]) => {
+      setFormData((prev) => ({ ...prev, [field]: value }));
 
-    if (field === 'bojHandle') {
-      setIsHandleValidated(false);
-    }
+      if (field === 'bojHandle') {
+        setIsHandleValidated(false);
+      }
 
-    if (
-      typeof value === 'string' &&
-      ['name', 'phoneAddress', 'studentId', 'department', 'bojHandle'].includes(field)
-    ) {
-      const error = validateField(field as keyof FormErrors, value);
-      setErrors((prev) => ({ ...prev, [field]: error }));
-    }
-  };
+      if (
+        typeof value === 'string' &&
+        ['name', 'phoneAddress', 'studentId', 'department', 'bojHandle'].includes(field)
+      ) {
+        const error = validateField(field as keyof FormErrors, value);
+        setErrors((prev) => ({ ...prev, [field]: error }));
+      }
+    };
 
   const handleValidateHandle = (): void => {
     if (!formData.bojHandle || formData.bojHandle.length < 3) {
@@ -137,6 +152,10 @@ export function useSignupPageState() {
       grade: formData.grade,
       absenceStatus: formData.absenceStatus,
       bojHandle: formData.bojHandle,
+      languages: formData.languages,
+      languageLevel: formData.languageLevel,
+      motivations: formData.motivations,
+      expectedActivity: formData.expectedActivity,
     });
   };
 
