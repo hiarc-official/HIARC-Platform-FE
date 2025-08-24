@@ -36,7 +36,7 @@ export function DesktopLoginPage(): React.ReactElement {
         onClick={handleGoogleLogin}
         disabled={isGoogleLoginLoading}
       >
-        <Image src={'/shared-assets/Google.svg'} width={20} height={20} alt="Google" />
+        <Image src={'/shared-assets/GoogleLogin.svg'} width={20} height={20} alt="Google" />
         <Label size="lg">{isGoogleLoginLoading ? '로그인 중...' : '구글 계정으로 로그인'}</Label>
       </Button>
     </div>
