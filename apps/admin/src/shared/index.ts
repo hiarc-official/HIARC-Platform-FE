@@ -7,8 +7,6 @@ export { BaseModel } from './base/base-model';
 
 // Components
 export { GlobalDialogContainer } from '@hiarc-platform/ui';
-export { default as SharedFooter } from './components/ui/Footer';
-export { default as SharedHeader } from './components/ui/header';
 
 // Exceptions
 export * from './exceptions/server-exception';
