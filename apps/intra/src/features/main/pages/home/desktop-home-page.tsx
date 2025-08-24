@@ -11,7 +11,7 @@ export function DesktopHomePage(): React.ReactElement {
       <TwoColumnLayout
         left={<HiarcScheduleSection daysToShow={7} />}
         right={<AnnouncementListSection />}
-        bottom={<StudyListSection className="mt-6" />}
+        bottom={<StudyListSection className="mt-10" />}
       />
     </ContentSection>
   );

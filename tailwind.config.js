@@ -28,6 +28,7 @@ module.exports = {
     'h-[46.5px]',
     'h-[10px]',
     'h-15',
+    'md:text-xs',
     'rounded-xl',
     'gap-[3px]',
     'accent-primary-100',

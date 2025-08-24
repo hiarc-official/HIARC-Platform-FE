@@ -27,7 +27,10 @@ export function Tabs({ tabs, activeTab, onTabClick, className = '' }: TabsProps)
             onClick={() => onTabClick?.(tab.value)}
             type="button"
           >
-            <Title size="sm" weight="bold" className="cursor-pointer select-none">
+            <Title size="sm" weight="bold" className="hidden cursor-pointer select-none md:block">
+              {tab.label}
+            </Title>
+            <Title size="xs" weight="bold" className="cursor-pointer select-none md:hidden">
               {tab.label}
             </Title>
           </button>
