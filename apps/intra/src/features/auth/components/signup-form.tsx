@@ -138,6 +138,7 @@ export function SignupForm({ className }: SignupFormProps): React.ReactElement {
       if (newlyAdded === '없음') {
         handleInputChange('languages')(['없음']);
         handleInputChange('languagesAsString')('');
+        handleInputChange('languageLevel')('');
       } else {
         // 다른 값이 새로 추가되었다면 '없음' 제거
         const filteredValues = values.filter((value) => value !== '없음');
@@ -147,6 +148,7 @@ export function SignupForm({ className }: SignupFormProps): React.ReactElement {
       // '없음'만 선택된 경우
       handleInputChange('languages')(['없음']);
       handleInputChange('languagesAsString')('');
+      handleInputChange('languageLevel')('');
     } else {
       // '없음'이 없는 경우
       handleInputChange('languages')(values);
@@ -305,9 +307,9 @@ export function SignupForm({ className }: SignupFormProps): React.ReactElement {
           onSelectionChange={handleLanguageChange}
         />
 
-        {formData.languages.includes('기타') && !formData.languages.includes('없음') && (
+        {formData.languages.includes('기타') && (
           <FadeIn
-            isVisible={formData.languages.includes('기타') && !formData.languages.includes('없음')}
+            isVisible={formData.languages.includes('기타')}
           >
             <LabeledInput
               label=""

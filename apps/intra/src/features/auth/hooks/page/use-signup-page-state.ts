@@ -173,10 +173,15 @@ export function useSignupPageState() {
       return;
     }
 
-    // languages에 languagesAsString 추가
-    const finalLanguages = [...formData.languages];
+    // languages에 languagesAsString 추가 및 '없음' 처리
+    let finalLanguages = [...formData.languages];
     if (formData.languagesAsString.trim()) {
       finalLanguages.push(formData.languagesAsString.trim());
+    }
+    
+    // '없음'이 포함되어 있으면 빈 배열로 변환
+    if (finalLanguages.includes('없음')) {
+      finalLanguages = [];
     }
 
     // motivations에 motivationAsString 추가
@@ -185,7 +190,7 @@ export function useSignupPageState() {
       finalMotivations.push(formData.motivationAsString.trim());
     }
 
-    signUpMutation.mutate({
+    const payload: any = {
       name: formData.name,
       phoneAddress: formData.phoneAddress,
       studentId: formData.studentId,
@@ -195,10 +200,16 @@ export function useSignupPageState() {
       absenceStatus: formData.absenceStatus,
       bojHandle: formData.bojHandle,
       languages: finalLanguages,
-      languageLevel: formData.languageLevel,
       motivations: finalMotivations,
       expectedActivity: formData.expectedActivity,
-    });
+    };
+
+    // languages가 비어있지 않을 때만 languageLevel 추가
+    if (finalLanguages.length > 0) {
+      payload.languageLevel = formData.languageLevel;
+    }
+
+    signUpMutation.mutate(payload);
   };
 
   const isFormValid =
@@ -210,8 +221,7 @@ export function useSignupPageState() {
     formData.absenceStatus &&
     formData.bojHandle &&
     isHandleValidated &&
-    formData.languages.length > 0 &&
-    (!formData.languages.includes('없음') ? formData.languageLevel : true) &&
+    (formData.languages.includes('없음') || formData.languageLevel) &&
     (!formData.languages.includes('기타') || formData.languagesAsString.trim()) &&
     formData.motivations.length > 0 &&
     (!formData.motivations.includes('기타') || formData.motivationAsString.trim()) &&

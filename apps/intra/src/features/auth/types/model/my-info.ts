@@ -1,8 +1,16 @@
+interface ApprovedNotification {
+  semesterId?: number;
+  semesterYear?: number;
+  semesterType?: 'FIRST' | 'SECOND';
+  greetingDescription?: string;
+}
+
 export interface MyInfoProps {
   memberId?: number | null;
   bojHandle?: string | null;
   memberRole?: string | null;
   adminRole?: string | null;
+  approvedNotification?: ApprovedNotification | null;
 }
 
 interface MyInfoJson {
@@ -10,6 +18,7 @@ interface MyInfoJson {
   bojHandle?: string;
   memberRole?: string;
   adminRole?: string;
+  approvedNotification?: ApprovedNotification | null;
 }
 
 export class MyInfo {
@@ -35,6 +44,10 @@ export class MyInfo {
     return this.props.adminRole ?? null;
   }
 
+  get approvedNotification(): ApprovedNotification | null {
+    return this.props.approvedNotification ?? null;
+  }
+
   toJson(): unknown {
     return {
       memberId: this.props.memberId,
@@ -51,6 +64,9 @@ export class MyInfo {
       bojHandle: data?.bojHandle ?? null,
       memberRole: data?.memberRole ?? null,
       adminRole: data?.adminRole ?? null,
+      approvedNotification: data?.approvedNotification
+        ? (data.approvedNotification as ApprovedNotification)
+        : null,
     });
   }
 

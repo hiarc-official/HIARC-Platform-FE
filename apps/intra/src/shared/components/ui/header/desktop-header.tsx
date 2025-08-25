@@ -1,13 +1,10 @@
 'use client';
 
-import { Button, DialogUtil, Input, Label } from '@hiarc-platform/ui';
+import { Button, Input, Label } from '@hiarc-platform/ui';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
-import { IconButton } from '@hiarc-platform/ui';
-import { StudyAttendanceDialog } from '@/features/study/components/study-attendance-dialog';
-import { studyMemberApi } from '@/features/study/api';
-import useLogout from '@/features/auth/hooks/mutation/use-logout';
+import { AuthenticatedUserSection } from './authenticated-user-section';
 
 interface DesktopHeaderProps {
   isAuthenticated: boolean;
@@ -16,38 +13,9 @@ interface DesktopHeaderProps {
 export function DesktopHeader({ isAuthenticated }: DesktopHeaderProps): React.ReactElement {
   const router = useRouter();
   const pathname = usePathname();
-  const logoutMutation = useLogout();
 
   const handleLogin = (): void => {
     router.push('/login');
-  };
-
-  const handleMyPage = (): void => {
-    router.push('/my');
-  };
-
-  const handleLogout = (): void => {
-    DialogUtil.showConfirm(
-      '정말 로그아웃하시겠습니까?',
-      () => {
-        logoutMutation.mutate();
-      },
-      undefined,
-      {
-        title: '로그아웃',
-        confirmText: '로그아웃',
-        cancelText: '취소',
-      }
-    );
-  };
-
-  const handleAttendanceCheck = async (): Promise<void> => {
-    try {
-      const attendanceData = await studyMemberApi.GET_STUDY_FOR_ATTENDANCE();
-      DialogUtil.showComponent(<StudyAttendanceDialog data={attendanceData} />);
-    } catch (error) {
-      DialogUtil.showServerError(error);
-    }
   };
 
   const isActive = (path: string): boolean => pathname.startsWith(`/${path}`);
@@ -103,25 +71,7 @@ export function DesktopHeader({ isAuthenticated }: DesktopHeaderProps): React.Re
           className="h-[44px] w-[328px]"
         />
         {isAuthenticated ? (
-          <div className="flex items-center gap-2">
-            <IconButton
-              iconSrc="/shared-assets/User.svg"
-              aria-label="프로필"
-              size="lg"
-              onClick={handleMyPage}
-            />
-            <Button size="sm" className="bg-primary-100" onClick={handleAttendanceCheck}>
-              출석체크
-            </Button>
-            <Button
-              variant="secondary"
-              size="sm"
-              onClick={handleLogout}
-              disabled={logoutMutation.isPending}
-            >
-              {logoutMutation.isPending ? '로그아웃 중...' : '로그아웃'}
-            </Button>
-          </div>
+          <AuthenticatedUserSection />
         ) : (
           <Button variant="secondary" size="sm" onClick={handleLogin}>
             로그인
