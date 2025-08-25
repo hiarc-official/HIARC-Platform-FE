@@ -3,8 +3,6 @@
 import { Button, DialogUtil, FadeIn } from '@hiarc-platform/ui';
 import { useRouter } from 'next/navigation';
 import { IconButton } from '@hiarc-platform/ui';
-import { StudyAttendanceDialog } from '@/features/study/components/study-attendance-dialog';
-import { studyMemberApi } from '@/features/study/api';
 import useLogout from '@/features/auth/hooks/mutation/use-logout';
 import useRecruitNotificationRead from '@/features/auth/hooks/mutation/use-recruit-notification-read';
 import { authApi } from '@/features/auth/api/auth';
@@ -12,7 +10,7 @@ import { MyInfo } from '@/features/auth/types/model/my-info';
 import { useState, useRef, useEffect } from 'react';
 import { SignupPopup } from './signup-popup';
 
-export function AuthenticatedUserSection(): React.ReactElement {
+export function AuthenticatedMobileSection(): React.ReactElement {
   const router = useRouter();
   const logoutMutation = useLogout();
   const recruitNotificationReadMutation = useRecruitNotificationRead();
@@ -81,30 +79,30 @@ export function AuthenticatedUserSection(): React.ReactElement {
     };
   }, [isPopupOpen]);
 
-  const handleAttendanceCheck = async (): Promise<void> => {
-    try {
-      const attendanceData = await studyMemberApi.GET_STUDY_FOR_ATTENDANCE();
-      DialogUtil.showComponent(<StudyAttendanceDialog data={attendanceData} />);
-    } catch (error) {
-      DialogUtil.showServerError(error);
-    }
-  };
-
   return (
     <div className="flex items-center gap-2">
       <IconButton
+        size="lg"
         iconSrc="/shared-assets/User.svg"
         aria-label="프로필"
-        size="lg"
         onClick={handleMyPage}
       />
-      <Button size="sm" className="bg-primary-100" onClick={handleAttendanceCheck}>
+      {/* 2025.08.24
+      출석체크 버튼 임시 비활성화 */}
+      {/* <Button
+        size="xs"
+        className="bg-primary-100"
+        onClick={() => {
+          DialogUtil.showComponent(<StudyAttendanceDialog />);
+        }}
+      >
         출석체크
-      </Button>
+      </Button> */}
       <div className="relative">
         <Button
+          ref={buttonRef}
           variant="line_secondary"
-          size="sm"
+          size="xs"
           onClick={handleLogout}
           disabled={logoutMutation.isPending}
         >
@@ -113,7 +111,7 @@ export function AuthenticatedUserSection(): React.ReactElement {
         {isPopupOpen && myInfo?.approvedNotification && (
           <div
             ref={popupRef}
-            className="absolute right-0 top-full z-50 mt-2 w-[375px] rounded-md bg-white p-4 shadow-lg ring-1 ring-black ring-opacity-5"
+            className="absolute right-0 top-full z-50 mt-2 w-[280px] rounded-md bg-white p-4 shadow-lg ring-1 ring-black ring-opacity-5"
           >
             <FadeIn isVisible={isPopupOpen && myInfo?.approvedNotification !== null}>
               <SignupPopup 
