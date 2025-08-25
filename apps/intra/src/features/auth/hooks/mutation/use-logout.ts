@@ -7,7 +7,7 @@ import { clearAllAuthData } from '@/shared/utils/cookie-utils';
 
 export default function useLogout(): UseMutationResult<void, Error, void, unknown> {
   const router = useRouter();
-  const { clearAuth, logout } = useAuthStore();
+  const { clearAuth } = useAuthStore();
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
@@ -23,7 +23,7 @@ export default function useLogout(): UseMutationResult<void, Error, void, unknow
       queryClient.removeQueries({ queryKey: queryKeys.auth.me() });
       queryClient.clear();
       console.log('[useLogout] 쿼리 캐시 정리 완료');
-      
+
       // 홈으로 이동 후 새로고침으로 상태 완전 초기화
       router.push('/');
       setTimeout(() => {
@@ -40,7 +40,7 @@ export default function useLogout(): UseMutationResult<void, Error, void, unknow
       // auth 관련 쿼리만 무효화하고 제거
       queryClient.removeQueries({ queryKey: queryKeys.auth.me() });
       queryClient.clear();
-      
+
       // 홈으로 이동 후 새로고침으로 상태 완전 초기화
       router.push('/');
       setTimeout(() => {

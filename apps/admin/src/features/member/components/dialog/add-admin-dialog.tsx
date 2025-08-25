@@ -16,6 +16,7 @@ import React, { useState } from 'react';
 
 import { useSelectedSemester } from '@/hooks/use-semester-store';
 import { useCreateAdmin } from '../../hooks';
+import { useValidateAdminHandle } from '../../hooks/admin/mutation/use-validate-admin-handle';
 
 interface AddAdminDialogProps {
   onSave?(): Promise<void>;
@@ -32,12 +33,34 @@ export function AddAdminDialog({
   const [adminRole, setAdminRole] = useState<
     'PRESIDENT' | 'VICE_PRESIDENT' | 'SECRETARY' | 'STAFF' | 'NONE'
   >('STAFF');
+  const [isValidated, setIsValidated] = useState(false);
 
   const { selectedSemesterId } = useSelectedSemester();
   const createAdminMutation = useCreateAdmin();
+  const validateAdminHandleMutation = useValidateAdminHandle();
+
+  const handleValidate = async (): Promise<void> => {
+    if (!bojHandle.trim()) {
+      alert('핸들명을 입력해주세요.');
+      return;
+    }
+
+    try {
+      await validateAdminHandleMutation.mutateAsync(bojHandle.trim());
+      setIsValidated(true);
+    } catch (error) {
+      setIsValidated(false);
+    }
+  };
+
   const handleSave = async (): Promise<void> => {
     if (!bojHandle.trim()) {
       alert('핸들명을 입력해주세요.');
+      return;
+    }
+
+    if (!isValidated) {
+      alert('핸들명을 먼저 인증해주세요.');
       return;
     }
 
@@ -56,8 +79,6 @@ export function AddAdminDialog({
       if (onSave) {
         await onSave();
       }
-
-      DialogUtil.hideAllDialogs();
     } catch (error) {
       console.error('저장 실패:', error);
     }
@@ -85,10 +106,22 @@ export function AddAdminDialog({
                 label="핸들명"
                 placeholder="핸들명 입력하기"
                 value={bojHandle}
-                onChange={(value) => setBojHandle(value)}
+                onChange={(value) => {
+                  setBojHandle(value);
+                  setIsValidated(false); // 핸들명 변경 시 인증 상태 초기화
+                }}
               />
-              <Button size="md" className="w-[120px]">
-                인증하기
+              <Button
+                size="md"
+                className="w-[120px]"
+                onClick={handleValidate}
+                disabled={!bojHandle.trim() || validateAdminHandleMutation.isPending || isValidated}
+              >
+                {validateAdminHandleMutation.isPending
+                  ? '인증 중...'
+                  : isValidated
+                    ? '인증 확인'
+                    : '인증하기'}
               </Button>
             </div>
             <LabeledSelector
@@ -113,7 +146,7 @@ export function AddAdminDialog({
             className="w-full"
             size="lg"
             onClick={handleSave}
-            disabled={createAdminMutation.isPending}
+            disabled={!isValidated || createAdminMutation.isPending}
           >
             <Label size="lg">{createAdminMutation.isPending ? '추가 중...' : '추가하기'}</Label>
           </Button>

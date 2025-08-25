@@ -16,6 +16,7 @@ export function useCreateAdmin(): UseMutationResult<void, Error, CreateAdminPara
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: ['admin-list', variables.semesterId] });
       queryClient.invalidateQueries({ queryKey: ['student-list'] });
+      DialogUtil.hideAllDialogs();
       DialogUtil.showSuccess('관리자가 성공적으로 추가되었습니다.');
     },
   });
