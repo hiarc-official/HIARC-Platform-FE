@@ -1,3 +1,5 @@
+'use client';
+
 import { cn, StudyCard, Title } from '@hiarc-platform/ui';
 import { useRouter } from 'next/navigation';
 import { useStudiesNow } from '../../hooks/use-studies-now';

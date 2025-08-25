@@ -6,6 +6,14 @@ interface SignupPopupProps {
 }
 
 export function SignupPopup({ onClose }: SignupPopupProps): React.ReactElement {
+  const handleKakaoClick = () => {
+    window.open('https://open.kakao.com/o/gBw6B0dg', '_blank');
+  };
+
+  const handleDiscordClick = () => {
+    window.open('https://discord.gg/VVPFMfch', '_blank');
+  };
+
   return (
     <div className="space-y-3">
       <div className="flex justify-between">
@@ -26,7 +34,7 @@ export function SignupPopup({ onClose }: SignupPopupProps): React.ReactElement {
             * 비밀번호: hiarc
           </Label>
         </div>
-        <Button variant="secondary" size="xs" onClick={onClose}>
+        <Button variant="secondary" size="xs" onClick={handleKakaoClick}>
           바로가기
           <Image src="/shared-assets/Open.svg" alt="Arrow" width={16} height={16} />
         </Button>
@@ -36,7 +44,7 @@ export function SignupPopup({ onClose }: SignupPopupProps): React.ReactElement {
         <div className="flex flex-col">
           <Label size="lg">디스코드</Label>
         </div>
-        <Button variant="secondary" size="xs" onClick={onClose}>
+        <Button variant="secondary" size="xs" onClick={handleDiscordClick}>
           바로가기
           <Image src="/shared-assets/Open.svg" alt="Arrow" width={16} height={16} />
         </Button>

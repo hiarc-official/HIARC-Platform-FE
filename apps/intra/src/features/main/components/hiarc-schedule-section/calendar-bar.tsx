@@ -48,7 +48,7 @@ export default function CalendarBar({
   currentWeekStart: externalCurrentWeekStart,
 }: Props): React.ReactElement {
   const today = new Date();
-  
+
   // 외부에서 전달된 currentWeekStart가 있으면 사용, 없으면 내부 state 사용
   const [internalCurrentStartDate, setInternalCurrentStartDate] = useState<Date>(
     daysToShow === 7 ? getStartOfWeekWithSunday(new Date()) : new Date()
@@ -85,14 +85,14 @@ export default function CalendarBar({
   const move = (dir: 'prev' | 'next'): void => {
     const newWeekStart = addDays(currentStartDate, (dir === 'next' ? 1 : -1) * daysToShow);
     const newDates = getDateRange(newWeekStart, daysToShow);
-    
+
     // 외부에서 주 변경 핸들러가 제공되면 사용
     if (onWeekChange) {
       onWeekChange(newWeekStart);
     } else {
       setInternalCurrentStartDate(newWeekStart);
     }
-    
+
     // 새로운 주에서 선택된 날짜가 없으면 첫 번째 날짜 선택
     if (!newDates.some((day) => format(day, 'yyyy-MM-dd') === selectedDate)) {
       const newSelectedDate = format(newDates[0], 'yyyy-MM-dd');
@@ -126,7 +126,7 @@ export default function CalendarBar({
                 )}
                 onClick={() => handleDateSelect(ymd)}
               >
-                <Label className="text-gray-700">{dayLabel}</Label>
+                <Label className="max-w-full truncate text-xs text-gray-700">{dayLabel}</Label>
                 <div className="mt-1 flex h-7 items-center justify-center gap-0.5">
                   {cats.map((cat, idx) => (
                     <span

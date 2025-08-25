@@ -1,3 +1,5 @@
+'use client';
+
 import { cn, Title } from '@hiarc-platform/ui';
 import React from 'react';
 import { useRouter } from 'next/navigation';

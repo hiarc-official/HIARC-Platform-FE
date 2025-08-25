@@ -1,16 +1,17 @@
 'use client';
 
 import { useState } from 'react';
-import { useAuthStore } from '../../../store/auth-store';
 import { MobileHeader } from './mobile-header';
 import { DesktopHeader } from './desktop-header';
 
-export default function Header(): React.ReactElement {
-  const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
-  const { isAuthenticated, user } = useAuthStore();
+interface HeaderClientProps {
+  isAuthenticated: boolean;
+}
 
-  console.log('[Header] isAuthenticated:', isAuthenticated);
-  console.log('[Header] user:', user);
+export function HeaderClient({ isAuthenticated }: HeaderClientProps): React.ReactElement {
+  const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
+
+  console.log('HeaderClient - isAuthenticated:', isAuthenticated);
 
   return (
     <header className="flex w-full items-center justify-between border-b border-gray-200">

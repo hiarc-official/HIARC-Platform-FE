@@ -11,6 +11,7 @@ import '@fontsource/pretendard/700.css';
 import { Providers } from '../shared/providers/providers';
 import './globals.css';
 import { GlobalDialogContainer } from '@hiarc-platform/ui';
+import ServerHeader from '@/shared/components/ui/header/server-header';
 
 export const metadata: Metadata = {
   title: 'HI-ARC',
@@ -30,7 +31,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="flex min-h-screen flex-col">
         <Providers>
-          <Header />
+          <ServerHeader />
           <main className="flex-1">{children}</main>
           <Footer />
           <GlobalDialogContainer />

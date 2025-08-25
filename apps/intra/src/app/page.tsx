@@ -1,12 +1,12 @@
-'use client';
-
 import { PageLayout } from '@hiarc-platform/ui';
 import { DesktopHomePage, MobileHomePage } from '@/features/main/pages/home';
-import { useHomePageState } from '@/features/main/hooks/page/use-home-page-state';
 import { OnboardingButton } from '@/features/main/components/onboarding-button';
+import { cookies } from 'next/headers';
 
-export default function Home(): React.ReactElement {
-  const { isAuthenticated } = useHomePageState();
+export default async function Home(): Promise<React.ReactElement> {
+  const cookieStore = cookies();
+  const authCookie = cookieStore.get('access');
+  const isAuthenticated = !!authCookie?.value;
 
   return (
     <PageLayout
