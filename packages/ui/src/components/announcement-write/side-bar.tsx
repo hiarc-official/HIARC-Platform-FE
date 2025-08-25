@@ -84,6 +84,7 @@ export function SideBar({
         <div className="flex flex-col gap-2">
           <LabeledSelector
             placeholder="카테고리를 선택해주세요."
+            required={true}
             options={categoryOptionList}
             label="카테고리"
             value={formData.announcementType}
@@ -169,7 +170,7 @@ export function SideBar({
                 <LabeledCalanderInput
                   placeholder="신청 종료일을 선택해주세요"
                   label="신청 종료일"
-                  required
+                  required={true}
                   value={applicationEndDate}
                   onChange={(val: Date | null) => {
                     if (!Array.isArray(val)) {
@@ -179,6 +180,7 @@ export function SideBar({
                 />
                 <LabeledInput
                   label="신청 URL"
+                  required={true}
                   placeholder="신청 URL을 입력해주세요"
                   value={formData.applicationUrl || ''}
                   onChange={(value: string) =>

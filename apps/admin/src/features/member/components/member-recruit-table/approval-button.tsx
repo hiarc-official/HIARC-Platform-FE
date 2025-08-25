@@ -1,5 +1,5 @@
 import { useCurrentSemester } from '@/features/semester/hooks/use-current-semester';
-import { useSelectedSemester } from '@/hooks/use-semester-store';
+import { useSelectedSemester } from '@/shared/hooks/use-semester-store';
 import { StudentApply } from '@hiarc-platform/shared';
 import { Button, Label } from '@hiarc-platform/ui';
 import { ReactElement } from 'react';

@@ -13,8 +13,7 @@ import {
   LabeledSelector,
 } from '@hiarc-platform/ui';
 import React, { useState } from 'react';
-
-import { useSelectedSemester } from '@/hooks/use-semester-store';
+import { useSelectedSemester } from '@/shared/hooks/use-semester-store';
 import { useCreateAdmin } from '../../hooks';
 import { useValidateAdminHandle } from '../../hooks/admin/mutation/use-validate-admin-handle';
 
@@ -49,6 +48,7 @@ export function AddAdminDialog({
       await validateAdminHandleMutation.mutateAsync(bojHandle.trim());
       setIsValidated(true);
     } catch (error) {
+      console.error('핸들명 인증 실패:', error);
       setIsValidated(false);
     }
   };

@@ -164,12 +164,31 @@ export default function DetailInformationSection({
     });
   };
 
+  // 날짜를 YYYY-MM-DD 형태로 포맷하는 헬퍼 함수
+  const formatDateToString = (date: Date | null): string | undefined => {
+    if (!date) return undefined;
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
   // 폼 제출 함수
   const handleSubmit = (): void => {
     console.log('폼 제출 시 formData:', formData);
     if (!formData.title.trim() || !formData.content.trim() || !formData.announcementType) {
       DialogUtil.showError('필수 항목을 모두 입력해주세요.');
       return;
+    }
+
+    // 신청 유형이 선택된 경우 필수 입력 검증
+    if (applyType === '신청 유형') {
+      if (!applicationStartDate || !applicationEndDate || !formData.applicationUrl?.trim()) {
+        DialogUtil.showError(
+          '신청 유형을 선택한 경우 신청 시작일, 신청 종료일, 신청 URL을 모두 입력해주세요.'
+        );
+        return;
+      }
     }
 
     // 최종 데이터 정리
@@ -195,8 +214,9 @@ export default function DetailInformationSection({
       // 다른 카테고리에서 신청 관련 필드
       if (applyType === '신청 유형') {
         requestData.applicationUrl = formData.applicationUrl?.trim() || undefined;
-        requestData.applicationStartAt = applicationStartDate?.toISOString() || undefined;
-        requestData.applicationEndAt = applicationEndDate?.toISOString() || undefined;
+        // 신청 날짜는 YYYY-MM-DD 형태로만 전송
+        requestData.applicationStartAt = formatDateToString(applicationStartDate);
+        requestData.applicationEndAt = formatDateToString(applicationEndDate);
       } else {
         requestData.applicationUrl = undefined;
         requestData.applicationStartAt = undefined;

@@ -1,20 +1,43 @@
 'use client';
+
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Title, Button, LoadingDots, FadeIn } from '@hiarc-platform/ui';
 import { AnnouncementFilter } from '../../components/announcement-filter';
 import { AnnouncementTable } from '../../components/announcement-table';
-import { useAnnouncementListPageState } from '../../hooks/page/use-announcement-list-page-state';
+import { useAdminAnnouncementList } from '../../hooks';
+import { AnnouncementQueryParams } from '../../types/request/announcement-query-params';
+import { useSelectedSemester } from '@/shared/hooks/use-semester-store';
 
-export function DesktopAnnouncementListPage(): React.ReactElement {
+export function AnnouncementListPage(): React.ReactElement {
+  const router = useRouter();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [filters, setFilters] = useState<Partial<AnnouncementQueryParams>>({});
+  const { selectedSemesterId } = useSelectedSemester();
+
   const {
-    pageableModel,
+    data: pageableModel,
     isLoading,
     error,
-    currentPage,
-    filters,
-    handlePageChange,
-    handleFilterChange,
-    handleWriteAnnouncement,
-  } = useAnnouncementListPageState();
+  } = useAdminAnnouncementList({
+    page: currentPage - 1,
+    size: 10,
+    semesterId: Number(selectedSemesterId),
+    ...filters,
+  });
+
+  const handlePageChange = (page: number): void => {
+    setCurrentPage(page);
+  };
+
+  const handleFilterChange = (newFilters: Partial<AnnouncementQueryParams>): void => {
+    setFilters(newFilters);
+    setCurrentPage(1);
+  };
+
+  const handleWriteAnnouncement = (): void => {
+    router.push('/announcement/write');
+  };
 
   if (isLoading) {
     return (

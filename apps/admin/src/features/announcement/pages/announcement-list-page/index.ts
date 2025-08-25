@@ -1,2 +1,1 @@
-export { DesktopAnnouncementListPage } from './desktop-announcement-list-page';
-export { MobileAnnouncementListPage } from './mobile-announcement-list-page';
+export { AnnouncementListPage } from './announcement-list-page';

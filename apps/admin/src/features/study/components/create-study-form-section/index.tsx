@@ -11,7 +11,7 @@ import { useUpdateStudy } from '@/features/study/hooks/use-update-study';
 import { useStudyInitialForm } from '@/features/study/hooks/use-study-initial-form';
 import { useRouter } from 'next/navigation';
 import { CreateStudyRequest } from '@hiarc-platform/shared';
-import { useSemesterStoreInit, useSemesterStore } from '@/hooks/use-semester-store';
+import { useSemesterStoreInit, useSemesterStore } from '@/shared/hooks/use-semester-store';
 import { useEffect } from 'react';
 
 interface CreateStudyFormProps {

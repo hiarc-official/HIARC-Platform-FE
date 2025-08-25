@@ -1,19 +1,21 @@
 'use client';
+
 import { CreateStudyForm } from '../../components/create-study-form-section';
 import { Label, Title } from '@hiarc-platform/ui';
-import { useStudyCreatePageState } from '../../hooks/page/use-study-create-page-state';
 
-export function DesktopStudyCreatePage(): React.ReactElement {
-  const { handleBackClick } = useStudyCreatePageState();
+export function StudyCreatePage(): React.ReactElement {
+  const handleBackClick = (): void => {
+    window.history.back();
+  };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-6">
-      <div className="flex w-full max-w-[1200px] flex-col items-center gap-6">
+    <main className="flex min-h-screen flex-col items-center justify-between p-4 md:p-6">
+      <div className="flex w-full max-w-[1200px] flex-col items-center gap-4 md:gap-6">
         <button
           className="flex cursor-pointer items-center self-start rounded-md p-2 transition-colors hover:bg-gray-50"
           onClick={handleBackClick}
         >
-          <Label size="md" className="cursor-pointer text-gray-700">
+          <Label size="sm" className="cursor-pointer text-gray-700 md:text-base">
             ← 뒤로가기
           </Label>
         </button>

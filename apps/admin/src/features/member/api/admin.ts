@@ -91,7 +91,7 @@ export const adminApi = {
    * @returns void
    */
   VALIDATE_ADMIN_HANDLE: async (bojHandle: string): Promise<void> => {
-    await apiClient.post(`/admin/members/validate-admin`, {
+    await apiClient.post('/admin/members/validate-admin', {
       bojHandle,
     });
   },

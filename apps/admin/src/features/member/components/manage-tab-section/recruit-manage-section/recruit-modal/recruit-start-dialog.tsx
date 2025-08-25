@@ -2,7 +2,7 @@
 
 import { useStartRecruitment } from '@/features/recruitment/hooks/mutation/use-start-recruitment';
 import { useUpdateRecruitment } from '@/features/recruitment/hooks/mutation/use-update-recruitment';
-import { useSelectedSemester } from '@/hooks/use-semester-store';
+import { useSelectedSemester } from '@/shared/hooks/use-semester-store';
 import { UpdateRecruitmentRequest } from '@hiarc-platform/shared';
 import {
   Dialog,

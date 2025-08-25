@@ -1,17 +1,37 @@
 'use client';
+
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Title, Button, LoadingDots, FadeIn } from '@hiarc-platform/ui';
 import { StudyTable } from '../../components/study-table';
-import { useStudyListPageState } from '../../hooks/page/use-study-list-page-state';
+import { useStudies } from '../../hooks';
+import { useSemesterStoreInit, useSemesterStore } from '@/shared/hooks/use-semester-store';
 
-export function DesktopStudyListPage(): React.ReactElement {
+export function StudyListPage(): React.ReactElement {
+  const router = useRouter();
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // Initialize semester store on component mount
+  useSemesterStoreInit();
+  const { selectedSemesterId } = useSemesterStore();
+
   const {
-    studiesData,
+    data: studiesData,
     isLoading,
     error,
-    currentPage,
-    handlePageChange,
-    handleCreateStudy,
-  } = useStudyListPageState();
+  } = useStudies({
+    semesterId: selectedSemesterId ? Number(selectedSemesterId) : 1,
+    page: currentPage - 1,
+    size: 10,
+  });
+
+  const handlePageChange = (page: number): void => {
+    setCurrentPage(page);
+  };
+
+  const handleCreateStudy = (): void => {
+    router.push('/study/create');
+  };
 
   if (isLoading) {
     return (

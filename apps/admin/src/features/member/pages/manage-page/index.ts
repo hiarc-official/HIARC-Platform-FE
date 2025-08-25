@@ -1,2 +1,1 @@
-export { DesktopManagePage } from './desktop-manage-page';
-export { MobileManagePage } from './mobile-manage-page';
+export { ManagePage } from './manage-page';

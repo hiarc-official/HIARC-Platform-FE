@@ -1,11 +1,17 @@
 'use client';
-import { Title, Button } from '@hiarc-platform/ui';
+
+import { Title, Button, DialogUtil } from '@hiarc-platform/ui';
 import { CompetitionTable } from '../../components/award-table';
 import { CompetitionSearchButtons } from '../../components/competition-bar/competition-search-buttons';
-import { useAwardListPageState } from '../../hooks/page/use-award-list-page-state';
+import { useAwardList } from '../../hooks/use-award-list';
+import { AddAwardDialog } from '../../components/add-award-modal';
 
-export function DesktopAwardListPage(): React.ReactElement {
-  const { data, handleAddAward } = useAwardListPageState();
+export function AwardListPage(): React.ReactElement {
+  const { data } = useAwardList();
+
+  const handleAddAward = (): void => {
+    DialogUtil.showComponent(<AddAwardDialog />);
+  };
 
   return (
     <div className="flex w-full flex-col gap-6 py-4">
