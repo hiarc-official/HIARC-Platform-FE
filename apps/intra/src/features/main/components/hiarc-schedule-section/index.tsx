@@ -1,6 +1,6 @@
 'use client';
 
-import { cn, Divider, FadeIn, Label, Title } from '@hiarc-platform/ui';
+import { cn, Divider, FadeIn, Label, SlideFade, Title } from '@hiarc-platform/ui';
 import { useMemo, useState, useCallback } from 'react';
 import { addDays, startOfWeek, format } from 'date-fns';
 import CalendarBar from './calendar-bar';
@@ -124,8 +124,8 @@ export function HiarcScheduleSection({
         currentWeekStart={currentWeekStart}
       />
 
-      <FadeIn isVisible duration={0.3}>
-        <div className="flex max-h-[242px] flex-col gap-2 overflow-y-auto">
+      <SlideFade key={selectedDate}>
+        <div className="flex h-[242px] flex-col gap-2 overflow-y-auto">
           {isLoading ? (
             <div className="p-4 text-center text-gray-500">로딩중...</div>
           ) : selectedSchedules.length > 0 ? (
@@ -141,7 +141,7 @@ export function HiarcScheduleSection({
             <div className="p-4 text-center text-gray-500">선택한 날짜에 일정이 없습니다.</div>
           )}
         </div>
-      </FadeIn>
+      </SlideFade>
     </section>
   );
 }

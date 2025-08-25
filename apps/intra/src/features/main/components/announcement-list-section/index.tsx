@@ -1,6 +1,6 @@
 'use client';
 
-import { cn, Divider, Tabs } from '@hiarc-platform/ui';
+import { cn, Divider, SlideFade, Tabs } from '@hiarc-platform/ui';
 import { useState } from 'react';
 import { AnnouncementListItem } from './announcement-list-item';
 import { useRouter } from 'next/navigation';
@@ -38,34 +38,48 @@ export function AnnouncementListSection({
       </div>
 
       <Divider variant="horizontal" size="full" className="mt-4" />
-      <div className="max-h-[350px] overflow-y-auto">
-        {tab === 'announcement' &&
-          upcomingSchedule &&
-          upcomingSchedule.schedules &&
-          upcomingSchedule.schedules.map((announcement: Schedule, index: number) => (
-            <AnnouncementListItem
-              key={announcement.announcementId || index}
-              announcementId={announcement.announcementId || 0}
-              title={announcement.scheduleTitle || '제목 없음'}
-              date={
-                announcement.createdAt ? new Date(announcement.createdAt).toLocaleDateString() : ''
-              }
-              category={announcement.announcementType || 'GENERAL'}
-            />
-          ))}
-        {tab === 'algorithm-news' &&
-          externalAnnouncements &&
-          externalAnnouncements.map((announcement: Schedule, index: number) => (
-            <AnnouncementListItem
-              key={announcement.announcementId || index}
-              announcementId={announcement.announcementId || 0}
-              title={announcement.scheduleTitle || '제목 없음'}
-              date={
-                announcement.createdAt ? new Date(announcement.createdAt).toLocaleDateString() : ''
-              }
-              category={announcement.announcementType || 'GENERAL'}
-            />
-          ))}
+      <div className="h-[350px] overflow-y-auto">
+        {tab === 'announcement' && (
+          <SlideFade key="announcement">
+            <div>
+              {upcomingSchedule &&
+                upcomingSchedule.schedules &&
+                upcomingSchedule.schedules.map((announcement: Schedule, index: number) => (
+                  <AnnouncementListItem
+                    key={announcement.announcementId || index}
+                    announcementId={announcement.announcementId || 0}
+                    title={announcement.scheduleTitle || '제목 없음'}
+                    date={
+                      announcement.createdAt
+                        ? new Date(announcement.createdAt).toLocaleDateString()
+                        : ''
+                    }
+                    category={announcement.announcementType || 'GENERAL'}
+                  />
+                ))}
+            </div>
+          </SlideFade>
+        )}
+        {tab === 'algorithm-news' && (
+          <SlideFade key="algorithm-news">
+            <div>
+              {externalAnnouncements &&
+                externalAnnouncements.map((announcement: Schedule, index: number) => (
+                  <AnnouncementListItem
+                    key={announcement.announcementId || index}
+                    announcementId={announcement.announcementId || 0}
+                    title={announcement.scheduleTitle || '제목 없음'}
+                    date={
+                      announcement.createdAt
+                        ? new Date(announcement.createdAt).toLocaleDateString()
+                        : ''
+                    }
+                    category={announcement.announcementType || 'GENERAL'}
+                  />
+                ))}
+            </div>
+          </SlideFade>
+        )}
       </div>
     </div>
   );
