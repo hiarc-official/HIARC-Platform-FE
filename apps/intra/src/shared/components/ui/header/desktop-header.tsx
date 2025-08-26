@@ -59,7 +59,7 @@ export function DesktopHeader({ isAuthenticated }: DesktopHeaderProps): React.Re
             </Label>
           </Link>
           <a
-            href="https://www.hi-rating.com"
+            href="https://intra.hiarc-official.com"
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm font-medium text-gray-200 transition-colors hover:text-gray-700"
