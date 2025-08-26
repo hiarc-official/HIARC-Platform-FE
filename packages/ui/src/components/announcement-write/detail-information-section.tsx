@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { SideBar } from './side-bar';
-import { CreateAnnouncementRequest, Announcement, SelectOption } from '@hiarc-platform/shared';
+import { Announcement, SelectOption, CreateAnnouncementForm, ImageSource } from '@hiarc-platform/shared';
 import { UrlInput } from './url-input';
 import { Button } from '../button';
 import { LabeledCalanderInput } from '../input/labeled-calander-input';
@@ -20,7 +20,7 @@ interface DetailInformationSectionProps {
   studyOptions?: SelectOption[];
   disableCategoryChange?: boolean;
   disableStudyTypeChange?: boolean;
-  onSubmit?(data: CreateAnnouncementRequest, isEditMode: boolean, announcementId?: number): void;
+  onSubmit?(data: CreateAnnouncementForm, isEditMode: boolean, announcementId?: number): void;
 }
 
 export default function DetailInformationSection({
@@ -37,7 +37,7 @@ export default function DetailInformationSection({
   const isEditMode = Boolean(announcementId);
 
   // CreateAnnouncementRequest 상태
-  const [formData, setFormData] = useState<CreateAnnouncementRequest>({
+  const [formData, setFormData] = useState<CreateAnnouncementForm>({
     title: '',
     place: undefined,
     scheduleStartAt: undefined,
@@ -46,7 +46,7 @@ export default function DetailInformationSection({
     announcementType: initialAnnouncementType,
     isPublic: true,
     attachmentUrls: [],
-    imageKeys: [],
+    images: [],
     studyId: initialStudyId,
     lectureRound: undefined,
     applicationUrl: undefined,
@@ -84,7 +84,8 @@ export default function DetailInformationSection({
         announcementType: announcement.announcementType || 'GENERAL',
         isPublic: announcement.isPublic ?? true,
         attachmentUrls: announcement.attachmentUrls?.filter((url) => url.trim() !== '') || [],
-        imageKeys: announcement.imageKeys || [],
+        images: [],
+        imageSources: announcement.imageUrls,
         studyId: announcement.studyId,
         lectureRound: announcement.lectureRound,
         applicationUrl: announcement.applicationUrl,
@@ -157,12 +158,24 @@ export default function DetailInformationSection({
   };
 
   // 이미지 관리 함수
-  const handleImageChange = (imageKeys: string[]): void => {
-    updateFormData({ imageKeys });
+  const handleImageChange = (images: File[]): void => {
+    console.log('새 이미지 변경됨:', images);
+    setFormData((prev) => ({
+      ...prev,
+      images: [...images] // 배열 복사로 순서 보장
+    }));
+  };
+
+  const handleExistingImageChange = (images: ImageSource[]): void => {
+    console.log('기존 이미지 변경됨:', images);
+    setFormData((prev) => ({
+      ...prev,
+      imageSources: [...images] // 배열 복사로 순서 보장
+    }));
   };
 
   // formData 업데이트 헬퍼 함수
-  const updateFormData = (updates: Partial<CreateAnnouncementRequest>): void => {
+  const updateFormData = (updates: Partial<CreateAnnouncementForm>): void => {
     console.log('updateFormData 호출됨:', updates);
     setFormData((prev) => {
       const newData = { ...prev, ...updates };
@@ -198,17 +211,23 @@ export default function DetailInformationSection({
       }
     }
 
-    // 최종 데이터 정리
-    const requestData: CreateAnnouncementRequest = {
-      ...formData,
+    // 최종 데이터 정리 - 순서를 보장하기 위해 명시적으로 필드 설정
+    const requestData: CreateAnnouncementForm = {
       title: formData.title.trim(),
       content: formData.content.trim(),
       place: formData.place?.trim() || undefined,
       scheduleStartAt: scheduleStartAt?.toISOString() || undefined,
       scheduleEndAt: scheduleEndAt?.toISOString() || undefined,
+      announcementType: formData.announcementType,
       isPublic: publicType === '공개',
       attachmentUrls: attachmentUrls.filter((url) => url.trim() !== ''),
-      imageKeys: formData.imageKeys || [],
+      images: formData.images || [],
+      imageSources: formData.imageSources || [], // 기존 이미지 순서 보장
+      studyId: formData.studyId,
+      lectureRound: formData.lectureRound,
+      applicationUrl: formData.applicationUrl,
+      applicationStartAt: formData.applicationStartAt,
+      applicationEndAt: formData.applicationEndAt,
     };
 
     // STUDY 카테고리일 때 추가 필드
@@ -277,10 +296,12 @@ export default function DetailInformationSection({
             value={formData.content}
             onChange={(value) => updateFormData({ content: value })}
           />
-          <LabeledImageInput 
-            label="이미지" 
-            value={formData.imageKeys || []}
+          <LabeledImageInput
+            label="이미지"
+            value={formData.images || []}
+            existingImages={formData.imageSources || []}
             onChange={handleImageChange}
+            onExistingImagesChange={handleExistingImageChange}
           />
 
           <div className="flex flex-col gap-2">

@@ -1,14 +1,14 @@
 'use client';
 import { useParams, useRouter } from 'next/navigation';
 import { useAdminAnnouncement } from '@/features/announcement/hooks';
-import { 
-  BackButton, 
-  LoadingDots, 
-  Button, 
+import {
+  BackButton,
+  LoadingDots,
+  Button,
   FadeIn,
   AnnouncementIndicatorSection,
   AnnouncementInfoSection,
-  AnnouncementContentSection 
+  AnnouncementContentSection,
 } from '@hiarc-platform/ui';
 
 export function AnnouncementDetailPage(): React.ReactElement {
@@ -33,7 +33,7 @@ export function AnnouncementDetailPage(): React.ReactElement {
         <FadeIn
           isVisible={true}
           duration={0.3}
-          className="hidden md:flex min-h-screen items-center justify-center"
+          className="hidden min-h-screen items-center justify-center md:flex"
         >
           <LoadingDots size="lg" className="flex min-h-screen items-center justify-center" />
         </FadeIn>
@@ -41,7 +41,7 @@ export function AnnouncementDetailPage(): React.ReactElement {
         <FadeIn
           isVisible={true}
           duration={0.3}
-          className="flex md:hidden min-h-screen items-center justify-center px-4"
+          className="flex min-h-screen items-center justify-center px-4 md:hidden"
         >
           <LoadingDots size="lg" className="flex min-h-screen items-center justify-center" />
         </FadeIn>
@@ -56,7 +56,7 @@ export function AnnouncementDetailPage(): React.ReactElement {
         <FadeIn
           isVisible={true}
           duration={0.3}
-          className="hidden md:flex min-h-screen items-center justify-center"
+          className="hidden min-h-screen items-center justify-center md:flex"
         >
           <p className="text-gray-500">문제가 발생했습니다.</p>
         </FadeIn>
@@ -64,9 +64,9 @@ export function AnnouncementDetailPage(): React.ReactElement {
         <FadeIn
           isVisible={true}
           duration={0.3}
-          className="flex md:hidden min-h-screen items-center justify-center px-4"
+          className="flex min-h-screen items-center justify-center px-4 md:hidden"
         >
-          <p className="text-gray-500 text-sm text-center">문제가 발생했습니다.</p>
+          <p className="text-center text-sm text-gray-500">문제가 발생했습니다.</p>
         </FadeIn>
       </>
     );
@@ -75,10 +75,10 @@ export function AnnouncementDetailPage(): React.ReactElement {
   return (
     <div className="w-full">
       {/* Desktop layout */}
-      <FadeIn 
-        isVisible={Boolean(announcement)} 
-        duration={0.4} 
-        className="hidden md:flex flex-col items-center"
+      <FadeIn
+        isVisible={Boolean(announcement)}
+        duration={0.4}
+        className="hidden flex-col items-center md:flex"
       >
         <BackButton onClick={handleBackClick} />
         <AnnouncementInfoSection
@@ -94,7 +94,11 @@ export function AnnouncementDetailPage(): React.ReactElement {
           applicationEndAt={announcement?.applicationEndAt || undefined}
           applicationUrl={announcement?.applicationUrl || ''}
         />
-        <AnnouncementContentSection className="mt-8" content={announcement?.content || ''} />
+        <AnnouncementContentSection
+          className="mt-8"
+          images={announcement?.imageUrls || []}
+          content={announcement?.content || ''}
+        />
         <AnnouncementIndicatorSection
           className="mt-8"
           prevData={announcement?.prev}
@@ -109,7 +113,7 @@ export function AnnouncementDetailPage(): React.ReactElement {
       <FadeIn
         isVisible={Boolean(announcement)}
         duration={0.4}
-        className="flex md:hidden flex-col items-center px-4"
+        className="flex flex-col items-center px-4 md:hidden"
       >
         <BackButton onClick={handleBackClick} />
         <AnnouncementInfoSection
