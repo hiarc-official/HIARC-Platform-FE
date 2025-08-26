@@ -23,8 +23,15 @@ export function DesktopHeader({ isAuthenticated }: DesktopHeaderProps): React.Re
   return (
     <div className="hidden w-full items-center justify-between md:flex">
       <div className="flex items-center gap-8">
-        <Link href="/">
-          <Image src="/shared-assets/Logo.svg" alt="HiarcLogo" width={120} height={30} />
+        <Link href="/" className="rounded-lg p-2 transition-colors hover:bg-gray-100">
+          <Image 
+            src="/shared-assets/Logo.svg" 
+            alt="HiarcLogo" 
+            width={120} 
+            height={30}
+            draggable={false}
+            className="select-none"
+          />
         </Link>
         <nav className="flex items-center gap-4">
           <Link

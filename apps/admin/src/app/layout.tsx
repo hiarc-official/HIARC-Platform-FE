@@ -11,7 +11,6 @@ import '@fontsource/pretendard/700.css';
 import { Providers } from '../shared/providers/providers';
 import './globals.css';
 import { GlobalDialogContainer } from '@hiarc-platform/ui';
-import ServerHeader from '@/shared/components/ServerHeader';
 
 export const metadata: Metadata = {
   title: 'HI-ARC ADMIN',

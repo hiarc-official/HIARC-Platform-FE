@@ -6,9 +6,13 @@ import { useRouter } from 'next/navigation';
 
 interface OnboardingButtonProps {
   className?: string;
+  semesterName?: string;
 }
 
-export function OnboardingButton({ className }: OnboardingButtonProps): React.ReactElement {
+export function OnboardingButton({
+  className,
+  semesterName,
+}: OnboardingButtonProps): React.ReactElement {
   const router = useRouter();
 
   return (
@@ -25,10 +29,10 @@ export function OnboardingButton({ className }: OnboardingButtonProps): React.Re
       onClick={() => router.push('/login')}
     >
       <Title className="cursor-pointer text-white md:hidden" size="xs" weight="bold">
-        🚀 2025-2학기 HI-ARC 참여하러 가기
+        🚀 {semesterName || ''} HI-ARC 참여하러 가기
       </Title>
       <Title className="hidden cursor-pointer text-white md:block" size="sm" weight="bold">
-        🚀 2025-2학기 HI-ARC 참여하러 가기
+        🚀 {semesterName || ''} HI-ARC 참여하러 가기
       </Title>
     </button>
   );

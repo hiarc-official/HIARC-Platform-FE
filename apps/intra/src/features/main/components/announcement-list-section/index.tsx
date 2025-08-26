@@ -24,6 +24,13 @@ export function AnnouncementListSection({
   const { data: upcomingSchedule } = useUpcomingSchedule();
   const { data: externalAnnouncements } = useExternalSchedule();
 
+  const sortedUpcomingSchedules = upcomingSchedule?.schedules ? 
+    [...upcomingSchedule.schedules].sort((a, b) => {
+      if (a.announcementType === 'RATING' && b.announcementType !== 'RATING') return -1;
+      if (a.announcementType !== 'RATING' && b.announcementType === 'RATING') return 1;
+      return 0;
+    }) : [];
+
   return (
     <div className={cn('w-full', className)}>
       <div className="flex w-full justify-between">
@@ -42,21 +49,20 @@ export function AnnouncementListSection({
         {tab === 'announcement' && (
           <SlideFade key="announcement">
             <div>
-              {upcomingSchedule &&
-                upcomingSchedule.schedules &&
-                upcomingSchedule.schedules.map((announcement: Schedule, index: number) => (
-                  <AnnouncementListItem
-                    key={announcement.announcementId || index}
-                    announcementId={announcement.announcementId || 0}
-                    title={announcement.scheduleTitle || '제목 없음'}
-                    date={
-                      announcement.createdAt
-                        ? new Date(announcement.createdAt).toLocaleDateString()
-                        : ''
-                    }
-                    category={announcement.announcementType || 'GENERAL'}
-                  />
-                ))}
+              {sortedUpcomingSchedules.map((announcement: Schedule, index: number) => (
+                <AnnouncementListItem
+                  key={announcement.announcementId || index}
+                  announcementId={announcement.announcementId || 0}
+                  title={announcement.scheduleTitle || '제목 없음'}
+                  date={
+                    announcement.announcementType === 'RATING' ? '' :
+                    announcement.scheduledAt
+                      ? new Date(announcement.scheduledAt).toLocaleDateString()
+                      : new Date(announcement.createdAt ?? '').toLocaleDateString()
+                  }
+                  category={announcement.announcementType || 'GENERAL'}
+                />
+              ))}
             </div>
           </SlideFade>
         )}

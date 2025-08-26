@@ -1,6 +1,6 @@
 import { PageLayout } from '@hiarc-platform/ui';
 import { DesktopHomePage, MobileHomePage } from '@/features/main/pages/home';
-import { OnboardingButton } from '@/features/main/components/onboarding-button';
+import { ConditionalOnboardingButton } from '@/features/main/components/conditional-onboarding-button';
 import { cookies } from 'next/headers';
 
 export default async function Home(): Promise<React.ReactElement> {
@@ -12,7 +12,7 @@ export default async function Home(): Promise<React.ReactElement> {
     <PageLayout
       desktopChildren={<DesktopHomePage />}
       mobileChildren={<MobileHomePage />}
-      stickyBottom={!isAuthenticated && <OnboardingButton />}
+      stickyBottom={<ConditionalOnboardingButton isAuthenticated={isAuthenticated} />}
     />
   );
 }
