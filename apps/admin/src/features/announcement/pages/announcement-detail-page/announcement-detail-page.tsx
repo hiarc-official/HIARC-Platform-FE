@@ -129,7 +129,11 @@ export function AnnouncementDetailPage(): React.ReactElement {
           applicationEndAt={announcement?.applicationEndAt || undefined}
           applicationUrl={announcement?.applicationUrl || ''}
         />
-        <AnnouncementContentSection className="mt-6" content={announcement?.content || ''} />
+        <AnnouncementContentSection
+          className="mt-6"
+          images={announcement?.imageUrls || []}
+          content={announcement?.content || ''}
+        />
         <AnnouncementIndicatorSection
           className="mt-6"
           prevData={announcement?.prev}

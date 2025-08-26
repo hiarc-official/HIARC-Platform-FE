@@ -47,7 +47,11 @@ export function DesktopAnnouncementDetailPage(): React.ReactElement {
         applicationUrl={announcement.applicationUrl}
         memberRole={memberRole}
       />
-      <AnnouncementContentSection className="mt-8" content={announcement.content} />
+      <AnnouncementContentSection
+        className="mt-8"
+        images={announcement.imageUrls || []}
+        content={announcement.content}
+      />
       <AnnouncementIndicatorSection
         className="mt-8"
         prevData={announcement.prev}
