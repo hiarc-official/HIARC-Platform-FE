@@ -2,19 +2,18 @@
 
 import { cn, Title } from '@hiarc-platform/ui';
 import React from 'react';
-import { useRouter } from 'next/navigation';
 
 interface OnboardingButtonProps {
   className?: string;
   semesterName?: string;
+  onClick(): void;
 }
 
 export function OnboardingButton({
   className,
   semesterName,
+  onClick,
 }: OnboardingButtonProps): React.ReactElement {
-  const router = useRouter();
-
   return (
     <button
       className={cn(
@@ -26,7 +25,7 @@ export function OnboardingButton({
         'hover:opacity-90',
         className
       )}
-      onClick={() => router.push('/login')}
+      onClick={onClick}
     >
       <Title className="cursor-pointer text-white md:hidden" size="xs" weight="bold">
         🚀 {semesterName || ''} HI-ARC 참여하러 가기

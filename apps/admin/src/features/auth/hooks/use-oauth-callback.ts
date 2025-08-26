@@ -23,17 +23,22 @@ export default function useOAuthCallback(): { isProcessing: boolean } {
         }
 
         if (needSignup === 'true') {
-          // 회원가입이 필요한 경우 - signup 페이지로 이동
-          // email 정보를 sessionStorage에 저장하여 signup 페이지에서 사용
+          // 회원가입이 필요한 경우 - OAuth 실패 페이지로 이동
           if (email) {
             sessionStorage.setItem('signupEmail', email);
           }
-          router.push('/');
-          DialogUtil.showError('Intra 사이트에서 회원가입을 해주세요.');
+          router.push('/oauth-fail/signup');
         } else if (needSignup === 'false') {
           // 로그인 완료된 사용자 - 유저 정보 패칭 후 메인으로 이동
           try {
             const getMeResponse = await authApi.GET_ME();
+
+            // adminRole이 NONE인 경우 권한 없음 페이지로 이동
+            if (getMeResponse.adminRole === 'NONE') {
+              clearAuth();
+              router.push('/oauth-fail/permission');
+              return;
+            }
 
             // Zustand store에 유저 정보만 저장 (토큰은 서버에서 관리)
             login(getMeResponse);

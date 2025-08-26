@@ -1,6 +1,7 @@
 import Footer from '@/shared/components/ui/Footer';
 import Header from '@/shared/components/ui/header';
 import type { Metadata } from 'next';
+import { cookies } from 'next/headers';
 
 // 로컬 폰트 import
 import '@fontsource/pretendard/400.css';
@@ -26,11 +27,15 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }): React.ReactElement {
+  const cookieStore = cookies();
+  const authCookie = cookieStore.get('access');
+  const isAuthenticated = Boolean(authCookie?.value);
+
   return (
     <html lang="en">
       <body className="flex min-h-screen flex-col">
         <Providers>
-          <Header />
+          <Header isAuthenticated={isAuthenticated} />
           <main className="flex-1">{children}</main>
           <Footer />
           <GlobalDialogContainer />

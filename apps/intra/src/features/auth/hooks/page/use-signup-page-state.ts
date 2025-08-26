@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 import useSignUp from '@/features/auth/hooks/mutation/use-sign-up';
 import useHandleValidation from '@/features/auth/hooks/mutation/use-handle-validation';
-import { Grade, AbsenceStatus } from '@/features/auth/types/request/signup-request';
+import { Grade, AbsenceStatus, SignupRequest } from '@/features/auth/types/request/signup-request';
 
 interface SignupFormData {
   name: string;
@@ -80,7 +80,7 @@ export function useSignupPageState() {
           return '학번을 입력해주세요.';
         }
         if (!/^[A-Z]\d{6}$/.test(value)) {
-          return '올바른 학번 형식을 입력해주세요. (예: B911061)';
+          return '올바른 학번 형식을 입력해주세요. (예: C123456)';
         }
         break;
       case 'department':
@@ -122,7 +122,15 @@ export function useSignupPageState() {
 
       if (
         typeof value === 'string' &&
-        ['name', 'phoneAddress', 'studentId', 'department', 'bojHandle', 'languagesAsString', 'motivationAsString'].includes(field)
+        [
+          'name',
+          'phoneAddress',
+          'studentId',
+          'department',
+          'bojHandle',
+          'languagesAsString',
+          'motivationAsString',
+        ].includes(field)
       ) {
         const error = validateField(field as keyof FormErrors, value);
         setErrors((prev) => ({ ...prev, [field]: error }));
@@ -132,7 +140,9 @@ export function useSignupPageState() {
   const validateAdditionalFields = useCallback((): void => {
     // languagesAsString 검증
     if (formData.languages.includes('기타')) {
-      const languageError = !formData.languagesAsString.trim() ? '다른 언어를 입력해주세요.' : undefined;
+      const languageError = !formData.languagesAsString.trim()
+        ? '다른 언어를 입력해주세요.'
+        : undefined;
       setErrors((prev) => ({ ...prev, languagesAsString: languageError }));
     } else {
       setErrors((prev) => ({ ...prev, languagesAsString: undefined }));
@@ -140,12 +150,19 @@ export function useSignupPageState() {
 
     // motivationAsString 검증
     if (formData.motivations.includes('기타')) {
-      const motivationError = !formData.motivationAsString.trim() ? '다른 동기를 입력해주세요.' : undefined;
+      const motivationError = !formData.motivationAsString.trim()
+        ? '다른 동기를 입력해주세요.'
+        : undefined;
       setErrors((prev) => ({ ...prev, motivationAsString: motivationError }));
     } else {
       setErrors((prev) => ({ ...prev, motivationAsString: undefined }));
     }
-  }, [formData.languages, formData.motivations, formData.languagesAsString, formData.motivationAsString]);
+  }, [
+    formData.languages,
+    formData.motivations,
+    formData.languagesAsString,
+    formData.motivationAsString,
+  ]);
 
   const handleValidateHandle = (): void => {
     if (!formData.bojHandle || formData.bojHandle.length < 3) {
@@ -178,7 +195,7 @@ export function useSignupPageState() {
     if (formData.languagesAsString.trim()) {
       finalLanguages.push(formData.languagesAsString.trim());
     }
-    
+
     // '없음'이 포함되어 있으면 빈 배열로 변환
     if (finalLanguages.includes('없음')) {
       finalLanguages = [];
@@ -190,7 +207,7 @@ export function useSignupPageState() {
       finalMotivations.push(formData.motivationAsString.trim());
     }
 
-    const payload: any = {
+    const payload: SignupRequest = {
       name: formData.name,
       phoneAddress: formData.phoneAddress,
       studentId: formData.studentId,
@@ -206,7 +223,7 @@ export function useSignupPageState() {
 
     // languages가 비어있지 않을 때만 languageLevel 추가
     if (finalLanguages.length > 0) {
-      payload.languageLevel = formData.languageLevel;
+      (payload as SignupRequest & { languageLevel: string }).languageLevel = formData.languageLevel;
     }
 
     signUpMutation.mutate(payload);

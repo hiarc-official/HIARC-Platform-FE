@@ -2,16 +2,16 @@ import { Label, Button, Title, IconButton } from '@hiarc-platform/ui';
 import Image from 'next/image';
 
 interface SignupPopupProps {
-  onClose: () => void;
+  onClose(): void;
 }
 
 export function SignupPopup({ onClose }: SignupPopupProps): React.ReactElement {
-  const handleKakaoClick = () => {
-    window.open('https://open.kakao.com/o/gBw6B0dg', '_blank');
+  const handleKakaoClick = (): void => {
+    window.open('https://open.kakao.com/o/gIlbZBOh', '_blank');
   };
 
-  const handleDiscordClick = () => {
-    window.open('https://discord.gg/VVPFMfch', '_blank');
+  const handleDiscordClick = (): void => {
+    window.open('https://discord.gg/7XCCBGsw', '_blank');
   };
 
   return (

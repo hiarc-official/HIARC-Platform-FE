@@ -1,6 +1,34 @@
 /**
- * 브라우저에서 쿠키를 삭제하는 유틸리티 함수들
+ * 브라우저에서 쿠키를 관리하는 유틸리티 함수들
  */
+
+/**
+ * 쿠키를 읽습니다
+ * @param name 쿠키 이름
+ * @returns 쿠키 값 또는 null
+ */
+export function getCookie(name: string): string | null {
+  if (typeof document === 'undefined') {
+    return null;
+  }
+  
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) {
+    const cookieValue = parts.pop()?.split(';').shift();
+    return cookieValue || null;
+  }
+  return null;
+}
+
+/**
+ * access 토큰이 있는지 확인합니다
+ * @returns 토큰이 있으면 true, 없으면 false
+ */
+export function hasAccessToken(): boolean {
+  const token = getCookie('access');
+  return token !== null && token.trim() !== '';
+}
 
 /**
  * 쿠키를 삭제합니다

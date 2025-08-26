@@ -6,7 +6,7 @@ import { cookies } from 'next/headers';
 export default async function Home(): Promise<React.ReactElement> {
   const cookieStore = cookies();
   const authCookie = cookieStore.get('access');
-  const isAuthenticated = !!authCookie?.value;
+  const isAuthenticated = Boolean(authCookie?.value);
 
   return (
     <PageLayout

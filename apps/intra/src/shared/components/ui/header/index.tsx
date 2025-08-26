@@ -5,9 +5,13 @@ import { useAuthStore } from '../../../store/auth-store';
 import { MobileHeader } from './mobile-header';
 import { DesktopHeader } from './desktop-header';
 
-export default function Header(): React.ReactElement {
+interface HeaderProps {
+  isAuthenticated: boolean;
+}
+
+export default function Header({ isAuthenticated }: HeaderProps): React.ReactElement {
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
-  const { isAuthenticated, user } = useAuthStore();
+  const { user } = useAuthStore();
 
   console.log('[Header] isAuthenticated:', isAuthenticated);
   console.log('[Header] user:', user);

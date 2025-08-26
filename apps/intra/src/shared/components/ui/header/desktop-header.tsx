@@ -24,10 +24,10 @@ export function DesktopHeader({ isAuthenticated }: DesktopHeaderProps): React.Re
     <div className="hidden w-full items-center justify-between md:flex">
       <div className="flex items-center gap-8">
         <Link href="/" className="rounded-lg p-2 transition-colors hover:bg-gray-100">
-          <Image 
-            src="/shared-assets/Logo.svg" 
-            alt="HiarcLogo" 
-            width={120} 
+          <Image
+            src="/shared-assets/Logo.svg"
+            alt="HiarcLogo"
+            width={120}
             height={30}
             draggable={false}
             className="select-none"
@@ -59,7 +59,7 @@ export function DesktopHeader({ isAuthenticated }: DesktopHeaderProps): React.Re
             </Label>
           </Link>
           <a
-            href="https://intra.hiarc-official.com"
+            href="https://rating.hiarc-official.com"
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm font-medium text-gray-200 transition-colors hover:text-gray-700"
@@ -72,9 +72,10 @@ export function DesktopHeader({ isAuthenticated }: DesktopHeaderProps): React.Re
       </div>
       <div className="flex items-center gap-2">
         <Input
+          disabled
           type="search"
           variant="search"
-          placeholder="학회원을 검색해보세요"
+          placeholder="모집 종료 후 검색 기능이 제공될 예정입니다."
           className="h-[44px] w-[328px]"
         />
         {isAuthenticated ? (
