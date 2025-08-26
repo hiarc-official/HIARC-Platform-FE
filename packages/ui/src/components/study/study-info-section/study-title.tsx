@@ -62,7 +62,7 @@ export function StudyTitle({
               수정하기
             </Button>
           )}
-          {hasRecruitmentDates && !studyData?.isStudent && !studyData?.isInstructor && (
+          {hasRecruitmentDates && !isAdmin && !studyData?.isStudent && !studyData?.isInstructor && (
             <div>
               {isRecruitmentOpen() ? (
                 <Button size="md" className="ml-6" variant="fill" onClick={onApplyClick}>

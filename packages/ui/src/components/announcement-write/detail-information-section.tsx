@@ -4,12 +4,12 @@ import { useState, useEffect } from 'react';
 import { SideBar } from './side-bar';
 import { CreateAnnouncementRequest, Announcement, SelectOption } from '@hiarc-platform/shared';
 import { UrlInput } from './url-input';
-
 import { Button } from '../button';
 import { LabeledCalanderInput } from '../input/labeled-calander-input';
 import { LabeledInput } from '../input/labeled-input';
 import { LabeledTextarea } from '../input/labeled-textarea';
 import { DialogUtil } from '../../utils/dialog-util';
+import { LabeledImageInput } from '../input/labeled-image-input';
 
 interface DetailInformationSectionProps {
   announcementId?: number;
@@ -46,6 +46,7 @@ export default function DetailInformationSection({
     announcementType: initialAnnouncementType,
     isPublic: true,
     attachmentUrls: [],
+    imageKeys: [],
     studyId: initialStudyId,
     lectureRound: undefined,
     applicationUrl: undefined,
@@ -83,6 +84,7 @@ export default function DetailInformationSection({
         announcementType: announcement.announcementType || 'GENERAL',
         isPublic: announcement.isPublic ?? true,
         attachmentUrls: announcement.attachmentUrls?.filter((url) => url.trim() !== '') || [],
+        imageKeys: announcement.imageKeys || [],
         studyId: announcement.studyId,
         lectureRound: announcement.lectureRound,
         applicationUrl: announcement.applicationUrl,
@@ -154,6 +156,11 @@ export default function DetailInformationSection({
     }
   };
 
+  // 이미지 관리 함수
+  const handleImageChange = (imageKeys: string[]): void => {
+    updateFormData({ imageKeys });
+  };
+
   // formData 업데이트 헬퍼 함수
   const updateFormData = (updates: Partial<CreateAnnouncementRequest>): void => {
     console.log('updateFormData 호출됨:', updates);
@@ -201,6 +208,7 @@ export default function DetailInformationSection({
       scheduleEndAt: scheduleEndAt?.toISOString() || undefined,
       isPublic: publicType === '공개',
       attachmentUrls: attachmentUrls.filter((url) => url.trim() !== ''),
+      imageKeys: formData.imageKeys || [],
     };
 
     // STUDY 카테고리일 때 추가 필드
@@ -269,7 +277,11 @@ export default function DetailInformationSection({
             value={formData.content}
             onChange={(value) => updateFormData({ content: value })}
           />
-          {/* <LabeledImageInput label="이미지" /> */}
+          <LabeledImageInput 
+            label="이미지" 
+            value={formData.imageKeys || []}
+            onChange={handleImageChange}
+          />
 
           <div className="flex flex-col gap-2">
             {attachmentUrls.map((url, index) => (

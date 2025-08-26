@@ -1,6 +1,6 @@
 import { AnnouncementSummary, PageableModel } from '@hiarc-platform/shared';
 import { cn, CommonTableBody, CommonTableHead, Label, Pagination } from '@hiarc-platform/ui';
-import { useTable } from '@hiarc-platform/util';
+import { formatDateWithDots, useTable } from '@hiarc-platform/util';
 import { ColumnDef, Row } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
@@ -60,7 +60,7 @@ const STUDY_ANNOUNCEMENT_COLUMN: Array<ColumnDef<AnnouncementSummary>> = [
     ),
     cell: ({ row }: { row: { original: AnnouncementSummary } }) => (
       <Label size="xs" weight="regular">
-        {row.original.createdAt?.toISOString() ?? '-'}
+        {formatDateWithDots(row.original.createdAt ?? '') ?? '-'}
       </Label>
     ),
   },
