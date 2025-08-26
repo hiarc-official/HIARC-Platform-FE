@@ -2,7 +2,7 @@ import { Semester } from './semester';
 
 export interface CurrentSemester {
   currentSemester: Semester;
-  recruitingSemester: Semester;
+  recruitingSemester?: Semester;
 }
 
 export const CurrentSemester = {

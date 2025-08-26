@@ -1,4 +1,6 @@
-import { cn, Divider, Label, Title } from '@hiarc-platform/ui';
+'use client';
+
+import { cn, Divider, FadeIn, Label, SlideFade, Title } from '@hiarc-platform/ui';
 import { useMemo, useState, useCallback } from 'react';
 import { addDays, startOfWeek, format } from 'date-fns';
 import CalendarBar from './calendar-bar';
@@ -122,22 +124,24 @@ export function HiarcScheduleSection({
         currentWeekStart={currentWeekStart}
       />
 
-      <div className="flex max-h-[242px] flex-col gap-2 overflow-y-auto">
-        {isLoading ? (
-          <div className="p-4 text-center text-gray-500">로딩중...</div>
-        ) : selectedSchedules.length > 0 ? (
-          selectedSchedules.map((schedule, index) => (
-            <ScheduleListItem
-              key={index}
-              schedule={schedule}
-              title={schedule.scheduleTitle || '제목 없음'}
-              category={schedule.announcementType || 'GENERAL'}
-            />
-          ))
-        ) : (
-          <div className="p-4 text-center text-gray-500">선택한 날짜에 일정이 없습니다.</div>
-        )}
-      </div>
+      <SlideFade key={selectedDate}>
+        <div className="flex h-[242px] flex-col gap-2 overflow-y-auto">
+          {isLoading ? (
+            <div className="p-4 text-center text-gray-500">로딩중...</div>
+          ) : selectedSchedules.length > 0 ? (
+            selectedSchedules.map((schedule, index) => (
+              <ScheduleListItem
+                key={index}
+                schedule={schedule}
+                title={schedule.scheduleTitle || '제목 없음'}
+                category={schedule.announcementType || 'GENERAL'}
+              />
+            ))
+          ) : (
+            <div className="p-4 text-center text-gray-500">선택한 날짜에 일정이 없습니다.</div>
+          )}
+        </div>
+      </SlideFade>
     </section>
   );
 }

@@ -14,7 +14,7 @@ import {
 } from '@hiarc-platform/ui';
 import React, { useState } from 'react';
 
-import { useSelectedSemester } from '@/hooks/use-semester-store';
+import { useSelectedSemester } from '@/shared/hooks/use-semester-store';
 import { Admin } from '@hiarc-platform/shared';
 import { useUpdateAdmin } from '@/features/member/hooks/admin/mutation/use-update-admin';
 

@@ -3,7 +3,7 @@ import { useTable } from '@hiarc-platform/util';
 import { useMemo, useState } from 'react';
 import { getStudentApplyListColumns } from './student-apply-list-column';
 import { PageableModel, StudentApply } from '@hiarc-platform/shared';
-import { useSelectedSemester } from '@/hooks/use-semester-store';
+import { useSelectedSemester } from '@/shared/hooks/use-semester-store';
 import { useCurrentSemester } from '@/features/semester/hooks/use-current-semester';
 
 interface MemberRecruitTableProps {

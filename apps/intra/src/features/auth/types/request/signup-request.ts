@@ -22,7 +22,7 @@ export interface SignupRequest {
   absenceStatus: AbsenceStatus;
   bojHandle: string;
   languages: string[];
-  languageLevel: string;
+  languageLevel?: string;
   motivations: string[];
   expectedActivity: string;
 }

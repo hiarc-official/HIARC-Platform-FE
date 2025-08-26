@@ -64,7 +64,7 @@ export function MobileMyPage(): React.ReactElement {
         introduction={myPageData?.introduction}
         onSave={handleUpdateIntroduction}
         rating={myPageData?.tier ?? 'UNRATED'}
-        div={myPageData?.division ?? 'DIV_1'}
+        div={myPageData?.division ?? 'UNRATED'}
       />
       <Divider variant="horizontal" size="full" className="mt-4 bg-gray-900" />
       <HitingSection

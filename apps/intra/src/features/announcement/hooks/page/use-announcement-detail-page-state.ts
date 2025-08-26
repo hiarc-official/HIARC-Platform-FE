@@ -2,11 +2,13 @@ import { useRouter, useParams } from 'next/navigation';
 import useAnnouncement from '../query/use-announcement';
 import { AnnnouncementType } from '@hiarc-platform/shared';
 import { formatDateWithDots } from '@hiarc-platform/util';
+import { useAuthStore } from '@/shared/store/auth-store';
 
 export function useAnnouncementDetailPageState() {
   const router = useRouter();
   const params = useParams();
   const announcementId = String(params.id);
+  const { user } = useAuthStore();
 
   const { data: announcement, isLoading, error } = useAnnouncement(announcementId);
 
@@ -46,6 +48,7 @@ export function useAnnouncementDetailPageState() {
 
   return {
     announcement: processedAnnouncement,
+    memberRole: user?.memberRole || null,
     isLoading,
     error,
     handleGoBack,

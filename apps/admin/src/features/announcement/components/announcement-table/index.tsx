@@ -11,12 +11,16 @@ interface AdminAnnouncementTableProps {
   pageableModel?: PageableModel<AnnouncementSummary> | null;
   className?: string;
   onPageChange?(page: number): void;
+  studyId?: number;
+  semesterId?: number;
 }
 
 export function AnnouncementTable({
   pageableModel,
   className,
   onPageChange,
+  studyId,
+  semesterId,
 }: AdminAnnouncementTableProps): React.ReactElement {
   const router = useRouter();
   const { mutate: deleteAnnouncement } = useDeleteAdminAnnouncement();
@@ -36,10 +40,23 @@ export function AnnouncementTable({
   );
 
   const handleEdit = useCallback(
-    (id: number): void => {
-      router.push(`/announcement/${id}/edit`);
+    (announcement: AnnouncementSummary): void => {
+      if (!announcement.announcementId) {
+        console.error('공지사항 수정 실패: announcementId가 없습니다.');
+        return;
+      }
+
+      const params = new URLSearchParams();
+      if (studyId) {
+        params.set('studyId', studyId.toString());
+      }
+      if (semesterId) {
+        params.set('semesterId', semesterId.toString());
+      }
+
+      router.push(`/announcement/${announcement.announcementId}/edit?${params.toString()}`);
     },
-    [router]
+    [router, studyId, semesterId]
   );
 
   const columns = useMemo(

@@ -11,7 +11,7 @@ import {
 import { useAnnouncementDetailPageState } from '../../hooks/page/use-announcement-detail-page-state';
 
 export function DesktopAnnouncementDetailPage(): React.ReactElement {
-  const { announcement, isLoading, error, handleGoBack, handleGoToList } =
+  const { announcement, memberRole, isLoading, error, handleGoBack, handleGoToList } =
     useAnnouncementDetailPageState();
 
   if (isLoading) {
@@ -45,8 +45,13 @@ export function DesktopAnnouncementDetailPage(): React.ReactElement {
         applicationStartAt={announcement.applicationStartAt}
         applicationEndAt={announcement.applicationEndAt}
         applicationUrl={announcement.applicationUrl}
+        memberRole={memberRole}
       />
-      <AnnouncementContentSection className="mt-8" content={announcement.content} />
+      <AnnouncementContentSection
+        className="mt-8"
+        images={announcement.imageUrls || []}
+        content={announcement.content}
+      />
       <AnnouncementIndicatorSection
         className="mt-8"
         prevData={announcement.prev}

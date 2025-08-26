@@ -1,11 +1,10 @@
+import { ManagePage } from '@/features/member/pages/manage-page';
 import { PageLayout } from '@hiarc-platform/ui';
-import { DesktopManagePage, MobileManagePage } from '@/features/member/pages/manage-page';
 
-export default function ManagePage(): React.ReactElement {
+export default function ManagePageRoute(): React.ReactElement {
   return (
-    <PageLayout
-      desktopChildren={<DesktopManagePage />}
-      mobileChildren={<MobileManagePage />}
-    />
+    <PageLayout>
+      <ManagePage />
+    </PageLayout>
   );
 }

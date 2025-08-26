@@ -20,6 +20,7 @@ export * from './components/input/labeled-input';
 export * from './components/input/labeled-calander-input';
 export * from './components/input/labeled-image-input';
 export * from './components/label/label';
+export * from './components/label/anchorLabel';
 export * from './components/label/title';
 export * from './components/layout/content-section';
 export * from './components/layout/page-layout';

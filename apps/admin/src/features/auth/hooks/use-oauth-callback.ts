@@ -28,7 +28,8 @@ export default function useOAuthCallback(): { isProcessing: boolean } {
           if (email) {
             sessionStorage.setItem('signupEmail', email);
           }
-          DialogUtil.showError('회원가입이 필요합니다.');
+          router.push('/');
+          DialogUtil.showError('Intra 사이트에서 회원가입을 해주세요.');
         } else if (needSignup === 'false') {
           // 로그인 완료된 사용자 - 유저 정보 패칭 후 메인으로 이동
           try {

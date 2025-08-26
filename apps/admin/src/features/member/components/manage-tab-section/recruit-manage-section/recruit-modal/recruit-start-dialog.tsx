@@ -2,7 +2,7 @@
 
 import { useStartRecruitment } from '@/features/recruitment/hooks/mutation/use-start-recruitment';
 import { useUpdateRecruitment } from '@/features/recruitment/hooks/mutation/use-update-recruitment';
-import { useSelectedSemester } from '@/hooks/use-semester-store';
+import { useSelectedSemester } from '@/shared/hooks/use-semester-store';
 import { UpdateRecruitmentRequest } from '@hiarc-platform/shared';
 import {
   Dialog,
@@ -31,29 +31,7 @@ export function RecruitStartDialog({
   const [startDate, setStartDate] = React.useState<Date | null>(null);
   const [endDate, setEndDate] = React.useState<Date | null>(null);
   const { selectedSemesterId } = useSelectedSemester();
-  const { mutate: updateRecruitment } = useUpdateRecruitment();
   const { mutate: startRecruitment } = useStartRecruitment();
-
-  const handleSaveRecruit = async (): Promise<void> => {
-    try {
-      if (startDate && endDate) {
-        const recruitmentData: UpdateRecruitmentRequest = {
-          startDate: startDate.toISOString(),
-          endDate: endDate.toISOString(),
-        };
-
-        updateRecruitment({
-          semesterId: Number(selectedSemesterId),
-          data: recruitmentData,
-        });
-
-        DialogUtil.hideAllDialogs();
-      }
-    } catch (error) {
-      console.error('저장 실패:', error);
-      throw error;
-    }
-  };
 
   const handleStartRecruit = async (): Promise<void> => {
     try {
@@ -87,25 +65,28 @@ export function RecruitStartDialog({
         </DialogHeader>
         <DialogDescription className="mt-6 w-[482px]">
           <LabeledCalanderInput
-            placeholder="기간을 선택해주세요"
-            rangeMode={true}
-            label="모집 기간"
-            value={[startDate, endDate]}
+            placeholder="시작일을 선택해주세요"
+            rangeMode={false}
+            label="모집 시작일"
+            value={startDate}
             onChange={(value) => {
-              if (Array.isArray(value)) {
-                const [start, end] = value as [Date | null, Date | null];
-                setStartDate(start);
-                setEndDate(end);
-              }
+              setStartDate(value as Date | null);
+            }}
+          />
+          <LabeledCalanderInput
+            className="mt-2"
+            placeholder="종료일을 선택해주세요"
+            rangeMode={false}
+            label="모집 종료일"
+            value={endDate}
+            onChange={(value) => {
+              setEndDate(value as Date | null);
             }}
           />
         </DialogDescription>
         <div className="mt-6 flex w-full gap-2">
           <Button variant="secondary" className="w-full" size="lg" onClick={handleCancel}>
             <Label size="lg">취소</Label>
-          </Button>
-          <Button variant="secondary" className="w-full" size="lg" onClick={handleSaveRecruit}>
-            <Label size="lg">저장하기</Label>
           </Button>
           {!isRecruit && (
             <Button className="w-full" size="lg" onClick={handleStartRecruit}>

@@ -117,7 +117,7 @@ export function StudySearchSection({
           placeholder="스터디명을 입력하세요"
         />
         <div className="flex items-center gap-2">
-          <Button variant="line" size="md" className="w-[134px]" onClick={handleReset}>
+          <Button variant="line_secondary" size="md" className="w-[134px]" onClick={handleReset}>
             초기화
           </Button>
           <Button variant="fill" size="md" className="w-[134px]" onClick={handleSearch}>

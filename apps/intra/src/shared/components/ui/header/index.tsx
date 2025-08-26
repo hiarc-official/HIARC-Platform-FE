@@ -7,7 +7,10 @@ import { DesktopHeader } from './desktop-header';
 
 export default function Header(): React.ReactElement {
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
-  const { isAuthenticated } = useAuthStore();
+  const { isAuthenticated, user } = useAuthStore();
+
+  console.log('[Header] isAuthenticated:', isAuthenticated);
+  console.log('[Header] user:', user);
 
   return (
     <header className="flex w-full items-center justify-between border-b border-gray-200">

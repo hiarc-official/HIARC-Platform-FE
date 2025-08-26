@@ -1,11 +1,9 @@
-'use client';
-
-import { HiarcScheduleSection } from '../../components/hiarc-schedule-section';
 import { AnnouncementListSection } from '../../components/announcement-list-section';
 import { StudyListSection } from '../../components/study-list-section';
 import { ContentSection, SingleColumnLayout } from '@hiarc-platform/ui';
+import { HiarcScheduleSection } from '../../components/hiarc-schedule-section';
 
-export function MobileHomePage(): React.ReactElement {
+export async function MobileHomePage(): Promise<React.ReactElement> {
   return (
     <ContentSection>
       <SingleColumnLayout>

@@ -1,5 +1,6 @@
 export * from './types/pageable-model';
 export * from './types/announcement/create-announcement-request';
+export * from './types/announcement/create-announcement-form';
 export * from './types/announcement/announcement';
 export * from './types/announcement/announcement-summary';
 export * from './types/study/study-summary';

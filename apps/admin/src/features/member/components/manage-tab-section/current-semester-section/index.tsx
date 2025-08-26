@@ -1,6 +1,6 @@
 import { Button, cn } from '@hiarc-platform/ui';
 import { MemberSearchFilter } from './member-search-filter';
-import { useSelectedSemester } from '@/hooks/use-semester-store';
+import { useSelectedSemester } from '@/shared/hooks/use-semester-store';
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useDownloadExcel, useMembers } from '@/features/member/hooks';

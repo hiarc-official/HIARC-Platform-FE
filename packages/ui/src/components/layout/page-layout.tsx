@@ -28,7 +28,7 @@ export function PageLayout({
       <div
         className={cn(
           'mx-auto flex w-full max-w-[1200px] items-center justify-between px-5 py-8',
-          stickyBottom ? 'pb-72' : '',
+          stickyBottom ? 'pb-36' : '',
           containerClassName
         )}
       >

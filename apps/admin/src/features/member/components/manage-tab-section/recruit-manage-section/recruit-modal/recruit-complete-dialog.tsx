@@ -10,7 +10,7 @@ import {
   LabeledTextarea,
 } from '@hiarc-platform/ui';
 import React, { useState } from 'react';
-import { useSelectedSemester } from '@/hooks/use-semester-store';
+import { useSelectedSemester } from '@/shared/hooks/use-semester-store';
 import { useUpdateRecruitment } from '@/features/recruitment/hooks/mutation/use-update-recruitment';
 
 interface RecruitCompleteDialogProps {

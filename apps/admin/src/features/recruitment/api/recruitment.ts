@@ -5,6 +5,7 @@ import {
   StudentApply,
   UpdateRecruitmentRequest,
 } from '@hiarc-platform/shared';
+import { AxiosResponse } from 'axios';
 
 export const recruitmentApi = {
   /**
@@ -68,6 +69,23 @@ export const recruitmentApi = {
       await apiClient.patch(`/admin/recruitment/${semesterId}`, data);
     } catch (error) {
       console.error('[RECRUITMENT API] UPDATE_RECRUITMENT 에러:', error);
+      throw error;
+    }
+  },
+
+  /**
+   * 특정 학기의 모집 정보를 수정하는 API입니다.
+   * @param semesterId - 수정할 모집의 학기 ID입니다.
+   * @param data - 수정할 모집 정보 데이터입니다.
+   * @returns void
+   */
+  DOWNLOAD_APPLICANT_EXCEL: async (semesterId: number): Promise<AxiosResponse> => {
+    try {
+      return await apiClient.get(`/admin/recruitment/${semesterId}/applicants/download`, {
+        responseType: 'blob',
+      });
+    } catch (error) {
+      console.error('[RECRUITMENT API] DOWNLOAD_APPLICANT_EXCEL 에러:', error);
       throw error;
     }
   },

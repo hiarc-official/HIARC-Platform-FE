@@ -18,6 +18,7 @@ interface LabeledInputProps {
   showTimeSelect?: boolean;
   timeIntervals?: number;
   error?: string;
+  className?: string;
 }
 
 function LabeledCalanderInput({
@@ -31,11 +32,12 @@ function LabeledCalanderInput({
   showTimeSelect = false,
   timeIntervals = 15,
   error,
+  className,
 }: LabeledInputProps): React.ReactElement {
   const [startDate, endDate] = Array.isArray(value) ? value : [value, null];
 
   return (
-    <div className="flex w-full flex-col">
+    <div className={`flex w-full flex-col ${className}`}>
       {showLabel && (
         <div className="mb-2 flex items-center">
           <Label weight="medium" size="md">

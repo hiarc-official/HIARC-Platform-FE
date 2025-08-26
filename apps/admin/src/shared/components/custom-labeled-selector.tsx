@@ -73,22 +73,20 @@ function CustomLabeledSelector({
         <SelectContent>
           <SelectGroup>
             {options.length > 0 ? (
-              <>
-                {options.map(({ value, label }) => (
-                  <SelectItem key={value} value={value}>
-                    {label}
-                  </SelectItem>
-                ))}
-                {showAddButton && onAddClick && (
-                  <SelectItem value="__ADD_NEW__" className="font-medium text-primary-100">
-                    + {addButtonLabel}
-                  </SelectItem>
-                )}
-              </>
+              options.map(({ value, label }) => (
+                <SelectItem key={value} value={value}>
+                  {label}
+                </SelectItem>
+              ))
             ) : (
               <div className="flex h-10 items-center justify-center">
                 <Label className="text-gray-700">선택 가능한 항목이 없습니다.</Label>
               </div>
+            )}
+            {showAddButton && onAddClick && (
+              <SelectItem value="__ADD_NEW__" className="font-medium text-primary-100">
+                + {addButtonLabel}
+              </SelectItem>
             )}
           </SelectGroup>
         </SelectContent>

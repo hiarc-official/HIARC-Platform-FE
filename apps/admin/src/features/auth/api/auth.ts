@@ -1,6 +1,5 @@
 import { apiClient } from '../../../shared/api/client';
 import { MyInfo } from '../types/model/my-info';
-import { SignupRequest } from '../types/request/signup-request';
 
 interface MyInfoResponse {
   memberId: number;

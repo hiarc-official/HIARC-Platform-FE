@@ -6,6 +6,7 @@ interface NumberInputProps {
   value: string;
   onChange(value: string): void;
   disabled?: boolean;
+  autoFocus?: boolean;
   className?: string;
 }
 
@@ -14,6 +15,7 @@ export const NumberInput: React.FC<NumberInputProps> = ({
   value,
   onChange,
   disabled = false,
+  autoFocus = false,
   className,
 }) => {
   const inputsRef = useRef<Array<HTMLInputElement | null>>([]);
@@ -64,6 +66,7 @@ export const NumberInput: React.FC<NumberInputProps> = ({
           onChange={(event) => handleChange(idx, event)}
           onKeyDown={(event) => handleKeyDown(idx, event)}
           disabled={disabled}
+          autoFocus={idx === 0 && autoFocus}
           className={cn(
             'h-14 w-12',
             'rounded-lg border border-gray-200 bg-white',

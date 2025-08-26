@@ -25,17 +25,9 @@ export const authApi = {
    * @param signupData - 가입에 필요한 사용자 정보입니다.
    * @returns void
    */
-  SIGN_UP: async (signupData: SignupRequest): Promise<void> => {
-    console.log('[AUTH API] SIGN_UP 요청:', signupData);
-    try {
-      const response = await apiClient.post('/auth/signup', signupData);
-      console.log('[AUTH API] SIGN_UP 성공 - 응답:', response.data);
-      console.log('[AUTH API] SIGN_UP 상태 코드:', response.status);
-      // 200 OK로 성공만 확인, 데이터는 반환하지 않음
-    } catch (error) {
-      console.error('[AUTH API] SIGN_UP 에러:', error);
-      throw error;
-    }
+  SIGN_UP: async (signupData: SignupRequest): Promise<RecruitApplicationResponse> => {
+    const response = await apiClient.post('/auth/signup', signupData);
+    return response.data;
   },
 
   /**
@@ -131,6 +123,14 @@ export const authApi = {
       console.error('[AUTH API] RECRUIT_APPLICATION 에러:', error);
       throw error;
     }
+  },
+
+  /**
+   * 학회 가입 알림을 읽음 처리하는 API입니다.
+   * @returns void
+   */
+  RECRUIT_NOTIFICATION_READ: async (semesterId: number): Promise<void> => {
+    await apiClient.patch(`/recruitment/${semesterId}/notification/read`);
   },
 };
 

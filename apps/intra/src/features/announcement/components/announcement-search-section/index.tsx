@@ -107,7 +107,7 @@ export function AnnouncementSearchSection({
           onChange={setTitle}
         />
         <div className="flex w-full items-center gap-2">
-          <Button variant="line" size="md" className="w-[134px]" onClick={handleReset}>
+          <Button variant="line_secondary" size="md" className="w-[134px]" onClick={handleReset}>
             초기화
           </Button>
           <Button variant="fill" size="md" className="w-[134px]" onClick={handleSearch}>

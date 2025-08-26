@@ -2,12 +2,12 @@ import {
   Announcement,
   AnnouncementSummary,
   CreateAnnouncementRequest,
+  ImageSource,
   PageableModel,
 } from '@hiarc-platform/shared';
 import { apiClient } from '../../../shared/api/client';
 
 import { AnnouncementQueryParams } from '../types/request/announcement-query-params';
-import { UploadResponse } from '../types/response/upload-response';
 
 export const announcementApi = {
   /**
@@ -141,10 +141,10 @@ export const announcementApi = {
    * @param contentType - 업로드할 이미지의 콘텐츠 타입입니다.
    * @returns presigned URL과 업로드 정보를 반환합니다.
    */
-  GET_IMAGE_UPLOAD_URL: async (contentType: string): Promise<UploadResponse> => {
+  GET_IMAGE_UPLOAD_URL: async (contentType: string): Promise<ImageSource> => {
     console.log('[ADMIN ANNOUNCEMENT API] GET_IMAGE_UPLOAD_URL 요청:', { contentType });
     try {
-      const response = await apiClient.get<UploadResponse>(
+      const response = await apiClient.get<ImageSource>(
         `/admin/announcements/image/upload-url?contentType=${encodeURIComponent(contentType)}`
       );
       console.log('[ADMIN ANNOUNCEMENT API] GET_IMAGE_UPLOAD_URL 응답:', response.data);

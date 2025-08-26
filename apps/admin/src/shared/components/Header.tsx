@@ -2,7 +2,7 @@
 import { Button, DialogUtil } from '@hiarc-platform/ui';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
-import { useSemesterStoreInit, useSemesterStore } from '@/hooks/use-semester-store';
+import { useSemesterStoreInit, useSemesterStore } from '@/shared/hooks/use-semester-store';
 import { useAuthStore } from '../store/auth-store';
 import useLogout from '@/features/auth/hooks/use-logout';
 import Link from 'next/link';

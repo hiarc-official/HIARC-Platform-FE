@@ -66,7 +66,7 @@ export function AnnouncementFilter({
         onChange={(value) => setTitle(value)}
       />
       <div className="flex gap-2">
-        <Button size="md" className="w-[134px]" variant="line" onClick={handleReset}>
+        <Button size="md" className="w-[134px]" variant="line_secondary" onClick={handleReset}>
           초기화
         </Button>
         <Button size="md" className="w-[134px]" onClick={handleSearch}>

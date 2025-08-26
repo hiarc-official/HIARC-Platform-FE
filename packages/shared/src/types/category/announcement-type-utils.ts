@@ -3,35 +3,35 @@ import { SelectOption } from '../select/select-option';
 
 export interface AnnnouncementTypeInfo {
   label: string;
-  color: string;
   bgColor: string;
+  textColor: string;
 }
 
 const ANNOUNCEMENT_TYPE_INFO_MAP: Record<AnnnouncementType, AnnnouncementTypeInfo> = {
   [AnnnouncementType.STUDY]: {
     label: '스터디',
-    color: '#3B82F6', // blue-500
-    bgColor: '#DBEAFE', // blue-100
+    bgColor: '#bg-category-study/20',
+    textColor: 'text-category-study',
   },
   [AnnnouncementType.RATING]: {
     label: '하이팅',
-    color: '#EF4444', // red-500
-    bgColor: '#FEE2E2', // red-100
+    bgColor: 'bg-category-rating/20',
+    textColor: 'text-category-rating',
   },
   [AnnnouncementType.GENERAL]: {
     label: '학회일정',
-    color: '#059669', // emerald-600
-    bgColor: '#D1FAE5', // emerald-100
+    bgColor: 'bg-category-general/20',
+    textColor: 'text-category-general',
   },
   [AnnnouncementType.EXTERNAL]: {
     label: '외부',
-    color: '#7C3AED', // violet-600
-    bgColor: '#EDE9FE', // violet-100
+    bgColor: 'bg-category-exteranl/20',
+    textColor: 'text-category-external',
   },
   [AnnnouncementType.ETC]: {
     label: '기타',
-    color: '#6B7280', // gray-500
-    bgColor: '#F3F4F6', // gray-100
+    bgColor: 'bg-category-etc/20',
+    textColor: 'text-category-etc',
   },
 };
 
@@ -63,7 +63,14 @@ export function getAnnouncementTypeLabel(category: AnnnouncementType): string {
  * Category 값으로 색상만 반환
  */
 export function getAnnouncementTypeColor(category: AnnnouncementType): string {
-  return ANNOUNCEMENT_TYPE_INFO_MAP[category].color;
+  return ANNOUNCEMENT_TYPE_INFO_MAP[category].bgColor;
+}
+
+/**
+ * Category 값으로 색상만 반환
+ */
+export function getAnnouncementTypeTextColor(category: AnnnouncementType): string {
+  return ANNOUNCEMENT_TYPE_INFO_MAP[category].textColor;
 }
 
 /**

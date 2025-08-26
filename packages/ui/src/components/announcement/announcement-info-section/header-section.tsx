@@ -1,4 +1,8 @@
-import { AnnnouncementType, getAnnouncementTypeLabel } from '@hiarc-platform/shared';
+import {
+  AnnnouncementType,
+  getAnnouncementTypeLabel,
+  getAnnouncementTypeTextColor,
+} from '@hiarc-platform/shared';
 import { Divider } from '../../divider';
 import { Label } from '../../label/label';
 import { Title } from '../../label/title';
@@ -18,12 +22,15 @@ export function HeaderSection({
 }: HeaderSectionProps): React.ReactElement {
   return (
     <>
-      <div className="flex w-full items-center justify-between">
+      <div className="flex w-full flex-col md:flex-row md:items-center md:justify-between">
         <Title size="sm" weight="bold" disableAnimation>
           {announcementTitle}
         </Title>
-        <div className="flex items-center gap-3">
-          <Label size="md" className={cn('text-orange')}>
+        <div className="mt-2 flex items-center gap-3 md:mt-0">
+          <Label
+            size="md"
+            className={cn(getAnnouncementTypeTextColor(AnnnouncementType[announcementCategory]))}
+          >
             {getAnnouncementTypeLabel(AnnnouncementType[announcementCategory])}
           </Label>
           <Divider variant="vertical" size="10px" />

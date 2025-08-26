@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 // 정적 리디렉션을 위한 매핑
-const redirectMapping: Record<string, string> = {};
+const redirectMapping: Record<string, string> = {
+  '/': '/manage',
+};
 
 /**
  * 리디렉션 및 리라이트 처리 미들웨어

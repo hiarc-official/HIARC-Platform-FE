@@ -102,7 +102,7 @@ export function AnnouncementSearchDialog({
             />
             <LabeledInput label="제목" value={title} onChange={setTitle} />
             <div className="flex w-full items-center gap-2">
-              <Button variant="secondary" size="md" className="w-full" onClick={handleReset}>
+              <Button variant="line_secondary" size="md" className="w-full" onClick={handleReset}>
                 초기화
               </Button>
               <Button

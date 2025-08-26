@@ -14,6 +14,7 @@ interface AnnouncementInfoSectionProps {
   applicationStartAt?: Date;
   applicationEndAt?: Date;
   applicationUrl?: string;
+  memberRole?: string | null;
   className?: string;
 }
 
@@ -27,6 +28,7 @@ export function AnnouncementInfoSection({
   applicationStartAt,
   applicationEndAt,
   applicationUrl,
+  memberRole,
   className,
 }: AnnouncementInfoSectionProps): React.ReactElement {
   return (
@@ -42,6 +44,7 @@ export function AnnouncementInfoSection({
         applicationStartAt={applicationStartAt}
         applicationEndAt={applicationEndAt}
         applicationUrl={applicationUrl}
+        memberRole={memberRole}
       />
       <RelatedUrlsSection urlList={urlList} />
     </div>

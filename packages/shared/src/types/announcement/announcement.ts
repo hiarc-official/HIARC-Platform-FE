@@ -6,6 +6,11 @@ export interface AnnouncementNavigationItem {
   lectureRound?: number | null;
 }
 
+export interface ImageSource {
+  resourceKey?: string;
+  url?: string;
+}
+
 export interface Announcement {
   announcementId?: number | null;
   title?: string | null;
@@ -21,7 +26,7 @@ export interface Announcement {
   applicationStartAt?: Date | null;
   applicationEndAt?: Date | null;
   attachmentUrls?: string[] | null;
-  imageUrls?: string[] | null;
+  imageUrls?: ImageSource[] | null;
   studyId?: number | null;
   studyName?: string | null;
   lectureRound?: number | null;
@@ -53,7 +58,7 @@ export const Announcement = {
         : null,
       applicationEndAt: data.applicationEndAt ? new Date(data.applicationEndAt as string) : null,
       attachmentUrls: (data.attachmentUrls as string[]) || null,
-      imageUrls: (data.imageUrls as string[]) || null,
+      imageUrls: (data.imageUrls as ImageSource[]) || null,
       studyId: (data.studyId as number) || null,
       studyName: (data.studyName as string) || null,
       lectureRound: (data.lectureRound as number) || null,

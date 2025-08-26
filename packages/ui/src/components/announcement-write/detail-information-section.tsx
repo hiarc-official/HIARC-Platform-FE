@@ -2,14 +2,14 @@
 
 import { useState, useEffect } from 'react';
 import { SideBar } from './side-bar';
-import { CreateAnnouncementRequest, Announcement, SelectOption } from '@hiarc-platform/shared';
+import { Announcement, SelectOption, CreateAnnouncementForm, ImageSource } from '@hiarc-platform/shared';
 import { UrlInput } from './url-input';
-
 import { Button } from '../button';
 import { LabeledCalanderInput } from '../input/labeled-calander-input';
 import { LabeledInput } from '../input/labeled-input';
 import { LabeledTextarea } from '../input/labeled-textarea';
 import { DialogUtil } from '../../utils/dialog-util';
+import { LabeledImageInput } from '../input/labeled-image-input';
 
 interface DetailInformationSectionProps {
   announcementId?: number;
@@ -20,7 +20,7 @@ interface DetailInformationSectionProps {
   studyOptions?: SelectOption[];
   disableCategoryChange?: boolean;
   disableStudyTypeChange?: boolean;
-  onSubmit?(data: CreateAnnouncementRequest, isEditMode: boolean, announcementId?: number): void;
+  onSubmit?(data: CreateAnnouncementForm, isEditMode: boolean, announcementId?: number): void;
 }
 
 export default function DetailInformationSection({
@@ -37,7 +37,7 @@ export default function DetailInformationSection({
   const isEditMode = Boolean(announcementId);
 
   // CreateAnnouncementRequest 상태
-  const [formData, setFormData] = useState<CreateAnnouncementRequest>({
+  const [formData, setFormData] = useState<CreateAnnouncementForm>({
     title: '',
     place: undefined,
     scheduleStartAt: undefined,
@@ -46,6 +46,7 @@ export default function DetailInformationSection({
     announcementType: initialAnnouncementType,
     isPublic: true,
     attachmentUrls: [],
+    images: [],
     studyId: initialStudyId,
     lectureRound: undefined,
     applicationUrl: undefined,
@@ -83,6 +84,8 @@ export default function DetailInformationSection({
         announcementType: announcement.announcementType || 'GENERAL',
         isPublic: announcement.isPublic ?? true,
         attachmentUrls: announcement.attachmentUrls?.filter((url) => url.trim() !== '') || [],
+        images: [],
+        imageSources: announcement.imageUrls,
         studyId: announcement.studyId,
         lectureRound: announcement.lectureRound,
         applicationUrl: announcement.applicationUrl,
@@ -154,14 +157,40 @@ export default function DetailInformationSection({
     }
   };
 
+  // 이미지 관리 함수
+  const handleImageChange = (images: File[]): void => {
+    console.log('새 이미지 변경됨:', images);
+    setFormData((prev) => ({
+      ...prev,
+      images: [...images] // 배열 복사로 순서 보장
+    }));
+  };
+
+  const handleExistingImageChange = (images: ImageSource[]): void => {
+    console.log('기존 이미지 변경됨:', images);
+    setFormData((prev) => ({
+      ...prev,
+      imageSources: [...images] // 배열 복사로 순서 보장
+    }));
+  };
+
   // formData 업데이트 헬퍼 함수
-  const updateFormData = (updates: Partial<CreateAnnouncementRequest>): void => {
+  const updateFormData = (updates: Partial<CreateAnnouncementForm>): void => {
     console.log('updateFormData 호출됨:', updates);
     setFormData((prev) => {
       const newData = { ...prev, ...updates };
       console.log('업데이트된 formData:', newData);
       return newData;
     });
+  };
+
+  // 날짜를 YYYY-MM-DD 형태로 포맷하는 헬퍼 함수
+  const formatDateToString = (date: Date | null): string | undefined => {
+    if (!date) return undefined;
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
   };
 
   // 폼 제출 함수
@@ -172,16 +201,33 @@ export default function DetailInformationSection({
       return;
     }
 
-    // 최종 데이터 정리
-    const requestData: CreateAnnouncementRequest = {
-      ...formData,
+    // 신청 유형이 선택된 경우 필수 입력 검증
+    if (applyType === '신청 유형') {
+      if (!applicationStartDate || !applicationEndDate || !formData.applicationUrl?.trim()) {
+        DialogUtil.showError(
+          '신청 유형을 선택한 경우 신청 시작일, 신청 종료일, 신청 URL을 모두 입력해주세요.'
+        );
+        return;
+      }
+    }
+
+    // 최종 데이터 정리 - 순서를 보장하기 위해 명시적으로 필드 설정
+    const requestData: CreateAnnouncementForm = {
       title: formData.title.trim(),
       content: formData.content.trim(),
       place: formData.place?.trim() || undefined,
       scheduleStartAt: scheduleStartAt?.toISOString() || undefined,
       scheduleEndAt: scheduleEndAt?.toISOString() || undefined,
+      announcementType: formData.announcementType,
       isPublic: publicType === '공개',
       attachmentUrls: attachmentUrls.filter((url) => url.trim() !== ''),
+      images: formData.images || [],
+      imageSources: formData.imageSources || [], // 기존 이미지 순서 보장
+      studyId: formData.studyId,
+      lectureRound: formData.lectureRound,
+      applicationUrl: formData.applicationUrl,
+      applicationStartAt: formData.applicationStartAt,
+      applicationEndAt: formData.applicationEndAt,
     };
 
     // STUDY 카테고리일 때 추가 필드
@@ -195,8 +241,9 @@ export default function DetailInformationSection({
       // 다른 카테고리에서 신청 관련 필드
       if (applyType === '신청 유형') {
         requestData.applicationUrl = formData.applicationUrl?.trim() || undefined;
-        requestData.applicationStartAt = applicationStartDate?.toISOString() || undefined;
-        requestData.applicationEndAt = applicationEndDate?.toISOString() || undefined;
+        // 신청 날짜는 YYYY-MM-DD 형태로만 전송
+        requestData.applicationStartAt = formatDateToString(applicationStartDate);
+        requestData.applicationEndAt = formatDateToString(applicationEndDate);
       } else {
         requestData.applicationUrl = undefined;
         requestData.applicationStartAt = undefined;
@@ -249,7 +296,13 @@ export default function DetailInformationSection({
             value={formData.content}
             onChange={(value) => updateFormData({ content: value })}
           />
-          {/* <LabeledImageInput label="이미지" /> */}
+          <LabeledImageInput
+            label="이미지"
+            value={formData.images || []}
+            existingImages={formData.imageSources || []}
+            onChange={handleImageChange}
+            onExistingImagesChange={handleExistingImageChange}
+          />
 
           <div className="flex flex-col gap-2">
             {attachmentUrls.map((url, index) => (

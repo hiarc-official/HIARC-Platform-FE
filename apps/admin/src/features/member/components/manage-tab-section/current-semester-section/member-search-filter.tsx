@@ -94,7 +94,12 @@ export function MemberSearchFilter({ onSearch }: MemberSearchFilterProps): React
         onKeyPress={handleKeyPress}
       />
       <div className="flex gap-2">
-        <Button size="md" className="w-[134px] text-md" variant="whitebg" onClick={handleReset}>
+        <Button
+          size="md"
+          className="w-[134px] text-md"
+          variant="line_secondary"
+          onClick={handleReset}
+        >
           초기화
         </Button>
         <Button size="md" className="w-[134px] text-md" onClick={handleSearch}>
