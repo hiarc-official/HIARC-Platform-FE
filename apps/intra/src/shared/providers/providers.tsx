@@ -17,12 +17,14 @@ export function Providers({ children }: ProvidersProps): React.ReactElement {
             // Global automatic invalidation after successful mutations
             const shouldSkipInvalidation = mutation.meta?.skipInvalidation;
             const invalidateQueries = mutation.meta?.invalidateQueries;
-            
+
             if (!shouldSkipInvalidation) {
               if (invalidateQueries) {
                 // Selective invalidation based on meta
-                const queries = Array.isArray(invalidateQueries) ? invalidateQueries : [invalidateQueries];
-                queries.forEach(queryKey => {
+                const queries = Array.isArray(invalidateQueries)
+                  ? invalidateQueries
+                  : [invalidateQueries];
+                queries.forEach((queryKey) => {
                   queryClient.invalidateQueries({ queryKey });
                 });
               } else {
@@ -36,6 +38,7 @@ export function Providers({ children }: ProvidersProps): React.ReactElement {
           queries: {
             staleTime: 60 * 1000,
             gcTime: 5 * 60 * 1000,
+            retry: false,
           },
           mutations: {
             onError: (error: Error) => {

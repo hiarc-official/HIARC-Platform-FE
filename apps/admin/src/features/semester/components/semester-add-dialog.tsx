@@ -12,38 +12,12 @@ import {
 } from '@hiarc-platform/ui';
 import React from 'react';
 import { NumberInput } from '../../../../../../packages/ui/src/components/input/number-input';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { UseMutationResult } from '@tanstack/react-query';
-import { Semester } from '@hiarc-platform/shared';
-import { semesterApi } from '../api/semester';
-
-const useCreateAdminAnnouncement = (): UseMutationResult<
-  Semester,
-  unknown,
-  { semesterYear: number; semesterType: 'FIRST' | 'SECOND' },
-  unknown
-> => {
-  const queryClient = useQueryClient();
-
-  return useMutation<
-    Semester,
-    unknown,
-    { semesterYear: number; semesterType: 'FIRST' | 'SECOND' },
-    unknown
-  >({
-    mutationFn: ({ semesterYear, semesterType }) =>
-      semesterApi.CREATE_SEMESTER({ semesterYear, semesterType }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['admin-semesters'] });
-      DialogUtil.showSuccess('학기가 생성되었습니다.');
-    },
-  });
-};
+import { useCreateSemester } from '../hooks/use-create-semester';
 
 export function SemesterAddDialog(): React.ReactElement {
   const [year, setYear] = React.useState<string>('');
   const [semesterType, setSemesterType] = React.useState<string>('');
-  const createSemesterMutation = useCreateAdminAnnouncement();
+  const createSemesterMutation = useCreateSemester();
 
   // 모든 필수 값이 입력되었는지 확인
   const isFormValid = year.trim() !== '' && year.length === 4 && semesterType !== '';
@@ -53,17 +27,10 @@ export function SemesterAddDialog(): React.ReactElement {
       return;
     }
 
-    createSemesterMutation.mutate(
-      {
-        semesterYear: Number(year),
-        semesterType: semesterType as 'FIRST' | 'SECOND',
-      },
-      {
-        onSuccess: () => {
-          DialogUtil.hideAllDialogs();
-        },
-      }
-    );
+    createSemesterMutation.mutate({
+      semesterYear: Number(year),
+      semesterType: semesterType as 'FIRST' | 'SECOND',
+    });
   };
 
   const handleCancel = (): void => {

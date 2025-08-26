@@ -13,6 +13,7 @@ interface SemesterState {
   setSelectedSemester(semesterId: string): void;
   getSelectedSemester(): Semester | null;
   initializeWithCurrentSemester(): Promise<void>;
+  refreshSemesters(): Promise<void>;
 }
 
 export const useSemesterStore = create<SemesterState>((set, get) => ({
@@ -95,5 +96,29 @@ export const useSemesterStore = create<SemesterState>((set, get) => ({
     return (
       semesters.find((semester) => semester.semesterId?.toString() === selectedSemesterId) || null
     );
+  },
+
+  refreshSemesters: async () => {
+    const currentSelectedId = get().selectedSemesterId;
+    try {
+      const semesters = await semesterApi.GET_SEMESTER_LIST();
+      const semesterOptions = semesters.map((semester) => ({
+        label: `${semester.semesterYear}년 ${semester.semesterType === 'FIRST' ? '1학기' : '2학기'}`,
+        value: semester.semesterId?.toString() || '',
+      }));
+
+      set({
+        semesters,
+        semesterOptions,
+      });
+
+      // 기존 선택된 학기가 여전히 존재하는지 확인하고, 없으면 첫 번째 학기로 설정
+      const stillExists = semesterOptions.some(option => option.value === currentSelectedId);
+      if (!stillExists && semesterOptions.length > 0) {
+        set({ selectedSemesterId: semesterOptions[0].value });
+      }
+    } catch (error) {
+      console.error('Failed to refresh semesters:', error);
+    }
   },
 }));

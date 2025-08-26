@@ -28,7 +28,7 @@ export const createAdminColumns = ({
     ),
     cell: ({ row }: { row: { original: Admin } }) => (
       <Label size="md" weight="regular">
-        {row.original.adminRole ?? '-'}
+        {row.original.adminRoleName ?? '-'}
       </Label>
     ),
     footer: (props) => props.column.id,

@@ -42,8 +42,8 @@ export function RecruitUpdateDialog({
     try {
       if (startDate && endDate) {
         const recruitmentData: UpdateRecruitmentRequest = {
-          startDate: startDate.toISOString(),
-          endDate: endDate.toISOString(),
+          startDate: startDate.toISOString().split('T')[0],
+          endDate: endDate.toISOString().split('T')[0],
         };
 
         updateRecruitment({
@@ -76,16 +76,21 @@ export function RecruitUpdateDialog({
         </DialogHeader>
         <DialogDescription className="mt-6 w-[482px]">
           <LabeledCalanderInput
-            placeholder="기간을 선택해주세요"
-            rangeMode={true}
-            label="모집 기간"
-            value={[startDate, endDate]}
+            placeholder="시작일을 선택해주세요"
+            rangeMode={false}
+            label="모집 시작일"
+            value={startDate}
             onChange={(value) => {
-              if (Array.isArray(value)) {
-                const [start, end] = value as [Date | null, Date | null];
-                setStartDate(start);
-                setEndDate(end);
-              }
+              setStartDate(value as Date | null);
+            }}
+          />
+          <LabeledCalanderInput
+            placeholder="종료일을 선택해주세요"
+            rangeMode={false}
+            label="모집 종료일"
+            value={endDate}
+            onChange={(value) => {
+              setEndDate(value as Date | null);
             }}
           />
         </DialogDescription>

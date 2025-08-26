@@ -31,7 +31,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="flex min-h-screen flex-col">
         <Providers>
-          <ServerHeader />
+          <Header />
           <main className="flex-1">{children}</main>
           <Footer />
           <GlobalDialogContainer />

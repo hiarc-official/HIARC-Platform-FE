@@ -38,6 +38,7 @@ export function Providers({ children }: ProvidersProps): React.ReactElement {
           queries: {
             staleTime: 60 * 1000,
             gcTime: 5 * 60 * 1000,
+            retry: false,
           },
           mutations: {
             onError: (error: Error) => {
