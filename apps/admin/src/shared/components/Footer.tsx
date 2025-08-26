@@ -1,5 +1,6 @@
 import { Divider, Label } from '@hiarc-platform/ui';
 import Image from 'next/image';
+import { AnchorLabel } from '@hiarc-platform/ui';
 
 interface FooterProps {
   id?: string;
@@ -20,7 +21,9 @@ export default function Footer({ id }: FooterProps): React.ReactElement {
         <div className="flex flex-col items-center justify-center gap-3 text-gray-600 md:flex-row">
           <div className="flex items-center gap-2">
             <Image src="/shared-assets/Instagram.svg" alt="Instagram Icon" width={16} height={16} />
-            <Label>@hi-arc.official</Label>
+            <AnchorLabel href="https://www.instagram.com/hiarc.official/">
+              @hi-arc.official
+            </AnchorLabel>
           </div>
           <Divider variant="vertical" size="8px" className="hidden md:inline-block" />
           <div className="flex items-center gap-2">
@@ -30,7 +33,7 @@ export default function Footer({ id }: FooterProps): React.ReactElement {
           <Divider variant="vertical" size="8px" className="hidden md:inline-block" />
           <div className="flex items-center gap-2">
             <Image src="/shared-assets/Message.svg" alt="Message Icon" width={16} height={16} />
-            <Label>@hi-arc</Label>
+            <AnchorLabel href="https://pf.kakao.com/_SArxlxb">@hi-arc</AnchorLabel>
           </div>
         </div>
       </div>
