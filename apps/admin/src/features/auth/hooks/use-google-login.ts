@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { authApi } from '../api/auth';
-import { BrowserUtils } from '@/shared/utils/browser-utils';
+import { BrowserUtil } from '@hiarc-platform/util';
 
 export default function useGoogleLogin(): { googleLogin(): void; isLoading: boolean } {
   const [isLoading, setIsLoading] = useState(false);
@@ -8,7 +8,7 @@ export default function useGoogleLogin(): { googleLogin(): void; isLoading: bool
   const googleLogin = (): void => {
     try {
       // 인앱 브라우저 체크
-      if (!BrowserUtils.checkBeforeGoogleLogin()) {
+      if (!BrowserUtil.checkBeforeGoogleLogin()) {
         return;
       }
 

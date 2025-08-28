@@ -3,7 +3,7 @@ import { UseMutationResult } from '@tanstack/react-query';
 import { Semester } from '@hiarc-platform/shared';
 import { semesterApi } from '../api/semester';
 import { DialogUtil } from '@hiarc-platform/ui';
-import { useSemesterStore } from '@/stores/semester-store';
+import { useSemesterStore } from '@/shared/stores/semester-store';
 
 export const useCreateSemester = (): UseMutationResult<
   Semester,

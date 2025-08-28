@@ -12,7 +12,7 @@ import React from 'react';
 
 import { EditAwardDialog } from './edit-award-dialog';
 import { Award } from '@hiarc-platform/shared';
-import { formatDateWithDots } from '@hiarc-platform/util';
+import { DateUtil } from '@hiarc-platform/util';
 import useDeleteAward from '@/features/award/hooks/mutation/use-delete-award';
 
 interface AwardListItemProps {
@@ -58,7 +58,7 @@ export function AwardListItem({ award }: AwardListItemProps): React.ReactElement
     >
       <div className="flex w-full flex-col">
         <Label size="sm" className="text-gray-500">
-          {formatDateWithDots(award.awardDate ?? '') ?? '날짜 미등록'}
+          {DateUtil.formatDateWithDots(award.awardDate ?? '') ?? '날짜 미등록'}
         </Label>
         <div className="flex w-full items-center justify-between">
           <div className="flex flex-row items-center gap-2">

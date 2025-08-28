@@ -1,4 +1,4 @@
-import { formatDateTimeWithDots, formatDateWithDots } from '@hiarc-platform/util';
+import { DateUtil } from '@hiarc-platform/util';
 import { Button } from '../../button';
 import { Divider } from '../../divider';
 import { Label } from '../../label/label';
@@ -49,7 +49,7 @@ export function LocationScheduleSection({
             진행 일시
           </Label>
           <Label weight="medium">
-            {scheduleStartAt ? formatDateTimeWithDots(scheduleStartAt) : '-'}
+            {scheduleStartAt ? DateUtil.formatDateTimeWithDots(scheduleStartAt) : '-'}
           </Label>
         </div>
         {applicationStartAt && applicationEndAt && (
@@ -58,8 +58,8 @@ export function LocationScheduleSection({
               신청 기한
             </Label>
             <Label weight="medium">
-              {formatDateWithDots(applicationStartAt)}
-              {applicationEndAt && ` ~ ${formatDateWithDots(applicationEndAt)}`}
+              {DateUtil.formatDateWithDots(applicationStartAt)}
+              {applicationEndAt && ` ~ ${DateUtil.formatDateWithDots(applicationEndAt)}`}
             </Label>
             <Button
               size="xs"

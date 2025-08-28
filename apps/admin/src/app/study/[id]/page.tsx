@@ -1,6 +1,6 @@
 'use client';
 
-import { TabSection } from '@/features/study/components/tab-section';
+import { TabSection } from '@/features/study/components';
 import { BackButton, Button, PageLayout, LoadingDots, StudyInfoSection } from '@hiarc-platform/ui';
 import { useRouter, useParams } from 'next/navigation';
 import { useStudy } from '@/features/study/hooks';

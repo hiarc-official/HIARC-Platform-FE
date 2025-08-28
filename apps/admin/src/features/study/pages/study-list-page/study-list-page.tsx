@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Title, Button, LoadingDots, FadeIn } from '@hiarc-platform/ui';
-import { StudyTable } from '../../components/study-table';
-import { useStudies } from '../../hooks';
+import { StudyTable } from '@/features/study/components';
+import { useStudies } from '@/features/study/hooks';
 import { useSemesterStoreInit, useSemesterStore } from '@/shared/hooks/use-semester-store';
 
 export function StudyListPage(): React.ReactElement {

@@ -20,6 +20,6 @@
       "@hiarc-platform/shared": ["../shared/src"]
     }
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "../../apps/intra/src/shared/utils/cookie-util.ts"],
   "exclude": ["node_modules", "dist"]
 }

@@ -2,11 +2,16 @@
  * 인앱 브라우저 감지 및 외부 브라우저 리다이렉트 유틸리티
  */
 
-export const BrowserUtils = {
+export const BrowserUtil = {
   /**
    * 현재 브라우저가 인앱 브라우저인지 감지합니다
    */
   isInAppBrowser(): boolean {
+    // 서버사이드에서는 false 반환
+    if (typeof navigator === 'undefined') {
+      return false;
+    }
+
     const userAgent = navigator.userAgent || navigator.vendor;
 
     // iOS 인앱 브라우저들
@@ -49,6 +54,11 @@ export const BrowserUtils = {
    * 현재 URL을 외부 브라우저로 열도록 안내합니다
    */
   openInExternalBrowser(url?: string): void {
+    // 서버사이드에서는 아무것도 하지 않음
+    if (typeof window === 'undefined') {
+      return;
+    }
+
     const targetUrl = url || window.location.href;
 
     if (this.isInAppBrowser()) {
@@ -104,6 +114,11 @@ export const BrowserUtils = {
    * 사용자 에이전트 정보를 콘솔에 출력 (디버깅용)
    */
   logUserAgent(): void {
+    // 서버사이드에서는 로그 출력하지 않음
+    if (typeof navigator === 'undefined') {
+      return;
+    }
+    
     console.log('User Agent:', navigator.userAgent);
     console.log('Vendor:', navigator.vendor);
     console.log('Is In-App Browser:', this.isInAppBrowser());

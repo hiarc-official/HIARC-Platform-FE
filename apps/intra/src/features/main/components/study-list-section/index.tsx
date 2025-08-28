@@ -3,7 +3,7 @@
 import { cn, StudyCard, Title } from '@hiarc-platform/ui';
 import { useRouter } from 'next/navigation';
 import { useStudiesNow } from '../../hooks/use-studies-now';
-import { formatDateWithDots } from '@hiarc-platform/util';
+import { DateUtil } from '@hiarc-platform/util';
 
 interface StudyListSectionProps {
   className?: string;
@@ -42,8 +42,8 @@ export function StudyListSection({ className }: StudyListSectionProps): React.Re
                 delivery={study.isOnline ? '비대면' : '대면'}
                 studyTitle={study.studyName ?? ''}
                 hostName={study.instructorName ?? ''}
-                startDate={study.startDate ? formatDateWithDots(study.startDate) : ''}
-                endDate={study.endDate ? formatDateWithDots(study.endDate) : ''}
+                startDate={study.startDate ? DateUtil.formatDateWithDots(study.startDate) : ''}
+                endDate={study.endDate ? DateUtil.formatDateWithDots(study.endDate) : ''}
                 studyDescription={study.introduction ?? ''}
                 state={study.activeStatus ?? 'CLOSED'}
                 time={study.studyTime ?? ''}

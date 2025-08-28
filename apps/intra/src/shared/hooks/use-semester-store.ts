@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { useSemesterStore } from '@/stores/semester-store';
 import { Semester } from '@hiarc-platform/shared';
+import { useSemesterStore } from '../store/semester-store';
 
 export function useSemesterStoreInit(): void {
   const { initializeWithCurrentSemester, semesters } = useSemesterStore();

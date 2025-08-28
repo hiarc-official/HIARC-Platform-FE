@@ -1,7 +1,7 @@
 import { useRouter, useParams } from 'next/navigation';
 import useAnnouncement from '../query/use-announcement';
 import { AnnnouncementType } from '@hiarc-platform/shared';
-import { formatDateWithDots } from '@hiarc-platform/util';
+import { DateUtil } from '@hiarc-platform/util';
 import { useAuthStore } from '@/shared/store/auth-store';
 
 export function useAnnouncementDetailPageState() {
@@ -26,7 +26,7 @@ export function useAnnouncementDetailPageState() {
         ...announcement,
         announcementTitle: announcement.announcementTitle || '제목 없음',
         announcementCategory: AnnnouncementType[announcement.announcementType || 'GENERAL'],
-        announcementDate: formatDateWithDots(announcement.createdAt ?? ''),
+        announcementDate: DateUtil.formatDateWithDots(announcement.createdAt ?? ''),
         urlList: announcement.attachmentUrls || [],
         place: announcement.place ?? undefined,
         scheduleStartAt: announcement.scheduleStartAt

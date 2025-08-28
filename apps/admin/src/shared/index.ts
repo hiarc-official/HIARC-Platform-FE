@@ -17,7 +17,7 @@ export * from './exceptions/server-exception';
 export { Providers } from './providers/providers';
 
 // Stores
-export { useAuthStore } from './store/auth-store';
+export { useAuthStore } from './stores/auth-store';
 
 // Types
 export * from './types/pageable-model';

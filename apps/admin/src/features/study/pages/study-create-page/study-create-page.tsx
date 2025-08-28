@@ -1,6 +1,6 @@
 'use client';
 
-import { CreateStudyForm } from '../../components/create-study-form-section';
+import { CreateStudyForm } from '../../components/create-study-form-section/create-study-form';
 import { Label, Title } from '@hiarc-platform/ui';
 
 export function StudyCreatePage(): React.ReactElement {

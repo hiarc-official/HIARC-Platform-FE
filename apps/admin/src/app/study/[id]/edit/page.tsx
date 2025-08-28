@@ -1,12 +1,11 @@
 'use client';
 
-import { CreateStudyForm } from '@/features/study/components/create-study-form-section';
-import { BackButton, PageLayout, LoadingDots } from '@hiarc-platform/ui';
+import { CreateStudyForm } from '@/features/study/components/create-study-form-section/create-study-form';
+import { BackButton, PageLayout, LoadingDots, FadeIn } from '@hiarc-platform/ui';
 import { Title } from '@hiarc-platform/ui';
 import { useParams, useRouter } from 'next/navigation';
 import { useStudy } from '@/features/study/hooks';
 import React, { useState, useEffect } from 'react';
-import { FadeIn } from '@/components/fade-in';
 
 export default function EditStudyPage(): React.ReactElement {
   const router = useRouter();

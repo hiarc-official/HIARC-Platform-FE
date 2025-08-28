@@ -1,17 +1,22 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button, Label, LoadingDots, Title } from '@hiarc-platform/ui';
 import Image from 'next/image';
-import { useAuthStore } from '@/shared/store/auth-store';
+import { useAuthStore } from '@/shared/stores/auth-store';
 import useGoogleLogin from '../../hooks/use-google-login';
-import { BrowserUtils } from '@/shared/utils/browser-utils';
+import { BrowserUtil } from '@hiarc-platform/util';
 
 export function LoginPage(): React.ReactElement {
   const { user, isLoading, logout } = useAuthStore();
   const router = useRouter();
   const { googleLogin, isLoading: isGoogleLoginLoading } = useGoogleLogin();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   useEffect(() => {
     if (user) {
@@ -48,7 +53,7 @@ export function LoginPage(): React.ReactElement {
         로그인
       </Title>
 
-      {BrowserUtils.isInAppBrowser() && (
+      {isClient && BrowserUtil.isInAppBrowser() && (
         <div className="mt-4 rounded-lg bg-yellow-50 p-3 text-center">
           <p className="text-sm text-yellow-800">
             📱 인앱 브라우저에서는 구글 로그인이 제한됩니다.

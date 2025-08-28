@@ -14,13 +14,11 @@ export function Providers({ children }: ProvidersProps): React.ReactElement {
       new QueryClient({
         mutationCache: new MutationCache({
           onSuccess: (data, variables, context, mutation) => {
-            // Global automatic invalidation after successful mutations
             const shouldSkipInvalidation = mutation.meta?.skipInvalidation;
             const invalidateQueries = mutation.meta?.invalidateQueries;
 
             if (!shouldSkipInvalidation) {
               if (invalidateQueries) {
-                // Selective invalidation based on meta
                 const queries = Array.isArray(invalidateQueries)
                   ? invalidateQueries
                   : [invalidateQueries];
@@ -28,7 +26,6 @@ export function Providers({ children }: ProvidersProps): React.ReactElement {
                   queryClient.invalidateQueries({ queryKey });
                 });
               } else {
-                // Default: invalidate all queries (can be refined later)
                 queryClient.invalidateQueries();
               }
             }

@@ -4,19 +4,17 @@ import { Button, cn, IconButton, Input } from '@hiarc-platform/ui';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { AuthenticatedMobileSection } from './authenticated-mobile-section';
 
 interface MobileHeaderProps {
   isAuthenticated: boolean;
-  isMobileSearchOpen: boolean;
-  setIsMobileSearchOpen(open: boolean): void;
 }
 
 export function MobileHeader({
   isAuthenticated,
-  isMobileSearchOpen,
-  setIsMobileSearchOpen,
 }: MobileHeaderProps): React.ReactElement {
+  const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
   const router = useRouter();
 
   const handleLogin = (): void => {

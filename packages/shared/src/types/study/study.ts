@@ -1,4 +1,4 @@
-import { formatDateWithDots } from '@hiarc-platform/util';
+import { DateUtil } from '@hiarc-platform/util';
 
 export interface Study {
   studyId?: number | null;
@@ -117,6 +117,6 @@ export const Study = {
       return '-';
     }
 
-    return `${formatDateWithDots(study.recruitmentStartDate)} - ${formatDateWithDots(study.recruitmentEndDate)}`;
+    return `${DateUtil.formatDateWithDots(study.recruitmentStartDate)} - ${DateUtil.formatDateWithDots(study.recruitmentEndDate)}`;
   },
 };
