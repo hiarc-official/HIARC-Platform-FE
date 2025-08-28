@@ -1,9 +1,9 @@
 export * from './components/animation';
-export * from './components/announcement/announcement-content-section';
-export * from './components/announcement/announcement-indicator-section';
-export * from './components/announcement/announcement-info-section';
-export { default as AnnouncementWrite } from './components/announcement-write';
-export type { AnnouncementWriteProps } from './components/announcement-write';
+export * from './components/announcement/announcement-content-section/announcement-content-section';
+export * from './components/announcement/announcement-indicator-section/announcement-indicator-section';
+export * from './components/announcement/announcement-info-section/announcement-info-section';
+export { default as AnnouncementWrite } from './components/announcement-write/announcement-write';
+export type { AnnouncementWriteProps } from './components/announcement-write/announcement-write';
 export * from './components/back-button';
 export * from './components/button';
 export * from './components/card';

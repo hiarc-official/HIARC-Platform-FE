@@ -20,7 +20,7 @@ export function AnnouncementContentSection({
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const checkIsMobile = () => {
+    const checkIsMobile = () : void => {
       setIsMobile(window.innerWidth < 768);
     };
 
@@ -32,8 +32,8 @@ export function AnnouncementContentSection({
     };
   }, []);
 
-  const formatContent = (text?: string) => {
-    if (!text) return '';
+  const formatContent = (text?: string): React.ReactNode => {
+    if (!text) {return '';}
     return text.split('\n').map((line, index) => (
       <span key={index}>
         {line}
@@ -42,11 +42,11 @@ export function AnnouncementContentSection({
     ));
   };
 
-  const openImageViewer = (index: number) => {
+  const openImageViewer = (index: number): void => {
     setSelectedImageIndex(index);
   };
 
-  const closeImageViewer = () => {
+  const closeImageViewer = (): void => {
     setSelectedImageIndex(null);
   };
 
