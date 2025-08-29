@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Button, Label, LoadingDots, Title } from '@hiarc-platform/ui';
 import Image from 'next/image';
 import { useAuthStore } from '@/shared/stores/auth-store';
-import useGoogleLogin from '../../hooks/use-google-login';
+import { useGoogleLogin } from '../../hooks/use-google-login';
 import { BrowserUtil } from '@hiarc-platform/util';
 
 export function LoginPage(): React.ReactElement {

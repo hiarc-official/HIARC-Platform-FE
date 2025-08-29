@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { authApi } from '../api/auth';
 import { useAuthStore } from '../../../shared/stores/auth-store';
 
-export default function useOAuthCallback(): { isProcessing: boolean } {
+export function useOAuthCallback(): { isProcessing: boolean } {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { login, clearAuth } = useAuthStore();

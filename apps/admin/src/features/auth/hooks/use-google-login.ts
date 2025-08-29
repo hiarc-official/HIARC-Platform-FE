@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { authApi } from '../api/auth';
 import { BrowserUtil } from '@hiarc-platform/util';
 
-export default function useGoogleLogin(): { googleLogin(): void; isLoading: boolean } {
+export function useGoogleLogin(): { googleLogin(): void; isLoading: boolean } {
   const [isLoading, setIsLoading] = useState(false);
 
   const googleLogin = (): void => {

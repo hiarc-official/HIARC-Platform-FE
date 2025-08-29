@@ -4,7 +4,7 @@ import { authApi } from '../api/auth';
 import { useAuthStore } from '@/shared';
 import { CookieUtil } from '@/shared/utils/cookie-util';
 
-export default function useLogout(): UseMutationResult<void, Error, void, unknown> {
+export function useLogout(): UseMutationResult<void, Error, void, unknown> {
   const router = useRouter();
   const { clearAuth } = useAuthStore();
   const queryClient = useQueryClient();

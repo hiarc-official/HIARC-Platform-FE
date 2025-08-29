@@ -3,7 +3,7 @@ import { Button, DialogUtil } from '@hiarc-platform/ui';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { useSemesterStoreInit, useSemesterStore } from '@/shared/hooks/use-semester-store';
-import useLogout from '@/features/auth/hooks/use-logout';
+import { useLogout } from '@/features/auth/hooks/use-logout';
 import Link from 'next/link';
 import { CustomLabeledSelector } from './custom-labeled-selector';
 import { SemesterAddDialog } from '@/features/semester/components/semester-add-dialog';

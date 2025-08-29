@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Title, Button, LoadingDots, FadeIn } from '@hiarc-platform/ui';
-import { AnnouncementFilter } from '../../components/announcement-filter';
-import { AnnouncementTable } from '../../components/announcement-table';
+import { AnnouncementFilter } from '../../components/announcement-filter/announcement-filter';
+import { AnnouncementTable } from '../../components/announcement-table/announcement-table';
 import { useAdminAnnouncementList } from '../../hooks';
 import { AnnouncementQueryParams } from '../../types/request/announcement-query-params';
 import { useSelectedSemester } from '@/shared/hooks/use-semester-store';
