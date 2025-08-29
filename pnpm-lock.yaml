@@ -548,6 +548,9 @@ importers:
       react-dom:
         specifier: ^18.2.0
         version: 18.3.1(react@18.3.1)
+      react-hook-form:
+        specifier: ^7.60.0
+        version: 7.62.0(react@18.3.1)
       react-resizable-panels:
         specifier: ^3.0.3
         version: 3.0.4(react-dom@18.3.1)(react@18.3.1)
@@ -573,9 +576,6 @@ importers:
       prettier:
         specifier: ^3.1.0
         version: 3.6.2
-      react-hook-form:
-        specifier: ^7.60.0
-        version: 7.62.0(react@18.3.1)
 
 packages:
 
@@ -7623,7 +7623,7 @@ packages:
       react: ^16.8.0 || ^17 || ^18 || ^19
     dependencies:
       react: 18.3.1
-    dev: true
+    dev: false
 
   /react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
@@ -7772,6 +7772,7 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       loose-envify: 1.4.0
+    dev: false
 
   /react@19.1.1:
     resolution: {integrity: sha512-w8nqGImo45dmMIfljjMwOGtbmC/mk4CMYhWIicdSflH91J9TyCyczcPFXJzrZ/ZXcgGRFeP6BU0BEJTw6tZdfQ==}
