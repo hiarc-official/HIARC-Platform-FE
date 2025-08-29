@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import { cn } from '../../lib/utils';
 import { Button } from '../button';
-import { usePaginationWithPageable } from '@hiarc-platform/util';
+import { usePaginationWithPageable } from '@hiarc-platform/shared';
 import { PageableModel } from '@hiarc-platform/shared';
 
 interface PaginationProps<T = unknown> {

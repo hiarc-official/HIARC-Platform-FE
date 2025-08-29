@@ -1,4 +1,4 @@
-import { DateUtil } from '@hiarc-platform/util';
+import { DateUtil } from '../../util/date-util';
 
 export interface Study {
   studyId?: number | null;

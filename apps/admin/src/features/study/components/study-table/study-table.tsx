@@ -9,7 +9,7 @@ import {
   SlideFade,
   StudyStatusChip,
 } from '@hiarc-platform/ui';
-import { useTable } from '@hiarc-platform/util';
+import { useTable } from '@hiarc-platform/shared';
 import { ColumnDef, Row } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';

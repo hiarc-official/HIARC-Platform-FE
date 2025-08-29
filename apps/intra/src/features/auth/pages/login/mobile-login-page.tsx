@@ -3,7 +3,7 @@
 import { Button, Label, LoadingDots, Title } from '@hiarc-platform/ui';
 import Image from 'next/image';
 import { useLoginPageState } from '@/features/auth/hooks/page/use-login-page-state';
-import { BrowserUtil } from '@hiarc-platform/util';
+import { BrowserUtil } from '@hiarc-platform/shared';
 
 export function MobileLoginPage(): React.ReactElement {
   const { user, isLoading, isGoogleLoginLoading, handleGoogleLogin } = useLoginPageState();

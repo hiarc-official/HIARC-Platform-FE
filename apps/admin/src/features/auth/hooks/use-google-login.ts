@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { authApi } from '../api/auth';
-import { BrowserUtil } from '@hiarc-platform/util';
+import { BrowserUtil } from '@hiarc-platform/shared';
 
 export function useGoogleLogin(): { googleLogin(): void; isLoading: boolean } {
   const [isLoading, setIsLoading] = useState(false);

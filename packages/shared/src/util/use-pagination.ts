@@ -1,4 +1,4 @@
-import { PageableModel } from '@hiarc-platform/shared';
+import { PageableModel } from '..';
 
 const DOTS = 'DOTS';
 
@@ -18,7 +18,7 @@ export function usePaginationWithPageable<T>(params: {
   siblingCount?: number;
 }): PaginationState {
   const { pageableModel, siblingCount = 1 } = params;
-  
+
   if (!pageableModel) {
     return {
       pageRange: [],

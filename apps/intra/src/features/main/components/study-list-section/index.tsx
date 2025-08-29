@@ -3,7 +3,7 @@
 import { cn, StudyCard, Title } from '@hiarc-platform/ui';
 import { useRouter } from 'next/navigation';
 import { useStudiesNow } from '../../hooks/use-studies-now';
-import { DateUtil } from '@hiarc-platform/util';
+import { DateUtil } from '@hiarc-platform/shared';
 
 interface StudyListSectionProps {
   className?: string;

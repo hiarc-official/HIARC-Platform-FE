@@ -17,7 +17,6 @@
     "@fontsource/pretendard": "^5.2.5",
     "@hiarc-platform/shared": "workspace:*",
     "@hiarc-platform/ui": "workspace:*",
-    "@hiarc-platform/util": "workspace:*",
     "@tanstack/react-query": "^5.84.1",
     "@tanstack/react-table": "^8.20.5",
     "axios": "^1.7.9",

@@ -12,7 +12,7 @@ import React from 'react';
 
 import { EditAwardDialog } from './edit-award-dialog';
 import { Award } from '@hiarc-platform/shared';
-import { DateUtil } from '@hiarc-platform/util';
+import { DateUtil } from '@hiarc-platform/shared';
 import useDeleteAward from '@/features/award/hooks/mutation/use-delete-award';
 
 interface AwardListItemProps {

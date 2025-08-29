@@ -6,7 +6,7 @@ import {
   DialogUtil,
   SlideFade,
 } from '@hiarc-platform/ui';
-import { useTable } from '@hiarc-platform/util';
+import { useTable } from '@hiarc-platform/shared';
 import { useCallback, useMemo, useState } from 'react';
 import { PageableModel, Student } from '@hiarc-platform/shared';
 import { createStudentColumns } from './columns';

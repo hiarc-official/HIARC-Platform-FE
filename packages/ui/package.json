@@ -15,7 +15,6 @@
   },
   "dependencies": {
     "@hiarc-platform/shared": "workspace:*",
-    "@hiarc-platform/util": "workspace:*",
     "@radix-ui/react-alert-dialog": "^1.1.14",
     "@radix-ui/react-aspect-ratio": "^1.0.3",
     "@radix-ui/react-avatar": "^1.0.4",

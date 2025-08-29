@@ -1,7 +1,7 @@
 'use client';
 import { Instructor } from '@hiarc-platform/shared';
 import { cn, CommonTableBody, CommonTableHead, Label } from '@hiarc-platform/ui';
-import { useTable } from '@hiarc-platform/util';
+import { useTable } from '@hiarc-platform/shared';
 import { ColumnDef } from '@tanstack/react-table';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useMemo, useState } from 'react';

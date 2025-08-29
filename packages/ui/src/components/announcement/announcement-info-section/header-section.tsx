@@ -7,7 +7,7 @@ import { Divider } from '../../divider';
 import { Label } from '../../label/label';
 import { Title } from '../../label/title';
 import { cn } from '@hiarc-platform/ui';
-import { DateUtil } from '@hiarc-platform/util';
+import { DateUtil } from '@hiarc-platform/shared';
 
 interface HeaderSectionProps {
   announcementTitle: string;

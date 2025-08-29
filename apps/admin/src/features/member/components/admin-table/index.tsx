@@ -1,7 +1,7 @@
 'use client';
 import { Admin } from '@hiarc-platform/shared';
 import { cn, CommonTableBody, CommonTableHead, DialogUtil, SlideFade } from '@hiarc-platform/ui';
-import { useTable } from '@hiarc-platform/util';
+import { useTable } from '@hiarc-platform/shared';
 import { useCallback, useMemo, useState } from 'react';
 import { useSelectedSemester } from '@/shared/hooks/use-semester-store';
 import { createAdminColumns } from './columns';

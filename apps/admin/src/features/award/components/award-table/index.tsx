@@ -1,5 +1,5 @@
 import { cn, CommonTableBody, CommonTableHead, Pagination, SlideFade } from '@hiarc-platform/ui';
-import { useTable } from '@hiarc-platform/util';
+import { useTable } from '@hiarc-platform/shared';
 import { useMemo, useState } from 'react';
 import { useAwardListColumns } from './award-list-column';
 import { PageableModel } from '@hiarc-platform/shared';

@@ -84,9 +84,6 @@ importers:
       '@hiarc-platform/ui':
         specifier: workspace:*
         version: link:../../packages/ui
-      '@hiarc-platform/util':
-        specifier: workspace:*
-        version: link:../../packages/util
       '@tanstack/react-query':
         specifier: ^5.84.1
         version: 5.84.1(react@18.3.1)
@@ -193,9 +190,6 @@ importers:
       '@hiarc-platform/ui':
         specifier: workspace:*
         version: link:../../packages/ui
-      '@hiarc-platform/util':
-        specifier: workspace:*
-        version: link:../../packages/util
       '@tanstack/react-query':
         specifier: ^5.84.1
         version: 5.84.1(react@18.3.1)
@@ -467,9 +461,6 @@ importers:
       '@hiarc-platform/shared':
         specifier: workspace:*
         version: link:../shared
-      '@hiarc-platform/util':
-        specifier: workspace:*
-        version: link:../util
       '@radix-ui/react-alert-dialog':
         specifier: ^1.1.14
         version: 1.1.14(@types/react-dom@18.3.7)(@types/react@18.3.23)(react-dom@18.3.1)(react@18.3.1)
@@ -585,22 +576,6 @@ importers:
       react-hook-form:
         specifier: ^7.60.0
         version: 7.62.0(react@18.3.1)
-
-  packages/util:
-    dependencies:
-      '@hiarc-platform/shared':
-        specifier: workspace:*
-        version: link:../shared
-      typescript:
-        specifier: ^5.0.0
-        version: 5.9.2
-    devDependencies:
-      eslint:
-        specifier: ^8.56.0
-        version: 8.57.1
-      prettier:
-        specifier: ^3.1.0
-        version: 3.6.2
 
 packages:
 

@@ -1,4 +1,4 @@
-import { DateUtil } from '@hiarc-platform/util';
+import { DateUtil } from '@hiarc-platform/shared';
 import { Button } from '../../button';
 import { Divider } from '../../divider';
 import { Label } from '../../label/label';

@@ -3,7 +3,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import { EditCompetitionDialog } from '../update-award-dialog';
 import { useDeleteAward } from '../../hooks/use-delete-award';
 import { Award } from '@hiarc-platform/shared';
-import { DateUtil } from '@hiarc-platform/util';
+import { DateUtil } from '@hiarc-platform/shared';
 
 export const useAwardListColumns = (): Array<ColumnDef<Award>> => {
   const deleteAwardMutation = useDeleteAward();
