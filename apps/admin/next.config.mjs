@@ -1,6 +1,10 @@
 // apps/admin/next.config.mjs
 const nextConfig = {
   transpilePackages: ['@hiarc-platform/ui', '@hiarc-platform/shared'],
+  
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production'
+  },
 
   async headers() {
     return [
