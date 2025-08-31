@@ -32,11 +32,11 @@ export function AnnouncementWritePage(): React.ReactElement {
   const { data: studyOptions = [] } = useStudyOptions(Number(selectedSemesterId));
 
   const handleSubmit = async (data: CreateAnnouncementForm): Promise<void> => {
-    if (isSubmitting) return;
+    if (isSubmitting) {return;}
     setIsSubmitting(true);
 
     try {
-      let imageKeys: string[] = [];
+      const imageKeys: string[] = [];
 
       // 이미지가 있는 경우 업로드 처리
       if (data.images && data.images.length > 0) {

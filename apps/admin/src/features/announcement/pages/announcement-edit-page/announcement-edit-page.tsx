@@ -38,7 +38,7 @@ export function AnnouncementEditPage(): React.ReactElement {
     isEditMode: boolean,
     announcementId?: number
   ): Promise<void> => {
-    if (!announcementId || isSubmitting) return;
+    if (!announcementId || isSubmitting) {return;}
     setIsSubmitting(true);
 
     try {

@@ -37,7 +37,11 @@ export default function DetailInformationSection({
   const isEditMode = Boolean(announcementId);
 
   // CreateAnnouncementRequest 상태
-  const [formData, setFormData] = useState<CreateAnnouncementForm>({
+  const [formData, setFormData] = useState<CreateAnnouncementForm & {
+    publicType?: '공개' | '비공개';
+    studyAnnounceType?: '일반' | '회차별 공지';
+    applyType?: '신청 없음' | '신청 유형';
+  }>({
     title: '',
     place: undefined,
     scheduleStartAt: undefined,
@@ -52,17 +56,10 @@ export default function DetailInformationSection({
     applicationUrl: undefined,
     applicationStartAt: undefined,
     applicationEndAt: undefined,
+    publicType: '공개',
+    studyAnnounceType: initialStudyAnnounceType,
+    applyType: '신청 없음',
   });
-
-  // UI 관련 상태
-  const [applyType, setApplyType] = useState<string>('신청 없음');
-  const [studyAnnounceType, setStudyAnnounceType] = useState<string>(initialStudyAnnounceType);
-  const [publicType, setPublicType] = useState<string>('공개');
-  const [attachmentUrls, setAttachmentUrls] = useState<string[]>(['']);
-  const [scheduleStartAt, setScheduleStartAt] = useState<Date | null>(null);
-  const [scheduleEndAt, setScheduleEndAt] = useState<Date | null>(null);
-  const [applicationStartDate, setApplicationStartDate] = useState<Date | null>(null);
-  const [applicationEndDate, setApplicationEndDate] = useState<Date | null>(null);
 
   // 공지사항 데이터로 폼 초기화 (수정 모드일 때)
   useEffect(() => {
@@ -70,16 +67,8 @@ export default function DetailInformationSection({
       setFormData({
         title: announcement.title || '',
         place: announcement.place || undefined,
-        scheduleStartAt: announcement.scheduleStartAt
-          ? announcement.scheduleStartAt instanceof Date
-            ? announcement.scheduleStartAt.toISOString()
-            : announcement.scheduleStartAt
-          : undefined,
-        scheduleEndAt: announcement.scheduleEndAt
-          ? announcement.scheduleEndAt instanceof Date
-            ? announcement.scheduleEndAt.toISOString()
-            : announcement.scheduleEndAt
-          : undefined,
+        scheduleStartAt: announcement.scheduleStartAt,
+        scheduleEndAt: announcement.scheduleEndAt,
         content: announcement.content || '',
         announcementType: announcement.announcementType || 'GENERAL',
         isPublic: announcement.isPublic ?? true,
@@ -89,71 +78,31 @@ export default function DetailInformationSection({
         studyId: announcement.studyId,
         lectureRound: announcement.lectureRound,
         applicationUrl: announcement.applicationUrl,
-        applicationStartAt: announcement.applicationStartAt
-          ? announcement.applicationStartAt instanceof Date
-            ? announcement.applicationStartAt.toISOString()
-            : announcement.applicationStartAt
-          : undefined,
-        applicationEndAt: announcement.applicationEndAt
-          ? announcement.applicationEndAt instanceof Date
-            ? announcement.applicationEndAt.toISOString()
-            : announcement.applicationEndAt
-          : undefined,
+        applicationStartAt: announcement.applicationStartAt,
+        applicationEndAt: announcement.applicationEndAt,
+        publicType: announcement.isPublic ? '공개' : '비공개',
+        studyAnnounceType: announcement.lectureRound ? '회차별 공지' : '일반',
+        applyType: (announcement.applicationUrl || announcement.applicationStartAt || announcement.applicationEndAt) ? '신청 유형' : '신청 없음',
       });
-
-      // UI 상태들 설정
-      setAttachmentUrls(announcement.attachmentUrls?.length ? announcement.attachmentUrls : ['']);
-      setPublicType(announcement.isPublic ? '공개' : '비공개');
-
-      // 날짜 파싱
-      if (announcement.scheduleStartAt) {
-        setScheduleStartAt(new Date(announcement.scheduleStartAt));
-      }
-      if (announcement.scheduleEndAt) {
-        setScheduleEndAt(new Date(announcement.scheduleEndAt));
-      }
-      if (announcement.applicationStartAt) {
-        setApplicationStartDate(new Date(announcement.applicationStartAt));
-      }
-      if (announcement.applicationEndAt) {
-        setApplicationEndDate(new Date(announcement.applicationEndAt));
-      }
-
-      // 신청 유형 설정
-      if (
-        announcement.applicationUrl ||
-        announcement.applicationStartAt ||
-        announcement.applicationEndAt
-      ) {
-        setApplyType('신청 유형');
-      } else {
-        setApplyType('신청 없음');
-      }
-
-      // 스터디 공지 유형 설정
-      if (announcement.lectureRound) {
-        setStudyAnnounceType('회차별 공지');
-      } else {
-        setStudyAnnounceType('일반');
-      }
     }
   }, [isEditMode, announcement]);
 
   // URL 관리 함수
   const addUrl = (): void => {
-    setAttachmentUrls([...attachmentUrls, '']);
+    setFormData((prev) => ({ ...prev, attachmentUrls: [...(prev.attachmentUrls || []), ''] }));
   };
 
   const updateUrl = (index: number, value: string): void => {
-    const newUrls = [...attachmentUrls];
+    const newUrls = [...(formData.attachmentUrls || [])];
     newUrls[index] = value;
-    setAttachmentUrls(newUrls);
+    setFormData((prev) => ({ ...prev, attachmentUrls: newUrls }));
   };
 
   const removeUrl = (index: number): void => {
-    if (attachmentUrls.length > 1) {
-      const newUrls = attachmentUrls.filter((_, i) => i !== index);
-      setAttachmentUrls(newUrls);
+    const currentUrls = formData.attachmentUrls || [];
+    if (currentUrls.length > 1) {
+      const newUrls = currentUrls.filter((_, i) => i !== index);
+      setFormData((prev) => ({ ...prev, attachmentUrls: newUrls }));
     }
   };
 
@@ -175,7 +124,11 @@ export default function DetailInformationSection({
   };
 
   // formData 업데이트 헬퍼 함수
-  const updateFormData = (updates: Partial<CreateAnnouncementForm>): void => {
+  const updateFormData = (updates: Partial<CreateAnnouncementForm & {
+    publicType?: '공개' | '비공개';
+    studyAnnounceType?: '일반' | '회차별 공지';
+    applyType?: '신청 없음' | '신청 유형';
+  }>): void => {
     console.log('updateFormData 호출됨:', updates);
     setFormData((prev) => {
       const newData = { ...prev, ...updates };
@@ -185,12 +138,31 @@ export default function DetailInformationSection({
   };
 
   // 날짜를 YYYY-MM-DD 형태로 포맷하는 헬퍼 함수
-  const formatDateToString = (date: Date | null): string | undefined => {
+  const formatDateToLocalString = (date: Date | string | undefined): string | undefined => {
     if (!date) {return undefined;}
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
+    
+    const dateObj = date instanceof Date ? date : new Date(date);
+    if (isNaN(dateObj.getTime())) {return undefined;}
+    
+    // 로컬 시간대 기준으로 YYYY-MM-DD 형식 생성
+    const year = dateObj.getFullYear();
+    const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+    const day = String(dateObj.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
+  };
+
+  // 날짜시간을 로컬 시간대 기준 ISO 문자열로 변환하는 헬퍼 함수
+  const formatDateTimeToLocalISOString = (date: Date | string | undefined): string | undefined => {
+    if (!date) {return undefined;}
+    
+    const dateObj = date instanceof Date ? date : new Date(date);
+    if (isNaN(dateObj.getTime())) {return undefined;}
+    
+    // 로컬 시간대 오프셋을 계산
+    const timezoneOffset = dateObj.getTimezoneOffset() * 60000; // 밀리초로 변환
+    // 로컬 시간에서 오프셋을 빼서 UTC 기준으로 조정 (실제로는 로컬 시간 유지)
+    const localDate = new Date(dateObj.getTime() - timezoneOffset);
+    return localDate.toISOString();
   };
 
   // 폼 제출 함수
@@ -202,8 +174,8 @@ export default function DetailInformationSection({
     }
 
     // 신청 유형이 선택된 경우 필수 입력 검증
-    if (applyType === '신청 유형') {
-      if (!applicationStartDate || !applicationEndDate || !formData.applicationUrl?.trim()) {
+    if (formData.applyType === '신청 유형') {
+      if (!formData.applicationStartAt || !formData.applicationEndAt || !formData.applicationUrl?.trim()) {
         DialogUtil.showError(
           '신청 유형을 선택한 경우 신청 시작일, 신청 종료일, 신청 URL을 모두 입력해주세요.'
         );
@@ -216,38 +188,24 @@ export default function DetailInformationSection({
       title: formData.title.trim(),
       content: formData.content.trim(),
       place: formData.place?.trim() || undefined,
-      scheduleStartAt: scheduleStartAt?.toISOString() || undefined,
-      scheduleEndAt: scheduleEndAt?.toISOString() || undefined,
+      scheduleStartAt: formatDateTimeToLocalISOString(formData.scheduleStartAt),
+      scheduleEndAt: formatDateTimeToLocalISOString(formData.scheduleEndAt),
       announcementType: formData.announcementType,
-      isPublic: publicType === '공개',
-      attachmentUrls: attachmentUrls.filter((url) => url.trim() !== ''),
+      isPublic: formData.publicType === '공개',
+      attachmentUrls: (formData.attachmentUrls || []).filter((url) => url.trim() !== ''),
       images: formData.images || [],
       imageSources: formData.imageSources || [], // 기존 이미지 순서 보장
       studyId: formData.studyId,
       lectureRound: formData.lectureRound,
-      applicationUrl: formData.applicationUrl,
-      applicationStartAt: formData.applicationStartAt,
-      applicationEndAt: formData.applicationEndAt,
+      applicationUrl: formData.applicationUrl?.trim() || null,
+      applicationStartAt: formatDateToLocalString(formData.applicationStartAt || undefined) || null,
+      applicationEndAt: formatDateToLocalString(formData.applicationEndAt || undefined) || null,
     };
 
-    // STUDY 카테고리일 때 추가 필드
+    // STUDY 카테고리일 때만 회차별 공지 처리
     if (formData.announcementType === 'STUDY') {
-      if (studyAnnounceType === '회차별 공지') {
-        requestData.lectureRound = formData.lectureRound;
-      } else {
+      if (formData.studyAnnounceType !== '회차별 공지') {
         requestData.lectureRound = undefined;
-      }
-    } else {
-      // 다른 카테고리에서 신청 관련 필드
-      if (applyType === '신청 유형') {
-        requestData.applicationUrl = formData.applicationUrl?.trim() || undefined;
-        // 신청 날짜는 YYYY-MM-DD 형태로만 전송
-        requestData.applicationStartAt = formatDateToString(applicationStartDate);
-        requestData.applicationEndAt = formatDateToString(applicationEndDate);
-      } else {
-        requestData.applicationUrl = undefined;
-        requestData.applicationStartAt = undefined;
-        requestData.applicationEndAt = undefined;
       }
     }
 
@@ -278,12 +236,18 @@ export default function DetailInformationSection({
             <LabeledCalanderInput
               placeholder="시작 일시를 선택해주세요"
               label="시작 일시"
-              value={scheduleStartAt}
+              value={
+                formData.scheduleStartAt
+                  ? formData.scheduleStartAt instanceof Date
+                    ? formData.scheduleStartAt
+                    : new Date(formData.scheduleStartAt)
+                  : null
+              }
               showTimeSelect={true}
               timeIntervals={30}
-              onChange={(val) => {
-                if (!Array.isArray(val)) {
-                  setScheduleStartAt(val);
+              onChange={(value) => {
+                if (!Array.isArray(value)) {
+                  updateFormData({ scheduleStartAt: value || undefined });
                 }
               }}
             />
@@ -305,7 +269,7 @@ export default function DetailInformationSection({
           />
 
           <div className="flex flex-col gap-2">
-            {attachmentUrls.map((url, index) => (
+            {(formData.attachmentUrls || []).map((url, index) => (
               <UrlInput
                 key={index}
                 value={url}
@@ -319,16 +283,6 @@ export default function DetailInformationSection({
         <SideBar
           formData={formData}
           onFormDataChange={updateFormData}
-          applyType={applyType}
-          onApplyTypeChange={setApplyType}
-          studyAnnounceType={studyAnnounceType}
-          onStudyAnnounceTypeChange={setStudyAnnounceType}
-          publicType={publicType}
-          onPublicTypeChange={setPublicType}
-          applicationStartDate={applicationStartDate}
-          onApplicationStartDateChange={setApplicationStartDate}
-          applicationEndDate={applicationEndDate}
-          onApplicationEndDateChange={setApplicationEndDate}
           studyOptions={studyOptions}
           disableCategoryChange={disableCategoryChange}
           disableStudyTypeChange={disableStudyTypeChange}

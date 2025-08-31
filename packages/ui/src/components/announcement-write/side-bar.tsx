@@ -5,21 +5,19 @@ import { LabeledSelectButton } from '../select/labeled-select-button';
 import { LabeledInput } from '../input/labeled-input';
 import { LabeledCalanderInput } from '../input/labeled-calander-input';
 import { Button } from '../button';
-import { CreateAnnouncementRequest, SelectOption } from '@hiarc-platform/shared';
+import { CreateAnnouncementForm, SelectOption } from '@hiarc-platform/shared';
 
 interface SideBarProps {
-  formData: CreateAnnouncementRequest;
-  onFormDataChange(updates: Partial<CreateAnnouncementRequest>): void;
-  applyType: string;
-  onApplyTypeChange(value: string): void;
-  studyAnnounceType: string;
-  onStudyAnnounceTypeChange(value: string): void;
-  publicType: string;
-  onPublicTypeChange(value: string): void;
-  applicationStartDate: Date | null;
-  onApplicationStartDateChange(value: Date | null): void;
-  applicationEndDate: Date | null;
-  onApplicationEndDateChange(value: Date | null): void;
+  formData: CreateAnnouncementForm & {
+    publicType?: '공개' | '비공개';
+    studyAnnounceType?: '일반' | '회차별 공지';
+    applyType?: '신청 없음' | '신청 유형';
+  };
+  onFormDataChange(updates: Partial<CreateAnnouncementForm & {
+    publicType?: '공개' | '비공개';
+    studyAnnounceType?: '일반' | '회차별 공지';
+    applyType?: '신청 없음' | '신청 유형';
+  }>): void;
   studyOptions?: SelectOption[];
   disableCategoryChange?: boolean;
   disableStudyTypeChange?: boolean;
@@ -31,16 +29,6 @@ interface SideBarProps {
 export function SideBar({
   formData,
   onFormDataChange,
-  applyType,
-  onApplyTypeChange,
-  studyAnnounceType,
-  onStudyAnnounceTypeChange,
-  publicType,
-  onPublicTypeChange,
-  applicationStartDate,
-  onApplicationStartDateChange,
-  applicationEndDate,
-  onApplicationEndDateChange,
   studyOptions = [],
   disableCategoryChange = false,
   disableStudyTypeChange = false,
@@ -89,11 +77,14 @@ export function SideBar({
             label="카테고리"
             value={formData.announcementType}
             disabled={disableCategoryChange}
-            onChange={(value: string) =>
+            onChange={(value: string) => {
+              const announcementType = value as 'STUDY' | 'RATING' | 'GENERAL' | 'ETC' | 'EXTERNAL';
               onFormDataChange({
-                announcementType: value as 'STUDY' | 'RATING' | 'GENERAL' | 'ETC' | 'EXTERNAL',
-              })
-            }
+                announcementType,
+                // STUDY 카테고리를 선택했을 때 신청 유형을 '신청 없음'으로 리셋
+                ...(announcementType === 'STUDY' && { applyType: '신청 없음' })
+              });
+            }}
           />
 
           {/* STUDY 카테고리일 때 스터디 선택 */}
@@ -120,14 +111,16 @@ export function SideBar({
             <LabeledSelectButton
               label="스터디 공지 유형"
               required={true}
-              value={studyAnnounceType}
+              value={formData.studyAnnounceType || '일반'}
               options={studyAnnounceTypeOptionList}
               disabled={disableStudyTypeChange}
-              onChange={onStudyAnnounceTypeChange}
+              onChange={(value: string) => {
+                onFormDataChange({ studyAnnounceType: value as '일반' | '회차별 공지' });
+              }}
             />
 
             {/* 회차별 공지를 선택했을 때 회차 선택 */}
-            {studyAnnounceType === '회차별 공지' && (
+            {formData.studyAnnounceType === '회차별 공지' && (
               <LabeledSelector
                 placeholder="회차를 선택해주세요."
                 options={lectureRoundOptions}
@@ -148,22 +141,39 @@ export function SideBar({
             <LabeledSelectButton
               label="신청 유형"
               required
-              value={applyType}
+              value={formData.applyType || '신청 없음'}
               options={applyTypeOptionList}
-              onChange={onApplyTypeChange}
+              onChange={(value: string) => {
+                const applyType = value as '신청 없음' | '신청 유형';
+                onFormDataChange({
+                  applyType,
+                  // '신청 없음'을 선택했을 때 관련 필드들을 undefined로 초기화
+                  ...(applyType === '신청 없음' && {
+                    applicationStartAt: undefined,
+                    applicationEndAt: undefined,
+                    applicationUrl: undefined
+                  })
+                });
+              }}
             />
 
             {/* 신청 유형을 선택했을 때 (신청 없음이 아닐 때) */}
-            {applyType === '신청 유형' && (
+            {formData.applyType === '신청 유형' && (
               <>
                 <LabeledCalanderInput
                   placeholder="신청 시작일을 선택해주세요"
                   label="신청 시작일"
                   required
-                  value={applicationStartDate}
-                  onChange={(val: Date | null) => {
-                    if (!Array.isArray(val)) {
-                      onApplicationStartDateChange(val);
+                  value={
+                    formData.applicationStartAt
+                      ? formData.applicationStartAt instanceof Date
+                        ? formData.applicationStartAt
+                        : new Date(formData.applicationStartAt)
+                      : null
+                  }
+                  onChange={(value: Date) => {
+                    if (!Array.isArray(value)) {
+                      onFormDataChange({ applicationStartAt: value });
                     }
                   }}
                 />
@@ -171,10 +181,16 @@ export function SideBar({
                   placeholder="신청 종료일을 선택해주세요"
                   label="신청 종료일"
                   required={true}
-                  value={applicationEndDate}
-                  onChange={(val: Date | null) => {
-                    if (!Array.isArray(val)) {
-                      onApplicationEndDateChange(val);
+                  value={
+                    formData.applicationEndAt
+                      ? formData.applicationEndAt instanceof Date
+                        ? formData.applicationEndAt
+                        : new Date(formData.applicationEndAt)
+                      : null
+                  }
+                  onChange={(value: Date) => {
+                    if (!Array.isArray(value)) {
+                      onFormDataChange({ applicationEndAt: value });
                     }
                   }}
                 />
@@ -196,9 +212,11 @@ export function SideBar({
         <LabeledSelectButton
           label="공개 여부"
           required
-          value={publicType}
+          value={formData.publicType || undefined}
           options={publicTypeOptionList}
-          onChange={onPublicTypeChange}
+          onChange={(value: string) => {
+            onFormDataChange({ publicType: value as '공개' | '비공개' });
+          }}
         />
       </div>
 
