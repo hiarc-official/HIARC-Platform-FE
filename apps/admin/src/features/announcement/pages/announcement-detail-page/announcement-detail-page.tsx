@@ -85,7 +85,7 @@ export function AnnouncementDetailPage(): React.ReactElement {
           className="mt-6"
           announcementTitle={announcement?.title || '제목 없음'}
           announcementCategory={announcement?.announcementType || 'GENERAL'}
-          announcementDate={announcement?.createdAt?.toISOString() || '날짜 없음'}
+          announcementDate={announcement?.createdAt}
           urlList={announcement?.attachmentUrls || []}
           place={announcement?.place || ''}
           scheduleStartAt={announcement?.scheduleStartAt || undefined}
@@ -113,14 +113,12 @@ export function AnnouncementDetailPage(): React.ReactElement {
       <FadeIn
         isVisible={Boolean(announcement)}
         duration={0.4}
-        className="flex flex-col items-center px-4 md:hidden"
+        className="flex flex-col items-center md:hidden"
       >
-        <BackButton onClick={handleBackClick} />
         <AnnouncementInfoSection
-          className="mt-4"
           announcementTitle={announcement?.title || '제목 없음'}
           announcementCategory={announcement?.announcementType || 'GENERAL'}
-          announcementDate={announcement?.createdAt?.toISOString() || '날짜 없음'}
+          announcementDate={announcement?.createdAt}
           urlList={announcement?.attachmentUrls || []}
           place={announcement?.place || ''}
           scheduleStartAt={announcement?.scheduleStartAt || undefined}

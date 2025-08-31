@@ -39,7 +39,7 @@ export function LabeledImageInput({
   // 기존 이미지와 새 이미지를 하나의 배열로 통합
   useEffect(() => {
     const newAllImages: ImageItem[] = [];
-    
+
     // 1. 기존 이미지들 먼저 추가
     existingImages.forEach((imageSource, index) => {
       newAllImages.push({
@@ -47,26 +47,26 @@ export function LabeledImageInput({
         type: 'existing',
         src: imageSource.url || '',
         imageSource,
-        originalIndex: index
+        originalIndex: index,
       });
     });
-    
-    // 2. 새 이미지들 나중에 추가  
+
+    // 2. 새 이미지들 나중에 추가
     value.forEach((file, index) => {
       newAllImages.push({
         id: `new-${index}-${file.name}`,
         type: 'new',
         src: URL.createObjectURL(file),
         file,
-        originalIndex: index
+        originalIndex: index,
       });
     });
-    
+
     setAllImages(newAllImages);
-    
+
     // 메모리 정리
     return () => {
-      newAllImages.forEach(item => {
+      newAllImages.forEach((item) => {
         if (item.type === 'new' && item.src.startsWith('blob:')) {
           URL.revokeObjectURL(item.src);
         }

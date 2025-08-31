@@ -35,14 +35,12 @@ export function LocationScheduleSection({
 }: LocationScheduleSectionProps): React.ReactElement | null {
   return (
     <>
-      <div className="mt-6 flex w-full gap-4">
+      <div className="mt-6 flex w-full flex-col gap-4 md:flex-row">
         <div className="flex flex-1 items-center gap-4">
-          <Label className="w-[86px] text-gray-500" size="lg" weight="bold">
+          <Label className="w-[86px] text-gray-500" weight="bold">
             장소
           </Label>
-          <Label size="lg" weight="medium">
-            {place ? place : '-'}
-          </Label>
+          <Label weight="medium">{place ? place : '-'}</Label>
         </div>
         <div className="flex flex-1 items-center gap-4">
           <Label className="w-[86px] text-gray-500" weight="bold">
@@ -57,29 +55,31 @@ export function LocationScheduleSection({
             <Label className="w-[86px] text-gray-500" weight="bold">
               신청 기한
             </Label>
-            <Label weight="medium">
-              {DateUtil.formatDateWithDots(applicationStartAt)}
-              {applicationEndAt && ` ~ ${DateUtil.formatDateWithDots(applicationEndAt)}`}
-            </Label>
-            <Button
-              size="xs"
-              variant="line"
-              className="border-primary-100 text-primary-100"
-              disabled={
-                !applicationUrl ||
-                !isApplicationPeriodActive(applicationStartAt, applicationEndAt) ||
-                memberRole === 'GUEST' ||
-                memberRole === 'ASSOCIATE' ||
-                memberRole === null
-              }
-              onClick={() => applicationUrl && window.open(applicationUrl, '_blank')}
-            >
-              신청하기
-            </Button>
+            <div className="flex flex-1 items-center gap-2">
+              <Label weight="medium" className="min-w-0 flex-1 truncate">
+                {DateUtil.formatDateWithDots(applicationStartAt)}
+                {applicationEndAt && ` ~ ${DateUtil.formatDateWithDots(applicationEndAt)}`}
+              </Label>
+              <Button
+                size="xs"
+                variant="line"
+                className="ml-auto flex-shrink-0 border-primary-100 text-primary-100"
+                disabled={
+                  !applicationUrl ||
+                  !isApplicationPeriodActive(applicationStartAt, applicationEndAt) ||
+                  memberRole === 'GUEST' ||
+                  memberRole === 'ASSOCIATE' ||
+                  memberRole === null
+                }
+                onClick={() => applicationUrl && window.open(applicationUrl, '_blank')}
+              >
+                신청하기
+              </Button>
+            </div>
           </div>
         )}
       </div>
-      <Divider variant="horizontal" size="full" className="mt-6 bg-gray-200" />
+      <Divider variant="horizontal" size="full" className="mt-6 hidden bg-gray-200 md:block" />
     </>
   );
 }

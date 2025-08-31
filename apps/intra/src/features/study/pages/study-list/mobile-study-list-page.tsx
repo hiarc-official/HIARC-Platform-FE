@@ -6,14 +6,8 @@ import { useStudyListPageState } from '@/features/study/hooks/page/use-study-lis
 import { Title, LoadingDots } from '@hiarc-platform/ui';
 
 export function MobileStudyListPage(): React.ReactElement {
-  const {
-    studies,
-    isLoading,
-    error,
-    filterParams,
-    handlePageChange,
-    handleSearch,
-  } = useStudyListPageState();
+  const { studies, isLoading, error, filterParams, handlePageChange, handleSearch } =
+    useStudyListPageState();
 
   if (isLoading) {
     return (

@@ -6,4 +6,4 @@ export const SHARED_ASSETS = {
   ZOOM_IN: '/shared-assets/ZoomIn.svg',
 } as const;
 
-export type SharedAsset = typeof SHARED_ASSETS[keyof typeof SHARED_ASSETS];
+export type SharedAsset = (typeof SHARED_ASSETS)[keyof typeof SHARED_ASSETS];

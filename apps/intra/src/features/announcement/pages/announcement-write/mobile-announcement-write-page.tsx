@@ -6,13 +6,8 @@ import { AnnouncementWrite } from '@hiarc-platform/ui';
 import { useAnnouncementWritePageState } from '../../hooks/page/use-announcement-write-page-state';
 
 export function MobileAnnouncementWritePage(): React.ReactElement {
-  const {
-    studyOptions,
-    initialType,
-    initialStudyId,
-    initialStudyAnnounceType,
-    handleSubmit,
-  } = useAnnouncementWritePageState();
+  const { studyOptions, initialType, initialStudyId, initialStudyAnnounceType, handleSubmit } =
+    useAnnouncementWritePageState();
 
   return (
     <div className="flex w-full flex-col gap-4">

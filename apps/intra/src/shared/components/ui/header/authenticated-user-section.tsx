@@ -126,11 +126,13 @@ export function AuthenticatedUserSection(): React.ReactElement {
         size="lg"
         onClick={handleMyPage}
       />
-      {myInfo?.bojHandle && myInfo?.memberRole !== 'GUEST' && myInfo?.memberRole !== 'ASSOCIATE' && (
-        <Button size="sm" className="bg-primary-100" onClick={handleAttendanceCheck}>
-          출석체크
-        </Button>
-      )}
+      {myInfo?.bojHandle &&
+        myInfo?.memberRole !== 'GUEST' &&
+        myInfo?.memberRole !== 'ASSOCIATE' && (
+          <Button size="sm" className="bg-primary-100" onClick={handleAttendanceCheck}>
+            출석체크
+          </Button>
+        )}
       <div className="relative">
         <Button
           variant="line_secondary"

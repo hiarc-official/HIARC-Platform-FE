@@ -1,39 +1,15 @@
 'use client';
 
-import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Title, Button, LoadingDots, FadeIn } from '@hiarc-platform/ui';
 import { AnnouncementFilter } from '../../components/announcement-filter/announcement-filter';
 import { AnnouncementTable } from '../../components/announcement-table/announcement-table';
-import { useAdminAnnouncementList } from '../../hooks';
-import { AnnouncementQueryParams } from '../../types/request/announcement-query-params';
-import { useSelectedSemester } from '@/shared/hooks/use-semester-store';
+import { useAdminAnnouncementListPageState } from '../../hooks/page/use-admin-announcement-list-page-state';
 
 export function AnnouncementListPage(): React.ReactElement {
   const router = useRouter();
-  const [currentPage, setCurrentPage] = useState(1);
-  const [filters, setFilters] = useState<Partial<AnnouncementQueryParams>>({});
-  const { selectedSemesterId } = useSelectedSemester();
-
-  const {
-    data: pageableModel,
-    isLoading,
-    error,
-  } = useAdminAnnouncementList({
-    page: currentPage - 1,
-    size: 10,
-    semesterId: Number(selectedSemesterId),
-    ...filters,
-  });
-
-  const handlePageChange = (page: number): void => {
-    setCurrentPage(page);
-  };
-
-  const handleFilterChange = (newFilters: Partial<AnnouncementQueryParams>): void => {
-    setFilters(newFilters);
-    setCurrentPage(1);
-  };
+  const { filterParams, pageableModel, isLoading, error, handlePageChange, handleFilterChange } =
+    useAdminAnnouncementListPageState();
 
   const handleWriteAnnouncement = (): void => {
     router.push('/announcement/write');
@@ -65,7 +41,10 @@ export function AnnouncementListPage(): React.ReactElement {
 
   return (
     <FadeIn isVisible={Boolean(pageableModel)} duration={0.4} className="flex flex-col">
-      <div className="mb-7 flex justify-between">
+      {/* 모바일에서 고정 헤더로 인한 패딩 추가 */}
+      <div className="pt-10 md:pt-0" />
+
+      <div className="mb-7 hidden justify-between md:flex">
         <Title size="sm" weight="bold">
           공지사항
         </Title>
@@ -73,7 +52,19 @@ export function AnnouncementListPage(): React.ReactElement {
           작성하기
         </Button>
       </div>
-      <AnnouncementFilter onFilterChange={handleFilterChange} filters={filters} />
+
+      {/* 모바일: 상세 검색과 작성하기 버튼을 나란히 */}
+      <div className="mb-6 flex items-center justify-between gap-4 md:hidden">
+        <AnnouncementFilter onFilterChange={handleFilterChange} filters={filterParams} />
+        <Button size="xs" onClick={handleWriteAnnouncement}>
+          작성하기
+        </Button>
+      </div>
+
+      {/* 데스크톱: 기존 필터 */}
+      <div className="hidden md:block">
+        <AnnouncementFilter onFilterChange={handleFilterChange} filters={filterParams} />
+      </div>
       <AnnouncementTable
         className="mt-6"
         pageableModel={pageableModel}

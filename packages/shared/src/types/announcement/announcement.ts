@@ -1,9 +1,11 @@
+import { DateTime } from 'luxon';
+
 export interface AnnouncementNavigationItem {
-  announcementId?: number | null;
-  title?: string | null;
-  studyId?: number | null;
-  studyName?: string | null;
-  lectureRound?: number | null;
+  announcementId?: number;
+  title?: string;
+  studyId?: number;
+  studyName?: string;
+  lectureRound?: number;
 }
 
 export interface ImageSource {
@@ -12,60 +14,66 @@ export interface ImageSource {
 }
 
 export interface Announcement {
-  announcementId?: number | null;
-  title?: string | null;
-  place?: string | null;
-  scheduleStartAt?: Date | null;
-  scheduleEndAt?: Date | null;
-  content?: string | null;
-  announcementType?: 'STUDY' | 'RATING' | 'GENERAL' | 'ETC' | 'EXTERNAL' | null;
-  authorId?: number | null;
-  authorName?: string | null;
-  createdAt?: Date | null;
-  applicationUrl?: string | null;
-  applicationStartAt?: Date | null;
-  applicationEndAt?: Date | null;
-  attachmentUrls?: string[] | null;
-  imageUrls?: ImageSource[] | null;
-  studyId?: number | null;
-  studyName?: string | null;
-  lectureRound?: number | null;
-  isPublic?: boolean | null;
-  semesterId?: number | null;
-  prev?: AnnouncementNavigationItem | null;
-  next?: AnnouncementNavigationItem | null;
+  announcementId?: number;
+  title?: string;
+  place?: string;
+  scheduleStartAt?: Date;
+  scheduleEndAt?: Date;
+  content?: string;
+  announcementType?: 'STUDY' | 'RATING' | 'GENERAL' | 'ETC' | 'EXTERNAL';
+  authorId?: number;
+  authorName?: string;
+  createdAt?: Date;
+  applicationUrl?: string;
+  applicationStartAt?: Date;
+  applicationEndAt?: Date;
+  attachmentUrls?: string[];
+  imageUrls?: ImageSource[];
+  studyId?: number;
+  studyName?: string;
+  lectureRound?: number;
+  isPublic?: boolean;
+  semesterId?: number;
+  prev?: AnnouncementNavigationItem;
+  next?: AnnouncementNavigationItem;
 
-  readonly announcementTitle?: string | null;
+  readonly announcementTitle?: string;
 }
 
 export const Announcement = {
   fromJson(json: unknown): Announcement {
     const data = (json || {}) as Record<string, unknown>;
     const announcement = {
-      announcementId: (data.announcementId as number) || null,
+      announcementId: (data.announcementId as number) || undefined,
       title: data.title as string,
-      place: (data.place as string) || null,
-      scheduleStartAt: data.scheduleStartAt ? new Date(data.scheduleStartAt as string) : null,
-      scheduleEndAt: data.scheduleEndAt ? new Date(data.scheduleEndAt as string) : null,
-      content: (data.content as string) || null,
-      announcementType: (data.announcementType as Announcement['announcementType']) || null,
-      authorId: (data.authorId as number) || null,
-      authorName: (data.authorName as string) || null,
-      createdAt: data.createdAt ? new Date(data.createdAt as string) : null,
-      applicationUrl: (data.applicationUrl as string) || null,
+      place: (data.place as string) || undefined,
+      scheduleStartAt: data.scheduleStartAt
+        ? DateTime.fromISO(data.scheduleStartAt as string).toJSDate()
+        : undefined,
+      scheduleEndAt: data.scheduleEndAt
+        ? DateTime.fromISO(data.scheduleEndAt as string).toJSDate()
+        : undefined,
+      content: (data.content as string) || undefined,
+      announcementType: (data.announcementType as Announcement['announcementType']) || undefined,
+      authorId: (data.authorId as number) || undefined,
+      authorName: (data.authorName as string) || undefined,
+      createdAt: data.createdAt ? DateTime.fromISO(data.createdAt as string).toJSDate() : undefined,
+      applicationUrl: (data.applicationUrl as string) || undefined,
       applicationStartAt: data.applicationStartAt
-        ? new Date(data.applicationStartAt as string)
-        : null,
-      applicationEndAt: data.applicationEndAt ? new Date(data.applicationEndAt as string) : null,
-      attachmentUrls: (data.attachmentUrls as string[]) || null,
-      imageUrls: (data.imageUrls as ImageSource[]) || null,
-      studyId: (data.studyId as number) || null,
-      studyName: (data.studyName as string) || null,
-      lectureRound: (data.lectureRound as number) || null,
-      isPublic: (data.isPublic as boolean) ?? null,
-      semesterId: (data.semesterId as number) || null,
-      prev: (data.prev as AnnouncementNavigationItem) || null,
-      next: (data.next as AnnouncementNavigationItem) || null,
+        ? DateTime.fromISO(data.applicationStartAt as string).toJSDate()
+        : undefined,
+      applicationEndAt: data.applicationEndAt
+        ? DateTime.fromISO(data.applicationEndAt as string).toJSDate()
+        : undefined,
+      attachmentUrls: (data.attachmentUrls as string[]) || undefined,
+      imageUrls: (data.imageUrls as ImageSource[]) || undefined,
+      studyId: (data.studyId as number) || undefined,
+      studyName: (data.studyName as string) || undefined,
+      lectureRound: (data.lectureRound as number) || undefined,
+      isPublic: (data.isPublic as boolean) ?? undefined,
+      semesterId: (data.semesterId as number) || undefined,
+      prev: (data.prev as AnnouncementNavigationItem) || undefined,
+      next: (data.next as AnnouncementNavigationItem) || undefined,
     };
 
     return { ...announcement, announcementTitle: this.getAnnouncementTitle(announcement) };
@@ -77,7 +85,7 @@ export const Announcement = {
     }
 
     if (announcement.announcementType === 'STUDY') {
-      if (announcement.lectureRound !== null && announcement.lectureRound !== undefined) {
+      if (announcement.lectureRound !== undefined) {
         return `[${announcement.studyName}][${announcement.lectureRound}회차] ${announcement.title}`;
       }
       return `[${announcement.studyName}] ${announcement.title}`;

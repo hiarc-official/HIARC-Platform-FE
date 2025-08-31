@@ -4,9 +4,7 @@ import { RecruitCompleteDialog } from './recruit-complete-dialog';
 
 export function RecruitCompleteModalTrigger(): React.ReactElement {
   const handleOpenDialog = (): void => {
-    DialogUtil.showComponent(
-      <RecruitCompleteDialog />
-    );
+    DialogUtil.showComponent(<RecruitCompleteDialog />);
   };
 
   return (

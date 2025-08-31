@@ -12,7 +12,7 @@ import { DateUtil } from '@hiarc-platform/shared';
 interface HeaderSectionProps {
   announcementTitle: string;
   announcementCategory: 'RATING' | 'STUDY' | 'ETC' | 'GENERAL' | 'EXTERNAL';
-  announcementDate: string;
+  announcementDate?: Date;
 }
 
 export function HeaderSection({
@@ -33,13 +33,13 @@ export function HeaderSection({
           >
             {getAnnouncementTypeLabel(AnnnouncementType[announcementCategory])}
           </Label>
-          <Divider variant="vertical" size="10px" />
+          <Divider variant="vertical" size="10px" className="hidden md:block" />
           <Label size="md" className="text-gray-700">
-            {DateUtil.formatDateWithDots(announcementDate)}
+            {DateUtil.formatDateWithDots(announcementDate ?? '')}
           </Label>
         </div>
       </div>
-      <Divider variant="horizontal" size="full" className="mt-6" />
+      <Divider variant="horizontal" size="full" className="mt-6 hidden md:block" />
     </>
   );
 }

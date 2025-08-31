@@ -44,7 +44,7 @@ export function AuthenticatedMobileSection(): React.ReactElement {
       try {
         const userData = await authApi.GET_ME();
         setMyInfo(userData);
-        
+
         // approvedNotification이 있으면 팝업 표시
         if (userData?.approvedNotification) {
           setIsPopupOpen(true);
@@ -114,14 +114,14 @@ export function AuthenticatedMobileSection(): React.ReactElement {
             className="absolute right-0 top-full z-50 mt-2 w-[280px] rounded-md bg-white p-4 shadow-lg ring-1 ring-black ring-opacity-5"
           >
             <FadeIn isVisible={isPopupOpen && myInfo?.approvedNotification !== null}>
-              <SignupPopup 
+              <SignupPopup
                 onClose={() => {
                   // 알림 읽음 처리
                   if (myInfo?.approvedNotification?.semesterId) {
                     recruitNotificationReadMutation.mutate(myInfo.approvedNotification.semesterId);
                   }
                   setIsPopupOpen(false);
-                }} 
+                }}
               />
             </FadeIn>
           </div>

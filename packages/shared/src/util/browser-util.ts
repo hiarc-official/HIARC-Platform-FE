@@ -118,7 +118,7 @@ export const BrowserUtil = {
     if (typeof navigator === 'undefined') {
       return;
     }
-    
+
     console.log('User Agent:', navigator.userAgent);
     console.log('Vendor:', navigator.vendor);
     console.log('Is In-App Browser:', this.isInAppBrowser());

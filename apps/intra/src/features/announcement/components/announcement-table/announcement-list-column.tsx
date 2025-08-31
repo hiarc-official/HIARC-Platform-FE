@@ -1,4 +1,4 @@
-import { AnnouncementSummary } from '@hiarc-platform/shared';
+import { AnnouncementSummary, DateUtil } from '@hiarc-platform/shared';
 import { Label, CategoryChip } from '@hiarc-platform/ui';
 import { ColumnDef } from '@tanstack/react-table';
 
@@ -19,6 +19,72 @@ function mapAnnouncementType(type: string): 'RATING' | 'STUDY' | 'ETC' | 'GENERA
   }
 }
 
+export const MOBILE_ANNOUNCEMENT_LIST_COLUMN: Array<ColumnDef<AnnouncementSummary>> = [
+  {
+    id: 'id',
+    accessorKey: 'id',
+    enableSorting: false,
+    size: 48,
+    meta: {
+      headAlign: 'center',
+      bodyAlign: 'center',
+    },
+    header: () => (
+      <Label size="md" weight="bold">
+        번호
+      </Label>
+    ),
+    cell: ({ row }: { row: { original: AnnouncementSummary } }) => (
+      <Label size="md" weight="regular">
+        {row.original.announcementId ? `${row.original.announcementId}.` : '-'}
+      </Label>
+    ),
+    footer: (props) => props.column.id,
+  },
+  {
+    id: 'title',
+    accessorKey: 'title',
+    size: 0,
+    meta: {
+      headAlign: 'center',
+      bodyAlign: 'left',
+    },
+    header: () => (
+      <Label size="md" weight="bold">
+        제목
+      </Label>
+    ),
+    cell: ({ row }: { row: { original: AnnouncementSummary } }) => (
+      <Label size="md" weight="regular" className="pl-4">
+        {row.original.announcementTitle ?? '-'}
+      </Label>
+    ),
+    footer: (props) => props.column.id,
+  },
+  {
+    id: 'createdAt',
+    accessorKey: 'createdAt',
+    size: 96,
+    meta: {
+      headAlign: 'center',
+      bodyAlign: 'center',
+    },
+    header: () => (
+      <Label size="md" weight="bold">
+        작성일
+      </Label>
+    ),
+    cell: ({ row }: { row: { original: AnnouncementSummary } }) => (
+      <Label size="sm" weight="regular" className="text-gray-700">
+        {row.original.createdAt
+          ? DateUtil.formatDateWithDots(new Date(row.original.createdAt))
+          : '-'}
+      </Label>
+    ),
+    footer: (props) => props.column.id,
+  },
+];
+
 export const ANNOUNCEMENT_LIST_COLUMN: Array<ColumnDef<AnnouncementSummary>> = [
   {
     id: 'id',
@@ -36,7 +102,7 @@ export const ANNOUNCEMENT_LIST_COLUMN: Array<ColumnDef<AnnouncementSummary>> = [
     ),
     cell: ({ row }: { row: { original: AnnouncementSummary } }) => (
       <Label size="md" weight="regular">
-        {row.original.announcementId ?? '-'}
+        {row.original.announcementId ? `${row.original.announcementId}.` : '-'}
       </Label>
     ),
     footer: (props) => props.column.id,
@@ -97,7 +163,7 @@ export const ANNOUNCEMENT_LIST_COLUMN: Array<ColumnDef<AnnouncementSummary>> = [
     cell: ({ row }: { row: { original: AnnouncementSummary } }) => (
       <Label size="sm" weight="regular" className="text-gray-700">
         {row.original.createdAt
-          ? new Date(row.original.createdAt).toLocaleDateString('ko-KR')
+          ? DateUtil.formatDateWithDots(new Date(row.original.createdAt))
           : '-'}
       </Label>
     ),

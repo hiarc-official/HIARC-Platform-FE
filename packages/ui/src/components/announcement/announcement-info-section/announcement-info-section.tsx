@@ -1,4 +1,5 @@
 import { cn } from '../../../lib/utils';
+import { Divider } from '../../divider';
 import { HeaderSection } from './header-section';
 import { LocationScheduleSection } from './location-schedule-section';
 import { RelatedUrlsSection } from './related-urls-section';
@@ -6,7 +7,7 @@ import { RelatedUrlsSection } from './related-urls-section';
 interface AnnouncementInfoSectionProps {
   announcementTitle: string;
   announcementCategory: 'RATING' | 'STUDY' | 'ETC' | 'GENERAL' | 'EXTERNAL';
-  announcementDate: string;
+  announcementDate?: Date;
   urlList?: string[];
   place?: string;
   scheduleStartAt?: Date;
@@ -47,6 +48,8 @@ export function AnnouncementInfoSection({
         memberRole={memberRole}
       />
       <RelatedUrlsSection urlList={urlList} />
+      {/* 모바일에서만 표시되는 까만색 구분선 */}
+      <Divider variant="horizontal" size="full" className="mt-6 block bg-gray-900 md:hidden" />
     </div>
   );
 }

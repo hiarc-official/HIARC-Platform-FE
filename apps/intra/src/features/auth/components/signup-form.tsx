@@ -308,9 +308,7 @@ export function SignupForm({ className }: SignupFormProps): React.ReactElement {
         />
 
         {formData.languages.includes('기타') && (
-          <FadeIn
-            isVisible={formData.languages.includes('기타')}
-          >
+          <FadeIn isVisible={formData.languages.includes('기타')}>
             <LabeledInput
               label=""
               showLabel={false}
