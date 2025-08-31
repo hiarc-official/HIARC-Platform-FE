@@ -1,7 +1,7 @@
 'use client';
 
-import { AnnouncementSearchSection } from '@/features/announcement/components/announcement-search-section';
-import { AnnouncementTable } from '@/features/announcement/components/announcement-table';
+import { AnnouncementSearchSection } from '@/features/announcement/components/announcement-search-section/AnnouncementSearchSection';
+import { AnnouncementTable } from '@/features/announcement/components/announcement-table/AnnouncementTable';
 
 import { Title, LoadingDots } from '@hiarc-platform/ui';
 import { useAnnouncementListPageState } from '../../hooks/page/use-announcement-list-page-state';

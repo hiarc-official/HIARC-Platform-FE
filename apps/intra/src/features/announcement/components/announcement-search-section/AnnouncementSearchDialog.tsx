@@ -2,7 +2,6 @@
 
 import {
   Button,
-  cn,
   Dialog,
   DialogContent,
   DialogHeader,
@@ -76,12 +75,12 @@ export function AnnouncementSearchDialog({
 
   return (
     <Dialog open={true} onOpenChange={(open) => !open && handleCancel()}>
-      <DialogContent fullscreen showBackground={showBackground}>
-        <DialogHeader>
+      <DialogContent fullscreen showBackground={showBackground} className="flex flex-col max-h-screen">
+        <DialogHeader className="flex-shrink-0">
           <DialogTitle>상세검색</DialogTitle>
         </DialogHeader>
-        <div className="pt-6">
-          <div className={cn('flex flex-col gap-6')}>
+        <div className="pt-6 flex flex-col flex-1 min-h-0 overflow-y-auto">
+          <div className="flex flex-col gap-6">
             <LabeledSelector
               placeholder="카테고리를 선택해주세요."
               required={false}
@@ -101,19 +100,20 @@ export function AnnouncementSearchDialog({
               onChange={setSemesterId}
             />
             <LabeledInput label="제목" placeholder='제목을 입력해주세요.' value={title} onChange={setTitle}  />
-            <div className="flex w-full items-center gap-2">
-              <Button variant="line_secondary" size="md" className="w-full" onClick={handleReset}>
-                초기화
-              </Button>
-              <Button
-                variant="fill"
-                size="md"
-                className="w-full"
-                onClick={handleSave}
-              >
-                검색
-              </Button>
-            </div>
+          </div>
+          <div className="flex-1" />
+          <div className="flex w-full items-center gap-2 mt-4 flex-shrink-0">
+            <Button variant="line_secondary" size="md" className="w-full" onClick={handleReset}>
+              초기화
+            </Button>
+            <Button
+              variant="fill"
+              size="md"
+              className="w-full"
+              onClick={handleSave}
+            >
+              검색
+            </Button>
           </div>
         </div>
       </DialogContent>
