@@ -324,13 +324,13 @@ export class DialogUtil {
     const axiosError = error as AxiosError;
     const status = axiosError.response?.status;
     const backendMessage = axiosError.response?.data?.message;
-    
+
     // 401 에러는 API 인터셉터에서 처리되므로 여기서 무시
     if (status === 401) {
       console.log('🚨 401 에러는 API 인터셉터에서 처리됨 - showServerError 무시');
       return ''; // 빈 ID 반환하여 다이얼로그 표시하지 않음
     }
-    
+
     const errorMessage = backendMessage || (error as Error)?.message || defaultMessage;
 
     return this.showDialog({

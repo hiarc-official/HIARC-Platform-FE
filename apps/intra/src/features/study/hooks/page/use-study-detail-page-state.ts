@@ -21,9 +21,16 @@ export function useStudyDetailPageState() {
   };
 
   const handleApplyClick = (): void => {
-    DialogUtil.showConfirm('스터디에 신청하시겠습니까?', () => {
-      applyToStudy(studyId);
-    });
+    DialogUtil.showConfirm(
+      '기초/초급 스터디는 동일 시간에 진행되어 중복 신청이 불가합니다.신청을 완료하시겠습니까?',
+      () => {
+        applyToStudy(studyId);
+      },
+      undefined,
+      {
+        title: '유의사항',
+      }
+    );
   };
 
   const handleBackClick = (): void => {
