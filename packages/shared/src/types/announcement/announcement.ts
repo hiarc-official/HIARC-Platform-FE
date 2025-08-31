@@ -1,3 +1,5 @@
+import { DateTime } from 'luxon';
+
 export interface AnnouncementNavigationItem {
   announcementId?: number | null;
   title?: string | null;
@@ -45,18 +47,18 @@ export const Announcement = {
       announcementId: (data.announcementId as number) || null,
       title: data.title as string,
       place: (data.place as string) || null,
-      scheduleStartAt: data.scheduleStartAt ? new Date(data.scheduleStartAt as string) : null,
-      scheduleEndAt: data.scheduleEndAt ? new Date(data.scheduleEndAt as string) : null,
+      scheduleStartAt: data.scheduleStartAt ? DateTime.fromISO(data.scheduleStartAt as string).toJSDate() : null,
+      scheduleEndAt: data.scheduleEndAt ? DateTime.fromISO(data.scheduleEndAt as string).toJSDate() : null,
       content: (data.content as string) || null,
       announcementType: (data.announcementType as Announcement['announcementType']) || null,
       authorId: (data.authorId as number) || null,
       authorName: (data.authorName as string) || null,
-      createdAt: data.createdAt ? new Date(data.createdAt as string) : null,
+      createdAt: data.createdAt ? DateTime.fromISO(data.createdAt as string).toJSDate() : null,
       applicationUrl: (data.applicationUrl as string) || null,
       applicationStartAt: data.applicationStartAt
-        ? new Date(data.applicationStartAt as string)
+        ? DateTime.fromISO(data.applicationStartAt as string).toJSDate()
         : null,
-      applicationEndAt: data.applicationEndAt ? new Date(data.applicationEndAt as string) : null,
+      applicationEndAt: data.applicationEndAt ? DateTime.fromISO(data.applicationEndAt as string).toJSDate() : null,
       attachmentUrls: (data.attachmentUrls as string[]) || null,
       imageUrls: (data.imageUrls as ImageSource[]) || null,
       studyId: (data.studyId as number) || null,

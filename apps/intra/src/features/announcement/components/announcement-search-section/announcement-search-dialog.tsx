@@ -78,7 +78,7 @@ export function AnnouncementSearchDialog({
     <Dialog open={true} onOpenChange={(open) => !open && handleCancel()}>
       <DialogContent fullscreen showBackground={showBackground}>
         <DialogHeader>
-          <DialogTitle>공지사항 검색</DialogTitle>
+          <DialogTitle>상세검색</DialogTitle>
         </DialogHeader>
         <div className="pt-6">
           <div className={cn('flex flex-col gap-6')}>
@@ -100,7 +100,7 @@ export function AnnouncementSearchDialog({
               value={semesterId}
               onChange={setSemesterId}
             />
-            <LabeledInput label="제목" value={title} onChange={setTitle} />
+            <LabeledInput label="제목" placeholder='제목을 입력해주세요.' value={title} onChange={setTitle}  />
             <div className="flex w-full items-center gap-2">
               <Button variant="line_secondary" size="md" className="w-full" onClick={handleReset}>
                 초기화
@@ -108,7 +108,7 @@ export function AnnouncementSearchDialog({
               <Button
                 variant="fill"
                 size="md"
-                className="w-full bg-primary-200"
+                className="w-full"
                 onClick={handleSave}
               >
                 검색
