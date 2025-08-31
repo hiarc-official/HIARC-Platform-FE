@@ -38,7 +38,9 @@ export function AnnouncementEditPage(): React.ReactElement {
     isEditMode: boolean,
     announcementId?: number
   ): Promise<void> => {
-    if (!announcementId || isSubmitting) {return;}
+    if (!announcementId || isSubmitting) {
+      return;
+    }
     setIsSubmitting(true);
 
     try {
@@ -94,8 +96,8 @@ export function AnnouncementEditPage(): React.ReactElement {
 
       // 3. 최종 이미지 키 배열 생성: 기존 키들 + 새 키들 (순서 보장)
       const finalImageKeys: string[] = [
-        ...existingImageKeys,  // 기존 이미지 키들이 앞에
-        ...newImageKeys        // 새 이미지 키들이 뒤에
+        ...existingImageKeys, // 기존 이미지 키들이 앞에
+        ...newImageKeys, // 새 이미지 키들이 뒤에
       ];
       console.log('최종 이미지 키 배열:', finalImageKeys);
 
@@ -199,67 +201,12 @@ export function AnnouncementEditPage(): React.ReactElement {
 
   return (
     <div className="w-full">
-      {/* Desktop layout */}
-      <div className="hidden md:block">
-        <div className="flex w-full flex-col items-center gap-6">
-          <BackButton onClick={handleBackClick} />
-          <div className="flex w-full flex-col gap-2">
-            <div className="flex w-full items-center justify-between">
-              <Title size="sm" weight="bold">
-                {pageTitle}
-              </Title>
-            </div>
-            {isLecture && (
-              <div className="flex items-center gap-4">
-                <Label size="md" className="text-gray-600">
-                  스터디: {announcement?.studyName}
-                </Label>
-                <Label size="md" className="text-gray-600">
-                  회차: {announcement?.lectureRound}회차
-                </Label>
-              </div>
-            )}
-          </div>
-          <Divider variant="horizontal" size="full" />
-        </div>
-        <AnnouncementWrite
-          announcementId={id}
-          announcement={announcement}
-          studyOptions={studyOptions || []}
-          onSubmit={handleSubmit}
-        />
-      </div>
-
-      {/* Mobile layout */}
-      <div className="block px-4 md:hidden">
-        <div className="flex w-full flex-col items-center gap-4">
-          <BackButton onClick={handleBackClick} />
-          <div className="flex w-full flex-col gap-2">
-            <div className="flex w-full items-center justify-between">
-              <Title size="sm" weight="bold">
-                {pageTitle}
-              </Title>
-            </div>
-            {isLecture && (
-              <div className="flex flex-col gap-1">
-                <Label size="sm" className="text-gray-600">
-                  스터디: {announcement?.studyName}
-                </Label>
-                <Label size="sm" className="text-gray-600">
-                  회차: {announcement?.lectureRound}회차
-                </Label>
-              </div>
-            )}
-          </div>
-          <Divider variant="horizontal" size="full" />
-        </div>
-        <AnnouncementWrite
-          announcementId={id}
-          announcement={announcement}
-          studyOptions={studyOptions || []}
-          onSubmit={handleSubmit}
-        />
-      </div>
+      <AnnouncementWrite
+        announcementId={id}
+        announcement={announcement}
+        studyOptions={studyOptions || []}
+        onSubmit={handleSubmit}
+      />
     </div>
   );
 }

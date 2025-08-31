@@ -16,9 +16,6 @@ export default function SignUpPage(): React.ReactElement {
   }
 
   return (
-    <PageLayout
-      desktopChildren={<DesktopSignupPage />}
-      mobileChildren={<MobileSignupPage />}
-    />
+    <PageLayout desktopChildren={<DesktopSignupPage />} mobileChildren={<MobileSignupPage />} />
   );
 }

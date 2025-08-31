@@ -32,6 +32,7 @@ export function DesktopAnnouncementDetailPage(): React.ReactElement {
 
   return (
     <div className="flex flex-col items-center">
+      {/* 모바일에서 고정 헤더로 인한 패딩 추가 */}
       <BackButton onClick={handleGoBack} />
       <AnnouncementInfoSection
         className="mt-6"

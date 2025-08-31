@@ -28,18 +28,9 @@ export function MobileAnnouncementListPage(): React.ReactElement {
 
   return (
     <div className="flex flex-col gap-4">
-      <Title size="sm" weight="bold">
-        공지사항
-      </Title>
-      <AnnouncementSearchSection
-        className="mt-2"
-        onSearch={handleSearch}
-        initialValues={filterParams}
-      />
-      <AnnouncementTable
-        pageableModel={announcements}
-        onPageChange={handlePageChange}
-      />
+      <div className="pt-10" />
+      <AnnouncementSearchSection onSearch={handleSearch} initialValues={filterParams} />
+      <AnnouncementTable pageableModel={announcements} onPageChange={handlePageChange} />
     </div>
   );
 }

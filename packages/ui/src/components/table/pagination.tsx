@@ -24,7 +24,6 @@ export const Pagination = <T = unknown,>({
 
   const { pageRange, currentPage, totalPages, hasPrevious, hasNext } = paginationState;
 
-
   // 빈 데이터인 경우에만 숨김 (totalPages가 0인 경우)
   if (!totalPages || totalPages <= 0) {
     return <div></div>;

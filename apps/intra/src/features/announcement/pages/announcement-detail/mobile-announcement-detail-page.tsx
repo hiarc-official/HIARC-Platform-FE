@@ -31,8 +31,10 @@ export function MobileAnnouncementDetailPage(): React.ReactElement {
 
   return (
     <div className="flex flex-col items-center gap-6">
+      {/* 모바일에서 고정 헤더로 인한 패딩 추가 */}
+      <div className="pt-4" />
+
       <AnnouncementInfoSection
-        className="mt-4"
         announcementTitle={announcement.announcementTitle}
         announcementCategory={announcement.announcementCategory}
         announcementDate={announcement.announcementDate}

@@ -40,9 +40,7 @@ export function LocationScheduleSection({
           <Label className="w-[86px] text-gray-500" weight="bold">
             장소
           </Label>
-          <Label weight="medium">
-            {place ? place : '-'}
-          </Label>
+          <Label weight="medium">{place ? place : '-'}</Label>
         </div>
         <div className="flex flex-1 items-center gap-4">
           <Label className="w-[86px] text-gray-500" weight="bold">
@@ -57,15 +55,15 @@ export function LocationScheduleSection({
             <Label className="w-[86px] text-gray-500" weight="bold">
               신청 기한
             </Label>
-            <div className="flex items-center gap-2 flex-1">
-              <Label weight="medium" className="flex-1 min-w-0 truncate">
+            <div className="flex flex-1 items-center gap-2">
+              <Label weight="medium" className="min-w-0 flex-1 truncate">
                 {DateUtil.formatDateWithDots(applicationStartAt)}
                 {applicationEndAt && ` ~ ${DateUtil.formatDateWithDots(applicationEndAt)}`}
               </Label>
               <Button
                 size="xs"
                 variant="line"
-                className="border-primary-100 text-primary-100 flex-shrink-0 ml-auto"
+                className="ml-auto flex-shrink-0 border-primary-100 text-primary-100"
                 disabled={
                   !applicationUrl ||
                   !isApplicationPeriodActive(applicationStartAt, applicationEndAt) ||
@@ -81,7 +79,7 @@ export function LocationScheduleSection({
           </div>
         )}
       </div>
-      <Divider variant="horizontal" size="full" className="mt-6 bg-gray-200 hidden md:block" />
+      <Divider variant="horizontal" size="full" className="mt-6 hidden bg-gray-200 md:block" />
     </>
   );
 }

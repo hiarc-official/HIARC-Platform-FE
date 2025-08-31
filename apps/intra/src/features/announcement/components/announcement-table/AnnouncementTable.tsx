@@ -3,7 +3,10 @@ import { useTable } from '@hiarc-platform/shared';
 import { Row } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
-import { ANNOUNCEMENT_LIST_COLUMN, MOBILE_ANNOUNCEMENT_LIST_COLUMN } from './announcement-list-column';
+import {
+  ANNOUNCEMENT_LIST_COLUMN,
+  MOBILE_ANNOUNCEMENT_LIST_COLUMN,
+} from './announcement-list-column';
 import { AnnouncementSummary, PageableModel } from '@hiarc-platform/shared';
 
 interface AnnouncementTableSectionProps {
@@ -30,7 +33,7 @@ export function AnnouncementTable({
     totalPages: Math.ceil((pageableModel?.totalElements || 0) / 10),
     globalFilterState: [globalFilter, setGlobalFilter],
   });
-  
+
   const mobileTable = useTable({
     columns: mobileColumns,
     data: pageableModel?.content || [],
@@ -42,7 +45,7 @@ export function AnnouncementTable({
   return (
     <div className={cn('flex w-full flex-col', className)}>
       {/* 데스크톱 뷰 */}
-      <SlideFade key="desktop-table" className="hidden md:block w-full">
+      <SlideFade key="desktop-table" className="hidden w-full md:block">
         <CommonTableHead
           table={desktopTable}
           className="border-b border-t border-b-gray-200 border-t-gray-900 bg-white"
@@ -58,9 +61,9 @@ export function AnnouncementTable({
           }}
         />
       </SlideFade>
-      
+
       {/* 모바일 뷰 */}
-      <SlideFade key="mobile-table" className="block md:hidden w-full">
+      <SlideFade key="mobile-table" className="block w-full md:hidden">
         <CommonTableBody
           table={mobileTable}
           onClick={function (row: Row<AnnouncementSummary>): void {
@@ -72,7 +75,7 @@ export function AnnouncementTable({
           }}
         />
       </SlideFade>
-      
+
       {pageableModel && onPageChange && (
         <div className="flex w-full justify-center">
           <Pagination className="mt-8" pageableModel={pageableModel} onPageChange={onPageChange} />

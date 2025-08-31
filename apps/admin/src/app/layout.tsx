@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import Header from '@/shared/components/Header';
+import ConditionalHeader from '@/shared/components/ConditionalHeader';
 import Footer from '@/shared/components/Footer';
 
 // 로컬 폰트 import
@@ -30,9 +30,11 @@ export default function RootLayout({
     <html lang="en">
       <body className="flex min-h-screen flex-col">
         <Providers>
-          <Header />
+          <ConditionalHeader />
           <main className="flex-1">{children}</main>
-          <Footer />
+          <div className="hidden md:block">
+            <Footer />
+          </div>
           <GlobalDialogContainer />
         </Providers>
       </body>

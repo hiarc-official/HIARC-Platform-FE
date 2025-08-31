@@ -14,7 +14,7 @@ export function RelatedUrlsSection({
    * @param url - 검사할 URL 문자열
    * @returns 유효한 프로토콜이 포함된 URL
    */
-  const formatUrl = (url: string) : string => {
+  const formatUrl = (url: string): string => {
     if (url.startsWith('http://') || url.startsWith('https://')) {
       return url;
     }
@@ -54,7 +54,7 @@ export function RelatedUrlsSection({
           )}
         </div>
       </div>
-      <Divider variant="horizontal" size="full" className="mt-6 bg-gray-200 hidden md:block" />
+      <Divider variant="horizontal" size="full" className="mt-6 hidden bg-gray-200 md:block" />
     </div>
   );
 }

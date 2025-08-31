@@ -150,7 +150,7 @@ export function AnnouncementTable({
     totalPages: pageableModel?.totalPages ?? 0,
     globalFilterState: [globalFilter, setGlobalFilter],
   });
-  
+
   const mobileTable = useTable({
     columns: mobileColumns,
     data: pageableModel?.content ?? [],
@@ -162,7 +162,7 @@ export function AnnouncementTable({
   return (
     <div className={cn('flex w-full flex-col', className)}>
       {/* 데스크톱 뷰 */}
-      <div className="hidden md:block w-full">
+      <div className="hidden w-full md:block">
         <CommonTableHead table={desktopTable} className="border-b border-b-gray-200" />
         <CommonTableBody
           table={desktopTable}
@@ -175,9 +175,9 @@ export function AnnouncementTable({
           }}
         />
       </div>
-      
+
       {/* 모바일 뷰 */}
-      <div className="block md:hidden w-full">
+      <div className="block w-full md:hidden">
         <CommonTableBody
           table={mobileTable}
           onClick={function (row: Row<AnnouncementSummary>): void {

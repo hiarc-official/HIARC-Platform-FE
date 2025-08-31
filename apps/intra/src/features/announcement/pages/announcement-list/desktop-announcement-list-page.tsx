@@ -28,7 +28,7 @@ export function DesktopAnnouncementListPage(): React.ReactElement {
 
   return (
     <div className="flex flex-col">
-      <Title size="sm" weight="bold">
+      <Title size="sm" weight="bold" className="hidden md:block">
         공지사항
       </Title>
       <AnnouncementSearchSection

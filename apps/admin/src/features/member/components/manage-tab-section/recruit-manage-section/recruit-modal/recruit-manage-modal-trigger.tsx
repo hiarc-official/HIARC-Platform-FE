@@ -18,11 +18,11 @@ export function RecruitManageModalTrigger(): React.ReactElement {
   };
 
   return (
-    <IconButton 
-      iconSize="lg" 
-      size="sm" 
-      type="button" 
-      iconSrc="/shared-assets/Edit.svg" 
+    <IconButton
+      iconSize="lg"
+      size="sm"
+      type="button"
+      iconSrc="/shared-assets/Edit.svg"
       onClick={handleOpenDialog}
     />
   );

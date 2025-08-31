@@ -24,12 +24,13 @@ export function AnnouncementListSection({
   const { data: upcomingSchedule } = useUpcomingSchedule();
   const { data: externalAnnouncements } = useExternalSchedule();
 
-  const sortedUpcomingSchedules = upcomingSchedule?.schedules ? 
-    [...upcomingSchedule.schedules].sort((a, b) => {
-      if (a.announcementType === 'RATING' && b.announcementType !== 'RATING') return -1;
-      if (a.announcementType !== 'RATING' && b.announcementType === 'RATING') return 1;
-      return 0;
-    }) : [];
+  const sortedUpcomingSchedules = upcomingSchedule?.schedules
+    ? [...upcomingSchedule.schedules].sort((a, b) => {
+        if (a.announcementType === 'RATING' && b.announcementType !== 'RATING') return -1;
+        if (a.announcementType !== 'RATING' && b.announcementType === 'RATING') return 1;
+        return 0;
+      })
+    : [];
 
   return (
     <div className={cn('w-full', className)}>
@@ -55,10 +56,11 @@ export function AnnouncementListSection({
                   announcementId={announcement.announcementId || 0}
                   title={announcement.scheduleTitle || '제목 없음'}
                   date={
-                    announcement.announcementType === 'RATING' ? '' :
-                    announcement.scheduledAt
-                      ? new Date(announcement.scheduledAt).toLocaleDateString()
-                      : new Date(announcement.createdAt ?? '').toLocaleDateString()
+                    announcement.announcementType === 'RATING'
+                      ? ''
+                      : announcement.scheduledAt
+                        ? new Date(announcement.scheduledAt).toLocaleDateString()
+                        : new Date(announcement.createdAt ?? '').toLocaleDateString()
                   }
                   category={announcement.announcementType || 'GENERAL'}
                 />

@@ -19,5 +19,4 @@ export interface CreateAnnouncementForm {
   applyType?: string;
   studyAnnounceType?: string;
   publicType?: string;
-
 }

@@ -47,8 +47,12 @@ export const Announcement = {
       announcementId: (data.announcementId as number) || undefined,
       title: data.title as string,
       place: (data.place as string) || undefined,
-      scheduleStartAt: data.scheduleStartAt ? DateTime.fromISO(data.scheduleStartAt as string).toJSDate() : undefined,
-      scheduleEndAt: data.scheduleEndAt ? DateTime.fromISO(data.scheduleEndAt as string).toJSDate() : undefined,
+      scheduleStartAt: data.scheduleStartAt
+        ? DateTime.fromISO(data.scheduleStartAt as string).toJSDate()
+        : undefined,
+      scheduleEndAt: data.scheduleEndAt
+        ? DateTime.fromISO(data.scheduleEndAt as string).toJSDate()
+        : undefined,
       content: (data.content as string) || undefined,
       announcementType: (data.announcementType as Announcement['announcementType']) || undefined,
       authorId: (data.authorId as number) || undefined,
@@ -58,7 +62,9 @@ export const Announcement = {
       applicationStartAt: data.applicationStartAt
         ? DateTime.fromISO(data.applicationStartAt as string).toJSDate()
         : undefined,
-      applicationEndAt: data.applicationEndAt ? DateTime.fromISO(data.applicationEndAt as string).toJSDate() : undefined,
+      applicationEndAt: data.applicationEndAt
+        ? DateTime.fromISO(data.applicationEndAt as string).toJSDate()
+        : undefined,
       attachmentUrls: (data.attachmentUrls as string[]) || undefined,
       imageUrls: (data.imageUrls as ImageSource[]) || undefined,
       studyId: (data.studyId as number) || undefined,

@@ -4,6 +4,7 @@ export * from './components/announcement/announcement-indicator-section/announce
 export * from './components/announcement/announcement-info-section/announcement-info-section';
 export { default as AnnouncementWrite } from './components/announcement-write/announcement-write';
 export type { AnnouncementWriteProps } from './components/announcement-write/announcement-write';
+export { MobileAnnouncementWrite } from './components/announcement-write/mobile-announcement-write';
 export * from './components/back-button';
 export * from './components/button';
 export * from './components/card';
@@ -13,6 +14,7 @@ export * from './components/chip/study-status-chip';
 export * from './components/dialog/alert-dialog';
 export * from './components/dialog/dialog';
 export * from './components/divider';
+export * from './components/header/mobile-header';
 export * from './components/icon-button';
 export * from './components/input/input';
 export * from './components/input/labeled-textarea';

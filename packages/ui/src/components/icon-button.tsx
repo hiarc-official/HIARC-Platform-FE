@@ -16,6 +16,7 @@ const buttonVariants = cva(
         sm: 'w-6 h-6 rounded-sm',
         md: 'w-8 h-8 rounded-sm',
         lg: 'w-10 h-10 rounded-md',
+        xl: 'w-10 h-10 rounded-md',
       },
     },
     defaultVariants: {
@@ -30,6 +31,7 @@ const iconVariants = cva('', {
       sm: 'w-3 h-3',
       md: 'w-4 h-4',
       lg: 'w-5 h-5',
+      xl: 'w-6 h-6',
     },
   },
   defaultVariants: {
@@ -44,8 +46,8 @@ type IconButtonProps = React.ComponentPropsWithRef<'button'> & {
   // 이미지 아이콘 지원
   iconSrc?: string;
   iconAlt?: string;
-  size?: 'sm' | 'md' | 'lg';
-  iconSize?: 'sm' | 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  iconSize?: 'sm' | 'md' | 'lg' | 'xl';
 };
 
 const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
@@ -56,7 +58,7 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
     const resolvedIconSize = iconSize || size;
     const useImage = iconSrc && (!iconPath || iconSrc);
 
-    const getIconPixelSize = (size: 'sm' | 'md' | 'lg'): number => {
+    const getIconPixelSize = (size: 'sm' | 'md' | 'lg' | 'xl'): number => {
       switch (size) {
         case 'sm':
           return 12;
@@ -64,6 +66,8 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
           return 16;
         case 'lg':
           return 20;
+        case 'xl':
+          return 24;
         default:
           return 16;
       }

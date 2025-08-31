@@ -13,11 +13,15 @@ interface SideBarProps {
     studyAnnounceType?: '일반' | '회차별 공지';
     applyType?: '신청 없음' | '신청 유형';
   };
-  onFormDataChange(updates: Partial<CreateAnnouncementForm & {
-    publicType?: '공개' | '비공개';
-    studyAnnounceType?: '일반' | '회차별 공지';
-    applyType?: '신청 없음' | '신청 유형';
-  }>): void;
+  onFormDataChange(
+    updates: Partial<
+      CreateAnnouncementForm & {
+        publicType?: '공개' | '비공개';
+        studyAnnounceType?: '일반' | '회차별 공지';
+        applyType?: '신청 없음' | '신청 유형';
+      }
+    >
+  ): void;
   studyOptions?: SelectOption[];
   disableCategoryChange?: boolean;
   disableStudyTypeChange?: boolean;
@@ -82,7 +86,7 @@ export function SideBar({
               onFormDataChange({
                 announcementType,
                 // STUDY 카테고리를 선택했을 때 신청 유형을 '신청 없음'으로 리셋
-                ...(announcementType === 'STUDY' && { applyType: '신청 없음' })
+                ...(announcementType === 'STUDY' && { applyType: '신청 없음' }),
               });
             }}
           />
@@ -151,8 +155,8 @@ export function SideBar({
                   ...(applyType === '신청 없음' && {
                     applicationStartAt: undefined,
                     applicationEndAt: undefined,
-                    applicationUrl: undefined
-                  })
+                    applicationUrl: undefined,
+                  }),
                 });
               }}
             />
@@ -212,7 +216,7 @@ export function SideBar({
         <LabeledSelectButton
           label="공개 여부"
           required
-          value={formData.publicType || undefined}
+          value={formData.publicType || '공개'}
           options={publicTypeOptionList}
           onChange={(value: string) => {
             onFormDataChange({ publicType: value as '공개' | '비공개' });

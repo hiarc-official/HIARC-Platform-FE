@@ -20,7 +20,7 @@ export function AnnouncementContentSection({
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const checkIsMobile = () : void => {
+    const checkIsMobile = (): void => {
       setIsMobile(window.innerWidth < 768);
     };
 
@@ -33,7 +33,9 @@ export function AnnouncementContentSection({
   }, []);
 
   const formatContent = (text?: string): React.ReactNode => {
-    if (!text) {return '';}
+    if (!text) {
+      return '';
+    }
     return text.split('\n').map((line, index) => (
       <span key={index}>
         {line}
@@ -76,7 +78,7 @@ export function AnnouncementContentSection({
           {images.map((image, index) => (
             <div
               key={index}
-              className="flex-1 cursor-pointer max-w-[calc((100%-8px)/3)] md:max-w-[calc((100%-112px)/5)]"
+              className="max-w-[calc((100%-8px)/3)] flex-1 cursor-pointer md:max-w-[calc((100%-112px)/5)]"
               onClick={() => openImageViewer(index)}
             >
               <div className="aspect-square overflow-hidden rounded-lg">
@@ -102,23 +104,27 @@ export function AnnouncementContentSection({
               src={images[selectedImageIndex].url}
               alt={`공지사항 이미지 ${selectedImageIndex + 1}`}
               className="object-contain"
-              style={isMobile ? {
-                minWidth: '150px',
-                minHeight: '150px',
-                maxWidth: '90vw',
-                maxHeight: '70vh',
-              } : {
-                minWidth: '200px',
-                minHeight: '200px',
-                maxWidth: '600px',
-                maxHeight: '800px',
-              }}
+              style={
+                isMobile
+                  ? {
+                      minWidth: '150px',
+                      minHeight: '150px',
+                      maxWidth: '90vw',
+                      maxHeight: '70vh',
+                    }
+                  : {
+                      minWidth: '200px',
+                      minHeight: '200px',
+                      maxWidth: '600px',
+                      maxHeight: '800px',
+                    }
+              }
             />
 
             {/* Close button */}
             <button
               onClick={closeImageViewer}
-              className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-black bg-opacity-50 text-white hover:bg-opacity-70 transition-all duration-200"
+              className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-black bg-opacity-50 text-white transition-all duration-200 hover:bg-opacity-70"
             >
               <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
@@ -136,7 +142,7 @@ export function AnnouncementContentSection({
                 {selectedImageIndex > 0 && (
                   <button
                     onClick={goToPrevImage}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 flex h-12 w-12 items-center justify-center rounded-full bg-black bg-opacity-50 text-white hover:bg-opacity-70 transition-all duration-200"
+                    className="absolute left-4 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-black bg-opacity-50 text-white transition-all duration-200 hover:bg-opacity-70"
                   >
                     <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path
@@ -152,7 +158,7 @@ export function AnnouncementContentSection({
                 {selectedImageIndex < images.length - 1 && (
                   <button
                     onClick={goToNextImage}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 flex h-12 w-12 items-center justify-center rounded-full bg-black bg-opacity-50 text-white hover:bg-opacity-70 transition-all duration-200"
+                    className="absolute right-4 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-black bg-opacity-50 text-white transition-all duration-200 hover:bg-opacity-70"
                   >
                     <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path

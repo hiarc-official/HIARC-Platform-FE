@@ -113,7 +113,7 @@ export const useSemesterStore = create<SemesterState>((set, get) => ({
       });
 
       // 기존 선택된 학기가 여전히 존재하는지 확인하고, 없으면 첫 번째 학기로 설정
-      const stillExists = semesterOptions.some(option => option.value === currentSelectedId);
+      const stillExists = semesterOptions.some((option) => option.value === currentSelectedId);
       if (!stillExists && semesterOptions.length > 0) {
         set({ selectedSemesterId: semesterOptions[0].value });
       }

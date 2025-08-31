@@ -6,7 +6,7 @@ import { useImageUpload } from '@/features/announcement/hooks/use-image-upload';
 import { CreateAnnouncementForm, CreateAnnouncementRequest } from '@hiarc-platform/shared';
 import { useSemesterStoreInit, useSemesterStore } from '@/shared/hooks/use-semester-store';
 import { useStudyOptions } from '@/features/study/hooks';
-import { BackButton, Divider, Title, AnnouncementWrite, DialogUtil } from '@hiarc-platform/ui';
+import { AnnouncementWrite, DialogUtil } from '@hiarc-platform/ui';
 
 export function AnnouncementWritePage(): React.ReactElement {
   const router = useRouter();
@@ -32,7 +32,9 @@ export function AnnouncementWritePage(): React.ReactElement {
   const { data: studyOptions = [] } = useStudyOptions(Number(selectedSemesterId));
 
   const handleSubmit = async (data: CreateAnnouncementForm): Promise<void> => {
-    if (isSubmitting) {return;}
+    if (isSubmitting) {
+      return;
+    }
     setIsSubmitting(true);
 
     try {
@@ -47,7 +49,7 @@ export function AnnouncementWritePage(): React.ReactElement {
           for (let i = 0; i < data.images.length; i++) {
             const file = data.images[i];
             console.log(`이미지 업로드 시작 ${i + 1}/${data.images.length}:`, file.name);
-            
+
             const imageKey = await new Promise<string>((resolve, reject) => {
               uploadImage(
                 { file },
@@ -63,10 +65,10 @@ export function AnnouncementWritePage(): React.ReactElement {
                 }
               );
             });
-            
+
             imageKeys.push(imageKey);
           }
-          
+
           console.log('모든 이미지 업로드 완료:', imageKeys);
           DialogUtil.hideAllDialogs();
         } catch (error) {
@@ -123,55 +125,15 @@ export function AnnouncementWritePage(): React.ReactElement {
     }
   };
 
-  const handleBackClick = (): void => {
-    router.back();
-  };
-
   return (
-    <div className="w-full">
-      {/* Desktop layout */}
-      <div className="hidden md:block">
-        <div className="flex w-full flex-col items-center gap-6">
-          <BackButton onClick={handleBackClick} />
-          <div className="flex w-full items-center justify-between">
-            <Title size="sm" weight="bold">
-              공지사항 작성
-            </Title>
-          </div>
-          <Divider variant="horizontal" size="full" />
-        </div>
-        <AnnouncementWrite
-          studyOptions={studyOptions}
-          initialAnnouncementType={initialType || 'GENERAL'}
-          initialStudyId={initialStudyId ? Number(initialStudyId) : undefined}
-          initialStudyAnnounceType={(isLecture ? '회차별 공지' : '일반') as '회차별 공지' | '일반'}
-          onSubmit={(data, isEditMode, announcementId) => {
-            handleSubmit(data as CreateAnnouncementForm);
-          }}
-        />
-      </div>
-
-      {/* Mobile layout */}
-      <div className="block px-4 md:hidden">
-        <div className="flex w-full flex-col items-center gap-4">
-          <BackButton onClick={handleBackClick} />
-          <div className="flex w-full items-center justify-between">
-            <Title size="sm" weight="bold">
-              공지사항 작성
-            </Title>
-          </div>
-          <Divider variant="horizontal" size="full" />
-        </div>
-        <AnnouncementWrite
-          studyOptions={studyOptions}
-          initialAnnouncementType={initialType || 'GENERAL'}
-          initialStudyId={initialStudyId ? Number(initialStudyId) : undefined}
-          initialStudyAnnounceType={(isLecture ? '회차별 공지' : '일반') as '회차별 공지' | '일반'}
-          onSubmit={(data, isEditMode, announcementId) => {
-            handleSubmit(data as CreateAnnouncementForm);
-          }}
-        />
-      </div>
-    </div>
+    <AnnouncementWrite
+      studyOptions={studyOptions}
+      initialAnnouncementType={initialType || 'GENERAL'}
+      initialStudyId={initialStudyId ? Number(initialStudyId) : undefined}
+      initialStudyAnnounceType={(isLecture ? '회차별 공지' : '일반') as '회차별 공지' | '일반'}
+      onSubmit={(data, isEditMode, announcementId) => {
+        handleSubmit(data as CreateAnnouncementForm);
+      }}
+    />
   );
 }

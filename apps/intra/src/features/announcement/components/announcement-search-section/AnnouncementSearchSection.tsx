@@ -118,7 +118,12 @@ export function AnnouncementSearchSection({
 
       {/* Mobile View */}
       <div className={cn('md:hidden', className)}>
-        <Button variant="line_secondary" size="xs" className='rounded-md' onClick={handleOpenDialog}>
+        <Button
+          variant="line_secondary"
+          size="xs"
+          className="rounded-md"
+          onClick={handleOpenDialog}
+        >
           상세 검색
         </Button>
       </div>

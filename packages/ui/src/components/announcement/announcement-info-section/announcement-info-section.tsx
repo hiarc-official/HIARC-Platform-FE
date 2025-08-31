@@ -49,7 +49,7 @@ export function AnnouncementInfoSection({
       />
       <RelatedUrlsSection urlList={urlList} />
       {/* 모바일에서만 표시되는 까만색 구분선 */}
-      <Divider variant="horizontal" size="full" className="mt-6 bg-gray-900 block md:hidden" />
+      <Divider variant="horizontal" size="full" className="mt-6 block bg-gray-900 md:hidden" />
     </div>
   );
 }
