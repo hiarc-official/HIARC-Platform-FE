@@ -37,7 +37,6 @@ export function MobileAnnouncementListPage(): React.ReactElement {
         initialValues={filterParams}
       />
       <AnnouncementTable
-        className="mt-4"
         pageableModel={announcements}
         onPageChange={handlePageChange}
       />
