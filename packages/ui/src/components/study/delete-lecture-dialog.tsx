@@ -1,7 +1,15 @@
 'use client';
 
 import { Button } from '../button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose, DialogFooter, DialogDescription } from '../dialog/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogClose,
+  DialogFooter,
+  DialogDescription,
+} from '../dialog/dialog';
 
 interface DeleteLectureDialogProps {
   onComplete(): void;
@@ -22,12 +30,7 @@ export function DeleteLectureDialog({ onComplete }: DeleteLectureDialogProps): R
             </Button>
           </DialogClose>
           <DialogClose asChild>
-            <Button
-              variant="fill"
-              size="sm"
-              className="w-full"
-              onClick={onComplete}
-            >
+            <Button variant="fill" size="sm" className="w-full" onClick={onComplete}>
               삭제
             </Button>
           </DialogClose>

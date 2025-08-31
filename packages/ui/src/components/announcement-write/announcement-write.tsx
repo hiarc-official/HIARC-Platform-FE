@@ -25,7 +25,7 @@ export default function AnnouncementWrite({
   onSubmit,
 }: AnnouncementWriteProps): React.ReactElement {
   return (
-    <div className="mt-8 flex min-h-screen w-full flex-col gap-4">
+    <div className="flex w-full flex-col gap-4">
       <div className="flex items-start gap-4">
         <div className="flex-1">
           <DetailInformationSection

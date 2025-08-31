@@ -4,7 +4,7 @@ import { Announcement, AnnouncementSummary, PageableModel } from '@hiarc-platfor
 import { Row } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
 import { useCallback, useMemo, useState } from 'react';
-import { getAdminAnnouncementListColumn } from './announcement-list-column';
+import { getAdminAnnouncementListColumn, getMobileAdminAnnouncementListColumn } from './announcement-list-column';
 import { useDeleteAdminAnnouncement } from '../../hooks/use-delete-admin-announcement';
 
 interface AdminAnnouncementTableProps {
@@ -59,32 +59,59 @@ export function AnnouncementTable({
     [router, studyId, semesterId]
   );
 
-  const columns = useMemo(
+  const desktopColumns = useMemo(
     () => getAdminAnnouncementListColumn(handleDelete, handleEdit),
     [handleEdit, handleDelete]
   );
+  const mobileColumns = useMemo(
+    () => getMobileAdminAnnouncementListColumn(handleDelete, handleEdit),
+    [handleEdit, handleDelete]
+  );
   const [globalFilter, setGlobalFilter] = useState('');
+  const [page, setPage] = useState(0);
 
   const data = pageableModel?.content ?? [];
   const totalPages = pageableModel?.totalPages ?? 0;
 
-  const table = useTable({
-    columns,
+  const desktopTable = useTable({
+    columns: desktopColumns,
     data,
-    pageState: [0, () => {}],
+    pageState: [page, setPage],
+    totalPages,
+    globalFilterState: [globalFilter, setGlobalFilter],
+  });
+
+  const mobileTable = useTable({
+    columns: mobileColumns,
+    data,
+    pageState: [page, setPage],
     totalPages,
     globalFilterState: [globalFilter, setGlobalFilter],
   });
 
   return (
-    <div className={cn('w-full flex-col items-center', className)}>
-      <SlideFade key="table" className="w-full">
-        <CommonTableHead className="text-gray-900" table={table} />
+    <div className={cn('flex w-full flex-col', className)}>
+      {/* 데스크톱 뷰 */}
+      <SlideFade key="desktop-table" className="hidden w-full md:block">
+        <CommonTableHead className="text-gray-900" table={desktopTable} />
         <CommonTableBody
-          table={table}
+          table={desktopTable}
           onClick={function (row: Row<Announcement>): void {
             const announcementId = row.original.announcementId;
 
+            if (announcementId !== undefined) {
+              router.push(`/announcement/${announcementId}`);
+            }
+          }}
+        />
+      </SlideFade>
+
+      {/* 모바일 뷰 */}
+      <SlideFade key="mobile-table" className="block w-full md:hidden">
+        <CommonTableBody
+          table={mobileTable}
+          onClick={function (row: Row<AnnouncementSummary>): void {
+            const announcementId = row.original.announcementId;
             if (announcementId !== undefined) {
               router.push(`/announcement/${announcementId}`);
             }

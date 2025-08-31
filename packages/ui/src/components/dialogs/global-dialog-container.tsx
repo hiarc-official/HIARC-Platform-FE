@@ -11,7 +11,14 @@ import {
 } from '../dialog/dialog';
 import { Button } from '../button';
 import { Label } from '../label/label';
-import { ErrorDialog, SuccessDialog, WarningDialog, ConfirmDialog, InfoDialog, AlertDialogComponent } from './';
+import {
+  ErrorDialog,
+  SuccessDialog,
+  WarningDialog,
+  ConfirmDialog,
+  InfoDialog,
+  AlertDialogComponent,
+} from './';
 
 const getDialogSize = (size: DialogConfig['size']): string => {
   switch (size) {

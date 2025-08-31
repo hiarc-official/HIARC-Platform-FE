@@ -24,10 +24,12 @@ export class RatingRecord {
   }
 
   equals(other?: RatingRecord): boolean {
-    return Boolean(other) && 
+    return (
+      Boolean(other) &&
       this.props.description === other?.props.description &&
       this.props.division === other?.props.division &&
-      this.props.ranking === other?.props.ranking;
+      this.props.ranking === other?.props.ranking
+    );
   }
 
   compareTo(other: RatingRecord): number {
@@ -46,7 +48,7 @@ export class RatingRecord {
       division: json.division ?? null,
       ranking: json.ranking ?? null,
     };
-    
+
     return new RatingRecord(data);
   }
 

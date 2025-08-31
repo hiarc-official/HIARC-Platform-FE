@@ -1,7 +1,7 @@
 'use client';
 
-import { AnnouncementSearchSection } from '@/features/announcement/components/announcement-search-section';
-import { AnnouncementTable } from '@/features/announcement/components/announcement-table';
+import { AnnouncementSearchSection } from '@/features/announcement/components/announcement-search-section/AnnouncementSearchSection';
+import { AnnouncementTable } from '@/features/announcement/components/announcement-table/AnnouncementTable';
 
 import { Title, LoadingDots } from '@hiarc-platform/ui';
 import { useAnnouncementListPageState } from '../../hooks/page/use-announcement-list-page-state';
@@ -28,19 +28,9 @@ export function MobileAnnouncementListPage(): React.ReactElement {
 
   return (
     <div className="flex flex-col gap-4">
-      <Title size="sm" weight="bold">
-        공지사항
-      </Title>
-      <AnnouncementSearchSection
-        className="mt-2"
-        onSearch={handleSearch}
-        initialValues={filterParams}
-      />
-      <AnnouncementTable
-        className="mt-4"
-        pageableModel={announcements}
-        onPageChange={handlePageChange}
-      />
+      <div className="pt-10" />
+      <AnnouncementSearchSection onSearch={handleSearch} initialValues={filterParams} />
+      <AnnouncementTable pageableModel={announcements} onPageChange={handlePageChange} />
     </div>
   );
 }

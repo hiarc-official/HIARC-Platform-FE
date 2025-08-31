@@ -14,7 +14,7 @@ export function RelatedUrlsSection({
    * @param url - 검사할 URL 문자열
    * @returns 유효한 프로토콜이 포함된 URL
    */
-  const formatUrl = (url: string) : string => {
+  const formatUrl = (url: string): string => {
     if (url.startsWith('http://') || url.startsWith('https://')) {
       return url;
     }
@@ -26,13 +26,13 @@ export function RelatedUrlsSection({
       <div className="flex w-full items-start gap-8 pt-6">
         <div className="flex items-center gap-2">
           <Image src="/shared-assets/Link.svg" width={20} height={20} alt="link" />
-          <Label className="w-[85px]" size="lg" weight="semibold">
+          <Label className="w-[85px]" weight="semibold">
             관련 URL
           </Label>
         </div>
         <div className="flex w-full flex-col gap-2">
           {!urlList || urlList.length === 0 ? (
-            <Label size="md" weight="regular" className="text-gray-500">
+            <Label weight="regular" className="text-gray-500">
               -
             </Label>
           ) : (
@@ -54,7 +54,7 @@ export function RelatedUrlsSection({
           )}
         </div>
       </div>
-      <Divider variant="horizontal" size="full" className="mt-6 bg-gray-200" />
+      <Divider variant="horizontal" size="full" className="mt-6 hidden bg-gray-200 md:block" />
     </div>
   );
 }

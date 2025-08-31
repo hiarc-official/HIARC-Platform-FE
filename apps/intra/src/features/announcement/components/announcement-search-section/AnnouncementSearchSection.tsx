@@ -2,7 +2,7 @@
 
 import { Button, cn, DialogUtil, LabeledInput, LabeledSelector } from '@hiarc-platform/ui';
 import React, { useState, useEffect } from 'react';
-import { AnnouncementSearchDialog } from './announcement-search-dialog';
+import { AnnouncementSearchDialog } from './AnnouncementSearchDialog';
 import { announcementTypeSelectOption, AnnnouncementType } from '@hiarc-platform/shared';
 import { AnnouncementQueryParams } from '../../types/request/announcement-query-params';
 import { useSemesterStore } from '@/shared/hooks/use-semester-store';
@@ -78,7 +78,7 @@ export function AnnouncementSearchSection({
       {/* Desktop View */}
       <div
         className={cn(
-          'hidden w-full items-end justify-between gap-4 rounded-md border border-gray-100 p-6 md:flex',
+          'hidden w-full items-end justify-between gap-4 rounded-md border border-gray-200 p-6 md:flex',
           className
         )}
       >
@@ -118,7 +118,12 @@ export function AnnouncementSearchSection({
 
       {/* Mobile View */}
       <div className={cn('md:hidden', className)}>
-        <Button variant="line_secondary" size="xs" onClick={handleOpenDialog}>
+        <Button
+          variant="line_secondary"
+          size="xs"
+          className="rounded-md"
+          onClick={handleOpenDialog}
+        >
           상세 검색
         </Button>
       </div>

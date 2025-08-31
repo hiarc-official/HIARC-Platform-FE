@@ -4,7 +4,7 @@
  */
 
 export const queryKeys = {
-  // Study related queries  
+  // Study related queries
   studies: {
     all: ['studies'] as const,
     lists: () => [...queryKeys.studies.all, 'list'] as const,
@@ -12,8 +12,10 @@ export const queryKeys = {
     details: () => [...queryKeys.studies.all, 'detail'] as const,
     detail: (id: number) => [...queryKeys.studies.details(), id] as const,
     lectures: (studyId: number) => [...queryKeys.studies.detail(studyId), 'lectures'] as const,
-    assignments: (studyId: number) => [...queryKeys.studies.detail(studyId), 'assignments'] as const,
-    attendanceCodes: (studyId: number) => [...queryKeys.studies.detail(studyId), 'attendance-codes'] as const,
+    assignments: (studyId: number) =>
+      [...queryKeys.studies.detail(studyId), 'assignments'] as const,
+    attendanceCodes: (studyId: number) =>
+      [...queryKeys.studies.detail(studyId), 'attendance-codes'] as const,
   },
 
   // Announcement related queries

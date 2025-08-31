@@ -11,9 +11,7 @@ interface MobileHeaderProps {
   isAuthenticated: boolean;
 }
 
-export function MobileHeader({
-  isAuthenticated,
-}: MobileHeaderProps): React.ReactElement {
+export function MobileHeader({ isAuthenticated }: MobileHeaderProps): React.ReactElement {
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
   const router = useRouter();
 

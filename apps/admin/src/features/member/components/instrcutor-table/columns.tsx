@@ -8,7 +8,10 @@ interface StudentColumnsOptions {
   isDeleting: boolean;
 }
 
-export const createStudentColumns = ({ onDelete, isDeleting }: StudentColumnsOptions): Array<ColumnDef<Student>> => [
+export const createStudentColumns = ({
+  onDelete,
+  isDeleting,
+}: StudentColumnsOptions): Array<ColumnDef<Student>> => [
   {
     id: 'number',
     accessorKey: 'number',

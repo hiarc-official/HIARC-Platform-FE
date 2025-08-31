@@ -3,7 +3,10 @@ import { useTable } from '@hiarc-platform/shared';
 import { Row } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
-import { ANNOUNCEMENT_LIST_COLUMN } from './announcement-list-column';
+import {
+  ANNOUNCEMENT_LIST_COLUMN,
+  MOBILE_ANNOUNCEMENT_LIST_COLUMN,
+} from './announcement-list-column';
 import { AnnouncementSummary, PageableModel } from '@hiarc-platform/shared';
 
 interface AnnouncementTableSectionProps {
@@ -17,13 +20,22 @@ export function AnnouncementTable({
   pageableModel,
   onPageChange,
 }: AnnouncementTableSectionProps): React.ReactElement {
-  const columns = useMemo(() => ANNOUNCEMENT_LIST_COLUMN, []);
+  const desktopColumns = useMemo(() => ANNOUNCEMENT_LIST_COLUMN, []);
+  const mobileColumns = useMemo(() => MOBILE_ANNOUNCEMENT_LIST_COLUMN, []);
   const [globalFilter, setGlobalFilter] = useState('');
   const [page, setPage] = useState(0);
   const router = useRouter();
 
-  const table = useTable({
-    columns,
+  const desktopTable = useTable({
+    columns: desktopColumns,
+    data: pageableModel?.content || [],
+    pageState: [page, setPage],
+    totalPages: Math.ceil((pageableModel?.totalElements || 0) / 10),
+    globalFilterState: [globalFilter, setGlobalFilter],
+  });
+
+  const mobileTable = useTable({
+    columns: mobileColumns,
     data: pageableModel?.content || [],
     pageState: [page, setPage],
     totalPages: Math.ceil((pageableModel?.totalElements || 0) / 10),
@@ -32,13 +44,14 @@ export function AnnouncementTable({
 
   return (
     <div className={cn('flex w-full flex-col', className)}>
-      <SlideFade key="table" className="w-full">
+      {/* 데스크톱 뷰 */}
+      <SlideFade key="desktop-table" className="hidden w-full md:block">
         <CommonTableHead
-          table={table}
+          table={desktopTable}
           className="border-b border-t border-b-gray-200 border-t-gray-900 bg-white"
         />
         <CommonTableBody
-          table={table}
+          table={desktopTable}
           onClick={function (row: Row<AnnouncementSummary>): void {
             const announcementId = row.original.announcementId;
             if (!announcementId) {
@@ -48,6 +61,21 @@ export function AnnouncementTable({
           }}
         />
       </SlideFade>
+
+      {/* 모바일 뷰 */}
+      <SlideFade key="mobile-table" className="block w-full md:hidden">
+        <CommonTableBody
+          table={mobileTable}
+          onClick={function (row: Row<AnnouncementSummary>): void {
+            const announcementId = row.original.announcementId;
+            if (!announcementId) {
+              return;
+            }
+            router.push(`/announcement/${announcementId}`);
+          }}
+        />
+      </SlideFade>
+
       {pageableModel && onPageChange && (
         <div className="flex w-full justify-center">
           <Pagination className="mt-8" pageableModel={pageableModel} onPageChange={onPageChange} />

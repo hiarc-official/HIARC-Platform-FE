@@ -3,7 +3,6 @@ import { studyApi } from '../api/study';
 import type { UpdateStudyRequest } from '../api/study';
 import { DialogUtil } from '@hiarc-platform/ui';
 
-
 interface UpdateStudyParams {
   studyId: number;
   data: UpdateStudyRequest;
@@ -11,7 +10,6 @@ interface UpdateStudyParams {
 
 export function useUpdateStudy(): UseMutationResult<void, Error, UpdateStudyParams, unknown> {
   const queryClient = useQueryClient();
-  
 
   const mutation = useMutation({
     mutationFn: ({ studyId, data }: UpdateStudyParams) => studyApi.UPDATE_STUDY(studyId, data),
