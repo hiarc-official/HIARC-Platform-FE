@@ -1,4 +1,4 @@
-import { DateTime } from 'luxon';
+// import { DateTime } from 'luxon';
 
 export interface AnnouncementNavigationItem {
   announcementId?: number;
@@ -48,22 +48,22 @@ export const Announcement = {
       title: data.title as string,
       place: (data.place as string) || undefined,
       scheduleStartAt: data.scheduleStartAt
-        ? DateTime.fromISO(data.scheduleStartAt as string).toJSDate()
+        ? new Date(data.scheduleStartAt as string)
         : undefined,
       scheduleEndAt: data.scheduleEndAt
-        ? DateTime.fromISO(data.scheduleEndAt as string).toJSDate()
+        ? new Date(data.scheduleEndAt as string)
         : undefined,
       content: (data.content as string) || undefined,
       announcementType: (data.announcementType as Announcement['announcementType']) || undefined,
       authorId: (data.authorId as number) || undefined,
       authorName: (data.authorName as string) || undefined,
-      createdAt: data.createdAt ? DateTime.fromISO(data.createdAt as string).toJSDate() : undefined,
+      createdAt: data.createdAt ? new Date(data.createdAt as string) : undefined,
       applicationUrl: (data.applicationUrl as string) || undefined,
       applicationStartAt: data.applicationStartAt
-        ? DateTime.fromISO(data.applicationStartAt as string).toJSDate()
+        ? new Date(data.applicationStartAt as string)
         : undefined,
       applicationEndAt: data.applicationEndAt
-        ? DateTime.fromISO(data.applicationEndAt as string).toJSDate()
+        ? new Date(data.applicationEndAt as string)
         : undefined,
       attachmentUrls: (data.attachmentUrls as string[]) || undefined,
       imageUrls: (data.imageUrls as ImageSource[]) || undefined,
