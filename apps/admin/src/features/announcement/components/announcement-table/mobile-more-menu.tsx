@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { IconButton, Button } from '@hiarc-platform/ui';
+import { IconButton, Label } from '@hiarc-platform/ui';
 import { Popover, PopoverContent, PopoverTrigger } from '@hiarc-platform/ui';
 import { AnnouncementSummary } from '@hiarc-platform/shared';
 
@@ -16,16 +16,16 @@ export function MobileMoreMenu({
   onEdit,
   onDelete,
 }: MobileMoreMenuProps): React.ReactElement {
-  const handleMoreClick = (event: React.MouseEvent) => {
+  const handleMoreClick = (event: React.MouseEvent): void => {
     event.stopPropagation();
   };
 
-  const handleEdit = (event: React.MouseEvent) => {
+  const handleEdit = (event: React.MouseEvent): void => {
     event.stopPropagation();
     onEdit(announcement);
   };
 
-  const handleDelete = (event: React.MouseEvent) => {
+  const handleDelete = (event: React.MouseEvent): void => {
     event.stopPropagation();
     onDelete(announcement);
   };
@@ -42,16 +42,18 @@ export function MobileMoreMenu({
       </PopoverTrigger>
       <PopoverContent className="w-24 p-1" align="end">
         <div className="flex flex-col">
-          <Button size="sm" className="justify-start px-3 py-2 text-sm" onClick={handleEdit}>
-            수정
-          </Button>
-          <Button
-            size="sm"
-            className="text-red-600 hover:text-red-700 justify-start px-3 py-2 text-sm"
+          <button
+            className="mx-1 my-1 rounded-sm px-3 py-2 text-left transition-all duration-200 hover:bg-gray-100"
+            onClick={handleEdit}
+          >
+            <Label className="cursor-pointer">수정</Label>
+          </button>
+          <button
+            className="mx-1 my-1 rounded-sm px-3 py-2 text-left transition-all duration-200 hover:bg-gray-100"
             onClick={handleDelete}
           >
-            삭제
-          </Button>
+            <Label className="cursor-pointer">삭제</Label>
+          </button>
         </div>
       </PopoverContent>
     </Popover>

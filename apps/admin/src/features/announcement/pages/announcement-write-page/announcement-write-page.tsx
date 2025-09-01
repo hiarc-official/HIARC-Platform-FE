@@ -131,7 +131,7 @@ export function AnnouncementWritePage(): React.ReactElement {
       initialAnnouncementType={initialType || 'GENERAL'}
       initialStudyId={initialStudyId ? Number(initialStudyId) : undefined}
       initialStudyAnnounceType={(isLecture ? '회차별 공지' : '일반') as '회차별 공지' | '일반'}
-      onSubmit={(data, isEditMode, announcementId) => {
+      onSubmit={(data) => {
         handleSubmit(data as CreateAnnouncementForm);
       }}
     />

@@ -40,7 +40,7 @@ export function MobileHeader({
         {onBackClick ? (
           <IconButton iconSrc="/shared-assets/ArrowLeft.svg" size="xl" onClick={onBackClick} />
         ) : (
-          <IconButton iconSrc="/shared-assets/Menu.svg" size="xl" onClick={handleMenuToggle} />
+          <IconButton iconSrc="/shared-assets/Hamburger.svg" size="xl" onClick={handleMenuToggle} />
         )}
         <Title size="xs" weight="bold" className="text-center">
           {title}

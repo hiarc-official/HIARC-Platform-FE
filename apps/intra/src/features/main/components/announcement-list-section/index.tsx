@@ -25,9 +25,13 @@ export function AnnouncementListSection({
   const { data: externalAnnouncements } = useExternalSchedule();
 
   const sortedUpcomingSchedules = upcomingSchedule?.schedules
-    ? [...upcomingSchedule.schedules].sort((a, b) => {
-        if (a.announcementType === 'RATING' && b.announcementType !== 'RATING') return -1;
-        if (a.announcementType !== 'RATING' && b.announcementType === 'RATING') return 1;
+    ? [...upcomingSchedule.schedules].sort((first, second) => {
+        if (first.announcementType === 'RATING' && second.announcementType !== 'RATING') {
+          return -1;
+        }
+        if (first.announcementType !== 'RATING' && second.announcementType === 'RATING') {
+          return 1;
+        }
         return 0;
       })
     : [];
