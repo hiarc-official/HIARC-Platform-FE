@@ -50,7 +50,7 @@ export function MobileMenu({ isOpen, onClose, menuItems }: MobileMenuProps): Rea
   };
 
   if (!isOpen) {
-    return <></>;
+    return <div></div>;
   }
 
   return (
@@ -77,7 +77,7 @@ export function MobileMenu({ isOpen, onClose, menuItems }: MobileMenuProps): Rea
               className="flex items-center gap-3 px-6 py-4 text-left transition-colors hover:bg-gray-50"
               onClick={() => handleMenuItemClick(item.path)}
             >
-              <Label size="md" weight="regular">
+              <Label size="lg" weight="bold">
                 {item.label}
               </Label>
             </button>

@@ -28,14 +28,21 @@ export function AnnouncementListItem({
         className
       )}
     >
-      <div className="w-20">
+      <div className="w-20 flex-shrink-0">
         <CategoryChip category={category} />
       </div>
-      <div className="flex w-full items-center justify-between">
-        <Label size="md" weight={category === 'RATING' ? 'bold' : 'regular'} className="">
+      <div className="flex w-full min-w-0 flex-grow cursor-pointer items-center justify-between">
+        <Label
+          size="md"
+          weight={category === 'RATING' ? 'bold' : 'regular'}
+          className="min-w-0 cursor-pointer truncate"
+        >
           {title}
         </Label>
-        <Label size="sm" className="cursor-pointer text-gray-700">
+        <Label
+          size="sm"
+          className="ml-2 flex-shrink-0 cursor-pointer whitespace-nowrap text-gray-700"
+        >
           {date}
         </Label>
       </div>

@@ -22,16 +22,12 @@ export default function ConditionalHeader(): React.ReactElement {
   // 모바일 메뉴 아이템들
   const menuItems: MenuItem[] = [
     {
-      label: '공지사항',
-      path: '/announcement',
-    },
-    {
-      label: '멤버 관리',
+      label: '학회원 관리',
       path: '/manage',
     },
     {
-      label: '스터디 관리',
-      path: '/study',
+      label: '공지사항',
+      path: '/announcement',
     },
   ];
 
