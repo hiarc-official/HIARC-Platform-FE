@@ -3,7 +3,11 @@
 import { useRouter } from 'next/navigation';
 import { BackButton, Divider, Title } from '@hiarc-platform/ui';
 
-export default function AnnouncementEditLayout({ children }: { children: React.ReactNode }) {
+export default function AnnouncementEditLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}): React.ReactElement {
   const router = useRouter();
 
   const handleBackClick = (): void => {
