@@ -106,6 +106,9 @@ export function LectureList({
                 <ShowAttendanceCodeDialogWrapper
                   studyId={studyId ?? 0}
                   lectureId={lecture.round ?? 0}
+                  studyName={studyName}
+                  round={lecture.round ?? 0}
+                  lectureName={lecture.title ?? ''}
                 />
               );
             }}
