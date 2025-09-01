@@ -229,7 +229,10 @@ function MobileLectureListItem({
       <div className="flex items-center justify-between">
         <Label
           size="lg"
-          className="cursor-pointer underline decoration-gray-900 decoration-1 underline-offset-2 hover:opacity-70"
+          className={cn(
+            'cursor-pointer hover:opacity-70',
+            isStudent && 'underline decoration-gray-900 decoration-1 underline-offset-2'
+          )}
           onClick={onTitleClick}
         >
           {lecture?.title || '강의 제목 없음'}
@@ -353,7 +356,10 @@ function DesktopLectureCardListItem(props: LectureCardProps): React.ReactElement
         <WeekChip week={lecture?.round || 0} />
         <Label
           size="lg"
-          className="cursor-pointer underline decoration-gray-900 decoration-1 underline-offset-2 hover:opacity-70"
+          className={cn(
+            props.isStudent &&
+              'cursor-pointer underline decoration-gray-900 decoration-1 underline-offset-2 hover:opacity-70'
+          )}
           onClick={props.onTitleClick}
         >
           {lecture?.title || '강의 제목 없음'}
