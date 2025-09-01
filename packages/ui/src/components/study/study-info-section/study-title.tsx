@@ -1,6 +1,7 @@
 import { Study } from '@hiarc-platform/shared';
 import { Button, Label, StudyStatusChip, Title } from '@hiarc-platform/ui';
 
+
 interface StudyTitleProps {
   isAdmin?: boolean;
   studyData?: Study | null;
@@ -47,14 +48,20 @@ export function StudyTitle({
           <Label>{studyData?.introduction || '-'}</Label>
         </div>
         <div className="hidden flex-shrink-0 items-center md:ml-6 md:flex">
-          {hasRecruitmentDates && (
+          {hasRecruitmentDates && studyData?.studyStatus !== 'IN_PROGRESS' && (
             <div className="flex items-center">
               <Label size="lg" className="text-gray-500">
                 모집일
               </Label>
-              <Label size="lg" weight="medium" className="ml-4 text-gray-900">
-                {studyData.recruitingDates}
-              </Label>
+              {studyData?.isStudent ? (
+                <Label size="lg" weight="medium" className="ml-4 text-gray-500">
+                  {studyData.recruitingDates}
+                </Label>
+              ) : (
+                <Label size="lg" weight="medium" className="ml-4 text-gray-900">
+                  {studyData.recruitingDates}
+                </Label>
+              )}
             </div>
           )}
           {(isAdmin || studyData?.isInstructor) && (
@@ -74,6 +81,11 @@ export function StudyTitle({
                 </Button>
               )}
             </div>
+          )}
+          {studyData?.isStudent && (
+            <Button size="md" className="ml-6" variant="fill" disabled>
+              신청완료
+            </Button>
           )}
         </div>
       </div>

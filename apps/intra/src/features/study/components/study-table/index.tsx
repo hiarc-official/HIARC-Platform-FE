@@ -35,7 +35,10 @@ export function StudyTable({
   return (
     <div className={cn('w-full flex-col items-center', className)}>
       <SlideFade key="table" className="w-full">
-        <CommonTableHead table={table} />
+        <CommonTableHead
+          table={table}
+          className="border-b border-t border-b-gray-200 border-t-gray-900 bg-white"
+        />
         <CommonTableBody
           table={table}
           onClick={function (row: Row<StudySummary>): void {

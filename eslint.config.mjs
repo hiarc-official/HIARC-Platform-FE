@@ -18,7 +18,7 @@ const eslintConfig = [
   // Base JavaScript and TypeScript rules
   js.configs.recommended,
   ...tseslint.configs.recommended,
-  
+
   // Next.js specific rules for apps that use Next.js
   ...compat.config({
     extends: ['next/core-web-vitals', 'next/typescript', 'prettier'],
@@ -28,7 +28,7 @@ const eslintConfig = [
       node: true,
     },
   }),
-  
+
   // React and Vite specific configuration
   {
     files: ['**/*.{js,jsx,ts,tsx}'],
@@ -50,14 +50,11 @@ const eslintConfig = [
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
-      'react-refresh/only-export-components': [
-        'warn',
-        { allowConstantExport: true },
-      ],
+      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
       'react/prop-types': 'off',
       'no-unused-vars': 'off',
       '@typescript-eslint/no-unused-vars': 'off',
-      
+
       // Common rules for all projects
       'no-var': 'error',
       'prefer-const': 'error',
@@ -164,7 +161,7 @@ const eslintConfig = [
       'react/jsx-no-useless-fragment': 'warn',
     },
   },
-  
+
   // Global ignores
   {
     ignores: ['**/dist/**', '**/build/**', '**/.next/**', '**/node_modules/**'],
