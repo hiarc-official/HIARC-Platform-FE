@@ -30,6 +30,7 @@ export function EditStudyForm({ studyId }: EditStudyFormProps): React.ReactEleme
   const [formData, setFormData] = useState<CreateStudyRequest>({
     name: '',
     bojHandle: '',
+    isGroupStudy: false,
     semesterId: null,
     startDate: null,
     endDate: null,
@@ -82,6 +83,7 @@ export function EditStudyForm({ studyId }: EditStudyFormProps): React.ReactEleme
       setFormData({
         name: studyData.name || '',
         bojHandle: studyData.bojHandle || '',
+        isGroupStudy: studyData.isGroupStudy || false,
         semesterId: studyData.semesterId || null,
         startDate: studyData.startDate || null,
         endDate: studyData.endDate || null,
@@ -152,6 +154,7 @@ export function EditStudyForm({ studyId }: EditStudyFormProps): React.ReactEleme
     const studyRequest: CreateStudyRequest = {
       name: formData.name,
       bojHandle: formData.bojHandle,
+      isGroupStudy: formData.isGroupStudy,
       semesterId: formData.semesterId,
       startDate: studyPeriod[0]?.toISOString().split('T')[0] || null,
       endDate: studyPeriod[1]?.toISOString().split('T')[0] || null,

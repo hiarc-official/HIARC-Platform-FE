@@ -36,6 +36,7 @@ export function CreateStudyForm({
   const [formData, setFormData] = useState<CreateStudyRequest>({
     name: '',
     bojHandle: '',
+    isGroupStudy: false,
     semesterId: null,
     startDate: null,
     endDate: null,
@@ -62,6 +63,7 @@ export function CreateStudyForm({
       setFormData({
         name: initialData.name || '',
         bojHandle: initialData.bojHandle || '',
+        isGroupStudy: initialData.isGroupStudy || false,
         semesterId: initialData.semesterId || null,
         startDate: initialData.startDate || null,
         endDate: initialData.endDate || null,
@@ -143,6 +145,7 @@ export function CreateStudyForm({
     const studyRequest: CreateStudyRequest = {
       name: formData.name,
       bojHandle: formData.bojHandle,
+      isGroupStudy: formData.isGroupStudy,
       semesterId: formData.semesterId,
       startDate: studyPeriod[0]?.toISOString().split('T')[0] || null,
       endDate: studyPeriod[1]?.toISOString().split('T')[0] || null,
