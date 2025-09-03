@@ -2,23 +2,22 @@ import { BackButton } from '../../back-button';
 import { Divider } from '../../divider';
 import { Title } from '../../label/title';
 import { cn } from '../../../lib/utils';
-import { useRouter } from 'next/navigation';
 
 import React from 'react';
 
 interface AnnouncementDesktopHeaderProps {
   title: string;
   className?: string;
+  onBackClick?(): void;
 }
 
 export function AnnouncementDesktopHeader({
   title,
   className,
+  onBackClick,
 }: AnnouncementDesktopHeaderProps): React.ReactElement {
-  const router = useRouter();
-
   const handleBackClick = (): void => {
-    router.back();
+    onBackClick?.();
   };
 
   return (

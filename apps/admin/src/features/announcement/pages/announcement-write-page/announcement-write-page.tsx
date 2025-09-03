@@ -138,7 +138,11 @@ export function AnnouncementWritePage(): React.ReactElement {
 
   return (
     <div>
-      <AnnouncementDesktopHeader title="공지사항 작성" className="pb-6" />
+      <AnnouncementDesktopHeader
+        title="공지사항 작성"
+        className="pb-6"
+        onBackClick={handleBackClick}
+      />
       <AnnouncementWrite
         studyOptions={studyOptions}
         initialAnnouncementType={initialType || 'GENERAL'}

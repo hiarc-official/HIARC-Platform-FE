@@ -201,7 +201,7 @@ export function AnnouncementEditPage(): React.ReactElement {
 
   return (
     <div>
-      <AnnouncementDesktopHeader title={pageTitle} className="pb-6" />
+      <AnnouncementDesktopHeader title={pageTitle} onBackClick={handleBackClick} className="pb-6" />
       <AnnouncementWrite
         announcementId={id}
         announcement={announcement}
