@@ -9,10 +9,7 @@ import { useStudyOptions } from '@/features/study/hooks';
 import { useSemesterStoreInit } from '@/shared/hooks/use-semester-store';
 import {
   AnnouncementWrite,
-  BackButton,
-  Divider,
   LoadingDots,
-  Title,
   DialogUtil,
   AnnouncementDesktopHeader,
 } from '@hiarc-platform/ui';
