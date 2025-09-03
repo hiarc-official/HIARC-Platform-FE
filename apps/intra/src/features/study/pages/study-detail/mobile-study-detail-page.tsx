@@ -49,11 +49,7 @@ export function MobileStudyDetailPage(): React.ReactElement {
         studyId={studyId}
         semesterId={studyData?.semesterId ?? 1}
       />
-      <MobileStudyButton
-        studyData={studyData}
-        onEditClick={handleEditClick}
-        onApplyClick={handleApplyClick}
-      />
+      <MobileStudyButton studyData={studyData} onApplyClick={handleApplyClick} />
     </div>
   );
 }

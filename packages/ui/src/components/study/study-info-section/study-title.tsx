@@ -81,7 +81,7 @@ export function StudyTitle({
               )}
             </div>
           )}
-          {studyData?.isStudent && (
+          {!isAdmin && studyData?.isStudent && (
             <Button size="md" className="ml-6" variant="fill" disabled>
               신청완료
             </Button>

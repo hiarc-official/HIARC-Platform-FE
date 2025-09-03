@@ -1,17 +1,16 @@
 import { Study } from '@hiarc-platform/shared';
-import { Button, Label } from '@hiarc-platform/ui';
+import { Button } from '@hiarc-platform/ui';
 
 interface MobileStudyButtonProps {
   isAdmin?: boolean;
   studyData?: Study | null;
-  onEditClick?(): void;
+
   onApplyClick?(): void;
 }
 
 export function MobileStudyButton({
   isAdmin = false,
   studyData,
-  onEditClick,
   onApplyClick,
 }: MobileStudyButtonProps): React.ReactElement {
   const hasRecruitmentDates = studyData?.recruitmentStartDate && studyData?.recruitmentEndDate;
