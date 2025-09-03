@@ -13,8 +13,8 @@ import {
   Divider,
   LoadingDots,
   Title,
-  Label,
   DialogUtil,
+  AnnouncementDesktopHeader,
 } from '@hiarc-platform/ui';
 
 export function AnnouncementEditPage(): React.ReactElement {
@@ -200,7 +200,8 @@ export function AnnouncementEditPage(): React.ReactElement {
   }
 
   return (
-    <div className="w-full">
+    <div>
+      <AnnouncementDesktopHeader title={pageTitle} className="pb-6" />
       <AnnouncementWrite
         announcementId={id}
         announcement={announcement}
