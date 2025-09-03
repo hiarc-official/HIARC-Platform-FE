@@ -1,7 +1,6 @@
 import { Study } from '@hiarc-platform/shared';
 import { Button, Label, StudyStatusChip, Title } from '@hiarc-platform/ui';
 
-
 interface StudyTitleProps {
   isAdmin?: boolean;
   studyData?: Study | null;
