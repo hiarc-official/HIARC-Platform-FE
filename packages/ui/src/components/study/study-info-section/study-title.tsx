@@ -1,7 +1,6 @@
 import { Study } from '@hiarc-platform/shared';
 import { Button, Label, StudyStatusChip, Title } from '@hiarc-platform/ui';
 
-
 interface StudyTitleProps {
   isAdmin?: boolean;
   studyData?: Study | null;
@@ -82,7 +81,7 @@ export function StudyTitle({
               )}
             </div>
           )}
-          {studyData?.isStudent && (
+          {!isAdmin && studyData?.isStudent && (
             <Button size="md" className="ml-6" variant="fill" disabled>
               신청완료
             </Button>
