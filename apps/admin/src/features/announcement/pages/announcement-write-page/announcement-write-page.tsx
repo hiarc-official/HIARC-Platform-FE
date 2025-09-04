@@ -6,7 +6,7 @@ import { useImageUpload } from '@/features/announcement/hooks/use-image-upload';
 import { CreateAnnouncementForm, CreateAnnouncementRequest } from '@hiarc-platform/shared';
 import { useSemesterStoreInit, useSemesterStore } from '@/shared/hooks/use-semester-store';
 import { useStudyOptions } from '@/features/study/hooks';
-import { AnnouncementWrite, DialogUtil } from '@hiarc-platform/ui';
+import { AnnouncementDesktopHeader, AnnouncementWrite, DialogUtil } from '@hiarc-platform/ui';
 
 export function AnnouncementWritePage(): React.ReactElement {
   const router = useRouter();
@@ -125,15 +125,26 @@ export function AnnouncementWritePage(): React.ReactElement {
     }
   };
 
+  const handleBackClick = (): void => {
+    router.back();
+  };
+
   return (
-    <AnnouncementWrite
-      studyOptions={studyOptions}
-      initialAnnouncementType={initialType || 'GENERAL'}
-      initialStudyId={initialStudyId ? Number(initialStudyId) : undefined}
-      initialStudyAnnounceType={(isLecture ? '회차별 공지' : '일반') as '회차별 공지' | '일반'}
-      onSubmit={(data) => {
-        handleSubmit(data as CreateAnnouncementForm);
-      }}
-    />
+    <div>
+      <AnnouncementDesktopHeader
+        title="공지사항 작성"
+        className="pb-6"
+        onBackClick={handleBackClick}
+      />
+      <AnnouncementWrite
+        studyOptions={studyOptions}
+        initialAnnouncementType={initialType || 'GENERAL'}
+        initialStudyId={initialStudyId ? Number(initialStudyId) : undefined}
+        initialStudyAnnounceType={(isLecture ? '회차별 공지' : '일반') as '회차별 공지' | '일반'}
+        onSubmit={(data) => {
+          handleSubmit(data as CreateAnnouncementForm);
+        }}
+      />
+    </div>
   );
 }

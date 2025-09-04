@@ -2,6 +2,7 @@ export * from './components/animation';
 export * from './components/announcement/announcement-content-section/announcement-content-section';
 export * from './components/announcement/announcement-indicator-section/announcement-indicator-section';
 export * from './components/announcement/announcement-info-section/announcement-info-section';
+export * from './components/announcement/announcement-desktop-header/AnnouncementDesktopHeader';
 export { default as AnnouncementWrite } from './components/announcement-write/announcement-write';
 export type { AnnouncementWriteProps } from './components/announcement-write/announcement-write';
 export { MobileAnnouncementWrite } from './components/announcement-write/mobile-announcement-write';

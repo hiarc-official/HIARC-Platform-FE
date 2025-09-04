@@ -9,12 +9,9 @@ import { useStudyOptions } from '@/features/study/hooks';
 import { useSemesterStoreInit } from '@/shared/hooks/use-semester-store';
 import {
   AnnouncementWrite,
-  BackButton,
-  Divider,
   LoadingDots,
-  Title,
-  Label,
   DialogUtil,
+  AnnouncementDesktopHeader,
 } from '@hiarc-platform/ui';
 
 export function AnnouncementEditPage(): React.ReactElement {
@@ -200,7 +197,8 @@ export function AnnouncementEditPage(): React.ReactElement {
   }
 
   return (
-    <div className="w-full">
+    <div>
+      <AnnouncementDesktopHeader title={pageTitle} onBackClick={handleBackClick} className="pb-6" />
       <AnnouncementWrite
         announcementId={id}
         announcement={announcement}
