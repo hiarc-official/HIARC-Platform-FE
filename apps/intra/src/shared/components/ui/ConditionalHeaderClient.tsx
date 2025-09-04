@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { MobileHeader as UIMobileHeader, MenuItem } from '@hiarc-platform/ui';
 import { MobileHeader } from './header/mobile-header';
@@ -12,6 +13,7 @@ interface ConditionalHeaderClientProps {
 export function ConditionalHeaderClient({
   isAuthenticated,
 }: ConditionalHeaderClientProps): React.ReactElement {
+  const [searchInput, setSearchInput] = useState('');
   const pathname = usePathname();
   const router = useRouter();
   const isAnnouncementList = pathname === '/announcement';
@@ -83,8 +85,16 @@ export function ConditionalHeaderClient({
         <div className="hidden md:block">
           <header className="flex w-full items-center justify-between border-b border-gray-200">
             <div className="mx-auto flex w-full max-w-[1200px] items-center justify-between px-5 py-4">
-              <MobileHeader isAuthenticated={isAuthenticated} />
-              <DesktopHeader isAuthenticated={isAuthenticated} />
+              <MobileHeader 
+                isAuthenticated={isAuthenticated}
+                searchInput={searchInput}
+                setSearchInput={setSearchInput}
+              />
+              <DesktopHeader 
+                isAuthenticated={isAuthenticated}
+                searchInput={searchInput}
+                setSearchInput={setSearchInput}
+              />
             </div>
           </header>
         </div>
@@ -96,8 +106,16 @@ export function ConditionalHeaderClient({
   return (
     <header className="flex w-full items-center justify-between border-b border-gray-200">
       <div className="mx-auto flex w-full max-w-[1200px] items-center justify-between px-5 py-4">
-        <MobileHeader isAuthenticated={isAuthenticated} />
-        <DesktopHeader isAuthenticated={isAuthenticated} />
+        <MobileHeader 
+          isAuthenticated={isAuthenticated}
+          searchInput={searchInput}
+          setSearchInput={setSearchInput}
+        />
+        <DesktopHeader 
+          isAuthenticated={isAuthenticated}
+          searchInput={searchInput}
+          setSearchInput={setSearchInput}
+        />
       </div>
     </header>
   );
