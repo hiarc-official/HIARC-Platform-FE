@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import LayOut from '../ui/Layout';
+import LayOut from '../util/Layout';
 import styled, { keyframes } from 'styled-components';
 import StreakEntity from '../components/StreakEntity';
 import { fetchStreakData, StreakData } from '../api/StreakApi';
-import Color from '../ui/Color';
+import Color from '../util/Color';
 
 const fadeIn = keyframes`
   from {

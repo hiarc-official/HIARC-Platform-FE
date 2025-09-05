@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import RankingContainerExplainBar from '../components/RankingContainerExplainBar';
 import RankingEntity from '../components/RankingEntity';
-import { fetchRankingData } from '../api/RanikingApi';
+import { fetchRankingData } from '../api/RankingApi';
 
 const Wrapper = styled.div`
   width: 673px;

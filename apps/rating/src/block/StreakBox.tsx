@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import { useAtom } from 'jotai';
-import Color from '../ui/Color';
+import Color from '../util/Color';
 import IndividualBlock from '../components/IndividualBlock';
 import StreakBoxArrowButton from '../components/StreakBoxArrowButton';
 import { hitingDataAtom, loadingAtom } from '../store/Atom';

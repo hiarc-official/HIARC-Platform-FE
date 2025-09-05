@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
-import LayOut from '../ui/Layout';
+import LayOut from '../util/Layout';
 import DivToggleBar from '../components/DivToggleBar';
 import RankingContainer from '../block/RankingContainer';
 import { useSearchParams } from 'react-router-dom';
 import DonutChart from '../atoms/DounutChart';
-import { fetchGraphData } from '../api/RanikingApi';
-import Color from '../ui/Color';
+import { fetchGraphData } from '../api/RankingApi';
+import Color from '../util/Color';
 
 const fadeIn = keyframes`
   from {
