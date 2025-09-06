@@ -6,7 +6,7 @@ export { useUpdateStudy } from './use-update-study';
 export { useLecturesByStudy } from './use-lectures-by-study';
 export { useStudyOptions } from './use-study-options';
 export { useCreateAssignment } from './use-create-assignment';
-export { useStudyMembers } from './use-study-members';
+export { useStudyMembers } from './use-study-group-list';
 export { useAssignment } from './use-assignment';
 export { useAttendanceCode } from './use-attendance-code';
 export { useCreateAttendanceCode } from './use-create-attendance-code';

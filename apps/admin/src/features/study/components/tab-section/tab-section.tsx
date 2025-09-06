@@ -6,7 +6,7 @@ import { AnnouncementTable } from './announcement-table';
 import { StudentList } from './student-list';
 import { useStudyAnnouncements } from '../../hooks/use-study-announcements';
 import { useLecturesByStudy } from '../../hooks';
-import { useStudyMembers } from '../../hooks/use-study-members';
+import { useStudyGroupList } from '../../hooks/use-study-group-list';
 
 interface TabSectionProps {
   studyName?: string;
@@ -36,7 +36,7 @@ export function TabSection({
     size: 10,
   });
   const { data: lectureList } = useLecturesByStudy(studyId || 0);
-  const { data: studentList } = useStudyMembers(studyId || 0);
+  const { data: groupList } = useStudyGroupList(studyId || 0);
 
   const handleCurriculumAdd = (): void => {
     router.push(`/announcement/write?type=STUDY&studyId=${studyId}&isLecture=true`);
@@ -74,7 +74,7 @@ export function TabSection({
         )}
         {selectedTab === 'manage_student' && (
           <SlideFade key="manage_student" className="w-full">
-            <StudentList studentList={studentList || []} />
+            <StudentList studentList={groupList?.aloneStudents || []} />
           </SlideFade>
         )}
       </div>

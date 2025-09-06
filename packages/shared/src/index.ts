@@ -10,6 +10,8 @@ export * from './types/study/lecture';
 export * from './types/study/study-member';
 export * from './types/study/assignment';
 export * from './types/study/study-initial-form';
+export * from './types/study/study-group';
+export * from './types/study/study-group-list';
 export * from './types/time/time';
 export * from './types/semester/semester';
 export * from './types/select/select-option';
