@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import MainPage from './page/MainPage';
-import DivPage from './page/DivPage';
+import DivPage from './page/RankingPage';
 import StreakPage from './page/StreakPage';
 import SearchPage from './page/SearchPage';
 import AdminPage from './page/AdminPage';

@@ -36,10 +36,10 @@ const HitingBox = ({ divNum }: { divNum: number }) => {
 
   const divList: DivData[] =
     divNum === 1
-      ? hitingData.div1List
+      ? hitingData.div1Ranking
       : divNum === 2
-        ? hitingData.div2List
-        : hitingData.div3List || [];
+        ? hitingData.div2Ranking
+        : hitingData.div3Ranking || [];
 
   return (
     <Wrapper>
@@ -50,10 +50,10 @@ const HitingBox = ({ divNum }: { divNum: number }) => {
         {divList.map((item, index) => (
           <DivNameTack
             key={index}
-            rank={item.rank}
-            id={item.handle}
+            rank={index + 1}
+            id={item.bojHandle}
             tier={item.tier}
-            totalHiting={item.totalHiting}
+            totalHiting={item.totalScore}
           />
         ))}
       </TackContainer>

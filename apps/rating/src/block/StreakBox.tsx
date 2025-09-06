@@ -53,7 +53,7 @@ const StreakBox = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const streakList = hitingData.streakList.slice(0, 6) || [];
+  const streakList = hitingData.streakRanking?.slice(0, 6) || [];
   const displayedBlocks = isMobile ? streakList.slice(0, 4) : streakList;
 
   return (
@@ -65,14 +65,14 @@ const StreakBox = () => {
         <p style={{ textAlign: 'center', padding: '20px' }}>로딩 중...</p>
       ) : (
         <Individuals>
-          {displayedBlocks.map(({ tier, handle, div, totalStreak, startDate }) => (
+          {displayedBlocks.map((streak) => (
             <IndividualBlock
-              key={handle}
-              tier={tier}
-              handle={handle}
-              divNum={div}
-              totalStreak={totalStreak}
-              startDate={startDate}
+              key={streak.bojHandle}
+              tier={streak.tier}
+              handle={streak.bojHandle}
+              divNum={streak.div}
+              totalStreak={streak.currentTotalStreak}
+              startDate={streak.streakStartAt}
             />
           ))}
         </Individuals>
