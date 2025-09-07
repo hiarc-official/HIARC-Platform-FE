@@ -56,6 +56,7 @@ export function CreateStudyForm({
   const [selectedStartTime, setSelectedStartTime] = useState<string>('');
   const [isOnline, setIsOnline] = useState<string>('');
   const [isPublic, setIsPublic] = useState<string>('');
+  const [isGroupStudy, setIsGroupStudy] = useState<string>('AVAILABLE');
 
   // Initialize form data when initialData is loaded
   useEffect(() => {
@@ -92,6 +93,7 @@ export function CreateStudyForm({
       setSelectedStartTime(initialData.startTime || '');
       setIsOnline(initialData.isOnline ? 'ONLINE' : 'IN_PERSON');
       setIsPublic(initialData.isPublic ? 'PUBLIC' : 'PRIVATE');
+      setIsGroupStudy(initialData.isGroupStudy ? 'AVAILABLE' : 'UNAVAILABLE');
     }
   }, [initialData, isEditMode]);
 
@@ -113,6 +115,11 @@ export function CreateStudyForm({
   const publicTypeOptionList = [
     { label: '공개', value: 'PUBLIC' },
     { label: '비공개', value: 'PRIVATE' },
+  ];
+
+  const studyGroupOptionList = [
+    { label: '있음', value: 'AVAILABLE' },
+    { label: '없음', value: 'UNAVAILABLE' },
   ];
 
   // 시간 형식을 HH:MM:SS로 정규화하는 함수
@@ -218,18 +225,29 @@ export function CreateStudyForm({
         onChange={(value) => setFormData((prev) => ({ ...prev, name: value }))}
         disabled={isEditMode}
       />
-      <div className="flex w-1/2 items-end gap-2">
-        <LabeledInput
-          label="스터디장"
-          placeholder="스터디장의 핸들명을 입력해주세요"
-          required
-          value={formData.bojHandle}
-          onChange={(value) => setFormData((prev) => ({ ...prev, bojHandle: value }))}
-          disabled={isEditMode}
-        />
-        <Button variant="fill" size="md" className="w-25 px-9 text-md" disabled={isEditMode}>
-          확인
-        </Button>
+      <div className="flex w-full gap-2">
+        <div className="flex w-1/2 items-end gap-2">
+          <LabeledInput
+            label="스터디장"
+            placeholder="스터디장의 핸들명을 입력해주세요"
+            required
+            value={formData.bojHandle}
+            onChange={(value) => setFormData((prev) => ({ ...prev, bojHandle: value }))}
+            disabled={isEditMode}
+          />
+          <Button variant="fill" size="md" className="w-25 px-9 text-md" disabled={isEditMode}>
+            확인
+          </Button>
+        </div>
+        <div className="flex w-1/2 items-end">
+          <LabeledSelectButton
+            label="스터디조"
+            options={studyGroupOptionList}
+            value={isGroupStudy}
+            onChange={setIsGroupStudy}
+            disabled={isEditMode}
+          />
+        </div>
       </div>
       <div className="flex w-full  items-end gap-2">
         <LabeledSelector
