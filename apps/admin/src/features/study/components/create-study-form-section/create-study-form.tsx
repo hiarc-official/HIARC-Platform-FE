@@ -175,6 +175,7 @@ export function CreateStudyForm({
       { value: formData.lang, name: '언어' },
       { value: isPublic, name: '공개 여부' },
       { value: formData.introduction, name: '스터디 한줄 소개' },
+      { value: cruitPeriod[0] && cruitPeriod[1], name: '모집기한' },
     ];
 
     for (const field of requiredFields) {
