@@ -62,8 +62,8 @@ export const fetchStreakData = async (params: PaginationParams): Promise<Pageabl
       params: {
         page: params.page,
         size: params.size,
-        ...(params.sort && { sort: params.sort })
-      }
+        ...(params.sort && { sort: params.sort }),
+      },
     });
 
     console.log('API 응답 데이터:', response.data);
