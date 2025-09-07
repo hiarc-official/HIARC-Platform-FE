@@ -28,6 +28,7 @@ export * from './components/label/title';
 export * from './components/layout/content-section';
 export * from './components/layout/page-layout';
 export * from './components/study/lecture-list-item';
+export * from './components/study/study-unassigned-group';
 export * from './components/loading-dots';
 export * from './components/menubar';
 export * from './components/popover';

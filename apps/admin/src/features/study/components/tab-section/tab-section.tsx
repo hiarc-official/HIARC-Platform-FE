@@ -1,4 +1,4 @@
-import { Button, cn, SlideFade, Tabs } from '@hiarc-platform/ui';
+import { Button, cn, SlideFade, StudyUnassignedGroup, Tabs } from '@hiarc-platform/ui';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { LectureList } from './lecture-list';
@@ -75,6 +75,7 @@ export function TabSection({
         {selectedTab === 'manage_student' && (
           <SlideFade key="manage_student" className="w-full">
             <StudentList studentList={groupList?.aloneStudents || []} />
+            <StudyUnassignedGroup members={groupList?.aloneStudents || []} />
           </SlideFade>
         )}
       </div>
