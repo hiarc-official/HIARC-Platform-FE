@@ -1,5 +1,5 @@
 import { StudyGroup } from '@hiarc-platform/shared';
-import { StudyGroupListItem } from '@hiarc-platform/ui';
+import { StudyGroupListItem } from './study-group-list-item';
 
 interface StudyGroupListProps {
   groupList: StudyGroup[];

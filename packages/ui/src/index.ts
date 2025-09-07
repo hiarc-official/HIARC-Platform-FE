@@ -56,6 +56,7 @@ export * from './components/study/create-study-form';
 export * from './components/study/study-info-section';
 export * from './components/study/mobile-study-button';
 export * from './components/study/study-group-list-item';
+export * from './components/study/study-group-list';
 export * from './components/select/checkbox-list';
 export * from './components/select/labeled-checkbox-list';
 export * from './constants/assets';

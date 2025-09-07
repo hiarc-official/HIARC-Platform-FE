@@ -16,10 +16,9 @@ import { StudentList } from './student-list';
 import { useStudyAnnouncements } from '../../hooks/use-study-announcements';
 import { useLecturesByStudy } from '../../hooks';
 import { useStudyGroupList } from '../../hooks/use-study-group-list';
-import { useValidateInstructor } from '../../hooks/use-validate-instructor';
 import { useValidateStudent } from '../../hooks/use-validate-student';
 import { useCreateGroup } from '../../hooks/use-create-group';
-import { StudyGroupList } from './group-list';
+import { StudyGroupList } from '../../../../../../../packages/ui/src/components/study/study-group-list';
 import { useEditGroup } from '../../hooks/use-edit-group';
 
 interface TabSectionProps {

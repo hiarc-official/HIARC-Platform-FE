@@ -48,6 +48,7 @@ export function MobileStudyDetailPage(): React.ReactElement {
         isAdmin={studyData?.isInstructor ?? false}
         studyId={studyId}
         semesterId={studyData?.semesterId ?? 1}
+        isGroupStudy={studyData?.isGroupStudy ?? false}
       />
       <MobileStudyButton studyData={studyData} onApplyClick={handleApplyClick} />
     </div>
