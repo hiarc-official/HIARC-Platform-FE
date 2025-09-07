@@ -10,18 +10,26 @@ import { StudentListItem } from './student-list-item';
 
 interface StudyGroupListItemProps {
   studyGroup: StudyGroup;
-  onEdit?(groupId: number): void;
+  onEdit?(groupId: number, groupData: StudyGroup): void;
+  onDelete?(groupId: number): void;
 }
 
 export function StudyGroupListItem({
   studyGroup,
   onEdit,
+  onDelete,
 }: StudyGroupListItemProps): React.ReactElement {
   const [open, setOpen] = useState(false);
 
   const handleEdit = (): void => {
     if (studyGroup.groupId && onEdit) {
-      onEdit(studyGroup.groupId);
+      onEdit(studyGroup.groupId, studyGroup);
+    }
+  };
+
+  const handleDelete = (): void => {
+    if (studyGroup.groupId && onDelete) {
+      onDelete(studyGroup.groupId);
     }
   };
 
@@ -40,6 +48,9 @@ export function StudyGroupListItem({
         <Button variant="secondary" size="xs" onClick={handleEdit}>
           수정
         </Button>
+        <Button variant="secondary" size="xs" onClick={handleDelete}>
+          삭제
+        </Button>
       </div>
 
       {open && studyGroup.students && studyGroup.students.length > 0 && (
@@ -48,7 +59,8 @@ export function StudyGroupListItem({
             {studyGroup.students.map((student, index) => (
               <StudentListItem
                 key={student.memberId || index}
-                name={student.memberName || '이름 없음'}
+                name={student.memberName || ''}
+                bojHandle={student.bojHandle || ''}
                 attendanceCount={student.attendanceCount || 0}
                 assignmentCount={student.assignmentCount || 0}
                 totalRounds={student.totalRounds || 0}

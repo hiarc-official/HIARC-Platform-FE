@@ -12,6 +12,7 @@ module.exports = {
     'mx-auto',
     'min-w-0',
     'flex-1',
+    'h-full',
     'border-t-gray-900',
     'border-transparent',
     'border-b',

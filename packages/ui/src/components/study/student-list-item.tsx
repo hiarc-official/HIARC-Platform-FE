@@ -16,6 +16,7 @@ interface RoundStatus {
 
 interface StudentListItemProps {
   name: string;
+  bojHandle?: string;
   imageUrl?: string;
   attendanceCount?: number;
   assignmentCount?: number;
@@ -25,6 +26,7 @@ interface StudentListItemProps {
 
 export function StudentListItem({
   name,
+  bojHandle,
   imageUrl,
   attendanceCount,
   assignmentCount,
@@ -43,7 +45,7 @@ export function StudentListItem({
         <div className="flex items-center gap-4">
           <Avatar imageUrl={imageUrl} alt={name} />
           <Label size="lg" weight="medium">
-            {name}
+            {name} ({bojHandle})
           </Label>
           <Button variant="secondary" size="xs">
             탈퇴

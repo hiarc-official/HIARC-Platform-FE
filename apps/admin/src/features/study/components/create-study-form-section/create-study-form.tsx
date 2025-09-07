@@ -10,7 +10,6 @@ import { useState } from 'react';
 import { useCreateStudy } from '@/features/study/hooks';
 import { useUpdateStudy } from '@/features/study/hooks/use-update-study';
 import { useStudyInitialForm } from '@/features/study/hooks/use-study-initial-form';
-import { useRouter } from 'next/navigation';
 import { CreateStudyRequest } from '@hiarc-platform/shared';
 import type { UpdateStudyRequest } from '../../api/study';
 import { useSemesterStoreInit, useSemesterStore } from '@/shared/hooks/use-semester-store';
@@ -26,7 +25,6 @@ export function CreateStudyForm({
   studyId,
   isEditMode = false,
 }: CreateStudyFormProps = {}): React.ReactElement {
-  const router = useRouter();
   const createStudyMutation = useCreateStudy();
   const updateStudyMutation = useUpdateStudy();
   const validateInstructorMutation = useValidateInstructor();
@@ -193,7 +191,7 @@ export function CreateStudyForm({
     const studyRequest: CreateStudyRequest = {
       name: formData.name,
       bojHandle: formData.bojHandle,
-      isGroupStudy: formData.isGroupStudy,
+      isGroupStudy: isGroupStudy === 'AVAILABLE',
       semesterId: formData.semesterId,
       startDate: studyPeriod[0]?.toISOString().split('T')[0] || null,
       endDate: studyPeriod[1]?.toISOString().split('T')[0] || null,

@@ -29,6 +29,8 @@ export * from './components/layout/content-section';
 export * from './components/layout/page-layout';
 export * from './components/study/lecture-list-item';
 export * from './components/study/study-unassigned-group';
+export * from './components/study/add-group-dialog/add-group-dialog';
+export * from './components/study/edit-group-dialog/edit-group-dialog';
 export * from './components/loading-dots';
 export * from './components/menubar';
 export * from './components/popover';

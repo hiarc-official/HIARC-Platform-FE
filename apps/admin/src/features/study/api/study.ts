@@ -3,6 +3,7 @@ import type { UpdateStudyRequest, StudyQueryParams } from '../types/request/stud
 import {
   AnnouncementSummary,
   Assignment,
+  CreateGroupRequest,
   CreateStudyRequest,
   Lecture,
   PageableModel,
@@ -241,11 +242,12 @@ export const studyApi = {
   /**
    * 특정 스터디의 강의(공지사항)를 삭제하는 API입니다.
    * @param studyId - 스터디의 ID입니다.
+   * @param groupData - 수정할 그룹 데이터입니다.
    * @returns void
    */
-  CREATE_GROUP: async (studyId: number): Promise<void> => {
+  CREATE_GROUP: async (studyId: number, groupData: CreateGroupRequest): Promise<void> => {
     try {
-      await apiClient.post(`/studies/${studyId}/instructor/group`);
+      await apiClient.post(`/studies/${studyId}/instructor/group`, groupData);
     } catch (error) {
       console.error('[STUDY API] CREATE_GROUP 에러:', error);
       throw error;
@@ -268,16 +270,19 @@ export const studyApi = {
   },
 
   /**
-   * 수강생 핸들명 검증 API입니다.
+   * 스터디 조 수정 API입니다.
    * @param studyId - 스터디의 ID입니다.
    * @param groupId - 그룹의 ID입니다.
+   * @param groupData - 수정할 그룹 데이터입니다.
    * @returns void
    */
-  PATCH_GROUP: async (studyId: number, groupId: number, bojHandle: string): Promise<void> => {
+  PATCH_GROUP: async (
+    studyId: number,
+    groupId: number,
+    groupData: CreateGroupRequest
+  ): Promise<void> => {
     try {
-      await apiClient.patch(`/studies/${studyId}/instructor/group/${groupId}`, {
-        bojHandle,
-      });
+      await apiClient.patch(`/studies/${studyId}/instructor/group/${groupId}`, groupData);
     } catch (error) {
       console.error('[STUDY API] PATCH_GROUP 에러:', error);
       throw error;
@@ -285,9 +290,8 @@ export const studyApi = {
   },
 
   /**
-   * 수강생 핸들명 검증 API입니다.
-   * @param studyId - 스터디의 ID입니다.
-   * @param groupId - 그룹의 ID입니다.
+   * 강사 핸들명 검증 API입니다.
+   * @param bojHandle - 강사의 BOJ 핸들입니다.
    * @returns void
    */
   VALIDATE_INSTRUCTOR: async (bojHandle: string): Promise<void> => {

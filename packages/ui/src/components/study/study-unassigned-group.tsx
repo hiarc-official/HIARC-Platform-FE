@@ -31,6 +31,7 @@ export function StudyUnassignedGroup({
             <StudentListItem
               key={member.memberId || index}
               name={member.memberName || '이름 없음'}
+              bojHandle={member.bojHandle || '핸들 없음'}
               attendanceCount={member.attendanceCount || 0}
               assignmentCount={member.assignmentCount || 0}
               totalRounds={member.totalRounds || 0}

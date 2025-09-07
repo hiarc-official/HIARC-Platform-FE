@@ -1,4 +1,4 @@
-import { useMutation, UseMutationResult, useQueryClient } from '@tanstack/react-query';
+import { useMutation, UseMutationResult } from '@tanstack/react-query';
 import { studyApi } from '../api/study';
 import { DialogUtil } from '@hiarc-platform/ui';
 

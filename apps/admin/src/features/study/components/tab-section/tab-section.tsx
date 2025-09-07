@@ -1,4 +1,13 @@
-import { Button, cn, SlideFade, StudyUnassignedGroup, Tabs } from '@hiarc-platform/ui';
+import {
+  AddGroupDialog,
+  Button,
+  cn,
+  DialogUtil,
+  EditGroupDialog,
+  SlideFade,
+  StudyUnassignedGroup,
+  Tabs,
+} from '@hiarc-platform/ui';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { LectureList } from './lecture-list';
@@ -7,17 +16,24 @@ import { StudentList } from './student-list';
 import { useStudyAnnouncements } from '../../hooks/use-study-announcements';
 import { useLecturesByStudy } from '../../hooks';
 import { useStudyGroupList } from '../../hooks/use-study-group-list';
+import { useValidateInstructor } from '../../hooks/use-validate-instructor';
+import { useValidateStudent } from '../../hooks/use-validate-student';
+import { useCreateGroup } from '../../hooks/use-create-group';
+import { StudyGroupList } from './group-list';
+import { useEditGroup } from '../../hooks/use-edit-group';
 
 interface TabSectionProps {
   studyName?: string;
   studyId?: number;
   isAdmin?: boolean;
+  isGroupStudy?: boolean;
   className?: string;
 }
 
 export function TabSection({
   className,
   isAdmin,
+  isGroupStudy = true,
   studyId,
   studyName,
 }: TabSectionProps): React.ReactElement {
@@ -37,6 +53,9 @@ export function TabSection({
   });
   const { data: lectureList } = useLecturesByStudy(studyId || 0);
   const { data: groupList } = useStudyGroupList(studyId || 0);
+  const validateStudent = useValidateStudent();
+  const createGroup = useCreateGroup();
+  const editGroup = useEditGroup();
 
   const handleCurriculumAdd = (): void => {
     router.push(`/announcement/write?type=STUDY&studyId=${studyId}&isLecture=true`);
@@ -74,8 +93,81 @@ export function TabSection({
         )}
         {selectedTab === 'manage_student' && (
           <SlideFade key="manage_student" className="w-full">
-            <StudentList studentList={groupList?.aloneStudents || []} />
-            <StudyUnassignedGroup members={groupList?.aloneStudents || []} />
+            {isGroupStudy ? (
+              <div className="flex flex-col gap-6">
+                <StudyGroupList
+                  groupList={groupList?.studyGroups || []}
+                  onDelete={(groupId) => {
+                    DialogUtil.showConfirm('조를 삭제하시겠습니까?', () => {
+                      if (studyId) {
+                        editGroup.mutateAsync({
+                          studyId,
+                          groupId,
+                          groupData: {
+                            groupName: '',
+                            bojHandles: [],
+                          },
+                        });
+                      }
+                    });
+                  }}
+                  onEdit={(groupId, groupData) => {
+                    DialogUtil.showComponent(
+                      <EditGroupDialog
+                        initialData={groupData}
+                        onEditGroup={async (updatedGroupData) => {
+                          if (studyId) {
+                            await editGroup.mutateAsync({
+                              studyId,
+                              groupId,
+                              groupData: updatedGroupData,
+                            });
+                          }
+                        }}
+                        onValidateHandle={async (handle) => {
+                          try {
+                            if (studyId) {
+                              await validateStudent.mutateAsync({ studyId, bojHandle: handle });
+                              return true;
+                            }
+                            return false;
+                          } catch (error) {
+                            return false;
+                          }
+                        }}
+                      />
+                    );
+                  }}
+                />
+                <StudyUnassignedGroup
+                  members={groupList?.aloneStudents || []}
+                  onAddGroup={() => {
+                    DialogUtil.showComponent(
+                      <AddGroupDialog
+                        onAddGroup={async (groupData) => {
+                          if (studyId) {
+                            await createGroup.mutateAsync({ studyId, groupData });
+                          }
+                        }}
+                        onValidateHandle={async (handle) => {
+                          try {
+                            if (studyId) {
+                              await validateStudent.mutateAsync({ studyId, bojHandle: handle });
+                              return true;
+                            }
+                            return false;
+                          } catch (error) {
+                            return false;
+                          }
+                        }}
+                      />
+                    );
+                  }}
+                />
+              </div>
+            ) : (
+              <StudentList studentList={groupList?.aloneStudents || []} />
+            )}
           </SlideFade>
         )}
       </div>
