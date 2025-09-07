@@ -3,10 +3,12 @@ import type { UpdateStudyRequest, StudyQueryParams } from '../types/request/stud
 import {
   AnnouncementSummary,
   Assignment,
+  CreateGroupRequest,
   CreateStudyRequest,
   Lecture,
   PageableModel,
   Study,
+  StudyGroupList,
   StudyMember,
   StudySummary,
 } from '@hiarc-platform/shared';
@@ -136,10 +138,10 @@ export const studyApi = {
    * @param studyId - 스터디의 ID입니다.
    * @returns 스터디 멤버 객체 배열을 반환합니다.
    */
-  GET_STUDY_MEMBERS: async (studyId: number): Promise<StudyMember[]> => {
+  GET_STUDY_GROUP_LIST: async (studyId: number): Promise<StudyGroupList> => {
     try {
       const response = await apiClient.get(`/studies/${studyId}/instructor/status`);
-      return response.data.map((member: unknown) => StudyMember.fromJson(member));
+      return StudyGroupList.fromJson(response.data);
     } catch (error) {
       console.error('[STUDY API] GET_STUDY_MEMBERS 에러:', error);
       throw error;
@@ -233,6 +235,72 @@ export const studyApi = {
       await apiClient.delete(`/studies/${studyId}/instructor/announcements/${announcementId}`);
     } catch (error) {
       console.error('[STUDY API] DELETE_LECTURE 에러:', error);
+      throw error;
+    }
+  },
+
+  /**
+   * 특정 스터디의 강의(공지사항)를 삭제하는 API입니다.
+   * @param studyId - 스터디의 ID입니다.
+   * @param groupData - 수정할 그룹 데이터입니다.
+   * @returns void
+   */
+  CREATE_GROUP: async (studyId: number, groupData: CreateGroupRequest): Promise<void> => {
+    try {
+      await apiClient.post(`/studies/${studyId}/instructor/group`, groupData);
+    } catch (error) {
+      console.error('[STUDY API] CREATE_GROUP 에러:', error);
+      throw error;
+    }
+  },
+
+  /**
+   * 수강생 핸들명 검증 API입니다.
+   * @param studyId - 스터디의 ID입니다.
+   * @param bojHandle - 학생의 BOJ 핸들입니다.
+   * @returns void
+   */
+  VALIDATE_STUDENT: async (studyId: number, bojHandle: string): Promise<void> => {
+    try {
+      await apiClient.post(`/studies/${studyId}/instructor/group/validate-student`, { bojHandle });
+    } catch (error) {
+      console.error('[STUDY API] VALIDATE_STUDENT 에러:', error);
+      throw error;
+    }
+  },
+
+  /**
+   * 스터디 조 수정 API입니다.
+   * @param studyId - 스터디의 ID입니다.
+   * @param groupId - 그룹의 ID입니다.
+   * @param groupData - 수정할 그룹 데이터입니다.
+   * @returns void
+   */
+  PATCH_GROUP: async (
+    studyId: number,
+    groupId: number,
+    groupData: CreateGroupRequest
+  ): Promise<void> => {
+    try {
+      await apiClient.patch(`/studies/${studyId}/instructor/group/${groupId}`, groupData);
+    } catch (error) {
+      console.error('[STUDY API] PATCH_GROUP 에러:', error);
+      throw error;
+    }
+  },
+
+  /**
+   * 강사 핸들명 검증 API입니다.
+   * @param bojHandle - 강사의 BOJ 핸들입니다.
+   * @returns void
+   */
+  VALIDATE_INSTRUCTOR: async (bojHandle: string): Promise<void> => {
+    try {
+      await apiClient.post('/admin/studies/validate-instructor', {
+        bojHandle,
+      });
+    } catch (error) {
+      console.error('[STUDY API] VALIDATE_INSTRUCTOR 에러:', error);
       throw error;
     }
   },

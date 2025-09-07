@@ -11,6 +11,7 @@ export function StudentList({ studentList }: StudentListProps): React.ReactEleme
       {studentList.map((student) => (
         <StudentListItem
           key={student.memberId}
+          bojHandle={student.bojHandle || ''}
           name={student.memberName || ''}
           attendanceCount={student.attendanceCount || 0}
           assignmentCount={student.assignmentCount || 0}
