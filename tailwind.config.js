@@ -5,6 +5,7 @@ module.exports = {
     // 특수한 클래스들 (패턴으로 매칭하기 어려운것들)
     'min-w-0',
     'w-[85px]',
+    'w-25',
     'bg-white',
     'text-center',
     'self-start',

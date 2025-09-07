@@ -283,6 +283,23 @@ export const studyApi = {
       throw error;
     }
   },
+
+  /**
+   * 수강생 핸들명 검증 API입니다.
+   * @param studyId - 스터디의 ID입니다.
+   * @param groupId - 그룹의 ID입니다.
+   * @returns void
+   */
+  VALIDATE_INSTRUCTOR: async (bojHandle: string): Promise<void> => {
+    try {
+      await apiClient.post('/admin/studies/validate-instructor', {
+        bojHandle,
+      });
+    } catch (error) {
+      console.error('[STUDY API] VALIDATE_INSTRUCTOR 에러:', error);
+      throw error;
+    }
+  },
 };
 
 export type * from '../types/request/study-request';
