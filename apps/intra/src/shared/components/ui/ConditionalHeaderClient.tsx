@@ -25,6 +25,8 @@ export function ConditionalHeaderClient({
     !pathname.includes('/write') &&
     pathname !== '/announcement';
 
+  const isStudy = pathname.includes('/study');
+
   const handleBackClick = (): void => {
     router.back();
   };
@@ -50,7 +52,13 @@ export function ConditionalHeaderClient({
   ];
 
   // 모바일에서 공지사항 관련 페이지인 경우 MobileHeader 사용
-  if (isAnnouncementList || isAnnouncementWrite || isAnnouncementEdit || isAnnouncementDetail) {
+  if (
+    isAnnouncementList ||
+    isAnnouncementWrite ||
+    isAnnouncementEdit ||
+    isAnnouncementDetail ||
+    isStudy
+  ) {
     const getTitle = (): string => {
       if (isAnnouncementList) {
         return '공지사항';
@@ -63,6 +71,9 @@ export function ConditionalHeaderClient({
       }
       if (isAnnouncementDetail) {
         return '공지사항';
+      }
+      if (isStudy) {
+        return '스터디';
       }
       return '공지사항';
     };
@@ -85,12 +96,12 @@ export function ConditionalHeaderClient({
         <div className="hidden md:block">
           <header className="flex w-full items-center justify-between border-b border-gray-200">
             <div className="mx-auto flex w-full max-w-[1200px] items-center justify-between px-5 py-4">
-              <MobileHeader 
+              <MobileHeader
                 isAuthenticated={isAuthenticated}
                 searchInput={searchInput}
                 setSearchInput={setSearchInput}
               />
-              <DesktopHeader 
+              <DesktopHeader
                 isAuthenticated={isAuthenticated}
                 searchInput={searchInput}
                 setSearchInput={setSearchInput}
@@ -106,12 +117,12 @@ export function ConditionalHeaderClient({
   return (
     <header className="flex w-full items-center justify-between border-b border-gray-200">
       <div className="mx-auto flex w-full max-w-[1200px] items-center justify-between px-5 py-4">
-        <MobileHeader 
+        <MobileHeader
           isAuthenticated={isAuthenticated}
           searchInput={searchInput}
           setSearchInput={setSearchInput}
         />
-        <DesktopHeader 
+        <DesktopHeader
           isAuthenticated={isAuthenticated}
           searchInput={searchInput}
           setSearchInput={setSearchInput}

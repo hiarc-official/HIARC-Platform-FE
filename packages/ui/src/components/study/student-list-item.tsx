@@ -44,7 +44,7 @@ export function StudentListItem({
       <div className="flex w-full items-center justify-between">
         <div className="flex items-center gap-4">
           <Avatar imageUrl={imageUrl} alt={name} />
-          <Label size="lg" weight="medium">
+          <Label size="md" weight="medium" className="md:text-lg">
             {name} ({bojHandle})
           </Label>
           <Button variant="secondary" size="xs">
@@ -52,10 +52,10 @@ export function StudentListItem({
           </Button>
         </div>
         <div className="flex items-center">
-          <Label>
+          <Label className="hidden md:inline">
             출석: {attendanceCount}/{totalRounds}
           </Label>
-          <Label className="ml-6">
+          <Label className="ml-6 hidden md:inline">
             과제: {assignmentCount}/{totalRounds}
           </Label>
           <IconButton
