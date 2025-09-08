@@ -48,7 +48,13 @@ export function LectureList({
             isStudent={isStudent}
             key={lecture.round}
             lecture={lecture}
-            onTitleClick={() => {}}
+            onTitleClick={() => {
+              if (!lecture.announcementId) {
+                console.error('강의 상세보기 실패: announcementId가 없습니다.');
+                return;
+              }
+              router.push(`/announcement/${lecture.announcementId}`);
+            }}
             onAttendanceCheckClick={() => {
               DialogUtil.showComponent(
                 <AttendanceCheckDialog

@@ -205,7 +205,9 @@ export function AnnouncementTable({
 
   const columns = useMemo(
     () =>
-      STUDY_ANNOUNCEMENT_COLUMN.map((col) => ({
+      STUDY_ANNOUNCEMENT_COLUMN.filter((col) => 
+        col.id !== 'actions' || isInstructor
+      ).map((col) => ({
         ...col,
         meta: {
           ...col.meta,

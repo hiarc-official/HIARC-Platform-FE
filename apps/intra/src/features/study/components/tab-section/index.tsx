@@ -73,18 +73,20 @@ export function TabSection({
 
   return (
     <div className={cn('flex w-full flex-col', className)}>
-      <div className="flex w-full justify-between">
+      <div className="flex w-full flex-col gap-3 md:flex-row md:justify-between md:gap-0">
         <Tabs tabs={tabs} activeTab={selectedTab} onTabClick={setSelectedTab} />
-        {isAdmin && selectedTab === 'curriculum' && (
-          <Button size="sm" className="bg-primary-200" onClick={handleCurriculumAdd}>
-            강의 추가
-          </Button>
-        )}
-        {isAdmin && selectedTab === 'announcement' && (
-          <Button size="sm" className="bg-primary-200" onClick={handleAnnouncementAdd}>
-            공지사항 추가
-          </Button>
-        )}
+        <div className="flex justify-end">
+          {isAdmin && selectedTab === 'curriculum' && (
+            <Button size="sm" className="bg-primary-200" onClick={handleCurriculumAdd}>
+              강의 추가
+            </Button>
+          )}
+          {isAdmin && selectedTab === 'announcement' && (
+            <Button size="sm" className="bg-primary-200" onClick={handleAnnouncementAdd}>
+              공지사항 추가
+            </Button>
+          )}
+        </div>
       </div>
       <div className="mt-6 min-h-[300px]">
         {selectedTab === 'curriculum' && (

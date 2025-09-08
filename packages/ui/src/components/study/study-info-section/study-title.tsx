@@ -38,7 +38,7 @@ export function StudyTitle({
     <div className="flex w-full flex-col">
       <div className="flex w-full flex-col md:flex-row md:items-center md:justify-between">
         <div className="flex flex-col">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center justify-between md:justify-start md:gap-2">
             <Title size="sm" weight="bold" disableAnimation>
               {studyData?.name}
             </Title>
