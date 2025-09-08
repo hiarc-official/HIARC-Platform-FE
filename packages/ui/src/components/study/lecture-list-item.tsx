@@ -517,7 +517,7 @@ function DesktopLectureCardListItem(props: LectureCardProps): React.ReactElement
               ) : (
                 <ShowCodeButton onClick={() => onShowAttendanceClick?.()} />
               )}
-              
+
               {/* 과제 관련 버튼 */}
               {!isAssignmentCreated ? (
                 <CreateAssignmentButton

@@ -333,7 +333,9 @@ export function AnnouncementTable({
 
   const desktopColumns = useMemo(
     () =>
-      STUDY_ANNOUNCEMENT_COLUMN.map((col) => ({
+      STUDY_ANNOUNCEMENT_COLUMN.filter((col) => 
+        col.id !== 'actions' || isInstructor
+      ).map((col) => ({
         ...col,
         meta: {
           ...col.meta,
@@ -347,7 +349,9 @@ export function AnnouncementTable({
 
   const mobileColumns = useMemo(
     () =>
-      MOBILE_STUDY_ANNOUNCEMENT_COLUMN.map((col) => ({
+      MOBILE_STUDY_ANNOUNCEMENT_COLUMN.filter((col) => 
+        col.id !== 'actions' || isInstructor
+      ).map((col) => ({
         ...col,
         meta: {
           ...col.meta,
