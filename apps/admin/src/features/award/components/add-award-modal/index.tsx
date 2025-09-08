@@ -116,7 +116,7 @@ export function AddAwardDialog({
         showBackground={showBackground}
       >
         <DialogHeader>
-          <DialogTitle className="w-full">학회원 모집 관리</DialogTitle>
+          <DialogTitle className="w-full">대회 추가하기</DialogTitle>
         </DialogHeader>
         <DialogDescription className="mt-6 flex h-[500px] w-[482px] flex-col gap-6 overflow-y-auto px-1 py-1">
           <LabeledInput
