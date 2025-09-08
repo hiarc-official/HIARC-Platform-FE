@@ -22,7 +22,7 @@ const MOBILE_STUDY_ANNOUNCEMENT_COLUMN: Array<ColumnDef<AnnouncementSummary>> = 
     id: 'number',
     accessorKey: 'number',
     enableSorting: false,
-    size: 60,
+    size: 48,
     meta: {
       headAlign: 'center',
       bodyAlign: 'center',
@@ -79,7 +79,7 @@ const MOBILE_STUDY_ANNOUNCEMENT_COLUMN: Array<ColumnDef<AnnouncementSummary>> = 
   {
     id: 'actions',
     accessorKey: 'actions',
-    size: 80,
+    size: 48,
     meta: {
       headAlign: 'center',
       bodyAlign: 'center',
@@ -207,7 +207,7 @@ const STUDY_ANNOUNCEMENT_COLUMN: Array<ColumnDef<AnnouncementSummary>> = [
   {
     id: 'actions',
     accessorKey: 'actions',
-    size: 80,
+    size: 48,
     meta: {
       headAlign: 'center',
       bodyAlign: 'center',
@@ -322,9 +322,9 @@ export function AnnouncementTable({
       }
 
       DialogUtil.showConfirm('정말 이 공지사항을 삭제하시겠습니까?', () => {
-        deleteStudyAnnouncement({ 
-          studyId: studyId, 
-          announcementId: announcement.announcementId! 
+        deleteStudyAnnouncement({
+          studyId: studyId,
+          announcementId: announcement.announcementId!,
         });
       });
     },
@@ -396,6 +396,7 @@ export function AnnouncementTable({
       <div className="block w-full md:hidden">
         <CommonTableBody
           table={mobileTable}
+          gapPx={0}
           onClick={function (row: Row<AnnouncementSummary>): void {
             const id = row.original.announcementId;
             if (!id) {
