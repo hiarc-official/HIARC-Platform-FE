@@ -184,6 +184,18 @@ export const studyInstructorApi = {
   },
 
   /**
+   * 스터디의 공지사항을 삭제하는 API입니다.
+   * @param studyId - 스터디 ID입니다.
+   * @param announcementId - 삭제할 공지사항 ID입니다.
+   * @returns void
+   */
+  DELETE_STUDY_ANNOUNCEMENT: async (studyId: number, announcementId: number): Promise<void> => {
+    const response = await apiClient.delete(
+      `/studies/${studyId}/instructor/announcements/${announcementId}`
+    );
+  },
+
+  /**
    * 특정 스터디의 강의(공지사항)를 삭제하는 API입니다.
    * @param studyId - 스터디의 ID입니다.
    * @param groupData - 수정할 그룹 데이터입니다.

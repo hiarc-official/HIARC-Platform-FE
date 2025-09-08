@@ -87,7 +87,7 @@ export function TabSection({
         )}
         {selectedTab === 'announcement' && (
           <SlideFade key="announcement" className="w-full">
-            <AnnouncementTable pageableModel={pageableModel} />
+            <AnnouncementTable pageableModel={pageableModel} isInstructor={true} />
           </SlideFade>
         )}
         {selectedTab === 'manage_student' && (
