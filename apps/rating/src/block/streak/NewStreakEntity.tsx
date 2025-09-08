@@ -1,9 +1,8 @@
-import LayOut from '../util/Layout';
 import styled from 'styled-components';
-import InfoEntity from '../atoms/InfoEntity';
-import Color from '../util/Color';
-import { DinamicStreakBox } from '../block/streak/DinamicStreakBox';
-import StreakInformation from '../block/streak/StreakInformation';
+import InfoEntity from '../../atoms/InfoEntity';
+import Color from '../../util/Color';
+import { DinamicStreakBox } from './DinamicStreakBox';
+import StreakInformation from './StreakInformation';
 
 const exampleData = [
   { date: '2025-01-01', count: 1 },
@@ -69,21 +68,19 @@ const Wrapper = styled.div`
   width: 557px;
 `;
 
-const TestPage = () => {
+const NewStreakEntity = () => {
   return (
-    <LayOut>
-      <Wrapper>
-        <Up>
-          <InfoEntity handle="ghwo336" div={1} tier={13} />
-          <Devider></Devider>
-        </Up>
-        <Down>
-          <DinamicStreakBox data={exampleData} />
-        </Down>
-        <StreakInformation />
-      </Wrapper>
-    </LayOut>
+    <Wrapper>
+      <Up>
+        <InfoEntity handle="ghwo336" div={1} tier={13} />
+        <Devider></Devider>
+      </Up>
+      <Down>
+        <DinamicStreakBox data={exampleData} />
+      </Down>
+      <StreakInformation />
+    </Wrapper>
   );
 };
 
-export default TestPage;
+export default NewStreakEntity;
