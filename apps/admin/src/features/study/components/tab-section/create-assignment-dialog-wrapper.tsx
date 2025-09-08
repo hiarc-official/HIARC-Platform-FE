@@ -28,6 +28,7 @@ export function CreateAssignmentDialogWrapper({
       error={assignmentQuery.error}
       fetchAssignment={() => assignmentQuery.refetch()}
       onComplete={() => {}}
+      onCheckAssignment={() => {}}
       onCreateAssignment={(data) => {
         createAssignment({
           studyId,

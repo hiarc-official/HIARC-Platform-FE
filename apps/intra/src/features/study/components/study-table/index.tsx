@@ -69,11 +69,11 @@ export function StudyTable({
       {/* Mobile List */}
       <div className="block w-full md:hidden">
         <SlideFade key="mobile-list" className="w-full">
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col">
             {data.map((study, index) => (
               <div
                 key={study.studyId || index}
-                className="cursor-pointer border-b border-gray-200 py-2 transition-colors hover:bg-gray-50"
+                className="cursor-pointer border-b border-gray-200 pb-2 pt-3 transition-colors hover:bg-gray-50"
                 onClick={() => handleStudyClick(study)}
               >
                 <div className="mb-2 flex items-start justify-between">

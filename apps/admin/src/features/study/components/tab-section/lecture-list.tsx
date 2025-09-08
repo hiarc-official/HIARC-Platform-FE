@@ -29,7 +29,13 @@ export function LectureList({
           isAdmin
           key={lecture.round}
           lecture={lecture}
-          onTitleClick={() => {}}
+          onTitleClick={() => {
+            if (!lecture.announcementId) {
+              console.error('강의 상세보기 실패: announcementId가 없습니다.');
+              return;
+            }
+            router.push(`/announcement/${lecture.announcementId}`);
+          }}
           onCreateAttendanceClick={(onSuccess) => {
             DialogUtil.showComponent(
               <CreateAttendanceCodeDialog
