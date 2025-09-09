@@ -21,6 +21,7 @@ import { useCreateGroup } from '../../hooks/use-create-group';
 import { StudyGroupList } from '../../../../../../../packages/ui/src/components/study/study-group-list';
 import { useEditGroup } from '../../hooks/use-edit-group';
 import { useWithdrawStudent } from '../../hooks/use-withdraw-student';
+import { UpdateStatusDialog } from './update-status-dialog';
 
 interface TabSectionProps {
   studyName?: string;
@@ -97,6 +98,7 @@ export function TabSection({
             {isGroupStudy ? (
               <div className="flex flex-col gap-6">
                 <StudyGroupList
+                  isAdmin={true}
                   studyId={studyId || 0}
                   groupList={groupList?.studyGroups || []}
                   onWithdraw={(studyId, memberId) => {
@@ -115,6 +117,11 @@ export function TabSection({
                         });
                       }
                     });
+                  }}
+                  onChangeStatus={(studyId, memberId) => {
+                    DialogUtil.showComponent(
+                      <UpdateStatusDialog studyId={studyId} memberId={memberId} />
+                    );
                   }}
                   onEdit={(groupId, groupData) => {
                     DialogUtil.showComponent(
@@ -145,8 +152,14 @@ export function TabSection({
                   }}
                 />
                 <StudyUnassignedGroup
+                  isAdmin={true}
                   studyId={studyId || 0}
                   members={groupList?.aloneStudents || []}
+                  onChangeStatus={(studyId, memberId) => {
+                    DialogUtil.showComponent(
+                      <UpdateStatusDialog studyId={studyId} memberId={memberId} />
+                    );
+                  }}
                   onWithdraw={(studyId, memberId) => {
                     withdrawStudent.mutate({ studyId, memberId });
                   }}
@@ -176,7 +189,13 @@ export function TabSection({
               </div>
             ) : (
               <StudentList
+                isAdmin={true}
                 studyId={studyId || 0}
+                onChangeStatus={(studyId, memberId) => {
+                  DialogUtil.showComponent(
+                    <UpdateStatusDialog studyId={studyId} memberId={memberId} />
+                  );
+                }}
                 onWithdraw={(studyId, memberId) => {
                   withdrawStudent.mutate({ studyId, memberId });
                 }}

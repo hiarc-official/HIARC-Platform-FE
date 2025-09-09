@@ -12,17 +12,21 @@ import { DialogUtil } from '../../utils/dialog-util';
 interface StudyGroupListItemProps {
   studyGroup: StudyGroup;
   studyId: number;
+  isAdmin?: boolean;
   onEdit?(groupId: number, groupData: StudyGroup): void;
   onDelete?(groupId: number): void;
   onWithdraw?(studyId: number, memberId: number): void;
+  onChangeStatus?(studyId: number, memberId: number): void;
 }
 
 export function StudyGroupListItem({
   studyGroup,
   studyId,
+  isAdmin = false,
   onEdit,
   onDelete,
   onWithdraw,
+  onChangeStatus,
 }: StudyGroupListItemProps): React.ReactElement {
   const [open, setOpen] = useState(false);
 
@@ -82,6 +86,7 @@ export function StudyGroupListItem({
             {studyGroup.students.map((student, index) => (
               <StudentListItem
                 key={student.memberId || index}
+                isAdmin={isAdmin}
                 name={student.memberName || ''}
                 bojHandle={student.bojHandle || ''}
                 attendanceCount={student.attendanceCount || 0}
@@ -89,6 +94,9 @@ export function StudyGroupListItem({
                 totalRounds={student.totalRounds || 0}
                 roundStatuses={student.roundStatuses || []}
                 onWithdraw={() => handleWithdraw(student.memberId || 0)}
+                onChangeStatus={() => {
+                  onChangeStatus && onChangeStatus(studyId, student.memberId || 0);
+                }}
               />
             ))}
           </div>

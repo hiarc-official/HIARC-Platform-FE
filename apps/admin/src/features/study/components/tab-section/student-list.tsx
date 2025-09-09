@@ -2,15 +2,19 @@ import { StudyMember } from '@hiarc-platform/shared';
 import { DialogUtil, StudentListItem } from '@hiarc-platform/ui';
 
 interface StudentListProps {
+  isAdmin?: boolean;
   studentList: StudyMember[];
   studyId: number;
   onWithdraw?(studyId: number, memberId: number): void;
+  onChangeStatus?(studyId: number, memberId: number): void;
 }
 
 export function StudentList({
+  isAdmin = false,
   studentList,
   studyId,
   onWithdraw,
+  onChangeStatus,
 }: StudentListProps): React.ReactElement {
   const handleWithdraw = async (memberId: number): Promise<void> => {
     if (studyId && onWithdraw) {
@@ -35,6 +39,7 @@ export function StudentList({
       {studentList.map((student) => (
         <StudentListItem
           key={student.memberId}
+          isAdmin={isAdmin}
           name={student.memberName || ''}
           attendanceCount={student.attendanceCount || 0}
           assignmentCount={student.assignmentCount || 0}
@@ -42,6 +47,9 @@ export function StudentList({
           roundStatuses={student.roundStatuses || []}
           onWithdraw={() => {
             handleWithdraw(student.memberId || 0);
+          }}
+          onChangeStatus={() => {
+            onChangeStatus && onChangeStatus(studyId, student.memberId || 0);
           }}
         />
       ))}

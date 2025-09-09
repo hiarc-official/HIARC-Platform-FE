@@ -14,6 +14,8 @@ import {
 import { StudyInitialForm } from '../types';
 
 import { CreateAssignmentRequest } from '@hiarc-platform/shared/src/types/study/create-assignment-request';
+import { RoundStatus } from '@hiarc-platform/shared/src/types/study/round-status';
+import { MemberStatus } from '../types/response/member-status';
 
 export const studyApi = {
   /**
@@ -315,6 +317,40 @@ export const studyApi = {
       await apiClient.delete(`/studies/${studyId}/instructor/students/${memberId}`);
     } catch (error) {
       console.error('[STUDY API] WITHDRAW_STUDENT 에러:', error);
+      throw error;
+    }
+  },
+
+  CHECK_ASSIGNMENT: async (studyId: number, round: number): Promise<void> => {
+    try {
+      await apiClient.patch(`/studies/${studyId}/instructor/lecture/${round}/assignment/status`);
+    } catch (error) {
+      console.error('[STUDY API] CHECK_ASSIGNMENT 에러:', error);
+      throw error;
+    }
+  },
+
+  GET_MEMBER_STATUS: async (studyId: number, memberId: number): Promise<MemberStatus> => {
+    try {
+      const response = await apiClient.get(`/studies/${studyId}/instructor/status/${memberId}`);
+      return MemberStatus.fromJson(response.data);
+    } catch (error) {
+      console.error('[STUDY API] GET_MEMBER_STATUS 에러:', error);
+      throw error;
+    }
+  },
+
+  UPDATE_MEMBER_STATUS: async (
+    studyId: number,
+    memberId: number,
+    roundStatuses: RoundStatus[]
+  ): Promise<void> => {
+    try {
+      await apiClient.patch(`/studies/${studyId}/instructor/status/${memberId}`, {
+        roundStatuses,
+      });
+    } catch (error) {
+      console.error('[STUDY API] UPDATE_MEMBER_STATUS 에러:', error);
       throw error;
     }
   },

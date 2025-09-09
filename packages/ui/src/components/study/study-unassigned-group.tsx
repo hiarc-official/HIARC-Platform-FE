@@ -7,17 +7,21 @@ import { Title } from '../label/title';
 import { DialogUtil } from '../../utils/dialog-util';
 
 interface StudyUnassignedGroupProps {
+  isAdmin?: boolean;
   studyId: number;
   onWithdraw?(studyId: number, memberId: number): void;
   members: StudyMember[];
   onAddGroup?(): void;
+  onChangeStatus?(studyId: number, memberId: number): void;
 }
 
 export function StudyUnassignedGroup({
+  isAdmin = false,
   members,
   onAddGroup,
   studyId,
   onWithdraw,
+  onChangeStatus,
 }: StudyUnassignedGroupProps): React.ReactElement {
   const handleWithdraw = async (memberId: number): Promise<void> => {
     if (studyId && onWithdraw) {
@@ -53,6 +57,7 @@ export function StudyUnassignedGroup({
           {members.map((member, index) => (
             <StudentListItem
               key={member.memberId || index}
+              isAdmin={isAdmin}
               name={member.memberName || '이름 없음'}
               bojHandle={member.bojHandle || '핸들 없음'}
               attendanceCount={member.attendanceCount || 0}
@@ -62,6 +67,9 @@ export function StudyUnassignedGroup({
                 handleWithdraw(member.memberId || 0);
               }}
               roundStatuses={member.roundStatuses || []}
+              onChangeStatus={() => {
+                onChangeStatus && onChangeStatus(studyId, member.memberId || 0);
+              }}
             />
           ))}
         </div>
