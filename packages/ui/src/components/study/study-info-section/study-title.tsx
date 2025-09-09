@@ -16,13 +16,13 @@ export function StudyTitle({
 }: StudyTitleProps): React.ReactElement {
   const hasRecruitmentDates = studyData?.recruitmentStartDate && studyData?.recruitmentEndDate;
 
-  const isRecruitmentOpen = (): boolean => {
+  const getRecruitmentStatus = (): 'before' | 'open' | 'closed' => {
     if (
       !hasRecruitmentDates ||
       !studyData?.recruitmentStartDate ||
       !studyData?.recruitmentEndDate
     ) {
-      return false;
+      return 'closed';
     }
     const now = new Date();
     const startDate = new Date(studyData.recruitmentStartDate);
@@ -32,7 +32,17 @@ export function StudyTitle({
     const [startDateStr] = startDate.toISOString().split('T');
     const [endDateStr] = endDate.toISOString().split('T');
 
-    return nowDateStr >= startDateStr && nowDateStr <= endDateStr;
+    const nowTime = new Date(nowDateStr).getTime();
+    const startTime = new Date(startDateStr).getTime();
+    const endTime = new Date(endDateStr).getTime();
+
+    if (nowTime < startTime) {
+      return 'before';
+    }
+    if (nowTime >= startTime && nowTime <= endTime) {
+      return 'open';
+    }
+    return 'closed';
   };
   return (
     <div className="flex w-full flex-col">
@@ -68,19 +78,27 @@ export function StudyTitle({
               수정하기
             </Button>
           )}
-          {hasRecruitmentDates && !isAdmin && !studyData?.isStudent && !studyData?.isInstructor && (
-            <div>
-              {isRecruitmentOpen() ? (
-                <Button size="md" className="ml-6" variant="fill" onClick={onApplyClick}>
-                  스터디 신청
-                </Button>
-              ) : (
-                <Button size="md" className="ml-6" variant="line" disabled>
-                  모집 종료
-                </Button>
-              )}
-            </div>
-          )}
+          {hasRecruitmentDates &&
+            !isAdmin &&
+            !studyData?.isStudent &&
+            !studyData?.isInstructor &&
+            (() => {
+              const status = getRecruitmentStatus();
+              return (
+                <div>
+                  {status === 'before' && (
+                    <Button size="md" className="ml-6" variant="line" disabled>
+                      오픈 예정
+                    </Button>
+                  )}
+                  {status === 'open' && (
+                    <Button size="md" className="ml-6" variant="fill" onClick={onApplyClick}>
+                      스터디 신청
+                    </Button>
+                  )}
+                </div>
+              );
+            })()}
           {!isAdmin && studyData?.isStudent && (
             <Button size="md" className="ml-6" variant="fill" disabled>
               신청완료
