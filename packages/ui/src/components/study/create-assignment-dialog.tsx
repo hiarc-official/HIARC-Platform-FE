@@ -14,6 +14,7 @@ import {
 import { LabeledInput } from '../input/labeled-input';
 import { Assignment } from '@hiarc-platform/shared';
 import { Label } from '../label/label';
+import { DialogUtil } from '../../utils/dialog-util';
 
 interface CreateAssignmentDialogProps {
   studyId?: number;
@@ -73,6 +74,16 @@ export function CreateAssignmentDialog({
   const isAllFieldsFilled =
     requiredProblemUrl.trim() && practiceProblemUrl.trim() && minProblemCount.trim();
 
+  const isDisabled = isUpdate && assignment && assignment.isUpdatable === false;
+
+  // 초기 데이터와 현재 데이터가 같은지 확인
+  const isDataUnchanged =
+    isUpdate &&
+    assignment &&
+    requiredProblemUrl === (assignment.requiredProblemUrl || '') &&
+    practiceProblemUrl === (assignment.practiceProblemUrl || '') &&
+    minProblemCount === (assignment.minProblemCount?.toString() || '');
+
   const handleSubmit = (): void => {
     const data = {
       requiredProblemUrl,
@@ -93,21 +104,20 @@ export function CreateAssignmentDialog({
       return;
     }
 
-    const data = {
-      requiredProblemUrl,
-      practiceProblemUrl,
-      minProblemCount: Number(minProblemCount) || 0,
-    };
+    const message = isDisabled
+      ? '과제를 채점하시겠습니까?'
+      : '과제 채점을 하면 과제 수정이 불가능해집니다.\n\n과제 채점을 진행하시겠습니까?';
 
-    // 먼저 현재 값을 서버에 저장
-    if (isUpdate) {
-      onUpdateAssignment?.(data);
-    } else {
-      onCreateAssignment?.(data);
+    const confirmed = await DialogUtil.confirm(message, {
+      title: '과제 채점 확인',
+      confirmText: '확인',
+      cancelText: '취소',
+    });
+
+    if (confirmed) {
+      DialogUtil.hideAllDialogs();
+      onCheckAssignment?.(studyId, round);
     }
-
-    // 그 다음 과제 확인 실행
-    onCheckAssignment?.(studyId, round);
   };
 
   return (
@@ -152,6 +162,7 @@ export function CreateAssignmentDialog({
               placeholder="ex. https://www.acmicpc.net/group/practice/view/20429/9"
               value={requiredProblemUrl}
               onChange={(value) => setRequiredProblemUrl(value)}
+              disabled={isDisabled}
             />
             <LabeledInput
               className="mb-6"
@@ -159,6 +170,7 @@ export function CreateAssignmentDialog({
               placeholder="ex. https://www.acmicpc.net/group/practice/view/20429/9"
               value={practiceProblemUrl}
               onChange={(value) => setPracticeProblemUrl(value)}
+              disabled={isDisabled}
             />
             <LabeledInput
               className="mb-6"
@@ -166,8 +178,9 @@ export function CreateAssignmentDialog({
               placeholder="최소 문제 수를 입력해주세요. (예: 3)"
               value={minProblemCount}
               onChange={(value) => setMinProblemCount(value)}
+              disabled={isDisabled}
             />
-            {isAllFieldsFilled && (
+            {isUpdate && isDataUnchanged && isAllFieldsFilled && (
               <div className="mb-6">
                 <Button
                   className="w-full bg-primary-200"
@@ -193,7 +206,7 @@ export function CreateAssignmentDialog({
               variant="fill"
               size="sm"
               onClick={handleSubmit}
-              disabled={isUpdate && (isLoading || Boolean(error))}
+              disabled={isUpdate && (isLoading || Boolean(error) || isDisabled)}
             >
               {isUpdate ? '수정' : '등록'}
             </Button>

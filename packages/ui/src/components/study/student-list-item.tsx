@@ -18,26 +18,34 @@ interface StudentListItemProps {
   name: string;
   bojHandle?: string;
   imageUrl?: string;
+  isAdmin?: boolean;
   attendanceCount?: number;
   assignmentCount?: number;
   totalRounds?: number;
   roundStatuses?: RoundStatus[];
+  onWithdraw?(): void;
+  onChangeStatus?(): void;
 }
 
 export function StudentListItem({
   name,
   bojHandle,
   imageUrl,
+  isAdmin = false,
   attendanceCount,
   assignmentCount,
   totalRounds,
   roundStatuses = [],
+  onWithdraw,
+  onChangeStatus,
 }: StudentListItemProps): React.ReactElement {
   const [open, setOpen] = useState(false);
 
-  // RoundStatus[]를 attendance, assignment 배열로 변환
-  const attendance = roundStatuses.map((status) => status.attendanceCompleted === true);
-  const assignment = roundStatuses.map((status) => status.assignmentCompleted === true);
+  const handleWithdraw = async (): Promise<void> => {
+    if (onWithdraw) {
+      onWithdraw();
+    }
+  };
 
   return (
     <div className="flex flex-col rounded-lg border border-gray-200 px-5 py-4 transition">
@@ -47,7 +55,12 @@ export function StudentListItem({
           <Label size="md" weight="medium" className="md:text-lg">
             {name} ({bojHandle})
           </Label>
-          <Button variant="secondary" size="xs">
+          {isAdmin && (
+            <Button variant="secondary" size="xs" onClick={onChangeStatus}>
+              강제 변경
+            </Button>
+          )}
+          <Button variant="secondary" size="xs" onClick={handleWithdraw}>
             탈퇴
           </Button>
         </div>
@@ -70,12 +83,7 @@ export function StudentListItem({
 
       {open && (
         <SlideFade key="table" className="w-full">
-          <AttendanceTable
-            className="mt-4"
-            chunkSize={8}
-            attendance={attendance}
-            assignment={assignment}
-          />
+          <AttendanceTable className="mt-4" chunkSize={8} roundStatuses={roundStatuses} />
         </SlideFade>
       )}
     </div>

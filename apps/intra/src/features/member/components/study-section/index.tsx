@@ -71,11 +71,7 @@ export function StudySection({ className }: StudySectionProps): React.ReactEleme
       <Label size="lg" weight="bold" className="mt-6">
         상세 현황
       </Label>
-      <AttendanceTable
-        className="mb-20 mt-4"
-        attendance={attendanceStatus}
-        assignment={assignmentStatus}
-      />
+      <AttendanceTable className="mb-20 mt-4" roundStatuses={myStudyInfo?.roundStatuses || []} />
     </div>
   );
 }
