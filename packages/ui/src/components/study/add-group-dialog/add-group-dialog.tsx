@@ -37,7 +37,7 @@ export function AddGroupDialog({
 
   return (
     <Dialog defaultOpen>
-      <DialogContent>
+      <DialogContent onOpenAutoFocus={(event) => event.preventDefault()}>
         <DialogHeader>
           <DialogTitle>스터디 조 추가하기</DialogTitle>
         </DialogHeader>
@@ -47,6 +47,7 @@ export function AddGroupDialog({
             placeholder="예) 1조, 브론즈 조"
             value={groupName}
             onChange={setGroupName}
+            autoFocus={false}
           />
           <div className="flex max-h-64 flex-col gap-6 overflow-y-auto">
             {handleInputs.map((handleInput, index) => (
@@ -57,6 +58,7 @@ export function AddGroupDialog({
                       label="핸들명"
                       placeholder="핸들명을 입력하세요"
                       value={handleInput.value}
+                      autoFocus={false}
                       onChange={(value) => {
                         const newInputs = [...handleInputs];
                         newInputs[index] = {
