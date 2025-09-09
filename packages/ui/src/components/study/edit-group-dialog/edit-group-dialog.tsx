@@ -57,7 +57,7 @@ export function EditGroupDialog({
 
   return (
     <Dialog defaultOpen>
-      <DialogContent>
+      <DialogContent onOpenAutoFocus={(event) => event.preventDefault()}>
         <DialogHeader>
           <DialogTitle>스터디 조 수정하기</DialogTitle>
         </DialogHeader>

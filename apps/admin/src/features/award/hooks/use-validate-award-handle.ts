@@ -1,23 +1,20 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { UseMutationResult } from '@tanstack/react-query';
 import { awardApi } from '../api/award';
-import { UpdateAwardRequest } from '../types/request/update-award-request';
 import { DialogUtil } from '@hiarc-platform/ui';
 
-export const useUpdateAward = (): UseMutationResult<
+export const useUpdateAwardHandle = (): UseMutationResult<
   unknown,
   unknown,
-  { awardId: number; data: UpdateAwardRequest }
+  { bojHandle: string }
 > => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ awardId, data }: { awardId: number; data: UpdateAwardRequest }) =>
-      awardApi.UPDATE_ADMIN_AWARD(awardId, data),
+    mutationFn: ({ bojHandle }: { bojHandle: string }) => awardApi.VALIDATE_AWARD_HANDLE(bojHandle),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['admin-awards'] });
-      DialogUtil.hideAllDialogs();
-      DialogUtil.showSuccess('수정이 완료되었습니다.');
+      DialogUtil.showSuccess('검증이 완료되었습니다.');
     },
   });
 };
