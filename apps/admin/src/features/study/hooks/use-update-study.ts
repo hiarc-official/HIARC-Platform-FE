@@ -18,7 +18,6 @@ export function useUpdateStudy(): UseMutationResult<void, Error, UpdateStudyPara
     onSuccess: (response, variables) => {
       queryClient.invalidateQueries({ queryKey: ['studies'] });
       queryClient.invalidateQueries({ queryKey: ['study', variables.studyId] });
-      DialogUtil.showSuccess('스터디 정보가 성공적으로 수정되었습니다.');
       DialogUtil.showSuccess('스터디가 성공적으로 수정되었습니다.', () => {
         router.push(`/study/${variables.studyId}`);
       });

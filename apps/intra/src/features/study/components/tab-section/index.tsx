@@ -22,6 +22,7 @@ import { useCreateGroup } from '../../hooks/study-instructor/mutation/use-create
 import { useEditGroup } from '../../hooks/study-instructor/mutation/use-edit-group';
 import { useWithdrawStudent } from '../../hooks/study-instructor/mutation/use-withdraw-student';
 import { useStudyGroupList } from '../../hooks/study-instructor/query/use-study-group-list';
+import { useDownloadStudyMemberExcel } from '../../hooks/study-instructor/query/use-download-study-member-excel';
 
 interface TabSectionProps {
   isStudent?: boolean;
@@ -62,6 +63,7 @@ export function TabSection({
   const createGroup = useCreateGroup();
   const editGroup = useEditGroup();
   const withdrawStudent = useWithdrawStudent();
+  const downloadExcel = useDownloadStudyMemberExcel();
 
   const handleCurriculumAdd = (): void => {
     router.push(
@@ -71,6 +73,12 @@ export function TabSection({
 
   const handleAnnouncementAdd = (): void => {
     router.push(`/announcement/write?type=STUDY&studyId=${studyId}&semesterId=${semesterId}`);
+  };
+
+  const handleDownload = (): void => {
+    if (studyId) {
+      downloadExcel.mutate(studyId);
+    }
   };
 
   return (
@@ -86,6 +94,11 @@ export function TabSection({
           {isAdmin && selectedTab === 'announcement' && (
             <Button size="sm" className="bg-primary-200" onClick={handleAnnouncementAdd}>
               공지사항 추가
+            </Button>
+          )}
+          {isAdmin && selectedTab === 'manage_student' && (
+            <Button size="sm" variant="secondary" onClick={handleDownload}>
+              명단 다운로드
             </Button>
           )}
         </div>

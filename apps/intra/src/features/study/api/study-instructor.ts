@@ -267,6 +267,18 @@ export const studyInstructorApi = {
       throw error;
     }
   },
+
+  DOWNLOAD_MEMBER_EXCEL: async (studyId: number): Promise<any> => {
+    try {
+      const response = await apiClient.get(`/studies/excel/${studyId}/download`, {
+        responseType: 'blob',
+      });
+      return response;
+    } catch (error) {
+      console.error('[STUDY API] DOWNLOAD_MEMBER_EXCEL 에러:', error);
+      throw error;
+    }
+  },
 };
 
 export type { CreateStudyRequest } from '../types/request/create-study-request';

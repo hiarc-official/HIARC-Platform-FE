@@ -122,28 +122,28 @@ export function CreateAssignmentDialog({
 
   return (
     <Dialog defaultOpen>
-      <DialogContent>
+      <DialogContent fullscreen>
         <DialogHeader>
           <DialogTitle>{isUpdate ? '과제 수정' : '과제 등록'}</DialogTitle>
-          <DialogDescription className="pt-2 text-left text-sm text-gray-700">
-            <br />
-            <Label size="lg">과제 완료 조건</Label>
-            <br />
-            <li className="list-disc pl-1">
-              <Label size="lg">필수 문제: 모두 풀어야 합니다.</Label>
-            </li>
-            <li className="list-disc pl-1">
-              <Label size="lg">연습 문제: 설정한 개수 이상 풀어야 합니다.</Label>
-            </li>
-            <Label size="lg">→ 두 조건을 모두 만족해야 과제가 완료로 처리됩니다.</Label>
-            <br />
-            <br />
-            <Label>
-              [BOJ 과제 결과 가져오기] 버튼을 클릭하면 BOJ에서 문제 풀이 결과를 불러옵니다. 여러 번
-              실행할 수 있으나, 버튼 실행 이후에는 URL 및 문제 수 수정이 불가능 합니다.
-            </Label>
-          </DialogDescription>
         </DialogHeader>
+        <DialogDescription className="pt-2 text-left text-sm text-gray-700">
+          <br />
+          <Label size="lg">과제 완료 조건</Label>
+          <br />
+          <li className="list-disc pl-1">
+            <Label size="lg">필수 문제: 모두 풀어야 합니다.</Label>
+          </li>
+          <li className="list-disc pl-1">
+            <Label size="lg">연습 문제: 설정한 개수 이상 풀어야 합니다.</Label>
+          </li>
+          <Label size="lg">→ 두 조건을 모두 만족해야 과제가 완료로 처리됩니다.</Label>
+          <br />
+          <br />
+          <Label size="lg">
+            [BOJ 과제 결과 가져오기] 버튼을 클릭하면 BOJ에서 문제 풀이 결과를 불러옵니다. 여러 번
+            실행할 수 있으나, 버튼 실행 이후에는 URL 및 문제 수 수정이 불가능 합니다.
+          </Label>
+        </DialogDescription>
         <div className="mt-6" />
 
         {isUpdate && isLoading && (
@@ -181,7 +181,7 @@ export function CreateAssignmentDialog({
               disabled={isDisabled}
             />
             {isUpdate && isDataUnchanged && isAllFieldsFilled && (
-              <div className="mb-6">
+              <div className="mb-6 hidden md:block">
                 <Button
                   className="w-full bg-primary-200"
                   variant="fill"
@@ -194,7 +194,7 @@ export function CreateAssignmentDialog({
             )}
           </>
         )}
-        <DialogFooter className="flex flex-row">
+        <DialogFooter className="hidden flex-row md:flex">
           <DialogClose asChild>
             <Button variant="secondary" size="sm" className="w-full">
               취소
@@ -212,6 +212,40 @@ export function CreateAssignmentDialog({
             </Button>
           </DialogClose>
         </DialogFooter>
+
+        {/* 모바일 하단 버튼들 */}
+        <div className="fixed bottom-0 left-0 right-0 z-50 bg-white p-4 md:hidden">
+          {isUpdate && isDataUnchanged && isAllFieldsFilled && (
+            <div className="mb-4">
+              <Button
+                className="w-full bg-primary-200"
+                variant="fill"
+                size="lg"
+                onClick={handleCheckAssignment}
+              >
+                BOJ 과제 결과 가져오기
+              </Button>
+            </div>
+          )}
+          <div className="flex gap-3">
+            <DialogClose asChild>
+              <Button variant="secondary" size="lg" className="w-full">
+                취소
+              </Button>
+            </DialogClose>
+            <DialogClose asChild>
+              <Button
+                className="w-full"
+                variant="fill"
+                size="lg"
+                onClick={handleSubmit}
+                disabled={isUpdate && (isLoading || Boolean(error) || isDisabled)}
+              >
+                {isUpdate ? '수정' : '등록'}
+              </Button>
+            </DialogClose>
+          </div>
+        </div>
       </DialogContent>
     </Dialog>
   );

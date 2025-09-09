@@ -68,8 +68,8 @@ export function CreateStudyForm({
         bojHandle: initialData.bojHandle || '',
         isGroupStudy: initialData.isGroupStudy || false,
         semesterId: initialData.semesterId || null,
-        startDate: initialData.startDate || null,
-        endDate: initialData.endDate || null,
+        startDate: initialData.startDate ?? '',
+        endDate: initialData.endDate ?? '',
         scheduledDays: initialData.scheduledDays || null,
         startTime: initialData.startTime || null,
         isOnline: initialData.isOnline || null,
@@ -188,21 +188,32 @@ export function CreateStudyForm({
       return;
     }
 
+    // 날짜를 로컬 타임존으로 변환하는 함수
+    const toLocalDateString = (date: Date | null): string | null => {
+      if (!date) {
+        return null;
+      }
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}T00:00:00`;
+    };
+
     const studyRequest: CreateStudyRequest = {
       name: formData.name,
       bojHandle: formData.bojHandle,
       isGroupStudy: isGroupStudy === 'AVAILABLE',
       semesterId: formData.semesterId,
-      startDate: studyPeriod[0]?.toISOString().split('T')[0] || null,
-      endDate: studyPeriod[1]?.toISOString().split('T')[0] || null,
+      startDate: toLocalDateString(studyPeriod[0]),
+      endDate: toLocalDateString(studyPeriod[1]),
       scheduledDays: selectedDays.length > 0 ? selectedDays : null,
       startTime: selectedStartTime ? normalizeTimeFormat(selectedStartTime) : null,
       isOnline: isOnline === 'ONLINE' ? true : isOnline === 'IN_PERSON' ? false : null,
       isPublic: isPublic === 'PUBLIC' ? true : isPublic === 'PRIVATE' ? false : null,
       lang: formData.lang || null,
       introduction: formData.introduction || null,
-      recruitmentStartAt: cruitPeriod[0]?.toISOString().split('T')[0] || null,
-      recruitmentEndAt: cruitPeriod[1]?.toISOString().split('T')[0] || null,
+      recruitmentStartAt: toLocalDateString(cruitPeriod[0]),
+      recruitmentEndAt: toLocalDateString(cruitPeriod[1]),
       precaution: formData.precaution || null,
     };
 
