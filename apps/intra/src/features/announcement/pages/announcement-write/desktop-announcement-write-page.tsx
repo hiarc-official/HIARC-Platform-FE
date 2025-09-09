@@ -1,7 +1,6 @@
 'use client';
 
-import { AnnouncementDesktopHeader, BackButton, Divider } from '@hiarc-platform/ui';
-import { Title } from '@hiarc-platform/ui';
+import { AnnouncementDesktopHeader } from '@hiarc-platform/ui';
 import { AnnouncementWrite } from '@hiarc-platform/ui';
 import { useAnnouncementWritePageState } from '../../hooks/page/use-announcement-write-page-state';
 
