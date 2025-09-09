@@ -73,7 +73,6 @@ function LabeledCalanderInput({
             timeFormat="HH:mm"
             timeCaption="시간"
             customInput={<Input className=" border-gray-200" />}
-            popperClassName="scale-90 origin-top-left text-xs"
           />
         ) : (
           <DatePicker
@@ -90,7 +89,6 @@ function LabeledCalanderInput({
             timeFormat="HH:mm"
             timeCaption="시간"
             customInput={<Input className=" border-gray-200" />}
-            popperClassName="scale-90 origin-top-left text-xs"
           />
         )}
       </div>
