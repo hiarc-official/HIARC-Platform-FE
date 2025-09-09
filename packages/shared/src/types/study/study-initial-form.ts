@@ -3,15 +3,15 @@ export interface StudyInitialForm {
   bojHandle?: string;
   isGroupStudy?: boolean;
   semesterId?: number;
-  startDate?: Date | null;
-  endDate?: Date | null;
+  startDate?: string | null;
+  endDate?: string | null;
   scheduledDays?: string[];
   startTime?: string | null;
   isOnline?: boolean | null;
   lang?: string | null;
   introduction?: string | null;
-  recruitmentStartAt?: Date | null;
-  recruitmentEndAt?: Date | null;
+  recruitmentStartAt?: string | null;
+  recruitmentEndAt?: string | null;
   precaution?: string | null;
   isPublic?: boolean | null;
 }
@@ -24,15 +24,15 @@ export const StudyInitialForm = {
       bojHandle: (data.bojHandle as string) || '',
       isGroupStudy: (data.isGroupStudy as boolean) || false,
       semesterId: data.semesterId as number,
-      startDate: (data.startDate as Date) || null,
-      endDate: (data.endDate as Date) || null,
+      startDate: (data.startDate as string) || null,
+      endDate: (data.endDate as string) || null,
       scheduledDays: (data.scheduledDays as string[]) || [],
       startTime: (data.startTime as string | null) || null,
       isOnline: (data.isOnline as boolean) || null,
       lang: (data.lang as string) || null,
       introduction: (data.introduction as string) || null,
-      recruitmentStartAt: (data.recruitmentStartAt as Date) || null,
-      recruitmentEndAt: (data.recruitmentEndAt as Date) || null,
+      recruitmentStartAt: (data.recruitmentStartAt as string) || null,
+      recruitmentEndAt: (data.recruitmentEndAt as string) || null,
       precaution: (data.precaution as string) || null,
       isPublic: data.isPublic === true || data.isPublic === false ? data.isPublic : null,
     };

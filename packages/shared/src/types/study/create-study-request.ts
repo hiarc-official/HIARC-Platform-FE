@@ -3,15 +3,15 @@ export interface CreateStudyRequest {
   bojHandle: string;
   isGroupStudy: boolean;
   semesterId: number | null;
-  startDate?: Date | null;
-  endDate?: Date | null;
+  startDate?: string | null;
+  endDate?: string | null;
   scheduledDays?: string[] | null;
   startTime?: string | null;
   isOnline?: boolean | null;
   isPublic?: boolean | null;
   lang?: string | null;
   introduction?: string | null;
-  recruitmentStartAt?: Date | null;
-  recruitmentEndAt?: Date | null;
+  recruitmentStartAt?: string | null;
+  recruitmentEndAt?: string | null;
   precaution?: string | null;
 }

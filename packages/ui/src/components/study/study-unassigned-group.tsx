@@ -35,7 +35,6 @@ export function StudyUnassignedGroup({
       );
 
       if (confirmed) {
-        console.log('Calling onWithdraw with:', { studyId, memberId });
         onWithdraw(studyId, memberId);
       }
     }
@@ -68,7 +67,9 @@ export function StudyUnassignedGroup({
               }}
               roundStatuses={member.roundStatuses || []}
               onChangeStatus={() => {
-                onChangeStatus && onChangeStatus(studyId, member.memberId || 0);
+                if (onChangeStatus) {
+                  onChangeStatus(studyId, member.memberId || 0);
+                }
               }}
             />
           ))}
