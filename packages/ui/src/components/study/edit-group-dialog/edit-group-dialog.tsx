@@ -39,13 +39,13 @@ export function EditGroupDialog({
   useEffect(() => {
     if (initialData.students && initialData.students.length > 0) {
       const initialHandles = initialData.students
-        .filter(student => student.bojHandle)
+        .filter((student) => student.bojHandle)
         .map((student, index) => ({
           id: index + 1,
           value: student.bojHandle || '',
           isValidated: true, // Existing handles are already validated
         }));
-      
+
       setHandleInputs(initialHandles);
       setNextId(initialHandles.length + 1);
     } else {
@@ -68,7 +68,7 @@ export function EditGroupDialog({
             value={groupName}
             onChange={setGroupName}
           />
-          <div className="flex flex-col gap-6">
+          <div className="flex max-h-64 flex-col gap-6 overflow-y-auto">
             {handleInputs.map((handleInput, index) => (
               <div key={handleInput.id} className="flex w-full gap-2">
                 <div className="flex w-full flex-col gap-2">
@@ -160,7 +160,7 @@ export function EditGroupDialog({
             </button>
           </div>
         </div>
-        <DialogFooter className="mt-6">
+        <DialogFooter className="mt-6 flex flex-row gap-2">
           <DialogClose asChild>
             <Button variant="secondary" size="sm" className="w-full">
               취소
