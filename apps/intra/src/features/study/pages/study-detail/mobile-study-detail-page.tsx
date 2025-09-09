@@ -25,7 +25,7 @@ export function MobileStudyDetailPage(): React.ReactElement {
   }
 
   return (
-    <div className="flex flex-col pt-10">
+    <div className="flex flex-col pt-10 pb-20 md:pb-0">
       <StudyInfoSection
         className="pt-4"
         studyData={studyData}
