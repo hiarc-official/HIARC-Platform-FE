@@ -33,11 +33,11 @@ export function CreateAttendanceCodeDialog({
   return (
     <Dialog defaultOpen>
       <DialogContent>
-        <DialogHeader>
+        <DialogHeader className="w-full items-start">
           <DialogTitle>출석 생성</DialogTitle>
         </DialogHeader>
         <div className="flex flex-col">
-          <ol className="list-disc pl-4 pt-2 text-sm text-gray-600">
+          <ol className="list-disc pl-4 pt-6 text-sm text-gray-600">
             <li>
               <Label size="lg">{studyName}</Label>
             </li>
