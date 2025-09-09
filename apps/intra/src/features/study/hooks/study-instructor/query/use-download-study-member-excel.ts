@@ -6,7 +6,11 @@ export const useDownloadStudyMemberExcel = (): UseMutationResult<void, Error, nu
   useMutation({
     mutationFn: async (studyId: number) => {
       try {
-        const response = await studyInstructorApi.DOWNLOAD_MEMBER_EXCEL(studyId);
+        const response = (await studyInstructorApi.DOWNLOAD_MEMBER_EXCEL(studyId)) as {
+          status: number;
+          headers: { 'content-type'?: string };
+          data: Blob;
+        };
 
         console.log('[STUDY MEMBER EXCEL DOWNLOAD] 응답 받음:', {
           status: response.status,

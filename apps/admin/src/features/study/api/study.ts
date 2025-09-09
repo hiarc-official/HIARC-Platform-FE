@@ -355,7 +355,7 @@ export const studyApi = {
     }
   },
 
-  DOWNLOAD_MEMBER_EXCEL: async (studyId: number): Promise<any> => {
+  DOWNLOAD_MEMBER_EXCEL: async (studyId: number): Promise<unknown> => {
     try {
       const response = await apiClient.get(`/studies/excel/${studyId}/download`, {
         responseType: 'blob',
