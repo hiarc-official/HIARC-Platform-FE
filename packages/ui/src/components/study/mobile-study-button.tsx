@@ -53,7 +53,7 @@ export function MobileStudyButton({
   };
 
   return (
-    <div className="mt-4 w-full md:hidden">
+    <div className="fixed bottom-0 left-0 right-0 z-50 p-4 md:hidden">
       {hasRecruitmentDates &&
         !isAdmin &&
         !studyData?.isStudent &&

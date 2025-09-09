@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import { cn } from '../../lib/utils';
 import { Button } from '../button';
 import { IconButton } from '../icon-button';
@@ -133,18 +132,10 @@ function MobileLectureListItem({
   onEditClick,
   onDeleteClick,
 }: LectureCardProps): React.ReactElement {
-  const [isAttendanceCreated, setIsAttendanceCreated] = useState(
-    lecture?.isAttendanceCodeExist || false
-  );
-  const [isAssignmentCreated, setIsAssignmentCreated] = useState(
-    lecture?.isAssignmentExist || false
-  );
-  const [attendanceCompleted, setAttendanceCompleted] = useState(
-    lecture?.isAttendanceCompleted || false
-  );
-  const [assignmentCompleted, setAssignmentCompleted] = useState(
-    lecture?.isAssignmentCompleted || false
-  );
+  const isAttendanceCreated = lecture?.isAttendanceCodeExist || false;
+  const isAssignmentCreated = lecture?.isAssignmentExist || false;
+  const attendanceCompleted = lecture?.isAttendanceCompleted || false;
+  const assignmentCompleted = lecture?.isAssignmentCompleted || false;
 
   // 출석 관련 버튼만 상단에 배치 (Student일 때만)
   const attendanceButtons = [];
@@ -160,7 +151,7 @@ function MobileLectureListItem({
         <AttendanceCheckButton
           key="attendance-check"
           onClick={() => {
-            onAttendanceCheckClick?.(() => setAttendanceCompleted(true));
+            onAttendanceCheckClick?.(() => {});
           }}
           disabled={!isAttendanceCreated}
         />
@@ -175,7 +166,7 @@ function MobileLectureListItem({
         <DoAssignmentButton
           key="assignment-do"
           onClick={() => {
-            onDoAssignmentClick?.(() => setAssignmentCompleted(true));
+            onDoAssignmentClick?.(() => {});
           }}
           disabled={!isAssignmentCreated}
         />
@@ -199,7 +190,7 @@ function MobileLectureListItem({
           className="mx-1 my-1 rounded-sm px-3 py-2 text-left transition-all duration-200 hover:bg-gray-100"
           onClick={(e) => {
             e.stopPropagation();
-            onCreateAttendanceClick?.(() => setIsAttendanceCreated(true));
+            onCreateAttendanceClick?.(() => {});
           }}
         >
           <Label className="cursor-pointer">출석 생성</Label>
@@ -228,7 +219,7 @@ function MobileLectureListItem({
           className="mx-1 my-1 rounded-sm px-3 py-2 text-left transition-all duration-200 hover:bg-gray-100"
           onClick={(e) => {
             e.stopPropagation();
-            onCreateAssignmentClick?.(() => setIsAssignmentCreated(true));
+            onCreateAssignmentClick?.(() => {});
           }}
         >
           <Label className="cursor-pointer">과제 등록</Label>
@@ -304,10 +295,11 @@ function MobileLectureListItem({
         <Label
           size="lg"
           className={cn(
-            'cursor-pointer hover:opacity-70',
-            isStudent && 'underline decoration-gray-900 decoration-1 underline-offset-2'
+            (isStudent || isAdmin) && 'cursor-pointer hover:opacity-70',
+            (isStudent || isAdmin) &&
+              'underline decoration-gray-900 decoration-1 underline-offset-2'
           )}
-          onClick={onTitleClick}
+          onClick={isStudent || isAdmin ? onTitleClick : undefined}
         >
           {lecture?.title || '강의 제목 없음'}
         </Label>
@@ -318,18 +310,10 @@ function MobileLectureListItem({
 }
 
 function DesktopLectureCardListItem(props: LectureCardProps): React.ReactElement {
-  const [isAttendanceCreated, setIsAttendanceCreated] = useState(
-    props.lecture?.isAttendanceCodeExist || false
-  );
-  const [isAssignmentCreated, setIsAssignmentCreated] = useState(
-    props.lecture?.isAssignmentExist || false
-  );
-  const [attendanceCompleted, setAttendanceCompleted] = useState(
-    props.lecture?.isAttendanceCompleted
-  );
-  const [assignmentCompleted, setAssignmentCompleted] = useState(
-    props.lecture?.isAssignmentCompleted
-  );
+  const isAttendanceCreated = props.lecture?.isAttendanceCodeExist || false;
+  const isAssignmentCreated = props.lecture?.isAssignmentExist || false;
+  const attendanceCompleted = props.lecture?.isAttendanceCompleted;
+  const assignmentCompleted = props.lecture?.isAssignmentCompleted;
 
   const {
     lecture,
@@ -357,7 +341,7 @@ function DesktopLectureCardListItem(props: LectureCardProps): React.ReactElement
         <AttendanceCheckButton
           key="attendance-check"
           onClick={() => {
-            onAttendanceCheckClick?.(() => setAttendanceCompleted(true));
+            onAttendanceCheckClick?.(() => {});
           }}
           disabled={!isAttendanceCreated}
         />
@@ -372,7 +356,7 @@ function DesktopLectureCardListItem(props: LectureCardProps): React.ReactElement
         <DoAssignmentButton
           key="assignment-do"
           onClick={() => {
-            onDoAssignmentClick?.(() => setAssignmentCompleted(true));
+            onDoAssignmentClick?.(() => {});
           }}
           disabled={!isAssignmentCreated}
         />
@@ -395,7 +379,7 @@ function DesktopLectureCardListItem(props: LectureCardProps): React.ReactElement
           className="mx-1 my-1 rounded-sm px-3 py-2 text-left transition-all duration-200 hover:bg-gray-100"
           onClick={(e) => {
             e.stopPropagation();
-            onCreateAttendanceClick?.(() => setIsAttendanceCreated(true));
+            onCreateAttendanceClick?.(() => {});
           }}
         >
           <Label className="cursor-pointer">출석 생성</Label>
@@ -424,7 +408,7 @@ function DesktopLectureCardListItem(props: LectureCardProps): React.ReactElement
           className="mx-1 my-1 rounded-sm px-3 py-2 text-left transition-all duration-200 hover:bg-gray-100"
           onClick={(e) => {
             e.stopPropagation();
-            onCreateAssignmentClick?.(() => setIsAssignmentCreated(true));
+            onCreateAssignmentClick?.(() => {});
           }}
         >
           <Label className="cursor-pointer">과제 등록</Label>
@@ -489,10 +473,10 @@ function DesktopLectureCardListItem(props: LectureCardProps): React.ReactElement
         <Label
           size="lg"
           className={cn(
-            props.isStudent &&
+            (props.isStudent || props.isAdmin) &&
               'cursor-pointer underline decoration-gray-900 decoration-1 underline-offset-2 hover:opacity-70'
           )}
-          onClick={props.onTitleClick}
+          onClick={props.isStudent || props.isAdmin ? props.onTitleClick : undefined}
         >
           {lecture?.title || '강의 제목 없음'}
         </Label>
@@ -511,7 +495,7 @@ function DesktopLectureCardListItem(props: LectureCardProps): React.ReactElement
               {!isAttendanceCreated ? (
                 <CreateCodeButton
                   onClick={() => {
-                    onCreateAttendanceClick?.(() => setIsAttendanceCreated(true));
+                    onCreateAttendanceClick?.(() => {});
                   }}
                 />
               ) : (
@@ -522,7 +506,7 @@ function DesktopLectureCardListItem(props: LectureCardProps): React.ReactElement
               {!isAssignmentCreated ? (
                 <CreateAssignmentButton
                   onClick={() => {
-                    onCreateAssignmentClick?.(() => setIsAssignmentCreated(true));
+                    onCreateAssignmentClick?.(() => {});
                   }}
                 />
               ) : (

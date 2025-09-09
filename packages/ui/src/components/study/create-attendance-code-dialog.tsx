@@ -52,6 +52,7 @@ export function CreateAttendanceCodeDialog({
             length={6}
             value={inputValue}
             onChange={(value: string) => setInputValue(value)}
+            autoFocus={false}
           />
         </div>
         <DialogFooter className="mt-6 flex flex-row">
