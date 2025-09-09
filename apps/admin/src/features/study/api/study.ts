@@ -9,7 +9,6 @@ import {
   PageableModel,
   Study,
   StudyGroupList,
-  StudyMember,
   StudySummary,
 } from '@hiarc-platform/shared';
 import { StudyInitialForm } from '../types';
@@ -301,6 +300,21 @@ export const studyApi = {
       });
     } catch (error) {
       console.error('[STUDY API] VALIDATE_INSTRUCTOR 에러:', error);
+      throw error;
+    }
+  },
+
+  /**
+   * 학생 탈퇴 API입니다.
+   * @param studyId - 스터디 ID입니다.
+   * @param memberId - 탈퇴할 학생 ID입니다.
+   * @returns void
+   */
+  WITHDRAW_STUDENT: async (studyId: number, memberId: number): Promise<void> => {
+    try {
+      await apiClient.delete(`/studies/${studyId}/instructor/students/${memberId}`);
+    } catch (error) {
+      console.error('[STUDY API] WITHDRAW_STUDENT 에러:', error);
       throw error;
     }
   },
