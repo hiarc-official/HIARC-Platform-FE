@@ -20,6 +20,7 @@ import { useStudyAnnouncements } from '../../hooks/study-common/query/use-study-
 import { useValidateStudent } from '../../hooks/study-instructor/mutation/use-validate-student';
 import { useCreateGroup } from '../../hooks/study-instructor/mutation/use-create-group';
 import { useEditGroup } from '../../hooks/study-instructor/mutation/use-edit-group';
+import { useWithdrawStudent } from '../../hooks/study-instructor/mutation/use-withdraw-student';
 import { useStudyGroupList } from '../../hooks/study-instructor/query/use-study-group-list';
 
 interface TabSectionProps {
@@ -60,6 +61,7 @@ export function TabSection({
   const validateStudent = useValidateStudent();
   const createGroup = useCreateGroup();
   const editGroup = useEditGroup();
+  const withdrawStudent = useWithdrawStudent();
 
   const handleCurriculumAdd = (): void => {
     router.push(
@@ -115,7 +117,11 @@ export function TabSection({
             {isGroupStudy ? (
               <div className="flex flex-col gap-6">
                 <StudyGroupList
+                  studyId={studyId || 0}
                   groupList={groupList?.studyGroups || []}
+                  onWithdraw={(studyId, memberId) => {
+                    withdrawStudent.mutate({ studyId, memberId });
+                  }}
                   onDelete={(groupId) => {
                     DialogUtil.showConfirm('조를 삭제하시겠습니까?', () => {
                       if (studyId) {
@@ -159,6 +165,10 @@ export function TabSection({
                   }}
                 />
                 <StudyUnassignedGroup
+                  studyId={studyId || 0}
+                  onWithdraw={(studyId, memberId) => {
+                    withdrawStudent.mutate({ studyId, memberId });
+                  }}
                   members={groupList?.aloneStudents || []}
                   onAddGroup={() => {
                     DialogUtil.showComponent(
@@ -185,7 +195,13 @@ export function TabSection({
                 />
               </div>
             ) : (
-              <StudentList studentList={groupList?.aloneStudents || []} />
+              <StudentList
+                studyId={studyId || 0}
+                onWithdraw={(studyId, memberId) => {
+                  withdrawStudent.mutate({ studyId, memberId });
+                }}
+                studentList={groupList?.aloneStudents || []}
+              />
             )}
           </SlideFade>
         )}

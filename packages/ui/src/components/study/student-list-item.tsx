@@ -22,6 +22,7 @@ interface StudentListItemProps {
   assignmentCount?: number;
   totalRounds?: number;
   roundStatuses?: RoundStatus[];
+  onWithdraw?(): void;
 }
 
 export function StudentListItem({
@@ -32,12 +33,19 @@ export function StudentListItem({
   assignmentCount,
   totalRounds,
   roundStatuses = [],
+  onWithdraw,
 }: StudentListItemProps): React.ReactElement {
   const [open, setOpen] = useState(false);
 
   // RoundStatus[]를 attendance, assignment 배열로 변환
   const attendance = roundStatuses.map((status) => status.attendanceCompleted === true);
   const assignment = roundStatuses.map((status) => status.assignmentCompleted === true);
+
+  const handleWithdraw = async (): Promise<void> => {
+    if (onWithdraw) {
+      onWithdraw();
+    }
+  };
 
   return (
     <div className="flex flex-col rounded-lg border border-gray-200 px-5 py-4 transition">
@@ -47,7 +55,7 @@ export function StudentListItem({
           <Label size="md" weight="medium" className="md:text-lg">
             {name} ({bojHandle})
           </Label>
-          <Button variant="secondary" size="xs">
+          <Button variant="secondary" size="xs" onClick={handleWithdraw}>
             탈퇴
           </Button>
         </div>
