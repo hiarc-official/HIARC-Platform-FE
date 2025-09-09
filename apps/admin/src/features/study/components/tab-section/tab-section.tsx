@@ -21,6 +21,7 @@ import { useCreateGroup } from '../../hooks/use-create-group';
 import { StudyGroupList } from '../../../../../../../packages/ui/src/components/study/study-group-list';
 import { useEditGroup } from '../../hooks/use-edit-group';
 import { useWithdrawStudent } from '../../hooks/use-withdraw-student';
+import { useDownloadStudyMemberExcel } from '../../hooks/use-download-study-member-excel';
 import { UpdateStatusDialog } from './update-status-dialog';
 
 interface TabSectionProps {
@@ -58,6 +59,7 @@ export function TabSection({
   const createGroup = useCreateGroup();
   const editGroup = useEditGroup();
   const withdrawStudent = useWithdrawStudent();
+  const downloadExcel = useDownloadStudyMemberExcel();
 
   const handleCurriculumAdd = (): void => {
     router.push(`/announcement/write?type=STUDY&studyId=${studyId}&isLecture=true`);
@@ -67,20 +69,33 @@ export function TabSection({
     router.push(`/announcement/write?type=STUDY&studyId=${studyId}`);
   };
 
+  const handleDownload = (): void => {
+    if (studyId) {
+      downloadExcel.mutate(studyId);
+    }
+  };
+
   return (
     <div className={cn('flex w-full flex-col', className)}>
-      <div className="flex w-full justify-between">
+      <div className="flex w-full flex-col gap-3 md:flex-row md:justify-between md:gap-0">
         <Tabs tabs={tabs} activeTab={selectedTab} onTabClick={setSelectedTab} />
-        {selectedTab === 'curriculum' && (
-          <Button size="sm" className="bg-primary-200" onClick={handleCurriculumAdd}>
-            강의 추가
-          </Button>
-        )}
-        {selectedTab === 'announcement' && (
-          <Button size="sm" className="bg-primary-200" onClick={handleAnnouncementAdd}>
-            공지사항 추가
-          </Button>
-        )}
+        <div className="flex justify-end">
+          {isAdmin && selectedTab === 'curriculum' && (
+            <Button size="sm" className="bg-primary-200" onClick={handleCurriculumAdd}>
+              강의 추가
+            </Button>
+          )}
+          {isAdmin && selectedTab === 'announcement' && (
+            <Button size="sm" className="bg-primary-200" onClick={handleAnnouncementAdd}>
+              공지사항 추가
+            </Button>
+          )}
+          {isAdmin && selectedTab === 'manage_student' && (
+            <Button size="sm" variant="secondary" onClick={handleDownload}>
+              명단 다운로드
+            </Button>
+          )}
+        </div>
       </div>
       <div className="mt-6 min-h-[300px]">
         {selectedTab === 'curriculum' && (
