@@ -122,79 +122,81 @@ export function CreateAssignmentDialog({
 
   return (
     <Dialog defaultOpen>
-      <DialogContent fullscreen>
-        <DialogHeader>
+      <DialogContent fullscreen className="flex max-h-screen flex-col">
+        <DialogHeader className="flex-shrink-0">
           <DialogTitle>{isUpdate ? '과제 수정' : '과제 등록'}</DialogTitle>
         </DialogHeader>
-        <DialogDescription className="pt-2 text-left text-sm text-gray-700">
-          <br />
-          <Label size="lg">과제 완료 조건</Label>
-          <br />
-          <li className="list-disc pl-1">
-            <Label size="lg">필수 문제: 모두 풀어야 합니다.</Label>
-          </li>
-          <li className="list-disc pl-1">
-            <Label size="lg">연습 문제: 설정한 개수 이상 풀어야 합니다.</Label>
-          </li>
-          <Label size="lg">→ 두 조건을 모두 만족해야 과제가 완료로 처리됩니다.</Label>
-          <br />
-          <br />
-          <Label size="lg">
-            [BOJ 과제 결과 가져오기] 버튼을 클릭하면 BOJ에서 문제 풀이 결과를 불러옵니다. 여러 번
-            실행할 수 있으나, 버튼 실행 이후에는 URL 및 문제 수 수정이 불가능 합니다.
-          </Label>
-        </DialogDescription>
-        <div className="mt-6" />
+        <div className={`flex-1 overflow-y-auto ${isUpdate ? 'pb-40' : 'pb-20'} md:pb-0`}>
+          <DialogDescription className="pt-2 text-left text-sm text-gray-700">
+            <br />
+            <Label size="lg">과제 완료 조건</Label>
+            <br />
+            <li className="ml-4 list-disc">
+              <Label size="lg">필수 문제: 모두 풀어야 합니다.</Label>
+            </li>
+            <li className="ml-4 list-disc">
+              <Label size="lg">연습 문제: 설정한 개수 이상 풀어야 합니다.</Label>
+            </li>
+            <Label size="lg">→ 두 조건을 모두 만족해야 과제가 완료로 처리됩니다.</Label>
+            <br />
+            <br />
+            <Label size="lg">
+              [BOJ 과제 결과 가져오기] 버튼을 클릭하면 BOJ에서 문제 풀이 결과를 불러옵니다. 여러 번
+              실행할 수 있으나, 버튼 실행 이후에는 URL 및 문제 수 수정이 불가능 합니다.
+            </Label>
+          </DialogDescription>
+          <div className="mt-6" />
 
-        {isUpdate && isLoading && (
-          <div className="py-4 text-center">과제 정보를 불러오는 중...</div>
-        )}
+          {isUpdate && isLoading && (
+            <div className="py-4 text-center">과제 정보를 불러오는 중...</div>
+          )}
 
-        {isUpdate && error && (
-          <div className="text-red-500 py-4 text-center">과제 정보를 불러올 수 없습니다.</div>
-        )}
+          {isUpdate && error && (
+            <div className="text-red-500 py-4 text-center">과제 정보를 불러올 수 없습니다.</div>
+          )}
 
-        {(!isUpdate || (assignment && !isLoading && !error)) && (
-          <>
-            <LabeledInput
-              className="mb-6"
-              label="필수 문제 URL"
-              placeholder="ex. https://www.acmicpc.net/group/practice/view/20429/9"
-              value={requiredProblemUrl}
-              onChange={(value) => setRequiredProblemUrl(value)}
-              disabled={isDisabled}
-            />
-            <LabeledInput
-              className="mb-6"
-              label="연습 문제 URL"
-              placeholder="ex. https://www.acmicpc.net/group/practice/view/20429/9"
-              value={practiceProblemUrl}
-              onChange={(value) => setPracticeProblemUrl(value)}
-              disabled={isDisabled}
-            />
-            <LabeledInput
-              className="mb-6"
-              label="연습 문제 중 몇 문제를 풀어야 과제 완료로 인정할까요?"
-              placeholder="최소 문제 수를 입력해주세요. (예: 3)"
-              value={minProblemCount}
-              onChange={(value) => setMinProblemCount(value)}
-              disabled={isDisabled}
-            />
-            {isUpdate && isDataUnchanged && isAllFieldsFilled && (
-              <div className="mb-6 hidden md:block">
-                <Button
-                  className="w-full bg-primary-200"
-                  variant="fill"
-                  size="md"
-                  onClick={handleCheckAssignment}
-                >
-                  BOJ 과제 결과 가져오기
-                </Button>
-              </div>
-            )}
-          </>
-        )}
-        <DialogFooter className="hidden flex-row md:flex">
+          {(!isUpdate || (assignment && !isLoading && !error)) && (
+            <>
+              <LabeledInput
+                className="mb-6"
+                label="필수 문제 URL"
+                placeholder="ex. https://www.acmicpc.net/group/practice/view/20429/9"
+                value={requiredProblemUrl}
+                onChange={(value) => setRequiredProblemUrl(value)}
+                disabled={isDisabled}
+              />
+              <LabeledInput
+                className="mb-6"
+                label="연습 문제 URL"
+                placeholder="ex. https://www.acmicpc.net/group/practice/view/20429/9"
+                value={practiceProblemUrl}
+                onChange={(value) => setPracticeProblemUrl(value)}
+                disabled={isDisabled}
+              />
+              <LabeledInput
+                className="mb-6"
+                label="연습 문제 중 몇 문제를 풀어야 과제 완료로 인정할까요?"
+                placeholder="최소 문제 수를 입력해주세요. (예: 3)"
+                value={minProblemCount}
+                onChange={(value) => setMinProblemCount(value)}
+                disabled={isDisabled}
+              />
+              {isUpdate && isDataUnchanged && isAllFieldsFilled && (
+                <div className="mb-6 hidden md:block">
+                  <Button
+                    className="w-full bg-primary-200"
+                    variant="fill"
+                    size="md"
+                    onClick={handleCheckAssignment}
+                  >
+                    BOJ 과제 결과 가져오기
+                  </Button>
+                </div>
+              )}
+            </>
+          )}
+        </div>
+        <DialogFooter className="hidden flex-shrink-0 flex-row md:flex">
           <DialogClose asChild>
             <Button variant="secondary" size="sm" className="w-full">
               취소
