@@ -17,7 +17,7 @@ interface DoAssignmentDialogProps {
   lectureRound: number;
   studyId: number;
   lectureId: number;
-  assignment: Assignment; // Assignment 타입이 UI 패키지에서 접근할 수 없으므로 any로 처리
+  assignment?: Assignment;
   isLoading?: boolean;
 }
 
