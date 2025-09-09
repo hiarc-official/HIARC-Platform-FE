@@ -1,20 +1,12 @@
 'use client';
 
-import { BackButton, LoadingDots, StudyInfoSection, MobileStudyButton } from '@hiarc-platform/ui';
+import { LoadingDots, StudyInfoSection, MobileStudyButton } from '@hiarc-platform/ui';
 import { useStudyDetailPageState } from '@/features/study/hooks/page/use-study-detail-page-state';
 import { TabSection } from '@/features/study/components/tab-section';
 
 export function MobileStudyDetailPage(): React.ReactElement {
-  const {
-    studyId,
-    studyData,
-    isLoading,
-    error,
-    mounted,
-    handleEditClick,
-    handleApplyClick,
-    handleBackClick,
-  } = useStudyDetailPageState();
+  const { studyId, studyData, isLoading, error, mounted, handleEditClick, handleApplyClick } =
+    useStudyDetailPageState();
 
   if (!mounted || isLoading) {
     return (
@@ -33,8 +25,7 @@ export function MobileStudyDetailPage(): React.ReactElement {
   }
 
   return (
-    <div className="flex flex-col">
-      <BackButton onClick={handleBackClick} />
+    <div className="flex flex-col pt-10 pb-20 md:pb-0">
       <StudyInfoSection
         className="pt-4"
         studyData={studyData}

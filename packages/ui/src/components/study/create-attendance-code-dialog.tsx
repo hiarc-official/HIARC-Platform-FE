@@ -36,7 +36,7 @@ export function CreateAttendanceCodeDialog({
         <DialogHeader>
           <DialogTitle>출석 생성</DialogTitle>
         </DialogHeader>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col">
           <ol className="list-disc pl-4 pt-2 text-sm text-gray-600">
             <li>
               <Label size="lg">{studyName}</Label>
@@ -52,9 +52,10 @@ export function CreateAttendanceCodeDialog({
             length={6}
             value={inputValue}
             onChange={(value: string) => setInputValue(value)}
+            autoFocus={false}
           />
         </div>
-        <DialogFooter className="mt-6">
+        <DialogFooter className="mt-6 flex flex-row">
           <DialogClose asChild>
             <Button variant="secondary" size="sm" className="w-full">
               취소

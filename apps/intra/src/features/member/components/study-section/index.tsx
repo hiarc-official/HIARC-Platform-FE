@@ -83,11 +83,7 @@ export function StudySection({ className }: StudySectionProps): React.ReactEleme
           </Link>
         )}
       </div>
-      <AttendanceTable
-        className="mb-20 mt-4"
-        attendance={attendanceStatus}
-        assignment={assignmentStatus}
-      />
+      <AttendanceTable className="mb-20 mt-4" roundStatuses={myStudyInfo?.roundStatuses || []} />
     </div>
   );
 }

@@ -11,7 +11,6 @@ import {
   Study,
   StudyGroupList,
   StudyInitialForm,
-  StudyMember,
   StudySummary,
 } from '@hiarc-platform/shared';
 import { UpdateAnnouncementRequest } from '@/features/announcement/types/request/update-announcement-request';
@@ -241,6 +240,30 @@ export const studyInstructorApi = {
       await apiClient.patch(`/studies/${studyId}/instructor/group/${groupId}`, groupData);
     } catch (error) {
       console.error('[STUDY API] PATCH_GROUP 에러:', error);
+      throw error;
+    }
+  },
+
+  CHECK_ASSIGNMENT: async (studyId: number, round: number): Promise<void> => {
+    try {
+      await apiClient.post(`/studies/${studyId}/instructor/lecture/${round}/assignment/status`);
+    } catch (error) {
+      console.error('[STUDY API] CHECK_ASSIGNMENT 에러:', error);
+      throw error;
+    }
+  },
+
+  /**
+   * 학생 탈퇴 API입니다.
+   * @param studyId - 스터디 ID입니다.
+   * @param memberId - 탈퇴할 학생 ID입니다.
+   * @returns void
+   */
+  WITHDRAW_STUDENT: async (studyId: number, memberId: number): Promise<void> => {
+    try {
+      await apiClient.delete(`/studies/${studyId}/instructor/students/${memberId}`);
+    } catch (error) {
+      console.error('[STUDY API] WITHDRAW_STUDENT 에러:', error);
       throw error;
     }
   },
