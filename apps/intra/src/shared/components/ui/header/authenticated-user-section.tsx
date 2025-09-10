@@ -11,25 +11,18 @@ import { authApi } from '@/features/auth/api/auth';
 import { MyInfo } from '@/features/auth/types/model/my-info';
 import { useState, useRef, useEffect } from 'react';
 import { SignupPopup } from './signup-popup';
-import { useCurrentSemester } from '@/features/semester/hooks/use-current-semester';
 
 export function AuthenticatedUserSection(): React.ReactElement {
   const router = useRouter();
   const pathname = usePathname();
   const logoutMutation = useLogout();
   const recruitNotificationReadMutation = useRecruitNotificationRead();
-  const { data: currentSemesterData } = useCurrentSemester();
   const [myInfo, setMyInfo] = useState<MyInfo | null>(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const popupRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const handleMyPage = (): void => {
-    if (!currentSemesterData?.recruitingSemester) {
-      DialogUtil.showError('모집 중이 아닙니다.');
-      return;
-    }
-
     if (!myInfo?.bojHandle) {
       DialogUtil.showConfirm(
         '백준 아이디가 등록되지 않았습니다. 회원가입을 완료해주세요.',
@@ -120,7 +113,7 @@ export function AuthenticatedUserSection(): React.ReactElement {
     };
 
     window.addEventListener('signupPopupDismissed', handlePopupDismiss);
-    
+
     return () => {
       window.removeEventListener('signupPopupDismissed', handlePopupDismiss);
     };
