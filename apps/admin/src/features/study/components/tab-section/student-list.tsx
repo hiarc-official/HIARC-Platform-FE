@@ -49,7 +49,9 @@ export function StudentList({
             handleWithdraw(student.memberId || 0);
           }}
           onChangeStatus={() => {
-            onChangeStatus && onChangeStatus(studyId, student.memberId || 0);
+            if (onChangeStatus) {
+              onChangeStatus(studyId, student.memberId || 0);
+            }
           }}
         />
       ))}

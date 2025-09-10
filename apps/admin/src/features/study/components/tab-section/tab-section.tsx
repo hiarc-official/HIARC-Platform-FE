@@ -5,13 +5,13 @@ import {
   DialogUtil,
   EditGroupDialog,
   SlideFade,
+  StudyAnnouncementTable,
   StudyUnassignedGroup,
   Tabs,
 } from '@hiarc-platform/ui';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { LectureList } from './lecture-list';
-import { AnnouncementTable } from './announcement-table';
 import { StudentList } from './student-list';
 import { useStudyAnnouncements } from '../../hooks/use-study-announcements';
 import { useLecturesByStudy } from '../../hooks';
@@ -23,6 +23,8 @@ import { useEditGroup } from '../../hooks/use-edit-group';
 import { useWithdrawStudent } from '../../hooks/use-withdraw-student';
 import { useDownloadStudyMemberExcel } from '../../hooks/use-download-study-member-excel';
 import { UpdateStatusDialog } from './update-status-dialog';
+import { AnnouncementSummary } from '@hiarc-platform/shared';
+import { useDeleteAdminAnnouncement } from '@/features/announcement';
 
 interface TabSectionProps {
   studyName?: string;
@@ -60,6 +62,7 @@ export function TabSection({
   const editGroup = useEditGroup();
   const withdrawStudent = useWithdrawStudent();
   const downloadExcel = useDownloadStudyMemberExcel();
+  const { mutate: deleteAnnouncement } = useDeleteAdminAnnouncement();
 
   const handleCurriculumAdd = (): void => {
     router.push(`/announcement/write?type=STUDY&studyId=${studyId}&isLecture=true`);
@@ -74,6 +77,40 @@ export function TabSection({
       downloadExcel.mutate(studyId);
     }
   };
+
+  const handleEdit = useCallback(
+    (announcement: AnnouncementSummary): void => {
+      if (!announcement.announcementId) {
+        console.error('공지사항 수정 실패: announcementId가 없습니다.');
+        return;
+      }
+
+      const params = new URLSearchParams();
+      if (studyId) {
+        params.set('studyId', studyId.toString());
+      }
+      router.push(`/announcement/${announcement.announcementId}/edit?${params.toString()}`);
+    },
+    [router, studyId]
+  );
+
+  const handleDelete = useCallback(
+    (announcementId: number): void => {
+      deleteAnnouncement(announcementId);
+    },
+    [deleteAnnouncement]
+  );
+
+  const handleRowClick = useCallback(
+    (announcement: AnnouncementSummary): void => {
+      const id = announcement.announcementId;
+      if (!id) {
+        return;
+      }
+      router.push(`/announcement/${id}`);
+    },
+    [router]
+  );
 
   return (
     <div className={cn('flex w-full flex-col', className)}>
@@ -105,7 +142,13 @@ export function TabSection({
         )}
         {selectedTab === 'announcement' && (
           <SlideFade key="announcement" className="w-full">
-            <AnnouncementTable pageableModel={pageableModel} isInstructor={true} />
+            <StudyAnnouncementTable
+              isInstructor={true}
+              pageableModel={pageableModel}
+              onRowClick={handleRowClick}
+              onEditClick={handleEdit}
+              onDeleteClick={handleDelete}
+            />
           </SlideFade>
         )}
         {selectedTab === 'manage_student' && (

@@ -5,16 +5,15 @@ import {
   DialogUtil,
   EditGroupDialog,
   SlideFade,
+  StudyAnnouncementTable,
   StudyGroupList,
   StudyUnassignedGroup,
   Tabs,
 } from '@hiarc-platform/ui';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { LectureList } from './lecture-list';
-import { AnnouncementTable } from './announcement-table';
 import { StudentList } from './student-list';
-
 import { useLecturesByStudy } from '../../hooks/study-common/query/use-lectures';
 import { useStudyAnnouncements } from '../../hooks/study-common/query/use-study-announcements';
 import { useValidateStudent } from '../../hooks/study-instructor/mutation/use-validate-student';
@@ -23,6 +22,8 @@ import { useEditGroup } from '../../hooks/study-instructor/mutation/use-edit-gro
 import { useWithdrawStudent } from '../../hooks/study-instructor/mutation/use-withdraw-student';
 import { useStudyGroupList } from '../../hooks/study-instructor/query/use-study-group-list';
 import { useDownloadStudyMemberExcel } from '../../hooks/study-instructor/query/use-download-study-member-excel';
+import { useDeleteStudyAnnouncement } from '../../hooks/study-instructor/mutation/use-delete-study-announcement';
+import { AnnouncementSummary } from '@hiarc-platform/shared';
 
 interface TabSectionProps {
   isStudent?: boolean;
@@ -64,6 +65,7 @@ export function TabSection({
   const editGroup = useEditGroup();
   const withdrawStudent = useWithdrawStudent();
   const downloadExcel = useDownloadStudyMemberExcel();
+  const { mutate: deleteStudyAnnouncement } = useDeleteStudyAnnouncement();
 
   const handleCurriculumAdd = (): void => {
     router.push(
@@ -80,6 +82,46 @@ export function TabSection({
       downloadExcel.mutate(studyId);
     }
   };
+
+  const handleAnnouncementClick = useCallback(
+    (announcement: AnnouncementSummary): void => {
+      if (!announcement.announcementId) {
+        console.error('공지사항 상세보기 실패: announcementId가 없습니다.');
+        return;
+      }
+      router.push(`/announcement/${announcement.announcementId}`);
+    },
+    [router]
+  );
+
+  const handleAnnouncementEdit = useCallback(
+    (announcement: AnnouncementSummary): void => {
+      if (!announcement.announcementId) {
+        console.error('공지사항 수정 실패: announcementId가 없습니다.');
+        return;
+      }
+
+      router.push(
+        `/announcement/${announcement.announcementId}/edit?studyId=${studyId}&semesterId=${semesterId}`
+      );
+    },
+    [router, studyId, semesterId]
+  );
+
+  const handleAnnouncementDelete = useCallback(
+    (announcementId: number): void => {
+      if (!studyId) {
+        console.error('공지사항 삭제 실패: studyId가 없습니다.');
+        return;
+      }
+
+      deleteStudyAnnouncement({
+        studyId: studyId,
+        announcementId: announcementId,
+      });
+    },
+    [deleteStudyAnnouncement, studyId]
+  );
 
   return (
     <div className={cn('flex w-full flex-col', className)}>
@@ -118,10 +160,13 @@ export function TabSection({
         )}
         {selectedTab === 'announcement' && (
           <SlideFade key="announcement" className="w-full">
-            <AnnouncementTable
+            <StudyAnnouncementTable
               studyId={studyId}
               isInstructor={isAdmin}
               pageableModel={studyAnnouncements}
+              onRowClick={handleAnnouncementClick}
+              onDeleteClick={handleAnnouncementDelete}
+              onEditClick={handleAnnouncementEdit}
             />
           </SlideFade>
         )}
