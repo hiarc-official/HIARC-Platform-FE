@@ -24,13 +24,7 @@ export function StudyInfo({ studyData }: { studyData?: Study | null }): React.Re
       <CategoryText category={'스터디장'} content={studyData?.instructorNameHandle || '-'} />
       <CategoryText
         category={'진행방식'}
-        content={
-          studyData?.isOnline === true
-            ? '온라인'
-            : studyData?.isOnline === false
-              ? '오프라인'
-              : '온라인'
-        }
+        content={studyData?.isOnline == true ? '온라인' : '오프라인'}
       />
       <CategoryText category={'언어'} content={studyData?.lang || '-'} />
     </div>

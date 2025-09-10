@@ -61,6 +61,7 @@ export const Study = {
       instructorBojHandle: (data.instructorBojHandle as string) || null,
       isInstructor: (data.isInstructor as boolean) || null,
       isStudent: (data.isStudent as boolean) || null,
+      precaution: (data.precaution as string) || null,
     };
 
     // Add computed properties
