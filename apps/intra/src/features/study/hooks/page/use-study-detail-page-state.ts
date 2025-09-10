@@ -3,7 +3,6 @@ import { DialogUtil } from '@hiarc-platform/ui';
 import { useRouter, useParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { useStudy } from '../study-common/query/use-study';
-import React from 'react';
 
 export function useStudyDetailPageState() {
   const router = useRouter();
@@ -22,12 +21,11 @@ export function useStudyDetailPageState() {
   };
 
   const handleApplyClick = (): void => {
-    DialogUtil.showConfirm(
-      '기초/초급 스터디는 동일 시간에 진행되어 중복 신청이 불가합니다.',
-      () => applyToStudy(studyId),
-      undefined,
-      { title: '유의사항' }
-    );
+    const message = studyData?.precaution || `${studyData?.name}을 신청하시겠습니까?`;
+    const title = studyData?.precaution ? '유의사항' : '스터디 신청';
+
+    console.log(studyData?.precaution);
+    DialogUtil.showConfirm(message, () => applyToStudy(studyId), undefined, { title });
   };
 
   const handleBackClick = (): void => {
