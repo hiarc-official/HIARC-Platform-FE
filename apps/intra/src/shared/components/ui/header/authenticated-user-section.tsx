@@ -1,7 +1,7 @@
 'use client';
 
 import { Button, DialogUtil, FadeIn } from '@hiarc-platform/ui';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { IconButton } from '@hiarc-platform/ui';
 import { StudyAttendanceDialog } from '@/features/study/components/study-attendance-dialog';
 import { studyMemberApi } from '@/features/study/api';
@@ -11,24 +11,18 @@ import { authApi } from '@/features/auth/api/auth';
 import { MyInfo } from '@/features/auth/types/model/my-info';
 import { useState, useRef, useEffect } from 'react';
 import { SignupPopup } from './signup-popup';
-import { useCurrentSemester } from '@/features/semester/hooks/use-current-semester';
 
 export function AuthenticatedUserSection(): React.ReactElement {
   const router = useRouter();
+  const pathname = usePathname();
   const logoutMutation = useLogout();
   const recruitNotificationReadMutation = useRecruitNotificationRead();
-  const { data: currentSemesterData } = useCurrentSemester();
   const [myInfo, setMyInfo] = useState<MyInfo | null>(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const popupRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const handleMyPage = (): void => {
-    if (!currentSemesterData?.recruitingSemester) {
-      DialogUtil.showError('모집 중이 아닙니다.');
-      return;
-    }
-
     if (!myInfo?.bojHandle) {
       DialogUtil.showConfirm(
         '백준 아이디가 등록되지 않았습니다. 회원가입을 완료해주세요.',
@@ -75,8 +69,11 @@ export function AuthenticatedUserSection(): React.ReactElement {
         const userData = await authApi.GET_ME();
         setMyInfo(userData);
 
-        // approvedNotification이 있으면 팝업 표시
-        if (userData?.approvedNotification) {
+        // 메인페이지가 아니거나 세션에서 팝업을 닫은 상태면 표시하지 않음
+        const isPopupDismissed = sessionStorage.getItem('signupPopupDismissed') === 'true';
+        const isMainPage = pathname === '/' || pathname === '';
+
+        if (userData?.approvedNotification && isMainPage && !isPopupDismissed) {
           setIsPopupOpen(true);
         }
       } catch (error) {
@@ -108,6 +105,19 @@ export function AuthenticatedUserSection(): React.ReactElement {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isPopupOpen]);
+
+  // 커스텀 이벤트로 데스크톱-모바일 간 동기화
+  useEffect(() => {
+    const handlePopupDismiss = () => {
+      setIsPopupOpen(false);
+    };
+
+    window.addEventListener('signupPopupDismissed', handlePopupDismiss);
+
+    return () => {
+      window.removeEventListener('signupPopupDismissed', handlePopupDismiss);
+    };
+  }, []);
 
   const handleAttendanceCheck = async (): Promise<void> => {
     try {
@@ -154,6 +164,10 @@ export function AuthenticatedUserSection(): React.ReactElement {
                   if (myInfo?.approvedNotification?.semesterId) {
                     recruitNotificationReadMutation.mutate(myInfo.approvedNotification.semesterId);
                   }
+                  // 세션스토리지에 팝업 닫힘 상태 저장
+                  sessionStorage.setItem('signupPopupDismissed', 'true');
+                  // 커스텀 이벤트 발생으로 다른 컴포넌트에 알림
+                  window.dispatchEvent(new CustomEvent('signupPopupDismissed'));
                   setIsPopupOpen(false);
                 }}
               />
