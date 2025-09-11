@@ -1,5 +1,6 @@
 import { StudyMember } from '@hiarc-platform/shared';
-import { DialogUtil, StudentListItem } from '@hiarc-platform/ui';
+import { DialogUtil } from '../../utils/dialog-util';
+import { StudentListItem } from './student-list-item';
 
 interface StudentListProps {
   isAdmin?: boolean;

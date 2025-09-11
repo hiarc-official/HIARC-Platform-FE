@@ -9,14 +9,12 @@ interface CreateAssignmentDialogWrapperProps {
   studyId: number;
   lectureId: number;
   isUpdate?: boolean;
-  onSuccess?(): void;
 }
 
 export function CreateAssignmentDialogWrapper({
   studyId,
   lectureId,
   isUpdate = false,
-  onSuccess,
 }: CreateAssignmentDialogWrapperProps): React.ReactElement {
   const assignmentQuery = useAssignment(studyId, lectureId);
   const { mutate: createAssignment } = useCreateAssignment();
@@ -39,7 +37,6 @@ export function CreateAssignmentDialogWrapper({
           lectureId,
           data,
         });
-        onSuccess?.();
       }}
       onUpdateAssignment={(data) => {
         createAssignment({
@@ -47,7 +44,6 @@ export function CreateAssignmentDialogWrapper({
           lectureId,
           data,
         });
-        onSuccess?.();
       }}
     />
   );

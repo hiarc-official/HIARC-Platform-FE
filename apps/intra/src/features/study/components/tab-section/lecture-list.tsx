@@ -80,29 +80,18 @@ export function LectureList({
                 />
               );
             }}
-            onCreateAttendanceClick={(onSuccess) => {
+            onCreateAttendanceClick={() => {
               DialogUtil.showComponent(
                 <CreateAttendanceCodeDialog
                   studyName={studyName ?? ''}
                   round={lecture.round ?? 0}
                   lectureName={lecture.title ?? ''}
                   onCreateAttendance={(attendanceCode: string) => {
-                    createAttendanceCode(
-                      {
-                        studyId: studyId ?? 0,
-                        lectureId: lecture.round ?? 0,
-                        code: attendanceCode,
-                      },
-                      {
-                        onSuccess: () => {
-                          onSuccess();
-                        },
-                        onError: (error) => {
-                          console.error('출석 코드 생성 실패:', error);
-                          // 에러 발생 시 onSuccess를 호출하지 않음
-                        },
-                      }
-                    );
+                    createAttendanceCode({
+                      studyId: studyId ?? 0,
+                      lectureId: lecture.round ?? 0,
+                      code: attendanceCode,
+                    });
                   }}
                 />
               );
@@ -118,13 +107,12 @@ export function LectureList({
                 />
               );
             }}
-            onCreateAssignmentClick={(onSuccess) => {
+            onCreateAssignmentClick={() => {
               DialogUtil.showComponent(
                 <CreateAssignmentDialogWrapper
                   studyId={studyId ?? 0}
                   lectureId={lecture.round ?? 0}
                   isUpdate={false}
-                  onSuccess={onSuccess}
                 />
               );
             }}
