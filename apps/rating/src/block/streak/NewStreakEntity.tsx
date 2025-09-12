@@ -3,6 +3,7 @@ import InfoEntity from '../../atoms/InfoEntity';
 import Color from '../../util/Color';
 import { DinamicStreakBox } from './DinamicStreakBox';
 import StreakInformation from './StreakInformation';
+import { Member } from '../../api/StreakApi';
 
 const exampleData = [
   { date: '2025-01-01', count: 1 },
@@ -68,17 +69,30 @@ const Wrapper = styled.div`
   width: 557px;
 `;
 
-const NewStreakEntity = () => {
+interface Props {
+  member: Member;
+}
+
+const NewStreakEntity = ({ member }: Props) => {
+  // API 데이터를 DinamicStreakBox가 기대하는 형식으로 변환
+  const streakData = member.streak.streakData.map(item => ({
+    date: item.date,
+    count: item.value ? 1 : 0
+  }));
+
   return (
     <Wrapper>
       <Up>
-        <InfoEntity handle="ghwo336" div={1} tier={13} />
+        <InfoEntity handle={member.bojHandle} div={1} tier={member.tier} />
         <Devider></Devider>
       </Up>
       <Down>
-        <DinamicStreakBox data={exampleData} />
+        <DinamicStreakBox data={streakData} />
       </Down>
-      <StreakInformation />
+      <StreakInformation 
+        currentTotalStreak={member.streak.currentTotalStreak}
+        currentSeasonStreak={member.streak.currentSeasonStreak}
+      />
     </Wrapper>
   );
 };

@@ -53,16 +53,14 @@ export interface PageableResponse {
 export interface PaginationParams {
   page: number;
   size: number;
-  sort?: string[];
 }
 
 export const fetchStreakData = async (params: PaginationParams): Promise<PageableResponse> => {
   try {
-    const response = await apiClient.get<PageableResponse>('/streak/ranking', {
+    const response = await apiClient.get<PageableResponse>('/rating/streak/ranking', {
       params: {
         page: params.page,
         size: params.size,
-        ...(params.sort && { sort: params.sort }),
       },
     });
 

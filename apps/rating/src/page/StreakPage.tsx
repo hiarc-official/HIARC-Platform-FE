@@ -74,53 +74,33 @@ const PageNumber = styled.div`
 
 const StreakPage = () => {
   const [pageableData, setPageableData] = useState<PageableResponse | null>(null);
-  const [loading, setLoading] = useState(false); // Mock 데이터이므로 로딩 false
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 10;
 
-  // Mock 데이터
-  const mockData: PageableResponse = {
-    totalPages: 3,
-    totalElements: 25,
-    size: 10,
-    content: Array.from({ length: 10 }, (_, index) => ({
-      memberId: index + 1,
-      name: `User${index + 1}`,
-      bojHandle: `handle${index + 1}`,
-      tier: 'GOLD',
-      streak: {
-        today: '2025-09-07',
-        streakData: [
-          { date: '2025-09-07', value: true },
-          { date: '2025-09-06', value: true },
-          { date: '2025-09-05', value: false },
-        ],
-        streakStartAt: '2025-09-01',
-        currentTotalStreak: 30 + index,
-        currentSeasonStreak: 15 + index,
-      },
-    })),
-    number: currentPage,
-    sort: { empty: false, sorted: true, unsorted: false },
-    first: currentPage === 0,
-    last: currentPage === 2,
-    numberOfElements: 10,
-    pageable: {
-      offset: currentPage * 10,
-      sort: { empty: false, sorted: true, unsorted: false },
-      pageNumber: currentPage,
-      pageSize: 10,
-      paged: true,
-      unpaged: false,
-    },
-    empty: false,
+  const loadStreakData = async (page: number) => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const params: PaginationParams = {
+        page: page + 1,
+        size: itemsPerPage,
+      };
+
+      const data = await fetchStreakData(params);
+      setPageableData(data);
+    } catch (error) {
+      setError('데이터를 불러오는데 실패했습니다.');
+      console.error('Error fetching streak data:', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
-    // Mock 데이터 설정
-    setPageableData(mockData);
-    setError(null);
+    loadStreakData(currentPage);
   }, [currentPage]);
 
   return (
@@ -136,7 +116,7 @@ const StreakPage = () => {
             <AnimatedContainer $delay="0.2s">
               <MainWrapper>
                 {pageableData?.content.map((member) => (
-                  <NewStreakEntity key={member.memberId} />
+                  <NewStreakEntity key={member.memberId} member={member} />
                 ))}
               </MainWrapper>
             </AnimatedContainer>
