@@ -17,7 +17,8 @@ export interface Member {
   memberId: number;
   name: string;
   bojHandle: string;
-  tier: string;
+  tier: number;
+  division: string;
   streak: Streak;
 }
 

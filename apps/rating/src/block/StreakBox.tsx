@@ -5,6 +5,7 @@ import Color from '../util/Color';
 import IndividualBlock from '../components/IndividualBlock';
 import StreakBoxArrowButton from '../components/StreakBoxArrowButton';
 import { hitingDataAtom, loadingAtom } from '../store/Atom';
+import { parseDivisionString } from '../util/parseDivision';
 
 const Wrapper = styled.div`
   width: 725px;
@@ -41,7 +42,6 @@ const Individuals = styled.div`
 const StreakBox = () => {
   const [hitingData] = useAtom(hitingDataAtom);
   const [loading] = useAtom(loadingAtom);
-
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 480);
 
   useEffect(() => {
@@ -65,16 +65,18 @@ const StreakBox = () => {
         <p style={{ textAlign: 'center', padding: '20px' }}>로딩 중...</p>
       ) : (
         <Individuals>
-          {displayedBlocks.map((streak) => (
-            <IndividualBlock
-              key={streak.bojHandle}
-              tier={streak.tier}
-              handle={streak.bojHandle}
-              divNum={streak.div}
-              totalStreak={streak.currentTotalStreak}
-              startDate={streak.streakStartAt}
-            />
-          ))}
+          {displayedBlocks.map((streak) => {
+            return (
+              <IndividualBlock
+                key={streak.bojHandle}
+                tier={streak.tier}
+                handle={streak.bojHandle}
+                divNum={parseDivisionString(streak.division)}
+                totalStreak={streak.streak.currentTotalStreak}
+                startDate={streak.streak.streakStartAt}
+              />
+            );
+          })}
         </Individuals>
       )}
     </Wrapper>
