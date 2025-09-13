@@ -1,20 +1,22 @@
 'use client';
 
+import { useCheckAssignment } from '@/features/study/hooks/study-instructor/mutation/use-check-assignment';
+import { useCreateAssignment } from '@/features/study/hooks/study-instructor/mutation/use-create-assignment';
+import { useAssignment } from '@/features/study/hooks/study-member/query/use-assignment';
 import { CreateAssignmentDialog } from '@hiarc-platform/ui';
-import { useCreateAssignment } from '../../hooks/study-instructor/mutation/use-create-assignment';
-import { useAssignment } from '../../hooks/study-member/query/use-assignment';
-import { useCheckAssignment } from '../../hooks/study-instructor/mutation/use-check-assignment';
 
 interface CreateAssignmentDialogWrapperProps {
   studyId: number;
   lectureId: number;
   isUpdate?: boolean;
+  onSuccess?(): void;
 }
 
 export function CreateAssignmentDialogWrapper({
   studyId,
   lectureId,
   isUpdate = false,
+  onSuccess,
 }: CreateAssignmentDialogWrapperProps): React.ReactElement {
   const assignmentQuery = useAssignment(studyId, lectureId);
   const { mutate: createAssignment } = useCreateAssignment();
@@ -22,6 +24,8 @@ export function CreateAssignmentDialogWrapper({
 
   return (
     <CreateAssignmentDialog
+      studyId={studyId}
+      round={lectureId}
       isUpdate={isUpdate}
       assignment={assignmentQuery.data}
       isLoading={assignmentQuery.isLoading}
@@ -37,6 +41,7 @@ export function CreateAssignmentDialogWrapper({
           lectureId,
           data,
         });
+        onSuccess?.();
       }}
       onUpdateAssignment={(data) => {
         createAssignment({
@@ -44,6 +49,7 @@ export function CreateAssignmentDialogWrapper({
           lectureId,
           data,
         });
+        onSuccess?.();
       }}
     />
   );

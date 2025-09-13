@@ -1,7 +1,7 @@
 'use client';
 
+import { useAssignment } from '@/features/study/hooks/study-member/query/use-assignment';
 import { ShowAssignmentDialog } from '@hiarc-platform/ui';
-import { useAssignment } from '../../hooks/study-member/query/use-assignment';
 
 interface ShowAssignmentDialogWrapperProps {
   studyId: number;

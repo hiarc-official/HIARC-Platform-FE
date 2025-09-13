@@ -2,7 +2,7 @@
 
 import { LoadingDots, StudyInfoSection, MobileStudyButton } from '@hiarc-platform/ui';
 import { useStudyDetailPageState } from '@/features/study/hooks/page/use-study-detail-page-state';
-import { TabSection } from '@/features/study/components/tab-section';
+import { TabSection } from '@/features/study/components/tab-section/TabSection';
 
 export function MobileStudyDetailPage(): React.ReactElement {
   const { studyId, studyData, isLoading, error, mounted, handleEditClick, handleApplyClick } =
@@ -25,7 +25,7 @@ export function MobileStudyDetailPage(): React.ReactElement {
   }
 
   return (
-    <div className="flex flex-col pt-10 pb-20 md:pb-0">
+    <div className="flex flex-col pb-20 pt-10 md:pb-0">
       <StudyInfoSection
         className="pt-4"
         studyData={studyData}
