@@ -4,7 +4,6 @@ import DivPage from './page/RankingPage';
 import StreakPage from './page/StreakPage';
 import SearchPage from './page/SearchPage';
 import AdminPage from './page/AdminPage';
-import { AdminLoginPage } from './page/AdminLoginPage';
 import { AdminGuard } from './guards/AdminGuard';
 import TestPage from './page/TestPage';
 function App() {
@@ -23,8 +22,6 @@ function App() {
           </AdminGuard>
         }
       />
-
-      <Route path="/admin/login" element={<AdminLoginPage />} />
     </Routes>
   );
 }

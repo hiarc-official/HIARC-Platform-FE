@@ -10,9 +10,9 @@ const Wrapper = styled.div`
 const HistoryCheck = () => {
   return (
     <Wrapper>
-      <AdminCheck name="recent-season" />
-      <AdminCheck name="recent-event" />
-      <AdminCheck name="date" />
+      <AdminCheck name="season" />
+      <AdminCheck name="event" />
+      <AdminCheck name="semester" />
     </Wrapper>
   );
 };
