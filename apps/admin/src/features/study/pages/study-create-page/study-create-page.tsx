@@ -1,6 +1,6 @@
 'use client';
 
-import { CreateStudyForm } from '../../components/create-study-form-section/create-study-form';
+import { StudyFormWrapper } from '../../components/study-form-wrapper.tsx/StudyFormWrapper';
 import { Label, Title } from '@hiarc-platform/ui';
 
 export function StudyCreatePage(): React.ReactElement {
@@ -26,7 +26,7 @@ export function StudyCreatePage(): React.ReactElement {
         </div>
         <div className="h-px w-full bg-gray-700"></div>
       </div>
-      <CreateStudyForm />
+      <StudyFormWrapper />
     </main>
   );
 }

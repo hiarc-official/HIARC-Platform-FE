@@ -1,5 +1,4 @@
 import { apiClient } from '../../../shared/api/client';
-import { UpdateStudyRequest } from '../types/request/update-study-request';
 import { StudyQueryParams } from '../types/request/study-query-params';
 import {
   Announcement,
@@ -8,9 +7,7 @@ import {
   CreateAssignmentRequest,
   CreateGroupRequest,
   PageableModel,
-  Study,
   StudyGroupList,
-  StudyInitialForm,
   StudySummary,
 } from '@hiarc-platform/shared';
 import { UpdateAnnouncementRequest } from '@/features/announcement/types/request/update-announcement-request';
@@ -26,16 +23,6 @@ export const studyInstructorApi = {
       params,
     });
     return PageableModel.fromJson(response.data, StudySummary);
-  },
-
-  /**
-   * 스터디 정보를 수정하는 API입니다.
-   * @param studyId - 수정할 스터디의 ID입니다.
-   * @param studyData - 수정할 스터디 데이터입니다.
-   * @returns void
-   */
-  UPDATE_STUDY: async (studyId: number, studyData: UpdateStudyRequest): Promise<void> => {
-    await apiClient.patch<Study>(`/admin/studies/${studyId}`, studyData);
   },
 
   /**
@@ -120,16 +107,6 @@ export const studyInstructorApi = {
   },
 
   /**
-   * 스터디의 초기 폼 데이터를 조회하는 API입니다.
-   * @param studyId - 스터디 ID입니다.
-   * @returns 스터디 초기 폼 데이터를 반환합니다.
-   */
-  GET_STUDY_INITIAL_FORM: async (studyId: number): Promise<StudyInitialForm> => {
-    const response = await apiClient.get<Study>(`/admin/studies/${studyId}`);
-    return StudyInitialForm.fromJson(response.data);
-  },
-
-  /**
    * 출석 코드를 확인하는 API입니다.
    * @param studyId - 스터디 ID입니다.
    * @param lectureRound - 강의 회차입니다.
@@ -189,9 +166,7 @@ export const studyInstructorApi = {
    * @returns void
    */
   DELETE_STUDY_ANNOUNCEMENT: async (studyId: number, announcementId: number): Promise<void> => {
-    const response = await apiClient.delete(
-      `/studies/${studyId}/instructor/announcements/${announcementId}`
-    );
+    await apiClient.delete(`/studies/${studyId}/instructor/announcements/${announcementId}`);
   },
 
   /**
