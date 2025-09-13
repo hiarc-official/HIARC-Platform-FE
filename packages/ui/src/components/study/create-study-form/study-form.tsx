@@ -1,39 +1,37 @@
 'use client';
 
-import { Label, LabeledInput, LabeledSelectButton, DialogUtil } from '@hiarc-platform/ui';
-import { Button } from '@hiarc-platform/ui';
-import { LabeledSelector } from '@hiarc-platform/ui';
-import { LabeledMultiSelect, LabeledTimePicker, InformaionSection } from '@hiarc-platform/ui';
-import { LabeledTextarea } from '@hiarc-platform/ui';
-import { LabeledCalanderInput } from '@hiarc-platform/ui';
-import { useState } from 'react';
-import { useCreateStudy } from '@/features/study/hooks';
-import { useUpdateStudy } from '@/features/study/hooks/use-update-study';
-import { useStudyInitialForm } from '@/features/study/hooks/use-study-initial-form';
-import { CreateStudyRequest } from '@hiarc-platform/shared';
-import type { UpdateStudyRequest } from '../../api/study';
-import { useSemesterStoreInit, useSemesterStore } from '@/shared/hooks/use-semester-store';
-import { useEffect } from 'react';
-import { useValidateInstructor } from '../../hooks/use-validate-instructor';
+import { Label, LabeledInput, LabeledSelectButton, DialogUtil } from '../../..';
+import { Button } from '../../..';
+import { LabeledSelector } from '../../..';
+import { LabeledMultiSelect, LabeledTimePicker, InformaionSection } from '../../..';
+import { LabeledTextarea } from '../../..';
+import { LabeledCalanderInput } from '../../..';
+import { useState, useEffect } from 'react';
+import { CreateStudyRequest, StudyInitialForm, UpdateStudyRequest } from '@hiarc-platform/shared';
 
-interface CreateStudyFormProps {
-  studyId?: number;
+interface StudyFormProps {
+  initialData?: StudyInitialForm | null;
+  isLoading?: boolean;
   isEditMode?: boolean;
+  studyId?: number;
+  semesterOptions: Array<{ label: string; value: string }>;
+  onSubmit(data: CreateStudyRequest | { studyId: number; data: UpdateStudyRequest }): Promise<void>;
+  onValidateInstructor(bojHandle: string): Promise<void>;
+  isValidatingInstructor?: boolean;
+  isSubmitting?: boolean;
 }
 
-export function CreateStudyForm({
-  studyId,
+export function StudyForm({
+  initialData,
+  isLoading = false,
   isEditMode = false,
-}: CreateStudyFormProps = {}): React.ReactElement {
-  const createStudyMutation = useCreateStudy();
-  const updateStudyMutation = useUpdateStudy();
-  const validateInstructorMutation = useValidateInstructor();
-  const { data: initialData, isLoading: isLoadingInitialData } = useStudyInitialForm(studyId);
-
-  // Initialize semester store on component mount
-  useSemesterStoreInit();
-  const { semesterOptions } = useSemesterStore();
-
+  studyId,
+  semesterOptions,
+  onSubmit,
+  onValidateInstructor,
+  isValidatingInstructor = false,
+  isSubmitting = false,
+}: StudyFormProps): React.ReactElement {
   const [formData, setFormData] = useState<CreateStudyRequest>({
     name: '',
     bojHandle: '',
@@ -124,7 +122,6 @@ export function CreateStudyForm({
     { label: '없음', value: 'UNAVAILABLE' },
   ];
 
-  // 시간 형식을 HH:MM:SS로 정규화하는 함수
   const handleValidateInstructor = async (): Promise<void> => {
     if (!formData.bojHandle.trim()) {
       DialogUtil.showError('핸들명을 입력해주세요.');
@@ -132,13 +129,14 @@ export function CreateStudyForm({
     }
 
     try {
-      await validateInstructorMutation.mutateAsync(formData.bojHandle);
+      await onValidateInstructor(formData.bojHandle);
       setIsValidatedInstructor(true);
     } catch (error) {
       console.error('스터디장 검증 실패:', error);
     }
   };
 
+  // 시간 형식을 HH:MM:SS로 정규화하는 함수
   const normalizeTimeFormat = (time: string): string => {
     if (!time) {
       return '';
@@ -236,20 +234,20 @@ export function CreateStudyForm({
             updateRequest[key] = value;
           }
         });
-        await updateStudyMutation.mutateAsync({
+        await onSubmit({
           studyId,
           data: updateRequest as UpdateStudyRequest,
         });
       } else {
         // Create mode
-        await createStudyMutation.mutateAsync(studyRequest);
+        await onSubmit(studyRequest);
       }
     } catch (error) {
       console.error(isEditMode ? '스터디 수정 실패:' : '스터디 생성 실패:', error);
     }
   };
 
-  if (isLoadingInitialData && isEditMode) {
+  if (isLoading && isEditMode) {
     return (
       <div className="flex min-h-screen items-center justify-center">
         <div>데이터를 불러오는 중...</div>
@@ -289,14 +287,10 @@ export function CreateStudyForm({
             variant="fill"
             size="md"
             className="w-[100px]"
-            disabled={isEditMode || isValidatedInstructor || validateInstructorMutation.isPending}
+            disabled={isEditMode || isValidatedInstructor || isValidatingInstructor}
             onClick={handleValidateInstructor}
           >
-            {validateInstructorMutation.isPending
-              ? '검증 중'
-              : isValidatedInstructor
-                ? '검증 완료'
-                : '확인'}
+            {isValidatingInstructor ? '검증 중' : isValidatedInstructor ? '검증 완료' : '확인'}
           </Button>
         </div>
         <div className="flex w-1/2 items-end">
@@ -396,16 +390,12 @@ export function CreateStudyForm({
         />
       </div>
       <div className="mt-4 flex w-full justify-center">
-        <Button
-          className="w-full max-w-[390px]"
-          onClick={handleSubmit}
-          disabled={createStudyMutation.isPending || updateStudyMutation.isPending}
-        >
+        <Button className="w-full max-w-[390px]" onClick={handleSubmit} disabled={isSubmitting}>
           {isEditMode
-            ? updateStudyMutation.isPending
+            ? isSubmitting
               ? '수정 중...'
               : '수정하기'
-            : createStudyMutation.isPending
+            : isSubmitting
               ? '생성 중...'
               : '개설하기'}
         </Button>

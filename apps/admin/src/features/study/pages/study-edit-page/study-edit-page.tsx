@@ -1,11 +1,16 @@
 'use client';
 
 import { StudyFormWrapper } from '../../components/study-form-wrapper.tsx/StudyFormWrapper';
+import { useParams, useRouter } from 'next/navigation';
 import { Label, Title } from '@hiarc-platform/ui';
 
-export function StudyCreatePage(): React.ReactElement {
+export function StudyEditPage(): React.ReactElement {
+  const router = useRouter();
+  const params = useParams();
+  const studyId = typeof params.id === 'string' ? Number(params.id) : undefined;
+
   const handleBackClick = (): void => {
-    window.history.back();
+    router.back();
   };
 
   return (
@@ -21,12 +26,12 @@ export function StudyCreatePage(): React.ReactElement {
         </button>
         <div className="flex w-full items-center justify-between">
           <Title size="sm" weight="bold">
-            스터디 개설 정보
+            스터디 수정 정보
           </Title>
         </div>
         <div className="h-px w-full bg-gray-700"></div>
       </div>
-      <StudyFormWrapper />
+      <StudyFormWrapper studyId={studyId} isEditMode={true} />
     </main>
   );
 }

@@ -12,6 +12,7 @@ import { useValidateStudent } from '../../hooks/use-validate-student';
 import { useWithdrawStudent } from '../../hooks/use-withdraw-student';
 import { useStudyGroupList } from '../../hooks/use-study-group-list';
 import { UpdateStatusDialog } from './dialog/UpdateStatusDialog';
+import { CreateGroupRequest, StudyGroup } from '@hiarc-platform/shared';
 
 interface StudyMemberTabProps {
   studyId: number;
@@ -28,6 +29,68 @@ export function StudyMemberTab({
   const editGroup = useEditGroup();
   const withdrawStudent = useWithdrawStudent();
 
+  const handleWithdrawStudent = (studyId: number, memberId: number): void => {
+    withdrawStudent.mutate({ studyId, memberId });
+  };
+
+  const handleDeleteGroup = (groupId: number): void => {
+    DialogUtil.showConfirm('조를 삭제하시겠습니까?', () => {
+      editGroup.mutateAsync({
+        studyId,
+        groupId,
+        groupData: {
+          groupName: '',
+          bojHandles: [],
+        },
+      });
+    });
+  };
+
+  const handleChangeStatus = (studyId: number, memberId: number): void => {
+    DialogUtil.showComponent(<UpdateStatusDialog studyId={studyId} memberId={memberId} />);
+  };
+
+  const handleEditGroup = (groupId: number, groupData: StudyGroup): void => {
+    DialogUtil.showComponent(
+      <EditGroupDialog
+        initialData={groupData}
+        onEditGroup={async (updatedGroupData) => {
+          await editGroup.mutateAsync({
+            studyId,
+            groupId,
+            groupData: updatedGroupData,
+          });
+        }}
+        onValidateHandle={async (handle) => {
+          try {
+            await validateStudent.mutateAsync({ studyId, bojHandle: handle });
+            return true;
+          } catch (error) {
+            return false;
+          }
+        }}
+      />
+    );
+  };
+
+  const handleAddGroup = (): void => {
+    DialogUtil.showComponent(
+      <AddGroupDialog
+        onAddGroup={async (groupData: CreateGroupRequest) => {
+          await createGroup.mutateAsync({ studyId, groupData });
+        }}
+        onValidateHandle={async (handle) => {
+          try {
+            await validateStudent.mutateAsync({ studyId, bojHandle: handle });
+            return true;
+          } catch (error) {
+            return false;
+          }
+        }}
+      />
+    );
+  };
+
   if (isGroupStudy) {
     return (
       <div className="flex flex-col gap-6">
@@ -35,74 +98,18 @@ export function StudyMemberTab({
           isAdmin={true}
           studyId={studyId}
           groupList={groupList?.studyGroups || []}
-          onWithdraw={(studyId, memberId) => {
-            withdrawStudent.mutate({ studyId, memberId });
-          }}
-          onDelete={(groupId) => {
-            DialogUtil.showConfirm('조를 삭제하시겠습니까?', () => {
-              editGroup.mutateAsync({
-                studyId,
-                groupId,
-                groupData: {
-                  groupName: '',
-                  bojHandles: [],
-                },
-              });
-            });
-          }}
-          onChangeStatus={(studyId, memberId) => {
-            DialogUtil.showComponent(<UpdateStatusDialog studyId={studyId} memberId={memberId} />);
-          }}
-          onEdit={(groupId, groupData) => {
-            DialogUtil.showComponent(
-              <EditGroupDialog
-                initialData={groupData}
-                onEditGroup={async (updatedGroupData) => {
-                  await editGroup.mutateAsync({
-                    studyId,
-                    groupId,
-                    groupData: updatedGroupData,
-                  });
-                }}
-                onValidateHandle={async (handle) => {
-                  try {
-                    await validateStudent.mutateAsync({ studyId, bojHandle: handle });
-                    return true;
-                  } catch (error) {
-                    return false;
-                  }
-                }}
-              />
-            );
-          }}
+          onWithdraw={handleWithdrawStudent}
+          onDelete={handleDeleteGroup}
+          onChangeStatus={handleChangeStatus}
+          onEdit={handleEditGroup}
         />
         <StudyUnassignedGroup
           isAdmin={true}
           studyId={studyId}
           members={groupList?.aloneStudents || []}
-          onChangeStatus={(studyId, memberId) => {
-            DialogUtil.showComponent(<UpdateStatusDialog studyId={studyId} memberId={memberId} />);
-          }}
-          onWithdraw={(studyId, memberId) => {
-            withdrawStudent.mutate({ studyId, memberId });
-          }}
-          onAddGroup={() => {
-            DialogUtil.showComponent(
-              <AddGroupDialog
-                onAddGroup={async (groupData) => {
-                  await createGroup.mutateAsync({ studyId, groupData });
-                }}
-                onValidateHandle={async (handle) => {
-                  try {
-                    await validateStudent.mutateAsync({ studyId, bojHandle: handle });
-                    return true;
-                  } catch (error) {
-                    return false;
-                  }
-                }}
-              />
-            );
-          }}
+          onChangeStatus={handleChangeStatus}
+          onWithdraw={handleWithdrawStudent}
+          onAddGroup={handleAddGroup}
         />
       </div>
     );
@@ -112,12 +119,8 @@ export function StudyMemberTab({
     <StudentList
       isAdmin={true}
       studyId={studyId}
-      onChangeStatus={(studyId, memberId) => {
-        DialogUtil.showComponent(<UpdateStatusDialog studyId={studyId} memberId={memberId} />);
-      }}
-      onWithdraw={(studyId, memberId) => {
-        withdrawStudent.mutate({ studyId, memberId });
-      }}
+      onChangeStatus={handleChangeStatus}
+      onWithdraw={handleWithdrawStudent}
       studentList={groupList?.aloneStudents || []}
     />
   );
