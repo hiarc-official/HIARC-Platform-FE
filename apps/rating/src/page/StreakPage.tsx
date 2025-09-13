@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import LayOut from '../util/Layout';
 import styled, { keyframes } from 'styled-components';
 import NewStreakEntity from '../block/streak/NewStreakEntity';
-import { fetchStreakData, Member, PageableResponse, PaginationParams } from '../api/StreakApi';
+import { fetchStreakData, PageableResponse, PaginationParams } from '../api/StreakApi';
 import Color from '../util/Color';
 
 const fadeIn = keyframes`
@@ -73,29 +73,42 @@ const PageNumber = styled.div`
 `;
 
 const StreakPage = () => {
-  const [pageableData, setPageableData] = useState<PageableResponse | null>(null);
+  const [streakData, setStreakData] = useState<PageableResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 10;
+  const pageSize = 10;
 
   const loadStreakData = async (page: number) => {
     setLoading(true);
     setError(null);
 
     try {
+
       const params: PaginationParams = {
-        page: page + 1,
-        size: itemsPerPage,
+        page: page,
+        size: pageSize,
       };
 
-      const data = await fetchStreakData(params);
-      setPageableData(data);
+      const response = await fetchStreakData(params);
+      setStreakData(response);
     } catch (error) {
       setError('데이터를 불러오는데 실패했습니다.');
-      console.error('Error fetching streak data:', error);
+      console.error('Streak 데이터 로딩 실패:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (streakData && !streakData.first) {
+      setCurrentPage(prev => prev - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (streakData && !streakData.last) {
+      setCurrentPage(prev => prev + 1);
     }
   };
 
@@ -115,29 +128,34 @@ const StreakPage = () => {
           <>
             <AnimatedContainer $delay="0.2s">
               <MainWrapper>
-                {pageableData?.content.map((member) => (
+                {streakData?.content.map((member) => (
                   <NewStreakEntity key={member.memberId} member={member} />
                 ))}
               </MainWrapper>
             </AnimatedContainer>
 
-            <PaginationWrapper>
-              <PageButton
-                onClick={() => setCurrentPage((prev) => prev - 1)}
-                disabled={pageableData?.first || currentPage === 0}
-              >
-                이전
-              </PageButton>
-              <PageNumber>
-                {currentPage + 1} / {pageableData?.totalPages || 1}
-              </PageNumber>
-              <PageButton
-                onClick={() => setCurrentPage((prev) => prev + 1)}
-                disabled={pageableData?.last || false}
-              >
-                다음
-              </PageButton>
-            </PaginationWrapper>
+            {streakData && streakData.totalPages > 1 && (
+              <PaginationWrapper>
+                <PageButton
+                  onClick={handlePrevPage}
+                  disabled={streakData.first || loading}
+                >
+                  이전
+                </PageButton>
+                <PageNumber>
+                  {streakData.number + 1} / {streakData.totalPages}
+                  <span style={{fontSize: '12px', color: '#666', display: 'block'}}>
+                    (총 {streakData.totalElements}명)
+                  </span>
+                </PageNumber>
+                <PageButton
+                  onClick={handleNextPage}
+                  disabled={streakData.last || loading}
+                >
+                  다음
+                </PageButton>
+              </PaginationWrapper>
+            )}
           </>
         )}
       </Wrapper>

@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosResponse, AxiosError, InternalAxiosRequestConfig } from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://test.hiarc-official.com/';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://localhost:3001';
 
 // 전역 API 클라이언트
 const apiClient: AxiosInstance = axios.create({
