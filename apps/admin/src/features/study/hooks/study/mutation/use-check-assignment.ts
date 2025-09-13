@@ -1,6 +1,6 @@
 import { useMutation, UseMutationResult } from '@tanstack/react-query';
 import { DialogUtil } from '@hiarc-platform/ui';
-import { studyApi } from '../../../api';
+import { studyApi } from '@/features/study/api';
 
 export function useCheckAssignment(): UseMutationResult<
   void,

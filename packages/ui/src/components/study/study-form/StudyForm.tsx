@@ -224,7 +224,7 @@ export function StudyForm({
 
     try {
       if (isEditMode && studyId) {
-        const { ...tempRequest } = studyRequest;
+        const tempRequest = studyRequest;
 
         // null과 undefined 값 제거하여 UpdateStudyRequest 타입에 맞게 변환
         const updateRequest: Record<string, unknown> = {};
