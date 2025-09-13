@@ -1,8 +1,7 @@
 'use client';
 
-import { useAssignment } from '../../../hooks/use-assignment';
-import { useCreateAssignment } from '../../../hooks/use-create-assignment';
-import { useCheckAssignment } from '../../../hooks/use-check-assignment';
+import { useAssignment, useCreateAssignment } from '@/features/study/hooks';
+import { useCheckAssignment } from '@/features/study/hooks';
 import { CreateAssignmentDialog } from '@hiarc-platform/ui';
 
 interface CreateAssignmentDialogWrapperProps {

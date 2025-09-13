@@ -1,6 +1,6 @@
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
-import { studyApi } from '../api/study';
-import { StudyInitialForm } from '../types';
+import { studyApi } from '@/features/study/api';
+import { StudyInitialForm } from '@/features/study/types';
 
 export function useStudyInitialForm(
   studyId: number | undefined

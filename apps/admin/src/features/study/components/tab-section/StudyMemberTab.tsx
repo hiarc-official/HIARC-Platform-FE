@@ -3,16 +3,17 @@ import {
   DialogUtil,
   EditGroupDialog,
   StudentList,
+  StudyGroupList,
   StudyUnassignedGroup,
 } from '@hiarc-platform/ui';
-import { StudyGroupList } from '../../../../../../../packages/ui/src/components/study/study-group-list';
-import { useCreateGroup } from '../../hooks/use-create-group';
-import { useEditGroup } from '../../hooks/use-edit-group';
-import { useValidateStudent } from '../../hooks/use-validate-student';
-import { useWithdrawStudent } from '../../hooks/use-withdraw-student';
-import { useStudyGroupList } from '../../hooks/use-study-group-list';
+
+import { useValidateStudent } from '@/features/study/hooks';
 import { UpdateStatusDialog } from './dialog/UpdateStatusDialog';
 import { CreateGroupRequest, StudyGroup } from '@hiarc-platform/shared';
+import { useCreateGroup } from '@/features/study/hooks';
+import { useEditGroup } from '@/features/study/hooks';
+import { useWithdrawStudent } from '@/features/study/hooks';
+import { useStudyGroupList } from '@/features/study/hooks';
 
 interface StudyMemberTabProps {
   studyId: number;

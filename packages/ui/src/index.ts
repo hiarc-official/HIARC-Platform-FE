@@ -52,7 +52,7 @@ export * from './components/study/attendance-check-dialog';
 export * from './components/study/create-assignment-dialog';
 export * from './components/study/show-attendance-code-dialog';
 export * from './components/study/do-assignment-dialog';
-export * from './components/study/create-study-form';
+export * from './components/study/study-form';
 export * from './components/study/study-info-section';
 export * from './components/study/mobile-study-button';
 export * from './components/study/study-group-list-item';

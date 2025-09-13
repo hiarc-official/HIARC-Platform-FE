@@ -1,6 +1,6 @@
 import { useMutation, UseMutationResult, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import { studyApi } from '../api/study';
+import { studyApi } from '@/features/study/api';
 import { DialogUtil } from '@hiarc-platform/ui';
 import { CreateStudyRequest, Study } from '@hiarc-platform/shared';
 

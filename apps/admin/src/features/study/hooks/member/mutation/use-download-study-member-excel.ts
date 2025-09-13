@@ -1,12 +1,12 @@
 import { useMutation, UseMutationResult } from '@tanstack/react-query';
 import { DialogUtil } from '@hiarc-platform/ui';
-import { studyApi } from '../api/study';
+import { studyMemberApi } from '@/features/study/api';
 
 export const useDownloadStudyMemberExcel = (): UseMutationResult<void, Error, number, unknown> =>
   useMutation({
     mutationFn: async (studyId: number) => {
       try {
-        const response = await studyApi.DOWNLOAD_MEMBER_EXCEL(studyId) as {
+        const response = (await studyMemberApi.DOWNLOAD_MEMBER_EXCEL(studyId)) as {
           status: number;
           headers: { 'content-type'?: string };
           data: Blob;

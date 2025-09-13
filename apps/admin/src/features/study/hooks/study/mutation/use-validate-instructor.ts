@@ -1,5 +1,5 @@
 import { useMutation, UseMutationResult } from '@tanstack/react-query';
-import { studyApi } from '../api/study';
+import { studyApi } from '@/features/study/api';
 import { DialogUtil } from '@hiarc-platform/ui';
 
 export function useValidateInstructor(): UseMutationResult<void, Error, string, unknown> {

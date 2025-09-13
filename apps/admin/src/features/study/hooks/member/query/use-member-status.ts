@@ -1,6 +1,6 @@
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
-import { studyApi } from '../api/study';
-import { MemberStatus } from '../types/response/member-status';
+import { MemberStatus } from '../../../types/response/member-status';
+import { studyMemberApi } from '@/features/study/api';
 
 export function useMemberStatus(
   studyId: number,
@@ -8,7 +8,7 @@ export function useMemberStatus(
 ): UseQueryResult<MemberStatus, Error> {
   const query = useQuery({
     queryKey: ['study', studyId, 'member', memberId],
-    queryFn: () => studyApi.GET_MEMBER_STATUS(studyId!, memberId!),
+    queryFn: () => studyMemberApi.GET_MEMBER_STATUS(studyId!, memberId!),
     enabled: Boolean(studyId && memberId),
     staleTime: 5 * 60 * 1000, // 5 minutes
     gcTime: 10 * 60 * 1000, // 10 minutes

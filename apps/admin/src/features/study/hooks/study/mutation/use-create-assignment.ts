@@ -1,5 +1,5 @@
 import { useMutation, UseMutationResult, useQueryClient } from '@tanstack/react-query';
-import { studyApi } from '../api/study';
+import { studyApi } from '@/features/study/api';
 
 import { CreateAssignmentRequest } from '@hiarc-platform/shared/src/types/study/create-assignment-request';
 import { DialogUtil } from '@hiarc-platform/ui';

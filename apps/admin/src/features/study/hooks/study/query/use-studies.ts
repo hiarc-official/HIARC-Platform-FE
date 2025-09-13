@@ -1,6 +1,6 @@
 import { useQuery, UseQueryResult, keepPreviousData } from '@tanstack/react-query';
-import { studyApi } from '../api/study';
-import type { StudyQueryParams } from '../types/request/study-request';
+import { studyApi } from '@/features/study/api';
+import type { StudyQueryParams } from '@/features/study/types/request/study-request';
 import { PageableModel, StudySummary } from '@hiarc-platform/shared';
 
 export function useStudies(

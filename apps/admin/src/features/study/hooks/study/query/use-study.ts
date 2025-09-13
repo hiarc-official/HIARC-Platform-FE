@@ -1,5 +1,5 @@
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
-import { studyApi } from '../api/study';
+import { studyApi } from '@/features/study/api';
 import { Study } from '@hiarc-platform/shared';
 
 export function useStudy(studyId: number | undefined): UseQueryResult<Study, Error> {

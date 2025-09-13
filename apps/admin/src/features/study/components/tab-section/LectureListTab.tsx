@@ -1,6 +1,6 @@
 import { DialogUtil, LectureList } from '@hiarc-platform/ui';
 import { Lecture } from '@hiarc-platform/shared';
-import { useDeleteLecture } from '../../hooks';
+import { useDeleteLecture } from '@/features/study/hooks';
 
 import { CreateAttendanceCodeDialogWrapper } from './dialog/CreateAttendanceCodeDialogWrapper';
 import { useRouter } from 'next/navigation';

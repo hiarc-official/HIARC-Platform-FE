@@ -1,5 +1,5 @@
 import { useQuery, UseQueryResult, keepPreviousData } from '@tanstack/react-query';
-import { studyApi } from '../api/study';
+import { studyApi } from '@/features/study/api';
 import { Assignment } from '@hiarc-platform/shared';
 
 export function useAssignment(

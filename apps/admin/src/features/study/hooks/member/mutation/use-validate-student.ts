@@ -1,6 +1,6 @@
 import { useMutation, UseMutationResult } from '@tanstack/react-query';
-import { studyApi } from '../api/study';
 import { DialogUtil } from '@hiarc-platform/ui';
+import { studyMemberApi } from '@/features/study/api';
 
 export function useValidateStudent(): UseMutationResult<
   void,
@@ -10,7 +10,7 @@ export function useValidateStudent(): UseMutationResult<
 > {
   const mutation = useMutation({
     mutationFn: ({ studyId, bojHandle }: { studyId: number; bojHandle: string }) =>
-      studyApi.VALIDATE_STUDENT(studyId, bojHandle),
+      studyMemberApi.VALIDATE_STUDENT(studyId, bojHandle),
     onSuccess: () => {
       DialogUtil.showSuccess('학생 핸들명이 성공적으로 검증되었습니다.');
     },

@@ -1,13 +1,12 @@
 'use client';
 
 import { StudyForm } from '@hiarc-platform/ui';
-import { useCreateStudy } from '@/features/study/hooks';
-import { useUpdateStudy } from '@/features/study/hooks/use-update-study';
-import { useStudyInitialForm } from '@/features/study/hooks/use-study-initial-form';
+import { useCreateStudy, useStudyInitialForm } from '@/features/study/hooks';
+import { useUpdateStudy } from '@/features/study/hooks';
 import { CreateStudyRequest } from '@hiarc-platform/shared';
 import type { UpdateStudyRequest } from '../../api/study';
 import { useSemesterStoreInit, useSemesterStore } from '@/shared/hooks/use-semester-store';
-import { useValidateInstructor } from '../../hooks/use-validate-instructor';
+import { useValidateInstructor } from '@/features/study/hooks';
 
 interface StudyFormWrapperProps {
   studyId?: number;

@@ -224,7 +224,6 @@ export function StudyForm({
 
     try {
       if (isEditMode && studyId) {
-        // Edit mode: use update API (title, handle, semesterId는 수정 불가이므로 제외)
         const { name, bojHandle, semesterId, isGroupStudy, ...tempRequest } = studyRequest;
 
         // null과 undefined 값 제거하여 UpdateStudyRequest 타입에 맞게 변환

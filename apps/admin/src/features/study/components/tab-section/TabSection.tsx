@@ -1,10 +1,9 @@
 import { Button, cn, SlideFade, Tabs } from '@hiarc-platform/ui';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useStudyAnnouncements } from '../../hooks/use-study-announcements';
-import { useLecturesByStudy } from '../../hooks';
-import { useDownloadStudyMemberExcel } from '../../hooks/use-download-study-member-excel';
-
+import { useStudyAnnouncements } from '@/features/study/hooks';
+import { useLecturesByStudy } from '@/features/study/hooks';
+import { useDownloadStudyMemberExcel } from '@/features/study/hooks';
 import { LectureListTab } from './LectureListTab';
 import { StudyMemberTab } from './StudyMemberTab';
 import { StudyAnnouncementTab } from './StudyAnnouncementTab';

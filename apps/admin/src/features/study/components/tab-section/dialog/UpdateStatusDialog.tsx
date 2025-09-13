@@ -12,9 +12,9 @@ import {
   Label,
 } from '@hiarc-platform/ui';
 import { useState, useEffect } from 'react';
-import { useMemberStatus } from '../../../hooks/use-member-status';
+import { useMemberStatus } from '../../../hooks/member/query/use-member-status';
 import { RoundStatus } from '@hiarc-platform/shared/src/types/study/round-status';
-import { useUpdateMemberStatus } from '../../../hooks/use-update-member-status';
+import { useUpdateMemberStatus } from '../../../hooks/member/mutation/use-update-member-status';
 
 interface UpdateStatusDialogProps {
   studyId: number;
