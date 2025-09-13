@@ -64,8 +64,8 @@ export function MobileMyPage(): React.ReactElement {
         total={myPageData?.rating?.totalScore ?? 0}
         today={myPageData?.rating?.todayScore ?? 0}
       />
-      <StreakSection className="mt-4" />
-      <AwardSection className="mt-4" awardList={myPageData?.award ?? []} isMe={true} />
+      <StreakSection className="mt-6" />
+      <AwardSection className="mt-6" awardList={myPageData?.award ?? []} isMe={true} />
       <Divider variant="horizontal" size="full" className="mt-6 bg-gray-900" />
       <StudySection className="mt-6" />
     </FadeIn>

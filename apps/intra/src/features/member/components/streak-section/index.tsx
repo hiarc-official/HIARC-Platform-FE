@@ -15,10 +15,13 @@ export function StreakSection({
 }: StreakSectionProps): React.ReactElement {
   return (
     <div className={cn('flex w-full min-w-0 flex-col gap-4', className)}>
-      <Title size="sm" weight="bold" className="mb-4">
+      <Title size="sm" weight="bold" className="mb-4 hidden md:block">
         스트릭
       </Title>
 
+      <Title size="xs" weight="bold" className="mb-4 md:hidden">
+        스트릭
+      </Title>
       <SectionContainer className="flex w-full flex-col gap-4">
         <div className="overflow-x-auto">
           <ContributionGrid data={[]} />
