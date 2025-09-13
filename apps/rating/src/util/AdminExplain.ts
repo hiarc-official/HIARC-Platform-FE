@@ -19,7 +19,7 @@ export const AdminWarn: Record<string, string> = {
 
 export const Ex: Record<string, string> = {
   '새로운 시즌 시작하기': `ex.\n\n{\n"semesterId":1,\n"description":"시즌 이름",\n"seasonStartAt":"2025-03-02T02:39:36",\n "seasonEndAt":"2025-03-04T02:39:36"\n}`,
-  '새로운 이벤트 시작하기': `ex.\n\n{\n"seasonId":1,\n"description":"시즌 이름",\n"scoreMultiplier":2,\n"seasonStartAt":"2025-03-02T02:39:36",\n "seasonEndAt":"2025-03-04T02:39:36"\n}`,
+  '새로운 이벤트 시작하기': `ex.\n\n{\n"seasonId":1,\n"description":"이벤트 이름",\n"scoreMultiplier":2,\n"eventStartAt":"2025-03-02T02:39:36",\n "eventEndAt":"2025-03-04T02:39:36"\n}`,
   '현재 시즌 수정하기':
     'ex.\n\n{\n"description":"시즌 이름",\n"seasonStartAt":"2025-03-02T02:39:36",\n "seasonEndAt":"2025-03-04T02:39:36"\n}',
   '이벤트 수정하기':
