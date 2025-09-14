@@ -14,15 +14,9 @@ interface MobileMenuProps {
   isOpen: boolean;
   onClose(): void;
   menuItems: MenuItem[];
-  alignment?: 'left' | 'right';
 }
 
-export function MobileMenu({
-  isOpen,
-  onClose,
-  menuItems,
-  alignment = 'left',
-}: MobileMenuProps): React.ReactElement {
+export function MobileMenu({ isOpen, onClose, menuItems }: MobileMenuProps): React.ReactElement {
   const router = useRouter();
 
   // ESC 키로 메뉴 닫기
@@ -45,17 +39,7 @@ export function MobileMenu({
   }, [isOpen, onClose]);
 
   const handleMenuItemClick = (path: string): void => {
-    // 외부 링크인지 확인 (http로 시작하는지)
-    const isExternal = path.startsWith('http');
-
-    if (isExternal) {
-      // 외부 링크는 새 탭에서 열기
-      window.open(path, '_blank', 'noopener,noreferrer');
-    } else {
-      // 내부 경로는 Next.js 라우터로 이동
-      router.push(path);
-    }
-    // 메뉴 아이템 클릭 후 메뉴 닫기
+    router.push(path);
     onClose();
   };
 
@@ -65,61 +49,12 @@ export function MobileMenu({
     }
   };
 
-  if (alignment === 'right') {
-    return (
-      <div
-        className={`fixed inset-0 z-50 flex transition-opacity duration-300 ease-in-out ${
-          isOpen ? 'opacity-100' : 'pointer-events-none opacity-0'
-        }`}
-        onClick={handleOverlayClick}
-      >
-        {/* 왼쪽 오버레이 (반투명 배경) */}
-        <div
-          className={`flex-1 bg-black transition-opacity duration-300 ease-in-out ${
-            isOpen ? 'bg-opacity-30' : 'bg-opacity-0'
-          }`}
-        />
-
-        {/* 오른쪽 슬라이드 메뉴 */}
-        <div
-          className={`w-80 transform bg-white shadow-xl transition-transform duration-300 ease-in-out ${
-            isOpen ? 'translate-x-0' : 'translate-x-full'
-          }`}
-        >
-          {/* 메뉴 헤더 */}
-          <div className="flex h-14 items-center justify-between border-b border-gray-200 px-4">
-            <Label size="lg" weight="bold">
-              메뉴
-            </Label>
-            <IconButton iconSrc="/shared-assets/Close.svg" size="lg" onClick={onClose} />
-          </div>
-
-          {/* 메뉴 아이템들 */}
-          <div className="flex flex-col py-4">
-            {menuItems.map((item, index) => (
-              <button
-                key={index}
-                className="flex items-center gap-3 px-6 py-4 text-left transition-colors hover:bg-gray-50"
-                onClick={() => handleMenuItemClick(item.path)}
-              >
-                <Label size="lg" weight="bold">
-                  {item.label}
-                </Label>
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
-    );
+  if (!isOpen) {
+    return <div></div>;
   }
 
   return (
-    <div
-      className={`fixed inset-0 z-50 flex transition-opacity duration-300 ease-in-out ${
-        isOpen ? 'opacity-100' : 'pointer-events-none opacity-0'
-      }`}
-      onClick={handleOverlayClick}
-    >
+    <div className="fixed inset-0 z-50 flex" onClick={handleOverlayClick}>
       {/* 왼쪽 슬라이드 메뉴 */}
       <div
         className={`w-80 transform bg-white shadow-xl transition-transform duration-300 ease-in-out ${
@@ -128,10 +63,10 @@ export function MobileMenu({
       >
         {/* 메뉴 헤더 */}
         <div className="flex h-14 items-center justify-between border-b border-gray-200 px-4">
-          <IconButton iconSrc="/shared-assets/Close.svg" size="lg" onClick={onClose} />
           <Label size="lg" weight="bold">
             메뉴
           </Label>
+          <IconButton iconSrc="/shared-assets/Close.svg" size="lg" onClick={onClose} />
         </div>
 
         {/* 메뉴 아이템들 */}
@@ -151,11 +86,7 @@ export function MobileMenu({
       </div>
 
       {/* 오른쪽 오버레이 (반투명 배경) */}
-      <div
-        className={`flex-1 bg-black transition-opacity duration-300 ease-in-out ${
-          isOpen ? 'bg-opacity-30' : 'bg-opacity-0'
-        }`}
-      />
+      <div className="flex-1 bg-black bg-opacity-30" />
     </div>
   );
 }

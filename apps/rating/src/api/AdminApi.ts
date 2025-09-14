@@ -1,7 +1,7 @@
 import apiClient from './ApiClient';
 
 //admin 페이지 블록별 api
-export const sendAdminInput = async (blockName: string, inputValue: string, params?: number) => {
+export const sendAdminInput = async (blockName: string, inputValue: string) => {
   if (!inputValue.trim()) {
     alert('입력값을 입력해주세요.');
     return;
@@ -9,9 +9,20 @@ export const sendAdminInput = async (blockName: string, inputValue: string, para
   let parsedData;
   try {
     console.log(blockName);
-    parsedData = JSON.parse(inputValue);
-    if (typeof parsedData !== 'object') {
-      throw new Error('올바른 객체 형식이 아닙니다.');
+    if (blockName === '새로운 학기 시작하기(막누르지마셈 초 기 화 됨)') {
+      parsedData = JSON.parse(inputValue);
+      console.log(parsedData);
+      if (!Array.isArray(parsedData)) {
+        throw new Error('올바른 JSON 배열이 아닙니다.');
+      }
+    } else if (blockName === '현재 시즌 중도 마무리') {
+      parsedData = inputValue;
+      console.log(parsedData);
+    } else {
+      parsedData = JSON.parse(inputValue);
+      if (typeof parsedData !== 'object' || Array.isArray(parsedData)) {
+        throw new Error('올바른 객체 형식이 아닙니다.');
+      }
     }
   } catch (error) {
     alert('입력값이 올바른 JSON 형식이 아닙니다.');
@@ -21,14 +32,16 @@ export const sendAdminInput = async (blockName: string, inputValue: string, para
 
   const apiUrl = (() => {
     switch (blockName) {
+      case '새로운 학기 시작하기(막누르지마셈 초 기 화 됨)':
+        return '/admin/reset/term';
       case '새로운 시즌 시작하기':
-        return '/admin/rating/season';
+        return '/admin/season/new';
+      case '현재 시즌 중도 마무리':
+        return '/admin/season/end';
       case '새로운 이벤트 시작하기':
-        return '/admin/rating/event';
-      case '시즌 정보 수정하기':
-        return `/admin/rating/season/${params}`;
-      case '이벤트 수정하기':
-        return `/admin/rating/event/${params}`;
+        return '/admin/event/new';
+      case '현재 이벤트 중도 마무리':
+        return '/admin/event/end';
       case 'HITING값 확인하기':
         return '/admin/new-solved';
       default:
@@ -41,12 +54,7 @@ export const sendAdminInput = async (blockName: string, inputValue: string, para
   if (!apiUrl) return;
 
   try {
-    // 수정 요청인 경우 PATCH 메서드 사용, 나머지는 POST 사용
-    const isPatchRequest = blockName === '시즌 정보 수정하기' || blockName === '이벤트 수정하기';
-    const response = isPatchRequest
-      ? await apiClient.patch(apiUrl, parsedData)
-      : await apiClient.post(apiUrl, parsedData);
-
+    const response = await apiClient.post(apiUrl, parsedData);
     console.log(`${blockName} 데이터 전송 성공:`, response);
     alert('성공적으로 전송되었습니다!');
     return response;
@@ -64,27 +72,14 @@ export const resetAdminData = async (type: 'season' | 'event') => {
 
 //확인하기 api 들
 
-export const checkAdminApi = async (type: 'season' | 'event') => {
-  return await apiClient.get(`/admin/rating/${type}`);
-};
-
-export const checkSemesterApi = async () => {
-  return await apiClient.get('/semesters');
+export const checkAdminApi = async (type: 'recent-season' | 'recent-event' | 'date') => {
+  return await apiClient.get(`/admin/${type}`);
 };
 
 // 핸들별 현재 값들 확인하는 api
 
 export const getAdminHandleStats = async (type: 'hiting' | 'solved-level', handle: string) => {
   try {
-    // 핸들별 유저 정보 확인하기는 새로운 API 사용
-    if (type === 'solved-level') {
-      const res = await apiClient.get('/admin/rating/members', {
-        params: { bojHandle: handle },
-      });
-      return res;
-    }
-
-    // 기존 hiting API 유지
     const res = await apiClient.get(`/admin/${type}`, {
       params: { handle },
     });
@@ -92,36 +87,5 @@ export const getAdminHandleStats = async (type: 'hiting' | 'solved-level', handl
   } catch (err) {
     console.log(err);
     return null;
-  }
-};
-
-// 시즌별 랭킹 조회 API
-export const getSeasonRanking = async (seasonId: number, division: number = 1) => {
-  try {
-    const response = await apiClient.get(`/admin/rating/season/${seasonId}/ranking`, {
-      params: {
-        division: division,
-        seasonId: seasonId,
-      },
-    });
-    return response;
-  } catch (error) {
-    console.error('시즌 랭킹 조회 실패:', error);
-    throw error;
-  }
-};
-
-// 이벤트 랭킹 조회 API
-export const getEventRanking = async (eventId: number) => {
-  try {
-    const response = await apiClient.get(`/admin/rating/event/${eventId}/ranking`, {
-      params: {
-        eventId: eventId,
-      },
-    });
-    return response;
-  } catch (error) {
-    console.error('이벤트 랭킹 조회 실패:', error);
-    throw error;
   }
 };

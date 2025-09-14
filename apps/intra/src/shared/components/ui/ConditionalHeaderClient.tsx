@@ -26,8 +26,6 @@ export function ConditionalHeaderClient({
     pathname !== '/announcement';
 
   const isStudy = pathname.includes('/study');
-  const isMyPage = pathname === '/my';
-  const isMemberDetail = pathname.startsWith('/member/') && pathname !== '/member';
 
   const handleBackClick = (): void => {
     router.back();
@@ -53,15 +51,13 @@ export function ConditionalHeaderClient({
     },
   ];
 
-  // 모바일에서 특정 페이지인 경우 MobileHeader 사용
+  // 모바일에서 공지사항 관련 페이지인 경우 MobileHeader 사용
   if (
     isAnnouncementList ||
     isAnnouncementWrite ||
     isAnnouncementEdit ||
     isAnnouncementDetail ||
-    isStudy ||
-    isMyPage ||
-    isMemberDetail
+    isStudy
   ) {
     const getTitle = (): string => {
       if (isAnnouncementList) {
@@ -78,12 +74,6 @@ export function ConditionalHeaderClient({
       }
       if (isStudy) {
         return '스터디';
-      }
-      if (isMyPage) {
-        return '마이페이지';
-      }
-      if (isMemberDetail) {
-        return '학회원 정보';
       }
       return '공지사항';
     };

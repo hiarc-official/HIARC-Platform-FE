@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import LayOut from '../util/Layout';
 import styled, { keyframes } from 'styled-components';
 import NewStreakEntity from '../block/streak/NewStreakEntity';
-import { fetchStreakData, PageableResponse, PaginationParams } from '../api/StreakApi';
+import { fetchStreakData, Member, PageableResponse, PaginationParams } from '../api/StreakApi';
 import Color from '../util/Color';
 
 const fadeIn = keyframes`
@@ -34,12 +34,6 @@ const MainWrapper = styled.div`
   gap: 60px 80px;
   justify-content: flex-start;
   width: 100%;
-
-  @media (max-width: 480px) {
-    justify-content: center;
-    gap: 40px;
-    margin-left: -16px;
-  }
 `;
 
 const Wrapper = styled.div`
@@ -79,47 +73,54 @@ const PageNumber = styled.div`
 `;
 
 const StreakPage = () => {
-  const [streakData, setStreakData] = useState<PageableResponse | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [pageableData, setPageableData] = useState<PageableResponse | null>(null);
+  const [loading, setLoading] = useState(false); // Mock 데이터이므로 로딩 false
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(0);
-  const pageSize = 10;
+  const itemsPerPage = 10;
 
-  const loadStreakData = async (page: number) => {
-    setLoading(true);
-    setError(null);
-
-    try {
-
-      const params: PaginationParams = {
-        page: page,
-        size: pageSize,
-      };
-
-      const response = await fetchStreakData(params);
-      setStreakData(response);
-    } catch (error) {
-      setError('데이터를 불러오는데 실패했습니다.');
-      console.error('Streak 데이터 로딩 실패:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handlePrevPage = () => {
-    if (streakData && !streakData.first) {
-      setCurrentPage(prev => prev - 1);
-    }
-  };
-
-  const handleNextPage = () => {
-    if (streakData && !streakData.last) {
-      setCurrentPage(prev => prev + 1);
-    }
+  // Mock 데이터
+  const mockData: PageableResponse = {
+    totalPages: 3,
+    totalElements: 25,
+    size: 10,
+    content: Array.from({ length: 10 }, (_, index) => ({
+      memberId: index + 1,
+      name: `User${index + 1}`,
+      bojHandle: `handle${index + 1}`,
+      tier: 'GOLD',
+      streak: {
+        today: '2025-09-07',
+        streakData: [
+          { date: '2025-09-07', value: true },
+          { date: '2025-09-06', value: true },
+          { date: '2025-09-05', value: false },
+        ],
+        streakStartAt: '2025-09-01',
+        currentTotalStreak: 30 + index,
+        currentSeasonStreak: 15 + index,
+      },
+    })),
+    number: currentPage,
+    sort: { empty: false, sorted: true, unsorted: false },
+    first: currentPage === 0,
+    last: currentPage === 2,
+    numberOfElements: 10,
+    pageable: {
+      offset: currentPage * 10,
+      sort: { empty: false, sorted: true, unsorted: false },
+      pageNumber: currentPage,
+      pageSize: 10,
+      paged: true,
+      unpaged: false,
+    },
+    empty: false,
   };
 
   useEffect(() => {
-    loadStreakData(currentPage);
+    // Mock 데이터 설정
+    setPageableData(mockData);
+    setError(null);
   }, [currentPage]);
 
   return (
@@ -134,34 +135,29 @@ const StreakPage = () => {
           <>
             <AnimatedContainer $delay="0.2s">
               <MainWrapper>
-                {streakData?.content.map((member) => (
-                  <NewStreakEntity key={member.memberId} member={member} />
+                {pageableData?.content.map((member) => (
+                  <NewStreakEntity key={member.memberId} />
                 ))}
               </MainWrapper>
             </AnimatedContainer>
 
-            {streakData && streakData.totalPages > 1 && (
-              <PaginationWrapper>
-                <PageButton
-                  onClick={handlePrevPage}
-                  disabled={streakData.first || loading}
-                >
-                  이전
-                </PageButton>
-                <PageNumber>
-                  {streakData.number + 1} / {streakData.totalPages}
-                  <span style={{fontSize: '12px', color: '#666', display: 'block'}}>
-                    (총 {streakData.totalElements}명)
-                  </span>
-                </PageNumber>
-                <PageButton
-                  onClick={handleNextPage}
-                  disabled={streakData.last || loading}
-                >
-                  다음
-                </PageButton>
-              </PaginationWrapper>
-            )}
+            <PaginationWrapper>
+              <PageButton
+                onClick={() => setCurrentPage((prev) => prev - 1)}
+                disabled={pageableData?.first || currentPage === 0}
+              >
+                이전
+              </PageButton>
+              <PageNumber>
+                {currentPage + 1} / {pageableData?.totalPages || 1}
+              </PageNumber>
+              <PageButton
+                onClick={() => setCurrentPage((prev) => prev + 1)}
+                disabled={pageableData?.last || false}
+              >
+                다음
+              </PageButton>
+            </PaginationWrapper>
           </>
         )}
       </Wrapper>

@@ -9,7 +9,6 @@ interface MemberRecruitTableProps {
   pageableModel?: PageableModel<StudentApply>;
   className?: string;
   onPageChange?(page: number): void;
-  showPagination?: boolean;
 }
 
 export function MemberRecruitTable({
@@ -17,7 +16,6 @@ export function MemberRecruitTable({
   pageableModel,
   className,
   onPageChange,
-  showPagination = true,
 }: MemberRecruitTableProps): React.ReactElement {
   const columns = useMemo(
     () => getStudentApplyListColumns(showApprovalButton),
@@ -33,14 +31,12 @@ export function MemberRecruitTable({
   });
 
   return (
-    <>
-      <div className={cn('w-full flex-col items-center', className)}>
-        <SlideFade key="table" className="w-full">
-          <CommonTableHead className="bg-gray-100 text-gray-900" table={table} />
-          <CommonTableBody table={table} onClick={function (): void {}} />
-        </SlideFade>
-      </div>
-      {showPagination && pageableModel && onPageChange && (
+    <div className={cn('w-full flex-col items-center', className)}>
+      <SlideFade key="table" className="w-full">
+        <CommonTableHead className="bg-gray-100 text-gray-900" table={table} />
+        <CommonTableBody table={table} onClick={function (): void {}} />
+      </SlideFade>
+      {pageableModel && onPageChange && (
         <div className="flex w-full justify-center">
           <Pagination 
             className="mt-8" 
@@ -49,6 +45,6 @@ export function MemberRecruitTable({
           />
         </div>
       )}
-    </>
+    </div>
   );
 }

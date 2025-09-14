@@ -43,14 +43,4 @@ export const DateUtil = {
 
     return `${year}.${month}.${day} ${period} ${displayHour}시${minute > 0 ? ` ${minute}분` : ''}`;
   },
-
-  /**
-   * 날짜를 한국어 형식으로 포맷합니다 (예: 7월 1일)
-   * @param date 날짜 객체 또는 문자열
-   * @returns M월 D일 형식의 문자열
-   */
-  formatKoreanDate(date: Date | string): string {
-    const dateObj = typeof date === 'string' ? new Date(date) : date;
-    return dateObj.toLocaleDateString('ko-KR', { month: 'long', day: 'numeric' });
-  },
 };

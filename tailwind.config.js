@@ -3,7 +3,6 @@ module.exports = {
   darkMode: ['class', '.dark'],
   safelist: [
     // 특수한 클래스들 (패턴으로 매칭하기 어려운것들)
-    'bg-primary-100/50',
     'min-w-0',
     'w-[1200px]',
     'max-w-[1200px]',

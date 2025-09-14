@@ -3,9 +3,7 @@ import { addDays, differenceInDays, endOfYear, format, getDay, startOfYear } fro
 
 const daysInWeek = 7;
 const boxSize = 8;
-const mobileBoxSize = 5;
 const boxGap = 2.5;
-const mobileBoxGap = 0.5;
 
 const monthLabels = [
   'Jan',
@@ -41,10 +39,6 @@ const getColor = (count: number): string => {
 
 const GridWrapper = styled.div`
   position: relative;
-
-  @media (max-width: 480px) {
-    display: inline-block;
-  }
 `;
 
 const MonthLabelContainer = styled.div<{ width: number }>`
@@ -52,10 +46,6 @@ const MonthLabelContainer = styled.div<{ width: number }>`
   height: 1rem;
   margin-bottom: 0.5rem;
   width: ${({ width }) => `${width}px`};
-
-  @media (max-width: 480px) {
-    display: none;
-  }
 `;
 
 const MonthLabel = styled.span<{ left: number }>`
@@ -70,33 +60,18 @@ const GridContent = styled.div<{ width: number }>`
   width: ${({ width }) => `${width}px`};
   min-width: ${({ width }) => `${width}px`};
   gap: ${boxGap}px;
-
-  @media (max-width: 480px) {
-    gap: ${mobileBoxGap}px;
-    width: auto;
-    min-width: auto;
-  }
 `;
 
 const WeekColumn = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${boxGap}px;
-
-  @media (max-width: 480px) {
-    gap: ${mobileBoxGap}px;
-  }
 `;
 
 const DayBox = styled.div<{ bg: string }>`
   width: ${boxSize}px;
   height: ${boxSize}px;
   background-color: ${({ bg }) => bg};
-
-  @media (max-width: 480px) {
-    width: ${mobileBoxSize}px;
-    height: ${mobileBoxSize}px;
-  }
 `;
 
 export function DinamicStreakBox({ data }: Props): React.ReactElement {

@@ -80,7 +80,8 @@ export function MobileHeader({
           <Input
             type="search"
             variant="search"
-            placeholder={isAuthenticated ? 'BOJ 핸들명을 입력하세요' : '로그인 후 검색 가능합니다'}
+            // placeholder={isAuthenticated ? 'BOJ 핸들명을 입력하세요' : '로그인 후 검색 가능합니다'}
+            placeholder="기능 준비 중 입니다"
             className="mx-4 h-[44px] flex-1 text-base"
             autoFocus
             value={searchInput}
@@ -90,7 +91,8 @@ export function MobileHeader({
                 handleSearch(searchInput);
               }
             }}
-            disabled={!isAuthenticated || isFetching}
+            // disabled={!isAuthenticated || isFetching}
+            disabled
           />
           <IconButton
             iconSrc="/shared-assets/Close.svg"
@@ -134,9 +136,10 @@ export function MobileHeader({
               <div className="flex items-center gap-2 border-b border-gray-200 px-5 py-2">
                 <Input
                   variant="search"
-                  placeholder={
-                    isAuthenticated ? 'BOJ 핸들명을 입력하세요' : '로그인 후 검색 가능합니다'
-                  }
+                  // placeholder={
+                  //   isAuthenticated ? 'BOJ 핸들명을 입력하세요' : '로그인 후 검색 가능합니다'
+                  // }
+                  placeholder="기능 준비 중 입니다"
                   className="flex-1 text-base"
                   value={searchInput}
                   onChange={(event) => setSearchInput(event.target.value)}
@@ -145,7 +148,8 @@ export function MobileHeader({
                       handleSearch(searchInput);
                     }
                   }}
-                  disabled={!isAuthenticated || isFetching}
+                  // disabled={!isAuthenticated || isFetching}
+                  disabled
                 />
                 <IconButton
                   iconSrc="/shared-assets/Close.svg"

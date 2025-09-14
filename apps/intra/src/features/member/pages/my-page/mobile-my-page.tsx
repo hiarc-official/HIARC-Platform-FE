@@ -11,6 +11,7 @@ import { BackButton, Divider, LoadingDots, FadeIn } from '@hiarc-platform/ui';
 export function MobileMyPage(): React.ReactElement {
   const {
     user,
+    hydrated,
     myPageData,
     myPageDataLoading,
     myPageDataError,
@@ -18,6 +19,14 @@ export function MobileMyPage(): React.ReactElement {
     handleUpdateIntroduction,
     handleBackClick,
   } = useMyPageState();
+
+  if (!hydrated) {
+    return (
+      <div className="flex min-h-[400px] items-center justify-center">
+        <LoadingDots />
+      </div>
+    );
+  }
 
   if (!user) {
     return (
@@ -49,8 +58,7 @@ export function MobileMyPage(): React.ReactElement {
   return (
     <FadeIn isVisible={isDataReady ?? false}>
       <MyInfoSection
-        className="mt-10"
-        isMe={true}
+        className="mt-5"
         bojHandle={myPageData?.bojHandle}
         name={myPageData?.name}
         introduction={myPageData?.introduction}
@@ -65,14 +73,8 @@ export function MobileMyPage(): React.ReactElement {
         total={myPageData?.rating?.totalScore ?? 0}
         today={myPageData?.rating?.todayScore ?? 0}
       />
-      <StreakSection
-        className="mt-6"
-        totalDays={myPageData?.streak?.currentTotalStreak}
-        currentSeasonDays={myPageData?.streak?.currentSeasonStreak}
-        streakStartAt={myPageData?.streak?.streakStartAt}
-        streakData={myPageData?.streak?.streakData ?? []}
-      />
-      <AwardSection className="mt-6" awardList={myPageData?.award ?? []} isMe={true} />
+      <StreakSection className="mt-4" />
+      <AwardSection className="mt-4" awardList={myPageData?.award ?? []} />
       <Divider variant="horizontal" size="full" className="mt-6 bg-gray-900" />
       <StudySection className="mt-6" />
     </FadeIn>

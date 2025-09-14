@@ -25,7 +25,6 @@ export function StudyListSection({ className }: StudyListSectionProps): React.Re
           </Title>
           {studyList && studyList.length > 0 && (
             <button
-              className="rounded-md px-3 hover:bg-gray-50"
               onClick={() => {
                 router.push('/study');
               }}

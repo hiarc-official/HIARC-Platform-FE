@@ -2,7 +2,7 @@
 
 import { BackButton, Button, LoadingDots, StudyInfoSection } from '@hiarc-platform/ui';
 import { useStudyDetailPageState } from '@/features/study/hooks/page/use-study-detail-page-state';
-import { TabSection } from '@/features/study/components/tab-section/TabSection';
+import { TabSection } from '@/features/study/components/tab-section';
 
 export function DesktopStudyDetailPage(): React.ReactElement {
   const {
