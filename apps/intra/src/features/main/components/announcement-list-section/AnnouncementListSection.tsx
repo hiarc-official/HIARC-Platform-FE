@@ -2,11 +2,13 @@
 
 import { cn, Divider, SlideFade, Tabs } from '@hiarc-platform/ui';
 import { useState } from 'react';
-import { AnnouncementListItem } from './announcement-list-item';
+import { AnnouncementListItem } from './AnnouncementListItem';
+import { RatingListItem } from './RatingListItem';
 import { useRouter } from 'next/navigation';
 import { useUpcomingSchedule } from '../../hooks/use-upcoming-schedule';
 import { useExternalSchedule } from '../../hooks/use-external-schedule';
 import { Schedule } from '../../types/model/schedule';
+import { DateUtil } from '@hiarc-platform/shared';
 
 interface AnnouncementListSectionProps {
   className?: string;
@@ -29,10 +31,11 @@ export function AnnouncementListSection({
   const regularSchedules = upcomingSchedule?.schedules || [];
 
   return (
-    <div className={cn('w-full', className)}>
+    <section className={cn('w-full', className)}>
       <div className="flex w-full justify-between">
         <Tabs tabs={tabItems} activeTab={tab} onTabClick={setTab} />
         <button
+          className="rounded-md px-3 hover:bg-gray-50"
           onClick={() => {
             router.push('/announcement');
           }}
@@ -50,21 +53,15 @@ export function AnnouncementListSection({
             <div className="flex-shrink-0">
               <SlideFade key="rating-section">
                 <div>
-                  <AnnouncementListItem
-                    isEvent={true}
+                  <RatingListItem
                     key="rating-season"
-                    announcementId={0}
-                    title={ratingData.season.title}
-                    date={ratingData.season.startDateTime.toLocaleDateString()}
+                    title={`${ratingData.season.title} : ${DateUtil.formatKoreanDate(ratingData.season.startDateTime)} ~ ${DateUtil.formatKoreanDate(ratingData.season.endDateTime)}`}
                     category="RATING"
                   />
                   {ratingData.event.title && (
-                    <AnnouncementListItem
-                      isEvent={true}
+                    <RatingListItem
                       key="rating-event"
-                      announcementId={0}
-                      title={ratingData.event.title}
-                      date={ratingData.event.startDateTime.toLocaleDateString()}
+                      title={`${ratingData.event.title} : ${DateUtil.formatKoreanDate(ratingData.event.startDateTime)} ~ ${DateUtil.formatKoreanDate(ratingData.event.endDateTime)}`}
                       category="RATING"
                     />
                   )}
@@ -75,7 +72,7 @@ export function AnnouncementListSection({
 
           {/* 일반 스케줄 스크롤 영역 */}
           {regularSchedules.length > 0 && (
-            <div className="flex-1 overflow-y-auto">
+            <div className="overflow-y-auto">
               <SlideFade key="regular-schedules">
                 <div>
                   {regularSchedules.map((announcement: Schedule, index: number) => (
@@ -118,6 +115,6 @@ export function AnnouncementListSection({
           </SlideFade>
         </div>
       )}
-    </div>
+    </section>
   );
 }

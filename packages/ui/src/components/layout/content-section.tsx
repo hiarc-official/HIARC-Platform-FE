@@ -32,8 +32,8 @@ export function TwoColumnLayout({
   return (
     <div className={cn('flex w-full flex-col items-center justify-between', className)}>
       <div className="flex w-full gap-4">
-        <div className="w-1/2">{left}</div>
-        <div className="w-1/2">{right}</div>
+        <div className="w-1/2 min-w-0 overflow-hidden">{left}</div>
+        <div className="w-1/2 min-w-0 overflow-hidden">{right}</div>
       </div>
       {bottom}
     </div>
