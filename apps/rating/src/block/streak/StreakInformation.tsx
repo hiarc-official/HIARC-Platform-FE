@@ -40,13 +40,18 @@ const Devider = styled.div`
   background-color: #dedeeb;
 `;
 
-const StreakInformation = () => {
+interface Props {
+  currentTotalStreak: number;
+  currentSeasonStreak: number;
+}
+
+const StreakInformation = ({ currentTotalStreak, currentSeasonStreak }: Props) => {
   return (
     <Wrapper>
       <Card>
         <Up>누적</Up>
         <Down>
-          <Number>192</Number>
+          <Number>{currentTotalStreak}</Number>
           <Days>days</Days>
         </Down>
       </Card>
@@ -54,7 +59,7 @@ const StreakInformation = () => {
       <Card>
         <Up>이번시즌</Up>
         <Down>
-          <Number>40</Number>
+          <Number>{currentSeasonStreak}</Number>
           <Days>days</Days>
         </Down>
       </Card>

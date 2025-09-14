@@ -17,7 +17,8 @@ export interface Member {
   memberId: number;
   name: string;
   bojHandle: string;
-  tier: string;
+  tier: number;
+  division: string;
   streak: Streak;
 }
 
@@ -58,15 +59,27 @@ export interface PaginationParams {
 
 export const fetchStreakData = async (params: PaginationParams): Promise<PageableResponse> => {
   try {
-    const response = await apiClient.get<PageableResponse>('/streak/ranking', {
-      params: {
-        page: params.page,
-        size: params.size,
-        ...(params.sort && { sort: params.sort }),
-      },
+    const requestParams: any = {
+      page: params.page,
+      size: params.size,
+    };
+
+    if (params.sort && params.sort.length > 0) {
+      requestParams.sort = params.sort;
+    }
+
+    console.log('🔵 요청:', requestParams);
+
+    const response = await apiClient.get<PageableResponse>('/rating/streak/ranking', {
+      params: requestParams,
     });
 
-    console.log('API 응답 데이터:', response.data);
+    console.log('🟢 응답:', {
+      page: response.data.number,
+      totalPages: response.data.totalPages,
+      totalElements: response.data.totalElements,
+    });
+
     return response.data;
   } catch (error) {
     console.error('Streak 데이터 가져오기 실패:', error);

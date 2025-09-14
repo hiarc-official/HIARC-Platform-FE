@@ -3,8 +3,9 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "start:ssl": "HTTPS=true SSL_CRT_FILE=./certificates/local.test.hiarc-official.pem SSL_KEY_FILE=./certificates/local.test.hiarc-official.pem npm run start",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host local.test.hiarc-official.com --port 3000",
     "build": "vite build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
