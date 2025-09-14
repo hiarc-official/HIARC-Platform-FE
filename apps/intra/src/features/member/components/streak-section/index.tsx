@@ -1,16 +1,22 @@
 import { cn, Divider, Label, Title } from '@hiarc-platform/ui';
 import { SectionContainer } from '../section-container';
 import { ContributionGrid } from './contribution-grid';
+import { StreakData } from '../../types/model/streak-data';
+import { DateUtil } from '@hiarc-platform/shared';
 
 interface StreakSectionProps {
   totalDays?: number;
   currentSeasonDays?: number;
+  streakStartAt?: string;
+  streakData?: StreakData[];
   className?: string;
 }
 
 export function StreakSection({
   totalDays,
   currentSeasonDays,
+  streakStartAt,
+  streakData,
   className,
 }: StreakSectionProps): React.ReactElement {
   return (
@@ -24,14 +30,14 @@ export function StreakSection({
       </Title>
       <SectionContainer className="flex w-full flex-col gap-4">
         <div className="overflow-x-auto">
-          <ContributionGrid data={[]} />
+          <ContributionGrid data={streakData ?? []} />
         </div>
         <div className="flex w-full items-center justify-between gap-4">
           <div className="flex w-full flex-col gap-2 p-4">
             <div className="flex w-full items-center gap-2">
               <Label className="text-gray-700">누적</Label>
               <Label size="sm" className="text-primary-100">
-                2025.01.21 시작
+                {DateUtil.formatDateWithDots(streakStartAt ?? '')} 시작
               </Label>
             </div>
             <div className="flex w-full items-center gap-2">

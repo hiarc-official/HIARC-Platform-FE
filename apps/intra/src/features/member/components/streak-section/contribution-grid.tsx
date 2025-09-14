@@ -21,30 +21,16 @@ const monthLabels = [
   'Dec',
 ];
 
-interface ContributionData {
-  date: string;
-  count: number;
+interface StreakData {
+  date?: string | null;
+  value?: boolean | null;
 }
 
 interface Props {
-  data: ContributionData[];
+  data: StreakData[];
 }
 
-const getColor = (count: number): string => {
-  if (count === 0) {
-    return 'bg-gray-100';
-  }
-  if (count < 3) {
-    return 'bg-green-200';
-  }
-  if (count < 5) {
-    return 'bg-green-300';
-  }
-  if (count < 10) {
-    return 'bg-green-400';
-  }
-  return 'bg-green-500';
-};
+const getColor = (hasStreak: boolean): string => (hasStreak ? 'bg-primary-100/50' : 'bg-gray-100');
 
 export function ContributionGrid({ data }: Props): React.ReactElement {
   const currentYear = new Date().getFullYear();
@@ -55,9 +41,11 @@ export function ContributionGrid({ data }: Props): React.ReactElement {
   const startDayOfWeek = getDay(yearStart);
   const totalWeeks = Math.ceil((totalDaysInYear + startDayOfWeek) / 7);
 
-  const dateMap = new Map<string, number>();
-  data.forEach(({ date, count }) => {
-    dateMap.set(date, count);
+  const dateMap = new Map<string, boolean>();
+  data.forEach(({ date, value }) => {
+    if (date) {
+      dateMap.set(date, value || false);
+    }
   });
 
   const gridWidth = totalWeeks * boxSize + (totalWeeks - 1) * boxGap;
@@ -116,13 +104,13 @@ export function ContributionGrid({ data }: Props): React.ReactElement {
 
               const currentDate = addDays(yearStart, dayOffset);
               const dateString = format(currentDate, 'yyyy-MM-dd');
-              const count = dateMap.get(dateString) || 0;
+              const hasStreak = dateMap.get(dateString) || false;
 
               return (
                 <div
                   key={dateString}
-                  title={`${dateString}: ${count} contributions`}
-                  className={cn('h-2 w-2', getColor(count))}
+                  title={`${dateString}: ${hasStreak ? 'streak' : 'no streak'}`}
+                  className={cn('h-2 w-2', getColor(hasStreak))}
                 />
               );
             })}

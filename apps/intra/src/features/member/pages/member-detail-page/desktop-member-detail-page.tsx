@@ -59,7 +59,13 @@ export function DesktopMemberDetailPage({
               total={memberProfileData.rating?.totalScore ?? 0}
               today={memberProfileData.rating?.todayScore ?? 0}
             />
-            <StreakSection className="mt-6" />
+            <StreakSection
+              className="mt-6"
+              totalDays={memberProfileData?.streak?.currentTotalStreak}
+              currentSeasonDays={memberProfileData?.streak?.currentSeasonStreak}
+              streakStartAt={memberProfileData?.streak?.streakStartAt}
+              streakData={memberProfileData?.streak?.streakData ?? []}
+            />
           </>
         }
         right={<AwardSection awardList={memberProfileData.award ?? []} />}

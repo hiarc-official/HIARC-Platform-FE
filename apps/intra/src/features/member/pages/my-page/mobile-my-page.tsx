@@ -49,6 +49,7 @@ export function MobileMyPage(): React.ReactElement {
   return (
     <FadeIn isVisible={isDataReady ?? false}>
       <MyInfoSection
+        className="mt-10"
         isMe={true}
         bojHandle={myPageData?.bojHandle}
         name={myPageData?.name}
@@ -64,7 +65,13 @@ export function MobileMyPage(): React.ReactElement {
         total={myPageData?.rating?.totalScore ?? 0}
         today={myPageData?.rating?.todayScore ?? 0}
       />
-      <StreakSection className="mt-6" />
+      <StreakSection
+        className="mt-6"
+        totalDays={myPageData?.streak?.currentTotalStreak}
+        currentSeasonDays={myPageData?.streak?.currentSeasonStreak}
+        streakStartAt={myPageData?.streak?.streakStartAt}
+        streakData={myPageData?.streak?.streakData ?? []}
+      />
       <AwardSection className="mt-6" awardList={myPageData?.award ?? []} isMe={true} />
       <Divider variant="horizontal" size="full" className="mt-6 bg-gray-900" />
       <StudySection className="mt-6" />

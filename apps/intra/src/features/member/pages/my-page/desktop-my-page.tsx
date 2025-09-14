@@ -69,7 +69,13 @@ export function DesktopMyPage(): React.ReactElement {
               total={myPageData?.rating?.totalScore ?? 0}
               today={myPageData?.rating?.todayScore ?? 0}
             />
-            <StreakSection className="mt-6" />
+            <StreakSection
+              className="mt-6"
+              totalDays={myPageData?.streak?.currentTotalStreak}
+              currentSeasonDays={myPageData?.streak?.currentSeasonStreak}
+              streakStartAt={myPageData?.streak?.streakStartAt}
+              streakData={myPageData?.streak?.streakData ?? []}
+            />
           </>
         }
         right={<AwardSection awardList={myPageData?.award ?? []} isMe={true} />}
