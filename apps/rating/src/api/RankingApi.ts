@@ -20,7 +20,7 @@ export const fetchRankingData = async (selected: number) => {
     const response = await apiClient.get<{
       streakRatio: number;
       ranking: RankingItem[];
-    }>(`/rating/${selected}/ranking`);
+    }>(`/${selected}/rating`);
 
     console.log(' Success: 랭킹 데이터 받아옴', response.data);
 

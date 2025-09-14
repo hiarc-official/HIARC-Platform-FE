@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { checkAdminName } from '../../util/CheckAdminName';
-import { checkAdminApi, checkSemesterApi } from '../../api/AdminApi';
+import { checkAdminApi } from '../../api/AdminApi';
 import { useState } from 'react';
 import { Modal } from '../Modal';
 const Wrapper = styled.div`
@@ -25,22 +25,13 @@ const Button = styled.button`
   }
 `;
 
-export const AdminCheck = ({ name }: { name: 'season' | 'event' | 'semester' }) => {
+export const AdminCheck = ({ name }: { name: 'recent-season' | 'recent-event' | 'date' }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalContent, setModalContent] = useState<string | any>('');
+  const [modalContent, setModalContent] = useState('');
   const buttonClick = async () => {
     try {
-      const response = name === 'semester'
-        ? await checkSemesterApi()
-        : await checkAdminApi(name);
-
-      console.log('Full response:', response);
-      console.log('response.data:', response.data);
-      console.log('response.data.data:', response.data.data);
-
-      // 응답 구조에 따라 적절한 데이터 선택
-      const data = response.data.data || response.data;
-      setModalContent(data);
+      const response = await checkAdminApi(name);
+      setModalContent(JSON.stringify(response.data.data, null, 2));
       setIsModalOpen(true);
     } catch (error) {
       console.error('오류...', error);

@@ -38,23 +38,19 @@ export function AwardListPage(): React.ReactElement {
   };
 
   const handlePageChange = (page: number): void => {
-    setSearchParams((prev) => ({
+    setSearchParams(prev => ({
       ...prev,
       page,
     }));
   };
 
   return (
-    <div className="flex w-full flex-col gap-6 py-4 pt-10 md:pt-0">
+    <div className="flex w-full flex-col gap-6 py-4">
       <div className="flex justify-between">
-        <div className="md:hidden" />
-        <Title size="sm" weight="bold" className="hidden md:block">
+        <Title size="sm" weight="bold">
           대회
         </Title>
-        <Button size="md" onClick={handleAddAward} className="hidden w-[100px] md:block">
-          추가하기
-        </Button>
-        <Button size="xs" onClick={handleAddAward} className="md:hidden">
+        <Button size="md" onClick={handleAddAward}>
           추가하기
         </Button>
       </div>

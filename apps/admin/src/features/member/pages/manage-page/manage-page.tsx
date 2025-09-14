@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { cn, Tabs, SlideFade } from '@hiarc-platform/ui';
-import { CurrentSemesterSection } from '../../components/manage-tab-section/current-semester-section/CurrentSemesterSection';
+import { CurrentSemesterSection } from '../../components/manage-tab-section/current-semester-section';
 import { RecruitManageSection } from '../../components/manage-tab-section/recruit-manage-section';
 
 interface ManagePageProps {
@@ -17,7 +17,7 @@ export function ManagePage({ className }: ManagePageProps): React.ReactElement {
   ];
 
   return (
-    <div className={cn('mt-4 flex w-full flex-col', 'pt-10 md:pt-0', className)}>
+    <div className={cn('mt-4 flex w-full flex-col', className)}>
       <Tabs tabs={tabs} activeTab={selectedTab} onTabClick={setSelectedTab} />
       <div className={cn('min-h-[300px]', 'mt-6')}>
         {selectedTab === 'member_list_section' && (

@@ -5,7 +5,6 @@ import {
   Button,
   DialogUtil,
   Label,
-  Pagination,
   Popover,
   PopoverContent,
   PopoverTrigger,
@@ -122,25 +121,11 @@ export function RecruitManageSection(): React.ReactElement {
         <div className="flex items-center justify-between text-md">
           <div>신청 명단 총 {recruitmentData?.totalElements}건</div>
         </div>
-        <div className="w-full overflow-x-auto">
-          <div className="min-w-[1200px]">
-            <MemberRecruitTable
-              pageableModel={recruitmentData}
-              onPageChange={setPage}
-              showApprovalButton={isApplicationStatusEditable}
-              showPagination={false}
-            />
-          </div>
-        </div>
-        {recruitmentData && (
-          <div className="flex w-full justify-center">
-            <Pagination
-              className="mt-8"
-              pageableModel={recruitmentData}
-              onPageChange={(page) => setPage(page - 1)}
-            />
-          </div>
-        )}
+        <MemberRecruitTable
+          pageableModel={recruitmentData}
+          onPageChange={setPage}
+          showApprovalButton={isApplicationStatusEditable}
+        />
       </div>
     </div>
   );

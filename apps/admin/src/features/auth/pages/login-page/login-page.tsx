@@ -47,7 +47,7 @@ export function LoginPage(): React.ReactElement {
   }
 
   return (
-    <div className="mx-auto flex max-w-[320px] flex-col items-center justify-center px-6 pt-20 md:max-w-[400px]">
+    <div className="mx-auto flex max-w-[320px] flex-col items-center justify-center px-6 pt-16 md:max-w-[400px] md:px-4 md:pt-20">
       <Image src={'/shared-assets/SquareLogo.png'} width={120} height={120} alt="logo" />
       <Title className="mt-8 md:mt-11" size="sm" weight="bold">
         로그인
@@ -58,7 +58,9 @@ export function LoginPage(): React.ReactElement {
           <p className="text-sm text-yellow-800">
             📱 인앱 브라우저에서는 구글 로그인이 제한됩니다.
           </p>
-          <p className="mt-1 text-xs text-yellow-600">메뉴에서 브라우저에서 열기를 선택해주세요.</p>
+          <p className="mt-1 text-xs text-yellow-600">
+            메뉴에서 "브라우저에서 열기"를 선택해주세요.
+          </p>
         </div>
       )}
 

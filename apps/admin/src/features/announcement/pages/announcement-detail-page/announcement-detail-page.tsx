@@ -73,7 +73,7 @@ export function AnnouncementDetailPage(): React.ReactElement {
   }
 
   return (
-    <div className="w-full pt-10 md:pt-0">
+    <div className="w-full">
       {/* Desktop layout */}
       <FadeIn
         isVisible={Boolean(announcement)}
