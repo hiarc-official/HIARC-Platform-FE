@@ -94,3 +94,34 @@ export const getAdminHandleStats = async (type: 'hiting' | 'solved-level', handl
     return null;
   }
 };
+
+// 시즌별 랭킹 조회 API
+export const getSeasonRanking = async (seasonId: number, division: number = 1) => {
+  try {
+    const response = await apiClient.get(`/admin/rating/season/${seasonId}/ranking`, {
+      params: {
+        division: division,
+        seasonId: seasonId,
+      },
+    });
+    return response;
+  } catch (error) {
+    console.error('시즌 랭킹 조회 실패:', error);
+    throw error;
+  }
+};
+
+// 이벤트 랭킹 조회 API
+export const getEventRanking = async (eventId: number) => {
+  try {
+    const response = await apiClient.get(`/admin/rating/event/${eventId}/ranking`, {
+      params: {
+        eventId: eventId,
+      },
+    });
+    return response;
+  } catch (error) {
+    console.error('이벤트 랭킹 조회 실패:', error);
+    throw error;
+  }
+};

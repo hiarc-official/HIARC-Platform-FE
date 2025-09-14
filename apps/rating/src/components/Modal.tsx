@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import TierImg from '../util/TierImg';
 
 type ApprovedNotification = {
   semesterId: number;
@@ -47,8 +48,28 @@ type UserStatsData = {
   }>;
 };
 
+type RankingMember = {
+  memberId: number;
+  name: string;
+  bojHandle: string;
+  tier: number;
+  totalScore: number;
+  dailyScore: number;
+  currentSeasonScore: number;
+  currentEventScore: number;
+};
+
+type RankingData = RankingMember[];
+
 type ModalProps = {
-  content: string | MemberData | SeasonData[] | EventData[] | SemesterData[] | UserStatsData;
+  content:
+    | string
+    | MemberData
+    | SeasonData[]
+    | EventData[]
+    | SemesterData[]
+    | UserStatsData
+    | RankingData;
   onClose: () => void;
 };
 
@@ -360,6 +381,79 @@ const renderUserStatsData = (data: UserStatsData) => (
   </>
 );
 
+const RankingTable = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+`;
+
+const RankingTh = styled.th`
+  background-color: #f8f9fa;
+  padding: 12px 8px;
+  border: 1px solid #dee2e6;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+`;
+
+const RankingTd = styled.td`
+  padding: 10px 8px;
+  border: 1px solid #dee2e6;
+  font-size: 13px;
+  text-align: center;
+`;
+
+const renderRankingData = (data: RankingData) => {
+  const getRankingPosition = (index: number) => {
+    return index + 1;
+  };
+
+  return (
+    <>
+      <ContentSection>
+        <SectionTitle>
+          랭킹 (총 {data.length}명)
+        </SectionTitle>
+
+        <RankingTable>
+          <thead>
+            <tr>
+              <RankingTh>순위</RankingTh>
+              <RankingTh>이름</RankingTh>
+              <RankingTh>BOJ 핸들</RankingTh>
+              <RankingTh>티어</RankingTh>
+              <RankingTh>총 점수</RankingTh>
+              <RankingTh>일일 점수</RankingTh>
+              <RankingTh>시즌 점수</RankingTh>
+              <RankingTh>이벤트 점수</RankingTh>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((member: RankingMember, index: number) => (
+              <tr key={member.memberId}>
+                <RankingTd>{getRankingPosition(index)}</RankingTd>
+                <RankingTd>{member.name}</RankingTd>
+                <RankingTd>{member.bojHandle}</RankingTd>
+                <RankingTd>
+                  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <TierImg tier={member.tier} />
+                  </div>
+                </RankingTd>
+                <RankingTd>{member.totalScore}</RankingTd>
+                <RankingTd>{member.dailyScore}</RankingTd>
+                <RankingTd style={{ fontWeight: 600, color: '#007bff' }}>
+                  {member.currentSeasonScore}
+                </RankingTd>
+                <RankingTd>{member.currentEventScore}</RankingTd>
+              </tr>
+            ))}
+          </tbody>
+        </RankingTable>
+      </ContentSection>
+    </>
+  );
+};
+
 const renderStringContent = (content: string) => {
   if (!content || typeof content !== 'string') {
     return (
@@ -381,38 +475,102 @@ const renderStringContent = (content: string) => {
 
 export const Modal = ({ content, onClose }: ModalProps) => {
   const isMemberData = (
-    data: string | MemberData | SeasonData[] | EventData[] | SemesterData[] | UserStatsData
+    data:
+      | string
+      | MemberData
+      | SeasonData[]
+      | EventData[]
+      | SemesterData[]
+      | UserStatsData
+      | RankingData
   ): data is MemberData => {
-    return typeof data === 'object' && data !== null && 'memberId' in data;
+    return typeof data === 'object' && data !== null && 'memberId' in data && !('content' in data);
   };
 
   const isSeasonData = (
-    data: string | MemberData | SeasonData[] | EventData[] | SemesterData[] | UserStatsData
+    data:
+      | string
+      | MemberData
+      | SeasonData[]
+      | EventData[]
+      | SemesterData[]
+      | UserStatsData
+      | RankingData
   ): data is SeasonData[] => {
     return Array.isArray(data) && data.length > 0 && 'seasonId' in data[0];
   };
 
   const isEventData = (
-    data: string | MemberData | SeasonData[] | EventData[] | SemesterData[] | UserStatsData
+    data:
+      | string
+      | MemberData
+      | SeasonData[]
+      | EventData[]
+      | SemesterData[]
+      | UserStatsData
+      | RankingData
   ): data is EventData[] => {
     return Array.isArray(data) && data.length > 0 && 'eventId' in data[0];
   };
 
   const isSemesterData = (
-    data: string | MemberData | SeasonData[] | EventData[] | SemesterData[] | UserStatsData
+    data:
+      | string
+      | MemberData
+      | SeasonData[]
+      | EventData[]
+      | SemesterData[]
+      | UserStatsData
+      | RankingData
   ): data is SemesterData[] => {
     return Array.isArray(data) && data.length > 0 && 'semesterId' in data[0];
   };
 
   const isUserStatsData = (
-    data: string | MemberData | SeasonData[] | EventData[] | SemesterData[] | UserStatsData
+    data:
+      | string
+      | MemberData
+      | SeasonData[]
+      | EventData[]
+      | SemesterData[]
+      | UserStatsData
+      | RankingData
   ): data is UserStatsData => {
-    return typeof data === 'object' && data !== null && 'tier' in data && 'totalScore' in data && 'solvedCounts' in data;
+    return (
+      typeof data === 'object' &&
+      data !== null &&
+      'tier' in data &&
+      'totalScore' in data &&
+      'solvedCounts' in data &&
+      !('content' in data)
+    );
+  };
+
+  const isRankingData = (
+    data:
+      | string
+      | MemberData
+      | SeasonData[]
+      | EventData[]
+      | SemesterData[]
+      | UserStatsData
+      | RankingData
+  ): data is RankingData => {
+    return (
+      Array.isArray(data) &&
+      data.length > 0 &&
+      'memberId' in data[0] &&
+      'bojHandle' in data[0] &&
+      'currentSeasonScore' in data[0]
+    );
   };
 
   const renderContent = () => {
     if (!content) {
       return renderStringContent('데이터가 없습니다.');
+    }
+    if (isRankingData(content)) {
+      return renderRankingData(content);
     }
     if (isSeasonData(content)) {
       return renderSeasonData(content);
