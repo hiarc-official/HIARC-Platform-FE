@@ -17,7 +17,7 @@ export function ManagePage({ className }: ManagePageProps): React.ReactElement {
   ];
 
   return (
-    <div className={cn('mt-4 flex w-full flex-col', className)}>
+    <div className={cn('mt-4 flex w-full flex-col', 'pt-10 md:pt-0', className)}>
       <Tabs tabs={tabs} activeTab={selectedTab} onTabClick={setSelectedTab} />
       <div className={cn('min-h-[300px]', 'mt-6')}>
         {selectedTab === 'member_list_section' && (
