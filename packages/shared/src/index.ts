@@ -6,6 +6,7 @@ export * from './types/announcement/announcement-summary';
 export * from './types/study/study-summary';
 export * from './types/study/study';
 export * from './types/study/create-study-request';
+export * from './types/study/update-study-request';
 export * from './types/study/lecture';
 export * from './types/study/study-member';
 export * from './types/study/assignment';

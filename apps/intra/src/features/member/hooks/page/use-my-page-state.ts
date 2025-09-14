@@ -2,12 +2,10 @@ import { useUpdateMyIntroduction } from '@/features/member/hooks/mutation/use-up
 import { useMyProfileData } from '@/features/member/hooks/query/use-my-page-data';
 import { useAuthStore } from '@/shared/store/auth-store';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
 
 export function useMyPageState() {
   const router = useRouter();
   const { user } = useAuthStore();
-  const [hydrated, setHydrated] = useState(false);
 
   const {
     data: myPageData,
@@ -17,10 +15,6 @@ export function useMyPageState() {
 
   const updateMyIntroduction = useUpdateMyIntroduction();
 
-  useEffect(() => {
-    setHydrated(true);
-  }, []);
-
   const handleUpdateIntroduction = async (introduction: string): Promise<void> => {
     await updateMyIntroduction.mutateAsync(introduction);
   };
@@ -29,11 +23,10 @@ export function useMyPageState() {
     router.back();
   };
 
-  const isDataReady = hydrated && user && myPageData && !myPageDataLoading;
+  const isDataReady = user && myPageData && !myPageDataLoading;
 
   return {
     user,
-    hydrated,
     myPageData,
     myPageDataLoading,
     myPageDataError,

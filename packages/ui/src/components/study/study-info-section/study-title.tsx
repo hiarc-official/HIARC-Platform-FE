@@ -73,7 +73,7 @@ export function StudyTitle({
               )}
             </div>
           )}
-          {(isAdmin || studyData?.isInstructor) && (
+          {isAdmin && (
             <Button size="md" className="ml-6" variant="line" onClick={onEditClick}>
               수정하기
             </Button>

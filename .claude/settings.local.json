@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//private/etc/**)",
+      "mcp__ide__getDiagnostics",
+      "Bash(pnpm -F admin run type-check)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

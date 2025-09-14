@@ -1,4 +1,4 @@
-import { AnnouncementListSection } from '../../components/announcement-list-section';
+import { AnnouncementListSection } from '../../components/announcement-list-section/AnnouncementListSection';
 import { StudyListSection } from '../../components/study-list-section';
 import { ContentSection, TwoColumnLayout } from '@hiarc-platform/ui';
 import { HiarcScheduleSection } from '../../components/hiarc-schedule-section';

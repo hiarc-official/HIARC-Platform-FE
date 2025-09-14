@@ -6,12 +6,15 @@ import { ColumnDef } from '@tanstack/react-table';
 interface StudentColumnsOptions {
   onDelete(student: Student): void;
   isDeleting: boolean;
+  isCurrentSemester?: boolean;
 }
 
 export const createStudentColumns = ({
   onDelete,
   isDeleting,
-}: StudentColumnsOptions): Array<ColumnDef<Student>> => [
+  isCurrentSemester = true,
+}: StudentColumnsOptions): Array<ColumnDef<Student>> => {
+  const columns: Array<ColumnDef<Student>> = [
   {
     id: 'number',
     accessorKey: 'number',
@@ -232,36 +235,43 @@ export const createStudentColumns = ({
     ),
     footer: (props) => props.column.id,
   },
-  {
-    id: 'withdrawButton',
-    accessorKey: 'withdrawButton',
-    size: 60,
-    meta: {
-      headAlign: 'center',
-      bodyAlign: 'center',
-    },
-    header: () => (
-      <Label size="md" weight="bold">
-        탈퇴
-      </Label>
-    ),
-    cell: ({ row }: { row: { original: Student } }) => (
-      <Button
-        className="relative z-10 w-full bg-primary-100"
-        size="xs"
-        onClick={(event) => {
-          event.stopPropagation();
-          onDelete(row.original);
-        }}
-        disabled={
-          isDeleting ||
-          row.original.memberRole === 'ASSOCIATE' ||
-          row.original.memberRole === 'ADMIN'
-        }
-      >
-        탈퇴
-      </Button>
-    ),
-    footer: (props) => props.column.id,
-  },
-];
+  ];
+
+  // 현재 학기인 경우에만 탈퇴 버튼 컬럼 추가
+  if (isCurrentSemester) {
+    columns.push({
+      id: 'withdrawButton',
+      accessorKey: 'withdrawButton',
+      size: 60,
+      meta: {
+        headAlign: 'center',
+        bodyAlign: 'center',
+      },
+      header: () => (
+        <Label size="md" weight="bold">
+          탈퇴
+        </Label>
+      ),
+      cell: ({ row }: { row: { original: Student } }) => (
+        <Button
+          className="relative z-10 w-full bg-primary-100"
+          size="xs"
+          onClick={(event) => {
+            event.stopPropagation();
+            onDelete(row.original);
+          }}
+          disabled={
+            isDeleting ||
+            row.original.memberRole === 'ASSOCIATE' ||
+            row.original.memberRole === 'ADMIN'
+          }
+        >
+          탈퇴
+        </Button>
+      ),
+      footer: (props) => props.column.id,
+    });
+  }
+
+  return columns;
+};
