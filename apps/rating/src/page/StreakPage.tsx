@@ -34,6 +34,12 @@ const MainWrapper = styled.div`
   gap: 60px 80px;
   justify-content: flex-start;
   width: 100%;
+
+  @media (max-width: 480px) {
+    justify-content: center;
+    gap: 40px;
+    margin-left: -16px;
+  }
 `;
 
 const Wrapper = styled.div`

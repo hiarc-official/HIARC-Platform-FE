@@ -23,12 +23,30 @@ const Devider = styled.div`
 
 const Down = styled.div`
   margin-top: 16px;
+
+  @media (max-width: 480px) {
+    overflow-x: auto;
+    width: 100%;
+    text-align: center;
+
+    /* 스크롤바 숨기기 */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+
+    &::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera */
+    }
+  }
 `;
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 557px;
+
+  @media (max-width: 480px) {
+    width: 335px;
+  }
 `;
 
 interface Props {
