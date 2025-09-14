@@ -1,10 +1,10 @@
-import { Button, cn } from '@hiarc-platform/ui';
-import { MemberSearchFilter } from './member-search-filter';
+import { Button, cn, Pagination } from '@hiarc-platform/ui';
+import { MemberSearchFilter } from './MemberSearchFilter';
 import { useSelectedSemester } from '@/shared/hooks/use-semester-store';
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useDownloadExcel, useMembers } from '@/features/member/hooks';
-import { MemberTable } from '../../member-table';
+import { MemberTable } from '../../member-table/MemberTable';
 
 interface CurrentSemesterSectionProps {
   className?: string;
@@ -32,7 +32,30 @@ export function CurrentSemesterSection({
   }, [searchParams]);
 
   // 선택된 학기 정보 가져오기
-  const { selectedSemesterId } = useSelectedSemester();
+  const { selectedSemesterId, selectedSemester } = useSelectedSemester();
+
+  // 현재 학기인지 확인 (현재 날짜 기준)
+  const getCurrentSemester = (): {
+    year: number;
+    type: 'FIRST' | 'SECOND';
+  } => {
+    const now = new Date();
+    const currentYear = now.getFullYear();
+    const currentMonth = now.getMonth() + 1; // 0-based이므로 +1
+
+    // 3월~8월: 1학기, 9월~2월: 2학기
+    const currentSemesterType = currentMonth >= 3 && currentMonth <= 8 ? 'FIRST' : 'SECOND';
+
+    return {
+      year: currentYear,
+      type: currentSemesterType,
+    };
+  };
+
+  const currentSemester = getCurrentSemester();
+  const isCurrentSemester =
+    selectedSemester?.semesterYear === currentSemester.year &&
+    selectedSemester?.semesterType === currentSemester.type;
 
   // 학생 리스트 데이터 가져오기
   const { data: studentData } = useMembers({
@@ -89,7 +112,25 @@ export function CurrentSemesterSection({
             {downloadExcel.isPending ? '다운로드 중...' : '명단 다운로드'}
           </Button>
         </div>
-        <MemberTable pageableModel={studentData} onPageChange={handlePageChange} />
+        <div className="w-full overflow-x-auto">
+          <div className="min-w-[1200px]">
+            <MemberTable
+              pageableModel={studentData}
+              onPageChange={handlePageChange}
+              isCurrentSemester={isCurrentSemester}
+              showPagination={false}
+            />
+          </div>
+        </div>
+        {studentData && (
+          <div className="flex w-full justify-center">
+            <Pagination
+              className="mt-8"
+              pageableModel={studentData}
+              onPageChange={(page) => handlePageChange(page - 1)}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

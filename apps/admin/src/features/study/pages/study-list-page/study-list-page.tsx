@@ -58,12 +58,16 @@ export function StudyListPage(): React.ReactElement {
   }
 
   return (
-    <FadeIn isVisible={Boolean(studiesData)} duration={0.4} className="flex flex-col">
+    <FadeIn isVisible={Boolean(studiesData)} duration={0.4} className="flex flex-col pt-10 md:pt-0">
       <div className="flex justify-between">
-        <Title size="sm" weight="bold">
+        <Title size="sm" weight="bold" className="hidden md:block">
           스터디
         </Title>
-        <Button size="md" className="w-[100px]" onClick={handleCreateStudy}>
+        <div className="md:hidden" />
+        <Button size="md" onClick={handleCreateStudy} className="hidden w-[100px] md:block">
+          개설하기
+        </Button>
+        <Button size="xs" onClick={handleCreateStudy} className="md:hidden">
           개설하기
         </Button>
       </div>

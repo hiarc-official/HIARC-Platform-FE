@@ -8,6 +8,7 @@ import { useLogout } from '@/features/auth/hooks';
 import Link from 'next/link';
 import { CustomLabeledSelector } from './custom-labeled-selector';
 import { SemesterAddDialog } from '@/features/semester/components/semester-add-dialog';
+
 export default function Header(): React.ReactElement {
   // Initialize semester store on component mount
   useSemesterStoreInit();
@@ -23,6 +24,7 @@ export default function Header(): React.ReactElement {
     { label: '스터디', value: 'study' },
     { label: '대회', value: 'award' },
     { label: '운영진', value: 'admin' },
+    { label: '하이팅', value: process.env.NEXT_PUBLIC_RATING_ADMIN_URL ?? 'rating' },
   ];
 
   const handleLogin = (): void => {
@@ -69,12 +71,18 @@ export default function Header(): React.ReactElement {
 
           <nav className="flex gap-8 overflow-x-auto whitespace-nowrap">
             {tabItems.map(({ label, value }) => {
-              const isActive = pathname.includes(`/${value}`);
+              const isHaitingTab = label === '하이팅';
+              const isExternal = isHaitingTab && value.startsWith('http');
+              const href = isExternal ? value : `/${value}`;
+              const isActive = !isExternal && pathname.includes(href);
+
               return (
                 <Link
                   key={value}
-                  href={`/${value}`}
+                  href={href}
                   className={`text-lg ${isActive ? 'font-bold text-black' : 'text-gray-200'}`}
+                  // 외부 링크일 경우 새 탭에서 열리도록 설정
+                  {...(isExternal && { target: '_blank', rel: 'noopener noreferrer' })}
                 >
                   {label}
                 </Link>

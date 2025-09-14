@@ -16,12 +16,16 @@ interface MemberTableProps {
   pageableModel?: PageableModel<Student>;
   className?: string;
   onPageChange?(page: number): void;
+  isCurrentSemester?: boolean;
+  showPagination?: boolean;
 }
 
 export function MemberTable({
   pageableModel,
   className,
   onPageChange,
+  isCurrentSemester = true,
+  showPagination = true,
 }: MemberTableProps): React.ReactElement {
   const deleteMemberMutation = useDeleteMember();
   const [globalFilter, setGlobalFilter] = useState('');
@@ -44,8 +48,9 @@ export function MemberTable({
       createStudentColumns({
         onDelete: handleDeleteMember,
         isDeleting: deleteMemberMutation.isPending,
+        isCurrentSemester,
       }),
-    [handleDeleteMember, deleteMemberMutation.isPending]
+    [handleDeleteMember, deleteMemberMutation.isPending, isCurrentSemester]
   );
   const table = useTable({
     columns,
@@ -56,13 +61,15 @@ export function MemberTable({
   });
 
   return (
-    <div className={cn('w-full flex-col items-center', className)}>
-      <SlideFade key="table" className="w-full">
-        <CommonTableHead className="bg-gray-100 text-gray-900" table={table} />
-        <CommonTableBody table={table} onClick={function (): void {}} />
-      </SlideFade>
+    <>
+      <div className={cn('w-full flex-col items-center', className)}>
+        <SlideFade key="table" className="w-full">
+          <CommonTableHead className="bg-gray-100 text-gray-900" table={table} />
+          <CommonTableBody table={table} onClick={function (): void {}} />
+        </SlideFade>
+      </div>
 
-      {pageableModel && onPageChange && (
+      {showPagination && pageableModel && onPageChange && (
         <div className="flex w-full justify-center">
           <Pagination
             className="mt-8"
@@ -71,6 +78,6 @@ export function MemberTable({
           />
         </div>
       )}
-    </div>
+    </>
   );
 }

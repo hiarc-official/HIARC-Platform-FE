@@ -1,26 +1,35 @@
 'use client';
 import { useSelectedSemester } from '@/shared/hooks/use-semester-store';
 import { useAdmins, useInstructors } from '@/features/member/hooks';
-import { Label, Title, cn } from '@hiarc-platform/ui';
+import { Button, DialogUtil, Label, Title, cn } from '@hiarc-platform/ui';
 import { AdminTable } from '../../components/admin-table';
 import { InstructorTable } from '../../components/instrcutor-table';
-import { AddAdminTriggerButton } from '../../components/dialog/add-admin-trigger-button';
+import { AddAdminDialog } from '../../components/dialog/add-admin-dialog';
 
 export function AdminPage(): React.ReactElement {
   const { selectedSemesterId } = useSelectedSemester();
   const { data: adminList } = useAdmins(Number(selectedSemesterId));
   const { data: instructorList } = useInstructors(Number(selectedSemesterId));
 
+  const handleOpenDialog = (): void => {
+    DialogUtil.showComponent(<AddAdminDialog />);
+  };
+
   return (
-    <div className={cn('flex min-h-screen w-full flex-col gap-6 py-4')}>
-      <Title size="sm" weight="bold">
+    <div className={cn('flex min-h-screen w-full flex-col gap-6 py-4', 'pt-10 md:pt-0')}>
+      <Title size="sm" weight="bold" className="hidden md:block">
         운영진/스터디장 관리
       </Title>
       <div className="flex w-full items-center justify-between">
         <Label size={'lg'} weight="bold">
           운영진
         </Label>
-        <AddAdminTriggerButton />
+        <Button size="xs" onClick={handleOpenDialog} className="md:hidden">
+          추가하기
+        </Button>
+        <Button size="sm" onClick={handleOpenDialog} className="hidden w-[106px] md:block">
+          추가하기
+        </Button>
       </div>
       <AdminTable adminData={adminList || []} />
       <div className="flex w-full items-center">
