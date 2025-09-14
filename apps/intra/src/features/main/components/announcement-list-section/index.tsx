@@ -24,17 +24,9 @@ export function AnnouncementListSection({
   const { data: upcomingSchedule } = useUpcomingSchedule();
   const { data: externalAnnouncements } = useExternalSchedule();
 
-  const sortedUpcomingSchedules = upcomingSchedule?.schedules
-    ? [...upcomingSchedule.schedules].sort((first, second) => {
-        if (first.announcementType === 'RATING' && second.announcementType !== 'RATING') {
-          return -1;
-        }
-        if (first.announcementType !== 'RATING' && second.announcementType === 'RATING') {
-          return 1;
-        }
-        return 0;
-      })
-    : [];
+  // Rating 데이터 사용
+  const ratingData = upcomingSchedule?.rating;
+  const regularSchedules = upcomingSchedule?.schedules || [];
 
   return (
     <div className={cn('w-full', className)}>
@@ -50,29 +42,62 @@ export function AnnouncementListSection({
       </div>
 
       <Divider variant="horizontal" size="full" className="mt-4" />
-      <div className="h-[350px] overflow-y-auto">
-        {tab === 'announcement' && (
-          <SlideFade key="announcement">
-            <div>
-              {sortedUpcomingSchedules.map((announcement: Schedule, index: number) => (
-                <AnnouncementListItem
-                  key={announcement.announcementId || index}
-                  announcementId={announcement.announcementId || 0}
-                  title={announcement.scheduleTitle || '제목 없음'}
-                  date={
-                    announcement.announcementType === 'RATING'
-                      ? ''
-                      : announcement.scheduledAt
-                        ? new Date(announcement.scheduledAt).toLocaleDateString()
-                        : new Date(announcement.createdAt ?? '').toLocaleDateString()
-                  }
-                  category={announcement.announcementType || 'GENERAL'}
-                />
-              ))}
+
+      {tab === 'announcement' ? (
+        <div className="flex h-[350px] flex-col">
+          {/* Rating 고정 영역 */}
+          {ratingData && (
+            <div className="flex-shrink-0">
+              <SlideFade key="rating-section">
+                <div>
+                  <AnnouncementListItem
+                    isEvent={true}
+                    key="rating-season"
+                    announcementId={0}
+                    title={ratingData.season.title}
+                    date={ratingData.season.startDateTime.toLocaleDateString()}
+                    category="RATING"
+                  />
+                  {ratingData.event.title && (
+                    <AnnouncementListItem
+                      isEvent={true}
+                      key="rating-event"
+                      announcementId={0}
+                      title={ratingData.event.title}
+                      date={ratingData.event.startDateTime.toLocaleDateString()}
+                      category="RATING"
+                    />
+                  )}
+                </div>
+              </SlideFade>
             </div>
-          </SlideFade>
-        )}
-        {tab === 'algorithm-news' && (
+          )}
+
+          {/* 일반 스케줄 스크롤 영역 */}
+          {regularSchedules.length > 0 && (
+            <div className="flex-1 overflow-y-auto">
+              <SlideFade key="regular-schedules">
+                <div>
+                  {regularSchedules.map((announcement: Schedule, index: number) => (
+                    <AnnouncementListItem
+                      key={announcement.announcementId || index}
+                      announcementId={announcement.announcementId || 0}
+                      title={announcement.scheduleTitle || '제목 없음'}
+                      date={
+                        announcement.scheduledAt
+                          ? new Date(announcement.scheduledAt).toLocaleDateString()
+                          : new Date(announcement.createdAt ?? '').toLocaleDateString()
+                      }
+                      category={announcement.announcementType || 'GENERAL'}
+                    />
+                  ))}
+                </div>
+              </SlideFade>
+            </div>
+          )}
+        </div>
+      ) : (
+        <div className="h-[350px] overflow-y-auto">
           <SlideFade key="algorithm-news">
             <div>
               {externalAnnouncements &&
@@ -91,8 +116,8 @@ export function AnnouncementListSection({
                 ))}
             </div>
           </SlideFade>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }
