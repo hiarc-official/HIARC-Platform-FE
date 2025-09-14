@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { cn, Tabs, SlideFade } from '@hiarc-platform/ui';
-import { CurrentSemesterSection } from '../../components/manage-tab-section/current-semester-section';
+import { CurrentSemesterSection } from '../../components/manage-tab-section/current-semester-section/CurrentSemesterSection';
 import { RecruitManageSection } from '../../components/manage-tab-section/recruit-manage-section';
 
 interface ManagePageProps {
