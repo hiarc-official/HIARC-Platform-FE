@@ -37,7 +37,7 @@ export function MobileMemberDetailPage({
   return (
     <FadeIn isVisible={!isLoading && !error}>
       <MyInfoSection
-        className="mt-5"
+        className="mt-10"
         isMe={false}
         bojHandle={memberProfileData?.bojHandle}
         name={memberProfileData?.name}
@@ -53,7 +53,13 @@ export function MobileMemberDetailPage({
         total={memberProfileData?.rating?.totalScore ?? 0}
         today={memberProfileData?.rating?.todayScore ?? 0}
       />
-      <StreakSection className="mt-4" />
+      <StreakSection
+        className="mt-4"
+        totalDays={memberProfileData?.streak?.currentTotalStreak}
+        currentSeasonDays={memberProfileData?.streak?.currentSeasonStreak}
+        streakStartAt={memberProfileData?.streak?.streakStartAt}
+        streakData={memberProfileData?.streak?.streakData ?? []}
+      />
       <AwardSection className="mt-4" awardList={memberProfileData?.award ?? []} />
     </FadeIn>
   );

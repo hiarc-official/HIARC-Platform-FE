@@ -11,7 +11,6 @@ import { BackButton, Divider, TwoColumnLayout, LoadingDots, FadeIn } from '@hiar
 export function DesktopMyPage(): React.ReactElement {
   const {
     user,
-    hydrated,
     myPageData,
     myPageDataLoading,
     myPageDataError,
@@ -19,14 +18,6 @@ export function DesktopMyPage(): React.ReactElement {
     handleUpdateIntroduction,
     handleBackClick,
   } = useMyPageState();
-
-  if (!hydrated) {
-    return (
-      <div className="flex min-h-[400px] items-center justify-center">
-        <LoadingDots />
-      </div>
-    );
-  }
 
   if (!user) {
     return (
@@ -60,6 +51,7 @@ export function DesktopMyPage(): React.ReactElement {
       <BackButton onClick={handleBackClick} />
       <MyInfoSection
         className="mt-5"
+        isMe={true}
         bojHandle={myPageData?.bojHandle}
         name={myPageData?.name}
         introduction={myPageData?.introduction}
@@ -77,10 +69,16 @@ export function DesktopMyPage(): React.ReactElement {
               total={myPageData?.rating?.totalScore ?? 0}
               today={myPageData?.rating?.todayScore ?? 0}
             />
-            <StreakSection className="mt-6" />
+            <StreakSection
+              className="mt-6"
+              totalDays={myPageData?.streak?.currentTotalStreak}
+              currentSeasonDays={myPageData?.streak?.currentSeasonStreak}
+              streakStartAt={myPageData?.streak?.streakStartAt}
+              streakData={myPageData?.streak?.streakData ?? []}
+            />
           </>
         }
-        right={<AwardSection awardList={myPageData?.award ?? []} />}
+        right={<AwardSection awardList={myPageData?.award ?? []} isMe={true} />}
       />
       <Divider variant="horizontal" size="full" className="mt-8 bg-gray-900" />
       <StudySection className="mt-8" />
