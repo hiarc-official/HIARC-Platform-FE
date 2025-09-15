@@ -58,6 +58,7 @@ export function MobileHeader({
         setShowError(true);
       }
     } catch (error) {
+      console.error('Error fetching member ID:', error);
       setShowError(true);
     } finally {
       setIsFetching(false);
@@ -109,13 +110,15 @@ export function MobileHeader({
             <Image src="/shared-assets/Logo.svg" alt="HiarcLogo" width={86} height={21} />
           </Link>
           <div className="flex items-center gap-2">
-            <IconButton
-              size="lg"
-              iconSrc="/shared-assets/ZoomIn.svg"
-              aria-label="검색"
-              onClick={() => isAuthenticated && setIsMobileSearchOpen(true)}
-              disabled={!isAuthenticated}
-            />
+            {isAuthenticated && (
+              <IconButton
+                size="lg"
+                iconSrc="/shared-assets/ZoomIn.svg"
+                aria-label="검색"
+                onClick={() => setIsMobileSearchOpen(true)}
+              />
+            )}
+
             {isAuthenticated ? (
               <AuthenticatedMobileSection />
             ) : (

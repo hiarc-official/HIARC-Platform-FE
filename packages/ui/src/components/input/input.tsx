@@ -1,6 +1,7 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
 import { cn } from '../../lib/utils';
+import Image from 'next/image';
 
 const inputVariants = cva(
   cn(
@@ -32,10 +33,8 @@ function Input({
 }: React.ComponentProps<'input'> & VariantProps<typeof inputVariants>): React.ReactElement {
   return (
     <div className="relative w-full">
-      {type === 'search' && (
-        /* eslint-disable @next/next/no-img-element */
-        /*img태그 성능이슈 있음 */
-        <img
+      {(type === 'search' || variant === 'search') && (
+        <Image
           src="/shared-assets/ZoomIn.svg"
           alt="Search Icon"
           width={16}

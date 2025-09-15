@@ -56,6 +56,7 @@ export function DesktopHeader({
         setShowError(true);
       }
     } catch (error) {
+      console.error('Error fetching member ID:', error);
       setShowError(true);
     } finally {
       setIsFetching(false);
