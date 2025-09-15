@@ -21,7 +21,7 @@ export interface RecruitApplicationResponse {
 
 export const authApi = {
   /**
-   * 비회원에서 준회원으로 가입하는 API입니다. (OAuth 토큰 필요)
+   * 회원으로 가입하는 API입니다. (OAuth 토큰 필요)
    * @param signupData - 가입에 필요한 사용자 정보입니다.
    * @returns void
    */

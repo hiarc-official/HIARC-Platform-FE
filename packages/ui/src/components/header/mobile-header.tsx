@@ -74,7 +74,7 @@ export function MobileHeader({
         <div className="flex h-14 w-full items-center justify-between border border-b-gray-200 bg-white px-4">
           {/* 왼쪽: 로고 */}
           <div className="flex items-center">
-            <Image src="/shared-assets/logo.svg" alt="Logo" width={86} height={32} />
+            <Image src="/shared-assets/Logo.svg" alt="Logo" width={86} height={32} />
           </div>
 
           {/* 오른쪽: 로그인/로그아웃 + 메뉴 */}

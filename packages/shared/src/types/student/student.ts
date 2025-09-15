@@ -33,7 +33,7 @@ export const Student = {
           case 'REGULAR':
             return '학회원';
           case 'ASSOCIATE':
-            return '준회원';
+            return '휴면';
           case 'GUEST':
             return '비회원';
           default:
@@ -56,7 +56,7 @@ export const Student = {
       case 'REGULAR':
         return '학회원';
       case 'ASSOCIATE':
-        return '준회원';
+        return '휴면';
       case 'GUEST':
         return '비회원';
       default:
