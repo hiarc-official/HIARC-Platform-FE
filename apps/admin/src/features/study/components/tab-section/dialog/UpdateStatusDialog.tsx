@@ -48,10 +48,10 @@ export function UpdateStatusDialog({
           <DialogTitle>스터디 현황 변경</DialogTitle>
         </DialogHeader>
         <div className="mt-2 flex flex-col text-gray-700">
-          <li>
+          <li className="ml-6">
             <Label size="lg">{data?.studyName}</Label>
           </li>
-          <li>
+          <li className="ml-6">
             <Label size="lg">{data?.memberName}</Label>
           </li>
         </div>

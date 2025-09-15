@@ -42,6 +42,7 @@ export function StudentList({
           key={student.memberId}
           isAdmin={isAdmin}
           name={student.memberName || ''}
+          bojHandle={student.bojHandle || ''}
           attendanceCount={student.attendanceCount || 0}
           assignmentCount={student.assignmentCount || 0}
           totalRounds={student.totalRounds || 0}
