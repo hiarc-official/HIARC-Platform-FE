@@ -22,12 +22,12 @@ export function AwardListPage(): React.ReactElement {
   const handleSearch = (params: {
     organization: string;
     awardName: string;
-    memberName: string;
+    memberNameHandle: string;
   }): void => {
     setSearchParams({
       organization: params.organization || undefined,
       awardName: params.awardName || undefined,
-      memberName: params.memberName || undefined,
+      memberNameHandle: params.memberNameHandle || undefined,
       page: 0,
       size: 10,
     });

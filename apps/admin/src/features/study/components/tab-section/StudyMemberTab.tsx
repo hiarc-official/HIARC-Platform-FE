@@ -67,6 +67,7 @@ export function StudyMemberTab({
             await validateStudent.mutateAsync({ studyId, bojHandle: handle });
             return true;
           } catch (error) {
+            console.error(error);
             return false;
           }
         }}
@@ -85,6 +86,7 @@ export function StudyMemberTab({
             await validateStudent.mutateAsync({ studyId, bojHandle: handle });
             return true;
           } catch (error) {
+            console.error(error);
             return false;
           }
         }}

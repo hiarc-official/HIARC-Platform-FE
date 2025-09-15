@@ -17,11 +17,9 @@ export function RecruitTextManageButton(): React.ReactElement {
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button size="sm" className="bg-primary-200">
-          <Label size="md" weight="regular">
-            모집문구 관리
-          </Label>
-          <Image src="/shared-assets/Down.svg" alt="down" width={11} height={7} />
+        <Button size="sm" className="flex !items-center !justify-center bg-primary-200">
+          <span className="text-md font-normal">모집문구관리</span>
+          <Image src="/shared-assets/Down.svg" alt="down" width={11} height={7} className="ml-2" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[190px] p-3" align="end" sideOffset={4}>
