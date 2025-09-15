@@ -52,12 +52,8 @@ export function DesktopMyPage(): React.ReactElement {
       <MyInfoSection
         className="mt-5"
         isMe={true}
-        bojHandle={myPageData?.bojHandle}
-        name={myPageData?.name}
-        introduction={myPageData?.introduction}
+        memberProfileData={myPageData}
         onSave={handleUpdateIntroduction}
-        rating={myPageData?.tier ?? 'UNRATED'}
-        div={myPageData?.division ?? 'UNRATED'}
       />
       <Divider variant="horizontal" size="full" className="mt-4 bg-gray-900" />
       <TwoColumnLayout

@@ -39,7 +39,7 @@ export function AuthenticatedUserSection(): React.ReactElement {
       return;
     }
 
-    if (myInfo?.memberRole === 'GUEST' || myInfo?.memberRole === 'ASSOCIATE') {
+    if (myInfo?.memberRole === 'GUEST') {
       DialogUtil.showError('승인되지 않았습니다. 조금만 기다려주세요.');
       return;
     }
@@ -108,7 +108,7 @@ export function AuthenticatedUserSection(): React.ReactElement {
 
   // 커스텀 이벤트로 데스크톱-모바일 간 동기화
   useEffect(() => {
-    const handlePopupDismiss = () => {
+    const handlePopupDismiss = (): void => {
       setIsPopupOpen(false);
     };
 

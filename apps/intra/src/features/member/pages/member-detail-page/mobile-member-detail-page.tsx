@@ -4,7 +4,7 @@ import { AwardSection } from '@/features/award/components/award-section';
 import { HitingSection } from '@/features/member/components/hiting-section';
 import { MyInfoSection } from '@/features/member/components/my-info-section';
 import { StreakSection } from '@/features/member/components/streak-section';
-import { Divider, LoadingDots, FadeIn } from '@hiarc-platform/ui';
+import { Divider, LoadingDots, FadeIn, Label } from '@hiarc-platform/ui';
 import { MemberProfile } from '../../types/model/member-profile';
 
 interface MobileMemberDetailPageProps {
@@ -27,24 +27,20 @@ export function MobileMemberDetailPage({
   }
 
   if (error !== null) {
-    return <div>Error loading member profile</div>;
-  }
-
-  if (!memberProfileData) {
-    return <div>No member profile data available</div>;
+    return (
+      <div className="mt-20 flex min-h-[400px] items-center justify-center">
+        <div className="text-center">
+          <Label size="lg" className=" text-gray-600">
+            문제가 발생했습니다.
+          </Label>
+        </div>
+      </div>
+    );
   }
 
   return (
     <FadeIn isVisible={!isLoading && !error}>
-      <MyInfoSection
-        className="mt-10"
-        isMe={false}
-        bojHandle={memberProfileData?.bojHandle}
-        name={memberProfileData?.name}
-        introduction={memberProfileData?.introduction}
-        rating={memberProfileData?.tier ?? 'UNRATED'}
-        div={memberProfileData?.division ?? 'UNRATED'}
-      />
+      <MyInfoSection className="mt-10" isMe={false} memberProfileData={memberProfileData} />
       <Divider variant="horizontal" size="full" className="mt-4 bg-gray-900" />
       <HitingSection
         className="mt-6"

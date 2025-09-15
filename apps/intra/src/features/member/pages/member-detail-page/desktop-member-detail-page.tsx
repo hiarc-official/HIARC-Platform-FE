@@ -39,15 +39,7 @@ export function DesktopMemberDetailPage({
   return (
     <FadeIn isVisible={isLoading || error ? false : true}>
       <BackButton onClick={onBackClick} />
-      <MyInfoSection
-        className="mt-5"
-        isMe={false}
-        bojHandle={memberProfileData.bojHandle}
-        name={memberProfileData.name}
-        introduction={memberProfileData.introduction}
-        rating={memberProfileData.tier ?? 'UNRATED'}
-        div={memberProfileData.division ?? 'UNRATED'}
-      />
+      <MyInfoSection className="mt-5" isMe={false} memberProfileData={memberProfileData} />
       <Divider variant="horizontal" size="full" className="mt-4 bg-gray-900" />
       <TwoColumnLayout
         className="mt-8"

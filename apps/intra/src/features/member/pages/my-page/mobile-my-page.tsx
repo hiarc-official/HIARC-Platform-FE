@@ -6,7 +6,7 @@ import { MyInfoSection } from '@/features/member/components/my-info-section';
 import { StreakSection } from '@/features/member/components/streak-section';
 import { StudySection } from '@/features/member/components/study-section';
 import { useMyPageState } from '@/features/member/hooks/page/use-my-page-state';
-import { BackButton, Divider, LoadingDots, FadeIn } from '@hiarc-platform/ui';
+import { Divider, LoadingDots, FadeIn, Label } from '@hiarc-platform/ui';
 
 export function MobileMyPage(): React.ReactElement {
   const {
@@ -16,7 +16,6 @@ export function MobileMyPage(): React.ReactElement {
     myPageDataError,
     isDataReady,
     handleUpdateIntroduction,
-    handleBackClick,
   } = useMyPageState();
 
   if (!user) {
@@ -37,10 +36,11 @@ export function MobileMyPage(): React.ReactElement {
 
   if (myPageDataError) {
     return (
-      <div className="flex min-h-[400px] items-center justify-center">
+      <div className="mt-20 flex min-h-[400px] items-center justify-center">
         <div className="text-center">
-          <p className="mb-4 text-lg text-gray-600">문제가 발생했습니다.</p>
-          <BackButton onClick={handleBackClick} />
+          <Label size="lg" className=" text-gray-600">
+            문제가 발생했습니다.
+          </Label>
         </div>
       </div>
     );
@@ -51,12 +51,8 @@ export function MobileMyPage(): React.ReactElement {
       <MyInfoSection
         className="mt-10"
         isMe={true}
-        bojHandle={myPageData?.bojHandle}
-        name={myPageData?.name}
-        introduction={myPageData?.introduction}
+        memberProfileData={myPageData}
         onSave={handleUpdateIntroduction}
-        rating={myPageData?.tier ?? 'UNRATED'}
-        div={myPageData?.division ?? 'UNRATED'}
       />
       <Divider variant="horizontal" size="full" className="mt-4 bg-gray-900" />
       <HitingSection
