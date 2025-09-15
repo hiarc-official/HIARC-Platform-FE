@@ -58,6 +58,7 @@ export function DesktopMemberDetailPage({
               season={memberProfileData.rating?.seasonScore ?? 0}
               total={memberProfileData.rating?.totalScore ?? 0}
               today={memberProfileData.rating?.todayScore ?? 0}
+              ratingRecords={memberProfileData?.rating?.records ?? []}
             />
             <StreakSection
               className="mt-6"
