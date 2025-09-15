@@ -133,7 +133,7 @@ export default function ConditionalHeader(): React.ReactElement {
       <CustomLabeledSelector
         required={false}
         label=""
-        placeholder="학기를 불러오는 입니다..."
+        placeholder="로딩 중..."
         options={semesterOptions}
         value={selectedSemesterId || ''}
         onChange={setSelectedSemester}

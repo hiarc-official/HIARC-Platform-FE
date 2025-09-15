@@ -71,7 +71,7 @@ export function StudyListPage(): React.ReactElement {
           개설하기
         </Button>
       </div>
-      <div className="w-full  overflow-x-auto">
+      <div className="w-full overflow-x-auto">
         <div className="min-w-[1000px]">
           <StudyTable
             className="mt-6"
