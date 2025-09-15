@@ -43,7 +43,7 @@ export function DesktopHitingSection({
                 key={index}
                 name={record.description ?? ''}
                 rank={record.ranking ?? 0}
-                div={'DIV_1'}
+                div={record.division ?? 'DIV_1'}
               />
             ))}
           </div>
