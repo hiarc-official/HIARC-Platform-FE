@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Title, Button, LoadingDots, FadeIn } from '@hiarc-platform/ui';
+import { Title, Button, LoadingDots, FadeIn, Pagination } from '@hiarc-platform/ui';
 import { StudyTable } from '@/features/study/components';
 import { useStudies } from '@/features/study/hooks';
 import { useSemesterStoreInit, useSemesterStore } from '@/shared/hooks/use-semester-store';
@@ -71,7 +71,18 @@ export function StudyListPage(): React.ReactElement {
           개설하기
         </Button>
       </div>
-      <StudyTable className="mt-6" pageableModel={studiesData} onPageChange={handlePageChange} />
+      <div className="w-full overflow-x-auto">
+        <div className="min-w-[1000px]">
+          <StudyTable
+            className="mt-6"
+            pageableModel={studiesData}
+            onPageChange={handlePageChange}
+          />
+        </div>
+      </div>
+      <div className="flex w-full justify-center">
+        <Pagination className="mt-8" pageableModel={studiesData} onPageChange={handlePageChange} />
+      </div>
     </FadeIn>
   );
 }

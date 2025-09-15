@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Title, Button, DialogUtil } from '@hiarc-platform/ui';
+import { Title, Button, DialogUtil, Pagination } from '@hiarc-platform/ui';
 import { CompetitionTable } from '../../components/award-table';
 import { CompetitionSearchButtons } from '../../components/competition-bar/competition-search-buttons';
 import { useAwardList } from '../../hooks/use-award-list';
@@ -40,7 +40,7 @@ export function AwardListPage(): React.ReactElement {
   const handlePageChange = (page: number): void => {
     setSearchParams((prev) => ({
       ...prev,
-      page,
+      page: page - 1,
     }));
   };
 
@@ -59,7 +59,12 @@ export function AwardListPage(): React.ReactElement {
         </Button>
       </div>
       <CompetitionSearchButtons onSearch={handleSearch} onReset={handleReset} />
-      <CompetitionTable className="mt-6" data={data} onPageChange={handlePageChange} />
+      <div className="w-full overflow-x-auto">
+        <div className="min-w-[1000px]">
+          <CompetitionTable className="mt-6" data={data} onPageChange={handlePageChange} />
+        </div>
+      </div>
+      <Pagination className="mt-8" pageableModel={data} onPageChange={handlePageChange} />
     </div>
   );
 }

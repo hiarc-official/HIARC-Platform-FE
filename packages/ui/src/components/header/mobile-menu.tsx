@@ -15,6 +15,7 @@ interface MobileMenuProps {
   onClose(): void;
   menuItems: MenuItem[];
   alignment?: 'left' | 'right';
+  headerComponent?: React.ReactNode;
 }
 
 export function MobileMenu({
@@ -22,6 +23,7 @@ export function MobileMenu({
   onClose,
   menuItems,
   alignment = 'left',
+  headerComponent,
 }: MobileMenuProps): React.ReactElement {
   const router = useRouter();
 
@@ -94,6 +96,13 @@ export function MobileMenu({
             <IconButton iconSrc="/shared-assets/Close.svg" size="lg" onClick={onClose} />
           </div>
 
+          {/* 헤더 컴포넌트 */}
+          {headerComponent && (
+            <div className="border-b border-gray-200 px-4 py-4">
+              {headerComponent}
+            </div>
+          )}
+
           {/* 메뉴 아이템들 */}
           <div className="flex flex-col py-4">
             {menuItems.map((item, index) => (
@@ -133,6 +142,13 @@ export function MobileMenu({
             메뉴
           </Label>
         </div>
+
+        {/* 헤더 컴포넌트 */}
+        {headerComponent && (
+          <div className="border-b border-gray-200 px-4 py-4">
+            {headerComponent}
+          </div>
+        )}
 
         {/* 메뉴 아이템들 */}
         <div className="flex flex-col py-4">

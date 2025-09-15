@@ -38,7 +38,6 @@ export function CompetitionTable({
         <CommonTableHead className="bg-gray-100 text-gray-900" table={table} />
         <CommonTableBody table={table} onClick={() => {}} />
       </SlideFade>
-      <Pagination className="mt-8" pageableModel={data} onPageChange={handlePageChange} />
     </div>
   );
 }
