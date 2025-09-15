@@ -34,7 +34,7 @@ export const getStudentApplyListColumns = (
       id: 'name',
       accessorKey: 'name',
       enableSorting: false,
-      size: 0,
+      size: 100,
       meta: {
         headAlign: 'left',
         bodyAlign: 'left',
@@ -55,7 +55,7 @@ export const getStudentApplyListColumns = (
       id: 'bojHandle',
       accessorKey: 'bojHandle',
       enableSorting: false,
-      size: 0,
+      size: 100,
       meta: {
         headAlign: 'left',
         bodyAlign: 'left',

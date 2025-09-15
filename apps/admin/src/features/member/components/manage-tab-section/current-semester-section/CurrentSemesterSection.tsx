@@ -113,7 +113,7 @@ export function CurrentSemesterSection({
           </Button>
         </div>
         <div className="w-full overflow-x-auto">
-          <div className="min-w-[1200px]">
+          <div className="min-w-[1000px]">
             <MemberTable
               pageableModel={studentData}
               onPageChange={handlePageChange}

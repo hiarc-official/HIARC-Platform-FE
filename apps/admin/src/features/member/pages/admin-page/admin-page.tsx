@@ -31,13 +31,21 @@ export function AdminPage(): React.ReactElement {
           추가하기
         </Button>
       </div>
-      <AdminTable adminData={adminList || []} />
+      <div className="w-full  overflow-x-auto">
+        <div className="min-w-[600px]">
+          <AdminTable adminData={adminList || []} />
+        </div>
+      </div>
       <div className="flex w-full items-center">
         <Label size={'lg'} weight="bold">
           스터디장
         </Label>
       </div>
-      <InstructorTable instructorData={instructorList || []} />
+      <div className="w-full  overflow-x-auto">
+        <div className="min-w-[400px]">
+          <InstructorTable instructorData={instructorList || []} />
+        </div>
+      </div>
     </div>
   );
 }

@@ -5,12 +5,18 @@ import { MobileHeader, MenuItem, DialogUtil } from '@hiarc-platform/ui';
 import Header from './Header';
 import { useAuthStore } from '../stores/auth-store';
 import { useLogout } from '@/features/auth';
+import { useSemesterStoreInit, useSemesterStore } from '@/shared/hooks/use-semester-store';
+import { CustomLabeledSelector } from './custom-labeled-selector';
+import { SemesterAddDialog } from '@/features/semester/components/semester-add-dialog';
 
 export default function ConditionalHeader(): React.ReactElement {
   const pathname = usePathname();
   const router = useRouter();
   const logoutMutation = useLogout();
 
+  // Initialize semester store on component mount
+  useSemesterStoreInit();
+  const { semesterOptions, selectedSemesterId, setSelectedSemester } = useSemesterStore();
   const { isAuthenticated } = useAuthStore();
   const isAnnouncementList = pathname === '/announcement';
   const isAnnouncementWrite = pathname.startsWith('/announcement/write');
@@ -51,6 +57,10 @@ export default function ConditionalHeader(): React.ReactElement {
         cancelText: '취소',
       }
     );
+  };
+
+  const handleAddSemester = (): void => {
+    DialogUtil.showComponent(<SemesterAddDialog />);
   };
 
   // 모바일 메뉴 아이템들
@@ -119,6 +129,21 @@ export default function ConditionalHeader(): React.ReactElement {
 
     const title = getTitle();
 
+    const headerComponent = (
+      <CustomLabeledSelector
+        required={false}
+        label=""
+        placeholder="학기를 불러오는 입니다..."
+        options={semesterOptions}
+        value={selectedSemesterId || ''}
+        onChange={setSelectedSemester}
+        className="w-full border-gray-900 font-normal"
+        showAddButton={true}
+        addButtonLabel="학기 추가"
+        onAddClick={handleAddSemester}
+      />
+    );
+
     return (
       <>
         {/* 모바일 전용 헤더 - 플로팅 */}
@@ -132,6 +157,7 @@ export default function ConditionalHeader(): React.ReactElement {
             menuItems={menuItems}
             menuAlignment="right"
             isAuthenticated={isAuthenticated}
+            headerComponent={headerComponent}
           />
         </div>
 

@@ -123,7 +123,7 @@ export function RecruitManageSection(): React.ReactElement {
           <div>신청 명단 총 {recruitmentData?.totalElements}건</div>
         </div>
         <div className="w-full overflow-x-auto">
-          <div className="min-w-[1200px]">
+          <div className="min-w-[1000px]">
             <MemberRecruitTable
               pageableModel={recruitmentData}
               onPageChange={setPage}

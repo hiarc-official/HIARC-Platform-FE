@@ -23,6 +23,7 @@ interface MobileHeaderProps {
   onLoginClick?(): void;
   onLogoutClick?(): void;
   isAuthenticated?: boolean;
+  headerComponent?: React.ReactNode;
 }
 
 export function MobileHeader({
@@ -35,6 +36,7 @@ export function MobileHeader({
   onLoginClick,
   onLogoutClick,
   isAuthenticated,
+  headerComponent,
 }: MobileHeaderProps): React.ReactElement {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -100,6 +102,7 @@ export function MobileHeader({
           onClose={handleMenuClose}
           menuItems={menuItems}
           alignment={menuAlignment}
+          headerComponent={headerComponent}
         />
       </>
     );
@@ -153,6 +156,7 @@ export function MobileHeader({
         onClose={handleMenuClose}
         menuItems={menuItems}
         alignment={menuAlignment}
+        headerComponent={headerComponent}
       />
     </>
   );
