@@ -80,10 +80,8 @@ export function RecruitManageSection(): React.ReactElement {
         </Button>
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
-            <button className="flex cursor-pointer gap-2 rounded-md bg-primary-200 px-4 py-2 transition-all duration-200 hover:opacity-70">
-              <Label size="md" weight="regular" className="cursor-pointer text-white">
-                모집문구 관리
-              </Label>
+            <button className="flex cursor-pointer items-center gap-2 rounded-md bg-primary-200 px-4 py-2 transition-all duration-200 hover:opacity-70">
+              <Label className="text-white">모집문구관리</Label>
               <Image src="/shared-assets/Down.svg" alt="down" width={11} height={7} />
             </button>
           </PopoverTrigger>
