@@ -17,7 +17,7 @@ const HeadWrapper = styled.div`
 const adminInputs = [
   '새로운 시즌 시작하기',
   '새로운 이벤트 시작하기',
-  '현재 시즌 수정하기',
+  '시즌 정보 수정하기',
   '이벤트 수정하기',
 ];
 

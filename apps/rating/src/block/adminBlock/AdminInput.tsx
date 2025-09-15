@@ -106,7 +106,7 @@ const AdminInput = ({ BlockName }: { BlockName: string }) => {
 
   // 시즌/이벤트 수정하기인 경우 목록 불러오기
   useEffect(() => {
-    if (BlockName === '현재 시즌 수정하기') {
+    if (BlockName === '시즌 정보 수정하기') {
       loadSeasons();
     } else if (BlockName === '이벤트 수정하기') {
       loadEvents();
@@ -153,7 +153,7 @@ const AdminInput = ({ BlockName }: { BlockName: string }) => {
 
   const handleSubmit = async () => {
     // 시즌 수정하기인 경우 시즌 선택 확인
-    if (BlockName === '현재 시즌 수정하기' && !selectedSeasonId) {
+    if (BlockName === '시즌 정보 수정하기' && !selectedSeasonId) {
       alert('수정할 시즌을 선택해주세요.');
       return;
     }
@@ -192,7 +192,7 @@ const AdminInput = ({ BlockName }: { BlockName: string }) => {
       <EX>{Ex[BlockName]}</EX>
 
       {/* 시즌 수정하기인 경우 시즌 선택기 표시 */}
-      {BlockName === '현재 시즌 수정하기' && (
+      {BlockName === '시즌 정보 수정하기' && (
         <SeasonSelector>
           <SeasonLabel>수정할 시즌 선택:</SeasonLabel>
           <SeasonSelect value={selectedSeasonId || ''} onChange={handleSeasonChange}>

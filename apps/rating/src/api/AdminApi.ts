@@ -25,7 +25,7 @@ export const sendAdminInput = async (blockName: string, inputValue: string, para
         return '/admin/rating/season';
       case '새로운 이벤트 시작하기':
         return '/admin/rating/event';
-      case '현재 시즌 수정하기':
+      case '시즌 정보 수정하기':
         return `/admin/rating/season/${params}`;
       case '이벤트 수정하기':
         return `/admin/rating/event/${params}`;
@@ -42,7 +42,7 @@ export const sendAdminInput = async (blockName: string, inputValue: string, para
 
   try {
     // 수정 요청인 경우 PATCH 메서드 사용, 나머지는 POST 사용
-    const isPatchRequest = blockName === '현재 시즌 수정하기' || blockName === '이벤트 수정하기';
+    const isPatchRequest = blockName === '시즌 정보 수정하기' || blockName === '이벤트 수정하기';
     const response = isPatchRequest
       ? await apiClient.patch(apiUrl, parsedData)
       : await apiClient.post(apiUrl, parsedData);
