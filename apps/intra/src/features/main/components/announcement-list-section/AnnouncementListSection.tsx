@@ -53,11 +53,13 @@ export function AnnouncementListSection({
             <div className="flex-shrink-0">
               <SlideFade key="rating-section">
                 <div>
-                  <RatingListItem
-                    key="rating-season"
-                    title={`${ratingData.season.title} : ${DateUtil.formatKoreanDate(ratingData.season.startDateTime)} ~ ${DateUtil.formatKoreanDate(ratingData.season.endDateTime)}`}
-                    category="RATING"
-                  />
+                  {ratingData.season.title && (
+                    <RatingListItem
+                      key="rating-season"
+                      title={`${ratingData.season.title} : ${DateUtil.formatKoreanDate(ratingData.season.startDateTime)} ~ ${DateUtil.formatKoreanDate(ratingData.season.endDateTime)}`}
+                      category="RATING"
+                    />
+                  )}
                   {ratingData.event.title && (
                     <RatingListItem
                       key="rating-event"
