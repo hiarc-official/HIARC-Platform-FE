@@ -26,7 +26,10 @@ export function AwardSection({
   return (
     <div className={cn('flex w-full flex-col', className)}>
       <div className="flex items-center justify-between">
-        <Title size="sm" weight="bold">
+        <Title size="sm" weight="bold" className="hidden md:block">
+          참여한 대회
+        </Title>
+        <Title size="xs" weight="bold" className="md:hidden">
           참여한 대회
         </Title>
         {isMe && (

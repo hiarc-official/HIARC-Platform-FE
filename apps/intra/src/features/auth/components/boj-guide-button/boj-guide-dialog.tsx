@@ -61,13 +61,18 @@ export function BojGuideDialog({ showBackground = true }: BojGuideDialogProps): 
               </Button>
             </div>
             <div>
-              <div className="mb-2 flex">
-                <Label size="lg" weight="regular" className="mr-2">
-                  2.
-                </Label>
-                <Label size="lg" weight="regular">
-                  백준 사이트에 가입한 후, 소속 학교를 &#39;홍익대학교&#39;로 설정해주세요. 학회
-                  활동 시 활용될 예정입니다.
+              <div className="flex flex-col">
+                <div className="mb-2 flex">
+                  <Label size="lg" weight="regular" className="mr-2">
+                    2.
+                  </Label>
+                  <Label size="lg" weight="regular">
+                    백준 사이트에 가입한 후, 소속 학교를 &#39;홍익대학교&#39;로 설정해주세요. 학회
+                    활동 시 활용될 예정입니다.
+                  </Label>
+                </div>
+                <Label size="sm" weight="regular" className="mb-2 text-gray-500">
+                  {'* solved.ac > 프로필 > 강제 정보 갱신 과정이 필요할 수 있습니다.'}
                 </Label>
               </div>
               <Button
@@ -90,6 +95,7 @@ export function BojGuideDialog({ showBackground = true }: BojGuideDialogProps): 
                 />
               </Button>
             </div>
+
             <div>
               <div className="mb-2 flex">
                 <Label size="lg" weight="regular" className="mr-2">

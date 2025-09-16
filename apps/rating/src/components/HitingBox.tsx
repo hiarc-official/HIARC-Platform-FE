@@ -53,7 +53,7 @@ const HitingBox = ({ divNum }: { divNum: number }) => {
             rank={index + 1}
             id={item.bojHandle}
             tier={item.tier}
-            totalHiting={item.totalScore}
+            totalHiting={item.currentSeasonScore == null ? item.totalScore : item.currentSeasonScore}
           />
         ))}
       </TackContainer>

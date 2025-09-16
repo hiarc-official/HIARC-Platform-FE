@@ -11,7 +11,6 @@ import { BackButton, Divider, TwoColumnLayout, LoadingDots, FadeIn } from '@hiar
 export function DesktopMyPage(): React.ReactElement {
   const {
     user,
-    hydrated,
     myPageData,
     myPageDataLoading,
     myPageDataError,
@@ -19,14 +18,6 @@ export function DesktopMyPage(): React.ReactElement {
     handleUpdateIntroduction,
     handleBackClick,
   } = useMyPageState();
-
-  if (!hydrated) {
-    return (
-      <div className="flex min-h-[400px] items-center justify-center">
-        <LoadingDots />
-      </div>
-    );
-  }
 
   if (!user) {
     return (
@@ -60,12 +51,9 @@ export function DesktopMyPage(): React.ReactElement {
       <BackButton onClick={handleBackClick} />
       <MyInfoSection
         className="mt-5"
-        bojHandle={myPageData?.bojHandle}
-        name={myPageData?.name}
-        introduction={myPageData?.introduction}
+        isMe={true}
+        memberProfileData={myPageData}
         onSave={handleUpdateIntroduction}
-        rating={myPageData?.tier ?? 'UNRATED'}
-        div={myPageData?.division ?? 'UNRATED'}
       />
       <Divider variant="horizontal" size="full" className="mt-4 bg-gray-900" />
       <TwoColumnLayout
@@ -76,11 +64,18 @@ export function DesktopMyPage(): React.ReactElement {
               season={myPageData?.rating?.seasonScore ?? 0}
               total={myPageData?.rating?.totalScore ?? 0}
               today={myPageData?.rating?.todayScore ?? 0}
+              ratingRecords={myPageData?.rating?.records ?? []}
             />
-            <StreakSection className="mt-6" />
+            <StreakSection
+              className="mt-6"
+              totalDays={myPageData?.streak?.currentTotalStreak}
+              currentSeasonDays={myPageData?.streak?.currentSeasonStreak}
+              streakStartAt={myPageData?.streak?.streakStartAt}
+              streakData={myPageData?.streak?.streakData ?? []}
+            />
           </>
         }
-        right={<AwardSection awardList={myPageData?.award ?? []} />}
+        right={<AwardSection awardList={myPageData?.award ?? []} isMe={true} />}
       />
       <Divider variant="horizontal" size="full" className="mt-8 bg-gray-900" />
       <StudySection className="mt-8" />

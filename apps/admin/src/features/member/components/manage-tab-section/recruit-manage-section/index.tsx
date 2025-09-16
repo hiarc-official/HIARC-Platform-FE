@@ -5,6 +5,7 @@ import {
   Button,
   DialogUtil,
   Label,
+  Pagination,
   Popover,
   PopoverContent,
   PopoverTrigger,
@@ -79,10 +80,8 @@ export function RecruitManageSection(): React.ReactElement {
         </Button>
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
-            <button className="flex cursor-pointer gap-2 rounded-md bg-primary-200 px-4 py-2 transition-all duration-200 hover:opacity-70">
-              <Label size="md" weight="regular" className="cursor-pointer text-white">
-                모집문구 관리
-              </Label>
+            <button className="flex cursor-pointer items-center gap-2 rounded-md bg-primary-200 px-4 py-2 transition-all duration-200 hover:opacity-70">
+              <Label className="text-white">모집문구관리</Label>
               <Image src="/shared-assets/Down.svg" alt="down" width={11} height={7} />
             </button>
           </PopoverTrigger>
@@ -121,11 +120,25 @@ export function RecruitManageSection(): React.ReactElement {
         <div className="flex items-center justify-between text-md">
           <div>신청 명단 총 {recruitmentData?.totalElements}건</div>
         </div>
-        <MemberRecruitTable
-          pageableModel={recruitmentData}
-          onPageChange={setPage}
-          showApprovalButton={isApplicationStatusEditable}
-        />
+        <div className="w-full overflow-x-auto">
+          <div className="min-w-[1000px]">
+            <MemberRecruitTable
+              pageableModel={recruitmentData}
+              onPageChange={setPage}
+              showApprovalButton={isApplicationStatusEditable}
+              showPagination={false}
+            />
+          </div>
+        </div>
+        {recruitmentData && (
+          <div className="flex w-full justify-center">
+            <Pagination
+              className="mt-8"
+              pageableModel={recruitmentData}
+              onPageChange={(page) => setPage(page - 1)}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

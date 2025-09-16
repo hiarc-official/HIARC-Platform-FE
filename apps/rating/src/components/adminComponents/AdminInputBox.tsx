@@ -55,7 +55,11 @@ export const AdminInputBox = ({ blockName }: { blockName: string }) => {
         handle
       );
       if (response) {
-        setModalContent(JSON.stringify(response.data));
+        // 핸들별 유저 정보 확인하기인 경우 response.data를 직접 전달
+        const data = blockName === '핸들별 유저 정보 확인하기'
+          ? response.data
+          : response.data || response;
+        setModalContent(data);
         setIsModalOpen(true);
       } else {
         setModalContent('핸들 다시 입력하셈 ㅇㅇ');

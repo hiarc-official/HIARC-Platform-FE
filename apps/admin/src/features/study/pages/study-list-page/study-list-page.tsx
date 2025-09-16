@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Title, Button, LoadingDots, FadeIn } from '@hiarc-platform/ui';
+import { Title, Button, LoadingDots, FadeIn, Pagination } from '@hiarc-platform/ui';
 import { StudyTable } from '@/features/study/components';
 import { useStudies } from '@/features/study/hooks';
 import { useSemesterStoreInit, useSemesterStore } from '@/shared/hooks/use-semester-store';
@@ -58,16 +58,31 @@ export function StudyListPage(): React.ReactElement {
   }
 
   return (
-    <FadeIn isVisible={Boolean(studiesData)} duration={0.4} className="flex flex-col">
+    <FadeIn isVisible={Boolean(studiesData)} duration={0.4} className="flex flex-col pt-10 md:pt-0">
       <div className="flex justify-between">
-        <Title size="sm" weight="bold">
+        <Title size="sm" weight="bold" className="hidden md:block">
           스터디
         </Title>
-        <Button size="md" className="w-[100px]" onClick={handleCreateStudy}>
+        <div className="md:hidden" />
+        <Button size="md" onClick={handleCreateStudy} className="hidden w-[100px] md:block">
+          개설하기
+        </Button>
+        <Button size="xs" onClick={handleCreateStudy} className="md:hidden">
           개설하기
         </Button>
       </div>
-      <StudyTable className="mt-6" pageableModel={studiesData} onPageChange={handlePageChange} />
+      <div className="w-full overflow-x-auto">
+        <div className="min-w-[1000px]">
+          <StudyTable
+            className="mt-6"
+            pageableModel={studiesData}
+            onPageChange={handlePageChange}
+          />
+        </div>
+      </div>
+      <div className="flex w-full justify-center">
+        <Pagination className="mt-8" pageableModel={studiesData} onPageChange={handlePageChange} />
+      </div>
     </FadeIn>
   );
 }

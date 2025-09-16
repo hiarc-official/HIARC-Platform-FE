@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Title, Button, DialogUtil } from '@hiarc-platform/ui';
+import { Title, Button, DialogUtil, Pagination } from '@hiarc-platform/ui';
 import { CompetitionTable } from '../../components/award-table';
 import { CompetitionSearchButtons } from '../../components/competition-bar/competition-search-buttons';
 import { useAwardList } from '../../hooks/use-award-list';
@@ -22,12 +22,12 @@ export function AwardListPage(): React.ReactElement {
   const handleSearch = (params: {
     organization: string;
     awardName: string;
-    memberName: string;
+    memberNameHandle: string;
   }): void => {
     setSearchParams({
       organization: params.organization || undefined,
       awardName: params.awardName || undefined,
-      memberName: params.memberName || undefined,
+      memberNameHandle: params.memberNameHandle || undefined,
       page: 0,
       size: 10,
     });
@@ -38,24 +38,33 @@ export function AwardListPage(): React.ReactElement {
   };
 
   const handlePageChange = (page: number): void => {
-    setSearchParams(prev => ({
+    setSearchParams((prev) => ({
       ...prev,
-      page,
+      page: page - 1,
     }));
   };
 
   return (
-    <div className="flex w-full flex-col gap-6 py-4">
+    <div className="flex w-full flex-col gap-6 py-4 pt-10 md:pt-0">
       <div className="flex justify-between">
-        <Title size="sm" weight="bold">
+        <div className="md:hidden" />
+        <Title size="sm" weight="bold" className="hidden md:block">
           대회
         </Title>
-        <Button size="md" onClick={handleAddAward}>
+        <Button size="md" onClick={handleAddAward} className="hidden w-[100px] md:block">
+          추가하기
+        </Button>
+        <Button size="xs" onClick={handleAddAward} className="md:hidden">
           추가하기
         </Button>
       </div>
       <CompetitionSearchButtons onSearch={handleSearch} onReset={handleReset} />
-      <CompetitionTable className="mt-6" data={data} onPageChange={handlePageChange} />
+      <div className="w-full overflow-x-auto">
+        <div className="min-w-[1000px]">
+          <CompetitionTable className="mt-6" data={data} onPageChange={handlePageChange} />
+        </div>
+      </div>
+      <Pagination className="mt-8" pageableModel={data} onPageChange={handlePageChange} />
     </div>
   );
 }

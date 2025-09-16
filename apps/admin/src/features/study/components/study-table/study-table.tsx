@@ -164,11 +164,6 @@ export function StudyTable({
           }}
         />
       </SlideFade>
-      {pageableModel && onPageChange && (
-        <div className="flex w-full justify-center">
-          <Pagination className="mt-8" pageableModel={pageableModel} onPageChange={onPageChange} />
-        </div>
-      )}
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import ConditionalHeader from '@/shared/components/ConditionalHeader';
 import Footer from '@/shared/components/Footer';
+import { Analytics } from '@vercel/analytics/next';
 
 // 로컬 폰트 import
 import '@fontsource/pretendard/400.css';
@@ -29,6 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="flex min-h-screen flex-col">
+        <Analytics />
         <Providers>
           <ConditionalHeader />
           <main className="flex-1">{children}</main>

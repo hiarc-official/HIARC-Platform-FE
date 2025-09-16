@@ -1,3 +1,9 @@
+export enum Division {
+  DIV_1 = 1,
+  DIV_2 = 2,
+  DIV_3 = 3,
+}
+
 export interface DivData {
   memberId: number;
   name: string;
@@ -8,16 +14,20 @@ export interface DivData {
   currentSeasonScore: number;
   currentEventScore: number;
 }
+export interface Streak {
+  today: string;
+  streakStartAt: string;
+  currentTotalStreak: number;
+  currentSeasonStreak: number;
+}
 
 export interface StreakData {
   memberId: number;
   name: string;
   bojHandle: string;
   tier: number;
-  div: number;
-  streakStartAt: string;
-  currentTotalStreak: number;
-  currentSeasonStreak: number;
+  division: string;
+  streak: Streak;
 }
 
 export interface EventData {

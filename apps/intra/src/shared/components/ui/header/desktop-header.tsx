@@ -56,6 +56,7 @@ export function DesktopHeader({
         setShowError(true);
       }
     } catch (error) {
+      console.error('Error fetching member ID:', error);
       setShowError(true);
     } finally {
       setIsFetching(false);
@@ -122,8 +123,7 @@ export function DesktopHeader({
         <Input
           type="search"
           variant="search"
-          // placeholder={isAuthenticated ? 'BOJ 핸들명을 입력하세요' : '로그인 후 검색 가능합니다'}
-          placeholder="기능 준비 중 입니다"
+          placeholder={isAuthenticated ? 'BOJ 핸들명을 입력하세요' : '로그인 후 검색 가능합니다'}
           className="h-[44px] w-[328px]"
           value={searchInput}
           onChange={(event) => setSearchInput(event.target.value)}
@@ -132,8 +132,7 @@ export function DesktopHeader({
               handleSearch(searchInput);
             }
           }}
-          // disabled={!isAuthenticated || isFetching}
-          disabled
+          disabled={!isAuthenticated || isFetching}
         />
         {isAuthenticated ? (
           <AuthenticatedUserSection />

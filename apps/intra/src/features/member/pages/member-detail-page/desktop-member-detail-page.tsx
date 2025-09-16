@@ -39,15 +39,7 @@ export function DesktopMemberDetailPage({
   return (
     <FadeIn isVisible={isLoading || error ? false : true}>
       <BackButton onClick={onBackClick} />
-      <MyInfoSection
-        className="mt-5"
-        isMe={false}
-        bojHandle={memberProfileData.bojHandle}
-        name={memberProfileData.name}
-        introduction={memberProfileData.introduction}
-        rating={memberProfileData.tier ?? 'UNRATED'}
-        div={memberProfileData.division ?? 'UNRATED'}
-      />
+      <MyInfoSection className="mt-5" isMe={false} memberProfileData={memberProfileData} />
       <Divider variant="horizontal" size="full" className="mt-4 bg-gray-900" />
       <TwoColumnLayout
         className="mt-8"
@@ -58,8 +50,15 @@ export function DesktopMemberDetailPage({
               season={memberProfileData.rating?.seasonScore ?? 0}
               total={memberProfileData.rating?.totalScore ?? 0}
               today={memberProfileData.rating?.todayScore ?? 0}
+              ratingRecords={memberProfileData?.rating?.records ?? []}
             />
-            <StreakSection className="mt-6" />
+            <StreakSection
+              className="mt-6"
+              totalDays={memberProfileData?.streak?.currentTotalStreak}
+              currentSeasonDays={memberProfileData?.streak?.currentSeasonStreak}
+              streakStartAt={memberProfileData?.streak?.streakStartAt}
+              streakData={memberProfileData?.streak?.streakData ?? []}
+            />
           </>
         }
         right={<AwardSection awardList={memberProfileData.award ?? []} />}

@@ -1,40 +1,28 @@
-import {
-  cn,
-  DialogUtil,
-  IconButton,
-  Label,
-  RatingChip,
-  RatingChipProps,
-  Title,
-} from '@hiarc-platform/ui';
+import { cn, DialogUtil, IconButton, Label, RatingChip, Title } from '@hiarc-platform/ui';
 import React from 'react';
 import { MyInfoDialog } from './my-info-dialog';
+import { MemberProfile } from '../../types/model/member-profile';
+import { useAuthStore } from '@/shared/store/auth-store';
 
 interface MyInfoSectionProps {
-  name?: string | null;
-  bojHandle?: string | null;
-  introduction?: string | null;
-  rating?: RatingChipProps['rating'];
-  div?: RatingChipProps['rating'];
   className?: string;
   isMe?: boolean;
+  memberProfileData?: MemberProfile;
   onSave?(introduction: string): Promise<void>;
 }
 
 export function MyInfoSection({
   className,
-  introduction,
-  name,
-  bojHandle,
   onSave,
-  rating,
-  div,
   isMe,
+  memberProfileData,
 }: MyInfoSectionProps): React.ReactElement {
+  const { user } = useAuthStore();
+
   const handleOpenDialog = (): void => {
     DialogUtil.showComponent(
       <MyInfoDialog
-        initialValue={introduction || ''}
+        initialValue={memberProfileData?.introduction || ''}
         onSave={onSave}
         onCancel={() => {
           console.log('My info dialog cancelled');
@@ -44,8 +32,8 @@ export function MyInfoSection({
   };
 
   const handleBojHandleClick = (): void => {
-    if (bojHandle) {
-      window.open(`https://solved.ac/profile/${bojHandle}`, '_blank');
+    if (memberProfileData?.bojHandle) {
+      window.open(`https://solved.ac/profile/${memberProfileData?.bojHandle}`, '_blank');
     }
   };
 
@@ -61,13 +49,15 @@ export function MyInfoSection({
               className="cursor-pointer"
               onClick={handleBojHandleClick}
             >
-              {bojHandle}
+              {memberProfileData?.bojHandle}
             </Title>
             <Title size="sm" weight="semibold" disableAnimation={true} className="text-gray-500">
-              ({name})
+              ({memberProfileData?.name})
             </Title>
-            <RatingChip rating={rating} />
-            <RatingChip rating={div} />
+            <RatingChip rating={memberProfileData?.tier ?? 'UNRATED'} />
+            {isMe && user?.memberRole === 'ASSOCIATE' ? null : (
+              <RatingChip rating={memberProfileData?.division ?? 'UNRATED'} />
+            )}
           </div>
           {isMe && (
             <IconButton
@@ -77,8 +67,8 @@ export function MyInfoSection({
             />
           )}
         </div>
-        <Label className={cn(!introduction ? 'text-gray-500' : 'text-gray-900')}>
-          {introduction ?? '자기소개가 없습니다.'}
+        <Label className={cn(!memberProfileData?.introduction ? 'text-gray-500' : 'text-gray-900')}>
+          {memberProfileData?.introduction ?? '자기소개가 없습니다.'}
         </Label>
       </div>
     </div>

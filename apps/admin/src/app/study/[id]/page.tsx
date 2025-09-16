@@ -43,8 +43,8 @@ export default function StudyPage(): React.ReactElement {
   }
 
   const contentComponent = (
-    <FadeIn isVisible={Boolean(studyData)} duration={0.4} className="flex flex-col">
-      <BackButton onClick={() => router.back()} />
+    <FadeIn isVisible={Boolean(studyData)} duration={0.4} className="mt-5 flex flex-col md:mt-0">
+      <BackButton onClick={() => router.back()} className="hidden md:flex" />
       <StudyInfoSection
         className="pt-5"
         isAdmin={true}
