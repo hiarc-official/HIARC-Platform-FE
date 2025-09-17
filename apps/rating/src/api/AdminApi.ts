@@ -125,3 +125,16 @@ export const getEventRanking = async (eventId: number) => {
     throw error;
   }
 };
+
+// 핸들로 id 가져오기
+
+export const getId = async (handle: string) => {
+  try {
+    const response = await apiClient.get(`/members/search`, { params: { bojHandle: handle } });
+
+    return response;
+  } catch (error) {
+    alert('검색하신 핸들이 존재하지 않습니다');
+    console.error(error);
+  }
+};

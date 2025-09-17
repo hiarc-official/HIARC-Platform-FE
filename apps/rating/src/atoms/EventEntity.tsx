@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
 import TierImg from '../util/TierImg';
 import Color from '../util/Color';
 
@@ -45,16 +44,16 @@ const EventEntity = ({
   handle,
   tier = 31,
   eventHiting,
+  memberId,
 }: {
   rank: number;
   handle: string;
   tier: number;
   eventHiting: number;
+  memberId: number;
 }) => {
-  const navigate = useNavigate();
-
   const handleClick = () => {
-    navigate(`/search?handle=${handle}`);
+    window.location.href = `${import.meta.env.VITE_INTRA_API_URL}/member/${memberId}`;
   };
 
   // ID가 8글자보다 길면 8글자만 표시하고 "..." 추가
