@@ -35,7 +35,7 @@ export const fetchRankingData = async (selected: number) => {
         bojHandle: item.bojHandle,
         tier: item.tier,
         today: item.dailyScore,
-        total: item.totalScore,
+        total: item.currentSeasonScore ?? item.totalScore,
       })),
       graphData: response.data.streakRatio,
     };
