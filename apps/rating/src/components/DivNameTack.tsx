@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
 import TierImg from '../util/TierImg';
 import Color from '../util/Color';
 
@@ -43,16 +42,16 @@ const DivNameTack = ({
   id,
   tier = 31,
   totalHiting,
+  memberId,
 }: {
   rank: number;
   id: string;
   tier: number;
   totalHiting: number;
+  memberId: number;
 }) => {
-  const navigate = useNavigate();
-
   const handleClick = () => {
-    navigate(`/search?handle=${id}`);
+    window.location.href = `${import.meta.env.VITE_INTRA_API_URL}/member/${memberId}`;
   };
 
   // ID가 8글자보다 길면 8글자만 표시하고 "..." 추가

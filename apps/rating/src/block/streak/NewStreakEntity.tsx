@@ -43,6 +43,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 557px;
+  cursor: pointer;
 
   @media (max-width: 480px) {
     width: 335px;
@@ -64,10 +65,12 @@ const NewStreakEntity = ({ member }: Props) => {
   const divisionEnum = parseDivisionString(member.division);
   const divisionNumber = getDivisionNumber(divisionEnum);
 
-  // tier를 number로 변환
+  const handleClick = () => {
+    window.location.href = `${import.meta.env.VITE_INTRA_API_URL}/member/${member.memberId}`;
+  };
 
   return (
-    <Wrapper>
+    <Wrapper onClick={handleClick}>
       <Up>
         <InfoEntity handle={member.bojHandle} div={divisionNumber} tier={member.tier} />
         <Devider></Devider>
