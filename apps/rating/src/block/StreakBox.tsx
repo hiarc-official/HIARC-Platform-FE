@@ -74,6 +74,7 @@ const StreakBox = () => {
                 divNum={parseDivisionString(streak.division)}
                 totalStreak={streak.streak.currentTotalStreak}
                 startDate={streak.streak.streakStartAt}
+                memberId={streak.memberId}
               />
             );
           })}
