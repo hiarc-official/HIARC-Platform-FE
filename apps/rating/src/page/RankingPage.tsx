@@ -76,6 +76,7 @@ const DivPage = () => {
       tier: number;
       today: number;
       total: number;
+      memberId: number;
     }[]
   >([]);
   const [error, setError] = useState<string | null>(null);

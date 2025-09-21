@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import CircularProgress from '../atoms/CircularProgress';
 import Color from '../util/Color';
 import { NumberToStreakColor } from '../util/NumberToStreakColor';
-import { useNavigate } from 'react-router-dom';
 
 const Wrapper = styled.div`
   width: 460px;
@@ -106,6 +105,7 @@ const StreakEntity = ({
   div,
   handle,
   startDate,
+  memberId,
 }: {
   seasonStreak: number;
   seasonTotal: number;
@@ -114,10 +114,10 @@ const StreakEntity = ({
   div: number;
   handle: string;
   startDate: string;
+  memberId: number;
 }) => {
-  const navigate = useNavigate();
   const handleClick = () => {
-    navigate(`/search?handle=${handle}`);
+    window.location.href = `${import.meta.env.VITE_INTRA_API_URL}/member/${memberId}`;
   };
   return (
     <Wrapper onClick={handleClick}>

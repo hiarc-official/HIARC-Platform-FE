@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import Color from '../util/Color';
 import TierImg from '../util/TierImg';
 import EventImg from '../assets/eventImg.png';
-import { useNavigate } from 'react-router-dom';
 const Wrapper = styled.div`
   height: 40px;
   width: 100%;
@@ -64,6 +63,7 @@ const RankingEntity = ({
   event,
   today,
   total,
+  memberId,
 }: {
   ranking: number;
   handle: string;
@@ -71,10 +71,10 @@ const RankingEntity = ({
   event: boolean;
   today: number;
   total: number;
+  memberId: number;
 }) => {
-  const navigate = useNavigate();
   const handleClick = () => {
-    navigate(`/search?handle=${handle}`);
+    window.location.href = `${import.meta.env.VITE_INTRA_API_URL}/member/${memberId}`;
   };
   return (
     <Wrapper onClick={handleClick}>

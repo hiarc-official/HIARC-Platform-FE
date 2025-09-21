@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import Color from '../util/Color';
 import TierImg from '../util/TierImg';
-import { useNavigate } from 'react-router-dom';
 
 const Wrapper = styled.div`
   width: 224px;
@@ -82,17 +81,17 @@ const IndividualBlock = ({
   divNum,
   totalStreak,
   startDate,
+  memberId,
 }: {
   tier: number;
   handle: string;
   divNum: number;
   totalStreak: number;
   startDate: string;
+  memberId: number;
 }) => {
-  const navigate = useNavigate();
-
   const handleClick = () => {
-    navigate(`/search?handle=${handle}`);
+    window.location.href = `${import.meta.env.VITE_INTRA_API_URL}/member/${memberId}`;
   };
   const handleDisplay = handle.length > 8 ? handle.slice(0, 8) + '...' : handle;
 

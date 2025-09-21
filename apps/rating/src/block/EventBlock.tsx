@@ -45,6 +45,7 @@ const EventBlock = () => {
             tier={event.tier}
             eventHiting={event.currentEventScore}
             rank={index + 1}
+            memberId={event.memberId}
           />
         ))}
       </MainContainer>

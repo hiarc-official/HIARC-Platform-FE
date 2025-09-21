@@ -221,7 +221,7 @@ export const studyInstructorApi = {
 
   CHECK_ASSIGNMENT: async (studyId: number, round: number): Promise<void> => {
     try {
-      await apiClient.post(`/studies/${studyId}/instructor/lecture/${round}/assignment/status`);
+      await apiClient.patch(`/studies/${studyId}/instructor/lecture/${round}/assignment/status`);
     } catch (error) {
       console.error('[STUDY API] CHECK_ASSIGNMENT 에러:', error);
       throw error;

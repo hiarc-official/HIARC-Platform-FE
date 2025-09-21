@@ -63,7 +63,7 @@ const Devider = styled.div`
 
 interface Props {
   currentTotalStreak: number;
-  currentSeasonStreak: number;
+  currentSeasonStreak: number | null;
 }
 
 const StreakInformation = ({ currentTotalStreak, currentSeasonStreak }: Props) => {
@@ -76,14 +76,18 @@ const StreakInformation = ({ currentTotalStreak, currentSeasonStreak }: Props) =
           <Days>days</Days>
         </Down>
       </Card>
-      <Devider></Devider>
-      <Card>
-        <Up>이번시즌</Up>
-        <Down>
-          <Number>{currentSeasonStreak}</Number>
-          <Days>days</Days>
-        </Down>
-      </Card>
+      {currentSeasonStreak !== null && (
+        <>
+          <Devider></Devider>
+          <Card>
+            <Up>이번시즌</Up>
+            <Down>
+              <Number>{currentSeasonStreak}</Number>
+              <Days>days</Days>
+            </Down>
+          </Card>
+        </>
+      )}
     </Wrapper>
   );
 };
