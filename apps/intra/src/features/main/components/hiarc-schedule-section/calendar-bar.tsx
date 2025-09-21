@@ -33,8 +33,12 @@ function getDateRange(startDate: Date, days: number): Date[] {
   return Array.from({ length: days }, (_, i) => addDays(startDate, i));
 }
 
-function getStartOfWeekWithSunday(date: Date): Date {
-  // 일요일 시작
+function getStartOfWeekWithToday(date: Date, daysToShow: number): Date {
+  if (daysToShow === 3) {
+    // 3일 표시일 때는 오늘을 중심으로
+    return addDays(date, -1);
+  }
+  // 7일 표시일 때는 일요일 시작
   return startOfWeek(date, { weekStartsOn: 0 });
 }
 
@@ -51,7 +55,7 @@ export default function CalendarBar({
 
   // 외부에서 전달된 currentWeekStart가 있으면 사용, 없으면 내부 state 사용
   const [internalCurrentStartDate, setInternalCurrentStartDate] = useState<Date>(
-    daysToShow === 7 ? getStartOfWeekWithSunday(new Date()) : new Date()
+    getStartOfWeekWithToday(new Date(), daysToShow)
   );
   const currentStartDate = externalCurrentWeekStart || internalCurrentStartDate;
 
