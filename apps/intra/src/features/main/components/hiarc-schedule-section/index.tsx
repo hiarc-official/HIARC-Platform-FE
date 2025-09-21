@@ -3,6 +3,15 @@
 import { cn, Divider, Label, SlideFade, Title } from '@hiarc-platform/ui';
 import { useMemo, useState, useCallback } from 'react';
 import { addDays, startOfWeek, format } from 'date-fns';
+
+function getStartOfWeekWithToday(date: Date, daysToShow: number): Date {
+  if (daysToShow === 3) {
+    // 3일 표시일 때는 오늘을 중심으로
+    return addDays(date, -1);
+  }
+  // 7일 표시일 때는 일요일 시작
+  return startOfWeek(date, { weekStartsOn: 0 });
+}
 import CalendarBar from './calendar-bar';
 import { ScheduleListItem } from './schedule-list-item';
 import { useCalendarSchedule } from '../../hooks/use-calendar-schedule';
@@ -18,7 +27,7 @@ export function HiarcScheduleSection({
 }: HiarcScheduleSectionProps): React.ReactElement {
   const [selectedDate, setSelectedDate] = useState<string>(format(new Date(), 'yyyy-MM-dd'));
   const [currentWeekStart, setCurrentWeekStart] = useState<Date>(
-    () => startOfWeek(new Date(), { weekStartsOn: 0 }) // 일요일 시작
+    () => getStartOfWeekWithToday(new Date(), daysToShow)
   );
 
   // 현재 표시되는 날짜들의 중앙값 계산 (median으로 사용)
