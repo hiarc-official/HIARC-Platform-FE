@@ -7,7 +7,7 @@ interface RankingItem {
   tier: number;
   totalScore: number;
   dailyScore: number;
-  currentSeasonScore: number;
+  currentSeasonScore: number | null;
   currentEventScore: number;
 }
 
@@ -35,7 +35,8 @@ export const fetchRankingData = async (selected: number) => {
         bojHandle: item.bojHandle,
         tier: item.tier,
         today: item.dailyScore,
-        total: item.totalScore,
+        totalScore: item.totalScore,
+        currentSeasonScore: item.currentSeasonScore,
         memberId: item.memberId,
       })),
       graphData: response.data.streakRatio,
