@@ -75,7 +75,8 @@ const DivPage = () => {
       bojHandle: string;
       tier: number;
       today: number;
-      total: number;
+      totalScore: number;
+      currentSeasonScore: number | null;
       memberId: number;
     }[]
   >([]);
