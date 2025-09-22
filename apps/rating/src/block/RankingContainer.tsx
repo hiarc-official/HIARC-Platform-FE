@@ -17,7 +17,8 @@ interface RankingContainerProps {
     bojHandle: string;
     tier: number;
     today: number;
-    total: number;
+    totalScore: number;
+    currentSeasonScore: number | null;
     memberId: number;
   }[];
   error: string | null;
@@ -29,14 +30,14 @@ const RankingContiner = ({ rankingData, error }: RankingContainerProps) => {
   return (
     <Wrapper>
       <RankingContainerExplainBar />
-      {rankingData.map(({ num, bojHandle, tier, today, total, memberId }) => (
+      {rankingData.map(({ num, bojHandle, tier, today, totalScore, currentSeasonScore, memberId }) => (
         <RankingEntity
           key={num}
           ranking={num}
           handle={bojHandle}
           tier={tier}
           today={today}
-          total={total}
+          total={currentSeasonScore !== null ? currentSeasonScore : totalScore}
           event={false} // RankingApi에서 event 필드가 없으므로 기본값으로 설정
           memberId={memberId}
         />
