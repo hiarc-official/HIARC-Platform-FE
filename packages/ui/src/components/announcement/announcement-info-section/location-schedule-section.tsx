@@ -1,7 +1,7 @@
 import { DateUtil } from '@hiarc-platform/shared';
-import { Button } from '../../button';
 import { Divider } from '../../divider';
 import { Label } from '../../label/label';
+import { ApplicationButton } from './application-button';
 
 interface LocationScheduleSectionProps {
   place?: string;
@@ -60,21 +60,16 @@ export function LocationScheduleSection({
                 {DateUtil.formatDateWithDots(applicationStartAt)}
                 {applicationEndAt && ` ~ ${DateUtil.formatDateWithDots(applicationEndAt)}`}
               </Label>
-              <Button
-                size="xs"
-                variant="line"
-                className="ml-auto flex-shrink-0 border-primary-100 text-primary-100"
-                disabled={
+              <ApplicationButton
+                applicationUrl={applicationUrl}
+                isDisabled={
                   !applicationUrl ||
                   !isApplicationPeriodActive(applicationStartAt, applicationEndAt) ||
                   memberRole === 'GUEST' ||
                   memberRole === 'ASSOCIATE' ||
                   memberRole === null
                 }
-                onClick={() => applicationUrl && window.open(applicationUrl, '_blank')}
-              >
-                신청하기
-              </Button>
+              />
             </div>
           </div>
         )}
