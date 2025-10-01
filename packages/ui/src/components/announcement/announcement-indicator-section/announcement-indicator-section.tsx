@@ -1,3 +1,5 @@
+'use client';
+
 import { cn } from '../../../lib/utils';
 import { NextButton } from './next-button';
 import { PreviousButton } from './previous-button';
