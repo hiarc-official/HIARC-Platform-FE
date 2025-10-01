@@ -48,7 +48,7 @@ const nextConfig = {
               ? [
                   "default-src 'self'",
                   "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://va.vercel-scripts.com https://*.vercel-scripts.com https://*.vercel.com",
-                  "style-src 'self' 'unsafe-inline' https:",
+                  "style-src 'self' 'unsafe-inline' https: https://cdn.jsdelivr.net",
                   "img-src 'self' data: https: blob:",
                   "font-src 'self' data: https:",
                   "connect-src 'self' https://test.hiarc-official.com https://*.hiarc-official.com https://vitals.vercel-analytics.com https://vitals.vercel-insights.com https://*.vercel.com http://localhost:* https://localhost:* ws://localhost:* wss://localhost:*",
@@ -58,7 +58,7 @@ const nextConfig = {
               : [
                   "default-src 'self'",
                   "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://va.vercel-scripts.com",
-                  "style-src 'self' 'unsafe-inline'",
+                  "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net",
                   "img-src 'self' data: https:",
                   "font-src 'self' data:",
                   "connect-src 'self' https://test.hiarc-official.com https://*.hiarc-official.com https://vitals.vercel-analytics.com https://vitals.vercel-insights.com http://localhost:* https://localhost:*",

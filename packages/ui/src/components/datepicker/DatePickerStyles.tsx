@@ -11,7 +11,7 @@ export function DatePickerStyles(): JSX.Element | null {
     // 동적으로 CSS 로드
     const link = document.createElement('link');
     link.rel = 'stylesheet';
-    link.href = '/node_modules/react-datepicker/dist/react-datepicker.css';
+    link.href = 'https://cdn.jsdelivr.net/npm/react-datepicker@6.9.0/dist/react-datepicker.css';
     link.media = 'print';
     link.onload = () => {
       link.media = 'all';

@@ -54,7 +54,7 @@ export function LazyCSS({ href, media = 'all', id }: LazyCSSProps): JSX.Element 
 export function DatePickerCSS(): JSX.Element {
   return (
     <LazyCSS
-      href="/node_modules/react-datepicker/dist/react-datepicker.css"
+      href="https://cdn.jsdelivr.net/npm/react-datepicker@6.9.0/dist/react-datepicker.css"
       id="react-datepicker-css"
     />
   );
