@@ -1,6 +1,11 @@
 module.exports = {
   content: ['./apps/*/src/**/*.{js,ts,jsx,tsx,mdx}', './packages/ui/src/**/*.{js,ts,jsx,tsx,mdx}'],
   darkMode: ['class', '.dark'],
+  
+  // CSS 최적화 설정
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
   safelist: [
     // 특수한 클래스들 (패턴으로 매칭하기 어려운것들)
     'min-w-[800px]',

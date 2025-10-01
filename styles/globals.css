@@ -1,10 +1,11 @@
-@import 'tw-animate-css';
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Pretendard Local Font */
+/* 애니메이션 CSS는 필요할 때만 로드하도록 분리 */
+@import 'tw-animate-css' layer(utilities);
+
+/* Pretendard Local Font - 최적화된 로딩 */
 @font-face {
   font-family: 'Pretendard';
   src:
@@ -13,6 +14,7 @@
   font-weight: 400;
   font-style: normal;
   font-display: swap;
+  unicode-range: U+0020-007F, U+AC00-D7AF; /* 기본 라틴 + 한글 */
 }
 
 @font-face {
@@ -23,6 +25,7 @@
   font-weight: 500;
   font-style: normal;
   font-display: swap;
+  unicode-range: U+0020-007F, U+AC00-D7AF;
 }
 
 @font-face {
@@ -33,6 +36,7 @@
   font-weight: 600;
   font-style: normal;
   font-display: swap;
+  unicode-range: U+0020-007F, U+AC00-D7AF;
 }
 
 @font-face {
@@ -43,6 +47,7 @@
   font-weight: 700;
   font-style: normal;
   font-display: swap;
+  unicode-range: U+0020-007F, U+AC00-D7AF;
 }
 
 @layer base {
