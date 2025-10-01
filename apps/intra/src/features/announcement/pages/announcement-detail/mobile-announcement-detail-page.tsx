@@ -1,3 +1,5 @@
+'use client';
+
 import {
   AnnouncementContentSection,
   AnnouncementIndicatorSection,
@@ -5,14 +7,30 @@ import {
 } from '@hiarc-platform/ui';
 import { Announcement, AnnnouncementType } from '@hiarc-platform/shared';
 import { AnnouncementNavigationSection } from './components/announcement-navigation-section';
+import useAnnouncement from '../../hooks/query/use-announcement';
 
 interface MobileAnnouncementDetailPageProps {
-  announcement: Announcement;
+  announcement: Announcement | null;
+  id: string;
 }
 
 export function MobileAnnouncementDetailPage({
-  announcement,
+  announcement: initialAnnouncement,
+  id,
 }: MobileAnnouncementDetailPageProps): React.ReactElement {
+  const { data: clientAnnouncement, isLoading } = useAnnouncement(id, {
+    enabled: !initialAnnouncement,
+  });
+
+  const announcement = initialAnnouncement || clientAnnouncement;
+
+  if (!announcement || isLoading) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[400px]">
+        <div>로딩 중...</div>
+      </div>
+    );
+  }
   const processedAnnouncement = {
     ...announcement,
     announcementTitle: announcement.announcementTitle || '제목 없음',
