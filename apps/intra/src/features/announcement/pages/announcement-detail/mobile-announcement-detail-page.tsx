@@ -1,60 +1,61 @@
-'use client';
-
 import {
   AnnouncementContentSection,
   AnnouncementIndicatorSection,
   AnnouncementInfoSection,
-  Button,
-  LoadingDots,
 } from '@hiarc-platform/ui';
-import { useAnnouncementDetailPageState } from '../../hooks/page/use-announcement-detail-page-state';
+import { Announcement, AnnnouncementType } from '@hiarc-platform/shared';
+import { AnnouncementNavigationSection } from './components/announcement-navigation-section';
 
-export function MobileAnnouncementDetailPage(): React.ReactElement {
-  const { announcement, memberRole, isLoading, error, handleGoToList } =
-    useAnnouncementDetailPageState();
+interface MobileAnnouncementDetailPageProps {
+  announcement: Announcement;
+}
 
-  if (isLoading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <LoadingDots size="lg" />
-      </div>
-    );
-  }
-
-  if (error || !announcement) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <p className="text-gray-500">공지사항을 불러올 수 없습니다.</p>
-      </div>
-    );
-  }
+export function MobileAnnouncementDetailPage({
+  announcement,
+}: MobileAnnouncementDetailPageProps): React.ReactElement {
+  const processedAnnouncement = {
+    ...announcement,
+    announcementTitle: announcement.announcementTitle || '제목 없음',
+    announcementCategory: AnnnouncementType[announcement.announcementType || 'GENERAL'],
+    announcementDate: announcement.createdAt ? new Date(announcement.createdAt) : undefined,
+    urlList: announcement.attachmentUrls || [],
+    place: announcement.place ?? undefined,
+    scheduleStartAt: announcement.scheduleStartAt
+      ? new Date(announcement.scheduleStartAt)
+      : undefined,
+    scheduleEndAt: announcement.scheduleEndAt ? new Date(announcement.scheduleEndAt) : undefined,
+    applicationStartAt: announcement.applicationStartAt
+      ? new Date(announcement.applicationStartAt)
+      : undefined,
+    applicationEndAt: announcement.applicationEndAt
+      ? new Date(announcement.applicationEndAt)
+      : undefined,
+    applicationUrl: announcement.applicationUrl || '',
+    content: announcement.content || '',
+  };
 
   return (
     <div className="flex flex-col items-center gap-6">
-      {/* 모바일에서 고정 헤더로 인한 패딩 추가 */}
       <div className="pt-4" />
 
       <AnnouncementInfoSection
-        announcementTitle={announcement.announcementTitle}
-        announcementCategory={announcement.announcementCategory}
-        announcementDate={announcement.announcementDate}
-        urlList={announcement.urlList}
-        place={announcement.place}
-        scheduleStartAt={announcement.scheduleStartAt}
-        scheduleEndAt={announcement.scheduleEndAt}
-        applicationStartAt={announcement.applicationStartAt}
-        applicationEndAt={announcement.applicationEndAt}
-        applicationUrl={announcement.applicationUrl}
-        memberRole={memberRole}
+        announcementTitle={processedAnnouncement.announcementTitle}
+        announcementCategory={processedAnnouncement.announcementCategory}
+        announcementDate={processedAnnouncement.announcementDate}
+        urlList={processedAnnouncement.urlList}
+        place={processedAnnouncement.place}
+        scheduleStartAt={processedAnnouncement.scheduleStartAt}
+        scheduleEndAt={processedAnnouncement.scheduleEndAt}
+        applicationStartAt={processedAnnouncement.applicationStartAt}
+        applicationEndAt={processedAnnouncement.applicationEndAt}
+        applicationUrl={processedAnnouncement.applicationUrl}
       />
       <AnnouncementContentSection
         images={announcement.imageUrls || []}
-        content={announcement.content}
+        content={processedAnnouncement.content}
       />
       <AnnouncementIndicatorSection prevData={announcement.prev} nextData={announcement.next} />
-      <Button variant="line" className="w-full max-w-[186px]" onClick={handleGoToList}>
-        목록으로
-      </Button>
+      <AnnouncementNavigationSection className="w-full max-w-[186px]" />
     </div>
   );
 }
