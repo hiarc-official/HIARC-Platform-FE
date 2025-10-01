@@ -8,11 +8,18 @@ import { announcementApi } from '../../api/announcement';
 // 모듈 레벨에서 에러를 추적하는 Set (전역적으로 중복 방지)
 const shownErrorIds = new Set<string>();
 
-export default function useAnnouncement(id: string): UseQueryResult<Announcement, Error> {
+interface UseAnnouncementOptions {
+  enabled?: boolean;
+}
+
+export default function useAnnouncement(
+  id: string,
+  options?: UseAnnouncementOptions
+): UseQueryResult<Announcement, Error> {
   const query = useQuery({
     queryKey: ['announcement', id],
     queryFn: () => announcementApi.GET_ANNOUNCEMENT(id),
-    enabled: Boolean(id),
+    enabled: options?.enabled !== undefined ? options.enabled && Boolean(id) : Boolean(id),
     retry: false,
   });
 

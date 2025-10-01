@@ -1,3 +1,5 @@
+'use client';
+
 import {
   AnnouncementContentSection,
   AnnouncementIndicatorSection,
@@ -5,12 +7,30 @@ import {
 } from '@hiarc-platform/ui';
 import { Announcement, AnnnouncementType } from '@hiarc-platform/shared';
 import { AnnouncementNavigationSection } from './components/announcement-navigation-section';
+import useAnnouncement from '../../hooks/query/use-announcement';
 
 interface DesktopAnnouncementDetailPageProps {
-  announcement: Announcement;
+  announcement: Announcement | null;
+  id: string;
 }
 
-export function DesktopAnnouncementDetailPage({ announcement }: DesktopAnnouncementDetailPageProps): React.ReactElement {
+export function DesktopAnnouncementDetailPage({
+  announcement: initialAnnouncement,
+  id,
+}: DesktopAnnouncementDetailPageProps): React.ReactElement {
+  const { data: clientAnnouncement, isLoading } = useAnnouncement(id, {
+    enabled: !initialAnnouncement,
+  });
+
+  const announcement = initialAnnouncement || clientAnnouncement;
+
+  if (!announcement || isLoading) {
+    return (
+      <div className="flex min-h-[400px] flex-col items-center justify-center">
+        <div>로딩 중...</div>
+      </div>
+    );
+  }
   const processedAnnouncement = {
     ...announcement,
     announcementTitle: announcement.announcementTitle || '제목 없음',
@@ -21,9 +41,7 @@ export function DesktopAnnouncementDetailPage({ announcement }: DesktopAnnouncem
     scheduleStartAt: announcement.scheduleStartAt
       ? new Date(announcement.scheduleStartAt)
       : undefined,
-    scheduleEndAt: announcement.scheduleEndAt
-      ? new Date(announcement.scheduleEndAt)
-      : undefined,
+    scheduleEndAt: announcement.scheduleEndAt ? new Date(announcement.scheduleEndAt) : undefined,
     applicationStartAt: announcement.applicationStartAt
       ? new Date(announcement.applicationStartAt)
       : undefined,

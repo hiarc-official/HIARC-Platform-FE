@@ -30,18 +30,22 @@ export async function generateStaticParams() {
 export default async function AnnouncementDetail({
   params,
 }: PageProps): Promise<React.ReactElement> {
-  let announcement;
+  let announcement = null;
 
   try {
     announcement = await announcementApi.GET_ANNOUNCEMENT(params.id);
-  } catch (error) {
-    notFound();
+  } catch (error: any) {
+    // 404는 notFound 페이지로
+    if (error?.response?.status === 404 || error?.status === 404) {
+      notFound();
+    }
+    // 그 외 에러(403 권한 없음 등)는 클라이언트에서 처리
   }
 
   return (
     <PageLayout
-      desktopChildren={<DesktopAnnouncementDetailPage announcement={announcement} />}
-      mobileChildren={<MobileAnnouncementDetailPage announcement={announcement} />}
+      desktopChildren={<DesktopAnnouncementDetailPage announcement={announcement} id={params.id} />}
+      mobileChildren={<MobileAnnouncementDetailPage announcement={announcement} id={params.id} />}
     />
   );
 }
