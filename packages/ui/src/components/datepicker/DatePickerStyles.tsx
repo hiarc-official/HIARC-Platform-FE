@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 // React DatePicker CSS를 동적으로 로드하는 컴포넌트
-export function DatePickerStyles() {
+export function DatePickerStyles(): JSX.Element | null {
   useEffect(() => {
     // CSS가 이미 로드되었는지 확인
     if (document.querySelector('link[href*="react-datepicker"]')) {

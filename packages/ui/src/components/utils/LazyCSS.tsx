@@ -7,8 +7,8 @@ interface LazyCSSProps {
 }
 
 // CSS를 지연 로딩하는 유틸리티 컴포넌트
-export function LazyCSS({ href, media = 'all', id }: LazyCSSProps) {
-  const [loaded, setLoaded] = useState(false);
+export function LazyCSS({ href, media = 'all', id }: LazyCSSProps): JSX.Element | null {
+  const [_, setLoaded] = useState(false);
 
   useEffect(() => {
     // 이미 로드된 CSS인지 확인
@@ -23,7 +23,9 @@ export function LazyCSS({ href, media = 'all', id }: LazyCSSProps) {
     link.rel = 'stylesheet';
     link.href = href;
     link.media = 'print'; // 초기에는 print로 설정하여 렌더링 차단 방지
-    if (id) link.id = id;
+    if (id) {
+      link.id = id;
+    }
 
     link.onload = () => {
       link.media = media; // 로드 완료 후 적절한 미디어로 변경
@@ -49,9 +51,9 @@ export function LazyCSS({ href, media = 'all', id }: LazyCSSProps) {
 }
 
 // React DatePicker용 편의 컴포넌트
-export function DatePickerCSS() {
+export function DatePickerCSS(): JSX.Element {
   return (
-    <LazyCSS 
+    <LazyCSS
       href="/node_modules/react-datepicker/dist/react-datepicker.css"
       id="react-datepicker-css"
     />
