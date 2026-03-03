@@ -41,25 +41,27 @@ export function AuthenticatedMobileSection(): React.ReactElement {
 
   // 컴포넌트 마운트 시 사용자 정보 불러오기
   useEffect(() => {
-    const fetchUserInfo = async () => {
+    const fetchUserInfo = async (): Promise<void> => {
       try {
         const userData = await authApi.GET_ME();
         setMyInfo(userData);
-
-        // 메인페이지가 아니거나 세션에서 팝업을 닫은 상태면 표시하지 않음
-        const isPopupDismissed = sessionStorage.getItem('signupPopupDismissed') === 'true';
-        const isMainPage = pathname === '/' || pathname === '';
-
-        if (userData?.approvedNotification && isMainPage && !isPopupDismissed) {
-          setIsPopupOpen(true);
-        }
       } catch (error) {
         console.error('사용자 정보 불러오기 실패:', error);
       }
     };
 
     fetchUserInfo();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
+
+  // 메인페이지 진입 시 팝업 표시 여부 체크
+  useEffect(() => {
+    const isPopupDismissed = sessionStorage.getItem('signupPopupDismissed') === 'true';
+    const isMainPage = pathname === '/' || pathname === '';
+
+    if (myInfo?.approvedNotification && isMainPage && !isPopupDismissed) {
+      setIsPopupOpen(true);
+    }
+  }, [myInfo, pathname]);
 
   // 팝업 외부 클릭시 닫기
   useEffect(() => {
