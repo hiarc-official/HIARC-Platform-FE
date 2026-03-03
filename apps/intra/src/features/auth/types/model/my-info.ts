@@ -54,6 +54,7 @@ export class MyInfo {
       bojHandle: this.props.bojHandle,
       memberRole: this.props.memberRole,
       adminRole: this.props.adminRole,
+      approvedNotification: this.props.approvedNotification ?? null,
     };
   }
 
