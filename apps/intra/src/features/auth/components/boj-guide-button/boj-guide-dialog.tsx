@@ -81,7 +81,7 @@ export function BojGuideDialog({ showBackground = true }: BojGuideDialogProps): 
                 size="xs"
                 onClick={() =>
                   window.open(
-                    'https://ethereal-wolf-335.notion.site/6bf4a94a2544439cab519102a725c361?pvs=74',
+                    'https://www.notion.so/3186ed6573968040a513fc7638cc3d5e',
                     '_blank'
                   )
                 }
