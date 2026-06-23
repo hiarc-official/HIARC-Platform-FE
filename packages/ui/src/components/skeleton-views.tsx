@@ -11,24 +11,58 @@ interface SkeletonViewProps {
 }
 
 /**
- * 리스트/테이블 페이지용 스켈레톤 (제목 + 검색/필터 + 테이블 행)
+ * 리스트/테이블 페이지용 스켈레톤.
+ * 실제 레이아웃(제목 + 테두리 검색 박스 + 상단 보더 테이블)을 반영하며,
+ * 검색 박스는 데스크톱에서 테두리 카드, 모바일에서 "상세 검색" 버튼으로 표시됩니다.
  */
 export function ListPageSkeleton({
-  rows = 8,
+  rows = 6,
+  filters = 3,
+  headerAction = false,
   className,
-}: SkeletonViewProps & { rows?: number }): React.ReactElement {
+}: SkeletonViewProps & {
+  rows?: number;
+  filters?: number;
+  headerAction?: boolean;
+}): React.ReactElement {
   return (
-    <div className={cn('flex w-full flex-col gap-6', className)} aria-hidden="true">
-      <Skeleton className="h-8 w-40" />
-      <div className="flex gap-2">
-        <Skeleton className="h-10 flex-1" />
-        <Skeleton className="h-10 w-24" />
+    <div className={cn('flex w-full flex-col', className)} aria-hidden="true">
+      {/* 제목 + (선택) 우측 액션 버튼 (데스크톱) */}
+      <div className="hidden items-center justify-between md:flex">
+        <Skeleton className="h-7 w-24" />
+        {headerAction && <Skeleton className="h-10 w-24" />}
       </div>
-      <div className="flex flex-col gap-2">
-        <Skeleton className="h-11 w-full" />
-        {Array.from({ length: rows }).map((_, index) => (
-          <Skeleton key={`list-row-${index}`} className="h-12 w-full" />
+
+      {/* 검색 섹션 - 데스크톱: 테두리 박스 */}
+      <div className="mt-6 hidden w-full items-end gap-4 rounded-md border border-gray-200 p-6 md:flex">
+        {Array.from({ length: filters }).map((_, index) => (
+          <div key={`filter-${index}`} className="flex flex-1 flex-col gap-2">
+            <Skeleton className="h-4 w-16" />
+            <Skeleton className="h-10 w-full" />
+          </div>
         ))}
+        <div className="flex items-center gap-2">
+          <Skeleton className="h-10 w-[134px]" />
+          <Skeleton className="h-10 w-[134px]" />
+        </div>
+      </div>
+      {/* 검색 섹션 - 모바일: 상세 검색 버튼 */}
+      <Skeleton className="mt-6 h-8 w-24 rounded-md md:hidden" />
+
+      {/* 테이블 */}
+      <div className="mt-8 flex w-full flex-col">
+        {/* 테이블 헤더 (데스크톱, 상/하단 보더) */}
+        <div className="hidden border-b border-t border-b-gray-200 border-t-gray-900 py-3 md:block">
+          <Skeleton className="h-5 w-full" />
+        </div>
+        {/* 행 */}
+        <div className="flex flex-col">
+          {Array.from({ length: rows }).map((_, index) => (
+            <div key={`list-row-${index}`} className="border-b border-gray-100 py-4">
+              <Skeleton className="h-5 w-full" />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -18,7 +18,7 @@ export function AnnouncementListPage(): React.ReactElement {
   if (isLoading) {
     return (
       <FadeIn isVisible={true} duration={0.3} className="flex flex-col">
-        <ListPageSkeleton />
+        <ListPageSkeleton headerAction />
       </FadeIn>
     );
   }
