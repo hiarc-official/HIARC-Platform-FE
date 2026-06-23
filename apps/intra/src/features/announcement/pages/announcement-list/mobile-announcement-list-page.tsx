@@ -3,7 +3,7 @@
 import { AnnouncementSearchSection } from '@/features/announcement/components/announcement-search-section/AnnouncementSearchSection';
 import { AnnouncementTable } from '@/features/announcement/components/announcement-table/AnnouncementTable';
 
-import { Title, LoadingDots } from '@hiarc-platform/ui';
+import { Title, ListPageSkeleton } from '@hiarc-platform/ui';
 import { useAnnouncementListPageState } from '../../hooks/page/use-announcement-list-page-state';
 
 export function MobileAnnouncementListPage(): React.ReactElement {
@@ -11,11 +11,7 @@ export function MobileAnnouncementListPage(): React.ReactElement {
     useAnnouncementListPageState();
 
   if (isLoading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <LoadingDots size="lg" />
-      </div>
-    );
+    return <ListPageSkeleton />;
   }
 
   if (error) {

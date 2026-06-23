@@ -32,6 +32,8 @@ export * from './components/study/study-unassigned-group';
 export * from './components/study/add-group-dialog/add-group-dialog';
 export * from './components/study/edit-group-dialog/edit-group-dialog';
 export * from './components/loading-dots';
+export * from './components/skeleton';
+export * from './components/skeleton-views';
 export * from './components/menubar';
 export * from './components/popover';
 export * from './components/select/labeled-select-button';

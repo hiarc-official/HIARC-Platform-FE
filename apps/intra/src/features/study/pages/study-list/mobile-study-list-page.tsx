@@ -3,18 +3,14 @@
 import { StudySearchSection } from '@/features/study/components/study-search-section';
 import { StudyTable } from '@/features/study/components/study-table';
 import { useStudyListPageState } from '@/features/study/hooks/page/use-study-list-page-state';
-import { Title, LoadingDots } from '@hiarc-platform/ui';
+import { Title, ListPageSkeleton } from '@hiarc-platform/ui';
 
 export function MobileStudyListPage(): React.ReactElement {
   const { studies, isLoading, error, filterParams, handlePageChange, handleSearch } =
     useStudyListPageState();
 
   if (isLoading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <LoadingDots size="lg" />
-      </div>
-    );
+    return <ListPageSkeleton />;
   }
 
   if (error) {

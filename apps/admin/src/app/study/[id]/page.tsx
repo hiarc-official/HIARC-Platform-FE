@@ -1,7 +1,13 @@
 'use client';
 
 import { TabSection } from '@/features/study/components';
-import { BackButton, Button, PageLayout, LoadingDots, StudyInfoSection } from '@hiarc-platform/ui';
+import {
+  BackButton,
+  Button,
+  PageLayout,
+  DetailPageSkeleton,
+  StudyInfoSection,
+} from '@hiarc-platform/ui';
 import { useRouter, useParams } from 'next/navigation';
 import { useStudy } from '@/features/study/hooks';
 import React, { useState, useEffect } from 'react';
@@ -20,13 +26,9 @@ export default function StudyPage(): React.ReactElement {
 
   if (!mounted || isLoading) {
     return (
-      <FadeIn
-        isVisible={true}
-        duration={0.3}
-        className="flex min-h-screen items-center justify-center"
-      >
-        <LoadingDots size="lg" className="flex min-h-screen items-center justify-center" />
-      </FadeIn>
+      <PageLayout>
+        <DetailPageSkeleton className="mt-5 md:mt-0" />
+      </PageLayout>
     );
   }
 

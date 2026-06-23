@@ -4,7 +4,7 @@ import { AwardSection } from '@/features/award/components/award-section';
 import { HitingSection } from '@/features/member/components/hiting-section';
 import { MyInfoSection } from '@/features/member/components/my-info-section';
 import { StreakSection } from '@/features/member/components/streak-section';
-import { Divider, LoadingDots, FadeIn, Label } from '@hiarc-platform/ui';
+import { Divider, ProfileSkeleton, FadeIn, Label } from '@hiarc-platform/ui';
 import { MemberProfile } from '../../types/model/member-profile';
 
 interface MobileMemberDetailPageProps {
@@ -19,11 +19,7 @@ export function MobileMemberDetailPage({
   error,
 }: MobileMemberDetailPageProps): React.ReactElement {
   if (isLoading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <LoadingDots />
-      </div>
-    );
+    return <ProfileSkeleton />;
   }
 
   if (error !== null) {

@@ -6,7 +6,7 @@ import { MyInfoSection } from '@/features/member/components/my-info-section';
 import { StreakSection } from '@/features/member/components/streak-section';
 import { StudySection } from '@/features/member/components/study-section';
 import { useMyPageState } from '@/features/member/hooks/page/use-my-page-state';
-import { Divider, LoadingDots, FadeIn, Label } from '@hiarc-platform/ui';
+import { Divider, ProfileSkeleton, FadeIn, Label } from '@hiarc-platform/ui';
 
 export function MobileMyPage(): React.ReactElement {
   const {
@@ -19,19 +19,11 @@ export function MobileMyPage(): React.ReactElement {
   } = useMyPageState();
 
   if (!user) {
-    return (
-      <div className="flex min-h-[400px] items-center justify-center">
-        <LoadingDots />
-      </div>
-    );
+    return <ProfileSkeleton />;
   }
 
   if (myPageDataLoading) {
-    return (
-      <div className="flex min-h-[400px] items-center justify-center">
-        <LoadingDots />
-      </div>
-    );
+    return <ProfileSkeleton />;
   }
 
   if (myPageDataError) {

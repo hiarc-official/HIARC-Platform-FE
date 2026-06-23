@@ -3,7 +3,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { useAdminAnnouncement } from '@/features/announcement/hooks';
 import {
   BackButton,
-  LoadingDots,
+  DetailPageSkeleton,
   Button,
   FadeIn,
   AnnouncementIndicatorSection,
@@ -27,26 +27,7 @@ export function AnnouncementDetailPage(): React.ReactElement {
   };
 
   if (isLoading) {
-    return (
-      <>
-        {/* Desktop loading */}
-        <FadeIn
-          isVisible={true}
-          duration={0.3}
-          className="hidden min-h-screen items-center justify-center md:flex"
-        >
-          <LoadingDots size="lg" className="flex min-h-screen items-center justify-center" />
-        </FadeIn>
-        {/* Mobile loading */}
-        <FadeIn
-          isVisible={true}
-          duration={0.3}
-          className="flex min-h-screen items-center justify-center px-4 md:hidden"
-        >
-          <LoadingDots size="lg" className="flex min-h-screen items-center justify-center" />
-        </FadeIn>
-      </>
-    );
+    return <DetailPageSkeleton />;
   }
 
   if (error) {

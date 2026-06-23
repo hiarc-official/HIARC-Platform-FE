@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { Title, Button, LoadingDots, FadeIn } from '@hiarc-platform/ui';
+import { Title, Button, FadeIn, ListPageSkeleton } from '@hiarc-platform/ui';
 import { AnnouncementFilter } from '../../components/announcement-filter/announcement-filter';
 import { AnnouncementTable } from '../../components/announcement-table/announcement-table';
 import { useAdminAnnouncementListPageState } from '../../hooks/page/use-admin-announcement-list-page-state';
@@ -17,12 +17,8 @@ export function AnnouncementListPage(): React.ReactElement {
 
   if (isLoading) {
     return (
-      <FadeIn
-        isVisible={true}
-        duration={0.3}
-        className="flex min-h-screen items-center justify-center"
-      >
-        <LoadingDots size="lg" className="flex min-h-screen items-center justify-center" />
+      <FadeIn isVisible={true} duration={0.3} className="flex flex-col">
+        <ListPageSkeleton />
       </FadeIn>
     );
   }

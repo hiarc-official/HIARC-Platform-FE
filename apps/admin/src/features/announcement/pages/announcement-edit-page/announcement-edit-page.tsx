@@ -9,7 +9,7 @@ import { useStudyOptions } from '@/features/study/hooks';
 import { useSemesterStoreInit } from '@/shared/hooks/use-semester-store';
 import {
   AnnouncementWrite,
-  LoadingDots,
+  FormSkeleton,
   DialogUtil,
   AnnouncementDesktopHeader,
 } from '@hiarc-platform/ui';
@@ -166,18 +166,7 @@ export function AnnouncementEditPage(): React.ReactElement {
 
   // 로딩 중일 때
   if (isLoading) {
-    return (
-      <>
-        {/* Desktop loading */}
-        <div className="hidden min-h-[400px] items-center justify-center md:flex">
-          <LoadingDots />
-        </div>
-        {/* Mobile loading */}
-        <div className="flex min-h-[400px] items-center justify-center px-4 md:hidden">
-          <LoadingDots />
-        </div>
-      </>
-    );
+    return <FormSkeleton />;
   }
 
   // 에러가 발생했을 때

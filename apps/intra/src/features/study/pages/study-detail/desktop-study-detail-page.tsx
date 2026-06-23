@@ -1,6 +1,6 @@
 'use client';
 
-import { BackButton, Button, LoadingDots, StudyInfoSection } from '@hiarc-platform/ui';
+import { BackButton, Button, DetailPageSkeleton, StudyInfoSection } from '@hiarc-platform/ui';
 import { useStudyDetailPageState } from '@/features/study/hooks/page/use-study-detail-page-state';
 import { TabSection } from '@/features/study/components/tab-section/TabSection';
 
@@ -18,11 +18,7 @@ export function DesktopStudyDetailPage(): React.ReactElement {
   } = useStudyDetailPageState();
 
   if (!mounted || isLoading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <LoadingDots size="lg" />
-      </div>
-    );
+    return <DetailPageSkeleton />;
   }
 
   if (error || !studyData) {

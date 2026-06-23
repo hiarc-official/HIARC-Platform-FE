@@ -4,7 +4,7 @@ import { AwardSection } from '@/features/award/components/award-section';
 import { HitingSection } from '@/features/member/components/hiting-section';
 import { MyInfoSection } from '@/features/member/components/my-info-section';
 import { StreakSection } from '@/features/member/components/streak-section';
-import { BackButton, Divider, TwoColumnLayout, LoadingDots, FadeIn } from '@hiarc-platform/ui';
+import { BackButton, Divider, TwoColumnLayout, ProfileSkeleton, FadeIn } from '@hiarc-platform/ui';
 import { MemberProfile } from '../../types/model/member-profile';
 
 interface DesktopMemberDetailPageProps {
@@ -21,11 +21,7 @@ export function DesktopMemberDetailPage({
   onBackClick,
 }: DesktopMemberDetailPageProps): React.ReactElement {
   if (isLoading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <LoadingDots />
-      </div>
-    );
+    return <ProfileSkeleton />;
   }
 
   if (error !== null) {
