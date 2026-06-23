@@ -163,6 +163,37 @@ module.exports = {
           participating: '#01B5C9',
           recruiting: '#F52121',
         },
+        // 시맨틱 토큰 (shadcn 스타일 컴포넌트용) — 기존 팔레트에 매핑
+        border: '#DEDEEB', // gray-200
+        input: '#DEDEEB', // gray-200
+        ring: '#00AAFF', // primary
+        background: '#FFFFFF',
+        foreground: '#0F0F11', // gray-900
+        destructive: {
+          DEFAULT: '#F52121', // red
+          foreground: '#FFFFFF',
+        },
+        muted: {
+          DEFAULT: '#F0F0F6', // gray-100
+          foreground: '#97979D', // gray-500
+        },
+        accent: {
+          DEFAULT: '#F0F0F6', // gray-100
+          foreground: '#0F0F11', // gray-900
+        },
+        secondary: {
+          DEFAULT: '#F0F0F6', // gray-100
+          foreground: '#0F0F11', // gray-900
+        },
+        popover: {
+          DEFAULT: '#FFFFFF',
+          foreground: '#0F0F11', // gray-900
+        },
+        card: {
+          DEFAULT: '#FFFFFF',
+          foreground: '#0F0F11', // gray-900
+        },
+        'primary-foreground': '#FFFFFF',
       },
       // Typography from typography.css
       fontSize: {
