@@ -8,7 +8,7 @@ export const queryKeys = {
   studies: {
     all: ['studies'] as const,
     lists: () => [...queryKeys.studies.all, 'list'] as const,
-    list: (params: any) => [...queryKeys.studies.lists(), params] as const,
+    list: (params: unknown) => [...queryKeys.studies.lists(), params] as const,
     details: () => [...queryKeys.studies.all, 'detail'] as const,
     detail: (id: number) => [...queryKeys.studies.details(), id] as const,
     lectures: (studyId: number) => [...queryKeys.studies.detail(studyId), 'lectures'] as const,
@@ -24,7 +24,7 @@ export const queryKeys = {
     admin: {
       all: ['admin-announcements'] as const,
       lists: () => [...queryKeys.announcements.admin.all, 'list'] as const,
-      list: (params: any) => [...queryKeys.announcements.admin.lists(), params] as const,
+      list: (params: unknown) => [...queryKeys.announcements.admin.lists(), params] as const,
       details: () => [...queryKeys.announcements.admin.all, 'detail'] as const,
       detail: (id: number) => [...queryKeys.announcements.admin.details(), id] as const,
     },
@@ -36,7 +36,7 @@ export const queryKeys = {
     students: {
       all: ['student-list'] as const,
       lists: () => [...queryKeys.members.students.all, 'list'] as const,
-      list: (params: any) => [...queryKeys.members.students.lists(), params] as const,
+      list: (params: unknown) => [...queryKeys.members.students.lists(), params] as const,
     },
     admins: {
       all: ['admin-list'] as const,
@@ -54,7 +54,7 @@ export const queryKeys = {
   awards: {
     all: ['awards'] as const,
     lists: () => [...queryKeys.awards.all, 'list'] as const,
-    list: (params: any) => [...queryKeys.awards.lists(), params] as const,
+    list: (params: unknown) => [...queryKeys.awards.lists(), params] as const,
     details: () => [...queryKeys.awards.all, 'detail'] as const,
     detail: (id: number) => [...queryKeys.awards.details(), id] as const,
   },
@@ -63,7 +63,7 @@ export const queryKeys = {
   recruitment: {
     all: ['recruitment-list'] as const,
     lists: () => [...queryKeys.recruitment.all, 'list'] as const,
-    list: (params: any) => [...queryKeys.recruitment.lists(), params] as const,
+    list: (params: unknown) => [...queryKeys.recruitment.lists(), params] as const,
   },
 
   // Semester related queries
@@ -76,7 +76,7 @@ export const queryKeys = {
   lectures: {
     all: ['lectures'] as const,
     lists: () => [...queryKeys.lectures.all, 'list'] as const,
-    list: (params: any) => [...queryKeys.lectures.lists(), params] as const,
+    list: (params: unknown) => [...queryKeys.lectures.lists(), params] as const,
   },
 } as const;
 

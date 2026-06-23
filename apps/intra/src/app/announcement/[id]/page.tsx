@@ -34,9 +34,11 @@ export default async function AnnouncementDetail({
 
   try {
     announcement = await announcementApi.GET_ANNOUNCEMENT(params.id);
-  } catch (error: any) {
+  } catch (error: unknown) {
     // 404는 notFound 페이지로
-    if (error?.response?.status === 404 || error?.status === 404) {
+    const status = (error as { response?: { status?: number }; status?: number })?.response?.status
+      ?? (error as { status?: number })?.status;
+    if (status === 404) {
       notFound();
     }
     // 그 외 에러(403 권한 없음 등)는 클라이언트에서 처리

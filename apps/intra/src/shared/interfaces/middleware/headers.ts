@@ -24,6 +24,12 @@ export function headersMiddleware(res: NextResponse): void {
     upgrade-insecure-requests;
 `;
   res.headers.set('X-Frame-Options', 'DENY');
+  // MIME 스니핑 방지
+  res.headers.set('X-Content-Type-Options', 'nosniff');
+  // Referer 정보 최소화 (교차 출처로는 origin만 전송)
+  res.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+  // 불필요한 브라우저 기능 차단
+  res.headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
   // res.headers.set('x-nonce', nonce);
   res.headers.set('Content-Security-Policy', cspHeader.replace(/\s{2,}/g, ' ').trim());
   // 이 부분은 1시간이 적합한지 논의 필요

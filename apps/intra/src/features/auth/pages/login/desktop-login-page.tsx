@@ -37,7 +37,7 @@ export function DesktopLoginPage(): React.ReactElement {
             📱 인앱 브라우저에서는 구글 로그인이 제한됩니다.
           </p>
           <p className="mt-1 text-xs text-yellow-600">
-            메뉴에서 "브라우저에서 열기"를 선택해주세요.
+            메뉴에서 &quot;브라우저에서 열기&quot;를 선택해주세요.
           </p>
         </div>
       )}
