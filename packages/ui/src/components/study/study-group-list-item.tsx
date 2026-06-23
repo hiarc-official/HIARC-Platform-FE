@@ -95,7 +95,7 @@ export function StudyGroupListItem({
                 roundStatuses={student.roundStatuses || []}
                 onWithdraw={() => handleWithdraw(student.memberId || 0)}
                 onChangeStatus={() => {
-                  onChangeStatus && onChangeStatus(studyId, student.memberId || 0);
+                  onChangeStatus?.(studyId, student.memberId || 0);
                 }}
               />
             ))}

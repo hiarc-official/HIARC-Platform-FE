@@ -11,18 +11,18 @@ interface LabeledImageInputProps {
   required?: boolean;
   value?: File[];
   existingImages?: ImageSource[];
-  onChange?: (images: File[]) => void;
-  onExistingImagesChange?: (images: ImageSource[]) => void;
+  onChange?(images: File[]): void;
+  onExistingImagesChange?(images: ImageSource[]): void;
 }
 
-type ImageItem = {
+interface ImageItem {
   id: string;
   type: 'existing' | 'new';
   src: string;
   imageSource?: ImageSource;
   file?: File;
   originalIndex: number;
-};
+}
 
 export function LabeledImageInput({
   label,

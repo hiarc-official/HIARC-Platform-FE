@@ -37,7 +37,7 @@ interface AttendanceTableProps {
   className?: string;
   editable?: boolean;
   roundStatuses: RoundStatus[];
-  onValueChange?: (roundStatuses: RoundStatus[]) => void;
+  onValueChange?(roundStatuses: RoundStatus[]): void;
 }
 
 export function AttendanceTable({
@@ -48,13 +48,15 @@ export function AttendanceTable({
   onValueChange,
 }: AttendanceTableProps): React.ReactElement {
   const maxWeeks = roundStatuses.length;
-  
+
   // RoundStatus에서 boolean 배열로 변환
-  const att = roundStatuses.map(status => status.attendanceCompleted === true);
-  const ass = roundStatuses.map(status => status.assignmentCompleted === true);
+  const att = roundStatuses.map((status) => status.attendanceCompleted === true);
+  const ass = roundStatuses.map((status) => status.assignmentCompleted === true);
 
   const handleAttendanceChange = (index: number, checked: boolean): void => {
-    if (!editable || !onValueChange) return;
+    if (!editable || !onValueChange) {
+      return;
+    }
 
     const newRoundStatuses = [...roundStatuses];
     newRoundStatuses[index] = {
@@ -65,7 +67,9 @@ export function AttendanceTable({
   };
 
   const handleAssignmentChange = (index: number, checked: boolean): void => {
-    if (!editable || !onValueChange) return;
+    if (!editable || !onValueChange) {
+      return;
+    }
 
     const newRoundStatuses = [...roundStatuses];
     newRoundStatuses[index] = {
