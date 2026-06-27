@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, cn, DialogUtil, Label, LabeledInput, LabeledSelector } from '@hiarc-platform/ui';
+import { Button, cn, DialogUtil, Label, LabeledInput, LabeledSelector } from '@hiarc-platform/design-system';
 import React, { useState, useEffect } from 'react';
 import { StudySearchDialog } from './study-search-dialog';
 import { StudyQueryParams } from '../../types/request/study-query-params';

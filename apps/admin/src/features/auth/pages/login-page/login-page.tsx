@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Button, Label, LoadingDots, Title } from '@hiarc-platform/ui';
+import { Button, Label, LoadingDots, Title } from '@hiarc-platform/design-system';
 import Image from 'next/image';
 import { useAuthStore } from '@/shared/stores/auth-store';
 import { useGoogleLogin } from '../../hooks/use-google-login';

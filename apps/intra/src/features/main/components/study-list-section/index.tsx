@@ -1,6 +1,7 @@
 'use client';
 
-import { cn, StudyCard, Title } from '@hiarc-platform/ui';
+import { cn, Title } from '@hiarc-platform/design-system';
+import { StudyCard } from '@hiarc-platform/domain';
 import { useRouter } from 'next/navigation';
 import { useStudiesNow } from '../../hooks/use-studies-now';
 import { DateUtil } from '@hiarc-platform/shared';

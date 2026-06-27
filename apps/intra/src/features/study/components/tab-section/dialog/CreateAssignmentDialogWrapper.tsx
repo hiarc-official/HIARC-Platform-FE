@@ -3,7 +3,7 @@
 import { useCheckAssignment } from '@/features/study/hooks/study-instructor/mutation/use-check-assignment';
 import { useCreateAssignment } from '@/features/study/hooks/study-instructor/mutation/use-create-assignment';
 import { useAssignment } from '@/features/study/hooks/study-member/query/use-assignment';
-import { CreateAssignmentDialog } from '@hiarc-platform/ui';
+import { CreateAssignmentDialog } from '@hiarc-platform/domain';
 
 interface CreateAssignmentDialogWrapperProps {
   studyId: number;

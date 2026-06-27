@@ -1,4 +1,5 @@
-import { DialogUtil, LectureList } from '@hiarc-platform/ui';
+import { DialogUtil } from '@hiarc-platform/design-system';
+import { LectureList } from '@hiarc-platform/domain';
 import { Lecture } from '@hiarc-platform/shared';
 import { useDeleteLecture } from '@/features/study/hooks';
 

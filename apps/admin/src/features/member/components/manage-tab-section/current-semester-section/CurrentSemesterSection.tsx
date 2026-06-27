@@ -1,4 +1,4 @@
-import { Button, cn, Pagination } from '@hiarc-platform/ui';
+import { Button, cn, Pagination } from '@hiarc-platform/design-system';
 import { MemberSearchFilter } from './MemberSearchFilter';
 import { useSelectedSemester } from '@/shared/hooks/use-semester-store';
 import { useState, useEffect } from 'react';

@@ -1,4 +1,4 @@
-import { cn } from '@hiarc-platform/ui';
+import { cn } from '@hiarc-platform/design-system';
 
 export function SectionContainer({
   children,

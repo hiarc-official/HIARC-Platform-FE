@@ -6,7 +6,7 @@ import { MyInfoSection } from '@/features/member/components/my-info-section';
 import { StreakSection } from '@/features/member/components/streak-section';
 import { StudySection } from '@/features/member/components/study-section';
 import { useMyPageState } from '@/features/member/hooks/page/use-my-page-state';
-import { BackButton, Divider, TwoColumnLayout, ProfileSkeleton, FadeIn } from '@hiarc-platform/ui';
+import { BackButton, Divider, TwoColumnLayout, ProfileSkeleton, FadeIn, useMinimumLoading } from '@hiarc-platform/design-system';
 
 export function DesktopMyPage(): React.ReactElement {
   const {
@@ -19,11 +19,9 @@ export function DesktopMyPage(): React.ReactElement {
     handleBackClick,
   } = useMyPageState();
 
-  if (!user) {
-    return <ProfileSkeleton />;
-  }
+  const showSkeleton = useMinimumLoading(!user || myPageDataLoading);
 
-  if (myPageDataLoading) {
+  if (showSkeleton) {
     return <ProfileSkeleton />;
   }
 

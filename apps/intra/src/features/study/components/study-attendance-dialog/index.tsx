@@ -1,13 +1,5 @@
-import {
-  Button,
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogTitle,
-  DialogUtil,
-  Label,
-} from '@hiarc-platform/ui';
-import { NumberInput } from '@hiarc-platform/ui/src/components/input/number-input';
+import { Button, Dialog, DialogContent, DialogFooter, DialogTitle, DialogUtil, Label } from '@hiarc-platform/design-system';
+import { NumberInput } from '@hiarc-platform/design-system';
 import React, { useState } from 'react';
 
 import { useCheckAttendanceCode } from '../../hooks/study-member/mutation/use-check-attendance-code';

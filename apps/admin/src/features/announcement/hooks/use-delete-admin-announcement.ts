@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { announcementApi } from '../api/announcement';
 
 import { UseMutationResult } from '@tanstack/react-query';
-import { DialogUtil } from '@hiarc-platform/ui';
+import { DialogUtil } from '@hiarc-platform/design-system';
 
 export const useDeleteAdminAnnouncement = (): UseMutationResult<unknown, unknown, number> => {
   const queryClient = useQueryClient();

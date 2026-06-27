@@ -1,4 +1,4 @@
-import { Button, cn, SlideFade, Tabs } from '@hiarc-platform/ui';
+import { Button, cn, SlideFade, Tabs } from '@hiarc-platform/design-system';
 import { useRouter } from 'next/navigation';
 import { useLecturesByStudy } from '../../hooks/study-common/query/use-lectures';
 import { useStudyAnnouncements } from '../../hooks/study-common/query/use-study-announcements';

@@ -1,13 +1,4 @@
-import {
-  cn,
-  Divider,
-  IconButton,
-  Label,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-  DialogUtil,
-} from '@hiarc-platform/ui';
+import { cn, Divider, IconButton, Label, Popover, PopoverContent, PopoverTrigger, DialogUtil } from '@hiarc-platform/design-system';
 import React from 'react';
 
 import { EditAwardDialog } from './edit-award-dialog';

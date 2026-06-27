@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
-import { MobileHeader as UIMobileHeader, MenuItem } from '@hiarc-platform/ui';
+import { MobileHeader as UIMobileHeader } from '@hiarc-platform/domain';
+import { MenuItem } from '@hiarc-platform/domain';
 import { MobileHeader } from './header/mobile-header';
 import { DesktopHeader } from './header/desktop-header';
 

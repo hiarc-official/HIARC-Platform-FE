@@ -1,6 +1,6 @@
-import { Divider, Label } from '@hiarc-platform/ui';
+import { Divider, Label } from '@hiarc-platform/design-system';
 import Image from 'next/image';
-import { AnchorLabel } from '@hiarc-platform/ui';
+import { AnchorLabel } from '@hiarc-platform/design-system';
 interface FooterProps {
   id?: string;
 }
@@ -26,7 +26,7 @@ export default function Footer({ id }: FooterProps): React.ReactElement {
           </div>
           <Divider variant="vertical" size="8px" className="hidden md:inline-block" />
           <div className="flex items-center gap-2">
-            <Image src="/shared-assets/Mail.svg" alt="Mail Icon" width={16} height={16} />
+            <Image src="/shared-assets/Mail.svg" alt="Mail Icon" className="h-4 w-4" width={16} height={16} />
             <Label>hiarc.official@gmail.com</Label>
           </div>
           <Divider variant="vertical" size="8px" className="hidden md:inline-block" />

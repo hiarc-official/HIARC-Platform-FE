@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, Label, LoadingDots, Title } from '@hiarc-platform/ui';
+import { Button, Label, LoadingDots, Title } from '@hiarc-platform/design-system';
 import Image from 'next/image';
 import { useLoginPageState } from '@/features/auth/hooks/page/use-login-page-state';
 import { BrowserUtil } from '@hiarc-platform/shared';

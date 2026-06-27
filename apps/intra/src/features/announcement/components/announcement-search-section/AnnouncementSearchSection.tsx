@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, cn, DialogUtil, LabeledInput, LabeledSelector } from '@hiarc-platform/ui';
+import { Button, cn, DialogUtil, LabeledInput, LabeledSelector } from '@hiarc-platform/design-system';
 import React, { useState, useEffect } from 'react';
 import { AnnouncementSearchDialog } from './AnnouncementSearchDialog';
 import { announcementTypeSelectOption, AnnnouncementType } from '@hiarc-platform/shared';

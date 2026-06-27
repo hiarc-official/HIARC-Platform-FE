@@ -2,7 +2,7 @@ import { useQuery, UseQueryResult } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { AxiosError } from 'axios';
 import { Announcement } from '@hiarc-platform/shared';
-import { DialogUtil } from '@hiarc-platform/ui';
+import { DialogUtil } from '@hiarc-platform/design-system';
 import { announcementApi } from '../../api/announcement';
 
 // 모듈 레벨에서 에러를 추적하는 Set (전역적으로 중복 방지)

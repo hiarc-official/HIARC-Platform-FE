@@ -1,4 +1,4 @@
-import { DetailPageSkeleton, PageLayout } from '@hiarc-platform/ui';
+import { DetailPageSkeleton, PageLayout } from '@hiarc-platform/design-system';
 
 export default function Loading(): React.ReactElement {
   return (

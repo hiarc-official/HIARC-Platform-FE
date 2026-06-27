@@ -1,4 +1,4 @@
-import { cn, Divider, Label, Title } from '@hiarc-platform/ui';
+import { cn, Divider, Label, Title } from '@hiarc-platform/design-system';
 import { SectionContainer } from '../section-container';
 import { ContributionGrid } from './contribution-grid';
 import { StreakData } from '../../types/model/streak-data';

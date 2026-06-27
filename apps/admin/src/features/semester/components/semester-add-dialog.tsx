@@ -1,17 +1,8 @@
 'use client';
 
-import {
-  Button,
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogUtil,
-  Label,
-  LabeledSelectButton,
-} from '@hiarc-platform/ui';
+import { Button, Dialog, DialogContent, DialogHeader, DialogTitle, DialogUtil, Label, LabeledSelectButton } from '@hiarc-platform/design-system';
 import React from 'react';
-import { NumberInput } from '../../../../../../packages/ui/src/components/input/number-input';
+import { NumberInput } from '@hiarc-platform/design-system';
 import { useCreateSemester } from '../hooks/use-create-semester';
 
 export function SemesterAddDialog(): React.ReactElement {

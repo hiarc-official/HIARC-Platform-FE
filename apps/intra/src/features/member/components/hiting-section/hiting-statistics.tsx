@@ -1,4 +1,4 @@
-import { Label, Title } from '@hiarc-platform/ui';
+import { Label, Title } from '@hiarc-platform/design-system';
 import Image from 'next/image';
 import { SectionContainer } from '../section-container';
 

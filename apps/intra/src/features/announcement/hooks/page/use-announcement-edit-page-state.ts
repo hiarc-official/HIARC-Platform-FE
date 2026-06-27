@@ -6,7 +6,7 @@ import useAnnouncement from '../query/use-announcement';
 import { useUpdateInstructorAnnouncement } from '../mutation/use-update-instructor-announcement';
 import { useStudyOptions } from '@/features/study/hooks/study-instructor/query/use-study-options';
 
-import { DialogUtil } from '@hiarc-platform/ui';
+import { DialogUtil } from '@hiarc-platform/design-system';
 import { useImageUpload } from '../mutation/use-image-upload';
 
 export function useAnnouncementEditPageState() {

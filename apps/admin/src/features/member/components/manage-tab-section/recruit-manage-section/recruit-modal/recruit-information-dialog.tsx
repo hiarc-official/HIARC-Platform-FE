@@ -1,14 +1,4 @@
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogUtil,
-  Label,
-  Button,
-  LabeledTextarea,
-} from '@hiarc-platform/ui';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogUtil, Label, Button, LabeledTextarea } from '@hiarc-platform/design-system';
 import React, { useState } from 'react';
 import { useSelectedSemester } from '@/shared/hooks/use-semester-store';
 import { useUpdateRecruitment } from '@/features/recruitment/hooks/mutation/use-update-recruitment';

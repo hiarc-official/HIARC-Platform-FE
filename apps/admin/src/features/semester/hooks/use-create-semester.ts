@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { UseMutationResult } from '@tanstack/react-query';
 import { Semester } from '@hiarc-platform/shared';
 import { semesterApi } from '../api/semester';
-import { DialogUtil } from '@hiarc-platform/ui';
+import { DialogUtil } from '@hiarc-platform/design-system';
 import { useSemesterStore } from '@/shared/stores/semester-store';
 
 export const useCreateSemester = (): UseMutationResult<

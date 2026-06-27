@@ -1,10 +1,10 @@
 'use client';
 
-import { LoadingDots } from '@hiarc-platform/ui';
+import { LoadingDots } from '@hiarc-platform/design-system';
 import { useOAuthCallback } from '../../../features/auth/hooks/use-oauth-callback';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 
-export default function OAuthCallbackPage(): React.ReactElement {
+function OAuthCallbackContent(): React.ReactElement {
   const { isProcessing } = useOAuthCallback();
   const [isMounted, setIsMounted] = useState(false);
 
@@ -30,5 +30,22 @@ export default function OAuthCallbackPage(): React.ReactElement {
         <div>{isProcessing ? '로그인 처리 중...' : '완료'}</div>
       </div>
     </div>
+  );
+}
+
+export default function OAuthCallbackPage(): React.ReactElement {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center">
+          <div className="flex flex-col items-center gap-4">
+            <LoadingDots />
+            <div>로딩 중...</div>
+          </div>
+        </div>
+      }
+    >
+      <OAuthCallbackContent />
+    </Suspense>
   );
 }

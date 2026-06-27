@@ -1,5 +1,9 @@
 module.exports = {
-  content: ['./apps/*/src/**/*.{js,ts,jsx,tsx,mdx}', './packages/ui/src/**/*.{js,ts,jsx,tsx,mdx}'],
+  content: [
+    './apps/*/src/**/*.{js,ts,jsx,tsx,mdx}',
+    './packages/*/src/**/*.{js,ts,jsx,tsx,mdx}',
+    './.storybook/**/*.{js,ts,jsx,tsx}',
+  ],
   darkMode: ['class', '.dark'],
   
   // CSS 최적화 설정

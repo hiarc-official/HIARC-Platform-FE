@@ -1,16 +1,6 @@
 'use client';
 
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogUtil,
-  Label,
-  Button,
-  LabeledCalanderInput,
-} from '@hiarc-platform/ui';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogUtil, Label, Button, LabeledCalanderInput } from '@hiarc-platform/design-system';
 import React from 'react';
 
 interface RecruitManageDialogProps {

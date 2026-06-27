@@ -1,4 +1,4 @@
-import { Label, IconButton, DialogUtil } from '@hiarc-platform/ui';
+import { Label, IconButton, DialogUtil } from '@hiarc-platform/design-system';
 import { ColumnDef } from '@tanstack/react-table';
 import { EditCompetitionDialog } from '../update-award-dialog';
 import { useDeleteAward } from '../../hooks/use-delete-award';

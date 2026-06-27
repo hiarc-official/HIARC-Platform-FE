@@ -1,5 +1,5 @@
 import { StudyListPage } from '@/features/study/pages';
-import { PageLayout } from '@hiarc-platform/ui';
+import { PageLayout } from '@hiarc-platform/design-system';
 
 export default function StudyPage(): React.ReactElement {
   return (

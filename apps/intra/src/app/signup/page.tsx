@@ -1,6 +1,6 @@
 'use client';
 
-import { Label, PageLayout } from '@hiarc-platform/ui';
+import { Label, PageLayout } from '@hiarc-platform/design-system';
 import { DesktopSignupPage, MobileSignupPage } from '@/features/auth/pages/signup';
 import { useCurrentSemester } from '@/features/semester/hooks/use-current-semester';
 

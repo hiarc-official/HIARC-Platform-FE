@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Title, Button, FadeIn, Pagination, ListPageSkeleton } from '@hiarc-platform/ui';
+import { Title, Button, FadeIn, Pagination, ListPageSkeleton, useMinimumLoading } from '@hiarc-platform/design-system';
 import { StudyTable } from '@/features/study/components';
 import { useStudies } from '@/features/study/hooks';
 import { useSemesterStoreInit, useSemesterStore } from '@/shared/hooks/use-semester-store';
@@ -33,7 +33,9 @@ export function StudyListPage(): React.ReactElement {
     router.push('/study/create');
   };
 
-  if (isLoading) {
+  const showSkeleton = useMinimumLoading(isLoading);
+
+  if (showSkeleton) {
     return (
       <FadeIn isVisible={true} duration={0.3} className="flex flex-col pt-10 md:pt-0">
         <ListPageSkeleton />

@@ -1,7 +1,7 @@
 'use client';
 
-import { AnnouncementDesktopHeader, AnnouncementWrite } from '@hiarc-platform/ui';
-import { FormSkeleton } from '@hiarc-platform/ui';
+import { AnnouncementDesktopHeader, AnnouncementWrite } from '@hiarc-platform/domain';
+import { FormSkeleton, useMinimumLoading } from '@hiarc-platform/design-system';
 import { useAnnouncementEditPageState } from '../../hooks/page/use-announcement-edit-page-state';
 
 export function DesktopAnnouncementEditPage(): React.ReactElement {
@@ -17,8 +17,10 @@ export function DesktopAnnouncementEditPage(): React.ReactElement {
     handleGoBack,
   } = useAnnouncementEditPageState();
 
+  const showSkeleton = useMinimumLoading(isLoading);
+
   // 로딩 중일 때
-  if (isLoading) {
+  if (showSkeleton) {
     return <FormSkeleton />;
   }
 

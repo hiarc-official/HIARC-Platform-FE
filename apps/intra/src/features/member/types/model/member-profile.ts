@@ -1,5 +1,5 @@
 import { Award } from '@hiarc-platform/shared';
-import { RatingChipProps } from '@hiarc-platform/ui';
+import { RatingChipProps } from '@hiarc-platform/domain';
 import { Rating } from './rating';
 import { Streak } from './streak';
 

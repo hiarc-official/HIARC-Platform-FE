@@ -1,6 +1,6 @@
 'use client';
 
-import { cn, Divider, Label, SlideFade, Title } from '@hiarc-platform/ui';
+import { cn, Divider, Label, SlideFade, Title } from '@hiarc-platform/design-system';
 import { useMemo, useState, useCallback } from 'react';
 import { addDays, startOfWeek, format } from 'date-fns';
 

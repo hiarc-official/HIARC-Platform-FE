@@ -1,15 +1,17 @@
 'use client';
 
-import { AnnouncementWrite } from '@hiarc-platform/ui';
-import { FormSkeleton } from '@hiarc-platform/ui';
+import { AnnouncementWrite } from '@hiarc-platform/domain';
+import { FormSkeleton, useMinimumLoading } from '@hiarc-platform/design-system';
 import { useAnnouncementEditPageState } from '../../hooks/page/use-announcement-edit-page-state';
 
 export function MobileAnnouncementEditPage(): React.ReactElement {
   const { id, studyId, announcement, studyOptions, isLoading, error, handleSubmit } =
     useAnnouncementEditPageState();
 
+  const showSkeleton = useMinimumLoading(isLoading);
+
   // 로딩 중일 때
-  if (isLoading) {
+  if (showSkeleton) {
     return <FormSkeleton />;
   }
 

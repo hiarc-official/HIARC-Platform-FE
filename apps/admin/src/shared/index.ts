@@ -6,7 +6,7 @@ export { BaseException } from './base/base-exception';
 export { BaseModel } from './base/base-model';
 
 // Components
-export { GlobalDialogContainer } from '@hiarc-platform/ui';
+export { GlobalDialogContainer } from '@hiarc-platform/design-system';
 
 // Exceptions
 export * from './exceptions/server-exception';
@@ -23,4 +23,4 @@ export { useAuthStore } from './stores/auth-store';
 export * from './types/pageable-model';
 
 // Utils
-export { DialogUtil } from '@hiarc-platform/ui';
+export { DialogUtil } from '@hiarc-platform/design-system';

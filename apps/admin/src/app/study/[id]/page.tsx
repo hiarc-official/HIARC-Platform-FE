@@ -1,17 +1,12 @@
 'use client';
 
 import { TabSection } from '@/features/study/components';
-import {
-  BackButton,
-  Button,
-  PageLayout,
-  DetailPageSkeleton,
-  StudyInfoSection,
-} from '@hiarc-platform/ui';
+import { BackButton, Button, PageLayout, DetailPageSkeleton, useMinimumLoading } from '@hiarc-platform/design-system';
+import { StudyInfoSection } from '@hiarc-platform/domain';
 import { useRouter, useParams } from 'next/navigation';
 import { useStudy } from '@/features/study/hooks';
 import React, { useState, useEffect } from 'react';
-import { FadeIn } from '@hiarc-platform/ui';
+import { FadeIn } from '@hiarc-platform/design-system';
 
 export default function StudyPage(): React.ReactElement {
   const router = useRouter();
@@ -24,7 +19,9 @@ export default function StudyPage(): React.ReactElement {
     setMounted(true);
   }, []);
 
-  if (!mounted || isLoading) {
+  const showSkeleton = useMinimumLoading(!mounted || isLoading);
+
+  if (showSkeleton) {
     return (
       <PageLayout>
         <DetailPageSkeleton className="mt-5 md:mt-0" />

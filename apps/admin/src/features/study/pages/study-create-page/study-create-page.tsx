@@ -1,7 +1,7 @@
 'use client';
 
 import { StudyFormWrapper } from '../../components/study-form-wrapper.tsx/StudyFormWrapper';
-import { BackButton, Divider, Title } from '@hiarc-platform/ui';
+import { BackButton, Divider, Title } from '@hiarc-platform/design-system';
 
 export function StudyCreatePage(): React.ReactElement {
   const handleBackClick = (): void => {

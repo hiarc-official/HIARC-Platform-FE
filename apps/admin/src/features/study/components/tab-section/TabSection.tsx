@@ -1,4 +1,4 @@
-import { Button, cn, SlideFade, Tabs } from '@hiarc-platform/ui';
+import { Button, cn, SlideFade, Tabs } from '@hiarc-platform/design-system';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useStudyAnnouncements } from '@/features/study/hooks';

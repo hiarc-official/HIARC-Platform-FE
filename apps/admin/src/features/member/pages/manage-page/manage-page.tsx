@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { cn, Tabs, SlideFade } from '@hiarc-platform/ui';
+import { cn, Tabs, SlideFade } from '@hiarc-platform/design-system';
 import { CurrentSemesterSection } from '../../components/manage-tab-section/current-semester-section/CurrentSemesterSection';
 import { RecruitManageSection } from '../../components/manage-tab-section/recruit-manage-section';
 

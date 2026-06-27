@@ -1,4 +1,4 @@
-import { Label, Title } from '@hiarc-platform/ui';
+import { Label, Title } from '@hiarc-platform/design-system';
 import { SectionContainer } from '../section-container';
 import { HitingListItem } from './hiting-list-item';
 import { HitingStatistics } from './hiting-statistics';

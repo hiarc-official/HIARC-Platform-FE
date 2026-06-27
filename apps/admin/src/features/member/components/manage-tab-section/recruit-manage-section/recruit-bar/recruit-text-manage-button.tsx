@@ -1,12 +1,5 @@
 import Image from 'next/image';
-import {
-  Button,
-  DialogUtil,
-  Label,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@hiarc-platform/ui';
+import { Button, DialogUtil, Label, Popover, PopoverContent, PopoverTrigger } from '@hiarc-platform/design-system';
 import { RecruitCompleteDialog } from '../recruit-modal/recruit-complete-dialog';
 import { RecruitInformationDialog } from '../recruit-modal/recruit-information-dialog';
 import { useState } from 'react';

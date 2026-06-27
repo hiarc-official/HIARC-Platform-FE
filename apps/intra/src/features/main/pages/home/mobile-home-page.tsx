@@ -1,6 +1,6 @@
 import { AnnouncementListSection } from '../../components/announcement-list-section/AnnouncementListSection';
 import { StudyListSection } from '../../components/study-list-section';
-import { ContentSection, SingleColumnLayout } from '@hiarc-platform/ui';
+import { ContentSection, SingleColumnLayout } from '@hiarc-platform/design-system';
 import { HiarcScheduleSection } from '../../components/hiarc-schedule-section';
 
 export async function MobileHomePage(): Promise<React.ReactElement> {

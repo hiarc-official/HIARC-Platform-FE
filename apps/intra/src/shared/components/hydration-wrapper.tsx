@@ -1,6 +1,6 @@
 'use client';
 
-import { LoadingDots } from '@hiarc-platform/ui';
+import { LoadingDots } from '@hiarc-platform/design-system';
 import { useState, useEffect } from 'react';
 
 interface HydrationWrapperProps {

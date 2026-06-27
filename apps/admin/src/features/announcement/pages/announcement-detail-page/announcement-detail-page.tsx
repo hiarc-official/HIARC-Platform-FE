@@ -1,15 +1,8 @@
 'use client';
 import { useParams, useRouter } from 'next/navigation';
 import { useAdminAnnouncement } from '@/features/announcement/hooks';
-import {
-  BackButton,
-  DetailPageSkeleton,
-  Button,
-  FadeIn,
-  AnnouncementIndicatorSection,
-  AnnouncementInfoSection,
-  AnnouncementContentSection,
-} from '@hiarc-platform/ui';
+import { BackButton, DetailPageSkeleton, Button, FadeIn, useMinimumLoading } from '@hiarc-platform/design-system';
+import { AnnouncementIndicatorSection, AnnouncementInfoSection, AnnouncementContentSection } from '@hiarc-platform/domain';
 
 export function AnnouncementDetailPage(): React.ReactElement {
   const params = useParams();
@@ -26,7 +19,9 @@ export function AnnouncementDetailPage(): React.ReactElement {
     router.push('/announcement');
   };
 
-  if (isLoading) {
+  const showSkeleton = useMinimumLoading(isLoading);
+
+  if (showSkeleton) {
     return <DetailPageSkeleton />;
   }
 

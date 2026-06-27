@@ -1,4 +1,5 @@
-import { CategoryChip, cn, Label } from '@hiarc-platform/ui';
+import { cn, Label } from '@hiarc-platform/design-system';
+import { CategoryChip } from '@hiarc-platform/domain';
 
 interface RatingListItemProps {
   title: string;

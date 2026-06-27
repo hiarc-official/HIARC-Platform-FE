@@ -1,5 +1,5 @@
 'use client';
-import { Button, DialogUtil } from '@hiarc-platform/ui';
+import { Button, DialogUtil } from '@hiarc-platform/design-system';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { useSemesterStoreInit, useSemesterStore } from '@/shared/hooks/use-semester-store';

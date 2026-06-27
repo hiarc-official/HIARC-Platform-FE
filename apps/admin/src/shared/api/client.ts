@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, InternalAxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 import { useAuthStore } from '../stores/auth-store';
-import { DialogUtil } from '@hiarc-platform/ui';
+import { DialogUtil } from '@hiarc-platform/design-system';
 
 // In development, use Next.js API route proxy to avoid CORS issues
 // In production, use direct API calls

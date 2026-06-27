@@ -1,7 +1,9 @@
 'use client';
 
 import { usePathname, useRouter } from 'next/navigation';
-import { MobileHeader, MenuItem, DialogUtil } from '@hiarc-platform/ui';
+import { DialogUtil } from '@hiarc-platform/design-system';
+import { MobileHeader } from '@hiarc-platform/domain';
+import { MenuItem } from '@hiarc-platform/domain';
 import Header from './Header';
 import { useAuthStore } from '../stores/auth-store';
 import { useLogout } from '@/features/auth';

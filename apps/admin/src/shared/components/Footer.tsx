@@ -1,6 +1,6 @@
-import { Divider, Label } from '@hiarc-platform/ui';
+import { Divider, Label } from '@hiarc-platform/design-system';
 import Image from 'next/image';
-import { AnchorLabel } from '@hiarc-platform/ui';
+import { AnchorLabel } from '@hiarc-platform/design-system';
 
 interface FooterProps {
   id?: string;

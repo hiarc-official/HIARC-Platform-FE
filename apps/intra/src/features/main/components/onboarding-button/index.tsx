@@ -1,6 +1,6 @@
 'use client';
 
-import { cn, Title } from '@hiarc-platform/ui';
+import { cn, Title } from '@hiarc-platform/design-system';
 import React from 'react';
 
 interface OnboardingButtonProps {

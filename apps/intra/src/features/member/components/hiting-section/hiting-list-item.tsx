@@ -1,4 +1,5 @@
-import { CategoryChip, Label, RatingChip } from '@hiarc-platform/ui';
+import { Label } from '@hiarc-platform/design-system';
+import { CategoryChip, RatingChip } from '@hiarc-platform/domain';
 import Image from 'next/image';
 
 interface HitingListItemProps {

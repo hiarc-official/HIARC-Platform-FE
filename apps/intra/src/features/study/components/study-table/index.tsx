@@ -1,13 +1,6 @@
 import { PageableModel, StudySummary } from '@hiarc-platform/shared';
-import {
-  cn,
-  CommonTableBody,
-  CommonTableHead,
-  Label,
-  Pagination,
-  SlideFade,
-  StudyStatusChip,
-} from '@hiarc-platform/ui';
+import { cn, CommonTableBody, CommonTableHead, Label, Pagination, SlideFade } from '@hiarc-platform/design-system';
+import { StudyStatusChip } from '@hiarc-platform/domain';
 import { useTable } from '@hiarc-platform/shared';
 import { Row } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';

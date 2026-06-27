@@ -7,12 +7,9 @@ import { useImageUpload } from '@/features/announcement/hooks/use-image-upload';
 import { CreateAnnouncementRequest, CreateAnnouncementForm } from '@hiarc-platform/shared';
 import { useStudyOptions } from '@/features/study/hooks';
 import { useSemesterStoreInit } from '@/shared/hooks/use-semester-store';
-import {
-  AnnouncementWrite,
-  FormSkeleton,
-  DialogUtil,
-  AnnouncementDesktopHeader,
-} from '@hiarc-platform/ui';
+import { FormSkeleton, DialogUtil, useMinimumLoading } from '@hiarc-platform/design-system';
+import { AnnouncementWrite } from '@hiarc-platform/domain';
+import { AnnouncementDesktopHeader } from '@hiarc-platform/domain';
 
 export function AnnouncementEditPage(): React.ReactElement {
   const router = useRouter();
@@ -164,8 +161,10 @@ export function AnnouncementEditPage(): React.ReactElement {
     ? `${announcement?.studyName} - ${announcement?.lectureRound}회차 강의 수정`
     : '공지사항 수정';
 
+  const showSkeleton = useMinimumLoading(isLoading);
+
   // 로딩 중일 때
-  if (isLoading) {
+  if (showSkeleton) {
     return <FormSkeleton />;
   }
 

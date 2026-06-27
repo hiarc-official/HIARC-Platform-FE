@@ -1,16 +1,6 @@
 'use client';
 
-import {
-  Button,
-  Input,
-  Label,
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@hiarc-platform/ui';
+import { Button, Input, Label, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@hiarc-platform/design-system';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';

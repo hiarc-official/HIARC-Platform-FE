@@ -1,6 +1,7 @@
 'use client';
 
-import { BackButton, Button, DetailPageSkeleton, StudyInfoSection } from '@hiarc-platform/ui';
+import { BackButton, Button, DetailPageSkeleton, useMinimumLoading } from '@hiarc-platform/design-system';
+import { StudyInfoSection } from '@hiarc-platform/domain';
 import { useStudyDetailPageState } from '@/features/study/hooks/page/use-study-detail-page-state';
 import { TabSection } from '@/features/study/components/tab-section/TabSection';
 
@@ -17,7 +18,9 @@ export function DesktopStudyDetailPage(): React.ReactElement {
     handleListClick,
   } = useStudyDetailPageState();
 
-  if (!mounted || isLoading) {
+  const showSkeleton = useMinimumLoading(!mounted || isLoading);
+
+  if (showSkeleton) {
     return <DetailPageSkeleton />;
   }
 

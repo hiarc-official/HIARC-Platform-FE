@@ -1,6 +1,6 @@
 'use client';
 
-import { SlideFade } from '@hiarc-platform/ui';
+import { SlideFade } from '@hiarc-platform/design-system';
 import { OnboardingButton } from './onboarding-button';
 import { useCurrentSemester } from '@/features/semester/hooks/use-current-semester';
 import { useAuthStore } from '@/shared/store/auth-store';

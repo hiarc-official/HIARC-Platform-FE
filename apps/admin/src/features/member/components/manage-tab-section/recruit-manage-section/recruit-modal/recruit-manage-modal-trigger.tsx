@@ -1,5 +1,5 @@
 'use client';
-import { IconButton, DialogUtil } from '@hiarc-platform/ui';
+import { IconButton, DialogUtil } from '@hiarc-platform/design-system';
 import React from 'react';
 import { RecruitManageDialog } from './recruit-manage-dialog';
 

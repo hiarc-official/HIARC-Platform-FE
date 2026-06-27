@@ -3,13 +3,15 @@
 import { StudySearchSection } from '@/features/study/components/study-search-section';
 import { StudyTable } from '@/features/study/components/study-table';
 import { useStudyListPageState } from '@/features/study/hooks/page/use-study-list-page-state';
-import { Title, ListPageSkeleton } from '@hiarc-platform/ui';
+import { Title, ListPageSkeleton, useMinimumLoading } from '@hiarc-platform/design-system';
 
 export function DesktopStudyListPage(): React.ReactElement {
   const { studies, isLoading, error, filterParams, handlePageChange, handleSearch } =
     useStudyListPageState();
 
-  if (isLoading) {
+  const showSkeleton = useMinimumLoading(isLoading);
+
+  if (showSkeleton) {
     return <ListPageSkeleton />;
   }
 

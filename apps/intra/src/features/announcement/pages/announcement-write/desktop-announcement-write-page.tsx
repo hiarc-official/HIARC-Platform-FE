@@ -1,7 +1,7 @@
 'use client';
 
-import { AnnouncementDesktopHeader } from '@hiarc-platform/ui';
-import { AnnouncementWrite } from '@hiarc-platform/ui';
+import { AnnouncementDesktopHeader } from '@hiarc-platform/domain';
+import { AnnouncementWrite } from '@hiarc-platform/domain';
 import { useAnnouncementWritePageState } from '../../hooks/page/use-announcement-write-page-state';
 
 export function DesktopAnnouncementWritePage(): React.ReactElement {

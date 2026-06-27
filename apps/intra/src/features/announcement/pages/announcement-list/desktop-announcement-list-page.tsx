@@ -3,14 +3,16 @@
 import { AnnouncementSearchSection } from '@/features/announcement/components/announcement-search-section/AnnouncementSearchSection';
 import { AnnouncementTable } from '@/features/announcement/components/announcement-table/AnnouncementTable';
 
-import { Title, ListPageSkeleton } from '@hiarc-platform/ui';
+import { Title, ListPageSkeleton, useMinimumLoading } from '@hiarc-platform/design-system';
 import { useAnnouncementListPageState } from '../../hooks/page/use-announcement-list-page-state';
 
 export function DesktopAnnouncementListPage(): React.ReactElement {
   const { filterParams, announcements, isLoading, error, handlePageChange, handleSearch } =
     useAnnouncementListPageState();
 
-  if (isLoading) {
+  const showSkeleton = useMinimumLoading(isLoading);
+
+  if (showSkeleton) {
     return <ListPageSkeleton />;
   }
 

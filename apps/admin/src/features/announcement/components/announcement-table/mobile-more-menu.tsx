@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import { IconButton, Label } from '@hiarc-platform/ui';
-import { Popover, PopoverContent, PopoverTrigger } from '@hiarc-platform/ui';
+import { IconButton, Label } from '@hiarc-platform/design-system';
+import { Popover, PopoverContent, PopoverTrigger } from '@hiarc-platform/design-system';
 import { AnnouncementSummary } from '@hiarc-platform/shared';
 
 interface MobileMoreMenuProps {

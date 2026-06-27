@@ -1,15 +1,7 @@
 'use client';
 import { RecruitSummary } from './recruit-bar/recruitment-summary';
 import { useState } from 'react';
-import {
-  Button,
-  DialogUtil,
-  Label,
-  Pagination,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@hiarc-platform/ui';
+import { Button, DialogUtil, Label, Pagination, Popover, PopoverContent, PopoverTrigger } from '@hiarc-platform/design-system';
 import { useSelectedSemester } from '@/shared/hooks/use-semester-store';
 import { useRecruitment } from '@/features/recruitment/hooks/query/use-recruitment';
 import { RecruitStartDialog } from './recruit-modal/recruit-start-dialog';

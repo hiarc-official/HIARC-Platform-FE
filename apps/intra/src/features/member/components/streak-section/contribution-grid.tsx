@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from '@hiarc-platform/ui';
+import { cn } from '@hiarc-platform/design-system';
 import { addDays, differenceInDays, format, getDay } from 'date-fns';
 import { useEffect, useRef } from 'react';
 

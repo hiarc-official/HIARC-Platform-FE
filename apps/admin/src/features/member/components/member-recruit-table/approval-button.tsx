@@ -1,7 +1,7 @@
 import { useCurrentSemester } from '@/features/semester/hooks/use-current-semester';
 import { useSelectedSemester } from '@/shared/hooks/use-semester-store';
 import { StudentApply } from '@hiarc-platform/shared';
-import { Button, Label } from '@hiarc-platform/ui';
+import { Button, Label } from '@hiarc-platform/design-system';
 import { ReactElement } from 'react';
 import { useUpdateMemberApply } from '../../hooks';
 

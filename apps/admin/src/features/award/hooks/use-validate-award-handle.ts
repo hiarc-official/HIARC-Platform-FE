@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { UseMutationResult } from '@tanstack/react-query';
 import { awardApi } from '../api/award';
-import { DialogUtil } from '@hiarc-platform/ui';
+import { DialogUtil } from '@hiarc-platform/design-system';
 
 export const useUpdateAwardHandle = (): UseMutationResult<
   unknown,

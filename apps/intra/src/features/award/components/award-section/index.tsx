@@ -1,4 +1,4 @@
-import { cn, DialogUtil, IconButton, Label, Title } from '@hiarc-platform/ui';
+import { cn, DialogUtil, IconButton, Label, Title } from '@hiarc-platform/design-system';
 import React from 'react';
 import { AwardListItem } from './award-list-item';
 import { AwardDialog } from './award-dialog';
