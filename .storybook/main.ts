@@ -1,4 +1,5 @@
 import { join, dirname } from 'path';
+import tailwindcss from '@tailwindcss/vite';
 import type { StorybookConfig } from '@storybook/react-vite';
 
 const config: StorybookConfig = {
@@ -19,6 +20,8 @@ const config: StorybookConfig = {
   async viteFinal(viteConfig) {
     const here = dirname(new URL(import.meta.url).pathname); // <root>/.storybook
     const shims = join(here, 'next-shims');
+    // Tailwind v4 는 Vite 환경에서 전용 플러그인으로 처리한다 (@config 로 JS 프리셋 공유).
+    viteConfig.plugins = [...(viteConfig.plugins ?? []), tailwindcss()];
     const pkg = (p: string): string => join(here, '..', 'packages', p, 'src', 'index.ts');
     viteConfig.resolve = viteConfig.resolve ?? {};
     viteConfig.resolve.alias = {
