@@ -1,10 +1,12 @@
 'use client';
 import * as React from 'react';
+import { useState } from 'react';
+import { format } from 'date-fns';
+import type { DateRange } from 'react-day-picker';
+import { cn } from '../../../lib/utils';
 import { Label } from '../../typography/Label/Label';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import { ko } from 'date-fns/locale';
-import { Input } from '../Input/Input';
+import { Calendar } from '../Calendar/Calendar';
+import { Popover, PopoverTrigger, PopoverContent } from '../../overlay/Popover/Popover';
 import { ScheduleIcon } from '../../../icons';
 
 interface LabeledInputProps {
@@ -15,12 +17,16 @@ interface LabeledInputProps {
   onChange(value: Date | null | [Date | null, Date | null]): void;
   placeholder?: string;
   rangeMode?: boolean;
+  // 시간 선택은 더 이상 지원하지 않으나(미사용) API 호환을 위해 prop 은 남겨둔다.
   showTimeSelect?: boolean;
   timeIntervals?: number;
   error?: string;
   className?: string;
 }
 
+const fmt = (d: Date): string => format(d, 'yyyy-MM-dd');
+
+// Radix Popover + Calendar(react-day-picker) 로 구성한 날짜 선택 입력.
 function LabeledCalanderInput({
   placeholder,
   label,
@@ -29,15 +35,22 @@ function LabeledCalanderInput({
   value,
   onChange,
   rangeMode = false,
-  showTimeSelect = false,
-  timeIntervals = 15,
   error,
   className,
 }: LabeledInputProps): React.ReactElement {
-  const [startDate, endDate] = Array.isArray(value) ? value : [value, null];
+  const [open, setOpen] = useState(false);
+  const [start, end] = Array.isArray(value) ? value : [value, null];
+
+  const display = rangeMode
+    ? start
+      ? `${fmt(start)}${end ? ` ~ ${fmt(end)}` : ''}`
+      : ''
+    : start
+      ? fmt(start)
+      : '';
 
   return (
-    <div className={`flex w-full flex-col ${className}`}>
+    <div className={cn('flex w-full flex-col', className)}>
       {showLabel && (
         <div className="mb-2 flex items-center">
           <Label weight="medium" size="md">
@@ -46,46 +59,41 @@ function LabeledCalanderInput({
           {required && <span className="relative -top-[2px] ml-0.5 text-red">*</span>}
         </div>
       )}
-      <div className="relative w-full">
-        <ScheduleIcon className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2" width={16} height={16} />
-
-        {rangeMode ? (
-          <DatePicker
-            selected={startDate}
-            onChange={(date: [Date | null, Date | null]) => onChange(date)}
-            selectsRange
-            startDate={startDate}
-            endDate={endDate}
-            placeholderText={placeholder}
-            className="h-11 pl-10"
-            dateFormat={showTimeSelect ? 'yyyy-MM-dd HH:mm' : 'yyyy-MM-dd'}
-            popperPlacement="bottom-start"
-            wrapperClassName="w-full"
-            locale={ko}
-            showTimeSelect={showTimeSelect}
-            timeIntervals={timeIntervals}
-            timeFormat="HH:mm"
-            timeCaption="시간"
-            customInput={<Input className=" border-gray-200" />}
-          />
-        ) : (
-          <DatePicker
-            selected={startDate}
-            onChange={(date: Date | null) => onChange(date)}
-            placeholderText={placeholder}
-            className="h-11 pl-10"
-            dateFormat={showTimeSelect ? 'yyyy-MM-dd HH:mm' : 'yyyy-MM-dd'}
-            popperPlacement="bottom-start"
-            wrapperClassName="w-full"
-            locale={ko}
-            showTimeSelect={showTimeSelect}
-            timeIntervals={timeIntervals}
-            timeFormat="HH:mm"
-            timeCaption="시간"
-            customInput={<Input className=" border-gray-200" />}
-          />
-        )}
-      </div>
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>
+          <button
+            type="button"
+            className={cn(
+              'flex h-11 w-full items-center gap-2 rounded-md border border-gray-200 bg-transparent px-3 text-left text-md outline-none',
+              'focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]',
+              !display && 'text-gray-500'
+            )}
+          >
+            <ScheduleIcon className="h-4 w-4 shrink-0" width={16} height={16} />
+            <span className="truncate">{display || placeholder}</span>
+          </button>
+        </PopoverTrigger>
+        <PopoverContent className="w-auto p-0" align="start">
+          {rangeMode ? (
+            <Calendar
+              mode="range"
+              selected={{ from: start ?? undefined, to: end ?? undefined }}
+              onSelect={(range: DateRange | undefined) =>
+                onChange([range?.from ?? null, range?.to ?? null])
+              }
+            />
+          ) : (
+            <Calendar
+              mode="single"
+              selected={start ?? undefined}
+              onSelect={(date) => {
+                onChange(date ?? null);
+                setOpen(false);
+              }}
+            />
+          )}
+        </PopoverContent>
+      </Popover>
       {error && (
         <div className="mt-1">
           <Label size="sm" className="text-red">

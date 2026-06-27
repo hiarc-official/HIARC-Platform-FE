@@ -18,6 +18,7 @@ export * from './components/form/Input/Input';
 export * from './components/form/LabeledInput/LabeledInput';
 export * from './components/form/LabeledTextarea/LabeledTextarea';
 export * from './components/form/LabeledCalanderInput/LabeledCalanderInput';
+export * from './components/form/Calendar/Calendar';
 export * from './components/form/LabeledImageInput/LabeledImageInput';
 export * from './components/form/NumberInput/NumberInput';
 export * from './components/form/Textarea/Textarea';
