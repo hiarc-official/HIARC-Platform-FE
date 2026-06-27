@@ -1,6 +1,5 @@
 // 디자인 시스템 (Design System) — 서비스에 종속되지 않는 재사용 가능한 프리미티브.
-// 여기 있는 것들은 어느 앱에서든 그대로 쓸 수 있어야 한다. 비즈니스 도메인 지식이
-// 들어오면 그건 design-system이 아니라 domain.ts로 가야 한다.
+// 컴포넌트는 components/<카테고리>/<Component>/<Component>.tsx 구조로 관리한다.
 
 // 기반 유틸 / 토큰 / 스토어
 export * from './lib/utils';
@@ -9,64 +8,67 @@ export * from './store/dialog-store';
 export * from './utils/dialog-util';
 export * from './hooks/use-minimum-loading';
 
-// 애니메이션
-export * from './components/animation';
+// action — 버튼 / 토글
+export * from './components/action/Button/Button';
+export * from './components/action/IconButton/IconButton';
+export * from './components/action/BackButton/BackButton';
 
-// 버튼 / 액션
-export * from './components/button';
-export * from './components/icon-button';
-export * from './components/back-button';
+// form — 입력 / 선택
+export * from './components/form/Input/Input';
+export * from './components/form/LabeledInput/LabeledInput';
+export * from './components/form/LabeledTextarea/LabeledTextarea';
+export * from './components/form/LabeledCalanderInput/LabeledCalanderInput';
+export * from './components/form/LabeledImageInput/LabeledImageInput';
+export * from './components/form/NumberInput/NumberInput';
+export * from './components/form/Textarea/Textarea';
+export * from './components/form/Select/Select';
+export * from './components/form/LabeledSelector/LabeledSelector';
+export * from './components/form/LabeledSelectButton/LabeledSelectButton';
+export * from './components/form/CheckboxList/CheckboxList';
+export * from './components/form/LabeledCheckboxList/LabeledCheckboxList';
 
-// 컨테이너 / 레이아웃
-export * from './components/card';
-export * from './components/divider';
-export * from './components/layout/content-section';
-export * from './components/layout/page-layout';
+// typography — 라벨 / 타이틀
+export * from './components/typography/Label/Label';
+export * from './components/typography/AnchorLabel/AnchorLabel';
+export * from './components/typography/Title/Title';
 
-// 라벨 / 타이포
-export * from './components/label/label';
-export * from './components/label/anchorLabel';
-export * from './components/label/title';
+// data-display — 아바타 / 뱃지 / 카드 / 테이블
+export * from './components/data-display/Avatar/Avatar';
+export * from './components/data-display/Badge/Badge';
+export * from './components/data-display/Card/Card';
+export * from './components/data-display/CommonTableBody/CommonTableBody';
+export * from './components/data-display/CommonTableHead/CommonTableHead';
+export * from './components/data-display/Pagination/Pagination';
 
-// 입력
-export * from './components/input/input';
-export * from './components/input/labeled-input';
-export * from './components/input/labeled-textarea';
-export * from './components/input/labeled-calander-input';
-export * from './components/input/labeled-image-input';
-export * from './components/input/number-input';
-export * from './components/input/textarea';
+// feedback — 로딩 / 스켈레톤
+export * from './components/feedback/LoadingDots/LoadingDots';
+export * from './components/feedback/Skeleton/Skeleton';
+export * from './components/feedback/SkeletonViews/SkeletonViews';
 
-// 표시 / 미디어
-export * from './components/avatar';
-export * from './components/badge';
+// overlay — 다이얼로그 / 팝오버
+export * from './components/overlay/Dialog/Dialog';
+export * from './components/overlay/AlertDialog/AlertDialog';
+export * from './components/overlay/Popover/Popover';
+export * from './components/overlay/ConfirmDialog/ConfirmDialog';
+export * from './components/overlay/ErrorDialog/ErrorDialog';
+export * from './components/overlay/InfoDialog/InfoDialog';
+export * from './components/overlay/SuccessDialog/SuccessDialog';
+export * from './components/overlay/WarningDialog/WarningDialog';
+export * from './components/overlay/AlertDialogComponent/AlertDialogComponent';
+export * from './components/overlay/GlobalDialogContainer/GlobalDialogContainer';
 
-// 선택 / 셀렉트
-export * from './components/select/select';
-export * from './components/select/labeled-selector';
-export * from './components/select/labeled-select-button';
-export * from './components/select/checkbox-list';
-export * from './components/select/labeled-checkbox-list';
+// layout — 레이아웃 / 디바이더
+export * from './components/layout/ContentSection/ContentSection';
+export * from './components/layout/PageLayout/PageLayout';
+export * from './components/layout/Divider/Divider';
 
-// 네비게이션 / 탭 / 팝오버
-export * from './components/tabs';
-export * from './components/menubar';
-export * from './components/popover';
+// navigation — 탭 / 메뉴바
+export * from './components/navigation/Tabs/Tabs';
+export * from './components/navigation/Menubar/Menubar';
 
-// 다이얼로그 (제네릭)
-export * from './components/dialog/dialog';
-export * from './components/dialog/alert-dialog';
-export * from './components/dialogs';
+// motion — 애니메이션
+export * from './components/motion/FadeIn/FadeIn';
+export * from './components/motion/SlideFade/SlideFade';
 
-// 테이블 (제네릭 — 컬럼/페이지네이션)
-export * from './components/table/common-table-body';
-export * from './components/table/common-table-head';
-export * from './components/table/pagination';
-
-// 로딩 / 스켈레톤
-export * from './components/loading-dots';
-export * from './components/skeleton';
-export * from './components/skeleton-views';
-
-// 접근성
-export * from './components/visually-hidden';
+// utility — 접근성
+export * from './components/utility/VisuallyHidden/VisuallyHidden';
