@@ -1,0 +1,31 @@
+import type { Meta, StoryObj } from '@storybook/react';
+import { ToggleGroup, ToggleGroupItem } from './ToggleGroup';
+
+const meta = {
+  title: 'Design System/Action/ToggleGroup',
+  component: ToggleGroup,
+  tags: ['autodocs'],
+} satisfies Meta<typeof ToggleGroup>;
+
+export default meta;
+type Story = StoryObj;
+
+export const Single: Story = {
+  render: () => (
+    <ToggleGroup type="single" defaultValue="b" variant="outline">
+      <ToggleGroupItem value="a">왼쪽</ToggleGroupItem>
+      <ToggleGroupItem value="b">가운데</ToggleGroupItem>
+      <ToggleGroupItem value="c">오른쪽</ToggleGroupItem>
+    </ToggleGroup>
+  ),
+};
+
+export const Multiple: Story = {
+  render: () => (
+    <ToggleGroup type="multiple" defaultValue={['bold']}>
+      <ToggleGroupItem value="bold">B</ToggleGroupItem>
+      <ToggleGroupItem value="italic">I</ToggleGroupItem>
+      <ToggleGroupItem value="underline">U</ToggleGroupItem>
+    </ToggleGroup>
+  ),
+};
