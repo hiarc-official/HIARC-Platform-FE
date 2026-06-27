@@ -10,7 +10,8 @@ const config: StorybookConfig = {
     '../packages/domain/src/**/*.mdx',
     '../packages/domain/src/**/*.stories.@(ts|tsx)',
   ],
-  addons: ['@storybook/addon-essentials', '@storybook/addon-a11y'],
+  // v9+ 에서 essentials(controls/actions/docs/viewport…)는 코어에 내장됨 → a11y 만 별도 addon.
+  addons: ['@storybook/addon-a11y'],
   framework: {
     name: '@storybook/react-vite',
     options: {},
