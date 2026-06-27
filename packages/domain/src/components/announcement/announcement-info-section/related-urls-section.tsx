@@ -1,7 +1,6 @@
+import { LinkIcon } from '@hiarc-platform/design-system';
 import { Divider } from '@hiarc-platform/design-system';
 import { Label } from '@hiarc-platform/design-system';
-import Image from 'next/image';
-
 interface RelatedUrlsSectionProps {
   urlList?: string[];
 }
@@ -25,7 +24,7 @@ export function RelatedUrlsSection({
     <div className="flex w-full flex-col">
       <div className="flex w-full items-start gap-8 pt-6">
         <div className="flex items-center gap-2">
-          <Image src="/shared-assets/Link.svg" width={20} height={20} alt="link" />
+          <LinkIcon width={20} height={20} />
           <Label className="w-[85px]" weight="semibold">
             관련 URL
           </Label>

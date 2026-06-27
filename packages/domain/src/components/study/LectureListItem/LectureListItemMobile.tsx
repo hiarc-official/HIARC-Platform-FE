@@ -1,5 +1,6 @@
 'use client';
 
+import { MoreIcon } from '@hiarc-platform/design-system';
 import { cn } from '@hiarc-platform/design-system';
 import { IconButton } from '@hiarc-platform/design-system';
 import { Label } from '@hiarc-platform/design-system';
@@ -187,7 +188,7 @@ export function LectureListItemMobile({
           {isAdmin && (
             <Popover>
               <PopoverTrigger asChild>
-                <IconButton iconSrc="/shared-assets/More.svg" size="sm" onClick={handleMoreClick} />
+                <IconButton icon={<MoreIcon />} size="sm" onClick={handleMoreClick} />
               </PopoverTrigger>
               <PopoverContent className="w-32 p-1" align="end">
                 <div className="flex flex-col">{renderAdminMenuItems()}</div>

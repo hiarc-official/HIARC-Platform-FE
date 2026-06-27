@@ -1,5 +1,6 @@
 'use client';
 
+import { CaretDownIcon, CaretUpIcon } from '@hiarc-platform/design-system';
 import { useState } from 'react';
 import type { StudyGroup } from '@hiarc-platform/shared';
 import { Button } from '@hiarc-platform/design-system';
@@ -68,7 +69,7 @@ export function StudyGroupListItem({
         </Label>
         <IconButton
           size="lg"
-          iconSrc={open ? '/shared-assets/CaretUp.svg' : '/shared-assets/CaretDown.svg'}
+          icon={open ? <CaretUpIcon /> : <CaretDownIcon />}
           aria-label="토글 상세"
           onClick={() => setOpen((toggle) => !toggle)}
         />

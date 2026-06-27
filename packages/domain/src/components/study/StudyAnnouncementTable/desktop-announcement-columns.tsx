@@ -1,3 +1,4 @@
+import { MoreIcon } from '@hiarc-platform/design-system';
 import { AnnouncementSummary } from '@hiarc-platform/shared';
 import { Label, IconButton, Popover, PopoverContent, PopoverTrigger } from '@hiarc-platform/design-system';
 import { DateUtil } from '@hiarc-platform/shared';
@@ -119,7 +120,7 @@ export const STUDY_ANNOUNCEMENT_COLUMN: Array<ColumnDef<AnnouncementSummary>> = 
             <PopoverTrigger asChild>
               <IconButton
                 type="button"
-                iconSrc="/shared-assets/More.svg"
+                icon={<MoreIcon />}
                 size="sm"
                 onClick={handleMoreClick}
               />

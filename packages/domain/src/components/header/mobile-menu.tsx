@@ -1,5 +1,6 @@
 'use client';
 
+import { CloseIcon } from '@hiarc-platform/design-system';
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { IconButton } from '@hiarc-platform/design-system';
@@ -93,7 +94,7 @@ export function MobileMenu({
             <Label size="lg" weight="bold">
               메뉴
             </Label>
-            <IconButton iconSrc="/shared-assets/Close.svg" size="lg" onClick={onClose} />
+            <IconButton icon={<CloseIcon />} size="lg" onClick={onClose} />
           </div>
 
           {/* 헤더 컴포넌트 */}
@@ -137,7 +138,7 @@ export function MobileMenu({
       >
         {/* 메뉴 헤더 */}
         <div className="flex h-14 items-center justify-between border-b border-gray-200 px-4">
-          <IconButton iconSrc="/shared-assets/Close.svg" size="lg" onClick={onClose} />
+          <IconButton icon={<CloseIcon />} size="lg" onClick={onClose} />
           <Label size="lg" weight="bold">
             메뉴
           </Label>

@@ -72,3 +72,6 @@ export * from './components/motion/SlideFade/SlideFade';
 
 // utility — 접근성
 export * from './components/utility/VisuallyHidden/VisuallyHidden';
+
+// 아이콘팩 (인라인 SVG)
+export * from './icons';

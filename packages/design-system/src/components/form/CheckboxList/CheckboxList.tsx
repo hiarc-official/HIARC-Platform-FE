@@ -2,7 +2,7 @@
 
 import { cn } from '../../../lib/utils';
 import { SelectOption } from '@hiarc-platform/shared';
-import Image from 'next/image';
+import { CheckboxPrimaryIcon } from '../../../icons';
 import { Label } from '../../typography/Label/Label';
 
 function StyledCheckbox({
@@ -21,7 +21,7 @@ function StyledCheckbox({
       className="inline-flex h-4 w-4 cursor-pointer items-center justify-center hover:opacity-80"
     >
       {checked ? (
-        <Image src="/shared-assets/CheckboxPrimary.svg" alt="checked" width={16} height={16} />
+        <CheckboxPrimaryIcon width={16} height={16} />
       ) : (
         <div className="inline-block h-4 w-4 rounded-[2px] border border-gray-300 bg-white" />
       )}

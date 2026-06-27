@@ -1,12 +1,11 @@
 'use client';
 
+import { ArrowLeftIcon, HamburgerIcon, HomeIcon, LogoIcon } from '@hiarc-platform/design-system';
 import React, { useState } from 'react';
 import { IconButton } from '@hiarc-platform/design-system';
 import { Title } from '@hiarc-platform/design-system';
 import { MobileMenu } from './mobile-menu';
 import { Button } from '@hiarc-platform/design-system';
-import Image from 'next/image';
-
 export interface MenuItem {
   label: string;
   path: string;
@@ -74,7 +73,7 @@ export function MobileHeader({
         <div className="flex h-14 w-full items-center justify-between border border-b-gray-200 bg-white px-4">
           {/* 왼쪽: 로고 */}
           <div className="flex items-center">
-            <Image src="/shared-assets/Logo.svg" alt="Logo" width={86} height={32} />
+            <LogoIcon width={86} height={32} />
           </div>
 
           {/* 오른쪽: 로그인/로그아웃 + 메뉴 */}
@@ -89,7 +88,7 @@ export function MobileHeader({
               </Button>
             )}
             <IconButton
-              iconSrc="/shared-assets/Hamburger.svg"
+              icon={<HamburgerIcon />}
               size="xl"
               onClick={handleMenuToggle}
             />
@@ -114,7 +113,7 @@ export function MobileHeader({
         {menuAlignment === 'right' ? (
           <>
             {onBackClick ? (
-              <IconButton iconSrc="/shared-assets/ArrowLeft.svg" size="xl" onClick={onBackClick} />
+              <IconButton icon={<ArrowLeftIcon />} size="xl" onClick={onBackClick} />
             ) : (
               <div className="w-10" />
             )}
@@ -122,10 +121,10 @@ export function MobileHeader({
               {title}
             </Title>
             {onHomeClick ? (
-              <IconButton iconSrc="/shared-assets/Home.svg" size="xl" onClick={onHomeClick} />
+              <IconButton icon={<HomeIcon />} size="xl" onClick={onHomeClick} />
             ) : (
               <IconButton
-                iconSrc="/shared-assets/Hamburger.svg"
+                icon={<HamburgerIcon />}
                 size="xl"
                 onClick={handleMenuToggle}
               />
@@ -134,10 +133,10 @@ export function MobileHeader({
         ) : (
           <>
             {onBackClick ? (
-              <IconButton iconSrc="/shared-assets/ArrowLeft.svg" size="xl" onClick={onBackClick} />
+              <IconButton icon={<ArrowLeftIcon />} size="xl" onClick={onBackClick} />
             ) : (
               <IconButton
-                iconSrc="/shared-assets/Hamburger.svg"
+                icon={<HamburgerIcon />}
                 size="xl"
                 onClick={handleMenuToggle}
               />
@@ -145,7 +144,7 @@ export function MobileHeader({
             <Title size="xs" weight="bold" className="text-center">
               {title}
             </Title>
-            <IconButton iconSrc="/shared-assets/Home.svg" size="xl" onClick={onHomeClick} />
+            <IconButton icon={<HomeIcon />} size="xl" onClick={onHomeClick} />
           </>
         )}
       </div>

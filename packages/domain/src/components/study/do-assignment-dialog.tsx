@@ -1,5 +1,6 @@
 'use client';
 
+import { OpenIcon } from '@hiarc-platform/design-system';
 import { Assignment } from '@hiarc-platform/shared';
 import { Button } from '@hiarc-platform/design-system';
 import {
@@ -11,8 +12,6 @@ import {
   DialogFooter,
 } from '@hiarc-platform/design-system';
 import { Label } from '@hiarc-platform/design-system';
-import Image from 'next/image';
-
 interface DoAssignmentDialogProps {
   lectureRound: number;
   assignment?: Assignment;
@@ -56,13 +55,7 @@ export function DoAssignmentDialog({
           >
             <Label size="md">백준 바로가기</Label>
             {isRequiredProblemValid && (
-              <Image
-                src="/shared-assets/Open.svg"
-                alt="external-link"
-                width={16}
-                height={16}
-                className="ml-1"
-              />
+              <OpenIcon width={16} height={16} className="ml-1" />
             )}
           </Button>
         </div>
@@ -81,13 +74,7 @@ export function DoAssignmentDialog({
           >
             <Label size="md">백준 바로가기</Label>
             {isPracticeProblemValid && (
-              <Image
-                src="/shared-assets/Open.svg"
-                alt="external-link"
-                width={16}
-                height={16}
-                className="ml-1"
-              />
+              <OpenIcon width={16} height={16} className="ml-1" />
             )}
           </Button>
         </div>

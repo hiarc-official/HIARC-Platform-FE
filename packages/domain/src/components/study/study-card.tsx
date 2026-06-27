@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import { BasicIcon, PeopleIcon, ScheduleIcon } from '@hiarc-platform/design-system';
 import { cn } from '@hiarc-platform/design-system';
 import { Divider } from '@hiarc-platform/design-system';
 import { Label } from '@hiarc-platform/design-system';
@@ -18,9 +18,9 @@ export default function StudyGrayChip({
     <div className="flex h-[25px] w-fit items-center gap-1 rounded-md bg-gray-100 px-3 text-md text-gray-700">
       <div>
         {type === 'schedule' ? (
-          <Image src="/shared-assets/Schedule.svg" alt="" className="h-4 w-4" height={16} width={16} />
+          <ScheduleIcon width={16} height={16} className="h-4 w-4" />
         ) : (
-          <Image src="/shared-assets/People.svg" alt="" className="h-4 w-4" height={16} width={16} />
+          <PeopleIcon width={16} height={16} className="h-4 w-4" />
         )}
       </div>
       <div>{title}</div>
@@ -106,7 +106,7 @@ function DesktopStudyCard({
         <StudyGrayChip type="delivery" title={delivery} />
       </div>
       <div className="flex items-center">
-        <Image src="/shared-assets/Basic.svg" alt="" height={42} width={42} />
+        <BasicIcon width={42} height={42} />
         <div className="ml-3 flex flex-col gap-1">
           <Label size="lg" weight="bold">
             {studyTitle}

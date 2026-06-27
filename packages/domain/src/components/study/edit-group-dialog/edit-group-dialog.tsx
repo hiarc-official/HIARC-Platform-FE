@@ -1,5 +1,6 @@
 'use client';
 
+import { PlusButtonIcon } from '@hiarc-platform/design-system';
 import { useState, useEffect } from 'react';
 import { Button } from '@hiarc-platform/design-system';
 import {
@@ -12,8 +13,6 @@ import {
 } from '@hiarc-platform/design-system';
 import { LabeledInput } from '@hiarc-platform/design-system';
 import { CreateGroupRequest, StudyGroup } from '@hiarc-platform/shared';
-import Image from 'next/image';
-
 interface HandleInput {
   id: number;
   value: string;
@@ -155,7 +154,7 @@ export function EditGroupDialog({
               }}
             >
               <div className="relative flex h-6 w-6 items-center justify-center">
-                <Image src="/shared-assets/PlusButton.svg" alt="add" width={24} height={24} />
+                <PlusButtonIcon width={24} height={24} />
               </div>
             </button>
           </div>

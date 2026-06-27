@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import { ArrowLeftIcon } from '../../../icons';
 import { cn } from '../../../lib/utils';
 import { Label } from '../../typography/Label/Label';
 
@@ -18,7 +18,7 @@ export function BackButton({ onClick, className }: BackButtonProps): React.React
       )}
       onClick={onClick}
     >
-      <Image src="/shared-assets/ArrowLeft.svg" width={16} height={16} alt="Back" />
+      <ArrowLeftIcon width={16} height={16} />
       <Label size="lg" className="cursor-pointer text-gray-700">
         뒤로가기
       </Label>

@@ -1,8 +1,7 @@
+import { ArrowRightIcon } from '@hiarc-platform/design-system';
 import { cn } from '@hiarc-platform/design-system';
 import { Divider } from '@hiarc-platform/design-system';
 import { Label } from '@hiarc-platform/design-system';
-import Image from 'next/image';
-
 interface NextButtonProps {
   nextTitle?: string;
   onClick(): void;
@@ -38,13 +37,7 @@ export function NextButton({ nextTitle, onClick, className }: NextButtonProps): 
         <Label size="lg" className="cursor-pointer text-gray-900">
           다음글
         </Label>
-        <Image
-          src="/shared-assets/ArrowRight.svg"
-          width={16}
-          height={16}
-          alt="Next"
-          className="inline-block"
-        />
+        <ArrowRightIcon width={16} height={16} className="inline-block" />
       </span>
     </button>
   );

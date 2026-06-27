@@ -1,5 +1,6 @@
 'use client';
 
+import { EditIcon } from '@hiarc-platform/design-system';
 import { cn } from '@hiarc-platform/design-system';
 import { IconButton } from '@hiarc-platform/design-system';
 import { Label } from '@hiarc-platform/design-system';
@@ -138,7 +139,7 @@ export function LectureListItemDesktop({
         </div>
         {isAdmin && (
           <div className="ml-2 flex gap-2">
-            <IconButton iconSrc="/shared-assets/Edit.svg" onClick={onEditClick} />
+            <IconButton icon={<EditIcon />} onClick={onEditClick} />
             <DeleteButton onClick={onDeleteClick} />
           </div>
         )}

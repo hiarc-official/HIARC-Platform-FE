@@ -1,6 +1,7 @@
 'use client';
 import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
+import { CameraIcon } from '../../../icons';
 import { Label } from '../../typography/Label/Label';
 import { cn } from '../../../lib/utils';
 import { ImageSource } from '@hiarc-platform/shared';
@@ -131,7 +132,7 @@ export function LabeledImageInput({
           )}
           onClick={handleCameraClick}
         >
-          <Image src="/shared-assets/Camera.svg" alt="카메라 아이콘" width={24} height={24} />
+          <CameraIcon width={24} height={24} />
           <Label className="text-gray-500" size="sm">{`${totalImageCount} / 5`}</Label>
           <input
             ref={fileInputRef}

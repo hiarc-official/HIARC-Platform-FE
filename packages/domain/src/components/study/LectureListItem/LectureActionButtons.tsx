@@ -1,5 +1,6 @@
 'use client';
 
+import { DeleteIcon } from '@hiarc-platform/design-system';
 import { Button, IconButton } from '@hiarc-platform/design-system';
 
 // 출석 관련 버튼들
@@ -84,7 +85,7 @@ export function AssignmentDoneButton(): React.ReactElement {
 export function DeleteButton({ onClick }: { onClick?(): void }): React.ReactElement {
   return (
     <IconButton
-      iconSrc="/shared-assets/Delete.svg"
+      icon={<DeleteIcon />}
       className="text-red-500 hover:text-red-700"
       aria-label="Delete Lecture"
       onClick={onClick}

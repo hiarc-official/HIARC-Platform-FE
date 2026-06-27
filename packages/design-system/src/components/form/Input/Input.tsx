@@ -1,7 +1,7 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
 import { cn } from '../../../lib/utils';
-import Image from 'next/image';
+import { ZoomInIcon } from '../../../icons';
 
 const inputVariants = cva(
   cn(
@@ -34,13 +34,7 @@ function Input({
   return (
     <div className="relative w-full">
       {(type === 'search' || variant === 'search') && (
-        <Image
-          src="/shared-assets/ZoomIn.svg"
-          alt="Search Icon"
-          width={16}
-          height={16}
-          className="absolute left-3 top-1/2 -translate-y-1/2 opacity-60"
-        />
+        <ZoomInIcon width={16} height={16} className="absolute left-3 top-1/2 -translate-y-1/2 opacity-60" />
       )}
       <input
         type={type}

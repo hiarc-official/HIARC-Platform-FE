@@ -1,8 +1,7 @@
+import { ArrowLeftIcon } from '@hiarc-platform/design-system';
 import { cn } from '@hiarc-platform/design-system';
 import { Divider } from '@hiarc-platform/design-system';
 import { Label } from '@hiarc-platform/design-system';
-import Image from 'next/image';
-
 interface PreviousButtonProps {
   prevTitle?: string;
   onClick(): void;
@@ -35,13 +34,7 @@ export function PreviousButton({
 
       {/* 데스크탑 */}
       <span className="hidden items-center gap-4 md:flex">
-        <Image
-          src="/shared-assets/ArrowLeft.svg"
-          width={16}
-          height={16}
-          alt="Previous"
-          className="inline-block"
-        />
+        <ArrowLeftIcon width={16} height={16} className="inline-block" />
         <Label size="lg" weight="regular" className="cursor-pointer text-gray-900">
           이전글
         </Label>

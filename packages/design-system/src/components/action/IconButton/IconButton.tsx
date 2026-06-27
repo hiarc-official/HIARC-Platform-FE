@@ -47,13 +47,15 @@ type IconButtonProps = React.ComponentPropsWithRef<'button'> & {
   // 이미지 아이콘 지원
   iconSrc?: string;
   iconAlt?: string;
+  // 아이콘팩 컴포넌트 등 임의의 아이콘 노드 지원 (있으면 최우선)
+  icon?: React.ReactNode;
   size?: 'sm' | 'md' | 'lg' | 'xl';
   iconSize?: 'sm' | 'md' | 'lg' | 'xl';
 };
 
 const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
   (
-    { iconPath, iconProps, iconSrc, iconAlt = 'icon', size = 'md', iconSize, className, ...props },
+    { iconPath, iconProps, iconSrc, iconAlt = 'icon', icon, size = 'md', iconSize, className, ...props },
     ref
   ) => {
     const resolvedIconSize = iconSize || size;
@@ -83,7 +85,9 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
         ref={ref}
         {...props}
       >
-        {useImage ? (
+        {icon ? (
+          icon
+        ) : useImage ? (
           <Image
             src={iconSrc!}
             alt={iconAlt}

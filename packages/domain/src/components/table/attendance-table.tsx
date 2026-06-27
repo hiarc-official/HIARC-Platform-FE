@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import { CheckboxIcon } from '@hiarc-platform/design-system';
 import { cn } from '@hiarc-platform/design-system';
 import { Label } from '@hiarc-platform/design-system';
 
@@ -24,7 +24,7 @@ function StyledCheckbox({
       className="inline-flex h-4 w-4 cursor-pointer items-center justify-center hover:opacity-80"
     >
       {checked ? (
-        <Image src="/shared-assets/Checkbox.svg" alt="checked" width={16} height={16} />
+        <CheckboxIcon width={16} height={16} />
       ) : (
         <div className="inline-block h-4 w-4 rounded-[2px] border border-gray-300 bg-white" />
       )}

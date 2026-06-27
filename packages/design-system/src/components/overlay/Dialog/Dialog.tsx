@@ -5,6 +5,7 @@ import * as React from 'react';
 
 import { cn } from '../../../lib/utils';
 import { IconButton } from '../../action/IconButton/IconButton';
+import { CloseIcon } from '../../../icons';
 
 function Dialog({
   ...props
@@ -74,7 +75,7 @@ function DialogHeader({
         <>
           <div className="flex flex-col gap-2">{children}</div>
           <DialogPrimitive.Close asChild>
-            <IconButton iconSrc="/shared-assets/Close.svg" aria-label="닫기" />
+            <IconButton icon={<CloseIcon className="h-6 w-6" />} aria-label="닫기" />
           </DialogPrimitive.Close>
         </>
       ) : (

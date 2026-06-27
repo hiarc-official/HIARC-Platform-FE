@@ -5,7 +5,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/locale';
 import { Input } from '../Input/Input';
-import Image from 'next/image';
+import { ScheduleIcon } from '../../../icons';
 
 interface LabeledInputProps {
   label: string;
@@ -47,13 +47,7 @@ function LabeledCalanderInput({
         </div>
       )}
       <div className="relative w-full">
-        <Image
-          src="/shared-assets/Schedule.svg"
-          alt="캘린더 아이콘"
-          className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2"
-          width={16}
-          height={16}
-        />
+        <ScheduleIcon className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2" width={16} height={16} />
 
         {rangeMode ? (
           <DatePicker

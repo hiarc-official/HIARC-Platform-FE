@@ -1,3 +1,4 @@
+import { DeleteButtonIcon } from '@hiarc-platform/design-system';
 import { IconButton } from '@hiarc-platform/design-system';
 import { LabeledInput } from '@hiarc-platform/design-system';
 import { Label } from '@hiarc-platform/design-system';
@@ -20,7 +21,7 @@ export function UrlInput({ value, onChange, onRemove, error }: UrlInputProps): R
           value={value}
           onChange={(value: string) => onChange(value)}
         />
-        <IconButton iconSrc="/shared-assets/DeleteButton.svg" size="lg" onClick={onRemove} />
+        <IconButton icon={<DeleteButtonIcon />} size="lg" onClick={onRemove} />
       </div>
       {error && (
         <div className="mt-1">

@@ -11,7 +11,7 @@ import {
 } from '../Dialog/Dialog';
 import { Button } from '../../action/Button/Button';
 import { DialogConfig } from '../../../store/dialog-store';
-import Image from 'next/image';
+import { ErrorIcon } from '../../../icons';
 
 interface ErrorDialogProps {
   dialog: DialogConfig;
@@ -40,7 +40,7 @@ export function ErrorDialog({
       >
         <div className="flex flex-col items-center py-2 text-center">
           {/* Error Icon */}
-          <Image src="/shared-assets/Error.svg" alt="Error Icon" width={32} height={32} />
+          <ErrorIcon width={32} height={32} />
 
           {/* Title */}
           <DialogHeader className="mt-6">

@@ -9,7 +9,7 @@ import {
 } from '../AlertDialog/AlertDialog';
 import { DialogConfig } from '../../../store/dialog-store';
 import { Button } from '../../action/Button/Button';
-import Image from 'next/image';
+import { ErrorIcon } from '../../../icons';
 import { AlertDialogTitle } from '@radix-ui/react-alert-dialog';
 
 interface AlertDialogComponentProps {
@@ -43,7 +43,7 @@ export function AlertDialogComponent({
       <AlertDialogContent className="max-w-full sm:max-w-sm">
         <div className="flex flex-col items-center py-2 text-center">
           {/* Error Icon */}
-          <Image src="/shared-assets/Error.svg" alt="Error Icon" width={32} height={32} />
+          <ErrorIcon width={32} height={32} />
           <AlertDialogTitle className="mt-6 text-lg font-semibold text-gray-900">
             {dialog.title}
           </AlertDialogTitle>
