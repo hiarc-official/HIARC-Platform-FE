@@ -245,6 +245,10 @@ module.exports = {
         '*': {
           'border-color': 'rgb(237 237 237)',
         },
+        // Tailwind v4 는 버튼 기본 커서를 default 로 바꿈 → 클릭 가능한 요소에 포인터 복원
+        'button:not(:disabled), [role="button"]:not(:disabled), label[for], summary': {
+          cursor: 'pointer',
+        },
         body: {
           'background-color': 'rgb(255 255 255)',
           color: 'rgb(15 23 42)',
