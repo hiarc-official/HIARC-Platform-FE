@@ -13,6 +13,7 @@ const dialog: DialogConfig = {
 
 const meta = {
   title: 'Design System/Overlay/WarningDialog',
+    parameters: { docs: { description: { component: '주의를 환기하는 경고 다이얼로그.' } } },
   component: WarningDialog,
   tags: ['autodocs'],
 } satisfies Meta<typeof WarningDialog>;

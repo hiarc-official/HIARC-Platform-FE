@@ -3,6 +3,7 @@ import { Checkbox } from './Checkbox';
 
 const meta = {
   title: 'Design System/Form/Checkbox',
+  parameters: { docs: { description: { component: '단일 체크박스 컨트롤.' } } },
   component: Checkbox,
   tags: ['autodocs'],
 } satisfies Meta<typeof Checkbox>;

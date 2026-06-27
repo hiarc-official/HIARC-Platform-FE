@@ -34,7 +34,8 @@ const meta = {
   title: 'Design System/Data Display/CommonTableBody',
   component: CommonTableBody,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: {
+    docs: { description: { component: '@tanstack/react-table 의 table 인스턴스를 받아 tbody 를 렌더하는 공통 테이블 본문.' } }, layout: 'padded' },
 } satisfies Meta<typeof CommonTableBody>;
 
 export default meta;

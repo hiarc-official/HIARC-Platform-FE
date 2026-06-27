@@ -13,6 +13,7 @@ const dialog: DialogConfig = {
 
 const meta = {
   title: 'Design System/Overlay/InfoDialog',
+    parameters: { docs: { description: { component: '안내성 다이얼로그.' } } },
   component: InfoDialog,
   tags: ['autodocs'],
 } satisfies Meta<typeof InfoDialog>;

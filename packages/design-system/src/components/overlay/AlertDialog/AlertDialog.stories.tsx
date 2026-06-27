@@ -14,6 +14,7 @@ import { Button } from '../../action/Button/Button';
 
 const meta = {
   title: 'Design System/Overlay/AlertDialog',
+  parameters: { docs: { description: { component: '확인이 필요한 파괴적 작업용 경고 다이얼로그(취소/실행 액션).' } } },
   component: AlertDialog,
   tags: ['autodocs'],
 } satisfies Meta<typeof AlertDialog>;

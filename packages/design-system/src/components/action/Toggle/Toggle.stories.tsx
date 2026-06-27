@@ -3,6 +3,7 @@ import { Toggle } from './Toggle';
 
 const meta = {
   title: 'Design System/Action/Toggle',
+  parameters: { docs: { description: { component: '눌림 상태를 토글하는 단일 버튼. on/off 상태를 가집니다.' } } },
   component: Toggle,
   tags: ['autodocs'],
   argTypes: {

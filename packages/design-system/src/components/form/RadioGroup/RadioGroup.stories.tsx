@@ -3,6 +3,7 @@ import { RadioGroup, RadioGroupItem } from './RadioGroup';
 
 const meta = {
   title: 'Design System/Form/RadioGroup',
+  parameters: { docs: { description: { component: '단일 선택 라디오 그룹.' } } },
   component: RadioGroup,
   tags: ['autodocs'],
 } satisfies Meta<typeof RadioGroup>;

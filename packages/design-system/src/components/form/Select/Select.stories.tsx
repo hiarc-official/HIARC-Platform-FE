@@ -3,6 +3,7 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '.
 
 const meta = {
   title: 'Design System/Form/Select',
+  parameters: { docs: { description: { component: '드롭다운 셀렉트. Trigger/Content/Item 을 조합해 사용합니다.' } } },
   component: Select,
   tags: ['autodocs'],
 } satisfies Meta<typeof Select>;

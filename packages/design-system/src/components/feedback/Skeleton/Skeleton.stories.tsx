@@ -3,6 +3,7 @@ import { Skeleton } from './Skeleton';
 
 const meta = {
   title: 'Design System/Feedback/Skeleton',
+  parameters: { docs: { description: { component: '콘텐츠 로딩 자리표시자(스켈레톤) 블록.' } } },
   component: Skeleton,
   tags: ['autodocs'],
 } satisfies Meta<typeof Skeleton>;

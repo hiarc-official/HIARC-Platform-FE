@@ -3,6 +3,7 @@ import { Progress } from './Progress';
 
 const meta = {
   title: 'Design System/Feedback/Progress',
+  parameters: { docs: { description: { component: '진행률 막대. value(0~100)로 채워집니다.' } } },
   component: Progress,
   tags: ['autodocs'],
   argTypes: { value: { control: { type: 'range', min: 0, max: 100 } } },

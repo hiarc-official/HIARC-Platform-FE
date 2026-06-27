@@ -3,6 +3,7 @@ import { Textarea } from './Textarea';
 
 const meta = {
   title: 'Design System/Form/Textarea',
+  parameters: { docs: { description: { component: '여러 줄 텍스트 입력 영역.' } } },
   component: Textarea,
   tags: ['autodocs'],
   args: { placeholder: '내용을 입력하세요', rows: 4 },

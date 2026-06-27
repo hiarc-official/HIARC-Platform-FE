@@ -3,6 +3,7 @@ import { Badge } from './Badge';
 
 const meta = {
   title: 'Design System/Data Display/Badge',
+  parameters: { docs: { description: { component: '상태·분류를 표시하는 작은 뱃지. default/secondary/destructive/outline variant.' } } },
   component: Badge,
   tags: ['autodocs'],
   argTypes: {

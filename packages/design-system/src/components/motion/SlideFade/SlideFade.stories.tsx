@@ -3,6 +3,7 @@ import { SlideFade } from './SlideFade';
 
 const meta = {
   title: 'Design System/Motion/SlideFade',
+  parameters: { docs: { description: { component: '마운트 시 슬라이드+페이드로 등장하는 래퍼.' } } },
   component: SlideFade,
   tags: ['autodocs'],
 } satisfies Meta<typeof SlideFade>;

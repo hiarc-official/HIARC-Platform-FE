@@ -15,6 +15,7 @@ const CATEGORIES = [
 
 const meta = {
   title: 'Domain/Chip/CategoryChip',
+  parameters: { docs: { description: { component: '공지 카테고리(하이팅/스터디/외부 등)를 색으로 구분해 표시하는 칩.' } } },
   component: CategoryChip,
   tags: ['autodocs'],
   argTypes: { category: { control: 'select', options: CATEGORIES } },

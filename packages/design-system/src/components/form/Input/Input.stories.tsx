@@ -4,6 +4,7 @@ import { Input } from './Input';
 
 const meta = {
   title: 'Design System/Form/Input',
+  parameters: { docs: { description: { component: '기본 텍스트 입력 필드. variant search 시 검색 아이콘이 붙습니다.' } } },
   component: Input,
   tags: ['autodocs'],
   argTypes: {

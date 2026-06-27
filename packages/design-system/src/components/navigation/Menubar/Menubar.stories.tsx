@@ -10,6 +10,7 @@ import {
 
 const meta = {
   title: 'Design System/Navigation/Menubar',
+  parameters: { docs: { description: { component: '데스크톱 메뉴바. 메뉴-항목 구조로 구성합니다.' } } },
   component: Menubar,
   tags: ['autodocs'],
 } satisfies Meta<typeof Menubar>;

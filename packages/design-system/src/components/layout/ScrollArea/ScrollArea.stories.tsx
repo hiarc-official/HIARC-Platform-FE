@@ -3,6 +3,7 @@ import { ScrollArea } from './ScrollArea';
 
 const meta = {
   title: 'Design System/Layout/ScrollArea',
+  parameters: { docs: { description: { component: '커스텀 스크롤바를 가진 스크롤 영역.' } } },
   component: ScrollArea,
   tags: ['autodocs'],
 } satisfies Meta<typeof ScrollArea>;

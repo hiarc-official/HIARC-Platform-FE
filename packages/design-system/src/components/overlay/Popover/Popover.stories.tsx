@@ -4,6 +4,7 @@ import { Button } from '../../action/Button/Button';
 
 const meta = {
   title: 'Design System/Overlay/Popover',
+  parameters: { docs: { description: { component: '트리거 기준으로 떠 있는 팝오버 컨테이너.' } } },
   component: Popover,
   tags: ['autodocs'],
 } satisfies Meta<typeof Popover>;

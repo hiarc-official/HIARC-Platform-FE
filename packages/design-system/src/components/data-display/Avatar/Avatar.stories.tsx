@@ -5,7 +5,8 @@ const meta = {
   title: 'Design System/Data Display/Avatar',
   component: Avatar,
   tags: ['autodocs'],
-  parameters: { layout: 'centered' },
+  parameters: {
+    docs: { description: { component: '사용자 아바타. 이미지가 없거나 로드 실패 시 기본 사용자 아이콘으로 폴백합니다.' } }, layout: 'centered' },
 } satisfies Meta<typeof Avatar>;
 
 export default meta;

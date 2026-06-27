@@ -14,6 +14,7 @@ const SAMPLE = [
 
 const meta = {
   title: 'Domain/Chip/RatingChip',
+  parameters: { docs: { description: { component: 'solved.ac 티어(브론즈~루비, Div) 레이팅을 표시하는 칩.' } } },
   component: RatingChip,
   tags: ['autodocs'],
   argTypes: {

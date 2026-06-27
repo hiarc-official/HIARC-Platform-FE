@@ -4,6 +4,7 @@ import { Button } from '../../action/Button/Button';
 
 const meta = {
   title: 'Design System/Data Display/Card',
+  parameters: { docs: { description: { component: '콘텐츠 컨테이너. Header/Title/Description/Content/Footer 로 구성합니다.' } } },
   component: Card,
   tags: ['autodocs'],
 } satisfies Meta<typeof Card>;

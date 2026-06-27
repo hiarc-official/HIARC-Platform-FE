@@ -13,6 +13,7 @@ const dialog: DialogConfig = {
 
 const meta = {
   title: 'Design System/Overlay/ConfirmDialog',
+    parameters: { docs: { description: { component: '확인/취소 두 버튼을 가진 확인 다이얼로그. 다이얼로그 시스템(DialogUtil)에서 사용합니다.' } } },
   component: ConfirmDialog,
   tags: ['autodocs'],
 } satisfies Meta<typeof ConfirmDialog>;

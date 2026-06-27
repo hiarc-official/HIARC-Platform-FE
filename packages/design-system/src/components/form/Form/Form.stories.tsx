@@ -5,6 +5,7 @@ import { Input } from '../Input/Input';
 
 const meta = {
   title: 'Design System/Form/Form',
+  parameters: { docs: { description: { component: 'react-hook-form 기반 폼 프리미티브. Form/FormField/FormItem/FormControl/FormMessage 를 조합합니다.' } } },
   component: Form,
   tags: ['autodocs'],
   decorators: [(Story) => <div className="w-80">{Story()}</div>],

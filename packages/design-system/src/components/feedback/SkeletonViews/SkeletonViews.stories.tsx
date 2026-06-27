@@ -3,7 +3,8 @@ import { ListPageSkeleton, DetailPageSkeleton, FormSkeleton } from './SkeletonVi
 
 const meta = {
   title: 'Design System/Feedback/SkeletonViews',
-  parameters: { layout: 'fullscreen' },
+  parameters: {
+    docs: { description: { component: '리스트·상세·폼 등 페이지 단위 스켈레톤 레이아웃 모음.' } }, layout: 'fullscreen' },
   tags: ['autodocs'],
 } satisfies Meta;
 

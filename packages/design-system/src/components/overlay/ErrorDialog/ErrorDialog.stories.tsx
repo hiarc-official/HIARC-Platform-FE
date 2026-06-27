@@ -13,6 +13,7 @@ const dialog: DialogConfig = {
 
 const meta = {
   title: 'Design System/Overlay/ErrorDialog',
+    parameters: { docs: { description: { component: '오류 상황을 알리는 다이얼로그. 다이얼로그 시스템에서 사용합니다.' } } },
   component: ErrorDialog,
   tags: ['autodocs'],
 } satisfies Meta<typeof ErrorDialog>;

@@ -5,7 +5,8 @@ const meta = {
   title: 'Design System/Typography/AnchorLabel',
   component: AnchorLabel,
   tags: ['autodocs'],
-  parameters: { layout: 'centered' },
+  parameters: {
+    docs: { description: { component: '링크 형태의 라벨. href로 이동하며 size·weight를 지원합니다.' } }, layout: 'centered' },
   argTypes: {
     size: { control: 'inline-radio', options: ['xs', 'sm', 'md', 'lg'] },
     weight: { control: 'inline-radio', options: ['regular', 'medium', 'semibold', 'bold'] },

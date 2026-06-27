@@ -3,6 +3,7 @@ import { Title } from './Title';
 
 const meta = {
   title: 'Design System/Typography/Title',
+  parameters: { docs: { description: { component: '제목용 타이포. Label보다 큰 스케일을 제공합니다.' } } },
   component: Title,
   tags: ['autodocs'],
   argTypes: {

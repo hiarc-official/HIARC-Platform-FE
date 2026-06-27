@@ -10,6 +10,7 @@ const ITEMS = [
 
 const meta = {
   title: 'Design System/Form/CheckboxList',
+  parameters: { docs: { description: { component: '체크박스 목록. 단일/다중 선택을 모두 지원합니다.' } } },
   component: CheckboxList,
   tags: ['autodocs'],
   decorators: [(Story) => <div className="w-72">{Story()}</div>],

@@ -3,6 +3,7 @@ import { LoadingDots } from './LoadingDots';
 
 const meta = {
   title: 'Design System/Feedback/LoadingDots',
+  parameters: { docs: { description: { component: '점 3개가 튀는 로딩 인디케이터. size로 크기를 조절합니다.' } } },
   component: LoadingDots,
   tags: ['autodocs'],
   argTypes: {

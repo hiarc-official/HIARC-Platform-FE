@@ -4,6 +4,7 @@ import { LazyCSS } from './LazyCSS';
 // 외부 CSS 파일을 지연 로드하는 유틸 컴포넌트 (자체 시각 요소 없음).
 const meta = {
   title: 'Design System/Utility/LazyCSS',
+  parameters: { docs: { description: { component: '외부 CSS 파일을 지연 로드하는 유틸(시각 요소 없음).' } } },
   component: LazyCSS,
   tags: ['autodocs'],
 } satisfies Meta<typeof LazyCSS>;

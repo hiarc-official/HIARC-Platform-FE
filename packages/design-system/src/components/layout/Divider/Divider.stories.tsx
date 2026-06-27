@@ -3,6 +3,7 @@ import { Divider } from './Divider';
 
 const meta = {
   title: 'Design System/Layout/Divider',
+  parameters: { docs: { description: { component: '구분선. 가로/세로 방향과 임의 길이(인라인 스타일)를 지원합니다.' } } },
   component: Divider,
   tags: ['autodocs'],
   argTypes: {

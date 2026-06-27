@@ -3,6 +3,7 @@ import { Separator } from './Separator';
 
 const meta = {
   title: 'Design System/Layout/Separator',
+  parameters: { docs: { description: { component: '얇은 구분선(radix). 가로/세로 방향을 지원합니다.' } } },
   component: Separator,
   tags: ['autodocs'],
 } satisfies Meta<typeof Separator>;

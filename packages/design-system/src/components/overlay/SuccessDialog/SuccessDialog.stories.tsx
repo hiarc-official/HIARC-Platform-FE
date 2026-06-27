@@ -13,6 +13,7 @@ const dialog: DialogConfig = {
 
 const meta = {
   title: 'Design System/Overlay/SuccessDialog',
+    parameters: { docs: { description: { component: '성공 결과를 알리는 다이얼로그.' } } },
   component: SuccessDialog,
   tags: ['autodocs'],
 } satisfies Meta<typeof SuccessDialog>;

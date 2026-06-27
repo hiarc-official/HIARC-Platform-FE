@@ -3,6 +3,7 @@ import { AspectRatio } from './AspectRatio';
 
 const meta = {
   title: 'Design System/Layout/AspectRatio',
+  parameters: { docs: { description: { component: '자식 요소를 지정 비율로 유지하는 컨테이너.' } } },
   component: AspectRatio,
   tags: ['autodocs'],
 } satisfies Meta<typeof AspectRatio>;

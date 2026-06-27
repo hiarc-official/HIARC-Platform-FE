@@ -6,6 +6,7 @@ import { Button } from '../../action/Button/Button';
 // 전역 다이얼로그 시스템: DialogUtil 로 열면 컨테이너가 스토어를 구독해 렌더한다.
 const meta = {
   title: 'Design System/Overlay/GlobalDialogContainer',
+  parameters: { docs: { description: { component: '전역 다이얼로그 컨테이너. DialogUtil 로 연 다이얼로그를 스토어 구독으로 렌더합니다. 앱 루트에 한 번 마운트합니다.' } } },
   component: GlobalDialogContainer,
   tags: ['autodocs'],
 } satisfies Meta<typeof GlobalDialogContainer>;

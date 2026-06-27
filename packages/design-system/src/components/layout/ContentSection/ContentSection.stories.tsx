@@ -5,7 +5,8 @@ const meta = {
   title: 'Design System/Layout/ContentSection',
   component: ContentSection,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: {
+    docs: { description: { component: '콘텐츠 섹션 래퍼. 단일/2단 컬럼 레이아웃 헬퍼를 함께 제공합니다.' } }, layout: 'padded' },
 } satisfies Meta<typeof ContentSection>;
 
 export default meta;

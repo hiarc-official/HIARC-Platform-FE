@@ -3,6 +3,7 @@ import { LabeledSelector } from './LabeledSelector';
 
 const meta = {
   title: 'Design System/Form/LabeledSelector',
+  parameters: { docs: { description: { component: '라벨이 있는 셀렉트. options 배열로 항목을 구성합니다.' } } },
   component: LabeledSelector,
   tags: ['autodocs'],
   args: {

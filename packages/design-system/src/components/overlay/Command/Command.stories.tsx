@@ -10,6 +10,7 @@ import {
 
 const meta = {
   title: 'Design System/Overlay/Command',
+  parameters: { docs: { description: { component: '명령 팔레트(cmdk). 검색 입력과 그룹·항목 목록으로 구성합니다.' } } },
   component: Command,
   tags: ['autodocs'],
 } satisfies Meta<typeof Command>;

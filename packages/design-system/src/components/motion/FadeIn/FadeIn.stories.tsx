@@ -4,6 +4,7 @@ import { FadeIn } from './FadeIn';
 
 const meta = {
   title: 'Design System/Motion/FadeIn',
+  parameters: { docs: { description: { component: 'isVisible 에 따라 페이드 인/아웃하는 래퍼.' } } },
   component: FadeIn,
   tags: ['autodocs'],
 } satisfies Meta<typeof FadeIn>;

@@ -3,6 +3,7 @@ import { Label } from './Label';
 
 const meta = {
   title: 'Design System/Typography/Label',
+  parameters: { docs: { description: { component: '폼 라벨·본문 텍스트용 타이포. size(xs~lg)·weight(regular~bold)를 가집니다.' } } },
   component: Label,
   tags: ['autodocs'],
   argTypes: {

@@ -13,6 +13,7 @@ import { Button } from '../../action/Button/Button';
 
 const meta = {
   title: 'Design System/Overlay/Dialog',
+  parameters: { docs: { description: { component: '모달 다이얼로그 프리미티브. Trigger/Content/Header/Footer 등을 조합합니다.' } } },
   component: Dialog,
   tags: ['autodocs'],
 } satisfies Meta<typeof Dialog>;

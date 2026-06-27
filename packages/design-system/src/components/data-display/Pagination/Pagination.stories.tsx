@@ -6,7 +6,8 @@ const meta = {
   title: 'Design System/Data Display/Pagination',
   component: Pagination,
   tags: ['autodocs'],
-  parameters: { layout: 'centered' },
+  parameters: {
+    docs: { description: { component: 'PageableModel 기반 페이지네이션. 페이지 범위·이전/다음 버튼을 제공합니다.' } }, layout: 'centered' },
 } satisfies Meta<typeof Pagination>;
 
 export default meta;

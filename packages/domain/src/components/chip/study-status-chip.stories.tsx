@@ -5,6 +5,7 @@ const STATUSES = ['PREPARING', 'PRE_OPEN', 'RECRUITING', 'IN_PROGRESS', 'CLOSED'
 
 const meta = {
   title: 'Domain/Chip/StudyStatusChip',
+  parameters: { docs: { description: { component: '스터디 상태(준비중/모집중/진행중/종료 등)를 표시하는 칩.' } } },
   component: StudyStatusChip,
   tags: ['autodocs'],
   argTypes: { status: { control: 'select', options: STATUSES } },

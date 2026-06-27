@@ -5,7 +5,8 @@ const meta = {
   title: 'Domain/Study/StudyCard',
   component: StudyCard,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: {
+    docs: { description: { component: '스터디 요약 카드. 일정·진행방식·상태·설명을 담습니다.' } }, layout: 'padded' },
   args: {
     studyId: 1,
     time: '매주 화 19:00',

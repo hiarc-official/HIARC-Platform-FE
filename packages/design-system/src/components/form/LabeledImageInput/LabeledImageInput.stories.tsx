@@ -4,6 +4,7 @@ import { LabeledImageInput } from './LabeledImageInput';
 
 const meta = {
   title: 'Design System/Form/LabeledImageInput',
+  parameters: { docs: { description: { component: '이미지 업로드 입력. 기존 이미지와 신규 파일을 함께 관리하며 미리보기를 제공합니다.' } } },
   component: LabeledImageInput,
   tags: ['autodocs'],
   decorators: [(Story) => <div className="w-96">{Story()}</div>],

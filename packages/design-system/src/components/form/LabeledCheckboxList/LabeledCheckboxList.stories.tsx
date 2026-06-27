@@ -10,6 +10,7 @@ const ITEMS = [
 
 const meta = {
   title: 'Design System/Form/LabeledCheckboxList',
+  parameters: { docs: { description: { component: '라벨·부제목이 있는 체크박스 목록.' } } },
   component: LabeledCheckboxList,
   tags: ['autodocs'],
   decorators: [(Story) => <div className="w-72">{Story()}</div>],

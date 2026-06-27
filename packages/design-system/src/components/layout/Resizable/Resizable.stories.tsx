@@ -3,6 +3,7 @@ import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from './Resizabl
 
 const meta = {
   title: 'Design System/Layout/Resizable',
+  parameters: { docs: { description: { component: '드래그로 크기를 조절하는 패널 그룹.' } } },
   component: ResizablePanelGroup,
   tags: ['autodocs'],
 } satisfies Meta<typeof ResizablePanelGroup>;

@@ -4,6 +4,7 @@ import { DatePickerStyles } from './DatePickerStyles';
 // react-datepicker 전역 스타일을 주입하는 유틸 컴포넌트 (자체로는 시각 요소가 없음).
 const meta = {
   title: 'Design System/Form/DatePickerStyles',
+  parameters: { docs: { description: { component: 'react-datepicker 전역 스타일을 주입하는 유틸 컴포넌트(시각 요소 없음).' } } },
   component: DatePickerStyles,
   tags: ['autodocs'],
 } satisfies Meta<typeof DatePickerStyles>;

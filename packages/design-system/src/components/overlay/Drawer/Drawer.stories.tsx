@@ -13,6 +13,7 @@ import { Button } from '../../action/Button/Button';
 
 const meta = {
   title: 'Design System/Overlay/Drawer',
+  parameters: { docs: { description: { component: '하단(또는 측면)에서 올라오는 드로어 패널.' } } },
   component: Drawer,
   tags: ['autodocs'],
 } satisfies Meta<typeof Drawer>;

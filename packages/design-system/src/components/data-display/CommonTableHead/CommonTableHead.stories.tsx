@@ -34,7 +34,8 @@ const meta = {
   title: 'Design System/Data Display/CommonTableHead',
   component: CommonTableHead,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: {
+    docs: { description: { component: 'react-table 의 table 인스턴스를 받아 thead 를 렌더하는 공통 테이블 헤더. 정렬 표시를 지원합니다.' } }, layout: 'padded' },
 } satisfies Meta<typeof CommonTableHead>;
 
 export default meta;

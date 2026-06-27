@@ -3,6 +3,7 @@ import { Button } from './Button';
 
 const meta = {
   title: 'Design System/Action/Button',
+  parameters: { docs: { description: { component: '기본 액션 버튼. variant(fill/secondary/line 등 9종)와 size(xs~xl)로 강조도와 크기를 조절합니다.' } } },
   component: Button,
   tags: ['autodocs'],
   argTypes: {

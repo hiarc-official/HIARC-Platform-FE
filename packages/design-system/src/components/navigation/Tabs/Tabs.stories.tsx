@@ -4,6 +4,7 @@ import { Tabs } from './Tabs';
 
 const meta = {
   title: 'Design System/Navigation/Tabs',
+  parameters: { docs: { description: { component: '탭 네비게이션. 활성 탭을 표시하고 클릭으로 전환합니다.' } } },
   component: Tabs,
   tags: ['autodocs'],
 } satisfies Meta<typeof Tabs>;

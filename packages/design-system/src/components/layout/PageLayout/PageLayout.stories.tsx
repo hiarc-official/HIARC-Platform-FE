@@ -5,7 +5,8 @@ const meta = {
   title: 'Design System/Layout/PageLayout',
   component: PageLayout,
   tags: ['autodocs'],
-  parameters: { layout: 'fullscreen' },
+  parameters: {
+    docs: { description: { component: '페이지 골격 레이아웃. 모바일/데스크톱 분기와 sticky 영역을 지원합니다.' } }, layout: 'fullscreen' },
 } satisfies Meta<typeof PageLayout>;
 
 export default meta;
