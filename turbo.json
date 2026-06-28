@@ -1,5 +1,11 @@
 {
-  "globalDependencies": ["**/.env.*local"],
+  "globalDependencies": [
+    "**/.env.*local",
+    "styles/**",
+    "tailwind.config.js",
+    "package.json",
+    "pnpm-lock.yaml"
+  ],
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
