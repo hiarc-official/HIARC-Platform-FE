@@ -1,5 +1,6 @@
 'use client';
 
+import { Card } from '@hiarc-platform/design-system';
 import InfoEntity from '../../atoms/InfoEntity';
 import { DinamicStreakBox } from './DinamicStreakBox';
 import StreakInformation from './StreakInformation';
@@ -26,19 +27,22 @@ const NewStreakEntity = ({ member }: Props) => {
   };
 
   return (
-    <div className="flex flex-col w-[557px] cursor-pointer max-[480px]:w-[335px]" onClick={handleClick}>
+    <Card
+      className="flex w-full cursor-pointer flex-col rounded-xl border border-gray-200 bg-white p-4 shadow-none transition-colors hover:border-gray-300"
+      onClick={handleClick}
+    >
       <div className="flex w-full flex-col">
         <InfoEntity handle={member.bojHandle} div={divisionNumber} tier={member.tier} />
-        <div className="w-[98%] border-b border-primary mt-[-1px] ml-3 max-[480px]:w-[92%]"></div>
+        <div className="ml-3 mt-[-1px] w-[98%] border-b border-gray-200"></div>
       </div>
-      <div className="mt-4 max-[480px]:overflow-x-auto max-[480px]:w-full max-[480px]:text-center max-[480px]:[scrollbar-width:none] max-[480px]:[-ms-overflow-style:none] max-[480px]:[&::-webkit-scrollbar]:hidden">
+      <div className="mt-4 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
         <DinamicStreakBox data={streakData} />
       </div>
       <StreakInformation
         currentTotalStreak={member.streak.currentTotalStreak}
         currentSeasonStreak={member.streak.currentSeasonStreak}
       />
-    </div>
+    </Card>
   );
 };
 

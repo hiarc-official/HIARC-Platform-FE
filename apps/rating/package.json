@@ -18,6 +18,7 @@
     "@hiarc-platform/design-system": "workspace:*",
     "@hiarc-platform/domain": "workspace:*",
     "@tanstack/react-query": "^5.84.1",
+    "@tanstack/react-table": "^8.20.5",
     "@types/node": "^20.0.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",

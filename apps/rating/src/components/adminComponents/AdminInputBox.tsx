@@ -1,5 +1,6 @@
 'use client';
 
+import { Button, Card, Input } from '@hiarc-platform/design-system';
 import { useState } from 'react';
 import { getAdminHandleStats } from '../../api/AdminApi';
 import { blockNameToCode } from '../../util/CheckAdminName';
@@ -38,20 +39,16 @@ export const AdminInputBox = ({ blockName }: { blockName: string }) => {
   };
   return (
     <div className="overflow-visible">
-      <div className="bg-[#FFFCED] w-[454px] h-[60px] flex gap-10 items-center">
-        <input
-          className="h-[30px] w-[70%] bg-inherit border-none mt-[10px] box-border resize-none text-[20px] ml-[10px]"
+      <Card className="flex w-full max-w-[454px] flex-row items-center gap-4 rounded-xl border border-gray-200 bg-white p-4 shadow-none">
+        <Input
           placeholder="핸들을 입력하세요"
           value={handle}
           onChange={handleInputChange}
         />
-        <button
-          className="bg-[#ffa5a5] border-none rounded-[10px] text-[12px] font-bold p-3 mt-[10px] cursor-pointer hover:bg-primary"
-          onClick={onClick}
-        >
+        <Button size="sm" onClick={onClick}>
           입력하기
-        </button>
-      </div>
+        </Button>
+      </Card>
       {isModalOpen ? <Modal content={modalContent} onClose={() => setIsModalOpen(false)} /> : ''}
     </div>
   );

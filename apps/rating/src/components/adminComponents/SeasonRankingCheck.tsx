@@ -1,5 +1,15 @@
 'use client';
 
+import {
+  Button,
+  Label,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  DialogUtil,
+} from '@hiarc-platform/design-system';
 import { checkAdminApi, getSeasonRanking } from '../../api/AdminApi';
 import { useState } from 'react';
 import { Modal, ModalContent } from '../Modal';
@@ -35,7 +45,7 @@ export const SeasonRankingCheck = ({ division }: SeasonRankingCheckProps) => {
       }
     } catch (error) {
       console.error('시즌 목록 불러오기 실패:', error);
-      alert('시즌 목록을 불러오는데 실패했습니다.');
+      DialogUtil.showError('시즌 목록을 불러오는데 실패했습니다.');
     } finally {
       setLoading(false);
     }
@@ -43,7 +53,7 @@ export const SeasonRankingCheck = ({ division }: SeasonRankingCheckProps) => {
 
   const handleSeasonSelect = async () => {
     if (!selectedSeasonId) {
-      alert('시즌을 선택해주세요.');
+      DialogUtil.showError('시즌을 선택해주세요.');
       return;
     }
 
@@ -55,7 +65,7 @@ export const SeasonRankingCheck = ({ division }: SeasonRankingCheckProps) => {
       setIsRankingModalOpen(true);
     } catch (error) {
       console.error('랭킹 데이터 조회 실패:', error);
-      alert('랭킹 데이터를 불러오는데 실패했습니다.');
+      DialogUtil.showError('랭킹 데이터를 불러오는데 실패했습니다.');
     } finally {
       setLoading(false);
     }
@@ -63,15 +73,13 @@ export const SeasonRankingCheck = ({ division }: SeasonRankingCheckProps) => {
 
   return (
     <>
-      <div className="flex flex-row gap-[15px] items-center mb-[29px]">
-        시즌별 div{division} 랭킹 조회하기
-        <button
-          className="bg-[#ffa5a5] border-none rounded-[10px] text-[12px] font-bold p-3 cursor-pointer relative hover:bg-primary"
-          onClick={buttonClick}
-          disabled={loading}
-        >
+      <div className="flex flex-row gap-3 items-center">
+        <Label size="sm" weight="medium">
+          시즌별 div{division} 랭킹 조회하기
+        </Label>
+        <Button size="sm" onClick={buttonClick} disabled={loading}>
           {loading ? '불러오는중...' : '확인하기'}
-        </button>
+        </Button>
       </div>
 
       {isSeasonSelectorOpen && (
@@ -80,36 +88,34 @@ export const SeasonRankingCheck = ({ division }: SeasonRankingCheckProps) => {
           onClick={() => setIsSeasonSelectorOpen(false)}
         >
           <div
-            className="bg-white p-6 rounded-[10px] z-[1000] w-[400px] max-h-[80%] overflow-y-auto"
+            className="bg-white p-6 rounded-lg border border-gray-200 z-[1000] w-[400px] max-h-[80%] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
-            <label className="text-[16px] font-bold mb-4 block">시즌을 선택하세요:</label>
-            <select
-              className="p-2 border border-[#ccc] rounded-[4px] text-[14px] w-full mb-4"
-              value={selectedSeasonId || ''}
-              onChange={(e) => setSelectedSeasonId(Number(e.target.value))}
+            <Label size="md" weight="bold" className="mb-4 block">
+              시즌을 선택하세요:
+            </Label>
+            <Select
+              value={selectedSeasonId ? String(selectedSeasonId) : ''}
+              onValueChange={(value) => setSelectedSeasonId(Number(value))}
             >
-              <option value="">시즌을 선택하세요</option>
-              {seasons.map((season) => (
-                <option key={season.seasonId} value={season.seasonId}>
-                  시즌 {season.seasonId} - {season.description} ({new Date(season.seasonStartAt).toLocaleDateString('ko-KR')} ~ {new Date(season.seasonEndAt).toLocaleDateString('ko-KR')})
-                </option>
-              ))}
-            </select>
-            <div>
-              <button
-                className="bg-[#ffa5a5] border-none rounded-[10px] text-[12px] font-bold py-3 px-5 cursor-pointer mr-2 hover:bg-primary"
-                onClick={handleSeasonSelect}
-                disabled={loading}
-              >
+              <SelectTrigger className="w-full mb-4">
+                <SelectValue placeholder="시즌을 선택하세요" />
+              </SelectTrigger>
+              <SelectContent>
+                {seasons.map((season) => (
+                  <SelectItem key={season.seasonId} value={String(season.seasonId)}>
+                    시즌 {season.seasonId} - {season.description} ({new Date(season.seasonStartAt).toLocaleDateString('ko-KR')} ~ {new Date(season.seasonEndAt).toLocaleDateString('ko-KR')})
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <div className="flex gap-2">
+              <Button size="sm" onClick={handleSeasonSelect} disabled={loading}>
                 {loading ? '조회중...' : '조회하기'}
-              </button>
-              <button
-                className="bg-[#ffa5a5] border-none rounded-[10px] text-[12px] font-bold py-3 px-5 cursor-pointer mr-2 hover:bg-primary"
-                onClick={() => setIsSeasonSelectorOpen(false)}
-              >
+              </Button>
+              <Button size="sm" variant="secondary" onClick={() => setIsSeasonSelectorOpen(false)}>
                 취소
-              </button>
+              </Button>
             </div>
           </div>
         </div>

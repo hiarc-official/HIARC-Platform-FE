@@ -1,7 +1,7 @@
 'use client';
 
-import Color from '../util/Color';
 import TierImg from '../util/TierImg';
+import { Card, Label } from '@hiarc-platform/design-system';
 
 const IndividualBlock = ({
   tier,
@@ -24,39 +24,31 @@ const IndividualBlock = ({
   const handleDisplay = handle.length > 8 ? `${handle.slice(0, 8)}...` : handle;
 
   return (
-    <div
+    <Card
       onClick={handleClick}
-      className="w-[224px] h-[124px] bg-white flex cursor-pointer flex-col rounded-[16px] min-w-[224px] max-[480px]:w-[284px] max-[480px]:min-w-[284px]"
+      className="flex w-full cursor-pointer flex-col gap-2 rounded-xl border border-gray-200 bg-white p-4 shadow-none transition-colors hover:border-gray-300"
     >
-      <div className="flex gap-2.5 pt-[11px] pr-0 pb-1 pl-[17px] border-b border-black [&_img]:w-[19px] [&_img]:h-[19px]">
+      <div className="flex items-center gap-2">
         <TierImg tier={tier} />
-        {handleDisplay}
-        <div>|</div>
-        <div>div {divNum}</div>
+        <Label size="sm" weight="bold" selectable={false} className="truncate">
+          {handleDisplay}
+        </Label>
+        <span className="ml-auto shrink-0 rounded-md bg-gray-100 px-2 py-0.5 text-xs text-gray-700">
+          div {divNum}
+        </span>
       </div>
-      <div className="mt-[5px] ml-2.5 flex flex-col text-[12px] items-center">
-        <div className="flex gap-1">
-          <div
-            className="text-[12px] border-[0.5px] rounded-[10px] flex justify-center items-center px-2 flex-nowrap mb-[3px] h-5 whitespace-nowrap overflow-hidden text-ellipsis max-w-[90px]"
-            style={{ borderColor: Color.graySub3 }}
-          >
-            누적
-          </div>
-          {startDate && (
-            <div
-              className="text-[12px] border-[0.5px] rounded-[10px] flex justify-center items-center px-2 flex-nowrap mb-[3px] h-5 whitespace-nowrap overflow-hidden text-ellipsis max-w-[90px]"
-              style={{ borderColor: Color.primary }}
-            >
-              {startDate} 부터
-            </div>
-          )}
-        </div>
-        <div className="flex flex-1 text-[15px] font-black items-end justify-center gap-0.5">
-          <div className="text-[35px]">{totalStreak}</div>
-          <div className="mb-[5px]">일</div>
-        </div>
+      {startDate && (
+        <Label size="xs" selectable={false} className="text-gray-500">
+          {startDate} 부터
+        </Label>
+      )}
+      <div className="mt-1 flex items-baseline gap-1">
+        <span className="text-[32px] font-bold leading-none text-primary-300 tabular-nums">
+          {totalStreak}
+        </span>
+        <span className="text-sm text-gray-600">일 연속</span>
       </div>
-    </div>
+    </Card>
   );
 };
 

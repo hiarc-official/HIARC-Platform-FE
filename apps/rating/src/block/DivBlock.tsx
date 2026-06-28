@@ -10,7 +10,9 @@ const DivBlock = (): React.ReactElement => {
 
   useEffect(() => {
     const el = scrollRef.current;
-    if (!el) {return;}
+    if (!el) {
+      return;
+    }
 
     const handleScroll = (): void => {
       const { scrollLeft, clientWidth } = el;
@@ -22,29 +24,28 @@ const DivBlock = (): React.ReactElement => {
   }, []);
 
   return (
-    <div className="w-full flex flex-col items-start max-[480px]:items-center">
+    <div className="flex w-full flex-col">
       <div
         ref={scrollRef}
-        className="flex gap-5 justify-start w-full max-[480px]:overflow-x-auto max-[480px]:scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden max-[480px]:[scroll-snap-type:x_mandatory]"
+        className="grid grid-cols-3 gap-5 max-[480px]:flex max-[480px]:gap-4 max-[480px]:overflow-x-auto max-[480px]:scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden max-[480px]:[scroll-snap-type:x_mandatory]"
       >
-        <div className="flex-[0_0_auto] [scroll-snap-align:center] w-4/5 max-w-[300px] mr-5 last:mr-0 max-[480px]:w-full">
-          <HitingBox divNum={1} />
-        </div>
-        <div className="flex-[0_0_auto] [scroll-snap-align:center] w-4/5 max-w-[300px] mr-5 last:mr-0 max-[480px]:w-full">
-          <HitingBox divNum={2} />
-        </div>
-        <div className="flex-[0_0_auto] [scroll-snap-align:center] w-4/5 max-w-[300px] mr-5 last:mr-0 max-[480px]:w-full">
-          <HitingBox divNum={3} />
-        </div>
+        {[1, 2, 3].map((divNum) => (
+          <div
+            key={divNum}
+            className="max-[480px]:flex-[0_0_85%] max-[480px]:[scroll-snap-align:center]"
+          >
+            <HitingBox divNum={divNum} />
+          </div>
+        ))}
       </div>
-      {/*모바일 에서만 보임여*/}
-      <div className="flex justify-center gap-2 mt-2.5 min-[481px]:hidden">
+      {/* 모바일에서만 보이는 페이지 인디케이터 */}
+      <div className="mt-2.5 flex justify-center gap-2 min-[481px]:hidden">
         {[0, 1, 2].map((index) => (
           <div
             key={index}
             className={cn(
-              'w-2 h-2 rounded-full transition-colors duration-300',
-              activeIndex === index ? 'bg-primary' : 'bg-[#d3d3d3]'
+              'h-2 w-2 rounded-full transition-colors duration-300',
+              activeIndex === index ? 'bg-primary-300' : 'bg-gray-300'
             )}
           />
         ))}

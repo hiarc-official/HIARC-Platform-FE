@@ -1,8 +1,16 @@
 import type { Metadata } from 'next';
 import { Analytics } from '@vercel/analytics/next';
+import { GlobalDialogContainer } from '@hiarc-platform/design-system';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Providers } from '@/shared/providers/providers';
+
+// Pretendard — admin/intra와 동일한 패밀리룩
+import '@fontsource/pretendard/400.css';
+import '@fontsource/pretendard/500.css';
+import '@fontsource/pretendard/600.css';
+import '@fontsource/pretendard/700.css';
+
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -20,14 +28,15 @@ export default function RootLayout({
 }): React.ReactElement {
   return (
     <html lang="ko">
-      <body>
+      <body className="flex min-h-screen flex-col">
         <Analytics />
         <Providers>
-          <div className="mx-auto flex min-h-screen w-[1000px] flex-col items-center justify-between max-[480px]:w-[375px]">
-            <Header />
-            <div className="w-full flex-1">{children}</div>
+          <Header />
+          <main className="flex-1">{children}</main>
+          <div className="hidden md:block">
             <Footer />
           </div>
+          <GlobalDialogContainer />
         </Providers>
       </body>
     </html>

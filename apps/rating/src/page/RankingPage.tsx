@@ -2,15 +2,24 @@
 
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
+import {
+  PageLayout,
+  Title,
+  Label,
+  SkeletonTransition,
+  useMinimumLoading,
+} from '@hiarc-platform/design-system';
 import DivToggleBar from '../components/DivToggleBar';
 import RankingContainer from '../block/RankingContainer';
 import DonutChart from '../atoms/DounutChart';
 import { useRankingData } from '@/hooks/use-ranking-data';
+import { TableSkeleton, DonutSkeleton } from '../components/skeletons';
 
 const DivPage = () => {
   const [selected, setSelected] = useState<number>(0);
   const sp = useSearchParams();
-  const { data } = useRankingData(selected);
+  const { data, isLoading } = useRankingData(selected);
+  const loading = useMinimumLoading(isLoading);
 
   useEffect(() => {
     const numParam = sp.get('num');
@@ -20,38 +29,36 @@ const DivPage = () => {
   }, [sp]);
 
   const rankingData = Array.isArray(data?.rankingData) ? data.rankingData : [];
-  const streakRatio = data ? (data.graphData ?? 0) : null;
+  const ratio = data?.graphData ?? 0;
 
   return (
-    <>
-      <div className="pb-5 text-[35px] font-black max-[480px]:ml-4 max-[480px]:w-full">Ranking</div>
-      <div className="text-[12px] text-[#5F6368] max-[480px]:mb-5 max-[480px]:ml-[10px]">
-        * 점수는 15분 안으로 반영됩니다.
-      </div>
-      <div className="flex justify-center pb-[45px]">
-        <DivToggleBar selected={selected} setSelected={setSelected} />
-      </div>
-      <div className="mb-10 flex gap-[26px]">
-        {/* ponytail: 등장 fade 애니메이션 생략(레이아웃 동일) */}
+    <PageLayout containerClassName="flex-col items-stretch justify-start">
+      <div className="flex w-full flex-col gap-8">
         <div>
-          <RankingContainer rankingData={rankingData} error={null} />
+          <Title size="sm" weight="bold">
+            Ranking
+          </Title>
+          <Label size="sm" className="mt-1 block text-gray-600">
+            * 점수는 15분 안으로 반영됩니다.
+          </Label>
         </div>
-        <div className="flex flex-col gap-[20.65px] max-[480px]:hidden">
-          <div key={selected}>
-            {streakRatio !== null ? (
-              <DonutChart
-                key={selected}
-                value={isNaN(streakRatio) ? 0 : streakRatio}
-                div={selected}
-                duration={isNaN(streakRatio) ? 0 : streakRatio * 2}
-              />
-            ) : (
-              <div>Loading...</div>
-            )}
+
+        <DivToggleBar selected={selected} setSelected={setSelected} />
+
+        <div className="flex items-start gap-6 max-[900px]:flex-col">
+          <div className="min-w-0 flex-1 rounded-2xl border border-gray-200 bg-white p-5 shadow-none max-[900px]:w-full">
+            <SkeletonTransition loading={loading} skeleton={<TableSkeleton rows={8} />}>
+              <RankingContainer rankingData={rankingData} error={null} />
+            </SkeletonTransition>
+          </div>
+          <div className="w-[320px] shrink-0 rounded-2xl border border-gray-200 bg-white p-5 shadow-none max-[900px]:w-full max-[480px]:hidden">
+            <SkeletonTransition loading={loading} skeleton={<DonutSkeleton />}>
+              <DonutChart key={selected} value={isNaN(ratio) ? 0 : ratio} div={selected} />
+            </SkeletonTransition>
           </div>
         </div>
       </div>
-    </>
+    </PageLayout>
   );
 };
 

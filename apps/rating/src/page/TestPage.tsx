@@ -1,3 +1,4 @@
+import { PageLayout, Title, Card } from '@hiarc-platform/design-system';
 import InfoEntity from '../atoms/InfoEntity';
 import { DinamicStreakBox } from '../block/streak/DinamicStreakBox';
 import StreakInformation from '../block/streak/StreakInformation';
@@ -42,16 +43,23 @@ const exampleData = [
 ];
 
 const TestPage = () => (
-    <div className="flex flex-col w-[557px]">
-      <div className="flex w-full flex-col">
-        <InfoEntity handle="ghwo336" div={1} tier={13} />
-        <div className="w-[98%] border-b border-primary mt-[-1px] ml-3 max-[480px]:w-[92%]"></div>
-      </div>
-      <div className="mt-4">
-        <DinamicStreakBox data={exampleData} />
-      </div>
-      <StreakInformation currentTotalStreak={42} currentSeasonStreak={7} />
+  <PageLayout containerClassName="flex-col items-stretch justify-start">
+    <div className="flex w-full flex-col gap-8">
+      <Title size="sm" weight="bold">
+        Streak Preview
+      </Title>
+      <Card className="flex w-full flex-col rounded-xl border border-gray-200 bg-white p-4 shadow-none">
+        <div className="flex w-full flex-col">
+          <InfoEntity handle="ghwo336" div={1} tier={13} />
+          <div className="ml-3 mt-[-1px] w-[98%] border-b border-gray-200"></div>
+        </div>
+        <div className="mt-4 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+          <DinamicStreakBox data={exampleData} />
+        </div>
+        <StreakInformation currentTotalStreak={42} currentSeasonStreak={7} />
+      </Card>
     </div>
-  );
+  </PageLayout>
+);
 
 export default TestPage;

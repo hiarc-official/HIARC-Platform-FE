@@ -1,5 +1,15 @@
 'use client';
 
+import {
+  Button,
+  Label,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  DialogUtil,
+} from '@hiarc-platform/design-system';
 import { checkAdminApi, getEventRanking } from '../../api/AdminApi';
 import { useState } from 'react';
 import { Modal, ModalContent } from '../Modal';
@@ -31,7 +41,7 @@ export const EventRankingCheck = () => {
       }
     } catch (error) {
       console.error('이벤트 목록 불러오기 실패:', error);
-      alert('이벤트 목록을 불러오는데 실패했습니다.');
+      DialogUtil.showError('이벤트 목록을 불러오는데 실패했습니다.');
     } finally {
       setLoading(false);
     }
@@ -39,7 +49,7 @@ export const EventRankingCheck = () => {
 
   const handleEventSelect = async () => {
     if (!selectedEventId) {
-      alert('이벤트를 선택해주세요.');
+      DialogUtil.showError('이벤트를 선택해주세요.');
       return;
     }
 
@@ -51,7 +61,7 @@ export const EventRankingCheck = () => {
       setIsRankingModalOpen(true);
     } catch (error) {
       console.error('랭킹 데이터 조회 실패:', error);
-      alert('랭킹 데이터를 불러오는데 실패했습니다.');
+      DialogUtil.showError('랭킹 데이터를 불러오는데 실패했습니다.');
     } finally {
       setLoading(false);
     }
@@ -59,15 +69,13 @@ export const EventRankingCheck = () => {
 
   return (
     <>
-      <div className="flex flex-row gap-[15px] items-center mb-[29px]">
-        지난 이벤트 랭킹 조회하기
-        <button
-          className="bg-[#ffa5a5] border-none rounded-[10px] text-[12px] font-bold p-3 cursor-pointer relative hover:bg-primary"
-          onClick={buttonClick}
-          disabled={loading}
-        >
+      <div className="flex flex-row gap-3 items-center">
+        <Label size="sm" weight="medium">
+          지난 이벤트 랭킹 조회하기
+        </Label>
+        <Button size="sm" onClick={buttonClick} disabled={loading}>
           {loading ? '불러오는중...' : '확인하기'}
-        </button>
+        </Button>
       </div>
 
       {isEventSelectorOpen && (
@@ -76,36 +84,34 @@ export const EventRankingCheck = () => {
           onClick={() => setIsEventSelectorOpen(false)}
         >
           <div
-            className="bg-white p-6 rounded-[10px] z-[1000] w-[400px] max-h-[80%] overflow-y-auto"
+            className="bg-white p-6 rounded-lg border border-gray-200 z-[1000] w-[400px] max-h-[80%] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
-            <label className="text-[16px] font-bold mb-4 block">이벤트를 선택하세요:</label>
-            <select
-              className="p-2 border border-[#ccc] rounded-[4px] text-[14px] w-full mb-4"
-              value={selectedEventId || ''}
-              onChange={(e) => setSelectedEventId(Number(e.target.value))}
+            <Label size="md" weight="bold" className="mb-4 block">
+              이벤트를 선택하세요:
+            </Label>
+            <Select
+              value={selectedEventId ? String(selectedEventId) : ''}
+              onValueChange={(value) => setSelectedEventId(Number(value))}
             >
-              <option value="">이벤트를 선택하세요</option>
-              {events.map((event) => (
-                <option key={event.eventId} value={event.eventId}>
-                  이벤트 {event.eventId} - {event.description} ({new Date(event.eventStartAt).toLocaleDateString('ko-KR')} ~ {new Date(event.eventEndAt).toLocaleDateString('ko-KR')})
-                </option>
-              ))}
-            </select>
-            <div>
-              <button
-                className="bg-[#ffa5a5] border-none rounded-[10px] text-[12px] font-bold py-3 px-5 cursor-pointer mr-2 hover:bg-primary"
-                onClick={handleEventSelect}
-                disabled={loading}
-              >
+              <SelectTrigger className="w-full mb-4">
+                <SelectValue placeholder="이벤트를 선택하세요" />
+              </SelectTrigger>
+              <SelectContent>
+                {events.map((event) => (
+                  <SelectItem key={event.eventId} value={String(event.eventId)}>
+                    이벤트 {event.eventId} - {event.description} ({new Date(event.eventStartAt).toLocaleDateString('ko-KR')} ~ {new Date(event.eventEndAt).toLocaleDateString('ko-KR')})
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <div className="flex gap-2">
+              <Button size="sm" onClick={handleEventSelect} disabled={loading}>
                 {loading ? '조회중...' : '조회하기'}
-              </button>
-              <button
-                className="bg-[#ffa5a5] border-none rounded-[10px] text-[12px] font-bold py-3 px-5 cursor-pointer mr-2 hover:bg-primary"
-                onClick={() => setIsEventSelectorOpen(false)}
-              >
+              </Button>
+              <Button size="sm" variant="secondary" onClick={() => setIsEventSelectorOpen(false)}>
                 취소
-              </button>
+              </Button>
             </div>
           </div>
         </div>

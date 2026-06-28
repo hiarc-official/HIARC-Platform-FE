@@ -1,8 +1,8 @@
 'use client';
 
+import { Card, Label } from '@hiarc-platform/design-system';
 import InfoEntity from '../atoms/InfoEntity';
 import CircularProgress from '../atoms/CircularProgress';
-import Color from '../util/Color';
 import { NumberToStreakColor } from '../util/NumberToStreakColor';
 
 const StreakEntity = ({
@@ -28,42 +28,44 @@ const StreakEntity = ({
     window.location.href = `${process.env.NEXT_PUBLIC_INTRA_API_URL}/member/${memberId}`;
   };
   return (
-    <div className="w-[460px] flex flex-col cursor-pointer" onClick={handleClick}>
+    <Card
+      className="flex w-full cursor-pointer flex-col rounded-xl border border-gray-200 bg-white p-4 shadow-none transition-colors hover:border-gray-300"
+      onClick={handleClick}
+    >
       <div className="flex w-full flex-col">
         <InfoEntity handle={handle} div={div} tier={tier} />
-        <div className="w-[98%] border-b border-primary mt-[-1px] ml-3 max-[480px]:w-[92%]"></div>
+        <div className="ml-3 mt-[-1px] w-[98%] border-b border-gray-200"></div>
       </div>
       <div className="mt-4 flex gap-[24.33px]">
-        <div className="w-[63px] flex flex-col gap-[6px]">
-          <div
-            className="text-[10px] border-[0.5px] rounded-[12px] flex justify-center items-center px-2 flex-nowrap mb-[3px] h-5"
-            style={{ borderColor: Color.graySub3 }}
-          >
-            이번 시즌
+        <div className="flex w-[63px] flex-col gap-[6px]">
+          <div className="mb-[3px] flex h-5 flex-nowrap items-center justify-center rounded-[12px] border border-gray-200 px-2">
+            <Label size="xs" className="text-gray-600">
+              이번 시즌
+            </Label>
           </div>
           <CircularProgress value={seasonStreak} maxValue={seasonTotal} width={60} height={60} />
         </div>
         <div className="flex flex-col gap-[9px]">
           <div className="flex gap-1">
-            <div
-              className="text-[10px] border-[0.5px] rounded-[12px] flex justify-center items-center px-2 flex-nowrap mb-[3px] h-5"
-              style={{ borderColor: Color.graySub3 }}
-            >
-              누적
+            <div className="mb-[3px] flex h-5 flex-nowrap items-center justify-center rounded-[12px] border border-gray-200 px-2">
+              <Label size="xs" className="text-gray-600">
+                누적
+              </Label>
             </div>
             {startDate && (
-              <div
-                className="text-[10px] border-[0.5px] rounded-[12px] flex justify-center items-center px-2 flex-nowrap mb-[3px] h-5"
-                style={{ borderColor: Color.primary }}
-              >
-                {startDate} 부터
+              <div className="mb-[3px] flex h-5 flex-nowrap items-center justify-center rounded-[12px] border border-primary-300 px-2">
+                <Label size="xs" className="text-primary-300">
+                  {startDate} 부터
+                </Label>
               </div>
             )}
           </div>
           <div className="flex gap-[22px]">
-            <div className="mt-[13px] w-[73px] h-[35px] flex items-end text-[15px] font-black">
-              <div className="text-[35px]">{totalStreak}</div>
-              <div className="mb-1">일</div>
+            <div className="mt-[13px] flex h-[35px] w-[73px] items-baseline">
+              <span className="text-[35px] font-bold leading-none text-primary-300 tabular-nums">
+                {totalStreak}
+              </span>
+              <span className="ml-1 text-sm text-gray-600">일</span>
             </div>
             <div className="grid grid-cols-[repeat(20,13px)] gap-px w-fit max-w-[273px] h-fit max-[480px]:grid-cols-[repeat(10,13px)] max-[480px]:max-w-[139px]">
               {Array.from({ length: totalStreak }, (_, i) => (
@@ -77,7 +79,7 @@ const StreakEntity = ({
           </div>
         </div>
       </div>
-    </div>
+    </Card>
   );
 };
 

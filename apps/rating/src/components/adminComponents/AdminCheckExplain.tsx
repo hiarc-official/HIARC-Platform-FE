@@ -1,8 +1,13 @@
+import { Label } from '@hiarc-platform/design-system';
 import { AdminExplain } from '../../util/AdminExplain';
 
 export const AdminCheckExplain = ({ blockName }: { blockName: string }) => (
-    <div className="flex flex-col gap-[29px] w-[500px] mb-[30px]">
-      <div className="text-[17.5px] font-bold">{blockName}</div>
-      <div className="text-[12px] font-bold">{AdminExplain[blockName]}</div>
-    </div>
-  );
+  <div className="flex w-full max-w-[500px] flex-col gap-3">
+    <Label size="lg" weight="bold">
+      {blockName}
+    </Label>
+    <Label size="xs" weight="bold" className="text-gray-600">
+      {AdminExplain[blockName]}
+    </Label>
+  </div>
+);

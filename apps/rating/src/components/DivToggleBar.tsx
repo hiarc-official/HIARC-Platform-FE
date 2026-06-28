@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { Dispatch, SetStateAction } from 'react';
-import DivButton from '../block/DivButton';
+import { SegmentedControl } from '@hiarc-platform/design-system';
 
 const DivToggleBar = ({
   setSelected,
@@ -10,20 +10,25 @@ const DivToggleBar = ({
 }: {
   setSelected: Dispatch<SetStateAction<number>>;
   selected: number;
-}) => {
+}): React.ReactElement => {
   const router = useRouter();
 
-  const handleClick = (div: number) => {
+  const handleChange = (div: number): void => {
     setSelected(div);
     router.push(`/div?num=${div}`);
   };
 
   return (
-    <div className="flex h-[30px] w-[181px] items-center justify-center rounded-[15px] bg-primary">
-      <DivButton div={1} onClick={() => handleClick(1)} isSelected={selected === 1} />
-      <DivButton div={2} onClick={() => handleClick(2)} isSelected={selected === 2} />
-      <DivButton div={3} onClick={() => handleClick(3)} isSelected={selected === 3} />
-    </div>
+    <SegmentedControl
+      aria-label="디비전 선택"
+      value={selected}
+      onChange={handleChange}
+      options={[
+        { label: 'Div 1', value: 1 },
+        { label: 'Div 2', value: 2 },
+        { label: 'Div 3', value: 3 },
+      ]}
+    />
   );
 };
 

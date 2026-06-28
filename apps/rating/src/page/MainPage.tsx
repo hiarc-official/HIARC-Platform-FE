@@ -4,6 +4,7 @@ import DivBlock from '../block/DivBlock';
 import StreakBox from '../block/StreakBox';
 import EventBlock from '../block/EventBlock';
 import { useHitingData } from '@/hooks/use-hiting-data';
+import { PageLayout, Title, Label } from '@hiarc-platform/design-system';
 
 const MainPage = (): React.ReactElement => {
   // 자식들이 같은 queryKey로 useHitingData를 호출해 캐시를 공유하므로
@@ -11,18 +12,25 @@ const MainPage = (): React.ReactElement => {
   useHitingData();
 
   return (
-    <div className="flex flex-col gap-6">
-      <div className="text-[35px] font-extrabold text-left max-[480px]:w-full max-[480px]:ml-4">
-        Hiting
-      </div>
+    <PageLayout containerClassName="flex-col items-stretch justify-start">
+      <div className="flex w-full flex-col gap-8">
+        <div>
+          <Title size="sm" weight="bold">
+            Hiting
+          </Title>
+          <Label size="sm" className="mt-1 block text-gray-600">
+            실시간 코딩 스트릭 · 레이팅
+          </Label>
+        </div>
 
-      {/* ponytail: 등장 fade 애니메이션 생략(레이아웃 동일) */}
-      <DivBlock />
-      <div className="flex gap-5 max-[480px]:flex-col-reverse max-[480px]:gap-[52px] max-[480px]:items-center max-[480px]:mb-10">
-        <StreakBox />
-        <EventBlock />
+        <DivBlock />
+
+        <div className="flex gap-6 max-[900px]:flex-col">
+          <StreakBox />
+          <EventBlock />
+        </div>
       </div>
-    </div>
+    </PageLayout>
   );
 };
 

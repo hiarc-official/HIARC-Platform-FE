@@ -64,9 +64,10 @@ export * from './components/layout/ContentSection/ContentSection';
 export * from './components/layout/PageLayout/PageLayout';
 export * from './components/layout/Divider/Divider';
 
-// navigation — 탭 / 메뉴바
+// navigation — 탭 / 메뉴바 / 세그먼트 컨트롤
 export * from './components/navigation/Tabs/Tabs';
 export * from './components/navigation/Menubar/Menubar';
+export * from './components/navigation/SegmentedControl/SegmentedControl';
 
 // motion — 애니메이션
 export * from './components/motion/FadeIn/FadeIn';

@@ -1,5 +1,16 @@
 'use client';
 
+import {
+  Button,
+  Label,
+  Textarea,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  DialogUtil,
+} from '@hiarc-platform/design-system';
 import { AdminExplain } from '../../util/AdminExplain';
 import { Ex } from '../../util/AdminExplain';
 import { useState, useEffect } from 'react';
@@ -66,24 +77,24 @@ const AdminInput = ({ BlockName }: { BlockName: string }) => {
     setInputValue(e.target.value);
   };
 
-  const handleSeasonChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedSeasonId(Number(e.target.value));
+  const handleSeasonChange = (value: string) => {
+    setSelectedSeasonId(Number(value));
   };
 
-  const handleEventChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedEventId(Number(e.target.value));
+  const handleEventChange = (value: string) => {
+    setSelectedEventId(Number(value));
   };
 
   const handleSubmit = async () => {
     // 시즌 수정하기인 경우 시즌 선택 확인
     if (BlockName === '시즌 정보 수정하기' && !selectedSeasonId) {
-      alert('수정할 시즌을 선택해주세요.');
+      DialogUtil.showError('수정할 시즌을 선택해주세요.');
       return;
     }
 
     // 이벤트 수정하기인 경우 이벤트 선택 확인
     if (BlockName === '이벤트 수정하기' && !selectedEventId) {
-      alert('수정할 이벤트를 선택해주세요.');
+      DialogUtil.showError('수정할 이벤트를 선택해주세요.');
       return;
     }
 
@@ -102,69 +113,78 @@ const AdminInput = ({ BlockName }: { BlockName: string }) => {
         }, 1000);
       }
     } catch (error) {
-      alert('전송 실패');
+      DialogUtil.showError('전송 실패');
       console.log('실패', error);
     } finally {
       setLoading(false);
     }
   };
   return (
-    <div className="overflow-visible border-b border-black">
-      <div className="mt-9 mb-9 text-[17.5px] font-bold">{BlockName}</div>
-      <div className="text-[12px] font-bold mb-6">{AdminExplain[BlockName] || '잠시오류'}</div>
-      <div className="text-[12px] whitespace-pre-wrap">{Ex[BlockName]}</div>
+    <div className="flex flex-col gap-4 overflow-visible">
+      <Label size="lg" weight="bold">
+        {BlockName}
+      </Label>
+      <div className="flex flex-col gap-2">
+        <Label size="xs" weight="bold" className="block">
+          {AdminExplain[BlockName] || '잠시오류'}
+        </Label>
+        <Label size="xs" weight="regular" className="block whitespace-pre-wrap text-gray-600">
+          {Ex[BlockName]}
+        </Label>
+      </div>
 
       {/* 시즌 수정하기인 경우 시즌 선택기 표시 */}
       {BlockName === '시즌 정보 수정하기' && (
-        <div className="mb-4">
-          <label className="text-[12px] font-bold mb-2 block">수정할 시즌 선택:</label>
-          <select
-            className="p-2 border border-[#ccc] rounded-[4px] text-[14px] w-[200px] mb-2"
-            value={selectedSeasonId || ''}
-            onChange={handleSeasonChange}
-          >
-            <option value="">시즌을 선택하세요</option>
-            {seasons.map((season) => (
-              <option key={season.seasonId} value={season.seasonId}>
-                시즌 {season.seasonId} - {season.description} ({new Date(season.seasonStartAt).toLocaleDateString('ko-KR')} ~ {new Date(season.seasonEndAt).toLocaleDateString('ko-KR')})
-              </option>
-            ))}
-          </select>
+        <div className="flex flex-col gap-2">
+          <Label size="xs" weight="bold" className="block">
+            수정할 시즌 선택:
+          </Label>
+          <Select value={selectedSeasonId ? String(selectedSeasonId) : ''} onValueChange={handleSeasonChange}>
+            <SelectTrigger className="w-full max-w-[400px]">
+              <SelectValue placeholder="시즌을 선택하세요" />
+            </SelectTrigger>
+            <SelectContent>
+              {seasons.map((season) => (
+                <SelectItem key={season.seasonId} value={String(season.seasonId)}>
+                  시즌 {season.seasonId} - {season.description} ({new Date(season.seasonStartAt).toLocaleDateString('ko-KR')} ~ {new Date(season.seasonEndAt).toLocaleDateString('ko-KR')})
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
       )}
 
       {/* 이벤트 수정하기인 경우 이벤트 선택기 표시 */}
       {BlockName === '이벤트 수정하기' && (
-        <div className="mb-4">
-          <label className="text-[12px] font-bold mb-2 block">수정할 이벤트 선택:</label>
-          <select
-            className="p-2 border border-[#ccc] rounded-[4px] text-[14px] w-[200px] mb-2"
-            value={selectedEventId || ''}
-            onChange={handleEventChange}
-          >
-            <option value="">이벤트를 선택하세요</option>
-            {events.map((event) => (
-              <option key={event.eventId} value={event.eventId}>
-                이벤트 {event.eventId} - {event.description} ({new Date(event.eventStartAt).toLocaleDateString('ko-KR')} ~ {new Date(event.eventEndAt).toLocaleDateString('ko-KR')})
-              </option>
-            ))}
-          </select>
+        <div className="flex flex-col gap-2">
+          <Label size="xs" weight="bold" className="block">
+            수정할 이벤트 선택:
+          </Label>
+          <Select value={selectedEventId ? String(selectedEventId) : ''} onValueChange={handleEventChange}>
+            <SelectTrigger className="w-full max-w-[400px]">
+              <SelectValue placeholder="이벤트를 선택하세요" />
+            </SelectTrigger>
+            <SelectContent>
+              {events.map((event) => (
+                <SelectItem key={event.eventId} value={String(event.eventId)}>
+                  이벤트 {event.eventId} - {event.description} ({new Date(event.eventStartAt).toLocaleDateString('ko-KR')} ~ {new Date(event.eventEndAt).toLocaleDateString('ko-KR')})
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
       )}
 
-      <div className="bg-[#FFFCED] w-[500px] h-[166px] mt-6 mb-[49px]">
-        <textarea
-          className="h-[110px] w-[98%] bg-inherit border-none text-start pt-[10px] align-top box-border resize-none"
+      <div className="w-full max-w-[500px]">
+        <Textarea
+          className="h-[110px] resize-none"
           value={inputValue}
           onChange={handleInputChange}
         />
-        <div className="w-full flex justify-end items-end">
-          <button
-            className="bg-[#ffa5a5] border-none rounded-[10px] text-[12px] font-bold p-3 cursor-pointer hover:bg-primary"
-            onClick={handleSubmit}
-          >
+        <div className="w-full flex justify-end items-end mt-2">
+          <Button size="sm" onClick={handleSubmit} disabled={loading}>
             {loading ? '전송중...' : '입력하기'}
-          </button>
+          </Button>
         </div>
       </div>
     </div>

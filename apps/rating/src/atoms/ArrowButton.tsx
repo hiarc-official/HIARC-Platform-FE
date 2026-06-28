@@ -1,18 +1,34 @@
 'use client';
 import { useRouter } from 'next/navigation';
+import { Label } from '@hiarc-platform/design-system';
 
-const ArrowButton = ({ divNum }: { divNum: number }) => {
+const ArrowButton = ({ divNum }: { divNum: number }): React.ReactElement => {
   const router = useRouter();
-  const handleClick = () => {
-    router.push(`/div?num=${divNum}`);
-  };
   return (
     <button
-      onClick={handleClick}
-      className="flex justify-between items-center w-[92%] bg-white border-none rounded-[20px] h-[40px] cursor-pointer py-[3px] px-[15px]"
+      type="button"
+      onClick={() => router.push(`/div?num=${divNum}`)}
+      className="group flex w-full cursor-pointer items-center justify-between"
     >
-      <div className="text-[20px]">Div{divNum}</div>
-      <div className="text-[20px]">{'>'}</div>
+      <Label size="lg" weight="bold" selectable={false} className="cursor-pointer">
+        Div {divNum}
+      </Label>
+      <span className="flex items-center gap-0.5 text-sm text-gray-500 transition-colors group-hover:text-gray-900">
+        전체보기
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <path d="m9 18 6-6-6-6" />
+        </svg>
+      </span>
     </button>
   );
 };

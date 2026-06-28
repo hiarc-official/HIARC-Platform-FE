@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from '@hiarc-platform/design-system';
+import { Label } from '@hiarc-platform/design-system';
 import TierImg from '../util/TierImg';
 
 const DivNameTack = ({
@@ -15,30 +15,28 @@ const DivNameTack = ({
   tier: number;
   totalHiting: number;
   memberId: number;
-}) => {
-  const handleClick = () => {
+}): React.ReactElement => {
+  const handleClick = (): void => {
     window.location.href = `${process.env.NEXT_PUBLIC_INTRA_API_URL}/member/${memberId}`;
   };
 
-  // ID가 8글자보다 길면 8글자만 표시하고 "..." 추가
   const truncatedId = id.length > 7 ? `${id.slice(0, 8)}...` : id;
 
   return (
     <div
       onClick={handleClick}
-      className={cn(
-        'flex min-h-[40px] w-[280px] cursor-pointer items-center justify-between pl-[5px] text-[14px] font-normal',
-        rank !== 5 && 'border-b border-primary'
-      )}
+      className="grid h-11 cursor-pointer grid-cols-[20px_24px_1fr_auto] items-center gap-3 rounded-md border-b border-gray-100 px-1 transition-colors last:border-b-0 hover:bg-gray-50"
     >
-      <div className="flex w-[147px] justify-between">
-        <div className="mr-[60px] flex w-full gap-4">
-          <div className="w-5">{rank}</div>
-          <div className="w-20 overflow-hidden text-ellipsis whitespace-nowrap">{truncatedId}</div>
-        </div>
-        <TierImg tier={tier} />
-      </div>
-      {totalHiting < 0 ? 0 : totalHiting}
+      <Label size="sm" selectable={false} className="text-center text-gray-400">
+        {rank}
+      </Label>
+      <TierImg tier={tier} />
+      <Label size="sm" selectable={false} className="truncate">
+        {truncatedId}
+      </Label>
+      <Label size="sm" weight="bold" selectable={false} className="text-right tabular-nums">
+        {totalHiting < 0 ? 0 : totalHiting}
+      </Label>
     </div>
   );
 };

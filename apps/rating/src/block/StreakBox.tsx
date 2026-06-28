@@ -5,10 +5,12 @@ import IndividualBlock from '../components/IndividualBlock';
 import StreakBoxArrowButton from '../components/StreakBoxArrowButton';
 import { useHitingData } from '@/hooks/use-hiting-data';
 import { parseDivisionString } from '../util/parseDivision';
-import Color from '../util/Color';
+import { Card, SkeletonTransition, useMinimumLoading } from '@hiarc-platform/design-system';
+import { StreakCardsSkeleton } from '../components/skeletons';
 
 const StreakBox = (): React.ReactElement => {
-  const { data: hitingData, isLoading: loading } = useHitingData();
+  const { data: hitingData, isLoading } = useHitingData();
+  const loading = useMinimumLoading(isLoading);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -25,18 +27,15 @@ const StreakBox = (): React.ReactElement => {
   const displayedBlocks = isMobile ? streakList.slice(0, 4) : streakList;
 
   return (
-    <div
-      className="w-[725px] rounded-[28px] min-h-[342px] min-w-[320px] flex flex-col max-[480px]:w-[320px]"
-      style={{ backgroundColor: Color.skybox }}
-    >
-      <div className="w-full mt-[15px] flex justify-center">
-        <StreakBoxArrowButton />
-      </div>
-      {loading ? (
-        <p className="text-center p-5">로딩 중...</p>
-      ) : (
-        <div className="w-full h-full flex flex-wrap gap-3 items-start grow py-3 px-[18px]">
-          {displayedBlocks.map((streak) => (
+    <Card className="flex min-h-[342px] w-full min-w-0 flex-1 flex-col rounded-2xl border border-gray-200 bg-white p-5 shadow-none">
+      <StreakBoxArrowButton />
+      <div className="mt-4">
+        <SkeletonTransition
+          loading={loading}
+          skeleton={<StreakCardsSkeleton count={isMobile ? 4 : 6} />}
+        >
+          <div className="grid grid-cols-3 gap-3 max-[900px]:grid-cols-2 max-[480px]:grid-cols-1">
+            {displayedBlocks.map((streak) => (
               <IndividualBlock
                 key={streak.bojHandle}
                 tier={streak.tier}
@@ -47,9 +46,10 @@ const StreakBox = (): React.ReactElement => {
                 memberId={streak.memberId}
               />
             ))}
-        </div>
-      )}
-    </div>
+          </div>
+        </SkeletonTransition>
+      </div>
+    </Card>
   );
 };
 

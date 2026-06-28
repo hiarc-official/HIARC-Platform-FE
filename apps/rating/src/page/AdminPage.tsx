@@ -1,3 +1,4 @@
+import { PageLayout, Title } from '@hiarc-platform/design-system';
 import AdminInput from '../block/adminBlock/AdminInput';
 import HistoryCheck from '../block/adminBlock/HistoryCheck';
 import { AdminCheckCurrent } from '../block/adminBlock/AdminCheckCurrent';
@@ -11,19 +12,32 @@ const adminInputs = [
 
 const adminCheckCurrent = ['핸들별 유저 정보 확인하기'];
 
+const cardClass = 'rounded-2xl border border-gray-200 bg-white p-5 shadow-none';
+
 const AdminPage = () => (
-    <>
-      <div className="text-[35px] font-black pb-[40px] max-[480px]:w-full max-[480px]:ml-4">
+  <PageLayout containerClassName="flex-col items-stretch justify-start">
+    <div className="flex w-full flex-col gap-6">
+      <Title size="sm" weight="bold">
         관리자 페이지
+      </Title>
+
+      <div className={cardClass}>
+        <HistoryCheck />
       </div>
-      <HistoryCheck />
+
       {adminInputs.map((name) => (
-        <AdminInput key={name} BlockName={name} />
+        <div key={name} className={cardClass}>
+          <AdminInput BlockName={name} />
+        </div>
       ))}
+
       {adminCheckCurrent.map((name) => (
-        <AdminCheckCurrent key={name} blockName={name} />
+        <div key={name} className={cardClass}>
+          <AdminCheckCurrent blockName={name} />
+        </div>
       ))}
-    </>
-  );
+    </div>
+  </PageLayout>
+);
 
 export default AdminPage;

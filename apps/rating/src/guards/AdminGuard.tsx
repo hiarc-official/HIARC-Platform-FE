@@ -2,6 +2,7 @@
 
 import { PropsWithChildren, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { DialogUtil } from '@hiarc-platform/design-system';
 import { authApi } from '../api/AuthApi';
 
 export const AdminGuard = ({ children }: PropsWithChildren): React.ReactNode => {
@@ -16,28 +17,28 @@ export const AdminGuard = ({ children }: PropsWithChildren): React.ReactNode => 
         const isAdmin = userData.memberRole === 'ADMIN';
 
         if (!isAdmin) {
-          alert('관리자 로그인을 해주세요!');
+          DialogUtil.showError('관리자 권한이 필요합니다. 관리자 계정으로 로그인해주세요.', () =>
+            router.replace('/')
+          );
         }
 
         setAuthorized(isAdmin);
       } catch (error) {
         console.error('인증 확인 중 오류:', error);
-        alert('관리자 로그인을 하고와주세요!');
+        DialogUtil.showError('관리자 로그인이 필요합니다.', () => router.replace('/'));
         setAuthorized(false);
       } finally {
         setLoading(false);
       }
     };
     checkAdmin();
-  }, []);
+  }, [router]);
 
-  useEffect(() => {
-    if (!loading && !authorized) {
-      router.replace('/');
-    }
-  }, [loading, authorized, router]);
-
-  if (loading) {return <div>인증 확인 중...</div>;}
-  if (!authorized) {return null;}
+  if (loading) {
+    return <div className="p-10 text-center text-gray-600">인증 확인 중...</div>;
+  }
+  if (!authorized) {
+    return null;
+  }
   return children;
 };

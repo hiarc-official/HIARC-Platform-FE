@@ -1,6 +1,12 @@
 'use client';
 
 import TierImg from '../util/TierImg';
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  Button,
+} from '@hiarc-platform/design-system';
 
 interface ApprovedNotification {
   semesterId: number;
@@ -444,23 +450,18 @@ export const Modal = ({ content, onClose }: ModalProps): React.ReactElement => {
     return renderStringContent(content as string);
   };
 
+  // 부모가 {isOpen && <Modal/>}로 마운트를 제어하므로 항상 open. 닫힘은 onClose로 위임.
   return (
-    <div
-      onClick={onClose}
-      className="fixed top-0 left-0 w-full h-full bg-black/40 z-[999]"
-    >
-      <div
-        onClick={(e) => e.stopPropagation()}
-        className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-[10px] z-[1000] w-[800px] max-h-[80%] overflow-y-auto"
-      >
+    <Dialog open onOpenChange={(open) => !open && onClose()}>
+      <DialogContent className="max-h-[80vh] overflow-y-auto sm:max-w-[800px]">
+        <DialogTitle className="sr-only">상세 정보</DialogTitle>
         {renderContent()}
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 bg-[#ddd] border-none p-2 rounded-md cursor-pointer w-20 h-10"
-        >
-          뒤로가기
-        </button>
-      </div>
-    </div>
+        <div className="mt-4 flex justify-end">
+          <Button variant="secondary" size="sm" onClick={onClose}>
+            뒤로가기
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 };

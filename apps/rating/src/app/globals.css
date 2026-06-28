@@ -1,14 +1,6 @@
 @import '../../../../styles/globals.css';
 
-/* rating(hiting) 앱 고유 폰트 — 기존 디자인 유지 */
-@font-face {
-  font-family: 'NanumSquare';
-  src: url('/NanumSquareNeo-Variable.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
+/* admin/intra와 동일한 Pretendard 패밀리룩 */
 body {
-  font-family: 'NanumSquare', sans-serif;
+  font-family: 'Pretendard', sans-serif;
 }

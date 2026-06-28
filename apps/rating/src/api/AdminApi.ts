@@ -1,9 +1,10 @@
+import { DialogUtil } from '@hiarc-platform/design-system';
 import apiClient from './ApiClient';
 
 //admin 페이지 블록별 api
 export const sendAdminInput = async (blockName: string, inputValue: string, params?: number) => {
   if (!inputValue.trim()) {
-    alert('입력값을 입력해주세요.');
+    DialogUtil.showError('입력값을 입력해주세요.');
     return;
   }
   let parsedData;
@@ -14,7 +15,7 @@ export const sendAdminInput = async (blockName: string, inputValue: string, para
       throw new Error('올바른 객체 형식이 아닙니다.');
     }
   } catch (error) {
-    alert('입력값이 올바른 JSON 형식이 아닙니다.');
+    DialogUtil.showError('입력값이 올바른 JSON 형식이 아닙니다.');
     console.error('JSON 변환 실패:', error);
     return;
   }
@@ -32,7 +33,7 @@ export const sendAdminInput = async (blockName: string, inputValue: string, para
       case 'HITING값 확인하기':
         return '/admin/new-solved';
       default:
-        alert('올바르지 않은 BlockName입니다.');
+        DialogUtil.showError('올바르지 않은 BlockName입니다.');
         console.error(` ${blockName}은 유효하지 않은 BlockName입니다.`);
         return;
     }
@@ -48,12 +49,12 @@ export const sendAdminInput = async (blockName: string, inputValue: string, para
       : await apiClient.post(apiUrl, parsedData);
 
     console.log(`${blockName} 데이터 전송 성공:`, response);
-    alert('성공적으로 전송되었습니다!');
+    DialogUtil.showSuccess('성공적으로 전송되었습니다!');
     return response;
   } catch (error) {
     console.log('전송되는 데이터:', parsedData);
     console.error(` ${blockName} 데이터 전송 실패:`, error);
-    alert('데이터 전송에 실패했습니다.');
+    DialogUtil.showError('데이터 전송에 실패했습니다.');
   }
 };
 
@@ -128,7 +129,8 @@ export const getId = async (handle: string) => {
 
     return response;
   } catch (error) {
-    alert('검색하신 핸들이 존재하지 않습니다');
-    console.error(error);
+    // 호출 측(헤더 검색 등)에서 모달로 안내한다.
+    console.error('핸들 검색 실패:', error);
+    return undefined;
   }
 };

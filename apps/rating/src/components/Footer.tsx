@@ -1,28 +1,37 @@
-import ContactInfo from '../atoms/MediaListCell';
+import { Divider, Label, AnchorLabel } from '@hiarc-platform/design-system';
+import Image from 'next/image';
 
 const Footer = (): React.ReactElement => (
-    <div className="flex w-full items-center justify-center max-[800px]:items-start max-[480px]:hidden">
-      <div className="mt-[50px] box-border flex w-full items-center justify-between text-left text-[15px] text-[#00aaff] max-[800px]:flex-col max-[800px]:items-start">
-        <div className="flex flex-1">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            className="mr-5 mt-5 h-[60px] w-[60px]"
-            src="/assets/hiarc-reallogo.png"
-            alt="HI-ARC 로고"
-          />
-          <div className="flex flex-col gap-[5px]">
-            <h4 className="mb-[5px] whitespace-nowrap text-[1.4rem] font-normal max-[800px]:text-[20px]">
-              HI-ARC 하이아크
-            </h4>
-            <div className="whitespace-nowrap text-[1.4rem] font-normal max-[800px]:mb-[14px] max-[800px]:text-sm">
-              홍익대학교 컴퓨터공학과 알고리즘학회
-            </div>
+    <footer className="w-full border-t border-gray-200 px-5 py-4">
+      <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center justify-between gap-4 md:flex-row">
+        <div className="flex items-center gap-2 sm:text-left">
+          <Label size="lg" weight="bold">
+            HI-ARC 하이아크
+          </Label>
+          <Label size="sm" className="text-gray-700">
+            홍익대학교 컴퓨터공학과 알고리즘 학회
+          </Label>
+        </div>
+        <div className="flex flex-col items-center justify-center gap-3 text-gray-600 md:flex-row">
+          <div className="flex items-center gap-2">
+            <Image src="/shared-assets/Instagram.svg" alt="Instagram Icon" width={16} height={16} />
+            <AnchorLabel href="https://www.instagram.com/hiarc.official/">
+              @hi-arc.official
+            </AnchorLabel>
+          </div>
+          <Divider variant="vertical" size="8px" className="hidden md:inline-block" />
+          <div className="flex items-center gap-2">
+            <Image src="/shared-assets/Mail.svg" alt="Mail Icon" width={16} height={16} />
+            <Label>hiarc.official@gmail.com</Label>
+          </div>
+          <Divider variant="vertical" size="8px" className="hidden md:inline-block" />
+          <div className="flex items-center gap-2">
+            <Image src="/shared-assets/Message.svg" alt="Message Icon" width={16} height={16} />
+            <AnchorLabel href="https://pf.kakao.com/_SArxlxb">@hi-arc</AnchorLabel>
           </div>
         </div>
-
-        <ContactInfo />
       </div>
-    </div>
+    </footer>
   );
 
 export default Footer;

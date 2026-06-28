@@ -1,21 +1,36 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { Label } from '@hiarc-platform/design-system';
 
-const StreakBoxArrowButton = () => {
+const StreakBoxArrowButton = (): React.ReactElement => {
   const router = useRouter();
-  const handleClick = () => {
-    router.push('/streak');
-  };
   return (
-    <div
-      className="w-[696px] h-10 rounded-[20px] bg-white flex justify-between items-center cursor-pointer max-[480px]:w-[284px]"
-      onClick={handleClick}
+    <button
+      type="button"
+      onClick={() => router.push('/streak')}
+      className="group flex w-full cursor-pointer items-center justify-between"
     >
-      <div className="ml-4">Streak</div>
-
-      <div className="mr-[13px]">{'>'}</div>
-    </div>
+      <Label size="lg" weight="bold" selectable={false} className="cursor-pointer">
+        Streak
+      </Label>
+      <span className="flex items-center gap-0.5 text-sm text-gray-500 transition-colors group-hover:text-gray-900">
+        전체보기
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <path d="m9 18 6-6-6-6" />
+        </svg>
+      </span>
+    </button>
   );
 };
 

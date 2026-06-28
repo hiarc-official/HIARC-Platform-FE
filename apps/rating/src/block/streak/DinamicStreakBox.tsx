@@ -83,7 +83,7 @@ export function DinamicStreakBox({ data }: Props): React.ReactElement {
         {monthPositions.map(({ month, left }) => (
           <span
             key={month}
-            className="absolute text-[0.75rem] text-[#4b5563]"
+            className="absolute text-[0.75rem] text-gray-600"
             style={{ left: `${left}px` }}
           >
             {month}

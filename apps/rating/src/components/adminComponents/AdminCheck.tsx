@@ -1,5 +1,6 @@
 'use client';
 
+import { Button, Label } from '@hiarc-platform/design-system';
 import { checkAdminName } from '../../util/CheckAdminName';
 import { checkAdminApi, checkSemesterApi } from '../../api/AdminApi';
 import { useState } from 'react';
@@ -30,14 +31,13 @@ export const AdminCheck = ({ name }: { name: 'season' | 'event' | 'semester' }) 
   };
   return (
     <>
-      <div className="flex flex-row gap-[15px] items-center mb-[29px]">
-        {checkAdminName[name]}
-        <button
-          className="bg-[#ffa5a5] border-none rounded-[10px] text-[12px] font-bold p-3 cursor-pointer relative hover:bg-primary"
-          onClick={buttonClick}
-        >
+      <div className="flex flex-row gap-3 items-center">
+        <Label size="sm" weight="medium">
+          {checkAdminName[name]}
+        </Label>
+        <Button size="sm" onClick={buttonClick}>
           확인하기
-        </button>
+        </Button>
       </div>
       {isModalOpen && <Modal content={modalContent} onClose={() => setIsModalOpen(false)} />}
     </>
