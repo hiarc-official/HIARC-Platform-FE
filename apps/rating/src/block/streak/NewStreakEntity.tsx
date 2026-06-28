@@ -28,13 +28,11 @@ const NewStreakEntity = ({ member }: Props) => {
 
   return (
     <Card
-      className="flex w-full cursor-pointer flex-col rounded-xl border border-gray-200 bg-white p-4 shadow-none transition-colors hover:border-gray-300"
+      className="group flex w-full cursor-pointer flex-col rounded-xl border border-gray-200 bg-white p-4 shadow-none transition-colors hover:border-gray-300"
       onClick={handleClick}
     >
-      <div className="flex w-full flex-col">
-        <InfoEntity handle={member.bojHandle} div={divisionNumber} tier={member.tier} />
-        <div className="ml-3 mt-[-1px] w-[98%] border-b border-gray-200"></div>
-      </div>
+      <InfoEntity handle={member.bojHandle} div={divisionNumber} tier={member.tier} />
+      <div className="mt-3 border-b border-gray-100" />
       <div className="mt-4 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
         <DinamicStreakBox data={streakData} />
       </div>

@@ -14,6 +14,7 @@ import RankingContainer from '../block/RankingContainer';
 import DonutChart from '../atoms/DounutChart';
 import { useRankingData } from '@/hooks/use-ranking-data';
 import { TableSkeleton, DonutSkeleton } from '../components/skeletons';
+import BackButton from '../components/BackButton';
 
 const DivPage = () => {
   const [selected, setSelected] = useState<number>(0);
@@ -34,6 +35,7 @@ const DivPage = () => {
   return (
     <PageLayout containerClassName="flex-col items-stretch justify-start">
       <div className="flex w-full flex-col gap-8">
+        <BackButton />
         <div>
           <Title size="sm" weight="bold">
             Ranking
@@ -43,15 +45,18 @@ const DivPage = () => {
           </Label>
         </div>
 
-        <DivToggleBar selected={selected} setSelected={setSelected} />
+        <div className="flex justify-center">
+          <DivToggleBar selected={selected} setSelected={setSelected} />
+        </div>
 
-        <div className="flex items-start gap-6 max-[900px]:flex-col">
-          <div className="min-w-0 flex-1 rounded-2xl border border-gray-200 bg-white p-5 shadow-none max-[900px]:w-full">
+        {/* 모바일에선 스트릭 유지율(도넛)을 위로 올린다(flex-col-reverse) */}
+        <div className="flex items-start gap-6 max-lg:flex-col-reverse">
+          <div className="min-w-0 flex-1 rounded-2xl border border-gray-200 bg-white p-5 shadow-none max-lg:w-full">
             <SkeletonTransition loading={loading} skeleton={<TableSkeleton rows={8} />}>
               <RankingContainer rankingData={rankingData} error={null} />
             </SkeletonTransition>
           </div>
-          <div className="w-[320px] shrink-0 rounded-2xl border border-gray-200 bg-white p-5 shadow-none max-[900px]:w-full max-[480px]:hidden">
+          <div className="w-[320px] shrink-0 rounded-2xl border border-gray-200 bg-white p-5 shadow-none max-lg:w-full">
             <SkeletonTransition loading={loading} skeleton={<DonutSkeleton />}>
               <DonutChart key={selected} value={isNaN(ratio) ? 0 : ratio} div={selected} />
             </SkeletonTransition>

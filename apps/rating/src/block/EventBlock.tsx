@@ -13,7 +13,7 @@ const EventBlock = (): React.ReactElement => {
   const eventList = hitingData?.eventRanking?.slice(0, 6) ?? [];
 
   return (
-    <Card className="flex min-h-[342px] w-[300px] flex-col rounded-2xl border border-gray-200 bg-white p-5 shadow-none max-[900px]:w-full">
+    <Card className="flex min-h-[342px] w-[300px] flex-col rounded-2xl border border-gray-200 bg-white p-5 shadow-none max-lg:w-full">
       <EventButton />
       <div className="mt-4">
         <SkeletonTransition loading={loading} skeleton={<RankRowsSkeleton count={6} />}>

@@ -60,7 +60,7 @@ export function DesktopHeader({
   const isActive = (path: string): boolean => pathname.startsWith(`/${path}`);
 
   return (
-    <div className="hidden w-full items-center justify-between md:flex">
+    <div className="hidden w-full items-center justify-between lg:flex">
       <div className="flex items-center gap-8">
         <Link href="/" className="rounded-lg p-2 transition-colors hover:bg-gray-100">
           <Image

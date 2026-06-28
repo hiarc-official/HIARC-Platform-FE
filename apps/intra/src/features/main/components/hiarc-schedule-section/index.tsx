@@ -92,10 +92,10 @@ export function HiarcScheduleSection({
   return (
     <section className={cn('w-full', className)}>
       <div className="flex w-full items-center">
-        <Title size="sm" weight="bold" className="hidden whitespace-nowrap md:block">
+        <Title size="sm" weight="bold" className="hidden whitespace-nowrap lg:block">
           학회일정
         </Title>
-        <Title size="xs" weight="bold" className="whitespace-nowrap md:hidden">
+        <Title size="xs" weight="bold" className="whitespace-nowrap lg:hidden">
           학회일정
         </Title>
         <div className="ml-[14px] flex w-full items-center gap-2">

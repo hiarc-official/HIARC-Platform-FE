@@ -83,3 +83,14 @@
     text-rendering: optimizeLegibility;
   }
 }
+
+/* Tailwind v4 Preflight 가 버튼 기본 cursor:pointer 를 제거하므로 복원한다.
+   (자식 텍스트/라벨도 cursor 를 상속받아 포인터가 유지된다) */
+@layer base {
+  button:not(:disabled),
+  [role='button']:not(:disabled),
+  summary,
+  label[for] {
+    cursor: pointer;
+  }
+}

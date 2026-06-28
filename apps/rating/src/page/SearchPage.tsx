@@ -1,8 +1,10 @@
 import { Label, PageLayout, Title } from '@hiarc-platform/design-system';
+import BackButton from '../components/BackButton';
 
 const SearchPage = () => (
   <PageLayout containerClassName="flex-col items-stretch justify-start">
     <div className="flex w-full flex-col gap-8">
+      <BackButton />
       <div>
         <Title size="sm" weight="bold">
           검색

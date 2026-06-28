@@ -26,11 +26,16 @@ const IndividualBlock = ({
   return (
     <Card
       onClick={handleClick}
-      className="flex w-full cursor-pointer flex-col gap-2 rounded-xl border border-gray-200 bg-white p-4 shadow-none transition-colors hover:border-gray-300"
+      className="group flex w-full cursor-pointer flex-col gap-2 rounded-xl border border-gray-200 bg-white p-4 shadow-none transition-colors hover:border-gray-300"
     >
       <div className="flex items-center gap-2">
         <TierImg tier={tier} />
-        <Label size="sm" weight="bold" selectable={false} className="truncate">
+        <Label
+          size="sm"
+          weight="bold"
+          selectable={false}
+          className="truncate transition-colors group-hover:text-primary-300 group-hover:underline"
+        >
           {handleDisplay}
         </Label>
         <span className="ml-auto shrink-0 rounded-md bg-gray-100 px-2 py-0.5 text-xs text-gray-700">

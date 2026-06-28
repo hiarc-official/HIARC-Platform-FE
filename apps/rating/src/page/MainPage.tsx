@@ -25,7 +25,7 @@ const MainPage = (): React.ReactElement => {
 
         <DivBlock />
 
-        <div className="flex gap-6 max-[900px]:flex-col">
+        <div className="flex gap-6 max-lg:flex-col">
           <StreakBox />
           <EventBlock />
         </div>

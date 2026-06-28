@@ -33,7 +33,7 @@ export default function RootLayout({
         <Providers>
           <Header />
           <main className="flex-1">{children}</main>
-          <div className="hidden md:block">
+          <div className="hidden lg:block">
             <Footer />
           </div>
           <GlobalDialogContainer />

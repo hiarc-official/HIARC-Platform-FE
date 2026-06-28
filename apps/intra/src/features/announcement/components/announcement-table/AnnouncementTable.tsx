@@ -45,7 +45,7 @@ export function AnnouncementTable({
   return (
     <div className={cn('flex w-full flex-col', className)}>
       {/* 데스크톱 뷰 */}
-      <SlideFade key="desktop-table" className="hidden w-full md:block">
+      <SlideFade key="desktop-table" className="hidden w-full lg:block">
         <CommonTableHead
           table={desktopTable}
           className="border-b border-t border-b-gray-200 border-t-gray-900 bg-white"
@@ -63,7 +63,7 @@ export function AnnouncementTable({
       </SlideFade>
 
       {/* 모바일 뷰 */}
-      <SlideFade key="mobile-table" className="block w-full md:hidden">
+      <SlideFade key="mobile-table" className="block w-full lg:hidden">
         <CommonTableBody
           table={mobileTable}
           onClick={function (row: Row<AnnouncementSummary>): void {

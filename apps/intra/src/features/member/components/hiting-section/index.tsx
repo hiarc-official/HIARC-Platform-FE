@@ -22,7 +22,7 @@ export function HitingSection({
   return (
     <>
       {/* Desktop version */}
-      <div className="hidden md:block">
+      <div className="hidden lg:block">
         <DesktopHitingSection
           season={season}
           total={total}
@@ -34,7 +34,7 @@ export function HitingSection({
       </div>
 
       {/* Mobile version */}
-      <div className="block md:hidden">
+      <div className="block lg:hidden">
         <MobileHitingSection
           season={season}
           total={total}

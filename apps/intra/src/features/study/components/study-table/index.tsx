@@ -44,7 +44,7 @@ export function StudyTable({
   return (
     <div className={cn('w-full flex-col items-center', className)}>
       {/* Desktop Table */}
-      <div className="hidden w-full md:block">
+      <div className="hidden w-full lg:block">
         <SlideFade key="table" className="w-full">
           <CommonTableHead
             table={table}
@@ -60,7 +60,7 @@ export function StudyTable({
       </div>
 
       {/* Mobile List */}
-      <div className="block w-full md:hidden">
+      <div className="block w-full lg:hidden">
         <SlideFade key="mobile-list" className="w-full">
           <div className="flex flex-col">
             {data.map((study, index) => (

@@ -28,7 +28,7 @@ export function DesktopAnnouncementListPage(): React.ReactElement {
   return (
     <SkeletonTransition loading={showSkeleton} skeleton={<ListPageSkeleton />}>
       <div className="flex flex-col">
-        <Title size="sm" weight="bold" className="hidden md:block">
+        <Title size="sm" weight="bold" className="hidden lg:block">
           공지사항
         </Title>
         <AnnouncementSearchSection

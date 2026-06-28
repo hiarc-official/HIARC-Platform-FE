@@ -38,7 +38,7 @@ export default function RootLayout({
           <main className="flex-1">
             <Suspense>{children}</Suspense>
           </main>
-          <div className="hidden md:block">
+          <div className="hidden lg:block">
             <Footer />
           </div>
           <GlobalDialogContainer />

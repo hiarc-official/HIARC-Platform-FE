@@ -1,23 +1,22 @@
 import { Label } from '@hiarc-platform/design-system';
 import TierImg from '../util/TierImg';
 
-const InfoEntity = ({ handle, div, tier }: { handle: string; div: number; tier: number }) => {
-  const displayId = handle.length > 7 ? `${handle.slice(0, 8)}...` : handle;
+const InfoEntity = ({ handle, div, tier }: { handle: string; div: number; tier: number }): React.ReactElement => {
+  const displayId = handle.length > 8 ? `${handle.slice(0, 8)}...` : handle;
   return (
-    <div className="flex items-center w-fit max-w-[300px] min-w-[240px] h-[30px] border border-gray-200 border-b-0 rounded-[15px]">
-      <Label size="sm" className="max-w-[120px] ml-[22px]">
+    <div className="flex w-full items-center gap-2">
+      <TierImg tier={tier} />
+      <Label
+        size="sm"
+        weight="bold"
+        selectable={false}
+        className="truncate transition-colors group-hover:text-primary-300 group-hover:underline"
+      >
         {displayId}
       </Label>
-      <Label size="sm" className="ml-[22px] mr-[22px]">
-        |
-      </Label>
-      <Label size="sm">div {div}</Label>
-      <Label size="sm" className="ml-[22px] mr-[22px]">
-        |
-      </Label>
-      <div className="mr-[22px] mt-[5px]">
-        <TierImg tier={tier} />
-      </div>
+      <span className="ml-auto shrink-0 rounded-md bg-gray-100 px-2 py-0.5 text-xs text-gray-700">
+        div {div}
+      </span>
     </div>
   );
 };

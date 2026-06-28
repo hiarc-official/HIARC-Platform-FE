@@ -5,11 +5,11 @@ import { cn } from '../../../lib/utils';
 
 const buttonVariants = cva(
   cn(
-    'inline-flex items-center justify-center gap-2 whitespace-nowrap',
+    'inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap',
     'rounded-md transition-all duration-150',
     'hover:-translate-y-[1px] hover:shadow-md hover:opacity-90',
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
-    'disabled:pointer-events-none'
+    'disabled:cursor-not-allowed disabled:pointer-events-none'
   ),
   {
     variants: {

@@ -4,3 +4,15 @@
 body {
   font-family: 'Pretendard', sans-serif;
 }
+
+/* Tailwind v4 Preflight 가 버튼 기본 cursor:pointer 를 제거하므로 복원.
+   (공용 styles/globals.css 에도 동일 규칙이 있으나, dev 가 루트 파일 변경을
+   즉시 반영하지 못하는 경우가 있어 앱 로컬에도 둔다) */
+@layer base {
+  button:not(:disabled),
+  [role='button']:not(:disabled),
+  summary,
+  label[for] {
+    cursor: pointer;
+  }
+}

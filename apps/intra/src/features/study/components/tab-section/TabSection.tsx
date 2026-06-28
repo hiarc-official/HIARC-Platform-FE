@@ -62,7 +62,7 @@ export function TabSection({
 
   return (
     <section className={cn('flex w-full flex-col', className)}>
-      <div className="flex w-full flex-col gap-3 md:flex-row md:justify-between md:gap-0">
+      <div className="flex w-full flex-col gap-3 lg:flex-row lg:justify-between lg:gap-0">
         <Tabs tabs={tabs} activeTab={selectedTab} onTabClick={setSelectedTab} />
         <div className="flex justify-end">
           {isAdmin && selectedTab === 'curriculum' && (

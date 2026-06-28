@@ -54,7 +54,11 @@ const columns = [
   columnHelper.accessor('bojHandle', {
     header: 'handle',
     meta: { headAlign: 'left', bodyAlign: 'left' },
-    cell: (info) => <span className="truncate">{info.getValue()}</span>,
+    cell: (info) => (
+      <span className="truncate transition-colors hover:font-medium hover:text-primary-300 hover:underline">
+        {info.getValue()}
+      </span>
+    ),
   }),
   columnHelper.accessor('today', {
     header: 'today',
@@ -108,8 +112,8 @@ const RankingContainer = ({ rankingData, error }: RankingContainerProps): React.
   }
 
   return (
-    <div className="w-full">
-      <CommonTableHead table={table} className="text-gray-500" />
+    <div className="w-full [&>div:last-child]:border-b-0">
+      <CommonTableHead table={table} className="border-b border-b-gray-200 bg-white" />
       <CommonTableBody table={table} onClick={handleRowClick} emptyMessage="랭킹 데이터가 없습니다." />
     </div>
   );

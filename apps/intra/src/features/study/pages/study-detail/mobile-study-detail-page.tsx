@@ -25,7 +25,7 @@ export function MobileStudyDetailPage(): React.ReactElement {
 
   return (
     <SkeletonTransition loading={showSkeleton} skeleton={<DetailPageSkeleton />}>
-      <div className="flex flex-col pb-20 pt-10 md:pb-0">
+      <div className="flex flex-col pb-20 pt-10 lg:pb-0">
         <StudyInfoSection
           className="pt-4"
           studyData={studyData}

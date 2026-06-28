@@ -94,7 +94,7 @@ export function ConditionalHeaderClient({
     return (
       <>
         {/* 모바일 전용 헤더 - 플로팅 */}
-        <div className="fixed left-0 right-0 top-0 z-50 block md:hidden">
+        <div className="fixed left-0 right-0 top-0 z-50 block lg:hidden">
           <UIMobileHeader
             title={title}
             onBackClick={handleBackClick}
@@ -103,8 +103,8 @@ export function ConditionalHeaderClient({
           />
         </div>
 
-        {/* 데스크톱에서는 기존 헤더 사용 */}
-        <div className="hidden md:block">
+        {/* 데스크톱에서는 기존 헤더 + 뒤로가기 */}
+        <div className="hidden lg:block">
           <header className="flex w-full items-center justify-between border-b border-gray-200">
             <div className="mx-auto flex w-full max-w-[1200px] items-center justify-between px-5 py-4">
               <MobileHeader

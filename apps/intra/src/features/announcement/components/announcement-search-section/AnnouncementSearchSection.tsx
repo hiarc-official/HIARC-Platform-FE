@@ -78,7 +78,7 @@ export function AnnouncementSearchSection({
       {/* Desktop View */}
       <div
         className={cn(
-          'hidden w-full items-end justify-between gap-4 rounded-md border border-gray-200 p-6 md:flex',
+          'hidden w-full items-end justify-between gap-4 rounded-md border border-gray-200 p-6 lg:flex',
           className
         )}
       >
@@ -117,7 +117,7 @@ export function AnnouncementSearchSection({
       </div>
 
       {/* Mobile View */}
-      <div className={cn('md:hidden', className)}>
+      <div className={cn('lg:hidden', className)}>
         <Button
           variant="line_secondary"
           size="xs"
