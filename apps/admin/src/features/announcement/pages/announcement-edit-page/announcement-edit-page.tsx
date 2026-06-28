@@ -7,7 +7,12 @@ import { useImageUpload } from '@/features/announcement/hooks/use-image-upload';
 import { CreateAnnouncementRequest, CreateAnnouncementForm } from '@hiarc-platform/shared';
 import { useStudyOptions } from '@/features/study/hooks';
 import { useSemesterStoreInit } from '@/shared/hooks/use-semester-store';
-import { FormSkeleton, DialogUtil, useMinimumLoading } from '@hiarc-platform/design-system';
+import {
+  SkeletonTransition,
+  FormSkeleton,
+  DialogUtil,
+  useMinimumLoading,
+} from '@hiarc-platform/design-system';
 import { AnnouncementWrite } from '@hiarc-platform/domain';
 import { AnnouncementDesktopHeader } from '@hiarc-platform/domain';
 
@@ -164,10 +169,6 @@ export function AnnouncementEditPage(): React.ReactElement {
   const showSkeleton = useMinimumLoading(isLoading);
 
   // 로딩 중일 때
-  if (showSkeleton) {
-    return <FormSkeleton />;
-  }
-
   // 에러가 발생했을 때
   if (error) {
     return (
@@ -185,14 +186,20 @@ export function AnnouncementEditPage(): React.ReactElement {
   }
 
   return (
-    <div>
-      <AnnouncementDesktopHeader title={pageTitle} onBackClick={handleBackClick} className="pb-6" />
-      <AnnouncementWrite
-        announcementId={id}
-        announcement={announcement}
-        studyOptions={studyOptions || []}
-        onSubmit={handleSubmit}
-      />
-    </div>
+    <SkeletonTransition loading={showSkeleton} skeleton={<FormSkeleton />}>
+      <div>
+        <AnnouncementDesktopHeader
+          title={pageTitle}
+          onBackClick={handleBackClick}
+          className="pb-6"
+        />
+        <AnnouncementWrite
+          announcementId={id}
+          announcement={announcement}
+          studyOptions={studyOptions || []}
+          onSubmit={handleSubmit}
+        />
+      </div>
+    </SkeletonTransition>
   );
 }

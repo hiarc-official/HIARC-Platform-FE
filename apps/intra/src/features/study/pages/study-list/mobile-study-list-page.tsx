@@ -3,17 +3,18 @@
 import { StudySearchSection } from '@/features/study/components/study-search-section';
 import { StudyTable } from '@/features/study/components/study-table';
 import { useStudyListPageState } from '@/features/study/hooks/page/use-study-list-page-state';
-import { Title, ListPageSkeleton, useMinimumLoading } from '@hiarc-platform/design-system';
+import {
+  SkeletonTransition,
+  Title,
+  ListPageSkeleton,
+  useMinimumLoading,
+} from '@hiarc-platform/design-system';
 
 export function MobileStudyListPage(): React.ReactElement {
   const { studies, isLoading, error, filterParams, handlePageChange, handleSearch } =
     useStudyListPageState();
 
   const showSkeleton = useMinimumLoading(isLoading);
-
-  if (showSkeleton) {
-    return <ListPageSkeleton />;
-  }
 
   if (error) {
     return (
@@ -24,13 +25,15 @@ export function MobileStudyListPage(): React.ReactElement {
   }
 
   return (
-    <div className="flex w-full flex-col pt-10">
-      <StudySearchSection
-        className="mt-4"
-        onSearchChange={handleSearch}
-        initialValues={filterParams}
-      />
-      <StudyTable className="mt-4" pageableModel={studies} onPageChange={handlePageChange} />
-    </div>
+    <SkeletonTransition loading={showSkeleton} skeleton={<ListPageSkeleton />}>
+      <div className="flex w-full flex-col pt-10">
+        <StudySearchSection
+          className="mt-4"
+          onSearchChange={handleSearch}
+          initialValues={filterParams}
+        />
+        <StudyTable className="mt-4" pageableModel={studies} onPageChange={handlePageChange} />
+      </div>
+    </SkeletonTransition>
   );
 }

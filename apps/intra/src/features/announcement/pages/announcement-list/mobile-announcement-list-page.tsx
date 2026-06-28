@@ -3,7 +3,12 @@
 import { AnnouncementSearchSection } from '@/features/announcement/components/announcement-search-section/AnnouncementSearchSection';
 import { AnnouncementTable } from '@/features/announcement/components/announcement-table/AnnouncementTable';
 
-import { Title, ListPageSkeleton, useMinimumLoading } from '@hiarc-platform/design-system';
+import {
+  SkeletonTransition,
+  Title,
+  ListPageSkeleton,
+  useMinimumLoading,
+} from '@hiarc-platform/design-system';
 import { useAnnouncementListPageState } from '../../hooks/page/use-announcement-list-page-state';
 
 export function MobileAnnouncementListPage(): React.ReactElement {
@@ -11,10 +16,6 @@ export function MobileAnnouncementListPage(): React.ReactElement {
     useAnnouncementListPageState();
 
   const showSkeleton = useMinimumLoading(isLoading);
-
-  if (showSkeleton) {
-    return <ListPageSkeleton />;
-  }
 
   if (error) {
     return (
@@ -25,10 +26,12 @@ export function MobileAnnouncementListPage(): React.ReactElement {
   }
 
   return (
-    <div className="flex flex-col gap-4">
-      <div className="pt-10" />
-      <AnnouncementSearchSection onSearch={handleSearch} initialValues={filterParams} />
-      <AnnouncementTable pageableModel={announcements} onPageChange={handlePageChange} />
-    </div>
+    <SkeletonTransition loading={showSkeleton} skeleton={<ListPageSkeleton />}>
+      <div className="flex flex-col gap-4">
+        <div className="pt-10" />
+        <AnnouncementSearchSection onSearch={handleSearch} initialValues={filterParams} />
+        <AnnouncementTable pageableModel={announcements} onPageChange={handlePageChange} />
+      </div>
+    </SkeletonTransition>
   );
 }

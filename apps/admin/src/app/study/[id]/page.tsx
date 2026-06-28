@@ -1,7 +1,14 @@
 'use client';
 
 import { TabSection } from '@/features/study/components';
-import { BackButton, Button, PageLayout, DetailPageSkeleton, useMinimumLoading } from '@hiarc-platform/design-system';
+import {
+  SkeletonTransition,
+  BackButton,
+  Button,
+  PageLayout,
+  DetailPageSkeleton,
+  useMinimumLoading,
+} from '@hiarc-platform/design-system';
 import { StudyInfoSection } from '@hiarc-platform/domain';
 import { useRouter, useParams } from 'next/navigation';
 import { useStudy } from '@/features/study/hooks';
@@ -21,23 +28,24 @@ export default function StudyPage(): React.ReactElement {
 
   const showSkeleton = useMinimumLoading(!mounted || isLoading);
 
-  if (showSkeleton) {
-    return (
-      <PageLayout>
-        <DetailPageSkeleton className="mt-5 md:mt-0" />
-      </PageLayout>
-    );
-  }
-
   if (error || !studyData) {
     return (
-      <FadeIn
-        isVisible={true}
-        duration={0.3}
-        className="flex min-h-screen items-center justify-center"
+      <SkeletonTransition
+        loading={showSkeleton}
+        skeleton={
+          <PageLayout>
+            <DetailPageSkeleton className="mt-5 md:mt-0" />
+          </PageLayout>
+        }
       >
-        <p className="text-gray-500">스터디 정보를 불러오는 중 오류가 발생했습니다.</p>
-      </FadeIn>
+        <FadeIn
+          isVisible={true}
+          duration={0.3}
+          className="flex min-h-screen items-center justify-center"
+        >
+          <p className="text-gray-500">스터디 정보를 불러오는 중 오류가 발생했습니다.</p>
+        </FadeIn>
+      </SkeletonTransition>
     );
   }
 

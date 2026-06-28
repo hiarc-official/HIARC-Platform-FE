@@ -1,7 +1,7 @@
 'use client';
 
 import { AnnouncementDesktopHeader, AnnouncementWrite } from '@hiarc-platform/domain';
-import { FormSkeleton, useMinimumLoading } from '@hiarc-platform/design-system';
+import { SkeletonTransition, FormSkeleton, useMinimumLoading } from '@hiarc-platform/design-system';
 import { useAnnouncementEditPageState } from '../../hooks/page/use-announcement-edit-page-state';
 
 export function DesktopAnnouncementEditPage(): React.ReactElement {
@@ -20,10 +20,6 @@ export function DesktopAnnouncementEditPage(): React.ReactElement {
   const showSkeleton = useMinimumLoading(isLoading);
 
   // 로딩 중일 때
-  if (showSkeleton) {
-    return <FormSkeleton />;
-  }
-
   // 에러가 발생했을 때
   if (error) {
     return (
@@ -34,17 +30,19 @@ export function DesktopAnnouncementEditPage(): React.ReactElement {
   }
 
   return (
-    <div className="flex w-full flex-col">
-      <AnnouncementDesktopHeader title={pageTitle} onBackClick={handleGoBack} className="pb-6" />
-      <AnnouncementWrite
-        announcementId={id}
-        initialStudyId={studyId}
-        announcement={announcement}
-        studyOptions={studyOptions}
-        disableCategoryChange={true}
-        disableStudyTypeChange={true}
-        onSubmit={handleSubmit}
-      />
-    </div>
+    <SkeletonTransition loading={showSkeleton} skeleton={<FormSkeleton />}>
+      <div className="flex w-full flex-col">
+        <AnnouncementDesktopHeader title={pageTitle} onBackClick={handleGoBack} className="pb-6" />
+        <AnnouncementWrite
+          announcementId={id}
+          initialStudyId={studyId}
+          announcement={announcement}
+          studyOptions={studyOptions}
+          disableCategoryChange={true}
+          disableStudyTypeChange={true}
+          onSubmit={handleSubmit}
+        />
+      </div>
+    </SkeletonTransition>
   );
 }

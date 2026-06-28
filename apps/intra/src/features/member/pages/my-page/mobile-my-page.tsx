@@ -6,7 +6,14 @@ import { MyInfoSection } from '@/features/member/components/my-info-section';
 import { StreakSection } from '@/features/member/components/streak-section';
 import { StudySection } from '@/features/member/components/study-section';
 import { useMyPageState } from '@/features/member/hooks/page/use-my-page-state';
-import { Divider, ProfileSkeleton, FadeIn, Label, useMinimumLoading } from '@hiarc-platform/design-system';
+import {
+  SkeletonTransition,
+  Divider,
+  ProfileSkeleton,
+  FadeIn,
+  Label,
+  useMinimumLoading,
+} from '@hiarc-platform/design-system';
 
 export function MobileMyPage(): React.ReactElement {
   const {
@@ -19,10 +26,6 @@ export function MobileMyPage(): React.ReactElement {
   } = useMyPageState();
 
   const showSkeleton = useMinimumLoading(!user || myPageDataLoading);
-
-  if (showSkeleton) {
-    return <ProfileSkeleton />;
-  }
 
   if (myPageDataError) {
     return (
@@ -37,31 +40,33 @@ export function MobileMyPage(): React.ReactElement {
   }
 
   return (
-    <FadeIn isVisible={isDataReady ?? false}>
-      <MyInfoSection
-        className="mt-10"
-        isMe={true}
-        memberProfileData={myPageData}
-        onSave={handleUpdateIntroduction}
-      />
-      <Divider variant="horizontal" size="full" className="mt-4 bg-gray-900" />
-      <HitingSection
-        className="mt-6"
-        season={myPageData?.rating?.seasonScore ?? 0}
-        total={myPageData?.rating?.totalScore ?? 0}
-        today={myPageData?.rating?.todayScore ?? 0}
-        ratingRecords={myPageData?.rating?.records ?? []}
-      />
-      <StreakSection
-        className="mt-6"
-        totalDays={myPageData?.streak?.currentTotalStreak}
-        currentSeasonDays={myPageData?.streak?.currentSeasonStreak}
-        streakStartAt={myPageData?.streak?.streakStartAt}
-        streakData={myPageData?.streak?.streakData ?? []}
-      />
-      <AwardSection className="mt-6" awardList={myPageData?.award ?? []} isMe={true} />
-      <Divider variant="horizontal" size="full" className="mt-6 bg-gray-900" />
-      <StudySection className="mt-6" />
-    </FadeIn>
+    <SkeletonTransition loading={showSkeleton} skeleton={<ProfileSkeleton />}>
+      <FadeIn isVisible={isDataReady ?? false}>
+        <MyInfoSection
+          className="mt-10"
+          isMe={true}
+          memberProfileData={myPageData}
+          onSave={handleUpdateIntroduction}
+        />
+        <Divider variant="horizontal" size="full" className="mt-4 bg-gray-900" />
+        <HitingSection
+          className="mt-6"
+          season={myPageData?.rating?.seasonScore ?? 0}
+          total={myPageData?.rating?.totalScore ?? 0}
+          today={myPageData?.rating?.todayScore ?? 0}
+          ratingRecords={myPageData?.rating?.records ?? []}
+        />
+        <StreakSection
+          className="mt-6"
+          totalDays={myPageData?.streak?.currentTotalStreak}
+          currentSeasonDays={myPageData?.streak?.currentSeasonStreak}
+          streakStartAt={myPageData?.streak?.streakStartAt}
+          streakData={myPageData?.streak?.streakData ?? []}
+        />
+        <AwardSection className="mt-6" awardList={myPageData?.award ?? []} isMe={true} />
+        <Divider variant="horizontal" size="full" className="mt-6 bg-gray-900" />
+        <StudySection className="mt-6" />
+      </FadeIn>
+    </SkeletonTransition>
   );
 }

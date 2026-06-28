@@ -2,7 +2,15 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Title, Button, FadeIn, Pagination, ListPageSkeleton, useMinimumLoading } from '@hiarc-platform/design-system';
+import {
+  SkeletonTransition,
+  Title,
+  Button,
+  FadeIn,
+  Pagination,
+  ListPageSkeleton,
+  useMinimumLoading,
+} from '@hiarc-platform/design-system';
 import { StudyTable } from '@/features/study/components';
 import { useStudies } from '@/features/study/hooks';
 import { useSemesterStoreInit, useSemesterStore } from '@/shared/hooks/use-semester-store';
@@ -35,14 +43,6 @@ export function StudyListPage(): React.ReactElement {
 
   const showSkeleton = useMinimumLoading(isLoading);
 
-  if (showSkeleton) {
-    return (
-      <FadeIn isVisible={true} duration={0.3} className="flex flex-col pt-10 md:pt-0">
-        <ListPageSkeleton />
-      </FadeIn>
-    );
-  }
-
   if (error) {
     return (
       <FadeIn
@@ -56,31 +56,48 @@ export function StudyListPage(): React.ReactElement {
   }
 
   return (
-    <FadeIn isVisible={Boolean(studiesData)} duration={0.4} className="flex flex-col pt-10 md:pt-0">
-      <div className="flex justify-between">
-        <Title size="sm" weight="bold" className="hidden md:block">
-          스터디
-        </Title>
-        <div className="md:hidden" />
-        <Button size="md" onClick={handleCreateStudy} className="hidden w-[100px] md:block">
-          개설하기
-        </Button>
-        <Button size="xs" onClick={handleCreateStudy} className="md:hidden">
-          개설하기
-        </Button>
-      </div>
-      <div className="w-full overflow-x-auto">
-        <div className="min-w-[1000px]">
-          <StudyTable
-            className="mt-6"
+    <SkeletonTransition
+      loading={showSkeleton}
+      skeleton={
+        <FadeIn isVisible={true} duration={0.3} className="flex flex-col pt-10 md:pt-0">
+          <ListPageSkeleton />
+        </FadeIn>
+      }
+    >
+      <FadeIn
+        isVisible={Boolean(studiesData)}
+        duration={0.4}
+        className="flex flex-col pt-10 md:pt-0"
+      >
+        <div className="flex justify-between">
+          <Title size="sm" weight="bold" className="hidden md:block">
+            스터디
+          </Title>
+          <div className="md:hidden" />
+          <Button size="md" onClick={handleCreateStudy} className="hidden w-[100px] md:block">
+            개설하기
+          </Button>
+          <Button size="xs" onClick={handleCreateStudy} className="md:hidden">
+            개설하기
+          </Button>
+        </div>
+        <div className="w-full overflow-x-auto">
+          <div className="min-w-[1000px]">
+            <StudyTable
+              className="mt-6"
+              pageableModel={studiesData}
+              onPageChange={handlePageChange}
+            />
+          </div>
+        </div>
+        <div className="flex w-full justify-center">
+          <Pagination
+            className="mt-8"
             pageableModel={studiesData}
             onPageChange={handlePageChange}
           />
         </div>
-      </div>
-      <div className="flex w-full justify-center">
-        <Pagination className="mt-8" pageableModel={studiesData} onPageChange={handlePageChange} />
-      </div>
-    </FadeIn>
+      </FadeIn>
+    </SkeletonTransition>
   );
 }

@@ -45,6 +45,7 @@ export * from './components/data-display/Pagination/Pagination';
 export * from './components/feedback/LoadingDots/LoadingDots';
 export * from './components/feedback/Skeleton/Skeleton';
 export * from './components/feedback/SkeletonViews/SkeletonViews';
+export * from './components/feedback/SkeletonTransition/SkeletonTransition';
 
 // overlay — 다이얼로그 / 팝오버
 export * from './components/overlay/Dialog/Dialog';
