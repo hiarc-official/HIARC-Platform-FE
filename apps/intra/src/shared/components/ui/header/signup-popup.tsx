@@ -7,11 +7,11 @@ interface SignupPopupProps {
 
 export function SignupPopup({ onClose }: SignupPopupProps): React.ReactElement {
   const handleKakaoClick = (): void => {
-    window.open('https://open.kakao.com/o/gIlbZBOh', '_blank');
+    window.open('https://open.kakao.com/o/gchLZLhi', '_blank');
   };
 
   const handleDiscordClick = (): void => {
-    window.open('https://discord.gg/7XCCBGsw', '_blank');
+    window.open('https://discord.gg/5GVsKfwdbm', '_blank');
   };
 
   return (
