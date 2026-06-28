@@ -249,6 +249,11 @@ module.exports = {
         'button:not(:disabled), [role="button"]:not(:disabled), label[for], summary': {
           cursor: 'pointer',
         },
+        // 표시용 <label>(Label/Title 컴포넌트)은 부모 커서를 따라감 → 클릭 가능한 카드/행
+        // 안의 텍스트 위에서도 포인터가 유지된다.
+        'label:not([for])': {
+          cursor: 'inherit',
+        },
         body: {
           'background-color': 'rgb(255 255 255)',
           color: 'rgb(15 23 42)',
