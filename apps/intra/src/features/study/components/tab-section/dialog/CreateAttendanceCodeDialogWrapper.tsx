@@ -1,5 +1,5 @@
 import { useCreateAttendanceCode } from '@/features/study/hooks/study-instructor/mutation/use-create-attendance-code';
-import { CreateAttendanceCodeDialog } from '@hiarc-platform/ui';
+import { CreateAttendanceCodeDialog } from '@hiarc-platform/domain';
 
 interface CreateAttendanceCodeDialogWrapperProps {
   studyId: number;

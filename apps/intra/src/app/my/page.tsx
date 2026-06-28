@@ -1,6 +1,6 @@
 'use client';
 
-import { PageLayout } from '@hiarc-platform/ui';
+import { PageLayout } from '@hiarc-platform/design-system';
 import { DesktopMyPage, MobileMyPage } from '@/features/member/pages/my-page';
 
 export default function MyPage(): React.ReactElement {

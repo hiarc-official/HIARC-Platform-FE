@@ -1,4 +1,4 @@
-import { DialogUtil, IconButton } from '@hiarc-platform/ui';
+import { DialogUtil, IconButton } from '@hiarc-platform/design-system';
 import { RecruitUpdateDialog } from '../recruit-modal/recruit-update-dialog';
 
 interface RecruitSummaryProps {

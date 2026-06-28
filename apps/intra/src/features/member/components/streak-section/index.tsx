@@ -1,4 +1,4 @@
-import { cn, Divider, Label, Title } from '@hiarc-platform/ui';
+import { cn, Divider, Label, Title } from '@hiarc-platform/design-system';
 import { SectionContainer } from '../section-container';
 import { ContributionGrid } from './contribution-grid';
 import { StreakData } from '../../types/model/streak-data';
@@ -21,11 +21,11 @@ export function StreakSection({
 }: StreakSectionProps): React.ReactElement {
   return (
     <div className={cn('flex w-full min-w-0 flex-col gap-4', className)}>
-      <Title size="sm" weight="bold" className="mb-4 hidden md:block">
+      <Title size="sm" weight="bold" className="mb-4 hidden lg:block">
         스트릭
       </Title>
 
-      <Title size="xs" weight="bold" className="mb-4 md:hidden">
+      <Title size="xs" weight="bold" className="mb-4 lg:hidden">
         스트릭
       </Title>
       <SectionContainer className="flex w-full flex-col gap-4">

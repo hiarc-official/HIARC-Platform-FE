@@ -1,11 +1,19 @@
 'use client';
 
 import { TabSection } from '@/features/study/components';
-import { BackButton, Button, PageLayout, LoadingDots, StudyInfoSection } from '@hiarc-platform/ui';
+import {
+  SkeletonTransition,
+  BackButton,
+  Button,
+  PageLayout,
+  DetailPageSkeleton,
+  useMinimumLoading,
+} from '@hiarc-platform/design-system';
+import { StudyInfoSection } from '@hiarc-platform/domain';
 import { useRouter, useParams } from 'next/navigation';
 import { useStudy } from '@/features/study/hooks';
 import React, { useState, useEffect } from 'react';
-import { FadeIn } from '@hiarc-platform/ui';
+import { FadeIn } from '@hiarc-platform/design-system';
 
 export default function StudyPage(): React.ReactElement {
   const router = useRouter();
@@ -18,27 +26,26 @@ export default function StudyPage(): React.ReactElement {
     setMounted(true);
   }, []);
 
-  if (!mounted || isLoading) {
-    return (
-      <FadeIn
-        isVisible={true}
-        duration={0.3}
-        className="flex min-h-screen items-center justify-center"
-      >
-        <LoadingDots size="lg" className="flex min-h-screen items-center justify-center" />
-      </FadeIn>
-    );
-  }
+  const showSkeleton = useMinimumLoading(!mounted || isLoading);
 
   if (error || !studyData) {
     return (
-      <FadeIn
-        isVisible={true}
-        duration={0.3}
-        className="flex min-h-screen items-center justify-center"
+      <SkeletonTransition
+        loading={showSkeleton}
+        skeleton={
+          <PageLayout>
+            <DetailPageSkeleton className="mt-5 md:mt-0" />
+          </PageLayout>
+        }
       >
-        <p className="text-gray-500">스터디 정보를 불러오는 중 오류가 발생했습니다.</p>
-      </FadeIn>
+        <FadeIn
+          isVisible={true}
+          duration={0.3}
+          className="flex min-h-screen items-center justify-center"
+        >
+          <p className="text-gray-500">스터디 정보를 불러오는 중 오류가 발생했습니다.</p>
+        </FadeIn>
+      </SkeletonTransition>
     );
   }
 

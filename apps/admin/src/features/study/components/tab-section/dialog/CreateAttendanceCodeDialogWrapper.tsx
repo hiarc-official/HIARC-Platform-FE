@@ -1,4 +1,4 @@
-import { CreateAttendanceCodeDialog } from '@hiarc-platform/ui';
+import { CreateAttendanceCodeDialog } from '@hiarc-platform/domain';
 import { useCreateAttendanceCode } from '@/features/study/hooks';
 
 interface CreateAttendanceCodeDialogWrapperProps {

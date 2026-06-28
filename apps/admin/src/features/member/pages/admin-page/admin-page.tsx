@@ -1,7 +1,7 @@
 'use client';
 import { useSelectedSemester } from '@/shared/hooks/use-semester-store';
 import { useAdmins, useInstructors } from '@/features/member/hooks';
-import { Button, DialogUtil, Label, Title, cn } from '@hiarc-platform/ui';
+import { Button, DialogUtil, Label, Title, cn } from '@hiarc-platform/design-system';
 import { AdminTable } from '../../components/admin-table';
 import { InstructorTable } from '../../components/instrcutor-table';
 import { AddAdminDialog } from '../../components/dialog/add-admin-dialog';

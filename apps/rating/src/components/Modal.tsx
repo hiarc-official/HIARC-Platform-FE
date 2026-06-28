@@ -1,42 +1,49 @@
-import styled from 'styled-components';
-import TierImg from '../util/TierImg';
+'use client';
 
-type ApprovedNotification = {
+import TierImg from '../util/TierImg';
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  Button,
+} from '@hiarc-platform/design-system';
+
+interface ApprovedNotification {
   semesterId: number;
   semesterYear: number;
   semesterType: string;
   greetingDescription: string;
-};
+}
 
-type MemberData = {
+interface MemberData {
   memberId: number;
   bojHandle: string;
   memberRole: string;
   adminRole: string;
   approvedNotification: ApprovedNotification;
-};
+}
 
-type SeasonData = {
+interface SeasonData {
   seasonId: number;
   description: string;
   seasonStartAt: string;
   seasonEndAt: string;
-};
+}
 
-type EventData = {
+interface EventData {
   eventId: number;
   description: string;
   eventStartAt: string;
   eventEndAt: string;
-};
+}
 
-type SemesterData = {
+interface SemesterData {
   semesterId: number;
   semesterYear: number;
   semesterType: string;
-};
+}
 
-type UserStatsData = {
+interface UserStatsData {
   tier: number;
   totalScore: number;
   dailyScore: number;
@@ -46,9 +53,9 @@ type UserStatsData = {
     tier: number;
     solvedCount: number;
   }>;
-};
+}
 
-type RankingMember = {
+interface RankingMember {
   memberId: number;
   name: string;
   bojHandle: string;
@@ -57,423 +64,288 @@ type RankingMember = {
   dailyScore: number;
   currentSeasonScore: number;
   currentEventScore: number;
-};
+}
 
 type RankingData = RankingMember[];
 
-type ModalProps = {
-  content:
-    | string
-    | MemberData
-    | SeasonData[]
-    | EventData[]
-    | SemesterData[]
-    | UserStatsData
-    | RankingData;
-  onClose: () => void;
-};
+export type ModalContent =
+  | string
+  | MemberData
+  | SeasonData[]
+  | EventData[]
+  | SemesterData[]
+  | UserStatsData
+  | RankingData;
 
-const Overlay = styled.div`
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
-  z-index: 999;
-  left: 0;
-`;
+interface ModalProps {
+  content: ModalContent;
+  onClose(): void;
+}
 
-const ModalWrapper = styled.div`
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: white;
-  padding: 24px;
-  border-radius: 10px;
-  z-index: 1000;
-  width: 800px;
-  max-height: 80%;
-  overflow-y: auto;
-  position: relative;
-  font-family: 'Pretendard', sans-serif;
-`;
+const sectionClass = 'mb-6';
+const sectionTitleClass = 'm-0 mb-4 text-[18px] font-bold text-[#333] border-b-2 border-[#f0f0f0] pb-2';
+const infoRowClass = 'flex mb-3 items-center';
+const infoLabelClass = 'font-semibold text-[#666] min-w-[120px] mr-4';
+const infoValueClass = 'text-[#333] font-medium';
 
-const ContentSection = styled.div`
-  margin-bottom: 24px;
-`;
-
-const SectionTitle = styled.h3`
-  margin: 0 0 16px 0;
-  font-size: 18px;
-  font-weight: 700;
-  color: #333;
-  border-bottom: 2px solid #f0f0f0;
-  padding-bottom: 8px;
-`;
-
-const InfoRow = styled.div`
-  display: flex;
-  margin-bottom: 12px;
-  align-items: center;
-`;
-
-const InfoLabel = styled.span`
-  font-weight: 600;
-  color: #666;
-  min-width: 120px;
-  margin-right: 16px;
-`;
-
-const InfoValue = styled.span`
-  color: #333;
-  font-weight: 500;
-`;
-
-const NotificationContent = styled.div`
-  background-color: #f8f9fa;
-  padding: 16px;
-  border-radius: 8px;
-  border-left: 4px solid #007bff;
-`;
-
-const NotificationText = styled.p`
-  margin: 0;
-  line-height: 1.6;
-  white-space: pre-line;
-  color: #333;
-`;
-
-const ErrorContent = styled.div`
-  color: #dc3545;
-  font-family: monospace;
-  background-color: #f8d7da;
-  padding: 16px;
-  border-radius: 8px;
-  border: 1px solid #f5c6cb;
-`;
-
-const CloseButton = styled.button`
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  background-color: #ddd;
-  border: none;
-  padding: 8px;
-  border-radius: 6px;
-  cursor: pointer;
-  width: 80px;
-  height: 40px;
-`;
-
-const renderMemberData = (data: MemberData) => (
+const renderMemberData = (data: MemberData): React.ReactElement => (
   <>
-    <ContentSection>
-      <SectionTitle>회원 정보</SectionTitle>
-      <InfoRow>
-        <InfoLabel>회원 ID:</InfoLabel>
-        <InfoValue>{data.memberId}</InfoValue>
-      </InfoRow>
-      <InfoRow>
-        <InfoLabel>BOJ 핸들:</InfoLabel>
-        <InfoValue>{data.bojHandle}</InfoValue>
-      </InfoRow>
-      <InfoRow>
-        <InfoLabel>회원 역할:</InfoLabel>
-        <InfoValue>{data.memberRole}</InfoValue>
-      </InfoRow>
-      <InfoRow>
-        <InfoLabel>관리자 역할:</InfoLabel>
-        <InfoValue>{data.adminRole}</InfoValue>
-      </InfoRow>
-    </ContentSection>
+    <div className={sectionClass}>
+      <h3 className={sectionTitleClass}>회원 정보</h3>
+      <div className={infoRowClass}>
+        <span className={infoLabelClass}>회원 ID:</span>
+        <span className={infoValueClass}>{data.memberId}</span>
+      </div>
+      <div className={infoRowClass}>
+        <span className={infoLabelClass}>BOJ 핸들:</span>
+        <span className={infoValueClass}>{data.bojHandle}</span>
+      </div>
+      <div className={infoRowClass}>
+        <span className={infoLabelClass}>회원 역할:</span>
+        <span className={infoValueClass}>{data.memberRole}</span>
+      </div>
+      <div className={infoRowClass}>
+        <span className={infoLabelClass}>관리자 역할:</span>
+        <span className={infoValueClass}>{data.adminRole}</span>
+      </div>
+    </div>
 
-    <ContentSection>
-      <SectionTitle>승인 알림 정보</SectionTitle>
-      <InfoRow>
-        <InfoLabel>학기 ID:</InfoLabel>
-        <InfoValue>{data.approvedNotification.semesterId}</InfoValue>
-      </InfoRow>
-      <InfoRow>
-        <InfoLabel>학기:</InfoLabel>
-        <InfoValue>
+    <div className={sectionClass}>
+      <h3 className={sectionTitleClass}>승인 알림 정보</h3>
+      <div className={infoRowClass}>
+        <span className={infoLabelClass}>학기 ID:</span>
+        <span className={infoValueClass}>{data.approvedNotification.semesterId}</span>
+      </div>
+      <div className={infoRowClass}>
+        <span className={infoLabelClass}>학기:</span>
+        <span className={infoValueClass}>
           {data.approvedNotification.semesterYear}년{' '}
           {data.approvedNotification.semesterType === 'FIRST' ? '1학기' : '2학기'}
-        </InfoValue>
-      </InfoRow>
-      <NotificationContent>
-        <SectionTitle
-          style={{
-            margin: '0 0 12px 0',
-            fontSize: '16px',
-            borderBottom: 'none',
-            paddingBottom: '0',
-          }}
-        >
-          환영 메시지
-        </SectionTitle>
-        <NotificationText>{data.approvedNotification.greetingDescription}</NotificationText>
-      </NotificationContent>
-    </ContentSection>
+        </span>
+      </div>
+      <div className="bg-[#f8f9fa] p-4 rounded-lg border-l-4 border-[#007bff]">
+        <h3 className="m-0 mb-3 text-[16px] font-bold text-[#333]">환영 메시지</h3>
+        <p className="m-0 leading-relaxed whitespace-pre-line text-[#333]">
+          {data.approvedNotification.greetingDescription}
+        </p>
+      </div>
+    </div>
   </>
 );
 
-const renderSeasonData = (data: SeasonData[]) => {
+const renderSeasonData = (data: SeasonData[]): React.ReactElement => {
   // 시즌 ID가 높은 순서부터 정렬
   const sortedData = [...data].sort((a, b) => b.seasonId - a.seasonId);
 
   return (
-    <>
-      <ContentSection>
-        <SectionTitle>시즌 정보 (총 {data.length}개)</SectionTitle>
-        {sortedData.map((season) => (
-          <div
-            key={season.seasonId}
-            style={{
-              marginBottom: '20px',
-              padding: '16px',
-              backgroundColor: '#f8f9fa',
-              borderRadius: '8px',
-            }}
-          >
-            <InfoRow>
-              <InfoLabel>시즌 ID:</InfoLabel>
-              <InfoValue>{season.seasonId}</InfoValue>
-            </InfoRow>
-            <InfoRow>
-              <InfoLabel>설명:</InfoLabel>
-              <InfoValue>{season.description}</InfoValue>
-            </InfoRow>
-            <InfoRow>
-              <InfoLabel>시작 시간:</InfoLabel>
-              <InfoValue>{new Date(season.seasonStartAt).toLocaleString('ko-KR')}</InfoValue>
-            </InfoRow>
-            <InfoRow>
-              <InfoLabel>종료 시간:</InfoLabel>
-              <InfoValue>{new Date(season.seasonEndAt).toLocaleString('ko-KR')}</InfoValue>
-            </InfoRow>
+    <div className={sectionClass}>
+      <h3 className={sectionTitleClass}>시즌 정보 (총 {data.length}개)</h3>
+      {sortedData.map((season) => (
+        <div key={season.seasonId} className="mb-5 p-4 bg-[#f8f9fa] rounded-lg">
+          <div className={infoRowClass}>
+            <span className={infoLabelClass}>시즌 ID:</span>
+            <span className={infoValueClass}>{season.seasonId}</span>
           </div>
-        ))}
-      </ContentSection>
-    </>
+          <div className={infoRowClass}>
+            <span className={infoLabelClass}>설명:</span>
+            <span className={infoValueClass}>{season.description}</span>
+          </div>
+          <div className={infoRowClass}>
+            <span className={infoLabelClass}>시작 시간:</span>
+            <span className={infoValueClass}>
+              {new Date(season.seasonStartAt).toLocaleString('ko-KR')}
+            </span>
+          </div>
+          <div className={infoRowClass}>
+            <span className={infoLabelClass}>종료 시간:</span>
+            <span className={infoValueClass}>
+              {new Date(season.seasonEndAt).toLocaleString('ko-KR')}
+            </span>
+          </div>
+        </div>
+      ))}
+    </div>
   );
 };
 
-const renderEventData = (data: EventData[]) => {
+const renderEventData = (data: EventData[]): React.ReactElement => {
   // 이벤트 ID가 높은 순서부터 정렬
   const sortedData = [...data].sort((a, b) => b.eventId - a.eventId);
 
   return (
-    <>
-      <ContentSection>
-        <SectionTitle>이벤트 정보 (총 {data.length}개)</SectionTitle>
-        {sortedData.map((event) => (
-          <div
-            key={event.eventId}
-            style={{
-              marginBottom: '20px',
-              padding: '16px',
-              backgroundColor: '#f8f9fa',
-              borderRadius: '8px',
-            }}
-          >
-            <InfoRow>
-              <InfoLabel>이벤트 ID:</InfoLabel>
-              <InfoValue>{event.eventId}</InfoValue>
-            </InfoRow>
-            <InfoRow>
-              <InfoLabel>설명:</InfoLabel>
-              <InfoValue>{event.description}</InfoValue>
-            </InfoRow>
-            <InfoRow>
-              <InfoLabel>시작 시간:</InfoLabel>
-              <InfoValue>{new Date(event.eventStartAt).toLocaleString('ko-KR')}</InfoValue>
-            </InfoRow>
-            <InfoRow>
-              <InfoLabel>종료 시간:</InfoLabel>
-              <InfoValue>{new Date(event.eventEndAt).toLocaleString('ko-KR')}</InfoValue>
-            </InfoRow>
+    <div className={sectionClass}>
+      <h3 className={sectionTitleClass}>이벤트 정보 (총 {data.length}개)</h3>
+      {sortedData.map((event) => (
+        <div key={event.eventId} className="mb-5 p-4 bg-[#f8f9fa] rounded-lg">
+          <div className={infoRowClass}>
+            <span className={infoLabelClass}>이벤트 ID:</span>
+            <span className={infoValueClass}>{event.eventId}</span>
           </div>
-        ))}
-      </ContentSection>
-    </>
+          <div className={infoRowClass}>
+            <span className={infoLabelClass}>설명:</span>
+            <span className={infoValueClass}>{event.description}</span>
+          </div>
+          <div className={infoRowClass}>
+            <span className={infoLabelClass}>시작 시간:</span>
+            <span className={infoValueClass}>
+              {new Date(event.eventStartAt).toLocaleString('ko-KR')}
+            </span>
+          </div>
+          <div className={infoRowClass}>
+            <span className={infoLabelClass}>종료 시간:</span>
+            <span className={infoValueClass}>
+              {new Date(event.eventEndAt).toLocaleString('ko-KR')}
+            </span>
+          </div>
+        </div>
+      ))}
+    </div>
   );
 };
 
-const renderSemesterData = (data: SemesterData[]) => {
+const renderSemesterData = (data: SemesterData[]): React.ReactElement => {
   // 학기 ID가 높은 순서부터 정렬
   const sortedData = [...data].sort((a, b) => b.semesterId - a.semesterId);
 
   return (
-    <>
-      <ContentSection>
-        <SectionTitle>학기 정보 (총 {data.length}개)</SectionTitle>
-        {sortedData.map((semester) => (
-          <div
-            key={semester.semesterId}
-            style={{
-              marginBottom: '20px',
-              padding: '16px',
-              backgroundColor: '#f8f9fa',
-              borderRadius: '8px',
-            }}
-          >
-            <InfoRow>
-              <InfoLabel>학기 ID:</InfoLabel>
-              <InfoValue>{semester.semesterId}</InfoValue>
-            </InfoRow>
-            <InfoRow>
-              <InfoLabel>학년도:</InfoLabel>
-              <InfoValue>{semester.semesterYear}년</InfoValue>
-            </InfoRow>
-            <InfoRow>
-              <InfoLabel>학기:</InfoLabel>
-              <InfoValue>
-                {semester.semesterType === 'FIRST'
-                  ? '1학기'
-                  : semester.semesterType === 'SECOND'
-                    ? '2학기'
-                    : semester.semesterType}
-              </InfoValue>
-            </InfoRow>
+    <div className={sectionClass}>
+      <h3 className={sectionTitleClass}>학기 정보 (총 {data.length}개)</h3>
+      {sortedData.map((semester) => (
+        <div key={semester.semesterId} className="mb-5 p-4 bg-[#f8f9fa] rounded-lg">
+          <div className={infoRowClass}>
+            <span className={infoLabelClass}>학기 ID:</span>
+            <span className={infoValueClass}>{semester.semesterId}</span>
           </div>
-        ))}
-      </ContentSection>
-    </>
+          <div className={infoRowClass}>
+            <span className={infoLabelClass}>학년도:</span>
+            <span className={infoValueClass}>{semester.semesterYear}년</span>
+          </div>
+          <div className={infoRowClass}>
+            <span className={infoLabelClass}>학기:</span>
+            <span className={infoValueClass}>
+              {semester.semesterType === 'FIRST'
+                ? '1학기'
+                : semester.semesterType === 'SECOND'
+                  ? '2학기'
+                  : semester.semesterType}
+            </span>
+          </div>
+        </div>
+      ))}
+    </div>
   );
 };
 
-const renderUserStatsData = (data: UserStatsData) => (
+const renderUserStatsData = (data: UserStatsData): React.ReactElement => (
   <>
-    <ContentSection>
-      <SectionTitle>유저 통계 정보</SectionTitle>
-      <InfoRow>
-        <InfoLabel>티어:</InfoLabel>
-        <InfoValue>{data.tier}</InfoValue>
-      </InfoRow>
-      <InfoRow>
-        <InfoLabel>총 점수:</InfoLabel>
-        <InfoValue>{data.totalScore}</InfoValue>
-      </InfoRow>
-      <InfoRow>
-        <InfoLabel>일일 점수:</InfoLabel>
-        <InfoValue>{data.dailyScore}</InfoValue>
-      </InfoRow>
-      <InfoRow>
-        <InfoLabel>현재 시즌 점수:</InfoLabel>
-        <InfoValue>{data.currentSeasonScore}</InfoValue>
-      </InfoRow>
-      <InfoRow>
-        <InfoLabel>현재 이벤트 점수:</InfoLabel>
-        <InfoValue>{data.currentEventScore}</InfoValue>
-      </InfoRow>
-    </ContentSection>
+    <div className={sectionClass}>
+      <h3 className={sectionTitleClass}>유저 통계 정보</h3>
+      <div className={infoRowClass}>
+        <span className={infoLabelClass}>티어:</span>
+        <span className={infoValueClass}>{data.tier}</span>
+      </div>
+      <div className={infoRowClass}>
+        <span className={infoLabelClass}>총 점수:</span>
+        <span className={infoValueClass}>{data.totalScore}</span>
+      </div>
+      <div className={infoRowClass}>
+        <span className={infoLabelClass}>일일 점수:</span>
+        <span className={infoValueClass}>{data.dailyScore}</span>
+      </div>
+      <div className={infoRowClass}>
+        <span className={infoLabelClass}>현재 시즌 점수:</span>
+        <span className={infoValueClass}>{data.currentSeasonScore}</span>
+      </div>
+      <div className={infoRowClass}>
+        <span className={infoLabelClass}>현재 이벤트 점수:</span>
+        <span className={infoValueClass}>{data.currentEventScore}</span>
+      </div>
+    </div>
 
-    <ContentSection>
-      <SectionTitle>티어별 해결 문제 수</SectionTitle>
+    <div className={sectionClass}>
+      <h3 className={sectionTitleClass}>티어별 해결 문제 수</h3>
       {data.solvedCounts.map((solvedCount, index) => (
-        <InfoRow key={index}>
-          <InfoLabel>티어 {solvedCount.tier}:</InfoLabel>
-          <InfoValue>{solvedCount.solvedCount}문제</InfoValue>
-        </InfoRow>
+        <div className={infoRowClass} key={index}>
+          <span className={infoLabelClass}>티어 {solvedCount.tier}:</span>
+          <span className={infoValueClass}>{solvedCount.solvedCount}문제</span>
+        </div>
       ))}
-    </ContentSection>
+    </div>
   </>
 );
 
-const RankingTable = styled.table`
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 16px;
-`;
+const rankingThClass =
+  'bg-[#f8f9fa] px-2 py-3 border border-[#dee2e6] text-[14px] font-semibold text-center';
+const rankingTdClass = 'px-2 py-2.5 border border-[#dee2e6] text-[13px] text-center';
 
-const RankingTh = styled.th`
-  background-color: #f8f9fa;
-  padding: 12px 8px;
-  border: 1px solid #dee2e6;
-  font-size: 14px;
-  font-weight: 600;
-  text-align: center;
-`;
-
-const RankingTd = styled.td`
-  padding: 10px 8px;
-  border: 1px solid #dee2e6;
-  font-size: 13px;
-  text-align: center;
-`;
-
-const renderRankingData = (data: RankingData) => {
-  const getRankingPosition = (index: number) => {
-    return index + 1;
-  };
+const renderRankingData = (data: RankingData): React.ReactElement => {
+  const getRankingPosition = (index: number): number => index + 1;
 
   return (
-    <>
-      <ContentSection>
-        <SectionTitle>
-          랭킹 (총 {data.length}명)
-        </SectionTitle>
+    <div className={sectionClass}>
+      <h3 className={sectionTitleClass}>랭킹 (총 {data.length}명)</h3>
 
-        <RankingTable>
-          <thead>
-            <tr>
-              <RankingTh>순위</RankingTh>
-              <RankingTh>이름</RankingTh>
-              <RankingTh>BOJ 핸들</RankingTh>
-              <RankingTh>티어</RankingTh>
-              <RankingTh>총 점수</RankingTh>
-              <RankingTh>일일 점수</RankingTh>
-              <RankingTh>시즌 점수</RankingTh>
-              <RankingTh>이벤트 점수</RankingTh>
+      <table className="w-full border-collapse mt-4">
+        <thead>
+          <tr>
+            <th className={rankingThClass}>순위</th>
+            <th className={rankingThClass}>이름</th>
+            <th className={rankingThClass}>BOJ 핸들</th>
+            <th className={rankingThClass}>티어</th>
+            <th className={rankingThClass}>총 점수</th>
+            <th className={rankingThClass}>일일 점수</th>
+            <th className={rankingThClass}>시즌 점수</th>
+            <th className={rankingThClass}>이벤트 점수</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((member: RankingMember, index: number) => (
+            <tr key={member.memberId}>
+              <td className={rankingTdClass}>{getRankingPosition(index)}</td>
+              <td className={rankingTdClass}>{member.name}</td>
+              <td className={rankingTdClass}>{member.bojHandle}</td>
+              <td className={rankingTdClass}>
+                <div className="flex justify-center items-center">
+                  <TierImg tier={member.tier} />
+                </div>
+              </td>
+              <td className={rankingTdClass}>{member.totalScore}</td>
+              <td className={rankingTdClass}>{member.dailyScore}</td>
+              <td className={`${rankingTdClass} font-semibold text-[#007bff]`}>
+                {member.currentSeasonScore}
+              </td>
+              <td className={rankingTdClass}>{member.currentEventScore}</td>
             </tr>
-          </thead>
-          <tbody>
-            {data.map((member: RankingMember, index: number) => (
-              <tr key={member.memberId}>
-                <RankingTd>{getRankingPosition(index)}</RankingTd>
-                <RankingTd>{member.name}</RankingTd>
-                <RankingTd>{member.bojHandle}</RankingTd>
-                <RankingTd>
-                  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <TierImg tier={member.tier} />
-                  </div>
-                </RankingTd>
-                <RankingTd>{member.totalScore}</RankingTd>
-                <RankingTd>{member.dailyScore}</RankingTd>
-                <RankingTd style={{ fontWeight: 600, color: '#007bff' }}>
-                  {member.currentSeasonScore}
-                </RankingTd>
-                <RankingTd>{member.currentEventScore}</RankingTd>
-              </tr>
-            ))}
-          </tbody>
-        </RankingTable>
-      </ContentSection>
-    </>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 
-const renderStringContent = (content: string) => {
+const errorContentClass =
+  'text-[#dc3545] font-mono bg-[#f8d7da] p-4 rounded-lg border border-[#f5c6cb]';
+
+const renderStringContent = (content: string): React.ReactElement => {
   if (!content || typeof content !== 'string') {
     return (
-      <ErrorContent>
+      <div className={errorContentClass}>
         <div>데이터를 불러올 수 없습니다.</div>
-      </ErrorContent>
+      </div>
     );
   }
 
   const lines = content.split(',');
   return (
-    <ErrorContent>
+    <div className={errorContentClass}>
       {lines.map((line, idx) => (
         <div key={idx}>{line}</div>
       ))}
-    </ErrorContent>
+    </div>
   );
 };
 
-export const Modal = ({ content, onClose }: ModalProps) => {
+export const Modal = ({ content, onClose }: ModalProps): React.ReactElement => {
   const isMemberData = (
     data:
       | string
@@ -483,9 +355,7 @@ export const Modal = ({ content, onClose }: ModalProps) => {
       | SemesterData[]
       | UserStatsData
       | RankingData
-  ): data is MemberData => {
-    return typeof data === 'object' && data !== null && 'memberId' in data && !('content' in data);
-  };
+  ): data is MemberData => typeof data === 'object' && data !== null && 'memberId' in data && !('content' in data);
 
   const isSeasonData = (
     data:
@@ -496,9 +366,7 @@ export const Modal = ({ content, onClose }: ModalProps) => {
       | SemesterData[]
       | UserStatsData
       | RankingData
-  ): data is SeasonData[] => {
-    return Array.isArray(data) && data.length > 0 && 'seasonId' in data[0];
-  };
+  ): data is SeasonData[] => Array.isArray(data) && data.length > 0 && 'seasonId' in data[0];
 
   const isEventData = (
     data:
@@ -509,9 +377,7 @@ export const Modal = ({ content, onClose }: ModalProps) => {
       | SemesterData[]
       | UserStatsData
       | RankingData
-  ): data is EventData[] => {
-    return Array.isArray(data) && data.length > 0 && 'eventId' in data[0];
-  };
+  ): data is EventData[] => Array.isArray(data) && data.length > 0 && 'eventId' in data[0];
 
   const isSemesterData = (
     data:
@@ -522,9 +388,7 @@ export const Modal = ({ content, onClose }: ModalProps) => {
       | SemesterData[]
       | UserStatsData
       | RankingData
-  ): data is SemesterData[] => {
-    return Array.isArray(data) && data.length > 0 && 'semesterId' in data[0];
-  };
+  ): data is SemesterData[] => Array.isArray(data) && data.length > 0 && 'semesterId' in data[0];
 
   const isUserStatsData = (
     data:
@@ -535,8 +399,7 @@ export const Modal = ({ content, onClose }: ModalProps) => {
       | SemesterData[]
       | UserStatsData
       | RankingData
-  ): data is UserStatsData => {
-    return (
+  ): data is UserStatsData => (
       typeof data === 'object' &&
       data !== null &&
       'tier' in data &&
@@ -544,7 +407,6 @@ export const Modal = ({ content, onClose }: ModalProps) => {
       'solvedCounts' in data &&
       !('content' in data)
     );
-  };
 
   const isRankingData = (
     data:
@@ -555,17 +417,15 @@ export const Modal = ({ content, onClose }: ModalProps) => {
       | SemesterData[]
       | UserStatsData
       | RankingData
-  ): data is RankingData => {
-    return (
+  ): data is RankingData => (
       Array.isArray(data) &&
       data.length > 0 &&
       'memberId' in data[0] &&
       'bojHandle' in data[0] &&
       'currentSeasonScore' in data[0]
     );
-  };
 
-  const renderContent = () => {
+  const renderContent = (): React.ReactElement => {
     if (!content) {
       return renderStringContent('데이터가 없습니다.');
     }
@@ -590,12 +450,18 @@ export const Modal = ({ content, onClose }: ModalProps) => {
     return renderStringContent(content as string);
   };
 
+  // 부모가 {isOpen && <Modal/>}로 마운트를 제어하므로 항상 open. 닫힘은 onClose로 위임.
   return (
-    <Overlay onClick={onClose}>
-      <ModalWrapper onClick={(e) => e.stopPropagation()}>
+    <Dialog open onOpenChange={(open) => !open && onClose()}>
+      <DialogContent className="max-h-[80vh] overflow-y-auto sm:max-w-[800px]">
+        <DialogTitle className="sr-only">상세 정보</DialogTitle>
         {renderContent()}
-        <CloseButton onClick={onClose}>뒤로가기</CloseButton>
-      </ModalWrapper>
-    </Overlay>
+        <div className="mt-4 flex justify-end">
+          <Button variant="secondary" size="sm" onClick={onClose}>
+            뒤로가기
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 };

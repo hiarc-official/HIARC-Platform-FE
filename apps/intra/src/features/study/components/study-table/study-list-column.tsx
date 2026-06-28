@@ -1,5 +1,6 @@
 import { StudySummary } from '@hiarc-platform/shared';
-import { Label, StudyStatusChip } from '@hiarc-platform/ui';
+import { Label } from '@hiarc-platform/design-system';
+import { StudyStatusChip } from '@hiarc-platform/domain';
 import { ColumnDef } from '@tanstack/react-table';
 
 export const STUDY_LIST_COLUMN: Array<ColumnDef<StudySummary>> = [

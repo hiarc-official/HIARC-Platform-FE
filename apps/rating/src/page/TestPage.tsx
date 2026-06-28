@@ -1,7 +1,5 @@
-import LayOut from '../util/Layout';
-import styled from 'styled-components';
+import { PageLayout, Title, Card } from '@hiarc-platform/design-system';
 import InfoEntity from '../atoms/InfoEntity';
-import Color from '../util/Color';
 import { DinamicStreakBox } from '../block/streak/DinamicStreakBox';
 import StreakInformation from '../block/streak/StreakInformation';
 
@@ -44,46 +42,24 @@ const exampleData = [
   { date: '2025-05-03', count: 1 },
 ];
 
-const Up = styled.div`
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-`;
-const Devider = styled.div`
-  width: 98%;
-  border-bottom: 1px solid ${Color.primary};
-  margin-top: -1px;
-  margin-left: 12px;
-  @media (max-width: 480px) {
-    width: 92%;
-  }
-`;
-
-const Down = styled.div`
-  margin-top: 16px;
-`;
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 557px;
-`;
-
-const TestPage = () => {
-  return (
-    <LayOut>
-      <Wrapper>
-        <Up>
+const TestPage = () => (
+  <PageLayout containerClassName="flex-col items-stretch justify-start">
+    <div className="flex w-full flex-col gap-8">
+      <Title size="sm" weight="bold">
+        Streak Preview
+      </Title>
+      <Card className="flex w-full flex-col rounded-xl border border-gray-200 bg-white p-4 shadow-none">
+        <div className="flex w-full flex-col">
           <InfoEntity handle="ghwo336" div={1} tier={13} />
-          <Devider></Devider>
-        </Up>
-        <Down>
+          <div className="ml-3 mt-[-1px] w-[98%] border-b border-gray-200"></div>
+        </div>
+        <div className="mt-4 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
           <DinamicStreakBox data={exampleData} />
-        </Down>
-        <StreakInformation />
-      </Wrapper>
-    </LayOut>
-  );
-};
+        </div>
+        <StreakInformation currentTotalStreak={42} currentSeasonStreak={7} />
+      </Card>
+    </div>
+  </PageLayout>
+);
 
 export default TestPage;

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Student } from '@hiarc-platform/shared';
-import { Button, Label } from '@hiarc-platform/ui';
+import { Button, Label } from '@hiarc-platform/design-system';
 import { ColumnDef } from '@tanstack/react-table';
 
 interface StudentColumnsOptions {
-  onDelete: (student: Student) => void;
+  onDelete(student: Student): void;
   isDeleting: boolean;
 }
 

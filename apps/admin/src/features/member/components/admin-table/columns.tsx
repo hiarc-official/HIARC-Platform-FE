@@ -1,6 +1,6 @@
 import React from 'react';
 import { Admin } from '@hiarc-platform/shared';
-import { DialogUtil, IconButton, Label } from '@hiarc-platform/ui';
+import { DialogUtil, IconButton, Label } from '@hiarc-platform/design-system';
 import { ColumnDef } from '@tanstack/react-table';
 import { EditAdminDialog } from '../dialog/edit-admin-dialog';
 

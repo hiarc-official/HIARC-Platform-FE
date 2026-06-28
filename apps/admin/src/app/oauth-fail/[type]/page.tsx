@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@hiarc-platform/ui';
+import { Button } from '@hiarc-platform/design-system';
 import { useParams, useRouter } from 'next/navigation';
 
 export default function OAuthFailPage(): React.ReactElement {

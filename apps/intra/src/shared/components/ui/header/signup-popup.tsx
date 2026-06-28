@@ -1,4 +1,4 @@
-import { Label, Button, Title, IconButton } from '@hiarc-platform/ui';
+import { Label, Button, Title, IconButton } from '@hiarc-platform/design-system';
 import Image from 'next/image';
 
 interface SignupPopupProps {

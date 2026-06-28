@@ -4,7 +4,7 @@ import { CreateAnnouncementRequest, CreateAnnouncementForm } from '@hiarc-platfo
 import { useSemesterStoreInit, useSemesterStore } from '@/shared/hooks/use-semester-store';
 import useCreateStudyAnnouncement from '@/features/study/hooks/study-instructor/mutation/use-create-study-announcement';
 import { useStudyOptions } from '@/features/study/hooks/study-instructor/query/use-study-options';
-import { DialogUtil } from '@hiarc-platform/ui';
+import { DialogUtil } from '@hiarc-platform/design-system';
 import { useImageUpload } from '../mutation/use-image-upload';
 
 export function useAnnouncementWritePageState() {

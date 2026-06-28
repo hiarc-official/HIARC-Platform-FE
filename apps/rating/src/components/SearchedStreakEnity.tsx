@@ -1,106 +1,6 @@
-import styled from 'styled-components';
+import { Label } from '@hiarc-platform/design-system';
 import CircularProgress from '../atoms/CircularProgress';
-import Color from '../util/Color';
 import { NumberToStreakColor } from '../util/NumberToStreakColor';
-const Wrapper = styled.div`
-  width: 460px;
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-  @media (max-width: 480px) {
-    width: 325px;
-  }
-`;
-const DownWrapper = styled.div`
-  display: flex;
-  gap: 24.33px;
-  border: 1px solid ${Color.primary};
-  padding: 20px 20px 0px 20px;
-  width: 100%;
-  border-radius: 15px;
-  min-height: 146px;
-  @media (max-width: 480px) {
-    padding: 8px;
-  }
-`;
-
-const UpWrapper = styled.div`
-  font-size: 12px;
-  border: 1px solid ${Color.primary};
-  padding: 6px 14px;
-  width: 38px;
-  border-radius: 18px;
-  color: ${Color.primary};
-  font-weight: 700;
-`;
-
-const Left = styled.div`
-  width: 63px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-`;
-const Right = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 9px;
-`;
-const RightDown = styled.div`
-  display: flex;
-  gap: 22px;
-`;
-
-const Border = styled.div<{ $borderColor: string }>`
-  font-size: 10px;
-  border: 0.5px solid ${(props) => props.$borderColor};
-  border-radius: 12px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0px 8px;
-  flex-wrap: nowrap;
-  margin-bottom: 3px;
-  height: 20px;
-`;
-
-const Borders = styled.div`
-  display: flex;
-  gap: 4px;
-`;
-const Days = styled.div`
-  margin-top: 13px;
-  width: 73px;
-  height: 35px;
-  display: flex;
-  align-items: flex-end;
-  font-size: 15px;
-  font-weight: 900;
-  .big {
-    font-size: 35px;
-  }
-  .small {
-    margin-bottom: 4px;
-  }
-`;
-
-const StreakGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(20, 13px);
-  gap: 1px;
-  width: fit-content;
-  max-width: 273px;
-  height: fit-content;
-  @media (max-width: 480px) {
-    grid-template-columns: repeat(10, 13px);
-    max-width: 139px;
-  }
-`;
-const StreakBox = styled.div`
-  width: 13px;
-  height: 13px;
-
-  border-radius: 2px;
-`;
 
 const SearchedStreakEntity = ({
   seasonStreak,
@@ -114,35 +14,43 @@ const SearchedStreakEntity = ({
   totalStreak: number;
   tier: number;
   startDate: string;
-}) => {
-  return (
-    <Wrapper>
-      <UpWrapper>Streak</UpWrapper>
-      <DownWrapper>
-        <Left>
-          <Border $borderColor={Color.graySub3}>이번 시즌</Border>
+}) => (
+  <div className="flex w-full flex-col gap-2">
+    <Label size="lg" weight="bold">
+      Streak
+    </Label>
+    <div className="flex w-full flex-col gap-5 rounded-2xl border border-gray-200 bg-white p-5 shadow-none">
+      <div className="flex items-center gap-5">
+        <div className="flex flex-col items-center gap-2">
+          <Label size="sm" className="text-gray-600">
+            이번 시즌
+          </Label>
           <CircularProgress value={seasonStreak} maxValue={seasonTotal} width={60} height={60} />
-        </Left>
-        <Right>
-          <Borders>
-            <Border $borderColor={Color.graySub3}>누적</Border>
-            <Border $borderColor={Color.primary}>{startDate}부터</Border>
-          </Borders>
-          <RightDown>
-            <Days>
-              <div className="big">{totalStreak}</div>
-              <div className="small">일</div>
-            </Days>
-            <StreakGrid>
-              {Array.from({ length: totalStreak }, (_, i) => (
-                <StreakBox key={i} style={{ backgroundColor: NumberToStreakColor(tier) }} />
-              ))}
-            </StreakGrid>
-          </RightDown>
-        </Right>
-      </DownWrapper>
-    </Wrapper>
-  );
-};
+        </div>
+        <div className="flex flex-col gap-1">
+          <Label size="sm" className="text-gray-600">
+            누적 · {startDate}부터
+          </Label>
+          <div className="flex items-baseline gap-1">
+            <span className="text-[32px] font-bold leading-none text-primary-300 tabular-nums">
+              {totalStreak}
+            </span>
+            <span className="text-sm text-gray-600">일 연속</span>
+          </div>
+        </div>
+      </div>
+      {/* ponytail: 기여도 격자 — tier별 동적 색 유지 */}
+      <div className="grid w-fit grid-cols-[repeat(20,13px)] gap-px max-[480px]:grid-cols-[repeat(10,13px)]">
+        {Array.from({ length: totalStreak }, (_, i) => (
+          <div
+            key={i}
+            className="h-[13px] w-[13px] rounded-[2px]"
+            style={{ backgroundColor: NumberToStreakColor(tier) }}
+          />
+        ))}
+      </div>
+    </div>
+  </div>
+);
 
 export default SearchedStreakEntity;

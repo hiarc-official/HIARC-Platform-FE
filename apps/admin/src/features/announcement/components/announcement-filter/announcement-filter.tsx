@@ -1,5 +1,5 @@
-import { Button, LabeledInput, LabeledSelectButton, DialogUtil, cn } from '@hiarc-platform/ui';
-import { LabeledSelector } from '@hiarc-platform/ui';
+import { Button, LabeledInput, LabeledSelectButton, DialogUtil, cn } from '@hiarc-platform/design-system';
+import { LabeledSelector } from '@hiarc-platform/design-system';
 import { selectOption } from 'constants/selectOption';
 import React, { useState, useEffect } from 'react';
 import { AnnouncementQueryParams } from '@/features/announcement/types/request/announcement-query-params';

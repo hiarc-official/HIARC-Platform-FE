@@ -1,5 +1,6 @@
 import { AnnouncementSummary } from '@hiarc-platform/shared';
-import { Label, CategoryChip, IconButton, DialogUtil } from '@hiarc-platform/ui';
+import { Label, IconButton, DialogUtil } from '@hiarc-platform/design-system';
+import { CategoryChip } from '@hiarc-platform/domain';
 import { ColumnDef } from '@tanstack/react-table';
 import { MobileMoreMenu } from './mobile-more-menu';
 

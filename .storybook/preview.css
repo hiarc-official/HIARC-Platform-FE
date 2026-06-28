@@ -1,0 +1,15 @@
+/* Tailwind v4 — 앱과 동일한 JS 프리셋을 @config 로 공유 (@import 들이 먼저, @config 는 뒤) */
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@config '../tailwind.config.js';
+
+/* Foundations 스토리는 토큰 쇼케이스용으로 클래스를 동적 생성한다 — Storybook 전용 강제 생성. */
+@source inline("bg-gray-{50,100,200,300,400,500,600,700,800,900}");
+@source inline("bg-category-{rating,study,general,external,participating,recruiting,etc}");
+@source inline("text-{sm,md,lg,xl,2xl,3xl,4xl}");
+
+body {
+  font-family:
+    'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, 'Apple SD Gothic Neo',
+    'Noto Sans KR', sans-serif;
+}

@@ -1,6 +1,6 @@
 'use client';
 import { Instructor } from '@hiarc-platform/shared';
-import { cn, CommonTableBody, CommonTableHead, Label } from '@hiarc-platform/ui';
+import { cn, CommonTableBody, CommonTableHead, Label } from '@hiarc-platform/design-system';
 import { useTable } from '@hiarc-platform/shared';
 import { ColumnDef } from '@tanstack/react-table';
 import { AnimatePresence, motion } from 'framer-motion';

@@ -8,11 +8,13 @@ import { CreateAnnouncementRequest, CreateAnnouncementForm } from '@hiarc-platfo
 import { useStudyOptions } from '@/features/study/hooks';
 import { useSemesterStoreInit } from '@/shared/hooks/use-semester-store';
 import {
-  AnnouncementWrite,
-  LoadingDots,
+  SkeletonTransition,
+  FormSkeleton,
   DialogUtil,
-  AnnouncementDesktopHeader,
-} from '@hiarc-platform/ui';
+  useMinimumLoading,
+} from '@hiarc-platform/design-system';
+import { AnnouncementWrite } from '@hiarc-platform/domain';
+import { AnnouncementDesktopHeader } from '@hiarc-platform/domain';
 
 export function AnnouncementEditPage(): React.ReactElement {
   const router = useRouter();
@@ -164,22 +166,9 @@ export function AnnouncementEditPage(): React.ReactElement {
     ? `${announcement?.studyName} - ${announcement?.lectureRound}회차 강의 수정`
     : '공지사항 수정';
 
-  // 로딩 중일 때
-  if (isLoading) {
-    return (
-      <>
-        {/* Desktop loading */}
-        <div className="hidden min-h-[400px] items-center justify-center md:flex">
-          <LoadingDots />
-        </div>
-        {/* Mobile loading */}
-        <div className="flex min-h-[400px] items-center justify-center px-4 md:hidden">
-          <LoadingDots />
-        </div>
-      </>
-    );
-  }
+  const showSkeleton = useMinimumLoading(isLoading);
 
+  // 로딩 중일 때
   // 에러가 발생했을 때
   if (error) {
     return (
@@ -197,14 +186,20 @@ export function AnnouncementEditPage(): React.ReactElement {
   }
 
   return (
-    <div>
-      <AnnouncementDesktopHeader title={pageTitle} onBackClick={handleBackClick} className="pb-6" />
-      <AnnouncementWrite
-        announcementId={id}
-        announcement={announcement}
-        studyOptions={studyOptions || []}
-        onSubmit={handleSubmit}
-      />
-    </div>
+    <SkeletonTransition loading={showSkeleton} skeleton={<FormSkeleton />}>
+      <div>
+        <AnnouncementDesktopHeader
+          title={pageTitle}
+          onBackClick={handleBackClick}
+          className="pb-6"
+        />
+        <AnnouncementWrite
+          announcementId={id}
+          announcement={announcement}
+          studyOptions={studyOptions || []}
+          onSubmit={handleSubmit}
+        />
+      </div>
+    </SkeletonTransition>
   );
 }

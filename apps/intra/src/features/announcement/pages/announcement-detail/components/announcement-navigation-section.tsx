@@ -1,6 +1,6 @@
 'use client';
 
-import { BackButton, Button } from '@hiarc-platform/ui';
+import { BackButton, Button } from '@hiarc-platform/design-system';
 import { useRouter } from 'next/navigation';
 
 interface AnnouncementNavigationSectionProps {

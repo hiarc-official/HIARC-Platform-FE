@@ -3,6 +3,9 @@ import { useEffect, useState } from 'react';
 import { authApi } from '../../api/auth';
 import { useAuthStore } from '../../../../shared/store/auth-store';
 
+// 콜백 쿼리로 전달된 email 값을 신뢰하지 않고 형식을 검증한 뒤 사용
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export default function useOAuthCallback(): { isProcessing: boolean } {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -24,7 +27,7 @@ export default function useOAuthCallback(): { isProcessing: boolean } {
         if (needSignup === 'true') {
           // 회원가입이 필요한 경우 - signup 페이지로 이동
           // email 정보를 sessionStorage에 저장하여 signup 페이지에서 사용
-          if (email) {
+          if (email && EMAIL_REGEX.test(email)) {
             sessionStorage.setItem('signupEmail', email);
           }
           router.push('/signup');

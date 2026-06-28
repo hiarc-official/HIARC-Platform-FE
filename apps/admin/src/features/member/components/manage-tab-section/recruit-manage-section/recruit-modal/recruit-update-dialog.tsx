@@ -3,17 +3,7 @@
 import { useUpdateRecruitment } from '@/features/recruitment/hooks/mutation/use-update-recruitment';
 import { useSelectedSemester } from '@/shared/hooks/use-semester-store';
 import { UpdateRecruitmentRequest } from '@hiarc-platform/shared';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogUtil,
-  Label,
-  Button,
-  LabeledCalanderInput,
-} from '@hiarc-platform/ui';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogUtil, Label, Button, LabeledCalanderInput } from '@hiarc-platform/design-system';
 import React from 'react';
 
 interface RecruitUpdateDialogProps {

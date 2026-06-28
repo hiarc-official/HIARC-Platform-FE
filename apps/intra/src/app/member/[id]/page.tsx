@@ -2,10 +2,8 @@
 
 import { useMemberProfile } from '@/features/member/hooks/query/use-member-profile';
 import {
-  DesktopMemberDetailPage,
-  MobileMemberDetailPage,
-} from '@/features/member/pages/member-detail-page';
-import { PageLayout } from '@hiarc-platform/ui';
+  DesktopMemberDetailPage, MobileMemberDetailPage, } from '@/features/member/pages/member-detail-page';
+import { PageLayout } from '@hiarc-platform/design-system';
 import { useParams, useRouter } from 'next/navigation';
 
 export default function MemberProfilePage(): React.ReactElement {

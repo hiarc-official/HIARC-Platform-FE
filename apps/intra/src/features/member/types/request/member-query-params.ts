@@ -12,7 +12,7 @@ export interface MemberQueryParamsProps {
 }
 
 export class MemberQueryParams {
-  constructor(public readonly props: MemberQueryParamsProps) {}
+  constructor(readonly props: MemberQueryParamsProps) {}
 
   static readonly schema = z.object({
     page: z.number().min(0).optional(),
@@ -25,7 +25,7 @@ export class MemberQueryParams {
     search: z.string().min(1).optional(),
   });
 
-  static fromJson(json: any): MemberQueryParams {
+  static fromJson(json: unknown): MemberQueryParams {
     const validated = this.schema.parse(json);
     return new MemberQueryParams(validated);
   }

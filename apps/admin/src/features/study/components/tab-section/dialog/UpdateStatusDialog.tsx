@@ -1,16 +1,7 @@
 'use client';
 
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-  DialogClose,
-  Button,
-  AttendanceTable,
-  Label,
-} from '@hiarc-platform/ui';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogClose, Button, Label } from '@hiarc-platform/design-system';
+import { AttendanceTable } from '@hiarc-platform/domain';
 import { useState, useEffect } from 'react';
 import { useMemberStatus } from '../../../hooks/member/query/use-member-status';
 import { RoundStatus } from '@hiarc-platform/shared/src/types/study/round-status';

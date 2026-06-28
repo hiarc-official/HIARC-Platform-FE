@@ -1,4 +1,4 @@
-import { cn, CommonTableBody, CommonTableHead, Pagination, SlideFade } from '@hiarc-platform/ui';
+import { cn, CommonTableBody, CommonTableHead, Pagination, SlideFade } from '@hiarc-platform/design-system';
 import { useTable } from '@hiarc-platform/shared';
 import { Announcement, AnnouncementSummary, PageableModel } from '@hiarc-platform/shared';
 import { Row } from '@tanstack/react-table';

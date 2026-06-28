@@ -6,7 +6,9 @@ import { useImageUpload } from '@/features/announcement/hooks/use-image-upload';
 import { CreateAnnouncementForm, CreateAnnouncementRequest } from '@hiarc-platform/shared';
 import { useSemesterStoreInit, useSemesterStore } from '@/shared/hooks/use-semester-store';
 import { useStudyOptions } from '@/features/study/hooks';
-import { AnnouncementDesktopHeader, AnnouncementWrite, DialogUtil } from '@hiarc-platform/ui';
+import { DialogUtil } from '@hiarc-platform/design-system';
+import { AnnouncementDesktopHeader } from '@hiarc-platform/domain';
+import { AnnouncementWrite } from '@hiarc-platform/domain';
 
 export function AnnouncementWritePage(): React.ReactElement {
   const router = useRouter();

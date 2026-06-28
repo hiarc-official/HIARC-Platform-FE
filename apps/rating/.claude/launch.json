@@ -1,0 +1,1 @@
+echo "launch.json written"; cat "$(git rev-parse --show-toplevel)/apps/rating/.claude/launch.json"

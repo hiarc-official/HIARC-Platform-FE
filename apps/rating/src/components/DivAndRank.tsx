@@ -1,29 +1,14 @@
-import styled from 'styled-components';
-import Color from '../util/Color';
-const Button = styled.div`
-  background-color: ${Color.primary};
-  width: 62px;
-  padding: 6px 14px;
-  font-size: 12px;
-  white-space: nowrap;
-  color: white;
-  border-radius: 18px;
-  display: flex;
-`;
+import { Label } from '@hiarc-platform/design-system';
 
-const Divider = styled.div`
-  padding-left: 7px;
-  padding-right: 9px;
-`;
-
-const DivAndRank = ({ divNum, rank }: { divNum: number; rank: number }) => {
-  return (
-    <Button>
-      div{divNum}
-      <Divider> | </Divider>
-      {rank}th
-    </Button>
-  );
-};
+const DivAndRank = ({ divNum, rank }: { divNum: number; rank: number }) => (
+  <Label
+    size="xs"
+    className="flex items-center gap-1.5 whitespace-nowrap rounded-md bg-gray-100 px-2 py-0.5 text-gray-700"
+  >
+    div{divNum}
+    <span className="text-gray-300">|</span>
+    {rank}th
+  </Label>
+);
 
 export default DivAndRank;

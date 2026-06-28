@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, cn, DialogUtil, Label, LabeledInput, LabeledSelector } from '@hiarc-platform/ui';
+import { Button, cn, DialogUtil, Label, LabeledInput, LabeledSelector } from '@hiarc-platform/design-system';
 import React, { useState, useEffect } from 'react';
 import { StudySearchDialog } from './study-search-dialog';
 import { StudyQueryParams } from '../../types/request/study-query-params';
@@ -96,7 +96,7 @@ export function StudySearchSection({
       {/* Desktop View */}
       <div
         className={cn(
-          'hidden w-full items-end justify-between gap-4 rounded-md border border-gray-100 p-6 md:flex',
+          'hidden w-full items-end justify-between gap-4 rounded-md border border-gray-100 p-6 lg:flex',
           className
         )}
       >
@@ -127,7 +127,7 @@ export function StudySearchSection({
       </div>
 
       {/* Mobile View */}
-      <div className={cn('md:hidden', className)}>
+      <div className={cn('lg:hidden', className)}>
         <Button
           variant="line_secondary"
           size="xs"

@@ -1,11 +1,5 @@
-import {
-  AddGroupDialog,
-  DialogUtil,
-  EditGroupDialog,
-  StudentList,
-  StudyGroupList,
-  StudyUnassignedGroup,
-} from '@hiarc-platform/ui';
+import { DialogUtil } from '@hiarc-platform/design-system';
+import { AddGroupDialog, EditGroupDialog, StudentList, StudyGroupList, StudyUnassignedGroup } from '@hiarc-platform/domain';
 
 import { useValidateStudent } from '@/features/study/hooks';
 import { UpdateStatusDialog } from './dialog/UpdateStatusDialog';

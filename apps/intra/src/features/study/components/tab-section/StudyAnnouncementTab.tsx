@@ -1,4 +1,4 @@
-import { StudyAnnouncementTable } from '@hiarc-platform/ui';
+import { StudyAnnouncementTable } from '@hiarc-platform/domain';
 import { useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { AnnouncementSummary, PageableModel } from '@hiarc-platform/shared';

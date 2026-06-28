@@ -1,6 +1,6 @@
-import { Divider, Label } from '@hiarc-platform/ui';
+import { Divider, Label } from '@hiarc-platform/design-system';
 import Image from 'next/image';
-import { AnchorLabel } from '@hiarc-platform/ui';
+import { AnchorLabel } from '@hiarc-platform/design-system';
 interface FooterProps {
   id?: string;
 }
@@ -8,7 +8,7 @@ interface FooterProps {
 export default function Footer({ id }: FooterProps): React.ReactElement {
   return (
     <footer className="w-full border-t border-gray-200" id={id}>
-      <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center justify-between gap-4 px-5 py-4 md:flex-row">
+      <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center justify-between gap-4 px-5 py-4 lg:flex-row">
         <div className="flex items-center gap-2 sm:text-left">
           <Label size="lg" weight="bold">
             HI-ARC 하이아크
@@ -17,19 +17,19 @@ export default function Footer({ id }: FooterProps): React.ReactElement {
             홍익대학교 컴퓨터공학과 알고리즘 학회
           </Label>
         </div>
-        <div className="flex flex-col items-center justify-center gap-3 text-gray-600 md:flex-row">
+        <div className="flex flex-col items-center justify-center gap-3 text-gray-600 lg:flex-row">
           <div className="flex items-center gap-2">
             <Image src="/shared-assets/Instagram.svg" alt="Instagram Icon" width={16} height={16} />
             <AnchorLabel href="https://www.instagram.com/hiarc.official/">
               @hi-arc.official
             </AnchorLabel>
           </div>
-          <Divider variant="vertical" size="8px" className="hidden md:inline-block" />
+          <Divider variant="vertical" size="8px" className="hidden lg:inline-block" />
           <div className="flex items-center gap-2">
-            <Image src="/shared-assets/Mail.svg" alt="Mail Icon" width={16} height={16} />
+            <Image src="/shared-assets/Mail.svg" alt="Mail Icon" className="h-4 w-4" width={16} height={16} />
             <Label>hiarc.official@gmail.com</Label>
           </div>
-          <Divider variant="vertical" size="8px" className="hidden md:inline-block" />
+          <Divider variant="vertical" size="8px" className="hidden lg:inline-block" />
           <div className="flex items-center gap-2">
             <Image src="/shared-assets/Message.svg" alt="Message Icon" width={16} height={16} />
             <AnchorLabel href="https://pf.kakao.com/_SArxlxb">@hi-arc</AnchorLabel>

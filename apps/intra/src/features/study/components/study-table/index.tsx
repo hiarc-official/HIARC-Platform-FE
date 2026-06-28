@@ -1,13 +1,6 @@
 import { PageableModel, StudySummary } from '@hiarc-platform/shared';
-import {
-  cn,
-  CommonTableBody,
-  CommonTableHead,
-  Label,
-  Pagination,
-  SlideFade,
-  StudyStatusChip,
-} from '@hiarc-platform/ui';
+import { cn, CommonTableBody, CommonTableHead, Label, Pagination, SlideFade } from '@hiarc-platform/design-system';
+import { StudyStatusChip } from '@hiarc-platform/domain';
 import { useTable } from '@hiarc-platform/shared';
 import { Row } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
@@ -51,7 +44,7 @@ export function StudyTable({
   return (
     <div className={cn('w-full flex-col items-center', className)}>
       {/* Desktop Table */}
-      <div className="hidden w-full md:block">
+      <div className="hidden w-full lg:block">
         <SlideFade key="table" className="w-full">
           <CommonTableHead
             table={table}
@@ -67,7 +60,7 @@ export function StudyTable({
       </div>
 
       {/* Mobile List */}
-      <div className="block w-full md:hidden">
+      <div className="block w-full lg:hidden">
         <SlideFade key="mobile-list" className="w-full">
           <div className="flex flex-col">
             {data.map((study, index) => (

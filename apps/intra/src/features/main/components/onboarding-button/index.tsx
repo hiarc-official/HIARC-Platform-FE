@@ -1,6 +1,6 @@
 'use client';
 
-import { cn, Title } from '@hiarc-platform/ui';
+import { cn, Title } from '@hiarc-platform/design-system';
 import React from 'react';
 
 interface OnboardingButtonProps {
@@ -27,10 +27,10 @@ export function OnboardingButton({
       )}
       onClick={onClick}
     >
-      <Title className="cursor-pointer text-white md:hidden" size="xs" weight="bold">
+      <Title className="cursor-pointer text-white lg:hidden" size="xs" weight="bold">
         🚀 {semesterName || ''} HI-ARC 참여하러 가기
       </Title>
-      <Title className="hidden cursor-pointer text-white md:block" size="sm" weight="bold">
+      <Title className="hidden cursor-pointer text-white lg:block" size="sm" weight="bold">
         🚀 {semesterName || ''} HI-ARC 참여하러 가기
       </Title>
     </button>

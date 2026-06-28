@@ -1,5 +1,5 @@
 import { StudentApply } from '@hiarc-platform/shared';
-import { Label } from '@hiarc-platform/ui';
+import { Label } from '@hiarc-platform/design-system';
 import { ColumnDef } from '@tanstack/react-table';
 import { ApprovalButton } from './approval-button';
 

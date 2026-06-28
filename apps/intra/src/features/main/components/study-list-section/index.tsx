@@ -1,6 +1,7 @@
 'use client';
 
-import { cn, StudyCard, Title } from '@hiarc-platform/ui';
+import { cn, Title } from '@hiarc-platform/design-system';
+import { StudyCard } from '@hiarc-platform/domain';
 import { useRouter } from 'next/navigation';
 import { useStudiesNow } from '../../hooks/use-studies-now';
 import { DateUtil } from '@hiarc-platform/shared';
@@ -17,10 +18,10 @@ export function StudyListSection({ className }: StudyListSectionProps): React.Re
     <div className={cn('flex w-full flex-col justify-center', className)}>
       <section className="">
         <div className="flex w-full justify-between">
-          <Title size="sm" weight="bold" className="hidden md:block">
+          <Title size="sm" weight="bold" className="hidden lg:block">
             스터디목록
           </Title>
-          <Title size="xs" weight="bold" className="md:hidden">
+          <Title size="xs" weight="bold" className="lg:hidden">
             스터디목록
           </Title>
           {studyList && studyList.length > 0 && (
@@ -35,7 +36,7 @@ export function StudyListSection({ className }: StudyListSectionProps): React.Re
           )}
         </div>
         {studyList && studyList.length > 0 ? (
-          <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
             {studyList.map((study) => (
               <StudyCard
                 key={study.studyId}

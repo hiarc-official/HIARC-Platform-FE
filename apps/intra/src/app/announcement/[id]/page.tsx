@@ -1,4 +1,4 @@
-import { PageLayout } from '@hiarc-platform/ui';
+import { PageLayout } from '@hiarc-platform/design-system';
 import {
   DesktopAnnouncementDetailPage,
   MobileAnnouncementDetailPage,
@@ -7,9 +7,9 @@ import { announcementApi } from '@/features/announcement/api/announcement';
 import { notFound } from 'next/navigation';
 
 interface PageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export async function generateStaticParams() {
@@ -30,13 +30,16 @@ export async function generateStaticParams() {
 export default async function AnnouncementDetail({
   params,
 }: PageProps): Promise<React.ReactElement> {
+  const { id } = await params;
   let announcement = null;
 
   try {
-    announcement = await announcementApi.GET_ANNOUNCEMENT(params.id);
-  } catch (error: any) {
+    announcement = await announcementApi.GET_ANNOUNCEMENT(id);
+  } catch (error: unknown) {
     // 404는 notFound 페이지로
-    if (error?.response?.status === 404 || error?.status === 404) {
+    const status = (error as { response?: { status?: number }; status?: number })?.response?.status
+      ?? (error as { status?: number })?.status;
+    if (status === 404) {
       notFound();
     }
     // 그 외 에러(403 권한 없음 등)는 클라이언트에서 처리
@@ -44,8 +47,8 @@ export default async function AnnouncementDetail({
 
   return (
     <PageLayout
-      desktopChildren={<DesktopAnnouncementDetailPage announcement={announcement} id={params.id} />}
-      mobileChildren={<MobileAnnouncementDetailPage announcement={announcement} id={params.id} />}
+      desktopChildren={<DesktopAnnouncementDetailPage announcement={announcement} id={id} />}
+      mobileChildren={<MobileAnnouncementDetailPage announcement={announcement} id={id} />}
     />
   );
 }

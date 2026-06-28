@@ -1,5 +1,6 @@
 import { AnnouncementSummary, DateUtil } from '@hiarc-platform/shared';
-import { Label, CategoryChip } from '@hiarc-platform/ui';
+import { Label } from '@hiarc-platform/design-system';
+import { CategoryChip } from '@hiarc-platform/domain';
 import { ColumnDef } from '@tanstack/react-table';
 
 function mapAnnouncementType(type: string): 'RATING' | 'STUDY' | 'ETC' | 'GENERAL' | 'EXTERNAL' {

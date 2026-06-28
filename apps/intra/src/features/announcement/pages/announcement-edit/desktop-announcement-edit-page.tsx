@@ -1,7 +1,7 @@
 'use client';
 
-import { AnnouncementDesktopHeader, AnnouncementWrite } from '@hiarc-platform/ui';
-import { LoadingDots } from '@hiarc-platform/ui';
+import { AnnouncementDesktopHeader, AnnouncementWrite } from '@hiarc-platform/domain';
+import { SkeletonTransition, FormSkeleton, useMinimumLoading } from '@hiarc-platform/design-system';
 import { useAnnouncementEditPageState } from '../../hooks/page/use-announcement-edit-page-state';
 
 export function DesktopAnnouncementEditPage(): React.ReactElement {
@@ -17,15 +17,9 @@ export function DesktopAnnouncementEditPage(): React.ReactElement {
     handleGoBack,
   } = useAnnouncementEditPageState();
 
-  // 로딩 중일 때
-  if (isLoading) {
-    return (
-      <div className="flex min-h-[400px] items-center justify-center">
-        <LoadingDots />
-      </div>
-    );
-  }
+  const showSkeleton = useMinimumLoading(isLoading);
 
+  // 로딩 중일 때
   // 에러가 발생했을 때
   if (error) {
     return (
@@ -36,17 +30,19 @@ export function DesktopAnnouncementEditPage(): React.ReactElement {
   }
 
   return (
-    <div className="flex w-full flex-col">
-      <AnnouncementDesktopHeader title={pageTitle} onBackClick={handleGoBack} className="pb-6" />
-      <AnnouncementWrite
-        announcementId={id}
-        initialStudyId={studyId}
-        announcement={announcement}
-        studyOptions={studyOptions}
-        disableCategoryChange={true}
-        disableStudyTypeChange={true}
-        onSubmit={handleSubmit}
-      />
-    </div>
+    <SkeletonTransition loading={showSkeleton} skeleton={<FormSkeleton />}>
+      <div className="flex w-full flex-col">
+        <AnnouncementDesktopHeader title={pageTitle} onBackClick={handleGoBack} className="pb-6" />
+        <AnnouncementWrite
+          announcementId={id}
+          initialStudyId={studyId}
+          announcement={announcement}
+          studyOptions={studyOptions}
+          disableCategoryChange={true}
+          disableStudyTypeChange={true}
+          onSubmit={handleSubmit}
+        />
+      </div>
+    </SkeletonTransition>
   );
 }

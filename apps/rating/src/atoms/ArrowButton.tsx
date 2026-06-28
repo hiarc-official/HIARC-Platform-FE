@@ -1,38 +1,35 @@
-import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
-const Button = styled.button`
-  display: flex;
-  justify-content: space-between;
-  flex-direction: space-between;
-  width: 92%;
-  background-color: #ffffff;
-  border: none;
-  border-radius: 20px;
-  height: 40px;
-  cursor: pointer;
-  padding: 3px 15px;
-  align-items: center;
-`;
+'use client';
+import { useRouter } from 'next/navigation';
+import { Label } from '@hiarc-platform/design-system';
 
-const DivContainer = styled.div`
-  font-size: 20px;
-`;
-
-const ArrowContainer = styled.div`
-  font-size: 20px;
-`;
-
-const ArrowButton = ({ divNum }: { divNum: number }) => {
-  const navigate = useNavigate();
-  const handleClick = () => {
-    navigate(`/div?num=${divNum}`);
-  };
+const ArrowButton = ({ divNum }: { divNum: number }): React.ReactElement => {
+  const router = useRouter();
   return (
-    <Button onClick={handleClick}>
-      <DivContainer>Div{divNum}</DivContainer>
-
-      <ArrowContainer>{'>'}</ArrowContainer>
-    </Button>
+    <button
+      type="button"
+      onClick={() => router.push(`/div?num=${divNum}`)}
+      className="group flex w-full cursor-pointer items-center justify-between"
+    >
+      <Label size="lg" weight="bold" selectable={false} className="cursor-pointer">
+        Div {divNum}
+      </Label>
+      <span className="flex items-center gap-0.5 text-sm text-gray-500 transition-colors group-hover:text-gray-900">
+        전체보기
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <path d="m9 18 6-6-6-6" />
+        </svg>
+      </span>
+    </button>
   );
 };
 

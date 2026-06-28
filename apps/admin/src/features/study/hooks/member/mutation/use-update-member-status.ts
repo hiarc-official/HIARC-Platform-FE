@@ -1,5 +1,5 @@
 import { useMutation, UseMutationResult } from '@tanstack/react-query';
-import { DialogUtil } from '@hiarc-platform/ui';
+import { DialogUtil } from '@hiarc-platform/design-system';
 import { RoundStatus } from '@hiarc-platform/shared/src/types/study/round-status';
 import { studyMemberApi } from '@/features/study/api';
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { cn, Divider, SlideFade, Tabs } from '@hiarc-platform/ui';
+import { cn, Divider, SlideFade, Tabs } from '@hiarc-platform/design-system';
 import { useState } from 'react';
 import { AnnouncementListItem } from './AnnouncementListItem';
 import { RatingListItem } from './RatingListItem';

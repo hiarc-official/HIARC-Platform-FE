@@ -1,10 +1,6 @@
 'use client';
 
-import {
-  AnnouncementContentSection,
-  AnnouncementIndicatorSection,
-  AnnouncementInfoSection,
-} from '@hiarc-platform/ui';
+import { AnnouncementContentSection, AnnouncementIndicatorSection, AnnouncementInfoSection } from '@hiarc-platform/domain';
 import { Announcement, AnnnouncementType } from '@hiarc-platform/shared';
 import { AnnouncementNavigationSection } from './components/announcement-navigation-section';
 import useAnnouncement from '../../hooks/query/use-announcement';

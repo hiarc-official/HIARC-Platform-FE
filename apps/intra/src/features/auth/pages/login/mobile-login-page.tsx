@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, Label, LoadingDots, Title } from '@hiarc-platform/ui';
+import { Button, Label, LoadingDots, Title } from '@hiarc-platform/design-system';
 import Image from 'next/image';
 import { useLoginPageState } from '@/features/auth/hooks/page/use-login-page-state';
 import { BrowserUtil } from '@hiarc-platform/shared';
@@ -37,7 +37,7 @@ export function MobileLoginPage(): React.ReactElement {
             📱 인앱 브라우저에서는 구글 로그인이 제한됩니다.
           </p>
           <p className="mt-1 text-xs text-yellow-600">
-            우측 상단 메뉴에서 "브라우저에서 열기"를 선택해주세요.
+            우측 상단 메뉴에서 &quot;브라우저에서 열기&quot;를 선택해주세요.
           </p>
         </div>
       )}

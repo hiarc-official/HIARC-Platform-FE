@@ -1,6 +1,6 @@
 'use client';
 
-import { StudyForm } from '@hiarc-platform/ui';
+import { StudyForm } from '@hiarc-platform/domain';
 import { useCreateStudy, useStudyInitialForm } from '@/features/study/hooks';
 import { useUpdateStudy } from '@/features/study/hooks';
 import { CreateStudyRequest } from '@hiarc-platform/shared';

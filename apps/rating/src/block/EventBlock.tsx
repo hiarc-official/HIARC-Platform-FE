@@ -1,55 +1,37 @@
-import styled from 'styled-components';
-import { useAtom } from 'jotai';
+'use client';
+
 import EventButton from '../components/EventButton';
 import EventEntity from '../atoms/EventEntity';
-import { hitingDataAtom } from '../store/Atom';
+import { useHitingData } from '@/hooks/use-hiting-data';
+import { Card, SkeletonTransition, useMinimumLoading } from '@hiarc-platform/design-system';
+import { RankRowsSkeleton } from '../components/skeletons';
 
-const Wrapper = styled.div`
-  width: 255px;
-  height: 342px;
-  background-color: #fffced;
-  border-radius: 28px;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  gap: 22.6px;
-  @media (max-width: 480px) {
-    width: 320px;
-  }
-`;
+const EventBlock = (): React.ReactElement => {
+  const { data: hitingData, isLoading } = useHitingData();
+  const loading = useMinimumLoading(isLoading);
 
-const ButtonContainer = styled.div`
-  margin-top: 15.18px;
-`;
-
-const MainContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const EventBlock = () => {
-  const [hitingData] = useAtom(hitingDataAtom);
-
-  const eventList = hitingData.eventRanking?.slice(0, 6) || [];
+  const eventList = hitingData?.eventRanking?.slice(0, 6) ?? [];
 
   return (
-    <Wrapper>
-      <ButtonContainer>
-        <EventButton />
-      </ButtonContainer>
-      <MainContainer>
-        {eventList.map((event, index) => (
-          <EventEntity
-            key={index}
-            handle={event.bojHandle}
-            tier={event.tier}
-            eventHiting={event.currentEventScore}
-            rank={index + 1}
-            memberId={event.memberId}
-          />
-        ))}
-      </MainContainer>
-    </Wrapper>
+    <Card className="flex min-h-[342px] w-[300px] flex-col rounded-2xl border border-gray-200 bg-white p-5 shadow-none max-lg:w-full">
+      <EventButton />
+      <div className="mt-4">
+        <SkeletonTransition loading={loading} skeleton={<RankRowsSkeleton count={6} />}>
+          <div className="flex flex-col">
+            {eventList.map((event, index) => (
+              <EventEntity
+                key={index}
+                handle={event.bojHandle}
+                tier={event.tier}
+                eventHiting={event.currentEventScore}
+                rank={index + 1}
+                memberId={event.memberId}
+              />
+            ))}
+          </div>
+        </SkeletonTransition>
+      </div>
+    </Card>
   );
 };
 

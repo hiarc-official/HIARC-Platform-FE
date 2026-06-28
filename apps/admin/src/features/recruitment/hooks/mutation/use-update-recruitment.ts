@@ -1,7 +1,7 @@
 import { useMutation, UseMutationResult, useQueryClient } from '@tanstack/react-query';
 
 import { UpdateRecruitmentRequest } from '@hiarc-platform/shared';
-import { DialogUtil } from '@hiarc-platform/ui';
+import { DialogUtil } from '@hiarc-platform/design-system';
 import { recruitmentApi } from '../../api';
 
 interface UpdateRecruitmentParams {

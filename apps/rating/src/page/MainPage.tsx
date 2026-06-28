@@ -1,99 +1,36 @@
-import LayOut from '../util/Layout';
+'use client';
+
 import DivBlock from '../block/DivBlock';
 import StreakBox from '../block/StreakBox';
 import EventBlock from '../block/EventBlock';
-import styled, { keyframes } from 'styled-components';
-import { useEffect } from 'react';
-import { useAtom } from 'jotai';
-import { fetchHitingData } from '../api/MainPageApi';
-import { loadingAtom, hitingDataAtom } from '../store/Atom';
+import { useHitingData } from '@/hooks/use-hiting-data';
+import { PageLayout, Title, Label } from '@hiarc-platform/design-system';
 
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-`;
-
-const AnimatedContainer = styled.div<{ $delay?: string }>`
-  opacity: 0;
-  animation: ${fadeIn} 1s ease-in-out forwards;
-  animation-delay: ${(props) => props.$delay || '0s'};
-`;
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-`;
-
-const MainHeader = styled.div`
-  font-size: 35px;
-  font-weight: 800;
-  text-align: left;
-
-  @media (max-width: 480px) {
-    width: 100%;
-    margin-left: 16px;
-  }
-`;
-
-const Down = styled.div`
-  display: flex;
-  gap: 20px;
-
-  @media (max-width: 480px) {
-    flex-direction: column-reverse;
-    gap: 52px;
-    align-items: center;
-    margin-bottom: 40px;
-  }
-`;
-
-const MainPage = () => {
-  const [loading, setLoading] = useAtom(loadingAtom);
-  const [hitingData, setHitingData] = useAtom(hitingDataAtom);
-
-  useEffect(() => {
-    if (!loading) return;
-
-    const fetchData = async () => {
-      try {
-        const data = await fetchHitingData();
-        setHitingData(data);
-        console.log(hitingData);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [loading]);
+const MainPage = (): React.ReactElement => {
+  // 자식들이 같은 queryKey로 useHitingData를 호출해 캐시를 공유하므로
+  // 여기서 한 번 호출해 프리패치만 트리거한다.
+  useHitingData();
 
   return (
-    <LayOut>
-      <Wrapper>
-        <MainHeader>Hiting</MainHeader>
+    <PageLayout containerClassName="flex-col items-stretch justify-start">
+      <div className="flex w-full flex-col gap-8">
+        <div>
+          <Title size="sm" weight="bold">
+            Hiting
+          </Title>
+          <Label size="sm" className="mt-1 block text-gray-600">
+            실시간 코딩 스트릭 · 레이팅
+          </Label>
+        </div>
 
-        <AnimatedContainer $delay="0.8s">
-          <DivBlock />
-        </AnimatedContainer>
-        <Down>
-          <AnimatedContainer $delay="1s">
-            <StreakBox />
-          </AnimatedContainer>
-          <AnimatedContainer $delay="1s">
-            <EventBlock />
-          </AnimatedContainer>
-        </Down>
-      </Wrapper>
-    </LayOut>
+        <DivBlock />
+
+        <div className="flex gap-6 max-lg:flex-col">
+          <StreakBox />
+          <EventBlock />
+        </div>
+      </div>
+    </PageLayout>
   );
 };
 

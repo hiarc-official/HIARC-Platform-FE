@@ -4,16 +4,7 @@ import { useEffect } from 'react';
 import { BojGuideButton } from '@/features/auth/components/boj-guide-button/boj-guide-button';
 import { useSignupPageState } from '@/features/auth/hooks/page/use-signup-page-state';
 import { Grade, AbsenceStatus } from '@/features/auth/types/request/signup-request';
-import {
-  Button,
-  FadeIn,
-  Label,
-  LabeledCheckboxList,
-  LabeledInput,
-  LabeledSelectButton,
-  LabeledSelector,
-  Title,
-} from '@hiarc-platform/ui';
+import { Button, FadeIn, Label, LabeledCheckboxList, LabeledInput, LabeledSelectButton, LabeledSelector, Title } from '@hiarc-platform/design-system';
 
 interface SelectData {
   value: string;

@@ -1,11 +1,5 @@
-import {
-  AddGroupDialog,
-  DialogUtil,
-  EditGroupDialog,
-  StudentList,
-  StudyGroupList,
-  StudyUnassignedGroup,
-} from '@hiarc-platform/ui';
+import { DialogUtil } from '@hiarc-platform/design-system';
+import { AddGroupDialog, EditGroupDialog, StudentList, StudyGroupList, StudyUnassignedGroup } from '@hiarc-platform/domain';
 
 import { CreateGroupRequest, StudyGroup } from '@hiarc-platform/shared';
 import { useCreateGroup } from '../../hooks/study-instructor/mutation/use-create-group';

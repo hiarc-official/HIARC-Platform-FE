@@ -1,8 +1,8 @@
 'use client';
 
-import { Button, DialogUtil, FadeIn } from '@hiarc-platform/ui';
+import { Button, DialogUtil, FadeIn } from '@hiarc-platform/design-system';
 import { useRouter, usePathname } from 'next/navigation';
-import { IconButton } from '@hiarc-platform/ui';
+import { IconButton } from '@hiarc-platform/design-system';
 import useLogout from '@/features/auth/hooks/mutation/use-logout';
 import useRecruitNotificationRead from '@/features/auth/hooks/mutation/use-recruit-notification-read';
 import { authApi } from '@/features/auth/api/auth';

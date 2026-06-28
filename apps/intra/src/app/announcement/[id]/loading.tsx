@@ -1,9 +1,9 @@
-import { LoadingDots } from '@hiarc-platform/ui';
+import { DetailPageSkeleton, PageLayout } from '@hiarc-platform/design-system';
 
 export default function Loading(): React.ReactElement {
   return (
-    <div className="flex min-h-screen items-center justify-center">
-      <LoadingDots size="lg" />
-    </div>
+    <PageLayout>
+      <DetailPageSkeleton />
+    </PageLayout>
   );
 }

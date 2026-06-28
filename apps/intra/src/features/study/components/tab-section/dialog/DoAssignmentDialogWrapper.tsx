@@ -1,5 +1,5 @@
 import { useAssignment } from '@/features/study/hooks';
-import { DoAssignmentDialog } from '@hiarc-platform/ui';
+import { DoAssignmentDialog } from '@hiarc-platform/domain';
 
 interface DoAssignmentDialogWrapperProps {
   studyId: number;

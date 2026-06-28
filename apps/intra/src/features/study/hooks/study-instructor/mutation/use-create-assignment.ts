@@ -1,6 +1,6 @@
 import { useMutation, UseMutationResult, useQueryClient } from '@tanstack/react-query';
 import { CreateAssignmentRequest } from '@hiarc-platform/shared/src/types/study/create-assignment-request';
-import { DialogUtil } from '@hiarc-platform/ui';
+import { DialogUtil } from '@hiarc-platform/design-system';
 import { studyInstructorApi } from '@/features/study/api';
 
 export function useCreateAssignment(): UseMutationResult<

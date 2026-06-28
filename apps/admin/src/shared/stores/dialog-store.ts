@@ -2,8 +2,8 @@ import { create } from 'zustand';
 
 interface DialogState {
   isUnauthorizedDialogOpen: boolean;
-  showUnauthorizedDialog: () => void;
-  hideUnauthorizedDialog: () => void;
+  showUnauthorizedDialog(): void;
+  hideUnauthorizedDialog(): void;
 }
 
 export const useDialogStore = create<DialogState>((set) => ({

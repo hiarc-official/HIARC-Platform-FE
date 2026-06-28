@@ -1,4 +1,4 @@
-import { Button, LabeledInput } from '@hiarc-platform/ui';
+import { Button, LabeledInput } from '@hiarc-platform/design-system';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 

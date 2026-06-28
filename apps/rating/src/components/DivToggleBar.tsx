@@ -1,18 +1,8 @@
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import DivButton from '../block/DivButton';
-import Color from '../util/Color';
-import { Dispatch, SetStateAction } from 'react';
+'use client';
 
-const Wrapper = styled.div`
-  display: flex;
-  width: 181px;
-  height: 30px;
-  background-color: ${Color.primary};
-  justify-content: center;
-  align-items: center;
-  border-radius: 15px;
-`;
+import { useRouter } from 'next/navigation';
+import { Dispatch, SetStateAction } from 'react';
+import { SegmentedControl } from '@hiarc-platform/design-system';
 
 const DivToggleBar = ({
   setSelected,
@@ -20,20 +10,25 @@ const DivToggleBar = ({
 }: {
   setSelected: Dispatch<SetStateAction<number>>;
   selected: number;
-}) => {
-  const navigate = useNavigate();
+}): React.ReactElement => {
+  const router = useRouter();
 
-  const handleClick = (div: number) => {
+  const handleChange = (div: number): void => {
     setSelected(div);
-    navigate(`/div?num=${div}`);
+    router.push(`/div?num=${div}`);
   };
 
   return (
-    <Wrapper>
-      <DivButton div={1} onClick={() => handleClick(1)} isSelected={selected === 1} />
-      <DivButton div={2} onClick={() => handleClick(2)} isSelected={selected === 2} />
-      <DivButton div={3} onClick={() => handleClick(3)} isSelected={selected === 3} />
-    </Wrapper>
+    <SegmentedControl
+      aria-label="디비전 선택"
+      value={selected}
+      onChange={handleChange}
+      options={[
+        { label: 'Div 1', value: 1 },
+        { label: 'Div 2', value: 2 },
+        { label: 'Div 3', value: 3 },
+      ]}
+    />
   );
 };
 

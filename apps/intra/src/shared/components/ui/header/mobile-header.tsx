@@ -1,20 +1,9 @@
 'use client';
 
-import {
-  Button,
-  cn,
-  IconButton,
-  Input,
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@hiarc-platform/ui';
+import { Button, cn, IconButton, Input, Label, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@hiarc-platform/design-system';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { AuthenticatedMobileSection } from './authenticated-mobile-section';
 import { myApi } from '@/features/member/api/member';
@@ -25,19 +14,25 @@ interface MobileHeaderProps {
   setSearchInput(value: string): void;
 }
 
+const RATING_URL = 'https://rating.hiarc-official.com';
+
 export function MobileHeader({
   isAuthenticated,
   searchInput,
   setSearchInput,
 }: MobileHeaderProps): React.ReactElement {
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showError, setShowError] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();
   const [isFetching, setIsFetching] = useState(false);
 
   const handleLogin = (): void => {
     router.push('/login');
   };
+
+  const isActive = (path: string): boolean => pathname.startsWith(`/${path}`);
 
   const handleSearch = async (handle: string): Promise<void> => {
     if (!handle.trim()) {
@@ -71,7 +66,7 @@ export function MobileHeader({
 
   return (
     <>
-      <div className="block w-full md:hidden">
+      <div className="block w-full lg:hidden">
         <div
           className={cn(
             'flex w-full items-center justify-between',
@@ -110,6 +105,13 @@ export function MobileHeader({
             <Image src="/shared-assets/Logo.svg" alt="HiarcLogo" width={86} height={21} />
           </Link>
           <div className="flex items-center gap-2">
+            <IconButton
+              size="lg"
+              iconSrc={isMenuOpen ? '/shared-assets/Close.svg' : '/shared-assets/Hamburger.svg'}
+              aria-label={isMenuOpen ? '메뉴 닫기' : '메뉴'}
+              onClick={() => setIsMenuOpen((open) => !open)}
+            />
+
             {isAuthenticated && (
               <IconButton
                 size="lg"
@@ -128,10 +130,55 @@ export function MobileHeader({
             )}
           </div>
         </div>
+
+        {!isMobileSearchOpen && isMenuOpen && (
+          <nav className="mt-2 flex flex-col border-t border-gray-200 pt-2">
+            <Link
+              href="/announcement"
+              className="rounded-md px-2 py-2.5 hover:bg-gray-50"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              <Label
+                weight="bold"
+                selectable={false}
+                className={cn(
+                  'cursor-pointer',
+                  isActive('announcement') ? 'text-gray-900' : 'text-gray-700'
+                )}
+              >
+                공지사항
+              </Label>
+            </Link>
+            <Link
+              href="/study"
+              className="rounded-md px-2 py-2.5 hover:bg-gray-50"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              <Label
+                weight="bold"
+                selectable={false}
+                className={cn('cursor-pointer', isActive('study') ? 'text-gray-900' : 'text-gray-700')}
+              >
+                스터디
+              </Label>
+            </Link>
+            <a
+              href={RATING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-md px-2 py-2.5 hover:bg-gray-50"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              <Label weight="bold" selectable={false} className="cursor-pointer text-gray-700">
+                하이팅
+              </Label>
+            </a>
+          </nav>
+        )}
       </div>
 
       {isMobileSearchOpen && (
-        <div className="fixed inset-0 z-50 bg-white md:hidden">
+        <div className="fixed inset-0 z-50 bg-white lg:hidden">
           <div className="flex h-full flex-col">
             <div className="flex-1 overflow-y-auto">
               <div className="flex items-center gap-2 border-b border-gray-200 px-5 py-2">

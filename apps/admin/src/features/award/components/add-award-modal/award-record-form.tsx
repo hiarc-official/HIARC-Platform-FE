@@ -1,5 +1,5 @@
 'use client';
-import { Button, LabeledInput, LabeledSelectButton, DialogUtil } from '@hiarc-platform/ui';
+import { Button, LabeledInput, LabeledSelectButton, DialogUtil } from '@hiarc-platform/design-system';
 import { useState } from 'react';
 import { useUpdateAwardHandle } from '../../hooks/use-validate-award-handle';
 
