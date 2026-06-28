@@ -1,38 +1,36 @@
-import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
-const Wrapper = styled.div`
-  width: 696px;
-  height: 40px;
-  border: none;
-  border-radius: 20px;
-  background-color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+'use client';
 
-  cursor: pointer;
-  .left {
-    margin-left: 16px;
-  }
-  .right {
-    margin-right: 13px;
-  }
-  @media (max-width: 480px) {
-    width: 284px;
-  }
-`;
+import { useRouter } from 'next/navigation';
+import { Label } from '@hiarc-platform/design-system';
 
-const StreakBoxArrowButton = () => {
-  const navigate = useNavigate();
-  const handleClick = () => {
-    navigate(`/streak`);
-  };
+const StreakBoxArrowButton = (): React.ReactElement => {
+  const router = useRouter();
   return (
-    <Wrapper onClick={handleClick}>
-      <div className="left">Streak</div>
-
-      <div className="right">{`>`}</div>
-    </Wrapper>
+    <button
+      type="button"
+      onClick={() => router.push('/streak')}
+      className="group flex w-full cursor-pointer items-center justify-between"
+    >
+      <Label size="lg" weight="bold" selectable={false} className="cursor-pointer">
+        Streak
+      </Label>
+      <span className="flex items-center gap-0.5 text-sm text-gray-500 transition-colors group-hover:text-gray-900">
+        전체보기
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <path d="m9 18 6-6-6-6" />
+        </svg>
+      </span>
+    </button>
   );
 };
 

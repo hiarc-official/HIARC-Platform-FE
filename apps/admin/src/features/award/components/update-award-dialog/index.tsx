@@ -1,18 +1,6 @@
 'use client';
 
-import {
-  Button,
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogUtil,
-  Label,
-  LabeledCalanderInput,
-  LabeledInput,
-  LabeledSelectButton,
-} from '@hiarc-platform/ui';
+import { Button, Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogUtil, Label, LabeledCalanderInput, LabeledInput, LabeledSelectButton } from '@hiarc-platform/design-system';
 import React from 'react';
 import { useUpdateAward } from '../../hooks/use-update-award';
 import { UpdateAwardRequest } from '../../types/request/update-award-request';

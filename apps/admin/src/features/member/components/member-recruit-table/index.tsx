@@ -1,4 +1,4 @@
-import { cn, CommonTableBody, CommonTableHead, Pagination, SlideFade } from '@hiarc-platform/ui';
+import { cn, CommonTableBody, CommonTableHead, Pagination, SlideFade } from '@hiarc-platform/design-system';
 import { useTable } from '@hiarc-platform/shared';
 import { useMemo, useState } from 'react';
 import { getStudentApplyListColumns } from './student-apply-list-column';

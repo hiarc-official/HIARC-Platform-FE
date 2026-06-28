@@ -1,22 +1,16 @@
-import LayOut from '../util/Layout';
-import styled from 'styled-components';
+import { Label, PageLayout, Title } from '@hiarc-platform/design-system';
 
-export const Title = styled.div`
-  font-weight: 700;
-  font-size: 50px;
-`;
-
-export const Contents = styled.div`
-  font-weight: 400;
-  font-size: 20px;
-  margin-top: 40px;
-`;
-
-export const SorryPage = () => {
-  return (
-    <LayOut>
-      <Title>하이팅 서비스 점검중입니다.</Title>
-      <Contents>다음학기에 다시 찾아와주세요!</Contents>
-    </LayOut>
-  );
-};
+export const SorryPage = () => (
+  <PageLayout containerClassName="flex-col items-stretch justify-start">
+    <div className="flex w-full flex-col gap-8">
+      <div>
+        <Title size="sm" weight="bold">
+          하이팅 서비스 점검중입니다
+        </Title>
+        <Label size="sm" className="mt-1 block text-gray-600">
+          다음학기에 다시 찾아와주세요!
+        </Label>
+      </div>
+    </div>
+  </PageLayout>
+);

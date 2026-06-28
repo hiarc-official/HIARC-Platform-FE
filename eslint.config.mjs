@@ -146,7 +146,7 @@ const eslintConfig = [
         },
       ],
       '@typescript-eslint/no-explicit-any': [
-        'warn',
+        'error',
         {
           fixToUnknown: true,
         },

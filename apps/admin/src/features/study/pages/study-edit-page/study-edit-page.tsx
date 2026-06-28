@@ -2,7 +2,7 @@
 
 import { StudyFormWrapper } from '../../components/study-form-wrapper.tsx/StudyFormWrapper';
 import { useParams, useRouter } from 'next/navigation';
-import { BackButton, Divider, Title } from '@hiarc-platform/ui';
+import { BackButton, Divider, Title } from '@hiarc-platform/design-system';
 
 export function StudyEditPage(): React.ReactElement {
   const router = useRouter();

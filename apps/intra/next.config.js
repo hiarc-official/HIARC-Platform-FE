@@ -1,13 +1,22 @@
+const path = require('path');
+
+const workspaceRoot = path.join(__dirname, '../..');
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ['@hiarc-platform/ui', '@hiarc-platform/shared'],
-  
+  transpilePackages: ['@hiarc-platform/design-system', '@hiarc-platform/domain', '@hiarc-platform/shared'],
+
+  // 홈 디렉터리의 떠돌이 lockfile을 워크스페이스 루트로 오인하지 않도록 명시
+  outputFileTracingRoot: workspaceRoot,
+
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production'
   },
 
   experimental: {
-    optimizeCss: true
+    optimizeCss: true,
+    // 배럴 임포트(@hiarc-platform/ui 등)를 직접 임포트로 변환해 트리쉐이킹 강화
+    optimizePackageImports: ['@hiarc-platform/design-system', '@hiarc-platform/domain', '@hiarc-platform/shared'],
   },
 
   webpack: (config, { isServer }) => {

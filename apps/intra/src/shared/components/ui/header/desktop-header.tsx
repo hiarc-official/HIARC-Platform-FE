@@ -1,16 +1,6 @@
 'use client';
 
-import {
-  Button,
-  Input,
-  Label,
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@hiarc-platform/ui';
+import { Button, Input, Label, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@hiarc-platform/design-system';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
@@ -70,7 +60,7 @@ export function DesktopHeader({
   const isActive = (path: string): boolean => pathname.startsWith(`/${path}`);
 
   return (
-    <div className="hidden w-full items-center justify-between md:flex">
+    <div className="hidden w-full items-center justify-between lg:flex">
       <div className="flex items-center gap-8">
         <Link href="/" className="rounded-lg p-2 transition-colors hover:bg-gray-100">
           <Image

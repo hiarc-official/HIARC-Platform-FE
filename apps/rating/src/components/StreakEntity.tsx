@@ -1,101 +1,9 @@
+'use client';
+
+import { Card, Label } from '@hiarc-platform/design-system';
 import InfoEntity from '../atoms/InfoEntity';
-import styled from 'styled-components';
 import CircularProgress from '../atoms/CircularProgress';
-import Color from '../util/Color';
 import { NumberToStreakColor } from '../util/NumberToStreakColor';
-
-const Wrapper = styled.div`
-  width: 460px;
-  display: flex;
-  flex-direction: column;
-  cursor: pointer;
-`;
-const DownWrapper = styled.div`
-  margin-top: 16px;
-  display: flex;
-  gap: 24.33px;
-`;
-const Left = styled.div`
-  width: 63px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-`;
-const Right = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 9px;
-`;
-const RightDown = styled.div`
-  display: flex;
-  gap: 22px;
-`;
-
-const Border = styled.div<{ $borderColor: string }>`
-  font-size: 10px;
-  border: 0.5px solid ${(props) => props.$borderColor};
-  border-radius: 12px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0px 8px;
-  flex-wrap: nowrap;
-  margin-bottom: 3px;
-  height: 20px;
-`;
-
-const Borders = styled.div`
-  display: flex;
-  gap: 4px;
-`;
-const Days = styled.div`
-  margin-top: 13px;
-  width: 73px;
-  height: 35px;
-  display: flex;
-  align-items: flex-end;
-  font-size: 15px;
-  font-weight: 900;
-  .big {
-    font-size: 35px;
-  }
-  .small {
-    margin-bottom: 4px;
-  }
-`;
-
-const StreakGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(20, 13px);
-  gap: 1px;
-  width: fit-content;
-  max-width: 273px;
-  height: fit-content;
-  @media (max-width: 480px) {
-    grid-template-columns: repeat(10, 13px);
-    max-width: 139px;
-  }
-`;
-const StreakBox = styled.div`
-  width: 13px;
-  height: 13px;
-
-  border-radius: 2px;
-`;
-const Up = styled.div`
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-`;
-const Devider = styled.div`
-  width: 98%;
-  border-bottom: 1px solid ${Color.primary};
-  margin-top: -1px;
-  margin-left: 12px;
-  @media (max-width: 480px) {
-    width: 92%;
-  }
-`;
 
 const StreakEntity = ({
   seasonStreak,
@@ -117,38 +25,61 @@ const StreakEntity = ({
   memberId: number;
 }) => {
   const handleClick = () => {
-    window.location.href = `${import.meta.env.VITE_INTRA_API_URL}/member/${memberId}`;
+    window.location.href = `${process.env.NEXT_PUBLIC_INTRA_API_URL}/member/${memberId}`;
   };
   return (
-    <Wrapper onClick={handleClick}>
-      <Up>
+    <Card
+      className="flex w-full cursor-pointer flex-col rounded-xl border border-gray-200 bg-white p-4 shadow-none transition-colors hover:border-gray-300"
+      onClick={handleClick}
+    >
+      <div className="flex w-full flex-col">
         <InfoEntity handle={handle} div={div} tier={tier} />
-        <Devider></Devider>
-      </Up>
-      <DownWrapper>
-        <Left>
-          <Border $borderColor={Color.graySub3}>이번 시즌</Border>
+        <div className="ml-3 mt-[-1px] w-[98%] border-b border-gray-200"></div>
+      </div>
+      <div className="mt-4 flex gap-[24.33px]">
+        <div className="flex w-[63px] flex-col gap-[6px]">
+          <div className="mb-[3px] flex h-5 flex-nowrap items-center justify-center rounded-[12px] border border-gray-200 px-2">
+            <Label size="xs" className="text-gray-600">
+              이번 시즌
+            </Label>
+          </div>
           <CircularProgress value={seasonStreak} maxValue={seasonTotal} width={60} height={60} />
-        </Left>
-        <Right>
-          <Borders>
-            <Border $borderColor={Color.graySub3}>누적</Border>
-            {startDate && <Border $borderColor={Color.primary}>{startDate} 부터</Border>}
-          </Borders>
-          <RightDown>
-            <Days>
-              <div className="big">{totalStreak}</div>
-              <div className="small">일</div>
-            </Days>
-            <StreakGrid>
+        </div>
+        <div className="flex flex-col gap-[9px]">
+          <div className="flex gap-1">
+            <div className="mb-[3px] flex h-5 flex-nowrap items-center justify-center rounded-[12px] border border-gray-200 px-2">
+              <Label size="xs" className="text-gray-600">
+                누적
+              </Label>
+            </div>
+            {startDate && (
+              <div className="mb-[3px] flex h-5 flex-nowrap items-center justify-center rounded-[12px] border border-primary-300 px-2">
+                <Label size="xs" className="text-primary-300">
+                  {startDate} 부터
+                </Label>
+              </div>
+            )}
+          </div>
+          <div className="flex gap-[22px]">
+            <div className="mt-[13px] flex h-[35px] w-[73px] items-baseline">
+              <span className="text-[35px] font-bold leading-none text-primary-300 tabular-nums">
+                {totalStreak}
+              </span>
+              <span className="ml-1 text-sm text-gray-600">일</span>
+            </div>
+            <div className="grid grid-cols-[repeat(20,13px)] gap-px w-fit max-w-[273px] h-fit max-[480px]:grid-cols-[repeat(10,13px)] max-[480px]:max-w-[139px]">
               {Array.from({ length: totalStreak }, (_, i) => (
-                <StreakBox key={i} style={{ backgroundColor: NumberToStreakColor(tier) }} />
+                <div
+                  key={i}
+                  className="w-[13px] h-[13px] rounded-[2px]"
+                  style={{ backgroundColor: NumberToStreakColor(tier) }}
+                />
               ))}
-            </StreakGrid>
-          </RightDown>
-        </Right>
-      </DownWrapper>
-    </Wrapper>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Card>
   );
 };
 

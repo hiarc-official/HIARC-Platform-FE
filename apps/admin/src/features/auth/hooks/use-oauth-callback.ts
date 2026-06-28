@@ -1,7 +1,11 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { DialogUtil } from '@hiarc-platform/design-system';
 import { authApi } from '../api/auth';
 import { useAuthStore } from '../../../shared/stores/auth-store';
+
+// 콜백 쿼리로 전달된 email 값을 신뢰하지 않고 형식을 검증한 뒤 사용
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export function useOAuthCallback(): { isProcessing: boolean } {
   const router = useRouter();
@@ -22,7 +26,7 @@ export function useOAuthCallback(): { isProcessing: boolean } {
 
         if (needSignup === 'true') {
           // 회원가입이 필요한 경우 - OAuth 실패 페이지로 이동
-          if (email) {
+          if (email && EMAIL_REGEX.test(email)) {
             sessionStorage.setItem('signupEmail', email);
           }
           router.push('/oauth-fail/signup');
@@ -31,10 +35,15 @@ export function useOAuthCallback(): { isProcessing: boolean } {
           try {
             const getMeResponse = await authApi.GET_ME();
 
-            // adminRole이 NONE인 경우 권한 없음 페이지로 이동
-            if (getMeResponse.adminRole === 'NONE') {
+            // 관리자 자격(adminRole)이 없는 경우 → 모달 후 로그인 페이지로 돌려보냄
+            if (!getMeResponse.adminRole || getMeResponse.adminRole === 'NONE') {
               clearAuth();
-              router.push('/oauth-fail/permission');
+              if (typeof window !== 'undefined') {
+                localStorage.removeItem('auth-storage');
+              }
+              DialogUtil.showError('접근 권한이 없는 계정입니다. 다시 로그인해주세요.', () => {
+                router.replace('/login');
+              });
               return;
             }
 

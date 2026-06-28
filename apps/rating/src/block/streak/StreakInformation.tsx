@@ -1,95 +1,40 @@
-import styled from 'styled-components';
-
-const Wrapper = styled.div`
-  display: flex;
-  gap: 16px;
-  align-items: center;
-  position: relative;
-
-  @media (max-width: 480px) {
-    justify-content: space-between;
-    gap: 0;
-  }
-`;
-const Card = styled.div`
-  padding: 16px;
-  display: flex;
-  gap: 8px;
-  flex-direction: column;
-  width: 100%;
-
-  @media (max-width: 480px) {
-    flex: 1;
-    text-align: center;
-  }
-`;
-
-const Up = styled.div`
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 1.5;
-`;
-
-const Down = styled.div`
-  display: flex;
-  align-items: center;
-
-  @media (max-width: 480px) {
-    justify-content: center;
-  }
-`;
-const Number = styled.div`
-  font-size: 24px;
-  line-height: 1.5;
-  font-weight: 700;
-`;
-const Days = styled.div`
-  font-size: 16px;
-  line-height: 1.5;
-  font-weight: 400;
-`;
-
-const Devider = styled.div`
-  height: 50px;
-  width: 1px;
-  background-color: #dedeeb;
-
-  @media (max-width: 480px) {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-`;
+import { Label } from '@hiarc-platform/design-system';
 
 interface Props {
   currentTotalStreak: number;
   currentSeasonStreak: number | null;
 }
 
-const StreakInformation = ({ currentTotalStreak, currentSeasonStreak }: Props) => {
-  return (
-    <Wrapper>
-      <Card>
-        <Up>누적</Up>
-        <Down>
-          <Number>{currentTotalStreak}</Number>
-          <Days>days</Days>
-        </Down>
-      </Card>
+const StreakInformation = ({ currentTotalStreak, currentSeasonStreak }: Props) => (
+    <div className="relative mt-4 flex items-center gap-4 max-[480px]:justify-between max-[480px]:gap-0">
+      <div className="flex w-full flex-col gap-2 p-4 max-[480px]:flex-1 max-[480px]:text-center">
+        <Label size="sm" weight="regular" className="text-gray-600">
+          누적
+        </Label>
+        <div className="flex items-baseline gap-1 max-[480px]:justify-center">
+          <span className="text-[24px] font-bold leading-none text-primary-300 tabular-nums">
+            {currentTotalStreak}
+          </span>
+          <span className="text-sm text-gray-600">days</span>
+        </div>
+      </div>
       {currentSeasonStreak !== null && (
         <>
-          <Devider></Devider>
-          <Card>
-            <Up>이번시즌</Up>
-            <Down>
-              <Number>{currentSeasonStreak}</Number>
-              <Days>days</Days>
-            </Down>
-          </Card>
+          <div className="h-[50px] w-px bg-gray-200 max-[480px]:absolute max-[480px]:left-1/2 max-[480px]:-translate-x-1/2"></div>
+          <div className="flex w-full flex-col gap-2 p-4 max-[480px]:flex-1 max-[480px]:text-center">
+            <Label size="sm" weight="regular" className="text-gray-600">
+              이번시즌
+            </Label>
+            <div className="flex items-baseline gap-1 max-[480px]:justify-center">
+              <span className="text-[24px] font-bold leading-none text-primary-300 tabular-nums">
+                {currentSeasonStreak}
+              </span>
+              <span className="text-sm text-gray-600">days</span>
+            </div>
+          </div>
         </>
       )}
-    </Wrapper>
+    </div>
   );
-};
 
 export default StreakInformation;

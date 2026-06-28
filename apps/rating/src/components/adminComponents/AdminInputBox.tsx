@@ -1,44 +1,10 @@
-import styled from 'styled-components';
-import Color from '../../util/Color';
+'use client';
+
+import { Button, Card, Input } from '@hiarc-platform/design-system';
 import { useState } from 'react';
 import { getAdminHandleStats } from '../../api/AdminApi';
 import { blockNameToCode } from '../../util/CheckAdminName';
 import { Modal } from '../Modal';
-const Wrapper = styled.div`
-  overflow: visible;
-`;
-const InputBox = styled.div`
-  background-color: ${Color.yellowBackground};
-  width: 454px;
-  height: 60px;
-  display: flex;
-  gap: 40px;
-  align-items: center;
-`;
-const Input = styled.input`
-  height: 30px;
-  width: 70%;
-  background-color: inherit;
-  border: none;
-  margin-top: 10px;
-  box-sizing: border-box;
-  resize: none;
-  font-size: 20px;
-  margin-left: 10px;
-`;
-const Button = styled.button`
-  background-color: #ffa5a5;
-  border: none;
-  border-radius: 10px;
-  font-size: 12px;
-  font-weight: 700;
-  padding: 12px;
-  margin-top: 10px;
-  cursor: pointer;
-  &:hover {
-    background-color: #0af;
-  }
-`;
 
 export const AdminInputBox = ({ blockName }: { blockName: string }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -72,12 +38,18 @@ export const AdminInputBox = ({ blockName }: { blockName: string }) => {
     }
   };
   return (
-    <Wrapper>
-      <InputBox>
-        <Input placeholder="핸들을 입력하세요" value={handle} onChange={handleInputChange} />
-        <Button onClick={onClick}>입력하기</Button>
-      </InputBox>
+    <div className="overflow-visible">
+      <Card className="flex w-full max-w-[454px] flex-row items-center gap-4 rounded-xl border border-gray-200 bg-white p-4 shadow-none">
+        <Input
+          placeholder="핸들을 입력하세요"
+          value={handle}
+          onChange={handleInputChange}
+        />
+        <Button size="sm" onClick={onClick}>
+          입력하기
+        </Button>
+      </Card>
       {isModalOpen ? <Modal content={modalContent} onClose={() => setIsModalOpen(false)} /> : ''}
-    </Wrapper>
+    </div>
   );
 };

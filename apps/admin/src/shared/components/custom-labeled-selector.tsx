@@ -1,16 +1,9 @@
 'use client';
 
 import { SelectOption } from '@hiarc-platform/shared';
-import { cn } from '@hiarc-platform/ui';
-import { Label } from '@hiarc-platform/ui';
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@hiarc-platform/ui';
+import { cn } from '@hiarc-platform/design-system';
+import { Label } from '@hiarc-platform/design-system';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@hiarc-platform/design-system';
 
 interface CustomLabeledSelectorProps {
   placeholder: string;

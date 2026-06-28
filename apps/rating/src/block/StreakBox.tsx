@@ -1,72 +1,41 @@
-import styled from 'styled-components';
+'use client';
+
 import { useState, useEffect } from 'react';
-import { useAtom } from 'jotai';
-import Color from '../util/Color';
 import IndividualBlock from '../components/IndividualBlock';
 import StreakBoxArrowButton from '../components/StreakBoxArrowButton';
-import { hitingDataAtom, loadingAtom } from '../store/Atom';
+import { useHitingData } from '@/hooks/use-hiting-data';
 import { parseDivisionString } from '../util/parseDivision';
+import { Card, SkeletonTransition, useMinimumLoading } from '@hiarc-platform/design-system';
+import { StreakCardsSkeleton } from '../components/skeletons';
 
-const Wrapper = styled.div`
-  width: 725px;
-  border-radius: 28px;
-  background-color: ${Color.skybox};
-  min-height: 342px;
-  min-width: 320px;
-  display: flex;
-  flex-direction: column;
-
-  @media (max-width: 480px) {
-    width: 320px;
-  }
-`;
-
-const ButtonWrapper = styled.div`
-  width: 100%;
-  margin-top: 15px;
-  display: flex;
-  justify-content: center;
-`;
-
-const Individuals = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  align-items: flex-start;
-  flex-grow: 1;
-  padding: 12px 18px;
-`;
-
-const StreakBox = () => {
-  const [hitingData] = useAtom(hitingDataAtom);
-  const [loading] = useAtom(loadingAtom);
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 480);
+const StreakBox = (): React.ReactElement => {
+  const { data: hitingData, isLoading } = useHitingData();
+  const loading = useMinimumLoading(isLoading);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => {
+    const handleResize = (): void => {
       setIsMobile(window.innerWidth <= 480);
     };
 
+    handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const streakList = hitingData.streakRanking?.slice(0, 6) || [];
+  const streakList = hitingData?.streakRanking?.slice(0, 6) ?? [];
   const displayedBlocks = isMobile ? streakList.slice(0, 4) : streakList;
 
   return (
-    <Wrapper>
-      <ButtonWrapper>
-        <StreakBoxArrowButton />
-      </ButtonWrapper>
-      {loading ? (
-        <p style={{ textAlign: 'center', padding: '20px' }}>로딩 중...</p>
-      ) : (
-        <Individuals>
-          {displayedBlocks.map((streak) => {
-            return (
+    <Card className="flex min-h-[342px] w-full min-w-0 flex-1 flex-col rounded-2xl border border-gray-200 bg-white p-5 shadow-none">
+      <StreakBoxArrowButton />
+      <div className="mt-4">
+        <SkeletonTransition
+          loading={loading}
+          skeleton={<StreakCardsSkeleton count={isMobile ? 4 : 6} />}
+        >
+          <div className="grid grid-cols-3 gap-3 max-[900px]:grid-cols-2 max-[480px]:grid-cols-1">
+            {displayedBlocks.map((streak) => (
               <IndividualBlock
                 key={streak.bojHandle}
                 tier={streak.tier}
@@ -76,11 +45,11 @@ const StreakBox = () => {
                 startDate={streak.streak.streakStartAt}
                 memberId={streak.memberId}
               />
-            );
-          })}
-        </Individuals>
-      )}
-    </Wrapper>
+            ))}
+          </div>
+        </SkeletonTransition>
+      </div>
+    </Card>
   );
 };
 

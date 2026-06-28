@@ -1,5 +1,5 @@
-import { cn, Label, LabeledSelector, Tabs, Button } from '@hiarc-platform/ui';
-import { AttendanceTable } from '@hiarc-platform/ui/src/components/table/attendance-table';
+import { cn, Label, LabeledSelector, Tabs, Button } from '@hiarc-platform/design-system';
+import { AttendanceTable } from '@hiarc-platform/domain';
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';

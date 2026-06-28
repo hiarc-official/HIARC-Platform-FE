@@ -1,11 +1,4 @@
-import {
-  cn,
-  CommonTableBody,
-  CommonTableHead,
-  Pagination,
-  DialogUtil,
-  SlideFade,
-} from '@hiarc-platform/ui';
+import { cn, CommonTableBody, CommonTableHead, Pagination, DialogUtil, SlideFade } from '@hiarc-platform/design-system';
 import { useTable } from '@hiarc-platform/shared';
 import { useCallback, useMemo, useState } from 'react';
 import { PageableModel, Student } from '@hiarc-platform/shared';

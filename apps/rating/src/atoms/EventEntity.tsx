@@ -1,43 +1,6 @@
-import styled from 'styled-components';
+'use client';
+import { Label } from '@hiarc-platform/design-system';
 import TierImg from '../util/TierImg';
-import Color from '../util/Color';
-
-const Wrapper = styled.div`
-  padding-left: 5px;
-  width: 226px;
-  min-height: 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 14px;
-  font-weight: 400;
-  cursor: pointer;
-  border-bottom: 1px solid ${Color.primary};
-  @media (max-width: 480px) {
-    width: 284px;
-  }
-`;
-
-const Information = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 147px;
-`;
-
-const NumAndId = styled.div`
-  width: 226px;
-  display: flex;
-  margin-right: 60px;
-  .ID {
-    width: 80px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-  }
-  .Rank {
-    width: 20px;
-  }
-`;
 
 const EventEntity = ({
   rank,
@@ -51,25 +14,33 @@ const EventEntity = ({
   tier: number;
   eventHiting: number;
   memberId: number;
-}) => {
-  const handleClick = () => {
-    window.location.href = `${import.meta.env.VITE_INTRA_API_URL}/member/${memberId}`;
+}): React.ReactElement => {
+  const handleClick = (): void => {
+    window.location.href = `${process.env.NEXT_PUBLIC_INTRA_API_URL}/member/${memberId}`;
   };
 
-  // ID가 8글자보다 길면 8글자만 표시하고 "..." 추가
   const truncatedId = handle.length > 7 ? `${handle.slice(0, 8)}...` : handle;
 
   return (
-    <Wrapper onClick={handleClick}>
-      <Information>
-        <NumAndId>
-          <div className="Rank">{rank}</div>
-          <div className="ID">{truncatedId}</div>
-        </NumAndId>
-        <TierImg tier={tier} />
-      </Information>
-      {eventHiting}
-    </Wrapper>
+    <div
+      onClick={handleClick}
+      className="group grid h-11 cursor-pointer grid-cols-[20px_24px_1fr_auto] items-center gap-3 rounded-md border-b border-gray-100 px-1 transition-colors last:border-b-0 hover:bg-gray-50"
+    >
+      <Label size="sm" selectable={false} className="text-center text-gray-400">
+        {rank}
+      </Label>
+      <TierImg tier={tier} />
+      <Label
+        size="sm"
+        selectable={false}
+        className="truncate transition-colors group-hover:font-medium group-hover:text-primary-300 group-hover:underline"
+      >
+        {truncatedId}
+      </Label>
+      <Label size="sm" weight="bold" selectable={false} className="text-right tabular-nums">
+        {eventHiting}
+      </Label>
+    </div>
   );
 };
 

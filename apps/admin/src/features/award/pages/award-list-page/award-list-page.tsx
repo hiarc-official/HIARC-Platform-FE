@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Title, Button, DialogUtil, Pagination } from '@hiarc-platform/ui';
+import { Title, Button, DialogUtil, Pagination } from '@hiarc-platform/design-system';
 import { CompetitionTable } from '../../components/award-table';
 import { CompetitionSearchButtons } from '../../components/competition-bar/competition-search-buttons';
 import { useAwardList } from '../../hooks/use-award-list';

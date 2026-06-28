@@ -1,16 +1,6 @@
 'use client';
 
-import {
-  Button,
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogUtil,
-  Label,
-  LabeledInput,
-} from '@hiarc-platform/ui';
+import { Button, Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogUtil, Label, LabeledInput } from '@hiarc-platform/design-system';
 import React from 'react';
 
 interface MyInfoDialogProps {

@@ -1,6 +1,13 @@
 'use client';
 
-import { BackButton, Button, LoadingDots, StudyInfoSection } from '@hiarc-platform/ui';
+import {
+  SkeletonTransition,
+  BackButton,
+  Button,
+  DetailPageSkeleton,
+  useMinimumLoading,
+} from '@hiarc-platform/design-system';
+import { StudyInfoSection } from '@hiarc-platform/domain';
 import { useStudyDetailPageState } from '@/features/study/hooks/page/use-study-detail-page-state';
 import { TabSection } from '@/features/study/components/tab-section/TabSection';
 
@@ -17,13 +24,7 @@ export function DesktopStudyDetailPage(): React.ReactElement {
     handleListClick,
   } = useStudyDetailPageState();
 
-  if (!mounted || isLoading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <LoadingDots size="lg" />
-      </div>
-    );
-  }
+  const showSkeleton = useMinimumLoading(!mounted || isLoading);
 
   if (error || !studyData) {
     return (
@@ -34,28 +35,30 @@ export function DesktopStudyDetailPage(): React.ReactElement {
   }
 
   return (
-    <div className="flex flex-col">
-      <BackButton onClick={handleBackClick} />
-      <StudyInfoSection
-        className="pt-5"
-        studyData={studyData}
-        onEditClick={handleEditClick}
-        onApplyClick={handleApplyClick}
-      />
-      <TabSection
-        className="pt-8"
-        studyName={studyData?.name ?? ''}
-        isStudent={studyData?.isStudent ?? false}
-        isAdmin={studyData?.isInstructor ?? false}
-        studyId={studyId}
-        semesterId={studyData?.semesterId ?? 1}
-        isGroupStudy={studyData?.isGroupStudy ?? false}
-      />
-      <div className="mt-8 flex items-center justify-center gap-4">
-        <Button variant="line" className="w-[186px]" onClick={handleListClick}>
-          목록으로
-        </Button>
+    <SkeletonTransition loading={showSkeleton} skeleton={<DetailPageSkeleton />}>
+      <div className="flex flex-col">
+        <BackButton onClick={handleBackClick} />
+        <StudyInfoSection
+          className="pt-5"
+          studyData={studyData}
+          onEditClick={handleEditClick}
+          onApplyClick={handleApplyClick}
+        />
+        <TabSection
+          className="pt-8"
+          studyName={studyData?.name ?? ''}
+          isStudent={studyData?.isStudent ?? false}
+          isAdmin={studyData?.isInstructor ?? false}
+          studyId={studyId}
+          semesterId={studyData?.semesterId ?? 1}
+          isGroupStudy={studyData?.isGroupStudy ?? false}
+        />
+        <div className="mt-8 flex items-center justify-center gap-4">
+          <Button variant="line" className="w-[186px]" onClick={handleListClick}>
+            목록으로
+          </Button>
+        </div>
       </div>
-    </div>
+    </SkeletonTransition>
   );
 }

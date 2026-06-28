@@ -4,7 +4,14 @@ import { AwardSection } from '@/features/award/components/award-section';
 import { HitingSection } from '@/features/member/components/hiting-section';
 import { MyInfoSection } from '@/features/member/components/my-info-section';
 import { StreakSection } from '@/features/member/components/streak-section';
-import { Divider, LoadingDots, FadeIn, Label } from '@hiarc-platform/ui';
+import {
+  SkeletonTransition,
+  Divider,
+  ProfileSkeleton,
+  FadeIn,
+  Label,
+  useMinimumLoading,
+} from '@hiarc-platform/design-system';
 import { MemberProfile } from '../../types/model/member-profile';
 
 interface MobileMemberDetailPageProps {
@@ -18,13 +25,7 @@ export function MobileMemberDetailPage({
   isLoading,
   error,
 }: MobileMemberDetailPageProps): React.ReactElement {
-  if (isLoading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <LoadingDots />
-      </div>
-    );
-  }
+  const showSkeleton = useMinimumLoading(isLoading);
 
   if (error !== null) {
     return (
@@ -39,25 +40,27 @@ export function MobileMemberDetailPage({
   }
 
   return (
-    <FadeIn isVisible={!isLoading && !error}>
-      <MyInfoSection className="mt-10" isMe={false} memberProfileData={memberProfileData} />
-      <Divider variant="horizontal" size="full" className="mt-4 bg-gray-900" />
-      <HitingSection
-        className="mt-6"
-        isMe={false}
-        season={memberProfileData?.rating?.seasonScore ?? 0}
-        total={memberProfileData?.rating?.totalScore ?? 0}
-        today={memberProfileData?.rating?.todayScore ?? 0}
-        ratingRecords={memberProfileData?.rating?.records ?? []}
-      />
-      <StreakSection
-        className="mt-4"
-        totalDays={memberProfileData?.streak?.currentTotalStreak}
-        currentSeasonDays={memberProfileData?.streak?.currentSeasonStreak}
-        streakStartAt={memberProfileData?.streak?.streakStartAt}
-        streakData={memberProfileData?.streak?.streakData ?? []}
-      />
-      <AwardSection className="mt-4" awardList={memberProfileData?.award ?? []} />
-    </FadeIn>
+    <SkeletonTransition loading={showSkeleton} skeleton={<ProfileSkeleton />}>
+      <FadeIn isVisible={!isLoading && !error}>
+        <MyInfoSection className="mt-10" isMe={false} memberProfileData={memberProfileData} />
+        <Divider variant="horizontal" size="full" className="mt-4 bg-gray-900" />
+        <HitingSection
+          className="mt-6"
+          isMe={false}
+          season={memberProfileData?.rating?.seasonScore ?? 0}
+          total={memberProfileData?.rating?.totalScore ?? 0}
+          today={memberProfileData?.rating?.todayScore ?? 0}
+          ratingRecords={memberProfileData?.rating?.records ?? []}
+        />
+        <StreakSection
+          className="mt-4"
+          totalDays={memberProfileData?.streak?.currentTotalStreak}
+          currentSeasonDays={memberProfileData?.streak?.currentSeasonStreak}
+          streakStartAt={memberProfileData?.streak?.streakStartAt}
+          streakData={memberProfileData?.streak?.streakData ?? []}
+        />
+        <AwardSection className="mt-4" awardList={memberProfileData?.award ?? []} />
+      </FadeIn>
+    </SkeletonTransition>
   );
 }

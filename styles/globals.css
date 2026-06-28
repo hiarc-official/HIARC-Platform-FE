@@ -1,9 +1,8 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* 애니메이션 CSS는 필요할 때만 로드하도록 분리 */
-@import 'tw-animate-css' layer(utilities);
+/* Tailwind v4. 디자인 토큰·플러그인·safelist 는 기존 JS 프리셋을 @config 로 그대로 사용한다.
+   CSS 규칙상 모든 @import 가 먼저 와야 하므로 @config 는 import 들 뒤에 둔다. */
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@config '../tailwind.config.js';
 
 /* Pretendard Local Font - 최적화된 로딩 */
 @font-face {
@@ -50,6 +49,18 @@
   unicode-range: U+0020-007F, U+AC00-D7AF;
 }
 
+/* 모션 최소화를 선호하는 사용자(전정기관 장애 등)를 위해 애니메이션을 억제 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 @layer base {
   * {
     font-family:
@@ -70,5 +81,16 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+  }
+}
+
+/* Tailwind v4 Preflight 가 버튼 기본 cursor:pointer 를 제거하므로 복원한다.
+   (자식 텍스트/라벨도 cursor 를 상속받아 포인터가 유지된다) */
+@layer base {
+  button:not(:disabled),
+  [role='button']:not(:disabled),
+  summary,
+  label[for] {
+    cursor: pointer;
   }
 }

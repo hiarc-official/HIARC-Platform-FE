@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import ConditionalHeader from '@/shared/components/ConditionalHeader';
+import { AuthGuard } from '@/shared/components/auth-guard';
 import Footer from '@/shared/components/Footer';
 import { Analytics } from '@vercel/analytics/next';
 
@@ -11,7 +12,7 @@ import '@fontsource/pretendard/700.css';
 
 import { Providers } from '../shared/providers/providers';
 import './globals.css';
-import { GlobalDialogContainer } from '@hiarc-platform/ui';
+import { GlobalDialogContainer } from '@hiarc-platform/design-system';
 
 export const metadata: Metadata = {
   title: 'HI-ARC ADMIN',
@@ -33,7 +34,9 @@ export default function RootLayout({
         <Analytics />
         <Providers>
           <ConditionalHeader />
-          <main className="flex-1">{children}</main>
+          <main className="flex-1">
+            <AuthGuard>{children}</AuthGuard>
+          </main>
           <div className="hidden md:block">
             <Footer />
           </div>

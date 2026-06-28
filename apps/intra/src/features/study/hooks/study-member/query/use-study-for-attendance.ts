@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 
 import { AttendanceableStudy } from '../../../types/request/attendanceable-study';
 import { studyMemberApi } from '@/features/study/api';
-import { DialogUtil } from '@hiarc-platform/ui';
+import { DialogUtil } from '@hiarc-platform/design-system';
 
 export function useStudyForAttendance(): UseQueryResult<AttendanceableStudy, Error> {
   const query = useQuery({

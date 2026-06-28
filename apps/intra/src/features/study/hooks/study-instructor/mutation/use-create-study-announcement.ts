@@ -3,7 +3,7 @@ import { useMutation, UseMutationResult, useQueryClient } from '@tanstack/react-
 import { Announcement } from '@hiarc-platform/shared';
 import { CreateAnnouncementRequest } from '@hiarc-platform/shared';
 import { announcementApi } from '@/features/announcement/api/announcement';
-import { DialogUtil } from '@hiarc-platform/ui';
+import { DialogUtil } from '@hiarc-platform/design-system';
 import { useRouter } from 'next/navigation';
 
 interface CreateStudyAnnouncementParams {

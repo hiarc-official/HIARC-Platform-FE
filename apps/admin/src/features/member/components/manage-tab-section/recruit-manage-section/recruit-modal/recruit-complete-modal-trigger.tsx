@@ -1,4 +1,4 @@
-import { DialogUtil } from '@hiarc-platform/ui';
+import { DialogUtil } from '@hiarc-platform/design-system';
 import React from 'react';
 import { RecruitCompleteDialog } from './recruit-complete-dialog';
 

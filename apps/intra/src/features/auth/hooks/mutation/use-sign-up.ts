@@ -1,7 +1,7 @@
 import React from 'react';
 import { useMutation, UseMutationResult } from '@tanstack/react-query';
 import { authApi, RecruitApplicationResponse, SignupRequest } from '../../api/auth';
-import { DialogUtil } from '@hiarc-platform/ui';
+import { DialogUtil } from '@hiarc-platform/design-system';
 import { GreetingDialog } from '../../components/dialog/greeting-dialog';
 import { useAuthStore } from '@/shared/store/auth-store';
 

@@ -1,32 +1,4 @@
-import styled from 'styled-components';
 import Color from '../util/Color';
-
-const ProgressWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-`;
-
-const CircleBackground = styled.circle`
-  fill: none;
-  stroke: #edf8fd;
-`;
-
-const CircleProgress = styled.circle<{ strokeColor?: string }>`
-  fill: none;
-  stroke: ${({ strokeColor }) => strokeColor || Color.primary};
-  stroke-linecap: round;
-  transition: stroke-dashoffset 0.5s ease-in-out;
-  transform: rotate(-90deg);
-  transform-origin: center;
-`;
-
-const ProgressText = styled.text`
-  font-weight: bold;
-  fill: #000;
-  text-anchor: middle;
-`;
 
 interface CircularProgressProps {
   value: number;
@@ -51,32 +23,43 @@ const CircularProgress: React.FC<CircularProgressProps> = ({
   const dashOffset = circumference - (percent / 100) * circumference;
 
   return (
-    <ProgressWrapper style={{ width: size, height: size }}>
+    <div
+      className="flex items-center justify-center relative"
+      style={{ width: size, height: size }}
+    >
       <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
         {/* 배경 원 */}
-        <CircleBackground cx={size / 2} cy={size / 2} r={radius} strokeWidth={strokeWidth} />
+        <circle
+          cx={size / 2}
+          cy={size / 2}
+          r={radius}
+          strokeWidth={strokeWidth}
+          className="fill-none stroke-[#edf8fd]"
+        />
         {/*  진행 원 */}
-        <CircleProgress
+        <circle
           cx={size / 2}
           cy={size / 2}
           r={radius}
           strokeDasharray={circumference}
           strokeDashoffset={dashOffset}
           strokeWidth={strokeWidth}
-          strokeColor={strokeColor}
+          strokeLinecap="round"
+          className="fill-none transition-[stroke-dashoffset] duration-500 ease-in-out origin-center -rotate-90"
+          style={{ stroke: strokeColor || Color.primary }}
         />
 
         {/*  중앙 텍스트 */}
-        <ProgressText x="50%" y="52%" dy="3%">
+        <text x="50%" y="52%" dy="3%" textAnchor="middle" className="font-bold fill-black">
           <tspan fontSize={`${size * 0.23}px`} fontWeight="bold">
             {value}
           </tspan>
           <tspan fontSize={`${size * 0.12}px`} dx="2px">
             /{maxValue}
           </tspan>
-        </ProgressText>
+        </text>
       </svg>
-    </ProgressWrapper>
+    </div>
   );
 };
 

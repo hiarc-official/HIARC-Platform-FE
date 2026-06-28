@@ -1,16 +1,6 @@
 'use client';
 
-import {
-  Button,
-  cn,
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogUtil,
-  LabeledInput,
-  LabeledSelector,
-} from '@hiarc-platform/ui';
+import { Button, cn, Dialog, DialogContent, DialogHeader, DialogTitle, DialogUtil, LabeledInput, LabeledSelector } from '@hiarc-platform/design-system';
 import React, { useState, useEffect } from 'react';
 import { StudyQueryParams } from '../../types/request/study-query-params';
 import { useSemesterStore } from '@/shared/hooks/use-semester-store';

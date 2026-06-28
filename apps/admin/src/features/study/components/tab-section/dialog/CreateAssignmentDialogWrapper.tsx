@@ -2,7 +2,7 @@
 
 import { useAssignment, useCreateAssignment } from '@/features/study/hooks';
 import { useCheckAssignment } from '@/features/study/hooks';
-import { CreateAssignmentDialog } from '@hiarc-platform/ui';
+import { CreateAssignmentDialog } from '@hiarc-platform/domain';
 
 interface CreateAssignmentDialogWrapperProps {
   studyId: number;

@@ -1,131 +1,15 @@
 module.exports = {
-  content: ['./apps/*/src/**/*.{js,ts,jsx,tsx,mdx}', './packages/ui/src/**/*.{js,ts,jsx,tsx,mdx}'],
+  content: [
+    './apps/*/src/**/*.{js,ts,jsx,tsx,mdx}',
+    './packages/*/src/**/*.{js,ts,jsx,tsx,mdx}',
+    './.storybook/**/*.{js,ts,jsx,tsx}',
+  ],
   darkMode: ['class', '.dark'],
   
   // CSS 최적화 설정
   future: {
     hoverOnlyWhenSupported: true,
   },
-  safelist: [
-    // 특수한 클래스들 (패턴으로 매칭하기 어려운것들)
-    'min-w-[800px]',
-    'bg-primary-100/50',
-    'min-w-0',
-    'w-[1200px]',
-    'max-w-[1200px]',
-    'w-[85px]',
-    'w-25',
-    'bg-white',
-    'text-center',
-    'self-start',
-    'mx-auto',
-    'min-w-0',
-    'flex-1',
-    'h-full',
-    'border-t-gray-900',
-    'border-transparent',
-    'border-b',
-    'border-r',
-    'table-fixed',
-    'border-separate',
-    'border-spacing-0',
-    'overflow-hidden',
-    'overflow-x-auto',
-    'overflow-y-auto',
-    'min-w-max',
-    'max-w-[390px]',
-    'min-w-[600px]',
-    'max-w-[1200px]',
-    'max-h-[350px]',
-    'max-h-[242px]',
-    'h-[242px]',
-    'h-[46.5px]',
-    'h-[10px]',
-    'h-[350px]',
-    'h-15',
-    'md:text-xs',
-    'rounded-xl',
-    'gap-[3px]',
-    'accent-primary-100',
-    'sm:px-10',
-    'hover:bg-gray-50',
-    'animation-delay-0',
-    'animation-delay-150',
-    'animation-delay-300',
-    'animate-bounce-up',
-    'placeholder:text-md',
-    'hidden',
-    'ml-[14px]',
-    'block',
-    'flex',
-    'md:hidden',
-    'md:flex',
-    'md:block',
-    'md:flex-row',
-    'md:inline-block',
-    'md:grid-cols-1',
-    'md:grid-cols-2',
-    'md:grid-rows-6',
-    'md:grid-cols-3',
-    'md:grid-rows-2',
-    'sm:pt-20',
-    'data-[state=closed]:slide-out-to-bottom-2',
-    'data-[state=open]:slide-in-from-bottom-2',
-    'sm:data-[state=closed]:zoom-out-95',
-    'sm:data-[state=open]:zoom-in-95',
-    'sm:data-[state=closed]:slide-out-to-bottom-0',
-    'sm:data-[state=open]:slide-in-from-bottom-0',
-    'sm:inset-auto',
-    'sm:h-auto',
-    'md:justify-between',
-    'min-h-[485px]',
-    // 카테고리 색상들
-    'bg-category-rating',
-    'bg-category-study',
-    'bg-category-general',
-    'bg-category-etc',
-    'bg-category-external',
-    'bg-category-participating',
-    'bg-category-recruiting',
-    'bg-category-etc_background',
-    // 동적 너비 클래스들 (테이블 컬럼용)
-    ...Array.from({ length: 1000 }, (_, i) => `w-[${i + 1}px]`).slice(0, 500), // w-[1px] ~ w-[500px]
-    ...Array.from({ length: 1000 }, (_, i) => `min-w-[${i + 1}px]`).slice(0, 500), // min-w-[1px] ~ min-w-[500px]
-    ...Array.from({ length: 1000 }, (_, i) => `max-w-[${i + 1}px]`).slice(0, 500), // max-w-[1px] ~ max-w-[500px]
-    // 패턴으로 매칭
-    { pattern: /^(h|w)-[0-9]+(\.5)?$/ }, // 크기: h-2, w-4, h-1.5 등
-    { pattern: /^text-(xs|sm|md|lg|xl|2xl|3xl|4xl)$/ }, // 텍스트 크기
-    { pattern: /^font-(normal|medium|semibold|bold)$/ }, // 폰트 굵기
-    { pattern: /^(flex|grid|inline-flex)$/ }, // 디스플레이
-    { pattern: /^flex-(col|row)$/ }, // flex 방향
-    { pattern: /^grid-cols-[1-9]|grid-cols-1[0-2]$/ }, // grid 컬럼: 1-12
-    { pattern: /^grid-rows-[1-9]|grid-rows-1[0-2]$/ }, // grid 행: 1-12
-    { pattern: /^items-(center|start|end)$/ }, // align-items
-    { pattern: /^justify-(center|start|end|between)$/ }, // justify-content
-    { pattern: /^(relative|absolute)$/ }, // position
-    { pattern: /^(p|px|py|pt|pb|pl|pr)-[0-9]+(\.5)?$/ }, // padding
-    { pattern: /^(m|mx|my|mt|mb|ml|mr)-[0-9]+(\.5)?$/ }, // margin
-    { pattern: /^gap-[0-9]+(\.5)?$/ }, // gap
-    { pattern: /^w-(full|1\/2|24)$/ }, // 특수 너비
-    { pattern: /^h-(full|7)$/ }, // 특수 높이
-    { pattern: /^rounded(-md|-full)?$/ }, // border-radius
-    { pattern: /^border(-primary-300)?$/ }, // border
-    { pattern: /^cursor-pointer$/ }, // cursor
-    { pattern: /^transition(-colors|-all)?$/ }, // transition
-    { pattern: /^bg-gradient-to-(r|l|t|b|tr|tl|br|bl)$/ }, // gradient 방향
-    { pattern: /^(from|to)-(primary|gray)-(100|200|300)$/ }, // gradient 색상
-    {
-      pattern:
-        /^text-(gray|primary|green|red|blue|yellow)-(50|100|200|300|400|500|600|700|800|900)$/,
-    }, // 텍스트 색상
-    {
-      pattern: /^bg-(gray|primary|green|red|blue|yellow)-(50|100|200|300|400|500|600|700|800|900)$/,
-    }, // 배경색
-    {
-      pattern:
-        /^border-(gray|primary|green|red|blue|yellow)-(50|100|200|300|400|500|600|700|800|900)$/,
-    }, // 테두리 색상
-  ],
   theme: {
     extend: {
       colors: {
@@ -163,6 +47,37 @@ module.exports = {
           participating: '#01B5C9',
           recruiting: '#F52121',
         },
+        // 시맨틱 토큰 (shadcn 스타일 컴포넌트용) — 기존 팔레트에 매핑
+        border: '#DEDEEB', // gray-200
+        input: '#DEDEEB', // gray-200
+        ring: '#00AAFF', // primary
+        background: '#FFFFFF',
+        foreground: '#0F0F11', // gray-900
+        destructive: {
+          DEFAULT: '#F52121', // red
+          foreground: '#FFFFFF',
+        },
+        muted: {
+          DEFAULT: '#F0F0F6', // gray-100
+          foreground: '#97979D', // gray-500
+        },
+        accent: {
+          DEFAULT: '#F0F0F6', // gray-100
+          foreground: '#0F0F11', // gray-900
+        },
+        secondary: {
+          DEFAULT: '#F0F0F6', // gray-100
+          foreground: '#0F0F11', // gray-900
+        },
+        popover: {
+          DEFAULT: '#FFFFFF',
+          foreground: '#0F0F11', // gray-900
+        },
+        card: {
+          DEFAULT: '#FFFFFF',
+          foreground: '#0F0F11', // gray-900
+        },
+        'primary-foreground': '#FFFFFF',
       },
       // Typography from typography.css
       fontSize: {
@@ -329,6 +244,15 @@ module.exports = {
       addBase({
         '*': {
           'border-color': 'rgb(237 237 237)',
+        },
+        // Tailwind v4 는 버튼 기본 커서를 default 로 바꿈 → 클릭 가능한 요소에 포인터 복원
+        'button:not(:disabled), [role="button"]:not(:disabled), label[for], summary': {
+          cursor: 'pointer',
+        },
+        // 표시용 <label>(Label/Title 컴포넌트)은 부모 커서를 따라감 → 클릭 가능한 카드/행
+        // 안의 텍스트 위에서도 포인터가 유지된다.
+        'label:not([for])': {
+          cursor: 'inherit',
         },
         body: {
           'background-color': 'rgb(255 255 255)',

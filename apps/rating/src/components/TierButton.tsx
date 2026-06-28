@@ -1,22 +1,17 @@
+import { Label } from '@hiarc-platform/design-system';
 import { NumberToTear } from '../util/NumberToTear';
 import { NumberToStreakColor } from '../util/NumberToStreakColor';
-import styled from 'styled-components';
 
-const Button = styled.div<{ $tier: number }>`
-  background-color: ${(props) => NumberToStreakColor(props.$tier)};
-  width: 62px;
-  padding: 6px 14px;
-  font-size: 12px;
-  white-space: nowrap;
-  color: white;
-  border-radius: 18px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const TierButton = ({ tier }: { tier: number }) => {
-  return <Button $tier={tier}>{NumberToTear(tier)}</Button>;
-};
+const TierButton = ({ tier }: { tier: number }) => (
+    // ponytail: 티어색은 데이터 기반 동적값이라 inline style 유지(DS 토큰 대응 없음)
+    <Label
+      size="xs"
+      weight="bold"
+      className="flex justify-center whitespace-nowrap rounded-md px-3 py-1 text-white"
+      style={{ backgroundColor: NumberToStreakColor(tier) }}
+    >
+      {NumberToTear(tier)}
+    </Label>
+  );
 
 export default TierButton;

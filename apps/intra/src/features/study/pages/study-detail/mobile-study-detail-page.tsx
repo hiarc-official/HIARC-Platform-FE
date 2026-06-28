@@ -1,6 +1,11 @@
 'use client';
 
-import { LoadingDots, StudyInfoSection, MobileStudyButton } from '@hiarc-platform/ui';
+import {
+  SkeletonTransition,
+  DetailPageSkeleton,
+  useMinimumLoading,
+} from '@hiarc-platform/design-system';
+import { StudyInfoSection, MobileStudyButton } from '@hiarc-platform/domain';
 import { useStudyDetailPageState } from '@/features/study/hooks/page/use-study-detail-page-state';
 import { TabSection } from '@/features/study/components/tab-section/TabSection';
 
@@ -8,13 +13,7 @@ export function MobileStudyDetailPage(): React.ReactElement {
   const { studyId, studyData, isLoading, error, mounted, handleEditClick, handleApplyClick } =
     useStudyDetailPageState();
 
-  if (!mounted || isLoading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <LoadingDots size="lg" />
-      </div>
-    );
-  }
+  const showSkeleton = useMinimumLoading(!mounted || isLoading);
 
   if (error || !studyData) {
     return (
@@ -25,23 +24,25 @@ export function MobileStudyDetailPage(): React.ReactElement {
   }
 
   return (
-    <div className="flex flex-col pb-20 pt-10 md:pb-0">
-      <StudyInfoSection
-        className="pt-4"
-        studyData={studyData}
-        onEditClick={handleEditClick}
-        onApplyClick={handleApplyClick}
-      />
-      <TabSection
-        className="pt-6"
-        studyName={studyData?.name ?? ''}
-        isStudent={studyData?.isStudent ?? false}
-        isAdmin={studyData?.isInstructor ?? false}
-        studyId={studyId}
-        semesterId={studyData?.semesterId ?? 1}
-        isGroupStudy={studyData?.isGroupStudy ?? false}
-      />
-      <MobileStudyButton studyData={studyData} onApplyClick={handleApplyClick} />
-    </div>
+    <SkeletonTransition loading={showSkeleton} skeleton={<DetailPageSkeleton />}>
+      <div className="flex flex-col pb-20 pt-10 lg:pb-0">
+        <StudyInfoSection
+          className="pt-4"
+          studyData={studyData}
+          onEditClick={handleEditClick}
+          onApplyClick={handleApplyClick}
+        />
+        <TabSection
+          className="pt-6"
+          studyName={studyData?.name ?? ''}
+          isStudent={studyData?.isStudent ?? false}
+          isAdmin={studyData?.isInstructor ?? false}
+          studyId={studyId}
+          semesterId={studyData?.semesterId ?? 1}
+          isGroupStudy={studyData?.isGroupStudy ?? false}
+        />
+        <MobileStudyButton studyData={studyData} onApplyClick={handleApplyClick} />
+      </div>
+    </SkeletonTransition>
   );
 }

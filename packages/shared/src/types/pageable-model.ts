@@ -138,11 +138,11 @@ export class PageableModel<T> {
   }
 
   get hasNext(): boolean {
-    return this.props.last ? !this.props.last : false;
+    return this.props.last != null ? !this.props.last : false;
   }
 
   get hasPrevious(): boolean {
-    return this.props.first ? !this.props.first : false;
+    return this.props.first != null ? !this.props.first : false;
   }
 
   get numberOfElements(): number | null {

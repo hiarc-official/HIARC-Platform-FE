@@ -1,5 +1,5 @@
 import { useMutation, UseMutationResult } from '@tanstack/react-query';
-import { DialogUtil } from '@hiarc-platform/ui';
+import { DialogUtil } from '@hiarc-platform/design-system';
 import { studyInstructorApi } from '@/features/study/api/study-instructor';
 
 export function useWithdrawStudent(): UseMutationResult<

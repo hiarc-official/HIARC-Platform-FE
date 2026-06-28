@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, LabeledInput } from '@hiarc-platform/ui';
+import { Button, LabeledInput } from '@hiarc-platform/design-system';
 
 interface CompetitionSearchButtonsProps {
   onSearch?(params: { organization: string; awardName: string; memberNameHandle: string }): void;

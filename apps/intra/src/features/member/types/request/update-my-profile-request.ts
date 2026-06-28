@@ -8,7 +8,7 @@ export interface UpdateMyProfileRequestProps {
 }
 
 export class UpdateMyProfileRequest {
-  constructor(public readonly props: UpdateMyProfileRequestProps) {}
+  constructor(readonly props: UpdateMyProfileRequestProps) {}
 
   static readonly schema = z.object({
     name: z.string().min(1).max(50).optional(),
@@ -17,7 +17,7 @@ export class UpdateMyProfileRequest {
     profileImageUrl: z.string().url().optional(),
   });
 
-  static fromJson(json: any): UpdateMyProfileRequest {
+  static fromJson(json: unknown): UpdateMyProfileRequest {
     const validated = this.schema.parse(json);
     return new UpdateMyProfileRequest(validated);
   }

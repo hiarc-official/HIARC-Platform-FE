@@ -1,6 +1,6 @@
 'use client';
 
-import { LoadingDots } from '@hiarc-platform/ui';
+import { LoadingDots } from '@hiarc-platform/design-system';
 import { useOAuthCallbackPageState } from '@/features/auth/hooks/page/use-oauth-callback-page-state';
 
 export function DesktopOAuthCallbackPage(): React.ReactElement {

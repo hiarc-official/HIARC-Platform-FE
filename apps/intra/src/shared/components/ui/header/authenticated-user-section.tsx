@@ -1,8 +1,8 @@
 'use client';
 
-import { Button, DialogUtil, FadeIn } from '@hiarc-platform/ui';
+import { Button, DialogUtil, FadeIn } from '@hiarc-platform/design-system';
 import { useRouter, usePathname } from 'next/navigation';
-import { IconButton } from '@hiarc-platform/ui';
+import { IconButton } from '@hiarc-platform/design-system';
 import { StudyAttendanceDialog } from '@/features/study/components/study-attendance-dialog';
 import { studyMemberApi } from '@/features/study/api';
 import useLogout from '@/features/auth/hooks/mutation/use-logout';

@@ -1,6 +1,6 @@
 'use client';
 
-import { AnnouncementWrite } from '@hiarc-platform/ui';
+import { AnnouncementWrite } from '@hiarc-platform/domain';
 import { useAnnouncementWritePageState } from '../../hooks/page/use-announcement-write-page-state';
 
 export function MobileAnnouncementWritePage(): React.ReactElement {

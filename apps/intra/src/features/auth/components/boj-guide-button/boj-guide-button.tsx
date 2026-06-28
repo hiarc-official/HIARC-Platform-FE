@@ -1,4 +1,4 @@
-import { DialogUtil, Label } from '@hiarc-platform/ui';
+import { DialogUtil, Label } from '@hiarc-platform/design-system';
 import { BojGuideDialog } from './boj-guide-dialog';
 
 export function BojGuideButton(): React.ReactElement {

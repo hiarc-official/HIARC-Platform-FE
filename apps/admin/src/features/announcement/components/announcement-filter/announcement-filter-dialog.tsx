@@ -1,16 +1,6 @@
 'use client';
 
-import {
-  Button,
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogUtil,
-  LabeledInput,
-  LabeledSelectButton,
-  LabeledSelector,
-} from '@hiarc-platform/ui';
+import { Button, Dialog, DialogContent, DialogHeader, DialogTitle, DialogUtil, LabeledInput, LabeledSelectButton, LabeledSelector } from '@hiarc-platform/design-system';
 import { selectOption } from 'constants/selectOption';
 import React, { useState } from 'react';
 import { AnnouncementQueryParams } from '@/features/announcement/types/request/announcement-query-params';

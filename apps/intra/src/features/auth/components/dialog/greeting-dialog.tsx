@@ -1,13 +1,4 @@
-import {
-  Button,
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogUtil,
-  Label,
-} from '@hiarc-platform/ui';
+import { Button, Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogUtil, Label } from '@hiarc-platform/design-system';
 import React, { useState } from 'react';
 
 interface GreetingDialogProps {

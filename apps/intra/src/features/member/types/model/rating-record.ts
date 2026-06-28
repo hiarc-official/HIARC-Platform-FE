@@ -42,11 +42,12 @@ export class RatingRecord {
     return { ...this.props };
   }
 
-  static fromJson(json: any): RatingRecord {
+  static fromJson(json: unknown): RatingRecord {
+    const raw = (json || {}) as Record<string, unknown>;
     const data: RatingRecordProps = {
-      description: json.description ?? null,
-      division: json.division ?? null,
-      ranking: json.ranking ?? null,
+      description: (raw.description as string | null | undefined) ?? null,
+      division: (raw.division as RatingRecordProps['division']) ?? null,
+      ranking: (raw.ranking as number | null | undefined) ?? null,
     };
 
     return new RatingRecord(data);

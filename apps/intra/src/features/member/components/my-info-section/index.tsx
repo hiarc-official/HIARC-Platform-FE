@@ -1,4 +1,5 @@
-import { cn, DialogUtil, IconButton, Label, RatingChip, Title } from '@hiarc-platform/ui';
+import { cn, DialogUtil, IconButton, Label, Title } from '@hiarc-platform/design-system';
+import { RatingChip } from '@hiarc-platform/domain';
 import React from 'react';
 import { MyInfoDialog } from './my-info-dialog';
 import { MemberProfile } from '../../types/model/member-profile';
