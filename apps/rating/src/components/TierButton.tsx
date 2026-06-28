@@ -1,22 +1,13 @@
 import { NumberToTear } from '../util/NumberToTear';
 import { NumberToStreakColor } from '../util/NumberToStreakColor';
-import styled from 'styled-components';
 
-const Button = styled.div<{ $tier: number }>`
-  background-color: ${(props) => NumberToStreakColor(props.$tier)};
-  width: 62px;
-  padding: 6px 14px;
-  font-size: 12px;
-  white-space: nowrap;
-  color: white;
-  border-radius: 18px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const TierButton = ({ tier }: { tier: number }) => {
-  return <Button $tier={tier}>{NumberToTear(tier)}</Button>;
-};
+const TierButton = ({ tier }: { tier: number }) => (
+    <div
+      className="flex w-[62px] items-center justify-center whitespace-nowrap rounded-[18px] px-[14px] py-[6px] text-[12px] text-white"
+      style={{ backgroundColor: NumberToStreakColor(tier) }}
+    >
+      {NumberToTear(tier)}
+    </div>
+  );
 
 export default TierButton;

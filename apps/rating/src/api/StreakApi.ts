@@ -59,7 +59,7 @@ export interface PaginationParams {
 
 export const fetchStreakData = async (params: PaginationParams): Promise<PageableResponse> => {
   try {
-    const requestParams: any = {
+    const requestParams: { page: number; size: number; sort?: string[] } = {
       page: params.page,
       size: params.size,
     };

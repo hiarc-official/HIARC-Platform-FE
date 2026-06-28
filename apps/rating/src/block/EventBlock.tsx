@@ -1,43 +1,20 @@
-import styled from 'styled-components';
-import { useAtom } from 'jotai';
+'use client';
+
 import EventButton from '../components/EventButton';
 import EventEntity from '../atoms/EventEntity';
-import { hitingDataAtom } from '../store/Atom';
+import { useHitingData } from '@/hooks/use-hiting-data';
 
-const Wrapper = styled.div`
-  width: 255px;
-  height: 342px;
-  background-color: #fffced;
-  border-radius: 28px;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  gap: 22.6px;
-  @media (max-width: 480px) {
-    width: 320px;
-  }
-`;
+const EventBlock = (): React.ReactElement => {
+  const { data: hitingData } = useHitingData();
 
-const ButtonContainer = styled.div`
-  margin-top: 15.18px;
-`;
-
-const MainContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const EventBlock = () => {
-  const [hitingData] = useAtom(hitingDataAtom);
-
-  const eventList = hitingData.eventRanking?.slice(0, 6) || [];
+  const eventList = hitingData?.eventRanking?.slice(0, 6) ?? [];
 
   return (
-    <Wrapper>
-      <ButtonContainer>
+    <div className="w-[255px] h-[342px] bg-[#fffced] rounded-[28px] flex items-center flex-col gap-[22.6px] max-[480px]:w-[320px]">
+      <div className="mt-[15.18px]">
         <EventButton />
-      </ButtonContainer>
-      <MainContainer>
+      </div>
+      <div className="flex flex-col">
         {eventList.map((event, index) => (
           <EventEntity
             key={index}
@@ -48,8 +25,8 @@ const EventBlock = () => {
             memberId={event.memberId}
           />
         ))}
-      </MainContainer>
-    </Wrapper>
+      </div>
+    </div>
   );
 };
 

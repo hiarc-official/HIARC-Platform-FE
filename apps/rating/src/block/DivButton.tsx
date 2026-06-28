@@ -1,22 +1,4 @@
-import styled from 'styled-components';
-import Color from '../util/Color';
-
-const Wrapper = styled.button<{ $isSelected: boolean }>`
-  font-size: 11px;
-  font-weight: 700;
-  width: 58px;
-  height: 25px;
-  border-radius: 18px;
-  border: none;
-  padding: 6px 14px;
-  white-space: nowrap;
-  color: ${({ $isSelected }) => ($isSelected ? Color.primary : 'white')};
-  background-color: ${({ $isSelected }) => ($isSelected ? 'white' : Color.primary)};
-  cursor: pointer;
-  transition:
-    background-color 0.3s ease-in-out,
-    color 0.3s ease-in-out;
-`;
+import { cn } from '@hiarc-platform/design-system';
 
 const DivButton = ({
   div,
@@ -24,14 +6,18 @@ const DivButton = ({
   isSelected,
 }: {
   div: number;
-  onClick?: () => void;
+  onClick?(): void;
   isSelected: boolean;
-}) => {
-  return (
-    <Wrapper onClick={onClick} $isSelected={isSelected}>
+}): React.ReactElement => (
+    <button
+      onClick={onClick}
+      className={cn(
+        'text-[11px] font-bold w-[58px] h-[25px] rounded-[18px] border-none px-[14px] py-[6px] whitespace-nowrap cursor-pointer transition-colors duration-300 ease-in-out',
+        isSelected ? 'text-primary bg-white' : 'text-white bg-primary'
+      )}
+    >
       Div {div}
-    </Wrapper>
+    </button>
   );
-};
 
 export default DivButton;

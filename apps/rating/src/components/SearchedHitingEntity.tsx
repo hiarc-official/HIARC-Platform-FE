@@ -1,81 +1,3 @@
-import styled from 'styled-components';
-import Color from '../util/Color';
-
-const Wrapper = styled.div`
-  width: 479px;
-  height: 166px;
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-  @media (max-width: 480px) {
-    width: 343px;
-  }
-`;
-const UpWrapper = styled.div`
-  font-size: 12px;
-  border: 1px solid ${Color.primary};
-  padding: 6px 14px;
-  width: 38px;
-  border-radius: 18px;
-  color: ${Color.primary};
-  font-weight: 700;
-`;
-const DownWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 40px;
-  border: 1px solid ${Color.primary};
-  width: 100%;
-  border-radius: 15px;
-  min-height: 166px;
-  @media (max-width: 480px) {
-    gap: 15px;
-  }
-`;
-const Left = styled.div`
-  width: 102px;
-  height: 91px;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  gap: 25px;
-  margin-left: 55px;
-  @media (max-width: 480px) {
-    margin-left: 12px;
-  }
-`;
-const Middle = styled.div`
-  height: 91px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 25px;
-`;
-const Right = styled.div`
-  width: 85px;
-  height: 91px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 25px;
-  margin-left: 20px;
-`;
-
-const Border = styled.div`
-  border: 1px solid ${Color.graySub3};
-  border-radius: 10px;
-  padding: 3.5px 8px;
-  display: inline-block;
-  white-space: nowrap;
-  width: fit-content;
-`;
-const Score = styled.div`
-  font-size: 35px;
-  font-weight: 800;
-  display: flex;
-  justify-content: center;
-`;
-
 const SearchedHitingEntity = ({
   totalHiting,
   seasonHiting,
@@ -84,26 +6,38 @@ const SearchedHitingEntity = ({
   totalHiting: number;
   seasonHiting: number;
   dailyHiting: number;
-}) => {
-  return (
-    <Wrapper>
-      <UpWrapper>Hiting</UpWrapper>
-      <DownWrapper>
-        <Left>
-          <Border>누적</Border>
-          <Score>{totalHiting < 0 ? 0 : totalHiting}</Score>
-        </Left>
-        <Middle>
-          <Border>이번 시즌</Border>
-          <Score>{seasonHiting < 0 ? 0 : seasonHiting}</Score>
-        </Middle>
-        <Right>
-          <Border>오늘</Border>
-          <Score>{dailyHiting < 0 ? 0 : dailyHiting}</Score>
-        </Right>
-      </DownWrapper>
-    </Wrapper>
+}) => (
+    <div className="flex h-[166px] w-[479px] flex-col gap-px max-[480px]:w-[343px]">
+      <div className="w-[38px] rounded-[18px] border border-primary px-[14px] py-[6px] text-[12px] font-bold text-primary">
+        Hiting
+      </div>
+      <div className="flex min-h-[166px] w-full items-center gap-10 rounded-[15px] border border-primary max-[480px]:gap-[15px]">
+        <div className="ml-[55px] flex h-[91px] w-[102px] flex-col items-center gap-[25px] max-[480px]:ml-3">
+          <div className="inline-block w-fit whitespace-nowrap rounded-[10px] border border-[#5F6368] px-2 py-[3.5px]">
+            누적
+          </div>
+          <div className="flex justify-center text-[35px] font-extrabold">
+            {totalHiting < 0 ? 0 : totalHiting}
+          </div>
+        </div>
+        <div className="flex h-[91px] flex-col items-center gap-[25px]">
+          <div className="inline-block w-fit whitespace-nowrap rounded-[10px] border border-[#5F6368] px-2 py-[3.5px]">
+            이번 시즌
+          </div>
+          <div className="flex justify-center text-[35px] font-extrabold">
+            {seasonHiting < 0 ? 0 : seasonHiting}
+          </div>
+        </div>
+        <div className="ml-5 flex h-[91px] w-[85px] flex-col items-center gap-[25px]">
+          <div className="inline-block w-fit whitespace-nowrap rounded-[10px] border border-[#5F6368] px-2 py-[3.5px]">
+            오늘
+          </div>
+          <div className="flex justify-center text-[35px] font-extrabold">
+            {dailyHiting < 0 ? 0 : dailyHiting}
+          </div>
+        </div>
+      </div>
+    </div>
   );
-};
 
 export default SearchedHitingEntity;

@@ -1,43 +1,5 @@
-import styled from 'styled-components';
+'use client';
 import TierImg from '../util/TierImg';
-import Color from '../util/Color';
-
-const Wrapper = styled.div`
-  padding-left: 5px;
-  width: 226px;
-  min-height: 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 14px;
-  font-weight: 400;
-  cursor: pointer;
-  border-bottom: 1px solid ${Color.primary};
-  @media (max-width: 480px) {
-    width: 284px;
-  }
-`;
-
-const Information = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 147px;
-`;
-
-const NumAndId = styled.div`
-  width: 226px;
-  display: flex;
-  margin-right: 60px;
-  .ID {
-    width: 80px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-  }
-  .Rank {
-    width: 20px;
-  }
-`;
 
 const EventEntity = ({
   rank,
@@ -53,23 +15,26 @@ const EventEntity = ({
   memberId: number;
 }) => {
   const handleClick = () => {
-    window.location.href = `${import.meta.env.VITE_INTRA_API_URL}/member/${memberId}`;
+    window.location.href = `${process.env.NEXT_PUBLIC_INTRA_API_URL}/member/${memberId}`;
   };
 
   // ID가 8글자보다 길면 8글자만 표시하고 "..." 추가
   const truncatedId = handle.length > 7 ? `${handle.slice(0, 8)}...` : handle;
 
   return (
-    <Wrapper onClick={handleClick}>
-      <Information>
-        <NumAndId>
-          <div className="Rank">{rank}</div>
-          <div className="ID">{truncatedId}</div>
-        </NumAndId>
+    <div
+      onClick={handleClick}
+      className="pl-[5px] w-[226px] min-h-[40px] flex justify-between items-center text-[14px] font-normal cursor-pointer border-b border-primary max-[480px]:w-[284px]"
+    >
+      <div className="flex justify-between w-[147px]">
+        <div className="w-[226px] flex mr-[60px]">
+          <div className="w-[20px]">{rank}</div>
+          <div className="w-[80px] text-ellipsis whitespace-nowrap overflow-hidden">{truncatedId}</div>
+        </div>
         <TierImg tier={tier} />
-      </Information>
+      </div>
       {eventHiting}
-    </Wrapper>
+    </div>
   );
 };
 

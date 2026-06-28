@@ -1,19 +1,17 @@
-import styled from 'styled-components';
+'use client';
 
-const Button = styled.button`
-  background-color: #81c147;
-  border-radius: 24px;
-  border: none;
-  padding: 0px 15px;
-  color: white;
-  cursor: pointer;
-`;
-
-const SolvedButton = ({ handle }: { handle: string }) => {
-  const onClick = () => {
+const SolvedButton = ({ handle }: { handle: string }): React.ReactElement => {
+  const onClick = (): void => {
     window.open(`https://solved.ac/profile/${handle}`, '_blank');
   };
-  return <Button onClick={onClick}>solved.ac</Button>;
+  return (
+    <button
+      onClick={onClick}
+      className="bg-[#81c147] rounded-[24px] border-none px-[15px] py-0 text-white cursor-pointer"
+    >
+      solved.ac
+    </button>
+  );
 };
 
 export default SolvedButton;

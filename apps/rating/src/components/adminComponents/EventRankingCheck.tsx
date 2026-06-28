@@ -1,96 +1,22 @@
-import styled from 'styled-components';
+'use client';
+
 import { checkAdminApi, getEventRanking } from '../../api/AdminApi';
 import { useState } from 'react';
-import { Modal } from '../Modal';
+import { Modal, ModalContent } from '../Modal';
 
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 15px;
-  align-items: center;
-  margin-bottom: 29px;
-`;
-
-const Button = styled.button`
-  background-color: #ffa5a5;
-  border: none;
-  border-radius: 10px;
-  font-size: 12px;
-  font-weight: 700;
-  padding: 12px;
-  cursor: pointer;
-  position: relative;
-  &:hover {
-    background-color: #0af;
-  }
-`;
-
-const EventSelectorModal = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
-  z-index: 999;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const EventSelectorWrapper = styled.div`
-  background-color: white;
-  padding: 24px;
-  border-radius: 10px;
-  z-index: 1000;
-  width: 400px;
-  max-height: 80%;
-  overflow-y: auto;
-`;
-
-const EventLabel = styled.label`
-  font-size: 16px;
-  font-weight: 700;
-  margin-bottom: 16px;
-  display: block;
-`;
-
-const EventSelect = styled.select`
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 14px;
-  width: 100%;
-  margin-bottom: 16px;
-`;
-
-const ActionButton = styled.button`
-  background-color: #ffa5a5;
-  border: none;
-  border-radius: 10px;
-  font-size: 12px;
-  font-weight: 700;
-  padding: 12px 20px;
-  cursor: pointer;
-  margin-right: 8px;
-  &:hover {
-    background-color: #0af;
-  }
-`;
-
-type Event = {
+interface Event {
   eventId: number;
   description: string;
   eventStartAt: string;
   eventEndAt: string;
-};
+}
 
 export const EventRankingCheck = () => {
   const [isEventSelectorOpen, setIsEventSelectorOpen] = useState(false);
   const [isRankingModalOpen, setIsRankingModalOpen] = useState(false);
   const [events, setEvents] = useState<Event[]>([]);
   const [selectedEventId, setSelectedEventId] = useState<number | null>(null);
-  const [rankingData, setRankingData] = useState<any>(null);
+  const [rankingData, setRankingData] = useState<ModalContent | null>(null);
   const [loading, setLoading] = useState(false);
 
   const buttonClick = async () => {
@@ -133,18 +59,29 @@ export const EventRankingCheck = () => {
 
   return (
     <>
-      <Wrapper>
+      <div className="flex flex-row gap-[15px] items-center mb-[29px]">
         지난 이벤트 랭킹 조회하기
-        <Button onClick={buttonClick} disabled={loading}>
+        <button
+          className="bg-[#ffa5a5] border-none rounded-[10px] text-[12px] font-bold p-3 cursor-pointer relative hover:bg-primary"
+          onClick={buttonClick}
+          disabled={loading}
+        >
           {loading ? '불러오는중...' : '확인하기'}
-        </Button>
-      </Wrapper>
+        </button>
+      </div>
 
       {isEventSelectorOpen && (
-        <EventSelectorModal onClick={() => setIsEventSelectorOpen(false)}>
-          <EventSelectorWrapper onClick={(e) => e.stopPropagation()}>
-            <EventLabel>이벤트를 선택하세요:</EventLabel>
-            <EventSelect
+        <div
+          className="fixed top-0 left-0 w-full h-full bg-black/40 z-[999] flex justify-center items-center"
+          onClick={() => setIsEventSelectorOpen(false)}
+        >
+          <div
+            className="bg-white p-6 rounded-[10px] z-[1000] w-[400px] max-h-[80%] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <label className="text-[16px] font-bold mb-4 block">이벤트를 선택하세요:</label>
+            <select
+              className="p-2 border border-[#ccc] rounded-[4px] text-[14px] w-full mb-4"
               value={selectedEventId || ''}
               onChange={(e) => setSelectedEventId(Number(e.target.value))}
             >
@@ -154,22 +91,29 @@ export const EventRankingCheck = () => {
                   이벤트 {event.eventId} - {event.description} ({new Date(event.eventStartAt).toLocaleDateString('ko-KR')} ~ {new Date(event.eventEndAt).toLocaleDateString('ko-KR')})
                 </option>
               ))}
-            </EventSelect>
+            </select>
             <div>
-              <ActionButton onClick={handleEventSelect} disabled={loading}>
+              <button
+                className="bg-[#ffa5a5] border-none rounded-[10px] text-[12px] font-bold py-3 px-5 cursor-pointer mr-2 hover:bg-primary"
+                onClick={handleEventSelect}
+                disabled={loading}
+              >
                 {loading ? '조회중...' : '조회하기'}
-              </ActionButton>
-              <ActionButton onClick={() => setIsEventSelectorOpen(false)}>
+              </button>
+              <button
+                className="bg-[#ffa5a5] border-none rounded-[10px] text-[12px] font-bold py-3 px-5 cursor-pointer mr-2 hover:bg-primary"
+                onClick={() => setIsEventSelectorOpen(false)}
+              >
                 취소
-              </ActionButton>
+              </button>
             </div>
-          </EventSelectorWrapper>
-        </EventSelectorModal>
+          </div>
+        </div>
       )}
 
       {isRankingModalOpen && (
         <Modal
-          content={rankingData}
+          content={rankingData ?? ''}
           onClose={() => setIsRankingModalOpen(false)}
         />
       )}

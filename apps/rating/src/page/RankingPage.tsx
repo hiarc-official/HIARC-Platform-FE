@@ -1,132 +1,43 @@
+'use client';
+
 import { useState, useEffect } from 'react';
-import styled, { keyframes } from 'styled-components';
-import LayOut from '../util/Layout';
+import { useSearchParams } from 'next/navigation';
 import DivToggleBar from '../components/DivToggleBar';
 import RankingContainer from '../block/RankingContainer';
-import { useSearchParams } from 'react-router-dom';
 import DonutChart from '../atoms/DounutChart';
-import { fetchRankingData } from '../api/RankingApi';
-import Color from '../util/Color';
-
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-    transform: translateY(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-`;
-
-const AnimatedContainer = styled.div<{ $animate: boolean; $duration?: string }>`
-  opacity: 0;
-  animation: ${({ $animate }) => ($animate ? fadeIn : 'none')}
-    ${({ $duration }) => $duration || '0s'} ease-in-out forwards;
-`;
-const HeadWrapper = styled.div`
-  font-size: 35px;
-  font-weight: 900;
-  padding-bottom: 20px;
-  @media (max-width: 480px) {
-    width: 100%;
-    margin-left: 16px;
-  }
-`;
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  padding-bottom: 45px;
-`;
-
-const MainWrapper = styled.div`
-  display: flex;
-  gap: 26px;
-  margin-bottom: 40px;
-`;
-
-const Right = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20.65px;
-  @media (max-width: 480px) {
-    display: none;
-  }
-`;
-
-const Explain = styled.div`
-  font-size: 12px;
-  color: ${Color.graySub3};
-  @media (max-width: 480px) {
-    margin-bottom: 20px;
-    margin-left: 10px;
-  }
-`;
+import { useRankingData } from '@/hooks/use-ranking-data';
 
 const DivPage = () => {
   const [selected, setSelected] = useState<number>(0);
-  const [animate, setAnimate] = useState(false);
-  const [searchParams] = useSearchParams();
-  const [streakRatio, setStreakRatio] = useState<number | null>(null);
-  const [rankingData, setRankingData] = useState<
-    {
-      num: number;
-      bojHandle: string;
-      tier: number;
-      today: number;
-      totalScore: number;
-      currentSeasonScore: number | null;
-      memberId: number;
-    }[]
-  >([]);
-  const [error, setError] = useState<string | null>(null);
+  const sp = useSearchParams();
+  const { data } = useRankingData(selected);
 
   useEffect(() => {
-    const numParam = searchParams.get('num');
+    const numParam = sp.get('num');
     if (numParam) {
       setSelected(Number(numParam));
     }
-  }, [searchParams]);
+  }, [sp]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await fetchRankingData(selected);
-        if (Array.isArray(data.rankingData)) {
-          setRankingData(data.rankingData);
-        } else {
-          setRankingData([]);
-        }
-        setStreakRatio(data.graphData || 0);
-        setError(null);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : '알 수 없는 오류 발생');
-        setRankingData([]);
-        setStreakRatio(0);
-      }
-    };
-    fetchData();
-  }, [selected]);
-
-  useEffect(() => {
-    setAnimate(false);
-    setTimeout(() => setAnimate(true), 50);
-  }, [selected]);
+  const rankingData = Array.isArray(data?.rankingData) ? data.rankingData : [];
+  const streakRatio = data ? (data.graphData ?? 0) : null;
 
   return (
-    <LayOut>
-      <HeadWrapper>Ranking</HeadWrapper>
-      <Explain>* 점수는 15분 안으로 반영됩니다.</Explain>
-      <ButtonWrapper>
+    <>
+      <div className="pb-5 text-[35px] font-black max-[480px]:ml-4 max-[480px]:w-full">Ranking</div>
+      <div className="text-[12px] text-[#5F6368] max-[480px]:mb-5 max-[480px]:ml-[10px]">
+        * 점수는 15분 안으로 반영됩니다.
+      </div>
+      <div className="flex justify-center pb-[45px]">
         <DivToggleBar selected={selected} setSelected={setSelected} />
-      </ButtonWrapper>
-      <MainWrapper>
-        <AnimatedContainer $animate={animate} $duration="1s">
-          <RankingContainer rankingData={rankingData} error={error} />
-        </AnimatedContainer>
-        <Right>
-          <AnimatedContainer $animate={animate} key={selected} $duration="2s">
+      </div>
+      <div className="mb-10 flex gap-[26px]">
+        {/* ponytail: 등장 fade 애니메이션 생략(레이아웃 동일) */}
+        <div>
+          <RankingContainer rankingData={rankingData} error={null} />
+        </div>
+        <div className="flex flex-col gap-[20.65px] max-[480px]:hidden">
+          <div key={selected}>
             {streakRatio !== null ? (
               <DonutChart
                 key={selected}
@@ -137,10 +48,10 @@ const DivPage = () => {
             ) : (
               <div>Loading...</div>
             )}
-          </AnimatedContainer>
-        </Right>
-      </MainWrapper>
-    </LayOut>
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
 

@@ -1,33 +1,13 @@
-import styled from 'styled-components';
+'use client';
+
 import { checkAdminName } from '../../util/CheckAdminName';
 import { checkAdminApi, checkSemesterApi } from '../../api/AdminApi';
 import { useState } from 'react';
-import { Modal } from '../Modal';
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 15px;
-  align-items: center;
-  margin-bottom: 29px;
-`;
-
-const Button = styled.button`
-  background-color: #ffa5a5;
-  border: none;
-  border-radius: 10px;
-  font-size: 12px;
-  font-weight: 700;
-  padding: 12px;
-  cursor: pointer;
-  position: relative;
-  &:hover {
-    background-color: #0af;
-  }
-`;
+import { Modal, ModalContent } from '../Modal';
 
 export const AdminCheck = ({ name }: { name: 'season' | 'event' | 'semester' }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalContent, setModalContent] = useState<string | any>('');
+  const [modalContent, setModalContent] = useState<ModalContent>('');
   const buttonClick = async () => {
     try {
       const response = name === 'semester'
@@ -44,16 +24,21 @@ export const AdminCheck = ({ name }: { name: 'season' | 'event' | 'semester' }) 
       setIsModalOpen(true);
     } catch (error) {
       console.error('오류...', error);
-      setModalContent('오류 개발팀 문의' + String(error));
+      setModalContent(`오류 개발팀 문의${String(error)}`);
       setIsModalOpen(true);
     }
   };
   return (
     <>
-      <Wrapper>
+      <div className="flex flex-row gap-[15px] items-center mb-[29px]">
         {checkAdminName[name]}
-        <Button onClick={buttonClick}>확인하기</Button>
-      </Wrapper>
+        <button
+          className="bg-[#ffa5a5] border-none rounded-[10px] text-[12px] font-bold p-3 cursor-pointer relative hover:bg-primary"
+          onClick={buttonClick}
+        >
+          확인하기
+        </button>
+      </div>
       {isModalOpen && <Modal content={modalContent} onClose={() => setIsModalOpen(false)} />}
     </>
   );

@@ -1,80 +1,21 @@
-import styled from 'styled-components';
-import Color from '../util/Color';
-
-const ContactContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 6px;
-  font-size: 12px;
-  font-weight: 500;
-  color: ${Color.primary};
-
-  width: 25%;
-  @media (max-width: 800px) {
-    align-items: flex-start;
-  }
-`;
-
-const ContactItem = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  max-width: 400px;
-
-  @media (max-width: 800px) {
-    align-items: flex-start;
-    gap: 5px;
-  }
-`;
-
-const ContactType = styled.span`
-  text-align: right;
-  width: 50%;
-
-  @media (max-width: 800px) {
-    text-align: left;
-    width: 25%;
-  }
-`;
-
-const Divider = styled.span`
-  text-align: center;
-  width: 10px;
-  color: ${Color?.primary || '#42a5f5'};
-`;
-
-const ContactValue = styled.span`
-  text-align: left;
-  width: 50%;
-  white-space: nowrap;
-  @media (max-width: 800px) {
-    width: 100%;
-  }
-`;
-
-const ContactInfo = () => {
-  return (
-    <ContactContainer>
-      <ContactItem>
-        <ContactType>Instagram</ContactType>
-        <Divider>|</Divider>
-        <ContactValue>@hi-arc.official</ContactValue>
-      </ContactItem>
-      <ContactItem>
-        <ContactType>Email</ContactType>
-        <Divider>|</Divider>
-        <ContactValue>hiarc.official@gmail.com</ContactValue>
-      </ContactItem>
-      <ContactItem>
-        <ContactType>Kakao</ContactType>
-        <Divider>|</Divider>
-        <ContactValue>@hi-arc</ContactValue>
-      </ContactItem>
-    </ContactContainer>
+const ContactInfo = () => (
+    <div className="flex flex-col items-end justify-center gap-[6px] text-[12px] font-medium text-primary w-1/4 max-[800px]:items-start">
+      <div className="flex items-center justify-between w-full max-w-[400px] max-[800px]:items-start max-[800px]:gap-[5px]">
+        <span className="text-right w-1/2 max-[800px]:text-left max-[800px]:w-1/4">Instagram</span>
+        <span className="text-center w-[10px] text-primary">|</span>
+        <span className="text-left w-1/2 whitespace-nowrap max-[800px]:w-full">@hi-arc.official</span>
+      </div>
+      <div className="flex items-center justify-between w-full max-w-[400px] max-[800px]:items-start max-[800px]:gap-[5px]">
+        <span className="text-right w-1/2 max-[800px]:text-left max-[800px]:w-1/4">Email</span>
+        <span className="text-center w-[10px] text-primary">|</span>
+        <span className="text-left w-1/2 whitespace-nowrap max-[800px]:w-full">hiarc.official@gmail.com</span>
+      </div>
+      <div className="flex items-center justify-between w-full max-w-[400px] max-[800px]:items-start max-[800px]:gap-[5px]">
+        <span className="text-right w-1/2 max-[800px]:text-left max-[800px]:w-1/4">Kakao</span>
+        <span className="text-center w-[10px] text-primary">|</span>
+        <span className="text-left w-1/2 whitespace-nowrap max-[800px]:w-full">@hi-arc</span>
+      </div>
+    </div>
   );
-};
 
 export default ContactInfo;

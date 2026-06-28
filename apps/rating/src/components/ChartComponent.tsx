@@ -1,18 +1,8 @@
+'use client';
+
 import React from 'react';
 import { LineChart, Line, YAxis, Tooltip, LabelList } from 'recharts';
-import styled from 'styled-components';
 import Color from '../util/Color';
-
-const ChartWrapper = styled.div`
-  width: 302px;
-  height: 261px;
-  background: linear-gradient(135deg, #ffffff, ${Color.primary});
-  border-radius: 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-bottom: 20px;
-`;
 
 const data = [
   { name: '1', value: 20 },
@@ -23,9 +13,11 @@ const data = [
   { name: '6', value: 220 },
 ];
 
-const ChartComponent: React.FC = () => {
-  return (
-    <ChartWrapper>
+const ChartComponent: React.FC = () => (
+    <div
+      className="w-[302px] h-[261px] rounded-[15px] flex justify-center items-center pb-5"
+      style={{ background: `linear-gradient(135deg, #ffffff, ${Color.primary})` }}
+    >
       <LineChart
         width={302}
         height={261}
@@ -44,8 +36,7 @@ const ChartComponent: React.FC = () => {
           <LabelList dataKey="value" position="top" dy={-10} fontSize={12} fill="#008CFF" />
         </Line>
       </LineChart>
-    </ChartWrapper>
+    </div>
   );
-};
 
 export default ChartComponent;

@@ -1,53 +1,30 @@
-import { useAtom } from 'jotai';
-import styled from 'styled-components';
-import { hitingDataAtom } from '../store/Atom';
+'use client';
+
+import { useHitingData } from '@/hooks/use-hiting-data';
 import Color from '../util/Color';
 import ArrowButton from '../atoms/ArrowButton';
 import DivNameTack from './DivNameTack';
 import { DivData } from '../types/DataType';
 
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 320px;
-  border-radius: 28px;
-  background-color: ${Color.skybox};
-  min-height: 300px;
-`;
-
-const ButtonWrapper = styled.div`
-  width: 100%;
-  margin-top: 3%;
-  display: flex;
-  justify-content: center;
-`;
-
-const TackContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 20px;
-`;
-
-const HitingBox = ({ divNum }: { divNum: number }) => {
-  const [hitingData] = useAtom(hitingDataAtom);
+const HitingBox = ({ divNum }: { divNum: number }): React.ReactElement => {
+  const { data: hitingData } = useHitingData();
 
   const divList: DivData[] =
-    divNum === 1
-      ? hitingData.div1Ranking
+    (divNum === 1
+      ? hitingData?.div1Ranking
       : divNum === 2
-        ? hitingData.div2Ranking
-        : hitingData.div3Ranking || [];
+        ? hitingData?.div2Ranking
+        : hitingData?.div3Ranking) ?? [];
 
   return (
-    <Wrapper>
-      <ButtonWrapper>
+    <div
+      className="flex flex-col items-center w-[320px] rounded-[28px] min-h-[300px]"
+      style={{ backgroundColor: Color.skybox }}
+    >
+      <div className="w-full mt-[3%] flex justify-center">
         <ArrowButton divNum={divNum} />
-      </ButtonWrapper>
-      <TackContainer>
+      </div>
+      <div className="w-full h-full flex flex-col items-center pt-5">
         {divList.map((item, index) => (
           <DivNameTack
             key={index}
@@ -60,8 +37,8 @@ const HitingBox = ({ divNum }: { divNum: number }) => {
             memberId={item.memberId}
           />
         ))}
-      </TackContainer>
-    </Wrapper>
+      </div>
+    </div>
   );
 };
 

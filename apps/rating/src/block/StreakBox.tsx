@@ -1,72 +1,42 @@
-import styled from 'styled-components';
+'use client';
+
 import { useState, useEffect } from 'react';
-import { useAtom } from 'jotai';
-import Color from '../util/Color';
 import IndividualBlock from '../components/IndividualBlock';
 import StreakBoxArrowButton from '../components/StreakBoxArrowButton';
-import { hitingDataAtom, loadingAtom } from '../store/Atom';
+import { useHitingData } from '@/hooks/use-hiting-data';
 import { parseDivisionString } from '../util/parseDivision';
+import Color from '../util/Color';
 
-const Wrapper = styled.div`
-  width: 725px;
-  border-radius: 28px;
-  background-color: ${Color.skybox};
-  min-height: 342px;
-  min-width: 320px;
-  display: flex;
-  flex-direction: column;
-
-  @media (max-width: 480px) {
-    width: 320px;
-  }
-`;
-
-const ButtonWrapper = styled.div`
-  width: 100%;
-  margin-top: 15px;
-  display: flex;
-  justify-content: center;
-`;
-
-const Individuals = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  align-items: flex-start;
-  flex-grow: 1;
-  padding: 12px 18px;
-`;
-
-const StreakBox = () => {
-  const [hitingData] = useAtom(hitingDataAtom);
-  const [loading] = useAtom(loadingAtom);
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 480);
+const StreakBox = (): React.ReactElement => {
+  const { data: hitingData, isLoading: loading } = useHitingData();
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => {
+    const handleResize = (): void => {
       setIsMobile(window.innerWidth <= 480);
     };
 
+    handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const streakList = hitingData.streakRanking?.slice(0, 6) || [];
+  const streakList = hitingData?.streakRanking?.slice(0, 6) ?? [];
   const displayedBlocks = isMobile ? streakList.slice(0, 4) : streakList;
 
   return (
-    <Wrapper>
-      <ButtonWrapper>
+    <div
+      className="w-[725px] rounded-[28px] min-h-[342px] min-w-[320px] flex flex-col max-[480px]:w-[320px]"
+      style={{ backgroundColor: Color.skybox }}
+    >
+      <div className="w-full mt-[15px] flex justify-center">
         <StreakBoxArrowButton />
-      </ButtonWrapper>
+      </div>
       {loading ? (
-        <p style={{ textAlign: 'center', padding: '20px' }}>로딩 중...</p>
+        <p className="text-center p-5">로딩 중...</p>
       ) : (
-        <Individuals>
-          {displayedBlocks.map((streak) => {
-            return (
+        <div className="w-full h-full flex flex-wrap gap-3 items-start grow py-3 px-[18px]">
+          {displayedBlocks.map((streak) => (
               <IndividualBlock
                 key={streak.bojHandle}
                 tier={streak.tier}
@@ -76,11 +46,10 @@ const StreakBox = () => {
                 startDate={streak.streak.streakStartAt}
                 memberId={streak.memberId}
               />
-            );
-          })}
-        </Individuals>
+            ))}
+        </div>
       )}
-    </Wrapper>
+    </div>
   );
 };
 

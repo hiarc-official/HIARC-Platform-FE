@@ -1,34 +1,6 @@
+'use client';
 import { useState, useEffect } from 'react';
-import styled from 'styled-components';
 import Color from '../util/Color'; // 기본 색상 관리 파일
-
-// 스타일 지정
-const ChartWrapper = styled.div`
-  width: 282px; /* 전체 컨테이너 크기 변경 */
-  height: 241px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: #f0f9ff; /* 배경 색 */
-  border-radius: 20px; /* 둥근 모서리 */
-  padding: 10px;
-`;
-
-const SvgContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-`;
-
-const Description = styled.div`
-  margin-top: 20px;
-  font-size: 14px;
-  font-weight: 500;
-  color: black;
-  text-align: center;
-`;
 
 interface DonutChartProps {
   value: number; // 최종 목표 진행률 (예: 30)
@@ -61,8 +33,8 @@ const DonutChart: React.FC<DonutChartProps> = ({
   const progress = (animatedValue / maxValue) * circumference;
 
   return (
-    <ChartWrapper>
-      <SvgContainer>
+    <div className="w-[282px] h-[241px] flex flex-col items-center justify-center bg-[#f0f9ff] rounded-[20px] p-[10px]">
+      <div className="flex justify-center items-center w-full">
         <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
           {/* 배경 원 */}
           <circle
@@ -103,10 +75,12 @@ const DonutChart: React.FC<DonutChartProps> = ({
             </tspan>
           </text>
         </svg>
-      </SvgContainer>
+      </div>
       {/* 하단 설명 텍스트 */}
-      <Description>div {div} 학회원들의 스트릭 유지율</Description>
-    </ChartWrapper>
+      <div className="mt-[20px] text-[14px] font-medium text-black text-center">
+        div {div} 학회원들의 스트릭 유지율
+      </div>
+    </div>
   );
 };
 

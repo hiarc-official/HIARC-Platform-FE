@@ -1,17 +1,18 @@
+'use client';
+
 import { PropsWithChildren, useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { authApi } from '../api/AuthApi';
 
-export const AdminGuard = ({ children }: PropsWithChildren) => {
+export const AdminGuard = ({ children }: PropsWithChildren): React.ReactNode => {
+  const router = useRouter();
   const [authorized, setAuthorized] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const checkAdmin = async () => {
+    const checkAdmin = async (): Promise<void> => {
       try {
         const userData = await authApi.GET_ME();
-        console.log('사용자 정보:', userData);
-
         const isAdmin = userData.memberRole === 'ADMIN';
 
         if (!isAdmin) {
@@ -30,7 +31,13 @@ export const AdminGuard = ({ children }: PropsWithChildren) => {
     checkAdmin();
   }, []);
 
-  if (loading) return <div>인증 확인 중...</div>;
-  if (!authorized) return <Navigate to="/" replace />;
+  useEffect(() => {
+    if (!loading && !authorized) {
+      router.replace('/');
+    }
+  }, [loading, authorized, router]);
+
+  if (loading) {return <div>인증 확인 중...</div>;}
+  if (!authorized) {return null;}
   return children;
 };

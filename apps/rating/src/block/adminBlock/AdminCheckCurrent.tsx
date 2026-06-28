@@ -1,18 +1,9 @@
 import { AdminCheckExplain } from '../../components/adminComponents/AdminCheckExplain';
-import styled from 'styled-components';
 import { AdminInputBox } from '../../components/adminComponents/AdminInputBox';
 
-const Wrapper = styled.div`
-  margin-top: 33px;
-  display: flex;
-  gap: 150px;
-`;
-
-export const AdminCheckCurrent = ({ blockName }: { blockName: string }) => {
-  return (
-    <Wrapper>
+export const AdminCheckCurrent = ({ blockName }: { blockName: string }) => (
+    <div className="mt-[33px] flex gap-[150px]">
       <AdminCheckExplain blockName={blockName} />
       <AdminInputBox blockName={blockName} />
-    </Wrapper>
+    </div>
   );
-};

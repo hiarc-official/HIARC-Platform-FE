@@ -1,34 +1,8 @@
-import styled from 'styled-components';
+'use client';
 import { useState } from 'react';
 import { useAtom } from 'jotai';
 import { handleAtom } from '../store/Atom';
 import { getId } from '../api/AdminApi';
-import Img from './../assets/InputImg.png';
-import Color from '../util/Color';
-
-const Wrapper = styled.div`
-  width: 339px;
-  display: flex;
-  border: 1px solid ${Color.primary};
-  border-radius: 18px;
-  height: 34px;
-  align-items: center;
-
-  .Input {
-    border: none;
-    outline: none;
-    margin-left: 1px;
-    width: 80%;
-    font-size: 14px;
-  }
-
-  img {
-    cursor: pointer;
-    width: 20px;
-    height: 20px;
-    margin-left: 21px;
-  }
-`;
 
 const HeaderInput = () => {
   const [, setHandle] = useAtom(handleAtom);
@@ -55,7 +29,7 @@ const HeaderInput = () => {
           const memberId = response.data.id || response.data.memberId;
           if (memberId) {
             console.log('멤버 ID 찾음:', memberId);
-            window.location.href = `${import.meta.env.VITE_INTRA_API_URL}/member/${memberId}`;
+            window.location.href = `${process.env.NEXT_PUBLIC_INTRA_API_URL}/member/${memberId}`;
           } else {
             console.log('멤버 ID를 찾을 수 없음:', response.data);
           }
@@ -69,17 +43,23 @@ const HeaderInput = () => {
   };
 
   return (
-    <Wrapper>
-      <img src={Img} alt="검색 아이콘" onClick={handleSearch} />
+    <div className="w-[339px] flex border border-primary rounded-[18px] h-[34px] items-center">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/assets/InputImg.png"
+        alt="검색 아이콘"
+        onClick={handleSearch}
+        className="cursor-pointer w-[20px] h-[20px] ml-[21px]"
+      />
       <input
         type="text"
         placeholder="백준 핸들 검색"
-        className="Input"
+        className="border-none outline-none ml-px w-[80%] text-[14px]"
         value={inputValue}
         onChange={handleInputChange}
         onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
       />
-    </Wrapper>
+    </div>
   );
 };
 

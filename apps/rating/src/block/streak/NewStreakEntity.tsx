@@ -1,54 +1,10 @@
-import styled from 'styled-components';
+'use client';
+
 import InfoEntity from '../../atoms/InfoEntity';
-import Color from '../../util/Color';
 import { DinamicStreakBox } from './DinamicStreakBox';
 import StreakInformation from './StreakInformation';
 import { Member } from '../../api/StreakApi';
 import { parseDivisionString, getDivisionNumber } from '../../util/parseDivision';
-
-const Up = styled.div`
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-`;
-const Devider = styled.div`
-  width: 98%;
-  border-bottom: 1px solid ${Color.primary};
-  margin-top: -1px;
-  margin-left: 12px;
-  @media (max-width: 480px) {
-    width: 92%;
-  }
-`;
-
-const Down = styled.div`
-  margin-top: 16px;
-
-  @media (max-width: 480px) {
-    overflow-x: auto;
-    width: 100%;
-    text-align: center;
-
-    /* 스크롤바 숨기기 */
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE and Edge */
-
-    &::-webkit-scrollbar {
-      display: none; /* Chrome, Safari, Opera */
-    }
-  }
-`;
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 557px;
-  cursor: pointer;
-
-  @media (max-width: 480px) {
-    width: 335px;
-  }
-`;
 
 interface Props {
   member: Member;
@@ -66,23 +22,23 @@ const NewStreakEntity = ({ member }: Props) => {
   const divisionNumber = getDivisionNumber(divisionEnum);
 
   const handleClick = () => {
-    window.location.href = `${import.meta.env.VITE_INTRA_API_URL}/member/${member.memberId}`;
+    window.location.href = `${process.env.NEXT_PUBLIC_INTRA_API_URL}/member/${member.memberId}`;
   };
 
   return (
-    <Wrapper onClick={handleClick}>
-      <Up>
+    <div className="flex flex-col w-[557px] cursor-pointer max-[480px]:w-[335px]" onClick={handleClick}>
+      <div className="flex w-full flex-col">
         <InfoEntity handle={member.bojHandle} div={divisionNumber} tier={member.tier} />
-        <Devider></Devider>
-      </Up>
-      <Down>
+        <div className="w-[98%] border-b border-primary mt-[-1px] ml-3 max-[480px]:w-[92%]"></div>
+      </div>
+      <div className="mt-4 max-[480px]:overflow-x-auto max-[480px]:w-full max-[480px]:text-center max-[480px]:[scrollbar-width:none] max-[480px]:[-ms-overflow-style:none] max-[480px]:[&::-webkit-scrollbar]:hidden">
         <DinamicStreakBox data={streakData} />
-      </Down>
+      </div>
       <StreakInformation
         currentTotalStreak={member.streak.currentTotalStreak}
         currentSeasonStreak={member.streak.currentSeasonStreak}
       />
-    </Wrapper>
+    </div>
   );
 };
 

@@ -1,99 +1,28 @@
-import LayOut from '../util/Layout';
+'use client';
+
 import DivBlock from '../block/DivBlock';
 import StreakBox from '../block/StreakBox';
 import EventBlock from '../block/EventBlock';
-import styled, { keyframes } from 'styled-components';
-import { useEffect } from 'react';
-import { useAtom } from 'jotai';
-import { fetchHitingData } from '../api/MainPageApi';
-import { loadingAtom, hitingDataAtom } from '../store/Atom';
+import { useHitingData } from '@/hooks/use-hiting-data';
 
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-`;
-
-const AnimatedContainer = styled.div<{ $delay?: string }>`
-  opacity: 0;
-  animation: ${fadeIn} 1s ease-in-out forwards;
-  animation-delay: ${(props) => props.$delay || '0s'};
-`;
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-`;
-
-const MainHeader = styled.div`
-  font-size: 35px;
-  font-weight: 800;
-  text-align: left;
-
-  @media (max-width: 480px) {
-    width: 100%;
-    margin-left: 16px;
-  }
-`;
-
-const Down = styled.div`
-  display: flex;
-  gap: 20px;
-
-  @media (max-width: 480px) {
-    flex-direction: column-reverse;
-    gap: 52px;
-    align-items: center;
-    margin-bottom: 40px;
-  }
-`;
-
-const MainPage = () => {
-  const [loading, setLoading] = useAtom(loadingAtom);
-  const [hitingData, setHitingData] = useAtom(hitingDataAtom);
-
-  useEffect(() => {
-    if (!loading) return;
-
-    const fetchData = async () => {
-      try {
-        const data = await fetchHitingData();
-        setHitingData(data);
-        console.log(hitingData);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [loading]);
+const MainPage = (): React.ReactElement => {
+  // 자식들이 같은 queryKey로 useHitingData를 호출해 캐시를 공유하므로
+  // 여기서 한 번 호출해 프리패치만 트리거한다.
+  useHitingData();
 
   return (
-    <LayOut>
-      <Wrapper>
-        <MainHeader>Hiting</MainHeader>
+    <div className="flex flex-col gap-6">
+      <div className="text-[35px] font-extrabold text-left max-[480px]:w-full max-[480px]:ml-4">
+        Hiting
+      </div>
 
-        <AnimatedContainer $delay="0.8s">
-          <DivBlock />
-        </AnimatedContainer>
-        <Down>
-          <AnimatedContainer $delay="1s">
-            <StreakBox />
-          </AnimatedContainer>
-          <AnimatedContainer $delay="1s">
-            <EventBlock />
-          </AnimatedContainer>
-        </Down>
-      </Wrapper>
-    </LayOut>
+      {/* ponytail: 등장 fade 애니메이션 생략(레이아웃 동일) */}
+      <DivBlock />
+      <div className="flex gap-5 max-[480px]:flex-col-reverse max-[480px]:gap-[52px] max-[480px]:items-center max-[480px]:mb-10">
+        <StreakBox />
+        <EventBlock />
+      </div>
+    </div>
   );
 };
 

@@ -1,41 +1,7 @@
-import styled from 'styled-components';
+'use client';
+
+import { cn } from '@hiarc-platform/design-system';
 import TierImg from '../util/TierImg';
-import Color from '../util/Color';
-
-const Wrapper = styled.div<{ $isUnderlined: boolean }>`
-  padding-left: 5px;
-  width: 280px;
-  border-bottom: ${(props) => (props.$isUnderlined ? `1px solid ${Color.primary}` : 'none')};
-  min-height: 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 14px;
-  font-weight: 400;
-  cursor: pointer;
-`;
-
-const Information = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 147px;
-`;
-
-const NumAndId = styled.div`
-  width: 100%;
-  display: flex;
-  gap: 16px;
-  margin-right: 60px;
-  .ID {
-    width: 80px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-  }
-  .Rank {
-    width: 20px;
-  }
-`;
 
 const DivNameTack = ({
   rank,
@@ -51,23 +17,29 @@ const DivNameTack = ({
   memberId: number;
 }) => {
   const handleClick = () => {
-    window.location.href = `${import.meta.env.VITE_INTRA_API_URL}/member/${memberId}`;
+    window.location.href = `${process.env.NEXT_PUBLIC_INTRA_API_URL}/member/${memberId}`;
   };
 
   // ID가 8글자보다 길면 8글자만 표시하고 "..." 추가
   const truncatedId = id.length > 7 ? `${id.slice(0, 8)}...` : id;
 
   return (
-    <Wrapper $isUnderlined={rank !== 5} onClick={handleClick}>
-      <Information>
-        <NumAndId>
-          <div className="Rank">{rank}</div>
-          <div className="ID">{truncatedId}</div>
-        </NumAndId>
+    <div
+      onClick={handleClick}
+      className={cn(
+        'flex min-h-[40px] w-[280px] cursor-pointer items-center justify-between pl-[5px] text-[14px] font-normal',
+        rank !== 5 && 'border-b border-primary'
+      )}
+    >
+      <div className="flex w-[147px] justify-between">
+        <div className="mr-[60px] flex w-full gap-4">
+          <div className="w-5">{rank}</div>
+          <div className="w-20 overflow-hidden text-ellipsis whitespace-nowrap">{truncatedId}</div>
+        </div>
         <TierImg tier={tier} />
-      </Information>
+      </div>
       {totalHiting < 0 ? 0 : totalHiting}
-    </Wrapper>
+    </div>
   );
 };
 

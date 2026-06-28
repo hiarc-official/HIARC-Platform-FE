@@ -13,6 +13,4 @@ export const parseDivisionString = (divisionString: string): Division => {
   }
 };
 
-export const getDivisionNumber = (division: Division): number => {
-  return division as number;
-};
+export const getDivisionNumber = (division: Division): number => division as number;

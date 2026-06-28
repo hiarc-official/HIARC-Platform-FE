@@ -1,121 +1,54 @@
-import { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import Color from '../util/Color';
+'use client';
+
+import { useRouter } from 'next/navigation';
 import HeaderInput from '../atoms/HeaderInput';
-import { useNavigate } from 'react-router-dom';
-import Home from '../assets/Home.svg';
 
-const Wrapper = styled.div`
-  width: 100%;
-  max-width: 1000px;
-  display: flex;
-  justify-content: space-between;
-  height: 36px;
-  padding: 30px 0;
-  color: ${Color.primary};
-
-  @media (max-width: 480px) {
-    width: 375px;
-    flex-direction: column;
-    align-items: center;
-    height: 90px;
-    justify-content: flex-start;
-    gap: 10px;
-  }
-`;
-
-const HIARC = styled.a`
-  color: ${Color.primary};
-  font-size: 20px;
-  text-decoration: none;
-  white-space: nowrap;
-  font-weight: 900;
-`;
-
-const Right = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  width: 40%;
-  white-space: nowrap;
-  gap: 10px;
-  align-items: center;
-
-  @media (max-width: 480px) {
-    width: 342px;
-  }
-`;
-
-const MediaInputWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-`;
-
-const InputWrapper = styled.div`
-  @media (max-width: 480px) {
-    display: none;
-  }
-`;
-
-const HitingWrapper = styled.div`
-  cursor: pointer;
-  font-weight: 900;
-`;
-
-const MobileHeaderWrapper = styled.div`
-  width: 330px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  @media (min-width: 481px) {
-    display: none;
-  }
-`;
-
-const Header = () => {
-  const navigate = useNavigate();
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 480);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 480);
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+const Header = (): React.ReactElement => {
+  const router = useRouter();
 
   return (
-    <Wrapper>
-      {!isMobile && <HIARC href="https://intra.hiarc-official.com">HI-ARC</HIARC>}
+    <div className="flex h-9 w-full max-w-[1000px] justify-between py-[30px] text-primary max-[480px]:h-[90px] max-[480px]:w-[375px] max-[480px]:flex-col max-[480px]:items-center max-[480px]:justify-start max-[480px]:gap-2.5">
+      {/* 데스크탑 좌측 로고 */}
+      <a
+        href="https://intra.hiarc-official.com"
+        className="hidden whitespace-nowrap text-xl font-black text-primary no-underline min-[481px]:block"
+      >
+        HI-ARC
+      </a>
 
-      {isMobile && (
-        <MobileHeaderWrapper>
-          <HIARC href="https://intra.hiarc-official.com">HI-ARC</HIARC>
-          <HitingWrapper onClick={() => navigate('/')}>
-            <img src={Home} alt="home" />
-          </HitingWrapper>
-        </MobileHeaderWrapper>
-      )}
+      {/* 모바일 상단 (로고 + 홈) */}
+      <div className="flex w-[330px] items-center justify-between min-[481px]:hidden">
+        <a
+          href="https://intra.hiarc-official.com"
+          className="whitespace-nowrap text-xl font-black text-primary no-underline"
+        >
+          HI-ARC
+        </a>
+        <button type="button" className="cursor-pointer font-black" onClick={() => router.push('/')}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/assets/Home.svg" alt="home" />
+        </button>
+      </div>
 
-      <Right>
-        <InputWrapper>
+      <div className="flex w-2/5 items-center justify-end gap-2.5 whitespace-nowrap max-[480px]:w-[342px]">
+        <div className="max-[480px]:hidden">
           <HeaderInput />
-        </InputWrapper>
+        </div>
+        <button
+          type="button"
+          className="hidden cursor-pointer font-black min-[481px]:block"
+          onClick={() => router.push('/')}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/assets/Home.svg" alt="home" />
+        </button>
+      </div>
 
-        {!isMobile && (
-          <HitingWrapper onClick={() => navigate('/')}>
-            <img src={Home} alt="home" />
-          </HitingWrapper>
-        )}
-      </Right>
-
-      {isMobile && (
-        <MediaInputWrapper>
-          <HeaderInput />
-        </MediaInputWrapper>
-      )}
-    </Wrapper>
+      {/* 모바일 검색 입력 */}
+      <div className="flex w-full justify-center min-[481px]:hidden">
+        <HeaderInput />
+      </div>
+    </div>
   );
 };
 

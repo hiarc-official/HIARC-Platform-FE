@@ -1,95 +1,30 @@
-import styled from 'styled-components';
-
-const Wrapper = styled.div`
-  display: flex;
-  gap: 16px;
-  align-items: center;
-  position: relative;
-
-  @media (max-width: 480px) {
-    justify-content: space-between;
-    gap: 0;
-  }
-`;
-const Card = styled.div`
-  padding: 16px;
-  display: flex;
-  gap: 8px;
-  flex-direction: column;
-  width: 100%;
-
-  @media (max-width: 480px) {
-    flex: 1;
-    text-align: center;
-  }
-`;
-
-const Up = styled.div`
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 1.5;
-`;
-
-const Down = styled.div`
-  display: flex;
-  align-items: center;
-
-  @media (max-width: 480px) {
-    justify-content: center;
-  }
-`;
-const Number = styled.div`
-  font-size: 24px;
-  line-height: 1.5;
-  font-weight: 700;
-`;
-const Days = styled.div`
-  font-size: 16px;
-  line-height: 1.5;
-  font-weight: 400;
-`;
-
-const Devider = styled.div`
-  height: 50px;
-  width: 1px;
-  background-color: #dedeeb;
-
-  @media (max-width: 480px) {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-`;
-
 interface Props {
   currentTotalStreak: number;
   currentSeasonStreak: number | null;
 }
 
-const StreakInformation = ({ currentTotalStreak, currentSeasonStreak }: Props) => {
-  return (
-    <Wrapper>
-      <Card>
-        <Up>누적</Up>
-        <Down>
-          <Number>{currentTotalStreak}</Number>
-          <Days>days</Days>
-        </Down>
-      </Card>
+const StreakInformation = ({ currentTotalStreak, currentSeasonStreak }: Props) => (
+    <div className="flex gap-4 items-center relative max-[480px]:justify-between max-[480px]:gap-0">
+      <div className="p-4 flex gap-2 flex-col w-full max-[480px]:flex-1 max-[480px]:text-center">
+        <div className="font-normal text-[14px] leading-[1.5]">누적</div>
+        <div className="flex items-center max-[480px]:justify-center">
+          <div className="text-[24px] leading-[1.5] font-bold">{currentTotalStreak}</div>
+          <div className="text-[16px] leading-[1.5] font-normal">days</div>
+        </div>
+      </div>
       {currentSeasonStreak !== null && (
         <>
-          <Devider></Devider>
-          <Card>
-            <Up>이번시즌</Up>
-            <Down>
-              <Number>{currentSeasonStreak}</Number>
-              <Days>days</Days>
-            </Down>
-          </Card>
+          <div className="h-[50px] w-px bg-[#dedeeb] max-[480px]:absolute max-[480px]:left-1/2 max-[480px]:-translate-x-1/2"></div>
+          <div className="p-4 flex gap-2 flex-col w-full max-[480px]:flex-1 max-[480px]:text-center">
+            <div className="font-normal text-[14px] leading-[1.5]">이번시즌</div>
+            <div className="flex items-center max-[480px]:justify-center">
+              <div className="text-[24px] leading-[1.5] font-bold">{currentSeasonStreak}</div>
+              <div className="text-[16px] leading-[1.5] font-normal">days</div>
+            </div>
+          </div>
         </>
       )}
-    </Wrapper>
+    </div>
   );
-};
 
 export default StreakInformation;

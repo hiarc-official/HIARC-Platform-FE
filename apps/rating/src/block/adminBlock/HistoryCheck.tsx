@@ -1,48 +1,23 @@
-import styled from 'styled-components';
 import { AdminCheck } from '../../components/adminComponents/AdminCheck';
 import { SeasonRankingCheck } from '../../components/adminComponents/SeasonRankingCheck';
 import { EventRankingCheck } from '../../components/adminComponents/EventRankingCheck';
 
-const MainWrapper = styled.div`
-  border-bottom: 1px solid black;
-  padding-bottom: 20px;
-`;
-
-const FirstRow = styled.div`
-  display: flex;
-  gap: 40px;
-  margin-bottom: 20px;
-`;
-
-const SecondRow = styled.div`
-  display: flex;
-  gap: 40px;
-  margin-bottom: 20px;
-`;
-
-const ThirdRow = styled.div`
-  display: flex;
-  gap: 40px;
-`;
-
-const HistoryCheck = () => {
-  return (
-    <MainWrapper>
-      <FirstRow>
+const HistoryCheck = () => (
+    <div className="border-b border-black pb-5">
+      <div className="flex gap-10 mb-5">
         <AdminCheck name="season" />
         <AdminCheck name="event" />
         <AdminCheck name="semester" />
-      </FirstRow>
-      <SecondRow>
+      </div>
+      <div className="flex gap-10 mb-5">
         <SeasonRankingCheck division={1} />
         <SeasonRankingCheck division={2} />
         <SeasonRankingCheck division={3} />
-      </SecondRow>
-      <ThirdRow>
+      </div>
+      <div className="flex gap-10">
         <EventRankingCheck />
-      </ThirdRow>
-    </MainWrapper>
+      </div>
+    </div>
   );
-};
 
 export default HistoryCheck;

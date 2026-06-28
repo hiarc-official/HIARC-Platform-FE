@@ -1,44 +1,9 @@
-import styled from 'styled-components';
-import Color from '../../util/Color';
+'use client';
+
 import { useState } from 'react';
 import { getAdminHandleStats } from '../../api/AdminApi';
 import { blockNameToCode } from '../../util/CheckAdminName';
 import { Modal } from '../Modal';
-const Wrapper = styled.div`
-  overflow: visible;
-`;
-const InputBox = styled.div`
-  background-color: ${Color.yellowBackground};
-  width: 454px;
-  height: 60px;
-  display: flex;
-  gap: 40px;
-  align-items: center;
-`;
-const Input = styled.input`
-  height: 30px;
-  width: 70%;
-  background-color: inherit;
-  border: none;
-  margin-top: 10px;
-  box-sizing: border-box;
-  resize: none;
-  font-size: 20px;
-  margin-left: 10px;
-`;
-const Button = styled.button`
-  background-color: #ffa5a5;
-  border: none;
-  border-radius: 10px;
-  font-size: 12px;
-  font-weight: 700;
-  padding: 12px;
-  margin-top: 10px;
-  cursor: pointer;
-  &:hover {
-    background-color: #0af;
-  }
-`;
 
 export const AdminInputBox = ({ blockName }: { blockName: string }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -72,12 +37,22 @@ export const AdminInputBox = ({ blockName }: { blockName: string }) => {
     }
   };
   return (
-    <Wrapper>
-      <InputBox>
-        <Input placeholder="핸들을 입력하세요" value={handle} onChange={handleInputChange} />
-        <Button onClick={onClick}>입력하기</Button>
-      </InputBox>
+    <div className="overflow-visible">
+      <div className="bg-[#FFFCED] w-[454px] h-[60px] flex gap-10 items-center">
+        <input
+          className="h-[30px] w-[70%] bg-inherit border-none mt-[10px] box-border resize-none text-[20px] ml-[10px]"
+          placeholder="핸들을 입력하세요"
+          value={handle}
+          onChange={handleInputChange}
+        />
+        <button
+          className="bg-[#ffa5a5] border-none rounded-[10px] text-[12px] font-bold p-3 mt-[10px] cursor-pointer hover:bg-primary"
+          onClick={onClick}
+        >
+          입력하기
+        </button>
+      </div>
       {isModalOpen ? <Modal content={modalContent} onClose={() => setIsModalOpen(false)} /> : ''}
-    </Wrapper>
+    </div>
   );
 };

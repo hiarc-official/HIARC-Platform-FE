@@ -1,18 +1,8 @@
-import styled from 'styled-components';
 import RankingContainerExplainBar from '../components/RankingContainerExplainBar';
 import RankingEntity from '../components/RankingEntity';
 
-const Wrapper = styled.div`
-  width: 673px;
-  display: flex;
-  flex-direction: column;
-  @media (max-width: 480px) {
-    width: 342px;
-  }
-`;
-
 interface RankingContainerProps {
-  rankingData: {
+  rankingData: Array<{
     num: number;
     bojHandle: string;
     tier: number;
@@ -20,15 +10,15 @@ interface RankingContainerProps {
     totalScore: number;
     currentSeasonScore: number | null;
     memberId: number;
-  }[];
+  }>;
   error: string | null;
 }
 
 const RankingContiner = ({ rankingData, error }: RankingContainerProps) => {
-  if (error) return <p>오류 발생: {error}</p>;
+  if (error) {return <p>오류 발생: {error}</p>;}
 
   return (
-    <Wrapper>
+    <div className="flex w-[673px] flex-col max-[480px]:w-[342px]">
       <RankingContainerExplainBar />
       {rankingData.map(({ num, bojHandle, tier, today, totalScore, currentSeasonScore, memberId }) => (
         <RankingEntity
@@ -42,7 +32,7 @@ const RankingContiner = ({ rankingData, error }: RankingContainerProps) => {
           memberId={memberId}
         />
       ))}
-    </Wrapper>
+    </div>
   );
 };
 

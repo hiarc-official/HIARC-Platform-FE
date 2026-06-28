@@ -1,34 +1,7 @@
-import styled from 'styled-components';
+'use client';
+
 import { AdminExplain } from '../../util/AdminExplain';
-
-import Color from '../../util/Color';
 import { resetAdminData } from '../../api/AdminApi';
-const Wrapper = styled.div`
-  border-bottom: 1px solid black;
-`;
-const Header = styled.div`
-  font-size: 17.5px;
-  font-weight: 700;
-  margin-top: 45px;
-  margin-bottom: 29px;
-`;
-
-const Main = styled.div`
-  font-size: 13px;
-  font-weight: 600;
-`;
-
-const Button = styled.button`
-  background-color: #ffa5a5;
-  border: none;
-  border-radius: 12px;
-  padding: 12px;
-  margin-bottom: 41px;
-  cursor: pointer;
-  &:hover {
-    background-color: ${Color.primary};
-  }
-`;
 
 const AdminEnd = ({ endName }: { endName: string }) => {
   const handleButtonClick = async () => {
@@ -41,13 +14,18 @@ const AdminEnd = ({ endName }: { endName: string }) => {
     }
   };
   return (
-    <Wrapper>
-      <Header>{endName}</Header>
-      <Main>
+    <div className="border-b border-black">
+      <div className="text-[17.5px] font-bold mt-[45px] mb-[29px]">{endName}</div>
+      <div className="text-[13px] font-semibold">
         <pre>{AdminExplain[endName]}</pre>
-      </Main>
-      <Button onClick={handleButtonClick}>초기화 하기</Button>
-    </Wrapper>
+      </div>
+      <button
+        className="bg-[#ffa5a5] border-none rounded-[12px] p-3 mb-[41px] cursor-pointer hover:bg-primary"
+        onClick={handleButtonClick}
+      >
+        초기화 하기
+      </button>
+    </div>
   );
 };
 

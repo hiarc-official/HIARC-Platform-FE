@@ -1,38 +1,21 @@
-import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
-const Wrapper = styled.div`
-  width: 696px;
-  height: 40px;
-  border: none;
-  border-radius: 20px;
-  background-color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+'use client';
 
-  cursor: pointer;
-  .left {
-    margin-left: 16px;
-  }
-  .right {
-    margin-right: 13px;
-  }
-  @media (max-width: 480px) {
-    width: 284px;
-  }
-`;
+import { useRouter } from 'next/navigation';
 
 const StreakBoxArrowButton = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const handleClick = () => {
-    navigate(`/streak`);
+    router.push('/streak');
   };
   return (
-    <Wrapper onClick={handleClick}>
-      <div className="left">Streak</div>
+    <div
+      className="w-[696px] h-10 rounded-[20px] bg-white flex justify-between items-center cursor-pointer max-[480px]:w-[284px]"
+      onClick={handleClick}
+    >
+      <div className="ml-4">Streak</div>
 
-      <div className="right">{`>`}</div>
-    </Wrapper>
+      <div className="mr-[13px]">{'>'}</div>
+    </div>
   );
 };
 

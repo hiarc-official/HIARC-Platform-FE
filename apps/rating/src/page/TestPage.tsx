@@ -1,7 +1,4 @@
-import LayOut from '../util/Layout';
-import styled from 'styled-components';
 import InfoEntity from '../atoms/InfoEntity';
-import Color from '../util/Color';
 import { DinamicStreakBox } from '../block/streak/DinamicStreakBox';
 import StreakInformation from '../block/streak/StreakInformation';
 
@@ -44,46 +41,17 @@ const exampleData = [
   { date: '2025-05-03', count: 1 },
 ];
 
-const Up = styled.div`
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-`;
-const Devider = styled.div`
-  width: 98%;
-  border-bottom: 1px solid ${Color.primary};
-  margin-top: -1px;
-  margin-left: 12px;
-  @media (max-width: 480px) {
-    width: 92%;
-  }
-`;
-
-const Down = styled.div`
-  margin-top: 16px;
-`;
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 557px;
-`;
-
-const TestPage = () => {
-  return (
-    <LayOut>
-      <Wrapper>
-        <Up>
-          <InfoEntity handle="ghwo336" div={1} tier={13} />
-          <Devider></Devider>
-        </Up>
-        <Down>
-          <DinamicStreakBox data={exampleData} />
-        </Down>
-        <StreakInformation />
-      </Wrapper>
-    </LayOut>
+const TestPage = () => (
+    <div className="flex flex-col w-[557px]">
+      <div className="flex w-full flex-col">
+        <InfoEntity handle="ghwo336" div={1} tier={13} />
+        <div className="w-[98%] border-b border-primary mt-[-1px] ml-3 max-[480px]:w-[92%]"></div>
+      </div>
+      <div className="mt-4">
+        <DinamicStreakBox data={exampleData} />
+      </div>
+      <StreakInformation currentTotalStreak={42} currentSeasonStreak={7} />
+    </div>
   );
-};
 
 export default TestPage;

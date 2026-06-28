@@ -1,93 +1,28 @@
-import styled from 'styled-components';
-import reallogo from './../assets/hiarc-reallogo.png';
-import FontStyle from '../util/FontStyle';
 import ContactInfo from '../atoms/MediaListCell';
 
-const Wrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-
-  @media (max-width: 800px) {
-    align-items: flex-start;
-  }
-  @media (max-width: 480px) {
-    display: none;
-  }
-`;
-
-const FooterWrapper = styled.div`
-  width: 100%;
-  box-sizing: border-box;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 15px;
-  color: #00aaff;
-  text-align: left;
-  margin-top: 50px;
-
-  @media (max-width: 800px) {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-`;
-
-const IntroduceWrapper = styled.div`
-  display: flex;
-  flex: 1;
-`;
-
-const LogoImage = styled.img`
-  /* width: 40px;
-  height: 48px; */
-  width: 60px;
-  height: 60px;
-  margin-top: 20px;
-  margin-right: 20px;
-`;
-
-const IntroText = styled.div`
-  ${FontStyle.body1Regular}
-  white-space: nowrap;
-  @media (max-width: 800px) {
-    font-size: 14px;
-    margin-bottom: 14px;
-  }
-`;
-
-const IntroTitle = styled.h4`
-  margin-bottom: 5px;
-  ${FontStyle.body1Regular}
-  white-space: nowrap;
-  @media (max-width: 800px) {
-    font-size: 20px;
-  }
-`;
-
-const IntroWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-`;
-
-const Footer = () => {
-  return (
-    <Wrapper>
-      <FooterWrapper>
-        <IntroduceWrapper>
-          <LogoImage src={reallogo} alt="HI-ARC 로고" />
-          <IntroWrapper>
-            <IntroTitle>HI-ARC 하이아크</IntroTitle>
-            <IntroText>홍익대학교 컴퓨터공학과 알고리즘학회</IntroText>
-          </IntroWrapper>
-        </IntroduceWrapper>
+const Footer = (): React.ReactElement => (
+    <div className="flex w-full items-center justify-center max-[800px]:items-start max-[480px]:hidden">
+      <div className="mt-[50px] box-border flex w-full items-center justify-between text-left text-[15px] text-[#00aaff] max-[800px]:flex-col max-[800px]:items-start">
+        <div className="flex flex-1">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            className="mr-5 mt-5 h-[60px] w-[60px]"
+            src="/assets/hiarc-reallogo.png"
+            alt="HI-ARC 로고"
+          />
+          <div className="flex flex-col gap-[5px]">
+            <h4 className="mb-[5px] whitespace-nowrap text-[1.4rem] font-normal max-[800px]:text-[20px]">
+              HI-ARC 하이아크
+            </h4>
+            <div className="whitespace-nowrap text-[1.4rem] font-normal max-[800px]:mb-[14px] max-[800px]:text-sm">
+              홍익대학교 컴퓨터공학과 알고리즘학회
+            </div>
+          </div>
+        </div>
 
         <ContactInfo />
-      </FooterWrapper>
-    </Wrapper>
+      </div>
+    </div>
   );
-};
 
 export default Footer;

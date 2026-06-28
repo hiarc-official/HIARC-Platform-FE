@@ -38,7 +38,7 @@ export const sendAdminInput = async (blockName: string, inputValue: string, para
     }
   })();
 
-  if (!apiUrl) return;
+  if (!apiUrl) {return;}
 
   try {
     // 수정 요청인 경우 PATCH 메서드 사용, 나머지는 POST 사용
@@ -58,19 +58,13 @@ export const sendAdminInput = async (blockName: string, inputValue: string, para
 };
 
 //시즌 이벤트 초기화 api
-export const resetAdminData = async (type: 'season' | 'event') => {
-  return await apiClient.post(`/admin/reset/${type}`, {});
-};
+export const resetAdminData = async (type: 'season' | 'event') => await apiClient.post(`/admin/reset/${type}`, {});
 
 //확인하기 api 들
 
-export const checkAdminApi = async (type: 'season' | 'event') => {
-  return await apiClient.get(`/admin/rating/${type}`);
-};
+export const checkAdminApi = async (type: 'season' | 'event') => await apiClient.get(`/admin/rating/${type}`);
 
-export const checkSemesterApi = async () => {
-  return await apiClient.get('/semesters');
-};
+export const checkSemesterApi = async () => await apiClient.get('/semesters');
 
 // 핸들별 현재 값들 확인하는 api
 
@@ -130,7 +124,7 @@ export const getEventRanking = async (eventId: number) => {
 
 export const getId = async (handle: string) => {
   try {
-    const response = await apiClient.get(`/members/search`, { params: { bojHandle: handle } });
+    const response = await apiClient.get('/members/search', { params: { bojHandle: handle } });
 
     return response;
   } catch (error) {

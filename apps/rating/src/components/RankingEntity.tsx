@@ -1,60 +1,6 @@
-import styled from 'styled-components';
-import Color from '../util/Color';
-import TierImg from '../util/TierImg';
-import EventImg from '../assets/eventImg.png';
-const Wrapper = styled.div`
-  height: 40px;
-  width: 100%;
-  font-size: 14px;
-  font-weight: 400;
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid ${Color.graySub3};
-  cursor: pointer;
-`;
-const Ranking = styled.div`
-  width: 41.29px;
-  margin-left: 32px;
-  @media (max-width: 480px) {
-    margin-left: 18px;
-    width: 24px;
-  }
-`;
-const Handle = styled.div`
-  width: 180px;
-  @media (max-width: 480px) {
-    width: 142px;
-  }
-`;
+'use client';
 
-const Tier = styled.div`
-  width: 200px;
-  @media (max-width: 480px) {
-    width: 118px;
-  }
-`;
-const Event = styled.div`
-  width: 77px;
-  @media (max-width: 480px) {
-    display: none;
-  }
-`;
-const Today = styled.div`
-  width: 77px;
-  .letter {
-    width: 53px;
-    display: flex;
-    justify-content: center;
-  }
-  @media (max-width: 480px) {
-    display: none;
-  }
-`;
-const Total = styled.div`
-  width: 29px;
-  display: flex;
-  justify-content: center;
-`;
+import TierImg from '../util/TierImg';
 
 const RankingEntity = ({
   ranking,
@@ -74,21 +20,27 @@ const RankingEntity = ({
   memberId: number;
 }) => {
   const handleClick = () => {
-    window.location.href = `${import.meta.env.VITE_INTRA_API_URL}/member/${memberId}`;
+    window.location.href = `${process.env.NEXT_PUBLIC_INTRA_API_URL}/member/${memberId}`;
   };
   return (
-    <Wrapper onClick={handleClick}>
-      <Ranking>{ranking}</Ranking>
-      <Handle>{handle}</Handle>
-      <Tier>
+    <div
+      onClick={handleClick}
+      className="flex h-10 w-full cursor-pointer items-center border-b border-[#5F6368] text-[14px] font-normal"
+    >
+      <div className="ml-8 w-[41.29px] max-[480px]:ml-[18px] max-[480px]:w-6">{ranking}</div>
+      <div className="w-[180px] max-[480px]:w-[142px]">{handle}</div>
+      <div className="w-[200px] max-[480px]:w-[118px]">
         <TierImg tier={tier} />
-      </Tier>
-      <Event>{event && <img src={EventImg} />}</Event>
-      <Today>
-        <div className="letter">{today < 0 ? 0 : today}</div>
-      </Today>
-      <Total>{total < 0 ? 0 : total}</Total>
-    </Wrapper>
+      </div>
+      <div className="w-[77px] max-[480px]:hidden">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        {event && <img src="/assets/eventImg.png" alt="" />}
+      </div>
+      <div className="w-[77px] max-[480px]:hidden">
+        <div className="flex w-[53px] justify-center">{today < 0 ? 0 : today}</div>
+      </div>
+      <div className="flex w-[29px] justify-center">{total < 0 ? 0 : total}</div>
+    </div>
   );
 };
 

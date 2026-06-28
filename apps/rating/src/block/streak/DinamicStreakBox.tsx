@@ -1,11 +1,10 @@
-import styled from 'styled-components';
+'use client';
+
 import { addDays, differenceInDays, endOfYear, format, getDay, startOfYear } from 'date-fns';
 
 const daysInWeek = 7;
 const boxSize = 8;
-const mobileBoxSize = 5;
 const boxGap = 2.5;
-const mobileBoxGap = 0.5;
 
 const monthLabels = [
   'Jan',
@@ -32,72 +31,12 @@ interface Props {
 }
 
 const getColor = (count: number): string => {
-  if (count === 0) return '#f3f4f6'; // gray-100
-  if (count < 3) return '#bbf7d0'; // green-200
-  if (count < 5) return '#86efac'; // green-300
-  if (count < 10) return '#4ade80'; // green-400
+  if (count === 0) {return '#f3f4f6';} // gray-100
+  if (count < 3) {return '#bbf7d0';} // green-200
+  if (count < 5) {return '#86efac';} // green-300
+  if (count < 10) {return '#4ade80';} // green-400
   return '#22c55e'; // green-500
 };
-
-const GridWrapper = styled.div`
-  position: relative;
-
-  @media (max-width: 480px) {
-    display: inline-block;
-  }
-`;
-
-const MonthLabelContainer = styled.div<{ width: number }>`
-  position: relative;
-  height: 1rem;
-  margin-bottom: 0.5rem;
-  width: ${({ width }) => `${width}px`};
-
-  @media (max-width: 480px) {
-    display: none;
-  }
-`;
-
-const MonthLabel = styled.span<{ left: number }>`
-  position: absolute;
-  font-size: 0.75rem;
-  color: #4b5563; /* text-gray-600 */
-  left: ${({ left }) => `${left}px`};
-`;
-
-const GridContent = styled.div<{ width: number }>`
-  display: inline-flex;
-  width: ${({ width }) => `${width}px`};
-  min-width: ${({ width }) => `${width}px`};
-  gap: ${boxGap}px;
-
-  @media (max-width: 480px) {
-    gap: ${mobileBoxGap}px;
-    width: auto;
-    min-width: auto;
-  }
-`;
-
-const WeekColumn = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${boxGap}px;
-
-  @media (max-width: 480px) {
-    gap: ${mobileBoxGap}px;
-  }
-`;
-
-const DayBox = styled.div<{ bg: string }>`
-  width: ${boxSize}px;
-  height: ${boxSize}px;
-  background-color: ${({ bg }) => bg};
-
-  @media (max-width: 480px) {
-    width: ${mobileBoxSize}px;
-    height: ${mobileBoxSize}px;
-  }
-`;
 
 export function DinamicStreakBox({ data }: Props): React.ReactElement {
   const currentYear = new Date().getFullYear();
@@ -136,23 +75,39 @@ export function DinamicStreakBox({ data }: Props): React.ReactElement {
   const monthPositions = getMonthPositions();
 
   return (
-    <GridWrapper>
-      <MonthLabelContainer width={gridWidth}>
+    <div className="relative max-[480px]:inline-block">
+      <div
+        className="relative h-4 mb-2 max-[480px]:hidden"
+        style={{ width: `${gridWidth}px` }}
+      >
         {monthPositions.map(({ month, left }) => (
-          <MonthLabel key={month} left={left}>
+          <span
+            key={month}
+            className="absolute text-[0.75rem] text-[#4b5563]"
+            style={{ left: `${left}px` }}
+          >
             {month}
-          </MonthLabel>
+          </span>
         ))}
-      </MonthLabelContainer>
+      </div>
 
-      <GridContent width={gridWidth}>
+      <div
+        className="inline-flex gap-[2.5px] max-[480px]:gap-[0.5px] max-[480px]:w-auto max-[480px]:min-w-[auto]"
+        style={{ width: `${gridWidth}px`, minWidth: `${gridWidth}px` }}
+      >
         {Array.from({ length: totalWeeks }).map((_, weekIndex) => (
-          <WeekColumn key={weekIndex}>
+          <div key={weekIndex} className="flex flex-col gap-[2.5px] max-[480px]:gap-[0.5px]">
             {Array.from({ length: daysInWeek }).map((_, dayIndex) => {
               const dayOffset = weekIndex * daysInWeek + dayIndex - startDayOfWeek;
 
               if (dayOffset < 0 || dayOffset >= totalDaysInYear) {
-                return <DayBox key={`empty-${weekIndex}-${dayIndex}`} bg="transparent" />;
+                return (
+                  <div
+                    key={`empty-${weekIndex}-${dayIndex}`}
+                    className="w-2 h-2 max-[480px]:w-[5px] max-[480px]:h-[5px]"
+                    style={{ backgroundColor: 'transparent' }}
+                  />
+                );
               }
 
               const currentDate = addDays(yearStart, dayOffset);
@@ -160,16 +115,17 @@ export function DinamicStreakBox({ data }: Props): React.ReactElement {
               const count = dateMap.get(dateString) || 0;
 
               return (
-                <DayBox
+                <div
                   key={dateString}
                   title={`${dateString}: ${count} contributions`}
-                  bg={getColor(count)}
+                  className="w-2 h-2 max-[480px]:w-[5px] max-[480px]:h-[5px]"
+                  style={{ backgroundColor: getColor(count) }}
                 />
               );
             })}
-          </WeekColumn>
+          </div>
         ))}
-      </GridContent>
-    </GridWrapper>
+      </div>
+    </div>
   );
 }
