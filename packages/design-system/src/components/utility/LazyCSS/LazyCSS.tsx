@@ -9,7 +9,7 @@ interface LazyCSSProps {
 }
 
 // CSS를 지연 로딩하는 유틸리티 컴포넌트
-export function LazyCSS({ href, media = 'all', id }: LazyCSSProps): JSX.Element | null {
+export function LazyCSS({ href, media = 'all', id }: LazyCSSProps): React.ReactElement | null {
   const [_, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -53,7 +53,7 @@ export function LazyCSS({ href, media = 'all', id }: LazyCSSProps): JSX.Element 
 }
 
 // React DatePicker용 편의 컴포넌트
-export function DatePickerCSS(): JSX.Element {
+export function DatePickerCSS(): React.ReactElement {
   return (
     <LazyCSS
       href="https://cdn.jsdelivr.net/npm/react-datepicker@6.9.0/dist/react-datepicker.css"
